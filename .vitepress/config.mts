@@ -1,0 +1,235 @@
+import { defineConfig } from 'vitepress'
+
+const sharedSidebar = (locale: 'en' | 'fr') => {
+  const p = `/${locale}/`
+  const labels = locale === 'fr'
+    ? {
+        start: 'Demarrage',
+        home: 'Accueil',
+        login: 'Connexion',
+        navigation: 'Navigation',
+        setup: 'Systeme vide',
+        admin: 'Administration',
+        agencies: 'Agences',
+        common: 'Commun',
+        roles: 'Roles',
+        users: 'Utilisateurs',
+        programs: 'Programmes',
+        programOverview: 'Vue d ensemble',
+        streams: 'Volets',
+        schemas: 'Schemas d evaluation',
+        templates: 'Modeles d approbation',
+        agreements: 'Ententes',
+        agreementOverview: 'Vue d ensemble',
+        children: 'Flux enfants',
+        budget: 'Budget',
+        addresses: 'Adresses',
+        agreementProponents: 'Promoteurs',
+        activities: 'Activites',
+        commitments: 'Engagements',
+        payments: 'Paiements',
+        forecasts: 'Previsions',
+        claims: 'Reclamations',
+        monitors: 'Surveillances',
+        proponents: 'Promoteurs',
+        proponentOverview: 'Vue d ensemble',
+        proponentFinancialIds: 'Identifiants financiers',
+        proponentOtherNames: 'Autres noms',
+        proponentAddresses: 'Adresses',
+        proponentContacts: 'Contacts',
+        proponentReviews: 'Examens',
+        proponentAgreements: 'Ententes',
+        proponentTeam: 'Equipe',
+        concepts: 'Concepts',
+        rbac: 'RBAC',
+        extensions: 'Extensions',
+        approvals: 'Approbations et completions',
+        bilingualism: 'Bilinguisme',
+        deletion: 'Suppression logique',
+        developer: 'Reference developpeur',
+        architecture: 'Architecture',
+        routes: 'Routes',
+        testing: 'Tests',
+        startup: 'Demarrage local',
+        extensionAuthoring: 'Creer des extensions'
+      }
+    : {
+        start: 'Getting Started',
+        home: 'Home',
+        login: 'Login',
+        navigation: 'Navigation',
+        setup: 'Empty System Setup',
+        admin: 'Administration',
+        agencies: 'Agencies',
+        common: 'Common Admin',
+        roles: 'Roles',
+        users: 'Users',
+        programs: 'Programs',
+        programOverview: 'Overview',
+        streams: 'Streams',
+        schemas: 'Assessment Schemas',
+        templates: 'Approval Templates',
+        agreements: 'Agreements',
+        agreementOverview: 'Overview',
+        children: 'Child Workflows',
+        budget: 'Budget',
+        addresses: 'Addresses',
+        agreementProponents: 'Proponents',
+        activities: 'Activities',
+        commitments: 'Commitments',
+        payments: 'Payments',
+        forecasts: 'Forecasts',
+        claims: 'Claims',
+        monitors: 'Monitors',
+        proponents: 'Proponents',
+        proponentOverview: 'Overview',
+        proponentFinancialIds: 'Agency Financial IDs',
+        proponentOtherNames: 'Other Names',
+        proponentAddresses: 'Addresses',
+        proponentContacts: 'Contacts',
+        proponentReviews: 'Reviews',
+        proponentAgreements: 'Agreements',
+        proponentTeam: 'Team',
+        concepts: 'Concepts',
+        rbac: 'RBAC',
+        extensions: 'Extensions',
+        approvals: 'Approvals and Completions',
+        bilingualism: 'Bilingualism',
+        deletion: 'Soft Deletion',
+        developer: 'Developer Reference',
+        architecture: 'Architecture',
+        routes: 'Routes',
+        testing: 'Testing',
+        startup: 'Startup',
+        extensionAuthoring: 'Authoring Extensions'
+      }
+
+  return [
+    {
+      text: labels.start,
+      items: [
+        { text: labels.home, link: p },
+        { text: labels.login, link: `${p}getting-started/login` },
+        { text: labels.navigation, link: `${p}getting-started/navigation` },
+        { text: labels.setup, link: `${p}getting-started/empty-system-setup` }
+      ]
+    },
+    {
+      text: labels.admin,
+      items: [
+        { text: labels.agencies, link: `${p}admin/agencies` },
+        { text: labels.common, link: `${p}admin/common-admin` },
+        { text: labels.roles, link: `${p}admin/roles` },
+        { text: labels.users, link: `${p}admin/users` }
+      ]
+    },
+    {
+      text: labels.programs,
+      items: [
+        { text: labels.programOverview, link: `${p}programs/` },
+        { text: labels.streams, link: `${p}programs/streams` },
+        { text: labels.schemas, link: `${p}programs/assessment-schemas` },
+        { text: labels.templates, link: `${p}programs/approval-templates` }
+      ]
+    },
+    {
+      text: labels.agreements,
+      items: [
+        { text: labels.agreementOverview, link: `${p}agreements/` },
+        { text: labels.children, link: `${p}agreements/child-workflows` },
+        { text: labels.budget, link: `${p}agreements/budget` },
+        { text: labels.addresses, link: `${p}agreements/addresses` },
+        { text: labels.agreementProponents, link: `${p}agreements/applicant-recipients` },
+        { text: labels.activities, link: `${p}agreements/activities` },
+        { text: labels.commitments, link: `${p}agreements/commitments` },
+        { text: labels.payments, link: `${p}agreements/payments` },
+        { text: labels.forecasts, link: `${p}agreements/forecasts` },
+        { text: labels.claims, link: `${p}agreements/claims` },
+        { text: labels.monitors, link: `${p}agreements/monitors` }
+      ]
+    },
+    {
+      text: labels.proponents,
+      items: [
+        { text: labels.proponentOverview, link: `${p}proponents/` },
+        { text: labels.proponentFinancialIds, link: `${p}proponents/agency-financial-ids` },
+        { text: labels.proponentOtherNames, link: `${p}proponents/other-names` },
+        { text: labels.proponentAddresses, link: `${p}proponents/addresses` },
+        { text: labels.proponentContacts, link: `${p}proponents/contacts` },
+        { text: labels.proponentReviews, link: `${p}proponents/reviews` },
+        { text: labels.proponentAgreements, link: `${p}proponents/agreements` },
+        { text: labels.proponentTeam, link: `${p}proponents/team` }
+      ]
+    },
+    {
+      text: labels.concepts,
+      items: [
+        { text: labels.rbac, link: `${p}concepts/rbac` },
+        { text: labels.extensions, link: `${p}concepts/extensions` },
+        { text: labels.approvals, link: `${p}concepts/approvals-completions` },
+        { text: labels.bilingualism, link: `${p}concepts/bilingualism` },
+        { text: labels.deletion, link: `${p}concepts/soft-deletion` }
+      ]
+    },
+    {
+      text: labels.developer,
+      items: [
+        { text: labels.architecture, link: `${p}developer/architecture` },
+        { text: labels.routes, link: `${p}developer/routes` },
+        { text: labels.extensionAuthoring, link: `${p}developer/extensions-authoring` },
+        { text: labels.testing, link: `${p}developer/testing` },
+        { text: labels.startup, link: `${p}developer/startup` }
+      ]
+    }
+  ]
+}
+
+export default defineConfig({
+  base: process.env.VITEPRESS_BASE ?? '/',
+  title: 'GCS-SSC Documentation',
+  description: 'Bilingual documentation for the Grants and Contributions System',
+  cleanUrls: true,
+  lastUpdated: true,
+  themeConfig: {
+    nav: [
+      { text: 'English', link: '/en/' },
+      { text: 'Francais', link: '/fr/' }
+    ],
+    sidebar: sharedSidebar('en'),
+    search: {
+      provider: 'local'
+    }
+  },
+  locales: {
+    root: {
+      label: 'Language',
+      lang: 'en-CA'
+    },
+    en: {
+      label: 'English',
+      lang: 'en-CA',
+      title: 'GCS-SSC Documentation',
+      description: 'Documentation for GCS-SSC',
+      themeConfig: {
+        nav: [
+          { text: 'Home', link: '/en/' },
+          { text: 'Francais', link: '/fr/' }
+        ],
+        sidebar: sharedSidebar('en')
+      }
+    },
+    fr: {
+      label: 'Francais',
+      lang: 'fr-CA',
+      title: 'Documentation GCS-SSC',
+      description: 'Documentation de GCS-SSC',
+      themeConfig: {
+        nav: [
+          { text: 'Accueil', link: '/fr/' },
+          { text: 'English', link: '/en/' }
+        ],
+        sidebar: sharedSidebar('fr')
+      }
+    }
+  }
+})

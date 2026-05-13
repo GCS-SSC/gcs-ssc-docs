@@ -1,0 +1,41 @@
+# Architecture
+
+L application source est une application Nuxt 4 monopage avec routes API serveur, schemas TypeScript partages, acces base de donnees Kysely, Better Auth, Nuxt UI, Nuxt i18n et un module local d extensions.
+
+## Structure de l espace de travail
+
+- `app/pages` contient les pages de route.
+- `app/components` contient les composants UI partages et metier.
+- `app/composables` contient l etat client, l autorisation, les tables, formulaires et aides de flux.
+- `app/utils` contient les routes, statuts, client auth et aides de recherche.
+- `server/api` contient les points de terminaison H3.
+- `server/utils` contient autorisation, flux, base de donnees et extensions.
+- `server/database/migrations` contient le schema et les donnees semees.
+- `shared/types` et `shared/utils` contiennent schemas, contrats partages, regles RBAC, portees et aides cross-runtime.
+- `modules/gcs-extensions.ts` construit le runtime d extension.
+
+## Modeles frontend
+
+Les pages de liste utilisent souvent `useResourceTable` et les composants de disposition de ressource. Les pages detail utilisent souvent les onglets de route avec `useRouteTabMap` et les aides de route de `app/utils/route-locations.ts`. Les formulaires de creation et mise a jour utilisent les schemas Zod partages avec `useZodI18n`.
+
+L UI sensible aux permissions utilise `useAuth` et `useCan`. `useAuth` charge `/api/auth/roles`, valide les lignes de permission et expose `authorize`, `authorizeGrant` et `hasAbility`.
+
+## Modeles serveur
+
+Les routes serveur lisent les corps et requetes valides avec des aides i18n, autorisent avec `authorize` et accedent a la base via `event.context.$db`. Les aides de route resolvent la portee depuis les dossiers cibles avant l autorisation. La suppression logique est realisee en mettant `_deleted`.
+
+## Architecture RBAC
+
+La logique RBAC partagee se trouve dans `shared/utils/abilities.ts`, `shared/utils/scopes.ts` et `shared/utils/role-scope.ts`. La resolution serveur est dans `server/utils/rbac.ts` et `server/utils/authorize.ts`. Les memes concepts sont refletes cote client par `useAuth` et `useCan`.
+
+## Architecture admin
+
+Commun est pilote par la configuration d app et la configuration serveur. La configuration d app definit champs et onglets UI. La configuration serveur mappe les ressources vers tables, schemas, transformations, colonnes de recherche et filtres. Les onglets d administration d agence sont des composants Vue normaux appuyes par des routes API portees par agence.
+
+## Architecture extensions
+
+Le module d extension decouvre les definitions et genere les metadonnees. Les utilitaires serveur chargent les gestionnaires et resolvers d execution par Jiti. Activation d agence, configuration de volet, onglets d entite, emplacements d execution, gestionnaires serveur, actions de creation, calculateurs, migrations et stockage cle-valeur sont tous medies par l hote.
+
+## Architecture bilingue
+
+Nuxt i18n utilise des routes prefixees et des fichiers JSON de langue. Les modeles stockent souvent des colonnes anglaises et francaises explicites. Les validations et erreurs API utilisent des cles traduites la ou l utilisateur les voit.
