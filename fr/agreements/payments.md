@@ -14,7 +14,7 @@ Les paiements enregistrent des demandes de paiement prevues ou reelles contre de
 
 ## Flux d onglet
 
-L onglet affiche le type, le statut, l exercice, la periode, le montant et le nombre de lignes.
+L onglet affiche le type, le statut, l exercice, la periode, le commentaire, le montant et le nombre de lignes. La recherche inclut le texte de commentaire visible.
 
 La creation saisit :
 
@@ -41,7 +41,7 @@ La page de detail montre le contexte du paiement, les lignes, la completion et l
 | Ligne d engagement | Requise. Le selecteur offre seulement les lignes qui correspondent a l engagement approuve et a l exercice du paiement. |
 | Montant | Montant positif requis. |
 
-Le pied de page compare le total des lignes au montant du paiement.
+Le tableau de detail affiche le numero de ligne d engagement, l exercice, le codage financier et le montant de ligne de paiement. Le codage financier inclut le fonds comme valeur principale ainsi que GL, centre financier, ordre interne, domaine fonctionnel et centre de couts lorsqu ils existent. Le total de detail compare le total des lignes au montant du paiement.
 
 ## Regles d affaires
 
@@ -63,4 +63,4 @@ La completion stocke le commentaire commun. Avec un modele valide, le paiement p
 
 ## Extensions
 
-La creation de paiement peut etre remplacee ou completee par des actions d extension. Un calculateur de montant peut retourner un montant suggere, un plafond, une devise, des details, un etat de chargement et des donnees propres a l extension. Le formulaire bloque l enregistrement si le montant depasse le plafond.
+La creation de paiement peut etre remplacee ou completee par des actions d extension. Un calculateur de montant peut retourner un montant suggere, un plafond, une devise, des details de calcul, des erreurs, un etat de chargement et des donnees propres a l extension. Le formulaire bloque l enregistrement si le montant depasse le plafond.

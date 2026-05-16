@@ -10,7 +10,7 @@ An empty installation must be configured before agreement creation can succeed:
 | --- | --- |
 | Agency | Owning agency, fiscal years, address types, agreement types, users, roles, and agreement permissions. |
 | Transfer payment program | Program profile and at least one stream. Agreement access is scoped through the program, stream, and agreement path. |
-| Stream configuration | Stream budgets by agency fiscal year, agreement subtype mappings, stream commitments, risk ratings when risk score selection is used, outcomes, monitor types, and optional approval templates. |
+| Stream configuration | Stream budgets by agency fiscal year, agreement subtype mappings, stream commitments, risk ratings when risk score selection is used, outcomes, monitor types, optional document templates, and optional approval templates. |
 | Applicant/recipient | At least one active applicant/recipient profile. Agreement creation requires one or more applicant recipient ids. |
 | Common workflow | Completion is available for supported execution entity types. Approval sections appear only when the record reaches approval states and a valid stream-scoped approval template exists for the entity type. |
 
@@ -45,6 +45,7 @@ The agreement detail workspace opens in editable mode when the user can update t
 | Forecasts | [Forecasts](./forecasts.md) |
 | Claims | [Claims](./claims.md) |
 | Monitors | [Monitors](./monitors.md) |
+| Documents | [Documents](./documents.md) |
 | Activities | [Activities](./activities.md) |
 
 Extension tabs can appear on the agreement, claim, monitor, commitment, and payment surfaces when an installed extension registers them.

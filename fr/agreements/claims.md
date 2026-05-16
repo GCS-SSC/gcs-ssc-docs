@@ -28,12 +28,14 @@ Les nouvelles reclamations commencent a `draft`.
 
 ## Page de detail
 
+L en-tete de detail affiche l entente, l exercice, la periode de reclamation et le statut avant l espace a onglets.
+
 La page contient :
 
 | Onglet | Utilite |
 | --- | --- |
 | Soumission | Saisir les montants par ligne budgetaire et marquer pret pour examen. |
-| Rapprochement | Demarrer ou choisir des rapprochements, saisir les montants rapproches et echantillonnes, completer et voir les approbations. |
+| Rapprochement | Demarrer ou choisir des rapprochements, marquer un rapprochement final, saisir les montants rapproches et echantillonnes, completer et voir les approbations. |
 | Extensions | Onglets facultatifs fournis par extensions. |
 
 ## Lignes de soumission
@@ -61,7 +63,9 @@ La reclamation peut etre marquee prete pour examen seulement si elle est `draft`
 
 ## Rapprochements
 
-Le rapprochement est visible lorsque la reclamation est `submitted` ou `inreview`, ou lorsqu il existe deja des rapprochements. Demarrer un rapprochement cree un brouillon pour l utilisateur courant et deplace la reclamation a `inreview`.
+Le rapprochement est visible lorsque la reclamation est `submitted`, `inreview`, `reviewed` ou `complete`, ou lorsqu il existe deja des rapprochements. Demarrer ou modifier un rapprochement cree ou met a jour le travail de l utilisateur courant et ramene une reclamation soumise, examinee ou completee a `inreview`.
+
+Un seul rapprochement d une reclamation peut etre marque final. Le rapprochement selectionne affiche une case final lorsqu il est editable. Si un autre rapprochement final existe deja, la case est desactivee jusqu a ce que cet autre rapprochement ne soit plus final. Une fois un rapprochement final approuve, la reclamation est verrouillee contre les nouveaux rapprochements et les modifications de rapprochement.
 
 Lignes de rapprochement :
 
@@ -80,14 +84,16 @@ La liste affiche les rapprochements du plus recent au plus ancien avec examinate
 | Regle | Comportement |
 | --- | --- |
 | Les reclamations brouillon sont les seules editables | `submitted`, `inreview`, `reviewed`, `withdrawn` et `cancelled` verrouillent la soumission. |
-| Les rapprochements exigent une reclamation prete | L edition exige `submitted` ou `inreview`. |
-| Les etats verrouilles bloquent le rapprochement | `complete`, `pendingapproval`, `approved` et `denied` sont verrouilles. |
+| Les rapprochements exigent une reclamation prete | L edition exige `submitted`, `inreview` ou `reviewed`. |
+| Les etats verrouilles bloquent le rapprochement | `pendingapproval`, `approved` et `denied` sont verrouilles. |
+| Un seul rapprochement final est permis | Creer ou modifier un deuxieme rapprochement final est rejete. |
+| Un rapprochement final approuve ferme le rapprochement | Apres l approbation d un rapprochement final, les utilisateurs ne peuvent plus demarrer un rapprochement ni modifier les lignes existantes. |
 | La completion exige des lignes | Un rapprochement vide ne peut pas etre complete. |
-| Un rapprochement final peut completer la reclamation | La completion tient compte du drapeau final et peut passer la reclamation a `complete`. |
-| L approbation met a jour la reclamation | Un rapprochement approuve peut passer la reclamation a `reviewed`; un refus garde ou ramene la reclamation en examen. |
+| Un rapprochement final peut examiner la reclamation | La completion tient compte du drapeau final et peut passer la reclamation a `reviewed` lorsqu aucune approbation n est requise. |
+| L approbation met a jour la reclamation | Un rapprochement final approuve peut passer la reclamation a `reviewed`; un refus ou une attente garde ou ramene la reclamation en examen. |
 
 ## Completion et approbation
 
 Type d entite : `fundingclaimreconcile`.
 
-La completion est attachee au rapprochement selectionne, pas a l en-tete de reclamation. Avec un modele valide, le rapprochement passe a `pendingapproval`; sans modele, il passe a `complete`. La section d approbation apparait pour `pendingapproval`, `approved` et `denied`.
+La completion est attachee au rapprochement selectionne, pas a l en-tete de reclamation. Completer un rapprochement final affiche une confirmation supplementaire, car cela peut fermer le parcours d examen de la reclamation. Avec un modele valide, le rapprochement passe a `pendingapproval`; sans modele, il passe a `complete`. Un rapprochement final sans approbation deplace la reclamation a `reviewed`. La section d approbation apparait pour `pendingapproval`, `approved` et `denied`.

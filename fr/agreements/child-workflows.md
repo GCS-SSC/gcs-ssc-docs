@@ -15,6 +15,7 @@ Les flux enfants sont atteints depuis les onglets de detail d une entente. Certa
 | Previsions, versions et lignes mensuelles | [Previsions](./forecasts.md) |
 | Reclamations, lignes, rapprochements et approbations | [Reclamations](./claims.md) |
 | Surveillances, constatations, suivis, mises a jour et pratiques prometteuses | [Surveillances](./monitors.md) |
+| Documents d entente generes | [Documents](./documents.md) |
 
 ## Comportement commun
 
@@ -32,7 +33,7 @@ Les dossiers d execution complexes utilisent ces regles communes :
 | Paiement | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, `paid` |
 | Lignes de prevision | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
 | Soumission de reclamation | `draft` | `submitted`, `inreview`, `reviewed`, `withdrawn`, `cancelled` |
-| Rapprochement de reclamation | `draft`, `inprogress` lorsque la reclamation est prete | `complete`, `pendingapproval`, `approved`, `denied` |
+| Rapprochement de reclamation | `draft`, `inprogress`, `complete` lorsque la reclamation est prete et sans rapprochement final approuve | `pendingapproval`, `approved`, `denied` |
 | Surveillance | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
 
 La completion ecrit un enregistrement `Common_Completion`. Lorsqu un modele d approbation valide et porte par le volet existe pour le type d entite, la completion place le dossier en `pendingapproval` et materialise ou active la feuille d approbation. Sans modele d approbation, le dossier passe a `complete`.

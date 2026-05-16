@@ -15,6 +15,7 @@ Agreement child workflows are reached from the agreement detail tabs. Some are i
 | Forecasts, versions, and monthly forecast lines | [Forecasts](./forecasts.md) |
 | Claims, claim lines, reconciliations, and reconciliation approvals | [Claims](./claims.md) |
 | Monitors, findings, follow-ups, updates, and promising practices | [Monitors](./monitors.md) |
+| Generated agreement documents | [Documents](./documents.md) |
 
 ## Shared behaviour
 
@@ -32,7 +33,7 @@ The complex execution records use common status rules:
 | Payment | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, `paid` |
 | Forecast lines | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
 | Claim submission | `draft` | `submitted`, `inreview`, `reviewed`, `withdrawn`, `cancelled` |
-| Claim reconcile | `draft`, `inprogress` while the claim is ready | `complete`, `pendingapproval`, `approved`, `denied` |
+| Claim reconcile | `draft`, `inprogress`, `complete` while the claim is ready and no approved final reconcile exists | `pendingapproval`, `approved`, `denied` |
 | Monitor | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
 
 Completion writes a `Common_Completion` record. When a valid stream-scoped approval template exists for the entity type, completion moves the execution record to `pendingapproval` and materializes or enables the approval routing slip. Without an approval template, completion leaves the record at `complete`.

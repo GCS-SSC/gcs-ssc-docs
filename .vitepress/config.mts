@@ -30,6 +30,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         payments: 'Paiements',
         forecasts: 'Previsions',
         claims: 'Reclamations',
+        documents: 'Documents',
         monitors: 'Surveillances',
         proponents: 'Promoteurs',
         proponentOverview: 'Vue d ensemble',
@@ -51,7 +52,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         routes: 'Routes',
         testing: 'Tests',
         startup: 'Demarrage local',
-        extensionAuthoring: 'Creer des extensions'
+        extensionAuthoring: 'Creer des extensions',
+        documentGeneration: 'Generation de documents'
       }
     : {
         start: 'Getting Started',
@@ -80,6 +82,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         payments: 'Payments',
         forecasts: 'Forecasts',
         claims: 'Claims',
+        documents: 'Documents',
         monitors: 'Monitors',
         proponents: 'Proponents',
         proponentOverview: 'Overview',
@@ -101,7 +104,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         routes: 'Routes',
         testing: 'Testing',
         startup: 'Startup',
-        extensionAuthoring: 'Authoring Extensions'
+        extensionAuthoring: 'Authoring Extensions',
+        documentGeneration: 'Document Generation'
       }
 
   return [
@@ -145,6 +149,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.payments, link: `${p}agreements/payments` },
         { text: labels.forecasts, link: `${p}agreements/forecasts` },
         { text: labels.claims, link: `${p}agreements/claims` },
+        { text: labels.documents, link: `${p}agreements/documents` },
         { text: labels.monitors, link: `${p}agreements/monitors` }
       ]
     },
@@ -177,6 +182,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.architecture, link: `${p}developer/architecture` },
         { text: labels.routes, link: `${p}developer/routes` },
         { text: labels.extensionAuthoring, link: `${p}developer/extensions-authoring` },
+        { text: labels.documentGeneration, link: `${p}developer/document-generation` },
         { text: labels.testing, link: `${p}developer/testing` },
         { text: labels.startup, link: `${p}developer/startup` }
       ]

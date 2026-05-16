@@ -28,12 +28,14 @@ New claims start as `draft`.
 
 ## Detail page
 
+The claim detail hero shows the agreement, fiscal year, claim period, and claim status before the tabbed workspace.
+
 The detail page has a vertical tab set:
 
 | Tab | Purpose |
 | --- | --- |
 | Submission | Enter submitted amounts by budget line and mark the claim ready for review. |
-| Reconciliation | Start or select reconcile records, enter reconciled and sampled amounts, complete reconcile records, and view approvals. |
+| Reconciliation | Start or select reconcile records, mark one reconcile as final, enter reconciled and sampled amounts, complete reconcile records, and view approvals. |
 | Extension tabs | Optional claim tabs supplied by extensions. |
 
 ## Submission lines
@@ -61,7 +63,9 @@ The claim can be marked ready for review only when it is still `draft` and has a
 
 ## Reconciliations
 
-Reconciliation is shown when the claim is `submitted` or `inreview`, or when reconcile records already exist. Starting a reconciliation creates a draft reconcile for the current user and moves the claim to `inreview`.
+Reconciliation is shown when the claim is `submitted`, `inreview`, `reviewed`, or `complete`, or when reconcile records already exist. Starting or editing a reconciliation creates or updates work for the current user and moves a submitted, reviewed, or complete claim back to `inreview`.
+
+Only one reconcile for a claim can be marked final. The selected reconcile has a final checkbox when it is editable. If another final reconcile already exists, the checkbox is disabled until that other reconcile is no longer final. Once a final reconcile is approved, the claim is locked against new or changed reconciliations.
 
 Reconcile line items are saved against the active reconcile:
 
@@ -80,14 +84,16 @@ The worklist shows every reconcile for the claim, latest first, with reviewer, s
 | Rule | Behaviour |
 | --- | --- |
 | Draft claims are editable only before submission | `submitted`, `inreview`, `reviewed`, `withdrawn`, and `cancelled` lock claim submission edits. |
-| Reconcile edits require a ready claim | Reconcile line editing requires claim status `submitted` or `inreview`. |
-| Reconcile locked statuses block edits | `complete`, `pendingapproval`, `approved`, and `denied` reconciles are locked. |
+| Reconcile edits require a ready claim | Reconcile line editing requires claim status `submitted`, `inreview`, or `reviewed`. |
+| Reconcile locked statuses block edits | `pendingapproval`, `approved`, and `denied` reconciles are locked. |
+| Only one final reconcile is allowed | Creating or updating a second final reconcile is rejected. |
+| Approved final reconcile closes reconciliation | After a final reconcile is approved, users cannot start a new reconcile or edit existing reconcile lines. |
 | Reconcile completion requires lines | Completing an empty reconcile is rejected. |
-| Completing a final reconcile can complete the claim | When the user marks the reconciliation as final during completion, the claim can move to `complete` before approval. |
-| Approval updates claim status | Approved reconcile can move the claim to `reviewed`; denied reconcile keeps or returns the claim to `inreview` depending on approval result. |
+| Completing a final reconcile can review the claim | When the user marks the reconciliation as final during completion, the claim can move to `reviewed` before approval if no approval route is required. |
+| Approval updates claim status | Approved final reconcile can move the claim to `reviewed`; denied or pending reconcile keeps or returns the claim to `inreview` depending on approval result. |
 
 ## Completion and approval
 
 Completion entity type: `fundingclaimreconcile`.
 
-Completion is attached to the selected reconcile, not the claim header. The completion section appears when a reconcile exists. With a valid approval template, completion sets the reconcile to `pendingapproval`; otherwise it sets it to `complete`. The approval section appears for `pendingapproval`, `approved`, and `denied` reconciles.
+Completion is attached to the selected reconcile, not the claim header. The completion section appears when a reconcile exists. Completing a final reconcile shows an extra confirmation because it can close the claim review path. With a valid approval template, completion sets the reconcile to `pendingapproval`; otherwise it sets it to `complete`. A final reconcile without approval moves the claim to `reviewed`. The approval section appears for `pendingapproval`, `approved`, and `denied` reconciles.

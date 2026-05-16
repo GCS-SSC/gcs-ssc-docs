@@ -1,6 +1,6 @@
 # Documentation GCS-SSC
 
-GCS-SSC est un systeme bilingue de subventions et contributions pour configurer les agences, les programmes, les volets, les promoteurs, les ententes, les examens, les approbations, les paiements, les previsions, les reclamations, la surveillance, les roles et les utilisateurs.
+GCS-SSC est un systeme bilingue de subventions et contributions pour configurer les agences, les programmes, les volets, les promoteurs, les ententes, les examens, les approbations, les paiements, les previsions, les reclamations, la surveillance, la generation de documents, les roles et les utilisateurs.
 
 Cette documentation suit la hierarchie de l application de production : menu principal, page, onglets, sous-onglets, puis modales ou assistants. Elle suppose qu une nouvelle installation commence sans donnees metier ou de configuration et avec seulement un utilisateur racine. Les donnees semees utilisees en developpement ou dans les captures sont seulement des exemples; elles ne sont pas presentes dans une installation de production propre.
 

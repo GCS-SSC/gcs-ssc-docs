@@ -1,6 +1,6 @@
 # Streams
 
-Streams are the operational configuration layer under a program. A stream connects a program to agreement types, eligible recipients, funding budgets, cost line items, commitments, review generation, approval routes, recommendation setup, risk ratings, monitor types, areas of expertise, financial limits, and stream-specific extensions.
+Streams are the operational configuration layer under a program. A stream connects a program to agreement types, eligible recipients, funding budgets, cost line items, commitments, review generation, approval routes, recommendation setup, risk ratings, monitor types, areas of expertise, financial limits, document templates, and stream-specific extensions.
 
 Most agreement and runtime behavior is stream-driven. A program can exist without a stream, but a production agreement workflow normally cannot.
 
@@ -81,6 +81,7 @@ The stream detail page exposes these tabs:
 - Financial Limits.
 - Review Setups.
 - Approval Templates.
+- Document Templates.
 - Recommendation Setups.
 - Extensions.
 
@@ -237,6 +238,20 @@ Use this tab when approval routes must vary by stream. Common/global templates c
 
 See [Approval Templates](./approval-templates.md) for the full template and runtime approval behavior.
 
+## Document Templates Tab
+
+Document templates define which agreement documents can be generated from agreements under the stream. Each template contains:
+
+- Entity type, currently used for funding case agreement documents.
+- Template kind: `docx` or `html`.
+- English and French name.
+- English and French description.
+- Allowed output formats.
+- English and French source attachments.
+- Active flag.
+
+DOCX templates can allow DOCX and PDF output. HTML templates allow PDF output only. Agreement users see active templates on the agreement Documents tab.
+
 ## Assessment Schemas
 
 Assessment schemas are reached from review setup or assessment-set rows that reference a review schema. The schema editor lets administrators maintain the scoring matrix, sections, questions, calculated questions, dependencies, outcomes, and impactors used by runtime assessments.
@@ -260,6 +275,7 @@ Downstream workflows read stream setup in different ways:
 - Commitment and payment workflows depend on budget and financial coding rows.
 - Review workflows depend on active review setups and active/published assessment schemas.
 - Approval workflows depend on referenced approval templates and their default users.
+- Document generation depends on active stream document templates and generation tooling for PDF output.
 - Recommendation workflows depend on active recommendation setups and schemas.
 - Monitoring workflows depend on monitor types and, where configured, review or approval setup.
 
@@ -278,5 +294,6 @@ For a fresh installation, a minimum practical stream usually has:
 - Risk ratings if risk selection or assessment scoring uses stream risk.
 - Review setups and assessment schemas if reviews are generated.
 - Approval templates if approvals are required.
+- Document templates if agreement documents will be generated.
 - Recommendation setups if recommendations are generated.
 - Extension settings required by the deployment.

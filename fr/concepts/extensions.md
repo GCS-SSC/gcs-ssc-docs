@@ -12,11 +12,13 @@ L activation d agence est le premier interrupteur operationnel. Les utilisateurs
 
 Lorsqu une extension est activee pour une agence, l application execute ses migrations. Une action manuelle Executer les migrations est aussi disponible pour les extensions actives. Si l extension est desactivee a l agence, l application la desactive aussi pour tous les volets de l agence.
 
+Les extensions d agence peuvent aussi exposer un ecran de configuration. Si l extension fournit un composant de configuration d agence, la modale le rend; sinon elle affiche du JSON. La configuration d agence convient aux reglages non secrets qui s appliquent a toute l agence.
+
 ## Configuration de volet
 
 La configuration de volet est disponible seulement lorsque l extension est activee pour l agence. L onglet Extensions du volet liste les extensions actives a l agence, permet l activation de volet et ouvre une modale plein ecran de configuration. Si l extension fournit un composant de configuration de volet, la modale le rend; sinon elle affiche du JSON.
 
-L application rejette les extensions inconnues, extensions non activees a l agence, JSON invalide et etats invalides propres a une extension, par exemple activer la qualite narrative sans cible d execution active.
+L application rejette les extensions inconnues, extensions non activees a l agence, JSON invalide et etats invalides propres a une extension. Lorsque la qualite narrative est activee pour un volet sans cible configuree, l application active par defaut la cible de niveau entente afin que l extension ait une surface d execution visible.
 
 ## Emplacements d execution
 
@@ -44,6 +46,16 @@ Les onglets de promoteur exigent l activation au niveau agence et utilisent une 
 
 Les extensions peuvent ajouter des actions de creation pour les engagements et paiements d entente. Elles peuvent aussi ajouter des calculateurs de montant de paiement. L hote detecte les conflits lorsque plus d une action de remplacement ou plus d un calculateur est disponible pour la meme operation.
 
+Les extensions financieres installees peuvent aussi ajouter des onglets d entente avec leurs propres totaux. Par exemple, l onglet de repartition des couts par resultat affiche les montants repartis et non repartis par version, type d engagement et exercice afin de montrer si le financement de programme de l entente est entierement reparti.
+
 ## Donnees et migrations
 
 Les donnees propres a une extension peuvent etre stockees separement des dossiers GCS de base. La suppression des donnees cle-valeur d extension suit la meme attente de suppression logique que le reste de l application.
+
+Les valeurs sensibles comme les cles privees d API, les jetons et les secrets de signature devraient utiliser le stockage chiffre de secrets d extension, pas la configuration d agence, la configuration de volet ni le JSON cle-valeur. Les metadonnees de secret peuvent etre affichees pour l administration, mais les valeurs dechiffrees restent cote serveur.
+
+## Integration GC Forms
+
+L integration GC Forms est une extension installee qui peut relier des soumissions GC Forms a des correspondances de champs GCS. La configuration d agence stocke les metadonnees d identifiants et les cles privees chiffrees. La configuration de volet stocke l identifiant choisi, les details de point de terminaison GC Forms, l id de formulaire, le comportement de confirmation et les correspondances de destination.
+
+Le materialiseur courant cible d abord les reclamations: il peut creer des reclamations d entente en brouillon et, facultativement, des lignes de reclamation, puis lier les dossiers GCS generes a la soumission GC Forms. La synchronisation verifie la forme du modele GC Forms enregistree avant de lire les soumissions; si la forme active a change, les utilisateurs doivent rafraichir le modele, revoir les correspondances, sauvegarder la configuration et relancer la synchronisation.

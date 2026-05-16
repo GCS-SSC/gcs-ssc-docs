@@ -64,6 +64,18 @@ L hote valide les chemins de composants, gestionnaires, actifs et migrations afi
 
 ## Configuration De Volet
 
+Utilisez `admin.agency` lorsque l extension a besoin de reglages non secrets au niveau de l agence:
+
+```ts
+admin: {
+  agency: {
+    path: './components/ExampleAgencyConfig.vue'
+  }
+}
+```
+
+Les composants de configuration d agence recoivent la configuration JSON courante avec `v-model`, ainsi que les props `extension` et `agencyId`. Stockez les valeurs sensibles par des gestionnaires serveur d extension et les aides de secrets chiffres plutot que dans la configuration d agence.
+
 Utilisez `admin.streamConfig` lorsque l extension a besoin d options au niveau du volet:
 
 ```ts
@@ -183,7 +195,7 @@ serverHandlers: [
 | --- | --- |
 | Declarez le RBAC pour les donnees d entite | L hote resout l entite, verifie l activation et applique le sujet/action. |
 | Les parametres doivent etre explicites | `entity.param` doit correspondre a un parametre de route. |
-| Utilisez `GcsExtensionUserError` pour les erreurs utilisateur | Les cles localisees permettent la traduction par l interface. |
+| Utilisez `GcsExtensionUserError` pour les erreurs utilisateur | Utilisez des messages anglais/francais propres a l extension afin que l API retourne la bonne langue. |
 | Validez toutes les entrees | Les gestionnaires d extension valident leurs propres requetes. |
 | Respectez la propriete hote | Resoudre entente, promoteur, reclamation, surveillance, volet et agence avant d ecrire. |
 
@@ -237,6 +249,8 @@ export default defineNitroPlugin(nitroApp => {
 | `continue` ou aucun resultat | La creation de base continue. |
 | `handled` | L extension fournit la reponse et la creation de base s arrete. |
 
+Lorsqu un hook de creation bloque une action corrigeable par l utilisateur, lancez `createGcsExtensionUserError` avec des valeurs bilingues pour `message` et `details`. L hote choisit la langue de la requete et retourne ces messages dans la forme d erreur API normale.
+
 ## Calculateurs De Montant
 
 Les calculateurs de paiement peuvent fournir montant suggere, plafond, devise, details, etat de chargement et donnees d extension pour `agreement.payments.create`. Un seul calculateur actif peut s appliquer a la fois.
@@ -267,8 +281,13 @@ export default defineGcsExtensionMigration({
 | --- | --- |
 | Les migrations appartiennent a l extension | Utilisez le schema `extensions` et des noms de table propres a l extension. |
 | Les chemins sont listes dans le manifeste | L hote lance les migrations listees pour les extensions activees. |
+| Les imports de paquet standard sont permis | Les fichiers de migration peuvent importer des dependances comme `kysely`; l hote les resout depuis l installation de l application. |
+| L historique est propre a chaque extension | Chaque extension utilise ses propres tables d historique et de verrouillage; les migrations en attente sont suivies separement. |
 | Les entrees KV conviennent a l etat simple | Stockez type de proprietaire, id, cle, valeur JSON et etat de suppression logique. |
+| Les secrets utilisent le stockage chiffre | Utilisez les aides de secrets du SDK pour cles privees, jetons et identifiants API; ne les stockez pas dans la configuration ni dans le JSON KV. |
 | Les workflows complexes meritent des tables explicites | Utilisez des migrations pour rapports, relations, etats ou gros dossiers. |
+
+Les aides de secrets chiffres sont exposees par `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret` et `deleteEncryptedExtensionSecret`. Les deploiements de production doivent fournir `GCS_EXTENSION_SECRETS_KEY` comme cle de 32 octets encodee en base64.
 
 ## Actifs Et I18n
 

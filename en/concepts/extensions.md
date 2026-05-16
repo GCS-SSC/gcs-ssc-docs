@@ -12,11 +12,13 @@ Agency enablement is the first operational switch. Users need agency read access
 
 When an extension is enabled for an agency, the app runs that extension's migrations. A manual Run Migrations action is also available for enabled extensions. If the extension is disabled at agency level, the app disables that extension for all streams under the agency.
 
+Agency extensions can also expose a configuration screen. If an extension provides a custom agency config component, the modal renders it; otherwise it renders JSON text. Agency config is appropriate for non-secret settings that apply across the agency.
+
 ## Stream configuration
 
 Stream configuration is available only when the extension is enabled for the agency. The stream Extensions tab lists agency-enabled extensions, allows stream enablement, and opens a full-screen configuration modal. If the extension provides a custom stream config component, the modal renders it; otherwise it renders JSON text.
 
-The app rejects configuration for unknown extensions, disabled agency extensions, invalid JSON, and known extension-specific invalid states such as enabling narrative quality without any enabled runtime target.
+The app rejects configuration for unknown extensions, disabled agency extensions, invalid JSON, and known extension-specific invalid states. When narrative quality is enabled for a stream with no configured target, the app defaults the agreement-level target on so the extension has a visible runtime surface.
 
 ## Runtime slots
 
@@ -44,6 +46,16 @@ Proponent tabs require agency enablement and use empty config by default because
 
 Extensions can add create actions for agreement commitments and payments. They can also add payment amount calculators. The host detects conflicts when more than one replace-style create action or more than one payment calculator is available for the same operation.
 
+Installed financial extensions can also add agreement tabs with their own totals. For example, the outcome cost allocation tab shows allocated and unallocated amounts by allocation version, commitment type, and fiscal year so users can see whether the agreement program funding has been fully allocated.
+
 ## Data and migrations
 
 Extension-owned data can be stored separately from core GCS records. Deleting extension-owned key-value data follows the same soft-delete expectation as the rest of the application.
+
+Sensitive values such as API private keys, tokens, and signing secrets should use encrypted extension secret storage, not agency config, stream config, or key-value JSON. Secret metadata may be displayed for administration, but decrypted secret values are server-only.
+
+## GC Forms integration
+
+The GC Forms integration is an installed extension that can connect GC Forms submissions to GCS field mappings. Agency configuration stores credential metadata and encrypted private keys. Stream configuration stores the selected credential, GC Forms endpoint details, form id, confirmation behavior, and destination mappings.
+
+The current materializer is claims-first: it can create draft agreement claims and optional claim line items, then link the generated GCS records back to the GC Forms submission. Sync checks the saved GC Forms template shape before reading submissions; if the live form shape changed, users must refresh the template, review mappings, save configuration, and run sync again.

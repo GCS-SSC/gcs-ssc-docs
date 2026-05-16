@@ -14,7 +14,7 @@ Payments record planned or actual payment requests against active approved commi
 
 ## Tab flow
 
-The Payments tab displays payment type, status, fiscal-year schedule, period, amount, and line count.
+The Payments tab displays payment type, status, fiscal-year schedule, period, comment, amount, and line count. Search includes the visible comment text.
 
 Creating a payment captures:
 
@@ -41,7 +41,7 @@ The payment detail page shows payment context, payment lines, completion, and ap
 | Commitment line | Required. The selector only offers commitment lines that match the payment's approved commitment and fiscal year. |
 | Amount | Required positive money value. |
 
-The detail footer compares payment line total to payment amount.
+The detail table shows the commitment line number, fiscal year, financial coding, and payment-line amount. Financial coding includes the fund as the primary value and GL, fund centre, internal order, functional area, and cost centre when present. The detail total compares payment line total to payment amount.
 
 ## Business rules
 
@@ -65,4 +65,4 @@ The approval section appears for `pendingapproval`, `approved`, and `denied` pay
 
 ## Extension points
 
-Payment creation can be replaced or extended by registered extension create actions. A payment amount calculator extension can return a suggested amount, a ceiling amount, currency, details, loading state, and extension-specific data. The form prevents saving when the entered amount exceeds the calculator ceiling.
+Payment creation can be replaced or extended by registered extension create actions. A payment amount calculator extension can return a suggested amount, a ceiling amount, currency, calculation details, loading state, errors, and extension-specific data. The form prevents saving when the entered amount exceeds the calculator ceiling.

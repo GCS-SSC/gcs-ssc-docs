@@ -66,6 +66,18 @@ The host validates component, handler, asset, and migration paths so they stay i
 
 ## Stream Configuration
 
+Use `admin.agency` when the extension needs agency-wide non-secret settings:
+
+```ts
+admin: {
+  agency: {
+    path: './components/ExampleAgencyConfig.vue'
+  }
+}
+```
+
+Agency config components receive the current JSON config with `v-model`, plus `extension` and `agencyId` props. Store sensitive values through extension server handlers and encrypted secret helpers instead of putting them in agency config.
+
 Use `admin.streamConfig` when the extension needs stream-level options:
 
 ```ts
@@ -189,7 +201,7 @@ serverHandlers: [
 | --- | --- |
 | Declare RBAC for entity data | The host resolves the entity from the route param, checks extension enablement, and enforces the declared subject/action. |
 | Keep route params explicit | The `entity.param` value must match a route param name. |
-| Throw `GcsExtensionUserError` for user-facing failures | Use localized error keys so the UI can translate them. |
+| Throw `GcsExtensionUserError` for user-facing failures | Use localized English/French messages for extension-owned failures so the API can return the right language. |
 | Validate all input | Extension handlers are responsible for their own request validation. |
 | Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing. |
 
@@ -245,6 +257,8 @@ export default defineNitroPlugin(nitroApp => {
 | `continue` or no result | Core creation continues. |
 | `handled` | Extension supplies the response and core creation stops. |
 
+When a create hook blocks a user-correctable action, throw `createGcsExtensionUserError` with bilingual `message` and `details` values. The host resolves those messages using the request language and returns them through the normal API error shape.
+
 ## Payment Amount Calculators
 
 Payment calculators can provide a suggested amount, ceiling amount, currency, explanation details, loading state, and extension data for `agreement.payments.create`. Only one enabled calculator can apply to the payment creation surface at a time.
@@ -289,8 +303,13 @@ export default defineGcsExtensionMigration({
 | --- | --- |
 | Migrations are extension-owned | Use the `extensions` schema and extension-specific table names. |
 | Migration paths are listed in the manifest | The host runs listed migrations for enabled extensions. |
+| Standard package imports are allowed | Migration files can import runtime dependencies such as `kysely`; the host resolves them from the application install. |
+| Migration history is per extension | Each extension uses its own migration history and lock tables, so pending migrations are tracked independently. |
 | KV entries are useful for simple state | Store owner type, owner id, config key, JSON value, and soft-delete state. |
+| Secrets use encrypted secret storage | Use SDK secret helpers for private keys, tokens, and API credentials; do not store them in config or KV JSON. |
 | Prefer explicit tables for complex workflows | Use migrations when the extension needs reporting, relationships, workflow states, or large records. |
+
+Encrypted secret helpers are exposed from `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret`, and `deleteEncryptedExtensionSecret`. Production deployments must provide `GCS_EXTENSION_SECRETS_KEY` as a base64-encoded 32-byte key.
 
 ## Assets And I18n
 

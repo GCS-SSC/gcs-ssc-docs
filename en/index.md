@@ -1,6 +1,6 @@
 # GCS-SSC Documentation
 
-GCS-SSC is a bilingual Grants and Contributions System for configuring agencies, programs, streams, proponents, agreements, reviews, approvals, payments, forecasts, claims, monitoring, roles, and users.
+GCS-SSC is a bilingual Grants and Contributions System for configuring agencies, programs, streams, proponents, agreements, reviews, approvals, payments, forecasts, claims, monitoring, document generation, roles, and users.
 
 This documentation follows the production application hierarchy: main menu, page, tabs, subtabs, then modals or wizards. It assumes a new installation begins with no business or configuration records and only a root user. Seeded records used in development or screenshots are examples only; they are not present in a clean production installation.
 

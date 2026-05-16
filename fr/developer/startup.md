@@ -14,8 +14,11 @@ L application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou 
 - `BETTER_AUTH_URL`
 - `BETTER_AUTH_TRUSTED_ORIGINS`
 - `BETTER_AUTH_COOKIE_VERSION`
+- `GCS_EXTENSION_SECRETS_KEY`
 
 Si `DATABASE_URL` est absent, le developpement local peut utiliser le repertoire PGlite configure.
+
+`GCS_EXTENSION_SECRETS_KEY` est requis en production lorsque les extensions stockent des identifiants chiffres. La valeur doit etre une cle de 32 octets encodee en base64. Les donnees semees de developpement peuvent fournir une cle fixe de demonstration pour des identifiants locaux non reels seulement.
 
 ## Configuration de l application
 
@@ -27,7 +30,11 @@ bun run setup
 bun run dev
 ```
 
+Utilisez `bun run repos:update` lorsque vous devez mettre a jour le depot de l application et tous les sous-modules en une seule etape. Le script tire le depot principal, synchronise les URL de sous-modules et met a jour les sous-modules recursivement depuis leurs remotes configures.
+
 `bun run dev:clean` demarre avec un etat de donnees local propre. Le script d application est `scripts/dev.ts`, pas un simple wrapper `nuxt dev`; utilisez les scripts package sauf besoin Nuxt de bas niveau.
+
+Si la generation de documents d entente doit produire des PDF localement, executez `bun run bun:docgen:install` avant de demarrer l application. Voir [Generation de documents](./document-generation.md) pour les details de la chaine d outils.
 
 ## Metadonnees d extension
 

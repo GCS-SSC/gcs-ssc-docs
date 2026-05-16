@@ -10,7 +10,7 @@ Une installation vide doit etre configuree avant que la creation d entente puiss
 | --- | --- |
 | Agence | Agence proprietaire, exercices, types d adresse, types d entente, utilisateurs, roles et permissions d entente. |
 | Programme de paiement de transfert | Profil de programme et au moins un volet. L acces aux ententes est porte par le chemin programme, volet et entente. |
-| Configuration du volet | Budgets du volet par exercice d agence, associations de sous-types d entente, engagements du volet, cotes de risque si la cote est utilisee, resultats, types de surveillance et modeles d approbation facultatifs. |
+| Configuration du volet | Budgets du volet par exercice d agence, associations de sous-types d entente, engagements du volet, cotes de risque si la cote est utilisee, resultats, types de surveillance, modeles de document facultatifs et modeles d approbation facultatifs. |
 | Demandeur/beneficiaire | Au moins un profil actif de demandeur/beneficiaire. La creation exige un ou plusieurs identifiants. |
 | Flux commun | La completion est disponible pour les types d entite d execution pris en charge. Les sections d approbation apparaissent seulement lorsque l etat du dossier et un modele valide du volet le permettent. |
 
@@ -45,6 +45,7 @@ L espace de detail s ouvre en mode editable lorsque l utilisateur peut mettre a 
 | Previsions | [Previsions](./forecasts.md) |
 | Reclamations | [Reclamations](./claims.md) |
 | Surveillances | [Surveillances](./monitors.md) |
+| Documents | [Documents](./documents.md) |
 | Activites | [Activites](./activities.md) |
 
 Des onglets d extension peuvent apparaitre sur les surfaces entente, reclamation, surveillance, engagement et paiement lorsqu une extension les enregistre.
