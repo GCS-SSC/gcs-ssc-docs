@@ -1,6 +1,6 @@
 # Volets
 
-Les volets sont la couche de configuration operationnelle sous un programme. Un volet relie un programme aux types d entente, destinataires admissibles, budgets de financement, lignes de couts, engagements, generation d examens, routes d approbation, configurations de recommandation, cotes de risque, types de surveillance, domaines d expertise, limites financieres, modeles de document et extensions propres au volet.
+Les volets sont la couche de configuration operationnelle sous un programme. Un volet relie un programme aux types d entente, destinataires admissibles, budgets de financement, lignes de couts, engagements, generation d examens, routes d approbation, configurations de recommandation, cotes de risque, types de surveillance, modeles de documents, domaines d expertise, limites financieres et extensions propres au volet.
 
 La plupart des comportements d entente et d execution sont pilotes par le volet. Un programme peut exister sans volet, mais un flux d entente de production ne le peut normalement pas.
 
@@ -81,7 +81,7 @@ La page de detail du volet expose ces onglets:
 - Limites financieres.
 - Configurations d examen.
 - Modeles d approbation.
-- Modeles de document.
+- Modeles de documents.
 - Configurations de recommandation.
 - Extensions.
 
@@ -238,19 +238,25 @@ Utilisez cet onglet lorsque les routes d approbation doivent varier selon le vol
 
 Voir [Modeles d approbation](./approval-templates.md) pour le comportement complet des modeles et de l approbation en execution.
 
-## Onglet Modeles De Document
+## Onglet Modeles De Documents
 
-Les modeles de document definissent quels documents d entente peuvent etre generes pour les ententes du volet. Chaque modele contient:
+Les modeles de documents de volet definissent les fichiers sources utilises par la generation de documents d entente. L onglet affiche le type d entite, le nom anglais, le genre de modele, les formats de sortie, l etat actif, les pieces jointes bilingues et les actions de ligne.
 
-- Type d entite, actuellement utilise pour les documents de cas de financement.
-- Type de modele: `docx` ou `html`.
-- Nom anglais et nom francais.
-- Description anglaise et description francaise.
-- Formats de sortie permis.
-- Pieces jointes source anglaise et francaise.
-- Indicateur actif.
+Chaque modele stocke :
 
-Les modeles DOCX peuvent permettre les sorties DOCX et PDF. Les modeles HTML permettent seulement la sortie PDF. Les utilisateurs d entente voient les modeles actifs dans l onglet Documents de l entente.
+| Champ | Regle |
+| --- | --- |
+| Type d entite | Utilise actuellement par la generation d entente comme `fundingcaseagreement`. |
+| Nom anglais/francais | Nom d affichage bilingue requis. |
+| Description anglaise/francaise | Description bilingue requise affichee lorsque les utilisateurs choisissent un modele sur une entente. |
+| Genre de modele | `docx` ou `html`. |
+| Formats de sortie | Un ou plusieurs de `docx` et `pdf`; les modeles HTML sont limites a `pdf`. |
+| Fichier anglais/francais | Requis a la creation. Les modeles DOCX acceptent `.docx`; les modeles HTML acceptent `.html` ou `.htm`. |
+| Actif | Seuls les modeles actifs d entente sont disponibles dans l onglet Documents d une entente. |
+
+Modifier un modele peut mettre a jour les metadonnees, les formats de sortie, l etat actif et l un ou l autre fichier de langue. Remplacer un fichier de langue stocke une nouvelle piece jointe et retire la piece jointe remplacee du stockage normal. Supprimer un modele le supprime logiquement; les documents d entente deja generes restent des enregistrements separes.
+
+Note operationnelle : la generation PDF depuis DOCX utilise LibreOffice, et HTML vers PDF utilise Puppeteer. Le developpement local peut installer ces outils avec la commande de generation de documents decrite dans [Demarrage local](../developer/startup.md).
 
 ## Schemas D Evaluation
 
@@ -275,7 +281,7 @@ Les flux en aval lisent la configuration du volet de differentes facons:
 - Les engagements et paiements dependent des budgets et lignes de codage financier.
 - Les examens dependent des configurations d examen actives et des schemas d evaluation actifs/publies.
 - Les approbations dependent des modeles d approbation references et de leurs utilisateurs par defaut.
-- La generation de documents depend des modeles de document actifs du volet et des outils de generation pour la sortie PDF.
+- La generation de documents d entente depend des modeles de documents actifs du volet et des outils de generation configures pour la sortie PDF.
 - Les recommandations dependent des configurations actives et des schemas.
 - La surveillance depend des types de surveillance et, lorsque configure, des examens ou approbations.
 
@@ -294,6 +300,6 @@ Dans une installation fraiche, un volet minimal pratique contient habituellement
 - Cotes de risque si le risque ou le pointage d evaluation les utilise.
 - Configurations d examen et schemas d evaluation si des examens sont generes.
 - Modeles d approbation si les approbations sont requises.
-- Modeles de document si des documents d entente seront generes.
+- Modeles de documents si les utilisateurs genereront des documents d entente.
 - Configurations de recommandation si des recommandations sont generees.
 - Parametres d extension requis par le deploiement.

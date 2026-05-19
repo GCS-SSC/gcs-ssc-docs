@@ -6,17 +6,21 @@ Cette page est destinee aux developpeurs. Les operateurs devraient utiliser [Con
 
 ## Contrat D Auteur
 
-Importez les contrats SDK depuis `@gcs-ssc/extensions` et les aides serveur depuis `@gcs-ssc/extensions/server`. N importez pas les chemins internes de l hote comme `~~/server`, `~~/shared`, `~/` ou `#imports` pour les contrats d extension.
+Importez les contrats SDK depuis `@gcs-ssc/extensions`, les aides serveur depuis `@gcs-ssc/extensions/server`, les wrappers UI depuis `@gcs-ssc/extensions/ui` et les aides de test depuis `@gcs-ssc/extensions/testing`. N importez pas les chemins internes de l hote comme `~~/server`, `~~/shared`, `~/` ou `#imports` pour les contrats d extension.
 
 | Contrat | Utilisation |
 | --- | --- |
 | `defineGcsExtension` | Definit le manifeste de l extension. |
+| `GCS_EXTENSION_SDK_VERSION` | Version SDK courante de l hote pour la compatibilite du manifeste. |
 | `GcsExtensionJsonConfig` | Forme JSON de la configuration de volet. |
 | `ExtensionEntityTabContext` | Props des composants d onglet d entite. |
 | `defineGcsExtensionMigration` | Encapsule les migrations Kysely de l extension. |
+| `defineGcsExtensionRouteHandler` | Encapsule les gestionnaires serveur avec un contexte de route stable. |
 | `registerGcsExtensionCreateOperationHandler` | Branche les operations de creation d engagements ou paiements. |
 | `createGcsExtensionUserError` | Lance des erreurs localisees et visibles par l utilisateur. |
-| Aides KV | Stockent l etat d extension par type de proprietaire, id de proprietaire et cle. |
+| Aides KV | Stockent de l etat non secret par type de proprietaire, id et cle. |
+| Aides de secrets chiffres | Stockent les valeurs sensibles dans un stockage chiffre gere par l hote. |
+| Wrappers UI et clients | Rendent l UI hote et appellent les API d extension ou d hote depuis les composants. |
 
 ## Structure De Paquet
 
@@ -30,7 +34,7 @@ Importez les contrats SDK depuis `@gcs-ssc/extensions` et les aides serveur depu
 | `server/runtime.ts` | Resolveur facultatif d activation/configuration d execution. |
 | `client/` ou dossier d actifs | Fichiers statiques montes par le manifeste. |
 | `i18n/` | Messages anglais/francais facultatifs. |
-| `tests/` | Tests unitaires de config, aides de routes et logique metier. |
+| `tests/` | Tests unitaires de config, routes, UI et logique metier. |
 
 ## Champs Du Manifeste
 
@@ -39,6 +43,13 @@ import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
+  sdkVersion: '^0.1.0',
+  requiredHostCapabilities: [
+    'stream-config-modal',
+    'server-handlers',
+    'server-handler-rbac',
+    'extension-api-client'
+  ],
   name: { en: 'Example', fr: 'Exemple' },
   description: {
     en: 'Adds local behaviour.',
@@ -50,9 +61,11 @@ export default defineGcsExtension({
 | Champ | Regle |
 | --- | --- |
 | `key` | Cle stable. Utilisez kebab-case minuscule et ne la changez pas apres creation de donnees. |
+| `sdkVersion` | Plage de version SDK compatible requise, par exemple `^0.1.0`. L hote rejette les versions non prises en charge. |
+| `requiredHostCapabilities` | Liste requise des capacites hote utilisees par le manifeste ou le code. L hote rejette les capacites manquantes ou inconnues. |
 | `name` | Nom bilingue requis. |
 | `description` | Description bilingue facultative pour les ecrans d administration. |
-| `admin` | Composants de configuration d agence et de volet. |
+| `admin` | Composants de configuration d agence, modale de volet ou page de volet. |
 | `client` | Emplacements, onglets d entite, actions de creation et calculateurs. |
 | `css`, `i18n`, `assets` | Styles, messages et actifs statiques facultatifs. |
 | `serverHandlers` | Routes authentifiees d extension exposees par l hote. |
@@ -61,6 +74,32 @@ export default defineGcsExtension({
 | `nitroPlugin` | Plugin serveur facultatif pour les hooks. |
 
 L hote valide les chemins de composants, gestionnaires, actifs et migrations afin qu ils restent dans le paquet d extension.
+
+## Capacites Prises En Charge
+
+Declarez chaque capacite dont l extension depend :
+
+| Capacite | Utilisation |
+| --- | --- |
+| `agency-config` | Composant de configuration d agence. |
+| `stream-config-modal` | Configuration de volet rendue dans la modale Extensions du volet. |
+| `stream-config-page` | Route pleine page de configuration via `admin.streamConfigPage`. |
+| `entity-tabs` | Onglets d entente, promoteur, reclamation ou surveillance. |
+| `textarea-slots` | Composants d emplacement dans les zones prises en charge. |
+| `create-actions` | Actions de creation pour engagements ou paiements d entente. |
+| `payment-amount-calculators` | Composants de calcul de montant de paiement. |
+| `server-handlers` | Routes API sous `/api/extensions/{extensionKey}`. |
+| `server-handler-rbac` | RBAC et contexte d entite resolus par l hote. |
+| `migrations` | Migrations propres a l extension. |
+| `runtime-resolution` | Resolveur d execution pour disponibilite/configuration. |
+| `public-assets` | Actifs statiques montes par l hote. |
+| `extension-ui` | Wrappers UI et composants hote fournis. |
+| `extension-api-client` | `useExtensionApi` ou clients API d extension. |
+| `host-api-client` | `useHostApi` ou clients API hote stables. |
+| `extension-kv` | Aides cle-valeur pour etat JSON non secret. |
+| `extension-secrets` | Aides de secrets chiffres. |
+| `extension-create-operation-hooks` | Hooks Nitro d operation de creation. |
+| `extension-lifecycle-hooks` | Hooks de cycle de vie/creation exposes par l integration. |
 
 ## Configuration De Volet
 
@@ -76,7 +115,7 @@ admin: {
 
 Les composants de configuration d agence recoivent la configuration JSON courante avec `v-model`, ainsi que les props `extension` et `agencyId`. Stockez les valeurs sensibles par des gestionnaires serveur d extension et les aides de secrets chiffres plutot que dans la configuration d agence.
 
-Utilisez `admin.streamConfig` lorsque l extension a besoin d options au niveau du volet:
+Utilisez `admin.streamConfig` lorsque l extension a besoin d une configuration de volet en modale :
 
 ```ts
 admin: {
@@ -86,26 +125,35 @@ admin: {
 }
 ```
 
-Le composant recoit la config JSON courante avec `v-model` et le contexte du volet:
+Utilisez `admin.streamConfigPage` lorsque la configuration a besoin d une page dediee :
+
+```ts
+admin: {
+  streamConfigPage: {
+    path: './components/ExampleStreamConfigPage.vue'
+  }
+}
+```
+
+Les composants de configuration recoivent la config JSON courante avec `v-model` et les props de contexte :
 
 ```vue
 <script setup lang="ts">
-import type { GcsExtensionJsonConfig, GcsResolvedExtension } from '@gcs-ssc/extensions'
+import type { GcsExtensionJsonConfig } from '@gcs-ssc/extensions'
+import type { GcsStreamConfigComponentProps } from '@gcs-ssc/extensions/ui'
 
-defineProps<{
-  extension: GcsResolvedExtension
-  streamId: string
-  transferPaymentId?: string
-  agencyId?: string
-}>()
+defineProps<GcsStreamConfigComponentProps>()
 
 const config = defineModel<GcsExtensionJsonConfig>({ required: true })
 </script>
 ```
 
+Les composants pleine page recoivent aussi `hostLayout: true` et peuvent utiliser l espace de page pour une configuration complexe. Les composants de modale devraient rester compacts.
+
 | Regle | Comportement |
 | --- | --- |
 | La config doit etre JSON | Utilisez seulement primitives, tableaux et objets. |
+| La config n est pas un coffre de secrets | Stockez des references d identifiants, pas les valeurs sensibles. Utilisez les aides de secrets chiffres pour les secrets. |
 | L agence doit etre activee d abord | La configuration de volet est indisponible tant que l extension n est pas activee a l agence. |
 | Les ids optionnels doivent etre toleres | Certains contextes peuvent omettre `transferPaymentId` ou `agencyId`. |
 | Validez avant sauvegarde | Rejetez les combinaisons incompletes dans le composant ou la validation serveur. |
@@ -124,17 +172,6 @@ Les emplacements affichent des composants d extension dans des pages existantes.
 | `agreement.profile.risk-management.fields` | Section Gestion du risque de l entente. |
 | `agreement.profile.sections.after` | Apres les sections du profil d entente. |
 | `proponent.descriptions.after` | Descriptions anglaise/francaise du promoteur. |
-
-```ts
-client: {
-  slots: [
-    {
-      slot: 'agreement.profile.risk-management.fields',
-      path: './components/AgreementRiskFields.vue'
-    }
-  ]
-}
-```
 
 Les composants d emplacement doivent rester discrets et ne pas dupliquer les champs de base. Si un emplacement ecrit des donnees, stockez-les sous la cle de l extension.
 
@@ -191,13 +228,35 @@ serverHandlers: [
 ]
 ```
 
+Les fichiers de gestionnaire devraient utiliser `defineGcsExtensionRouteHandler` :
+
+```ts
+import { defineGcsExtensionRouteHandler } from '@gcs-ssc/extensions/server'
+
+export default defineGcsExtensionRouteHandler(async ({ db, params, config, entity, readBody }) => {
+  const body = await readBody<{ note?: string }>()
+  return { ok: true, agreementId: params.agreementId, config, entity, body, dbAvailable: Boolean(db) }
+})
+```
+
+Le contexte stable contient `db`, `params`, `auth`, `config`, `entity`, `stream`, `agency`, `authorizedScope`, `readBody` et `getHeader`. `context.event` reste disponible comme echappatoire, mais les gestionnaires normaux ne devraient pas lire les details H3 internes de l hote.
+
 | Regle | Comportement |
 | --- | --- |
-| Declarez le RBAC pour les donnees d entite | L hote resout l entite, verifie l activation et applique le sujet/action. |
-| Les parametres doivent etre explicites | `entity.param` doit correspondre a un parametre de route. |
-| Utilisez `GcsExtensionUserError` pour les erreurs utilisateur | Utilisez des messages anglais/francais propres a l extension afin que l API retourne la bonne langue. |
+| Declarez le RBAC pour les donnees d entite | L hote resout l entite depuis le parametre de route, verifie l activation, transmet config/contexte et applique le sujet/action. |
+| Les parametres doivent etre explicites | `entity.param`, `stream.param` ou `agency.param` doit correspondre a un parametre de route. |
+| Utilisez `auth: "manual"` seulement deliberement | Les gestionnaires manuels doivent faire leur propre autorisation metier; ils ne peuvent pas combiner `auth: "manual"` avec `rbac`. |
+| Utilisez `GcsExtensionUserError` pour les erreurs utilisateur | Les messages localises de l extension permettent la traduction par l interface. |
 | Validez toutes les entrees | Les gestionnaires d extension valident leurs propres requetes. |
-| Respectez la propriete hote | Resoudre entente, promoteur, reclamation, surveillance, volet et agence avant d ecrire. |
+| Respectez la propriete hote | Resoudre entente, promoteur, reclamation, surveillance, volet et agence avant d ecrire lorsque l hote ne l a pas deja fait. |
+
+## Runtime UI
+
+`@gcs-ssc/extensions/ui` expose les wrappers et composables fournis par l hote. Utilisez-les au lieu d importer Nuxt UI ou les composants `Common*` de l hote directement.
+
+Les exports courants incluent `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayoutCard`, `ExtensionSection`, `ExtensionSaveButton`, `ExtensionStatusBadge`, `useExtensionI18n`, `useExtensionToast`, `useExtensionFetch`, `useExtensionApi`, `useHostApi` et `useExtensionGroupedTableExpansion`.
+
+Utilisez `useExtensionApi(extensionKey)` pour les routes propres a l extension sous `/api/extensions/{extensionKey}`. Utilisez `useHostApi()` seulement pour les routes hote stables et declarez `host-api-client`.
 
 ## Actions De Creation
 
@@ -205,22 +264,6 @@ serverHandlers: [
 | --- | --- |
 | `agreement.commitments.create` | Onglet Engagements de l entente. |
 | `agreement.payments.create` | Onglet Paiements de l entente. |
-
-```ts
-client: {
-  createActions: [
-    {
-      operation: 'agreement.payments.create',
-      id: 'generate-payments',
-      mode: 'replace',
-      label: { en: 'Generate payments', fr: 'Generer les paiements' },
-      icon: 'i-lucide-wand-sparkles',
-      path: './components/GeneratePaymentsAction.vue',
-      rbac: { subject: 'agreement', action: 'update' }
-    }
-  ]
-}
-```
 
 | Mode | Comportement |
 | --- | --- |
@@ -262,32 +305,32 @@ Les calculateurs de paiement peuvent fournir montant suggere, plafond, devise, d
 | Le plafond est applique dans le formulaire | L utilisateur ne peut pas sauvegarder un montant au-dessus du plafond. |
 | La validation serveur reste requise | Reverifiez les montants generes avant d ecrire. |
 
-## Migrations Et Donnees
+## Migrations, KV Et Secrets
 
 ```ts
-import { defineGcsExtensionMigration } from '@gcs-ssc/extensions/server'
-
-export default defineGcsExtensionMigration({
-  async up(db) {
-    await db.schema.withSchema('extensions').createTable('gcs_example_note').addColumn('id', 'uuid').execute()
-  },
-  async down(db) {
-    await db.schema.withSchema('extensions').dropTable('gcs_example_note').execute()
-  }
-})
+import {
+  defineGcsExtensionMigration,
+  setEncryptedExtensionSecret,
+  getEncryptedExtensionSecret,
+  deleteEncryptedExtensionSecret
+} from '@gcs-ssc/extensions/server'
 ```
 
-| Regle | Comportement |
+| Stockage | Utilisation |
 | --- | --- |
 | Les migrations appartiennent a l extension | Utilisez le schema `extensions` et des noms de table propres a l extension. |
 | Les chemins sont listes dans le manifeste | L hote lance les migrations listees pour les extensions activees. |
 | Les imports de paquet standard sont permis | Les fichiers de migration peuvent importer des dependances comme `kysely`; l hote les resout depuis l installation de l application. |
 | L historique est propre a chaque extension | Chaque extension utilise ses propres tables d historique et de verrouillage; les migrations en attente sont suivies separement. |
-| Les entrees KV conviennent a l etat simple | Stockez type de proprietaire, id, cle, valeur JSON et etat de suppression logique. |
-| Les secrets utilisent le stockage chiffre | Utilisez les aides de secrets du SDK pour cles privees, jetons et identifiants API; ne les stockez pas dans la configuration ni dans le JSON KV. |
+| Aides KV | Stockez un etat JSON simple non secret par type de proprietaire, id et cle. Les entrees KV sont supprimees logiquement. |
+| Aides de secrets chiffres | Stockez des valeurs JSON sensibles comme cles privees, jetons API, jetons de rafraichissement, secrets de signature ou identifiants de service externe. |
 | Les workflows complexes meritent des tables explicites | Utilisez des migrations pour rapports, relations, etats ou gros dossiers. |
 
-Les aides de secrets chiffres sont exposees par `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret` et `deleteEncryptedExtensionSecret`. Les deploiements de production doivent fournir `GCS_EXTENSION_SECRETS_KEY` comme cle de 32 octets encodee en base64.
+Les secrets chiffres utilisent la table `extensions.secret_entry` et AES-256-GCM. Les valeurs sont liees a la cle d extension, au type de proprietaire, a l id de proprietaire, a la cle de secret et a la version de cle. Les metadonnees peuvent stocker seulement des champs non sensibles, comme une etiquette ou un suffixe masque.
+
+La cle racine de chiffrement de l hote est `GCS_EXTENSION_SECRETS_KEY`, une cle de deploiement de 32 octets encodee en base64. Ne la stockez pas dans la config d extension, KV, controle source, donnees semees de vrais environnements ou config runtime visible au navigateur.
+
+Les aides de secrets chiffres sont exposees par `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret` et `deleteEncryptedExtensionSecret`.
 
 ## Actifs Et I18n
 
@@ -300,13 +343,18 @@ Les aides de secrets chiffres sont exposees par `@gcs-ssc/extensions/server`: `s
 
 ## Liste De Verification
 
+Utilisez `installExtensionTestUiRuntime` depuis `@gcs-ssc/extensions/testing` pour les tests autonomes de composants qui ont besoin des wrappers UI de l hote.
+
 | Test | Resultat attendu |
 | --- | --- |
 | Import du manifeste | `extension.config.ts` importe et valide sans chemins internes de l hote. |
+| Declarations de capacites | Chaque fonction hote utilisee est listee dans `requiredHostCapabilities`. |
 | Activation d agence | L extension apparait dans l onglet Extensions et les migrations s executent. |
-| Configuration de volet | Le composant sauvegarde du JSON valide et rejette les combinaisons invalides. |
+| Configuration de volet | La modale ou page sauvegarde du JSON valide et rejette les combinaisons invalides. |
 | Emplacements et onglets | Les composants apparaissent seulement lorsque activation et RBAC le permettent. |
-| Gestionnaires serveur | Propriete, activation, RBAC et validation sont appliques. |
+| Gestionnaires serveur | Propriete, activation, RBAC ou autorisation manuelle et validation sont appliques. |
+| Clients API | `useExtensionApi` et `useHostApi` produisent les chemins attendus et gerent les erreurs. |
+| Secrets | Les secrets sont chiffres/dechiffres cote serveur et jamais retournes a la config navigateur. |
 | Conflits d actions | Les remplacements multiples sont detectes. |
 | Conflits de calculateurs | Les calculateurs multiples sont detectes. |
 | Interface bilingue | Libelles, erreurs et onglets existent en anglais et francais. |

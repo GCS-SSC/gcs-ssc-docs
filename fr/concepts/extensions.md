@@ -1,10 +1,12 @@
 # Extensions
 
-Les extensions ajoutent des fonctionnalites locales et versionnees a GCS-SSC. Elles peuvent ajouter de la configuration de volet, des onglets, des sections de page, des actions de creation specialisees, des calculateurs de montant de paiement, des donnees propres a l extension et des messages bilingues.
+Les extensions ajoutent des fonctionnalites locales et versionnees a GCS-SSC. Elles peuvent ajouter de la configuration d agence et de volet, des onglets, des sections de page, des actions de creation specialisees, des calculateurs de montant de paiement, des routes serveur, des actifs publics, des donnees propres a l extension, des secrets chiffres et des messages bilingues.
 
 ## Enregistrement
 
 Les extensions installees sont decouvertes au demarrage de l application. Les administrateurs ne creent pas les definitions d extension dans l interface; ils activent et configurent les extensions deja installees avec l application.
+
+L hote valide le `sdkVersion` et les `requiredHostCapabilities` declares par chaque extension avant de l exposer. Une extension qui utilise une fonction sans declarer la capacite hote correspondante, ou qui cible une version SDK non prise en charge, echoue la validation de demarrage au lieu d apparaitre partiellement configuree.
 
 ## Activation d agence
 
@@ -16,7 +18,11 @@ Les extensions d agence peuvent aussi exposer un ecran de configuration. Si l ex
 
 ## Configuration de volet
 
-La configuration de volet est disponible seulement lorsque l extension est activee pour l agence. L onglet Extensions du volet liste les extensions actives a l agence, permet l activation de volet et ouvre une modale plein ecran de configuration. Si l extension fournit un composant de configuration de volet, la modale le rend; sinon elle affiche du JSON.
+La configuration de volet est disponible seulement lorsque l extension est activee pour l agence. L onglet Extensions du volet liste les extensions actives a l agence, permet l activation de volet et ouvre la configuration.
+
+La plupart des extensions utilisent une modale plein ecran de configuration. Si l extension fournit un composant de configuration de volet, la modale le rend; sinon elle affiche du JSON.
+
+Une extension peut plutot declarer `admin.streamConfigPage`. Dans ce cas, l action Configurer ouvre une route dediee de configuration pleine page avec les metadonnees du programme, du volet, de l agence, de l extension, la configuration courante et l indicateur de mise en page hote. Utilisez cette configuration pleine page lorsque le parametrage exige plus d espace, des tables imbriquees, une configuration d identifiants ou un flux qui convient mal a une modale.
 
 L application rejette les extensions inconnues, extensions non activees a l agence, JSON invalide et etats invalides propres a une extension. Lorsque la qualite narrative est activee pour un volet sans cible configuree, l application active par defaut la cible de niveau entente afin que l extension ait une surface d execution visible.
 
@@ -52,7 +58,7 @@ Les extensions financieres installees peuvent aussi ajouter des onglets d entent
 
 Les donnees propres a une extension peuvent etre stockees separement des dossiers GCS de base. La suppression des donnees cle-valeur d extension suit la meme attente de suppression logique que le reste de l application.
 
-Les valeurs sensibles comme les cles privees d API, les jetons et les secrets de signature devraient utiliser le stockage chiffre de secrets d extension, pas la configuration d agence, la configuration de volet ni le JSON cle-valeur. Les metadonnees de secret peuvent etre affichees pour l administration, mais les valeurs dechiffrees restent cote serveur.
+La configuration d extension et les donnees cle-valeur ne sont pas des coffres de secrets. La configuration peut etre rendue dans des composants d administration cote navigateur, et les entrees KV sont de l etat JSON ordinaire. Les cles privees, jetons API, jetons de rafraichissement, secrets de signature et valeurs semblables doivent utiliser le stockage chiffre de secrets du SDK, appuye par un stockage chiffre separe et une cle de deploiement `GCS_EXTENSION_SECRETS_KEY`. Les metadonnees de secret peuvent etre affichees pour l administration, mais les valeurs dechiffrees restent cote serveur.
 
 ## Integration GC Forms
 

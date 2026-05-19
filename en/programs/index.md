@@ -102,7 +102,7 @@ The Streams tab lists the operational streams under the program. Agreements and 
 
 The stream table supports create, edit, delete, and a stream setup wizard when the user can update child records. Stream records include bilingual name, bilingual abbreviation, bilingual description, bilingual objective, optional parent stream, further-distribution flag, and status.
 
-Open a stream to configure budgets, eligible recipients, cost lines, agreement subtypes, commitments, risk ratings, review setups, recommendation setups, approval templates, and extensions.
+Open a stream to configure budgets, eligible recipients, cost lines, agreement subtypes, commitments, risk ratings, review setups, recommendation setups, approval templates, document templates, and extensions.
 
 ## Outcomes Tab
 
@@ -165,6 +165,6 @@ A practical empty-system setup order is:
 2. Create the program profile, preferably with the wizard if outcomes, objectives, budgets, and indicators are already known.
 3. Add program budgets for every fiscal year that streams will use.
 4. Create one or more streams.
-5. Configure stream budget, recipient, cost line, agreement subtype, commitment, risk, review, recommendation, approval, and extension settings.
+5. Configure stream budget, recipient, cost line, agreement subtype, commitment, risk, review, recommendation, approval, document template, and extension settings.
 6. Activate or publish assessment schemas and approval templates used by runtime workflows.
 7. Create production agreements only after the target stream is complete enough for the agreement workflow being used.

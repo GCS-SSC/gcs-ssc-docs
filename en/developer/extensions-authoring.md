@@ -6,17 +6,21 @@ Use this page for developer implementation. Operators should use [Concepts: Exte
 
 ## Authoring Contract
 
-Import SDK contracts from `@gcs-ssc/extensions` and server helpers from `@gcs-ssc/extensions/server`. Do not import host internals such as `~~/server`, `~~/shared`, `~/`, or `#imports` for extension-owned contracts.
+Import SDK contracts from `@gcs-ssc/extensions`, server helpers from `@gcs-ssc/extensions/server`, UI wrappers from `@gcs-ssc/extensions/ui`, and test helpers from `@gcs-ssc/extensions/testing`. Do not import host internals such as `~~/server`, `~~/shared`, `~/`, or `#imports` for extension-owned contracts.
 
 | Contract | Use |
 | --- | --- |
 | `defineGcsExtension` | Defines the extension manifest. |
+| `GCS_EXTENSION_SDK_VERSION` | Current host SDK version for manifest compatibility. |
 | `GcsExtensionJsonConfig` | Stream configuration JSON shape. |
 | `ExtensionEntityTabContext` | Props for entity tab components. |
 | `defineGcsExtensionMigration` | Wraps Kysely migrations owned by the extension. |
+| `defineGcsExtensionRouteHandler` | Wraps extension server handlers with stable route context. |
 | `registerGcsExtensionCreateOperationHandler` | Hooks core commitment/payment create operations. |
 | `createGcsExtensionUserError` | Raises localized, user-facing extension errors from server code. |
-| KV helpers | Store extension-owned state by owner type, owner id, and key. |
+| KV helpers | Store extension-owned non-secret state by owner type, owner id, and key. |
+| Encrypted secret helpers | Store sensitive values in host-managed encrypted secret storage. |
+| UI wrappers and clients | Render host UI safely and call extension or host APIs from extension components. |
 
 ## Package Shape
 
@@ -32,7 +36,7 @@ A typical extension has:
 | `server/runtime.ts` | Optional runtime resolver that can decide slot enablement dynamically. |
 | `client/` or assets folder | Static files mounted by the extension manifest. |
 | `i18n/` | Optional English/French message files. |
-| `tests/` | Unit tests for config parsing, route helpers, and business logic. |
+| `tests/` | Unit tests for config parsing, route helpers, UI, and business logic. |
 
 ## Manifest Fields
 
@@ -41,6 +45,13 @@ import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
+  sdkVersion: '^0.1.0',
+  requiredHostCapabilities: [
+    'stream-config-modal',
+    'server-handlers',
+    'server-handler-rbac',
+    'extension-api-client'
+  ],
   name: { en: 'Example', fr: 'Exemple' },
   description: {
     en: 'Adds local behaviour.',
@@ -52,9 +63,11 @@ export default defineGcsExtension({
 | Field | Rule |
 | --- | --- |
 | `key` | Stable extension key. Use lowercase kebab-case and never change it after data exists. |
+| `sdkVersion` | Required compatible SDK version range, such as `^0.1.0`. The host rejects unsupported versions. |
+| `requiredHostCapabilities` | Required list of host capabilities used by the manifest or code. The host rejects missing or unknown capabilities. |
 | `name` | Required bilingual display name. |
 | `description` | Optional bilingual description for admin screens. |
-| `admin` | Agency and stream configuration components. |
+| `admin` | Agency config, stream config modal, or stream config page components. |
 | `client` | Runtime slots, entity tabs, create actions, and payment calculators. |
 | `css`, `i18n`, `assets` | Optional client styling, localized messages, and static assets. |
 | `serverHandlers` | Authenticated extension routes exposed through the host dispatcher. |
@@ -63,6 +76,32 @@ export default defineGcsExtension({
 | `nitroPlugin` | Optional server plugin for hooks such as create-operation interception. |
 
 The host validates component, handler, asset, and migration paths so they stay inside the extension package.
+
+## Supported Capabilities
+
+Declare every capability the extension depends on:
+
+| Capability | Use |
+| --- | --- |
+| `agency-config` | Agency admin configuration component. |
+| `stream-config-modal` | Stream configuration rendered in the stream Extensions modal. |
+| `stream-config-page` | Full-page stream configuration route through `admin.streamConfigPage`. |
+| `entity-tabs` | Agreement, proponent, claim, or monitor tabs. |
+| `textarea-slots` | Runtime slot components in supported host page locations. |
+| `create-actions` | Extension create actions for agreement commitments or payments. |
+| `payment-amount-calculators` | Payment amount calculator components. |
+| `server-handlers` | Extension API routes under `/api/extensions/{extensionKey}`. |
+| `server-handler-rbac` | Host-resolved RBAC/entity context for server handlers. |
+| `migrations` | Extension-owned database migrations. |
+| `runtime-resolution` | Extension runtime resolver for slot availability/config. |
+| `public-assets` | Static assets mounted by the host. |
+| `extension-ui` | Host-provided UI wrappers and runtime components. |
+| `extension-api-client` | `useExtensionApi` or extension API client helpers. |
+| `host-api-client` | `useHostApi` or stable host API client helpers. |
+| `extension-kv` | Extension key-value helpers for non-secret JSON state. |
+| `extension-secrets` | Encrypted extension secret helpers. |
+| `extension-create-operation-hooks` | Create-operation Nitro hooks. |
+| `extension-lifecycle-hooks` | Lifecycle/create hooks exposed through extension integration. |
 
 ## Stream Configuration
 
@@ -78,7 +117,7 @@ admin: {
 
 Agency config components receive the current JSON config with `v-model`, plus `extension` and `agencyId` props. Store sensitive values through extension server handlers and encrypted secret helpers instead of putting them in agency config.
 
-Use `admin.streamConfig` when the extension needs stream-level options:
+Use `admin.streamConfig` when the extension needs a modal-based stream configuration component:
 
 ```ts
 admin: {
@@ -88,28 +127,37 @@ admin: {
 }
 ```
 
-The component receives the current JSON config with `v-model` and stream context props:
+Use `admin.streamConfigPage` when the configuration needs a dedicated full page:
+
+```ts
+admin: {
+  streamConfigPage: {
+    path: './components/ExampleStreamConfigPage.vue'
+  }
+}
+```
+
+Stream config components receive the current JSON config with `v-model` and stream context props:
 
 ```vue
 <script setup lang="ts">
-import type { GcsExtensionJsonConfig, GcsResolvedExtension } from '@gcs-ssc/extensions'
+import type { GcsExtensionJsonConfig } from '@gcs-ssc/extensions'
+import type { GcsStreamConfigComponentProps } from '@gcs-ssc/extensions/ui'
 
-defineProps<{
-  extension: GcsResolvedExtension
-  streamId: string
-  transferPaymentId?: string
-  agencyId?: string
-}>()
+defineProps<GcsStreamConfigComponentProps>()
 
 const config = defineModel<GcsExtensionJsonConfig>({ required: true })
 </script>
 ```
 
+Full-page components also receive `hostLayout: true` and can use the page space for complex setup. Modal components should keep their layout compact.
+
 | Rule | Behaviour |
 | --- | --- |
 | Config must be JSON-safe | Store primitives, arrays, and objects only. |
+| Config is not secret storage | Store references to credentials, not credential values. Use encrypted secret helpers for secrets. |
 | Agency enablement comes first | Stream config is unavailable until the extension is enabled for the agency. |
-| Components must tolerate optional IDs | Older host contexts may omit `transferPaymentId` or `agencyId`. |
+| Components must tolerate optional IDs | Older or non-page contexts may omit `transferPaymentId` or `agencyId`. |
 | Validate before save | Reject incomplete combinations in the component or server-side stream config validation. |
 | Keep config versionable | Add explicit version fields when config shape may change. |
 
@@ -197,13 +245,35 @@ serverHandlers: [
 ]
 ```
 
+Handler files should use `defineGcsExtensionRouteHandler`:
+
+```ts
+import { defineGcsExtensionRouteHandler } from '@gcs-ssc/extensions/server'
+
+export default defineGcsExtensionRouteHandler(async ({ db, params, config, entity, readBody }) => {
+  const body = await readBody<{ note?: string }>()
+  return { ok: true, agreementId: params.agreementId, config, entity, body, dbAvailable: Boolean(db) }
+})
+```
+
+The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `stream`, `agency`, `authorizedScope`, `readBody`, and `getHeader`. `context.event` remains available as an escape hatch, but normal handlers should not read host H3 internals directly.
+
 | Rule | Behaviour |
 | --- | --- |
-| Declare RBAC for entity data | The host resolves the entity from the route param, checks extension enablement, and enforces the declared subject/action. |
-| Keep route params explicit | The `entity.param` value must match a route param name. |
-| Throw `GcsExtensionUserError` for user-facing failures | Use localized English/French messages for extension-owned failures so the API can return the right language. |
-| Validate all input | Extension handlers are responsible for their own request validation. |
-| Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing. |
+| Declare RBAC for entity data | The host resolves the entity from the route param, checks extension enablement, passes config/context, and enforces the declared subject/action. |
+| Keep route params explicit | The `entity.param`, `stream.param`, or `agency.param` value must match a route param name. |
+| Use `auth: "manual"` only deliberately | Manual handlers must perform their own domain authorization; they cannot combine `auth: "manual"` with `rbac`. |
+| Throw `GcsExtensionUserError` for user-facing failures | Use localized extension messages so the UI can translate them. |
+| Validate all input | Extension handlers are responsible for request validation. |
+| Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing when the host has not already done so. |
+
+## UI Runtime
+
+`@gcs-ssc/extensions/ui` exposes host-provided wrappers and composables. Use these instead of importing Nuxt UI or host `Common*` components directly.
+
+Common exports include `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayoutCard`, `ExtensionSection`, `ExtensionSaveButton`, `ExtensionStatusBadge`, `useExtensionI18n`, `useExtensionToast`, `useExtensionFetch`, `useExtensionApi`, `useHostApi`, and `useExtensionGroupedTableExpansion`.
+
+Use `useExtensionApi(extensionKey)` for extension-owned routes under `/api/extensions/{extensionKey}`. Use `useHostApi()` only for stable host API routes and declare `host-api-client` when doing so.
 
 ## Create Actions
 
@@ -263,20 +333,6 @@ When a create hook blocks a user-correctable action, throw `createGcsExtensionUs
 
 Payment calculators can provide a suggested amount, ceiling amount, currency, explanation details, loading state, and extension data for `agreement.payments.create`. Only one enabled calculator can apply to the payment creation surface at a time.
 
-```ts
-client: {
-  paymentAmountCalculators: [
-    {
-      operation: 'agreement.payments.create',
-      id: 'automated-payment-amount',
-      label: { en: 'Automated payment amount', fr: 'Montant de paiement automatise' },
-      path: './components/AutomatedPaymentAmountCalculator.vue',
-      rbac: { subject: 'agreement', action: 'update' }
-    }
-  ]
-}
-```
-
 | Rule | Behaviour |
 | --- | --- |
 | Calculator must match the operation | The current host supports agreement payment creation. |
@@ -284,32 +340,32 @@ client: {
 | Ceiling is enforced in the form | The user cannot save an amount above the calculator ceiling. |
 | Server validation is still required | Recheck generated amounts before writing records. |
 
-## Migrations And Data
+## Migrations, KV, And Secrets
 
 ```ts
-import { defineGcsExtensionMigration } from '@gcs-ssc/extensions/server'
-
-export default defineGcsExtensionMigration({
-  async up(db) {
-    await db.schema.withSchema('extensions').createTable('gcs_example_note').addColumn('id', 'uuid').execute()
-  },
-  async down(db) {
-    await db.schema.withSchema('extensions').dropTable('gcs_example_note').execute()
-  }
-})
+import {
+  defineGcsExtensionMigration,
+  setEncryptedExtensionSecret,
+  getEncryptedExtensionSecret,
+  deleteEncryptedExtensionSecret
+} from '@gcs-ssc/extensions/server'
 ```
 
-| Rule | Behaviour |
+| Storage | Use |
 | --- | --- |
 | Migrations are extension-owned | Use the `extensions` schema and extension-specific table names. |
 | Migration paths are listed in the manifest | The host runs listed migrations for enabled extensions. |
 | Standard package imports are allowed | Migration files can import runtime dependencies such as `kysely`; the host resolves them from the application install. |
 | Migration history is per extension | Each extension uses its own migration history and lock tables, so pending migrations are tracked independently. |
-| KV entries are useful for simple state | Store owner type, owner id, config key, JSON value, and soft-delete state. |
-| Secrets use encrypted secret storage | Use SDK secret helpers for private keys, tokens, and API credentials; do not store them in config or KV JSON. |
+| KV helpers | Store simple non-secret JSON state by owner type, owner id, and key. KV entries are soft-deleted. |
+| Encrypted secret helpers | Store sensitive JSON values such as private keys, API tokens, refresh tokens, signing secrets, or external-service credentials. |
 | Prefer explicit tables for complex workflows | Use migrations when the extension needs reporting, relationships, workflow states, or large records. |
 
-Encrypted secret helpers are exposed from `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret`, and `deleteEncryptedExtensionSecret`. Production deployments must provide `GCS_EXTENSION_SECRETS_KEY` as a base64-encoded 32-byte key.
+Encrypted secrets use the `extensions.secret_entry` table and AES-256-GCM. Values are bound to extension key, owner type, owner id, secret key, and key version. Metadata can store non-sensitive listing fields such as a label or masked suffix.
+
+The host root encryption key is `GCS_EXTENSION_SECRETS_KEY`, a base64-encoded 32-byte deployment secret. Do not store it in extension config, KV, source control, seed data for real environments, or browser-visible runtime config.
+
+Encrypted secret helpers are exposed from `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret`, and `deleteEncryptedExtensionSecret`.
 
 ## Assets And I18n
 
@@ -322,13 +378,18 @@ Encrypted secret helpers are exposed from `@gcs-ssc/extensions/server`: `setEncr
 
 ## Testing Checklist
 
+Use `installExtensionTestUiRuntime` from `@gcs-ssc/extensions/testing` for standalone component tests that need host UI wrappers.
+
 | Test | Expected result |
 | --- | --- |
 | Manifest import | `extension.config.ts` imports and validates without host internals. |
+| Capability declarations | Every used host feature is listed in `requiredHostCapabilities`. |
 | Agency enablement | Extension appears on the agency Extensions tab and migrations run. |
-| Stream config | Config component saves valid JSON and rejects invalid combinations. |
+| Stream config | Modal or full-page config saves valid JSON and rejects invalid combinations. |
 | Runtime slots/tabs | Components render only when agency/stream enablement and RBAC allow them. |
-| Server handlers | Ownership, enablement, RBAC, and validation are enforced. |
+| Server handlers | Ownership, enablement, RBAC or manual authorization, and validation are enforced. |
+| API clients | `useExtensionApi` and `useHostApi` build expected paths and handle errors. |
+| Secret handling | Secrets are encrypted/decrypted server-side and never returned to browser config. |
 | Create action conflicts | Duplicate replacement actions are detected. |
 | Payment calculator conflicts | Duplicate calculators are detected. |
 | Bilingual UI | English and French labels, errors, and tab names are present. |

@@ -13,6 +13,7 @@ The source app is a Nuxt 4 single-page application with server API routes, share
 - `server/database/migrations` contains schema and seed migrations.
 - `shared/types` and `shared/utils` contain schemas, shared contracts, RBAC rules, scopes, and cross-runtime helpers.
 - `modules/gcs-extensions.ts` builds the extension runtime.
+- `packages/gcs-ssc-extensions` publishes the public `@gcs-ssc/extensions` SDK entry points used by extension packages.
 
 ## Frontend patterns
 
@@ -34,7 +35,17 @@ Common Admin is driven by app config plus server config. App config defines UI f
 
 ## Extension architecture
 
-The extension module discovers extension definitions and generates metadata. Runtime server utilities load handlers and runtime resolvers through Jiti. Agency enablement, stream configuration, entity tabs, runtime slots, server handlers, create actions, calculators, migrations, and key-value storage are all host-mediated.
+The extension module discovers extension definitions and generates metadata. Runtime server utilities load handlers and runtime resolvers through Jiti. Agency enablement, stream configuration, full-page stream configuration, entity tabs, runtime slots, server handlers, create actions, calculators, migrations, key-value storage, and encrypted secrets are all host-mediated.
+
+Extension packages should use the public `@gcs-ssc/extensions` package instead of host internals. Its entry points are:
+
+| Entry point | Purpose |
+| --- | --- |
+| `@gcs-ssc/extensions` | Manifest types, JSON types, slots, resolved metadata, and `defineGcsExtension`. |
+| `@gcs-ssc/extensions/server` | Server route, migration, create-hook, KV, error, and encrypted secret helpers. |
+| `@gcs-ssc/extensions/ui` | Host UI wrappers, extension API client, host API client, and UI composables. |
+| `@gcs-ssc/extensions/testing` | Runtime stubs and helpers for standalone extension tests. |
+| `@gcs-ssc/extensions/nuxt` | Optional ambient Nuxt declarations for extension packages. |
 
 ## Bilingual architecture
 

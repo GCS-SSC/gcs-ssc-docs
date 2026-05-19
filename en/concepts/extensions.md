@@ -1,10 +1,12 @@
 # Extensions
 
-Extensions add local, versioned functionality to GCS-SSC. They can add stream configuration, extra tabs, extra page sections, specialized create actions, payment amount calculators, extension-owned data, and bilingual messages.
+Extensions add local, versioned functionality to GCS-SSC. They can add agency and stream configuration, extra tabs, extra page sections, specialized create actions, payment amount calculators, server routes, public assets, extension-owned data, encrypted secrets, and bilingual messages.
 
 ## Registration
 
 Installed extensions are discovered when the application starts. Administrators do not create extension definitions in the UI; they enable and configure extensions that have already been installed with the application.
+
+The host validates each extension's declared `sdkVersion` and `requiredHostCapabilities` before exposing it. An extension that uses a feature without declaring the matching host capability, or that targets an unsupported SDK version, fails startup validation instead of appearing partially configured.
 
 ## Agency enablement
 
@@ -16,7 +18,11 @@ Agency extensions can also expose a configuration screen. If an extension provid
 
 ## Stream configuration
 
-Stream configuration is available only when the extension is enabled for the agency. The stream Extensions tab lists agency-enabled extensions, allows stream enablement, and opens a full-screen configuration modal. If the extension provides a custom stream config component, the modal renders it; otherwise it renders JSON text.
+Stream configuration is available only when the extension is enabled for the agency. The stream Extensions tab lists agency-enabled extensions, allows stream enablement, and opens configuration.
+
+Most extensions use a full-screen configuration modal. If the extension provides a custom stream config component, the modal renders it; otherwise it renders JSON text.
+
+An extension can instead declare `admin.streamConfigPage`. In that case the Configure action opens a dedicated full-page configuration route with the program, stream, agency, extension metadata, current config, and host layout flag. Use full-page configuration when the setup needs more space, nested tables, credential setup, or a workflow that does not fit well in a modal.
 
 The app rejects configuration for unknown extensions, disabled agency extensions, invalid JSON, and known extension-specific invalid states. When narrative quality is enabled for a stream with no configured target, the app defaults the agreement-level target on so the extension has a visible runtime surface.
 
@@ -52,7 +58,7 @@ Installed financial extensions can also add agreement tabs with their own totals
 
 Extension-owned data can be stored separately from core GCS records. Deleting extension-owned key-value data follows the same soft-delete expectation as the rest of the application.
 
-Sensitive values such as API private keys, tokens, and signing secrets should use encrypted extension secret storage, not agency config, stream config, or key-value JSON. Secret metadata may be displayed for administration, but decrypted secret values are server-only.
+Extension config and extension key-value data are not secret stores. Config can be rendered in browser-side admin components, and KV entries are ordinary JSON state. Private keys, API tokens, refresh tokens, signing secrets, and similar values belong in the SDK encrypted secret store, which is backed by separate encrypted storage and a deployment-managed `GCS_EXTENSION_SECRETS_KEY`. Secret metadata may be displayed for administration, but decrypted secret values are server-only.
 
 ## GC Forms integration
 

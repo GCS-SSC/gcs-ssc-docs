@@ -1,6 +1,6 @@
 # Streams
 
-Streams are the operational configuration layer under a program. A stream connects a program to agreement types, eligible recipients, funding budgets, cost line items, commitments, review generation, approval routes, recommendation setup, risk ratings, monitor types, areas of expertise, financial limits, document templates, and stream-specific extensions.
+Streams are the operational configuration layer under a program. A stream connects a program to agreement types, eligible recipients, funding budgets, cost line items, commitments, review generation, approval routes, recommendation setup, risk ratings, monitor types, document templates, areas of expertise, financial limits, and stream-specific extensions.
 
 Most agreement and runtime behavior is stream-driven. A program can exist without a stream, but a production agreement workflow normally cannot.
 
@@ -240,17 +240,23 @@ See [Approval Templates](./approval-templates.md) for the full template and runt
 
 ## Document Templates Tab
 
-Document templates define which agreement documents can be generated from agreements under the stream. Each template contains:
+Stream document templates define the source files used by agreement document generation. The tab shows entity type, English name, template kind, output formats, active status, bilingual attachments, and row actions.
 
-- Entity type, currently used for funding case agreement documents.
-- Template kind: `docx` or `html`.
-- English and French name.
-- English and French description.
-- Allowed output formats.
-- English and French source attachments.
-- Active flag.
+Each template stores:
 
-DOCX templates can allow DOCX and PDF output. HTML templates allow PDF output only. Agreement users see active templates on the agreement Documents tab.
+| Field | Rule |
+| --- | --- |
+| Entity type | Currently used by agreement generation as `fundingcaseagreement`. |
+| English/French name | Required bilingual display name. |
+| English/French description | Required bilingual description shown when users choose a template on an agreement. |
+| Template kind | `docx` or `html`. |
+| Output formats | One or more of `docx` and `pdf`; HTML templates are limited to `pdf`. |
+| English/French file | Required on create. DOCX templates accept `.docx`; HTML templates accept `.html` or `.htm`. |
+| Active | Only active agreement templates are available in the agreement Documents tab. |
+
+Editing a template can update metadata, output formats, active status, and either language file. Replacing a language file stores a new attachment and removes the replaced attachment from normal storage. Deleting a template soft-deletes the template; generated agreement documents created earlier remain separate records.
+
+Operational note: PDF generation from DOCX uses LibreOffice, and HTML-to-PDF uses Puppeteer. Local development can install these tools with the document generation setup command in [Startup](../developer/startup.md).
 
 ## Assessment Schemas
 
@@ -275,7 +281,7 @@ Downstream workflows read stream setup in different ways:
 - Commitment and payment workflows depend on budget and financial coding rows.
 - Review workflows depend on active review setups and active/published assessment schemas.
 - Approval workflows depend on referenced approval templates and their default users.
-- Document generation depends on active stream document templates and generation tooling for PDF output.
+- Agreement document generation depends on active stream document templates and configured document generation tools for PDF output.
 - Recommendation workflows depend on active recommendation setups and schemas.
 - Monitoring workflows depend on monitor types and, where configured, review or approval setup.
 
@@ -294,6 +300,6 @@ For a fresh installation, a minimum practical stream usually has:
 - Risk ratings if risk selection or assessment scoring uses stream risk.
 - Review setups and assessment schemas if reviews are generated.
 - Approval templates if approvals are required.
-- Document templates if agreement documents will be generated.
+- Document templates if users will generate agreement documents.
 - Recommendation setups if recommendations are generated.
 - Extension settings required by the deployment.

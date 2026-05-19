@@ -9,7 +9,7 @@ Claims capture submitted amounts against agreement budget lines and support one 
 | Agreement budget fiscal years and line items | Claims are created for agreement budget fiscal years and submission rows come from budget lines. |
 | Common users | Reconcile records store the current common user as reviewer. |
 | Approval template for `fundingclaimreconcile` | Required when reconciliations need approval routing. |
-| Agreement update permission | Required to edit draft claims, start reconciliations, save reconciliation lines, complete, and manage approvals. |
+| Agreement update permission | Required to edit draft claims, allocate imported claim lines, start reconciliations, save reconciliation lines, complete, and manage approvals. |
 
 ## Tab flow
 
@@ -28,44 +28,52 @@ New claims start as `draft`.
 
 ## Detail page
 
-The claim detail hero shows the agreement, fiscal year, claim period, and claim status before the tabbed workspace.
+The claim detail page uses the shared detail hero. The hero title is the claim id and the metadata includes agreement number, agreement title, claim fiscal year, claim period, and status.
 
 The detail page has a vertical tab set:
 
 | Tab | Purpose |
 | --- | --- |
-| Submission | Enter submitted amounts by budget line and mark the claim ready for review. |
-| Reconciliation | Start or select reconcile records, mark one reconcile as final, enter reconciled and sampled amounts, complete reconcile records, and view approvals. |
+| Submission | Enter submitted amounts by budget line, view imported or unallocated submitted lines, allocate those lines to agreement budget lines, and mark the claim ready for review. |
+| Reconciliation | Start or select reconcile records, enter reconciled and sampled amounts, mark a reconcile as final, complete reconcile records, and view approvals. |
 | Extension tabs | Optional claim tabs supplied by extensions. |
 
 ## Submission lines
 
-The Submission tab builds rows from budget lines in the claim fiscal year. Saving creates or updates claim line items:
+The Submission tab builds editable draft rows from budget lines in the claim fiscal year. Saving creates or updates claim line items:
 
 | Field | Rule |
 | --- | --- |
 | Claim | Set by the current claim detail page. |
-| Budget line item | Must belong to the claim fiscal year and agreement. |
-| Description | Inherited from the selected budget line. |
+| Budget line item | Usually set to an agreement budget line in the claim fiscal year; can be temporarily null for imported or external lines. |
+| Submitted cost category, subsection, line item | Optional external labels used while a line is unallocated. |
+| Description | Inherited from the selected budget line for UI-entered rows, or supplied by the import/source for unallocated rows. |
 | Amount | Required money value. |
 | Currency | Required; the detail editor writes CAD. |
 
-The claim can be marked ready for review only when it is still `draft` and has at least one claim line. Ready for review changes status to `submitted`.
+Unallocated lines appear in the submission table with an Unallocated badge and their submitted labels. Users with agreement update access can allocate an unallocated line to a budget line while the claim is `draft` or `submitted`.
+
+The claim can be marked ready for review only when it is still `draft`, has at least one claim line, and has no unallocated lines. Ready for review changes status to `submitted`.
+
+## Multiple lines per budget line
+
+External sources can create more than one claim line for the same agreement budget line. In read-only and submitted contexts, the Submission tab shows each submitted claim line separately so imported detail is not collapsed. In editable draft context, the normal budget-line editor shows one amount input per budget line.
 
 ## Claim actions
 
 | Action | Allowed when | Result |
 | --- | --- | --- |
-| Save submission | Claim status is `draft` and user can update agreement | Creates or updates claim line items. |
-| Ready for review | Draft claim has at least one line | Sets claim status to `submitted`. |
+| Save submission | Claim status is `draft` and user can update agreement | Creates or updates UI-entered claim line items for budget rows. |
+| Allocate unallocated line | Claim status is `draft` or `submitted`, line is unallocated, and user can update agreement | Sets the line's budget line item after validating it belongs to the agreement and fiscal year. |
+| Ready for review | Draft claim has at least one line and no unallocated lines | Sets claim status to `submitted`. |
 | Withdraw | Claim status is `submitted` and no reconcile exists | Sets claim status to `withdrawn`. |
 | Cancel | Claim is not `draft`, `withdrawn`, or `cancelled` | Sets claim status to `cancelled`. |
 
 ## Reconciliations
 
-Reconciliation is shown when the claim is `submitted`, `inreview`, `reviewed`, or `complete`, or when reconcile records already exist. Starting or editing a reconciliation creates or updates work for the current user and moves a submitted, reviewed, or complete claim back to `inreview`.
+Reconciliation is shown when the claim is ready for reconciliation or when reconcile records already exist. Claims with status `submitted`, `inreview`, `reviewed`, or `complete` can show and start reconciliation work when they have no unallocated lines and no approved final reconciliation.
 
-Only one reconcile for a claim can be marked final. The selected reconcile has a final checkbox when it is editable. If another final reconcile already exists, the checkbox is disabled until that other reconcile is no longer final. Once a final reconcile is approved, the claim is locked against new or changed reconciliations.
+Starting a reconciliation creates a draft reconcile for the current user and moves the claim to `inreview`. Starting or editing from a submitted, reviewed, or complete claim can return it to `inreview`.
 
 Reconcile line items are saved against the active reconcile:
 
@@ -77,23 +85,35 @@ Reconcile line items are saved against the active reconcile:
 | Sampled amount | Optional money value. |
 | Rationale | Optional text; blank values normalize to null. |
 
-The worklist shows every reconcile for the claim, latest first, with reviewer, status, final flag, reconciled total, sampled total, and balance.
+The worklist shows every reconcile for the claim, latest first, with reviewer, status, final flag, reconciled total, sampled total, and balance. Selecting a reconcile changes the editable or read-only detail panel below the worklist.
+
+## Final reconciliation
+
+Each claim can have only one final reconciliation. The selected reconcile panel includes a final checkbox when the reconcile is editable. Users can mark the active reconcile final only when no other reconcile for the claim is already final.
+
+Completing a final reconcile shows an additional warning and confirmation. After an approved final reconcile exists, the claim is locked against new reconcile work, reconcile edits, and reconcile completion. This prevents later reconciliation records from changing a finalized claim.
+
+If a final reconciliation approval is denied, the reconcile is set to `denied`, its final flag is cleared, and the claim returns to `inreview`.
 
 ## Business rules
 
 | Rule | Behaviour |
 | --- | --- |
-| Draft claims are editable only before submission | `submitted`, `inreview`, `reviewed`, `withdrawn`, and `cancelled` lock claim submission edits. |
-| Reconcile edits require a ready claim | Reconcile line editing requires claim status `submitted`, `inreview`, or `reviewed`. |
+| Draft claims are editable only before submission | `submitted`, `inreview`, `reviewed`, `withdrawn`, and `cancelled` lock normal submission edits. |
+| Unallocated lines must be allocated before workflow advances | Ready for review and new reconciliation are blocked while any claim line lacks a budget line item. |
+| Allocation has a wider window than submission editing | Unallocated lines can be allocated while the claim is `draft` or `submitted`; other line edits still require `draft`. |
+| Reconcile start requires an eligible claim | New reconciles require `submitted`, `inreview`, `reviewed`, or `complete`, no unallocated lines, and no approved final reconcile. |
+| Reconcile edits require a ready claim | Reconcile line editing requires a reconciliation-ready claim and no approved final reconcile. |
 | Reconcile locked statuses block edits | `pendingapproval`, `approved`, and `denied` reconciles are locked. |
-| Only one final reconcile is allowed | Creating or updating a second final reconcile is rejected. |
-| Approved final reconcile closes reconciliation | After a final reconcile is approved, users cannot start a new reconcile or edit existing reconcile lines. |
 | Reconcile completion requires lines | Completing an empty reconcile is rejected. |
-| Completing a final reconcile can review the claim | When the user marks the reconciliation as final during completion, the claim can move to `reviewed` before approval if no approval route is required. |
-| Approval updates claim status | Approved final reconcile can move the claim to `reviewed`; denied or pending reconcile keeps or returns the claim to `inreview` depending on approval result. |
+| Only one final reconcile is allowed | Creating or marking a second final reconcile is rejected. |
+| Approved final reconcile locks the claim | New reconcile work and completion are rejected after a final reconcile is approved. |
+| Approval updates claim status | Approved final reconcile moves the claim to `reviewed`; approved non-final reconcile keeps the claim `inreview`; denied reconcile clears final and leaves the claim `inreview`. |
 
 ## Completion and approval
 
 Completion entity type: `fundingclaimreconcile`.
 
-Completion is attached to the selected reconcile, not the claim header. The completion section appears when a reconcile exists. Completing a final reconcile shows an extra confirmation because it can close the claim review path. With a valid approval template, completion sets the reconcile to `pendingapproval`; otherwise it sets it to `complete`. A final reconcile without approval moves the claim to `reviewed`. The approval section appears for `pendingapproval`, `approved`, and `denied` reconciles.
+Completion is attached to the selected reconcile, not the claim header. The completion section appears when a reconcile exists. Completing a final reconcile shows an extra confirmation because it can close the claim review path. With a valid approval template, completion creates or materializes the routing slip and sets the reconcile to `pendingapproval`; otherwise it sets the reconcile to `complete`.
+
+When there is no approval template, completing a final reconcile moves the claim to `reviewed`; completing a non-final reconcile leaves the claim `inreview`. The approval section appears for `pendingapproval`, `approved`, and `denied` reconciles.

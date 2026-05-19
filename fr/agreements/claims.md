@@ -1,6 +1,6 @@
 # Reclamations d entente
 
-Les reclamations capturent les montants soumis contre les lignes budgetaires et prennent en charge un ou plusieurs rapprochements. Le flux a deux surfaces principales : soumission et rapprochement.
+Les reclamations capturent les montants soumis contre les lignes budgetaires d entente et prennent en charge un ou plusieurs rapprochements. Le flux a deux surfaces principales : soumission et rapprochement.
 
 ## Configuration d une installation vide
 
@@ -9,7 +9,7 @@ Les reclamations capturent les montants soumis contre les lignes budgetaires et 
 | Exercices et lignes budgetaires | Les reclamations sont creees pour les exercices budgetaires et les lignes de soumission viennent du budget. |
 | Utilisateurs communs | Les rapprochements stockent l utilisateur courant comme examinateur. |
 | Modele d approbation `fundingclaimreconcile` | Requis si les rapprochements doivent etre approuves. |
-| Permission de mise a jour | Requise pour modifier les brouillons, demarrer des rapprochements, sauvegarder les lignes, completer et gerer les approbations. |
+| Permission de mise a jour | Requise pour modifier les brouillons, allouer les lignes importees, demarrer des rapprochements, sauvegarder les lignes, completer et gerer les approbations. |
 
 ## Flux d onglet
 
@@ -28,44 +28,52 @@ Les nouvelles reclamations commencent a `draft`.
 
 ## Page de detail
 
-L en-tete de detail affiche l entente, l exercice, la periode de reclamation et le statut avant l espace a onglets.
+La page de detail de reclamation utilise le sommaire de detail commun. Le titre est l identifiant de reclamation et les metadonnees incluent le numero d entente, le titre d entente, l exercice, la periode de reclamation et le statut.
 
 La page contient :
 
 | Onglet | Utilite |
 | --- | --- |
-| Soumission | Saisir les montants par ligne budgetaire et marquer pret pour examen. |
-| Rapprochement | Demarrer ou choisir des rapprochements, marquer un rapprochement final, saisir les montants rapproches et echantillonnes, completer et voir les approbations. |
+| Soumission | Saisir les montants par ligne budgetaire, consulter les lignes soumises importees ou non allouees, allouer ces lignes aux lignes budgetaires d entente et marquer pret pour examen. |
+| Rapprochement | Demarrer ou choisir des rapprochements, saisir les montants rapproches et echantillonnes, marquer un rapprochement final, completer et voir les approbations. |
 | Extensions | Onglets facultatifs fournis par extensions. |
 
 ## Lignes de soumission
 
-L onglet Soumission construit ses lignes a partir du budget du meme exercice. La sauvegarde cree ou modifie des lignes de reclamation :
+L onglet Soumission construit les lignes de brouillon editables a partir du budget du meme exercice. La sauvegarde cree ou modifie des lignes de reclamation :
 
 | Champ | Regle |
 | --- | --- |
 | Reclamation | Fixee par la page de detail courante. |
-| Ligne budgetaire | Doit appartenir a l exercice et a l entente. |
-| Description | Heritee de la ligne budgetaire selectionnee. |
+| Ligne budgetaire | Generalement une ligne budgetaire de l entente dans l exercice de la reclamation; peut etre temporairement null pour des lignes importees ou externes. |
+| Categorie, sous-section, ligne soumise | Libelles externes facultatifs utilises pendant qu une ligne n est pas allouee. |
+| Description | Heritee de la ligne budgetaire pour les lignes saisies dans l UI, ou fournie par l import/source pour les lignes non allouees. |
 | Montant | Montant requis. |
 | Devise | Requise; l editeur ecrit CAD. |
 
-La reclamation peut etre marquee prete pour examen seulement si elle est `draft` et contient au moins une ligne. Elle passe alors a `submitted`.
+Les lignes non allouees apparaissent dans la table de soumission avec un indicateur Non alloue et leurs libelles soumis. Les utilisateurs avec mise a jour de l entente peuvent allouer une ligne non allouee a une ligne budgetaire lorsque la reclamation est `draft` ou `submitted`.
+
+La reclamation peut etre marquee prete pour examen seulement si elle est `draft`, contient au moins une ligne et ne contient aucune ligne non allouee. Elle passe alors a `submitted`.
+
+## Plusieurs lignes par ligne budgetaire
+
+Des sources externes peuvent creer plus d une ligne de reclamation pour la meme ligne budgetaire d entente. En lecture seule et dans les contextes soumis, l onglet Soumission affiche chaque ligne soumise separement afin que le detail importe ne soit pas regroupe. En brouillon editable, l editeur normal affiche une entree de montant par ligne budgetaire.
 
 ## Actions de reclamation
 
 | Action | Permise lorsque | Resultat |
 | --- | --- | --- |
-| Sauvegarder la soumission | Statut `draft` et permission de mise a jour | Cree ou modifie les lignes. |
-| Pret pour examen | Brouillon avec au moins une ligne | Passe a `submitted`. |
+| Sauvegarder la soumission | Statut `draft` et permission de mise a jour | Cree ou modifie les lignes saisies par l UI pour les lignes budgetaires. |
+| Allouer une ligne non allouee | Statut `draft` ou `submitted`, ligne non allouee et permission de mise a jour | Definit la ligne budgetaire apres validation qu elle appartient a l entente et a l exercice. |
+| Pret pour examen | Brouillon avec au moins une ligne et aucune ligne non allouee | Passe a `submitted`. |
 | Retirer | Statut `submitted` et aucun rapprochement | Passe a `withdrawn`. |
 | Annuler | Non `draft`, `withdrawn` ou `cancelled` | Passe a `cancelled`. |
 
 ## Rapprochements
 
-Le rapprochement est visible lorsque la reclamation est `submitted`, `inreview`, `reviewed` ou `complete`, ou lorsqu il existe deja des rapprochements. Demarrer ou modifier un rapprochement cree ou met a jour le travail de l utilisateur courant et ramene une reclamation soumise, examinee ou completee a `inreview`.
+Le rapprochement est visible lorsque la reclamation est admissible au rapprochement ou lorsqu il existe deja des rapprochements. Les reclamations aux statuts `submitted`, `inreview`, `reviewed` ou `complete` peuvent afficher et demarrer le travail de rapprochement lorsqu elles n ont aucune ligne non allouee et aucun rapprochement final approuve.
 
-Un seul rapprochement d une reclamation peut etre marque final. Le rapprochement selectionne affiche une case final lorsqu il est editable. Si un autre rapprochement final existe deja, la case est desactivee jusqu a ce que cet autre rapprochement ne soit plus final. Une fois un rapprochement final approuve, la reclamation est verrouillee contre les nouveaux rapprochements et les modifications de rapprochement.
+Demarrer un rapprochement cree un brouillon pour l utilisateur courant et deplace la reclamation a `inreview`. Demarrer ou modifier depuis une reclamation soumise, examinee ou completee peut la ramener a `inreview`.
 
 Lignes de rapprochement :
 
@@ -77,23 +85,35 @@ Lignes de rapprochement :
 | Montant echantillonne | Montant facultatif. |
 | Justification | Texte facultatif; blanc devient null. |
 
-La liste affiche les rapprochements du plus recent au plus ancien avec examinateur, statut, indicateur final, total rapproche, total echantillonne et solde.
+La liste affiche les rapprochements du plus recent au plus ancien avec examinateur, statut, indicateur final, total rapproche, total echantillonne et solde. Choisir un rapprochement change le panneau de detail editable ou en lecture seule sous la liste.
+
+## Rapprochement final
+
+Chaque reclamation peut avoir seulement un rapprochement final. Le panneau du rapprochement selectionne inclut une case finale lorsque le rapprochement est editable. Les utilisateurs peuvent marquer le rapprochement actif final seulement si aucun autre rapprochement de la reclamation n est deja final.
+
+Completer un rapprochement final affiche un avertissement et une confirmation supplementaires. Apres l existence d un rapprochement final approuve, la reclamation est verrouillee contre les nouveaux rapprochements, les modifications de rapprochement et la completion de rapprochement. Cela empeche des rapprochements ulterieurs de modifier une reclamation finalisee.
+
+Si l approbation d un rapprochement final est refusee, le rapprochement passe a `denied`, son indicateur final est retire et la reclamation retourne a `inreview`.
 
 ## Regles d affaires
 
 | Regle | Comportement |
 | --- | --- |
-| Les reclamations brouillon sont les seules editables | `submitted`, `inreview`, `reviewed`, `withdrawn` et `cancelled` verrouillent la soumission. |
-| Les rapprochements exigent une reclamation prete | L edition exige `submitted`, `inreview` ou `reviewed`. |
+| Les reclamations brouillon sont les seules editables | `submitted`, `inreview`, `reviewed`, `withdrawn` et `cancelled` verrouillent les modifications normales de soumission. |
+| Les lignes non allouees doivent etre allouees avant l avancee du flux | Pret pour examen et nouveau rapprochement sont bloques tant qu une ligne de reclamation n a pas de ligne budgetaire. |
+| L allocation a une fenetre plus large que l edition de soumission | Les lignes non allouees peuvent etre allouees en `draft` ou `submitted`; les autres modifications exigent toujours `draft`. |
+| Le demarrage du rapprochement exige une reclamation admissible | Un nouveau rapprochement exige `submitted`, `inreview`, `reviewed` ou `complete`, aucune ligne non allouee et aucun rapprochement final approuve. |
+| Les rapprochements exigent une reclamation prete | L edition des lignes exige une reclamation admissible au rapprochement et aucun rapprochement final approuve. |
 | Les etats verrouilles bloquent le rapprochement | `pendingapproval`, `approved` et `denied` sont verrouilles. |
-| Un seul rapprochement final est permis | Creer ou modifier un deuxieme rapprochement final est rejete. |
-| Un rapprochement final approuve ferme le rapprochement | Apres l approbation d un rapprochement final, les utilisateurs ne peuvent plus demarrer un rapprochement ni modifier les lignes existantes. |
 | La completion exige des lignes | Un rapprochement vide ne peut pas etre complete. |
-| Un rapprochement final peut examiner la reclamation | La completion tient compte du drapeau final et peut passer la reclamation a `reviewed` lorsqu aucune approbation n est requise. |
-| L approbation met a jour la reclamation | Un rapprochement final approuve peut passer la reclamation a `reviewed`; un refus ou une attente garde ou ramene la reclamation en examen. |
+| Un seul rapprochement final est permis | Creer ou marquer un deuxieme rapprochement final est rejete. |
+| Un rapprochement final approuve verrouille la reclamation | Les nouveaux rapprochements et la completion sont rejetes apres approbation d un rapprochement final. |
+| L approbation met a jour la reclamation | Un rapprochement final approuve passe la reclamation a `reviewed`; un rapprochement non final approuve garde la reclamation a `inreview`; un refus retire l indicateur final et laisse la reclamation a `inreview`. |
 
 ## Completion et approbation
 
 Type d entite : `fundingclaimreconcile`.
 
-La completion est attachee au rapprochement selectionne, pas a l en-tete de reclamation. Completer un rapprochement final affiche une confirmation supplementaire, car cela peut fermer le parcours d examen de la reclamation. Avec un modele valide, le rapprochement passe a `pendingapproval`; sans modele, il passe a `complete`. Un rapprochement final sans approbation deplace la reclamation a `reviewed`. La section d approbation apparait pour `pendingapproval`, `approved` et `denied`.
+La completion est attachee au rapprochement selectionne, pas a l en-tete de reclamation. La section de completion apparait lorsqu un rapprochement existe. Completer un rapprochement final affiche une confirmation supplementaire, car cela peut fermer le parcours d examen de la reclamation. Avec un modele valide, la completion cree ou materialise la feuille de route et passe le rapprochement a `pendingapproval`; sans modele, elle le passe a `complete`.
+
+Sans modele d approbation, completer un rapprochement final passe la reclamation a `reviewed`; completer un rapprochement non final laisse la reclamation a `inreview`. La section d approbation apparait pour les rapprochements `pendingapproval`, `approved` et `denied`.

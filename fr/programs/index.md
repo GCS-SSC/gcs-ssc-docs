@@ -102,7 +102,7 @@ L onglet Volets liste les volets operationnels du programme. Les ententes et la 
 
 Le tableau des volets prend en charge creer, modifier, supprimer et un assistant de configuration lorsque l utilisateur peut modifier les enregistrements enfants. Un volet contient nom bilingue, abreviation bilingue, description bilingue, objectif bilingue, volet parent optionnel, indicateur de redistribution et statut.
 
-Ouvrez un volet pour configurer les budgets, destinataires admissibles, lignes de couts, sous-types d entente, engagements, cotes de risque, configurations d examen, configurations de recommandation, modeles d approbation et extensions.
+Ouvrez un volet pour configurer les budgets, destinataires admissibles, lignes de couts, sous-types d entente, engagements, cotes de risque, configurations d examen, configurations de recommandation, modeles d approbation, modeles de documents et extensions.
 
 ## Onglet Resultats
 
@@ -165,6 +165,6 @@ Un ordre pratique dans une installation vide est:
 2. Creer le profil de programme, idealement avec l assistant si les resultats, objectifs, budgets et indicateurs sont deja connus.
 3. Ajouter les budgets du programme pour chaque exercice financier utilise par les volets.
 4. Creer un ou plusieurs volets.
-5. Configurer les budgets de volet, destinataires, lignes de couts, sous-types d entente, engagements, risques, examens, recommandations, approbations et extensions.
+5. Configurer les budgets de volet, destinataires, lignes de couts, sous-types d entente, engagements, risques, examens, recommandations, approbations, modeles de documents et extensions.
 6. Activer ou publier les schemas d evaluation et modeles d approbation utilises par les flux d execution.
 7. Creer des ententes de production seulement lorsque le volet cible est assez complet pour le flux d entente utilise.

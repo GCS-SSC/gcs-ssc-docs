@@ -40,6 +40,18 @@ Si la generation de documents d entente doit produire des PDF localement, execut
 
 Le systeme d extension genere des metadonnees sous `.nuxt/gcs-extensions`. Les utilitaires serveur exigent ces metadonnees pour les appels au registre. Si les API d extension echouent avec des metadonnees manquantes, executez l application Nuxt pour que le module les regenere.
 
+## Outils de generation de documents
+
+La generation de documents d entente peut fonctionner localement sous Linux ou WSL sans installations globales de LibreOffice ou Chrome. Depuis `../gcs-ssc`, executez :
+
+```bash
+bun run bun:docgen:install
+```
+
+L installateur telecharge LibreOffice dans `.tools/docgen/libreoffice`, telecharge le navigateur de Puppeteer dans `.tools/docgen/puppeteer`, et ajoute ou met a jour `LIBREOFFICE_SOFFICE_PATH` et `PUPPETEER_CACHE_DIR` dans le fichier Nuxt `.env` regulier. Nuxt charge `.env` pendant `dev`, `build` et `preview`; demarrez donc normalement avec `bun run dev` apres l installation.
+
+Utilisez `DOCGEN_ENV_FILE` pour cibler un autre fichier d environnement. Les options avancees incluent `LIBREOFFICE_VERSION`, `LIBREOFFICE_DOWNLOAD_URL` et `PUPPETEER_BROWSER`.
+
 ## Amorcage de l authentification
 
 Les donnees de developpement peuvent creer `root@example.com` avec `password123`. La production devrait utiliser un amorcage propre au deploiement. Apres l existence de l utilisateur racine, creez les roles et attributions par l UI afin que `/api/auth/roles` retourne les permissions attendues.

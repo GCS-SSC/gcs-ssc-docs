@@ -13,6 +13,7 @@ An empty installation must be configured before agreement creation can succeed:
 | Stream configuration | Stream budgets by agency fiscal year, agreement subtype mappings, stream commitments, risk ratings when risk score selection is used, outcomes, monitor types, optional document templates, and optional approval templates. |
 | Applicant/recipient | At least one active applicant/recipient profile. Agreement creation requires one or more applicant recipient ids. |
 | Common workflow | Completion is available for supported execution entity types. Approval sections appear only when the record reaches approval states and a valid stream-scoped approval template exists for the entity type. |
+| Document templates | Required only when agreement document generation will be used from the Documents tab. |
 
 ## List and create pages
 

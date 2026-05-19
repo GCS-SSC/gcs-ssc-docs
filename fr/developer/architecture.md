@@ -13,6 +13,7 @@ L application source est une application Nuxt 4 monopage avec routes API serveur
 - `server/database/migrations` contient le schema et les donnees semees.
 - `shared/types` et `shared/utils` contiennent schemas, contrats partages, regles RBAC, portees et aides cross-runtime.
 - `modules/gcs-extensions.ts` construit le runtime d extension.
+- `packages/gcs-ssc-extensions` publie les points d entree publics du SDK `@gcs-ssc/extensions` utilises par les paquets d extension.
 
 ## Modeles frontend
 
@@ -34,7 +35,17 @@ Commun est pilote par la configuration d app et la configuration serveur. La con
 
 ## Architecture extensions
 
-Le module d extension decouvre les definitions et genere les metadonnees. Les utilitaires serveur chargent les gestionnaires et resolvers d execution par Jiti. Activation d agence, configuration de volet, onglets d entite, emplacements d execution, gestionnaires serveur, actions de creation, calculateurs, migrations et stockage cle-valeur sont tous medies par l hote.
+Le module d extension decouvre les definitions et genere les metadonnees. Les utilitaires serveur chargent les gestionnaires et resolvers d execution par Jiti. Activation d agence, configuration de volet, configuration de volet pleine page, onglets d entite, emplacements d execution, gestionnaires serveur, actions de creation, calculateurs, migrations, stockage cle-valeur et secrets chiffres sont tous medies par l hote.
+
+Les paquets d extension devraient utiliser le paquet public `@gcs-ssc/extensions` au lieu des chemins internes de l hote. Ses points d entree sont :
+
+| Point d entree | Utilite |
+| --- | --- |
+| `@gcs-ssc/extensions` | Types de manifeste, types JSON, emplacements, metadonnees resolues et `defineGcsExtension`. |
+| `@gcs-ssc/extensions/server` | Aides de routes serveur, migrations, hooks de creation, KV, erreurs et secrets chiffres. |
+| `@gcs-ssc/extensions/ui` | Wrappers UI hote, client API d extension, client API hote et composables UI. |
+| `@gcs-ssc/extensions/testing` | Stubs de runtime et aides pour tests autonomes d extension. |
+| `@gcs-ssc/extensions/nuxt` | Declarations Nuxt ambiantes facultatives pour les paquets d extension. |
 
 ## Architecture bilingue
 

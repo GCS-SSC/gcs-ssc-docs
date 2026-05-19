@@ -1,34 +1,48 @@
 # Agreement Documents
 
-The Documents tab generates agreement documents from stream-scoped document templates and stores the generated files on the agreement.
+The Agreement Documents tab generates agreement documents from stream-scoped document templates and stores the generated files on the agreement. It is available from the agreement detail workspace and uses the agreement's stream to find eligible templates.
 
 ## Empty installation setup
 
 | Configuration | Why it matters |
 | --- | --- |
-| Stream document templates | At least one active template must exist on the agreement's stream before users can generate a document. |
-| Template attachments | Templates require English and French source files. |
-| Document generation tools | PDF output requires the configured local or deployed document-generation tooling. |
-| Agreement update permission | Required to generate or delete generated documents. Agreement read access is enough to view and download existing documents. |
+| Stream document templates | The Documents tab can generate files only from active `fundingcaseagreement` templates on the agreement stream. |
+| Bilingual template files | Each stream template needs English and French source attachments. |
+| Local document generation tools | DOCX-to-PDF and HTML-to-PDF generation need LibreOffice/Puppeteer tooling. Local development can use the installer described in [Startup](../developer/startup.md). |
+| Agreement update permission | Required to generate and delete generated documents. Users with agreement read access can view and download generated documents. |
 
-## Generate flow
+## Tab flow
 
-The generate action captures:
+The Documents tab shows generated documents for the current agreement:
+
+| Column | Contents |
+| --- | --- |
+| Name | Template name in the current UI language. |
+| Language | Generated document language, English or French. |
+| Output format | `DOCX` or `PDF`. |
+| Generated at | Timestamp when the file was created. |
+| Actions | Download, and delete when the user can update the agreement. |
+
+Generated document rows are retained separately from the source template. Deleting a generated document removes it from the normal list without deleting the stream template.
+
+## Generate modal
+
+The Generate action opens a modal with:
 
 | Field | Rule |
 | --- | --- |
-| Template | Selected from active templates for the agreement's stream. |
-| Language | English or French. Defaults from the current UI language. |
-| Output format | Must be one of the selected template's allowed formats. |
+| Document template | Active template for the agreement stream and entity type `fundingcaseagreement`. |
+| Language | English or French. The default follows the current UI locale. |
+| Output format | Limited to the selected template's configured output formats. |
 
-Generated records show name, language, output format, generated date, and actions. Download returns the generated attachment. Delete soft-deletes the generated document record and removes it from the normal list.
+DOCX templates can generate DOCX or PDF when those output formats are enabled. HTML templates generate PDF only.
 
-## Template data
+## Template context
 
-Document templates can use agreement context tags. DOCX templates support normalized double-brace tags such as `agreement.number` and section loops such as `# activities` and `/ activities`. HTML templates use the same tag syntax and render to PDF.
+Generation builds a document context from the agreement and related records, including agreement, agency, department, program, stream, primary recipient, all recipients, addresses, activities, outcomes, budgets and budget line items, commitments, payments, claims, and forecasts. Missing values render as a language-specific fallback so generation can complete even when optional data is absent.
 
-The built-in agreement context includes agreement, agency, department, program, stream, primary recipient, all recipients, budget summaries and line items, activities, outcomes, commitments, payments, claims, and forecasts. Missing values render as a language-specific fallback instead of failing the document.
+DOCX templates use docxtemplater-style tags such as `agreement.number` and section loops such as `# activities` and `/ activities`. HTML templates use the same context for field replacements and collection loops before rendering to PDF.
 
-## Output formats
+## Download and delete
 
-DOCX templates can generate DOCX or PDF when those formats are enabled on the template. HTML templates generate PDF only.
+Download streams the stored generated attachment using the saved filename from generation. Delete is available only to users who can update the agreement and soft-deletes the generated document record.

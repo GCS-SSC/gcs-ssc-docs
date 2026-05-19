@@ -20,7 +20,7 @@ Les routes sont generees par les pages Nuxt et localisees par Nuxt i18n. Utilise
 - Detail utilisateur : `/en/users/[id]`, `/fr/utilisateurs/[id]`
 - Commun : `/en/admin/common`, `/fr/admin/commun`
 
-Des routes d entente et d enfants de programme existent aussi pour engagements, paiements, previsions, reclamations, surveillances, schemas d evaluation, modeles d approbation et evaluations.
+Des routes d entente et d enfants de programme existent aussi pour engagements, paiements, previsions, reclamations, surveillances, documents generes, schemas d evaluation, modeles d approbation, modeles de documents et evaluations.
 
 ## Aide de route
 
@@ -47,4 +47,10 @@ Les pages detail complexes utilisent un etat d onglet soutenu par la requete ave
 
 ## Routes d extension
 
-Les gestionnaires serveur d extension sont servis sous `/api/extensions/{extensionKey}/...`. L hote resout les parametres, le contexte d entite RBAC optionnel, l activation agence/volet et la configuration avant d executer le gestionnaire d extension.
+Les gestionnaires serveur d extension sont servis sous `/api/extensions/{extensionKey}/...`. L hote resout les parametres de route puis repartit vers le gestionnaire d extension correspondant.
+
+Pour les gestionnaires avec RBAC, l hote resout le parametre d entite, de volet ou d agence declare avant d executer le code d extension. Il verifie l authentification/RBAC, l activation agence et volet, ainsi que la configuration d extension resolue, puis attache le contexte stable pour `defineGcsExtensionRouteHandler` : parametres, contexte auth, config, contexte entite/volet/agence et portee autorisee.
+
+Les gestionnaires avec `auth: "manual"` sautent le contexte RBAC de l hote et doivent faire leur propre autorisation metier.
+
+La configuration pleine page de volet d extension utilise `/en/extension/[id]/config` et `/fr/extension/[id]/configuration` avec les parametres de requete `streamId`, `transferPaymentId` et `agencyId`.

@@ -13,6 +13,7 @@ Une installation vide doit etre configuree avant que la creation d entente puiss
 | Configuration du volet | Budgets du volet par exercice d agence, associations de sous-types d entente, engagements du volet, cotes de risque si la cote est utilisee, resultats, types de surveillance, modeles de document facultatifs et modeles d approbation facultatifs. |
 | Demandeur/beneficiaire | Au moins un profil actif de demandeur/beneficiaire. La creation exige un ou plusieurs identifiants. |
 | Flux commun | La completion est disponible pour les types d entite d execution pris en charge. Les sections d approbation apparaissent seulement lorsque l etat du dossier et un modele valide du volet le permettent. |
+| Modeles de documents | Requis seulement lorsque la generation de documents d entente sera utilisee depuis l onglet Documents. |
 
 ## Pages liste et creation
 
