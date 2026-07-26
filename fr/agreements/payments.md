@@ -1,66 +1,70 @@
-# Paiements d entente
+# Paiements d’entente
 
-Les paiements enregistrent des demandes de paiement prevues ou reelles contre des engagements actifs et approuves. Les lignes de paiement ventilent le montant du paiement vers des lignes d engagement approuvees.
+Les paiements consignent les demandes de paiement prévues ou réelles associées à des engagements actifs et approuvés. Les lignes de paiement répartissent le montant du paiement entre les lignes d’engagement approuvées.
 
-## Configuration d une installation vide
+## Configuration d’une installation vide
 
-| Configuration | Utilite |
+| Configuration | Importance |
 | --- | --- |
-| Exercices budgetaires de l entente | Les exercices de paiement viennent du budget d entente. |
-| Engagement actif et approuve | La creation exige un engagement actif et approuve du type choisi. |
-| Lignes d engagement | Les lignes de paiement choisissent les lignes admissibles de l engagement et de l exercice. |
-| Modele d approbation `fundingcasepayment` | Requis si les paiements completes doivent etre approuves. |
-| Extension facultative de calcul de montant | Peut suggerer un montant, appliquer un plafond ou remplacer la creation. |
+| Exercices du budget de l’entente | Les exercices des paiements sont sélectionnés parmi les exercices du budget de l’entente. |
+| Engagement actif et approuvé | La création d’un paiement nécessite un engagement actif et approuvé du type d’engagement sélectionné. |
+| Lignes d’engagement | Les lignes de paiement sélectionnent les lignes d’engagement admissibles pour l’engagement et l’exercice du paiement. |
+| Modèle d’approbation pour `fundingcasepayment` | Requis lorsque les paiements achevés doivent suivre un processus d’approbation. |
+| Extension facultative de calcul du montant des paiements | Les extensions peuvent suggérer des montants, imposer des plafonds ou remplacer les actions de création. |
 
-## Flux d onglet
+## Déroulement de l’onglet
 
-L onglet affiche le type, le statut, l exercice, la periode, le commentaire, le montant et le nombre de lignes. La recherche inclut le texte de commentaire visible.
+L’onglet Paiements affiche le type de paiement, l’état, l’exercice prévu, la période, le commentaire, le montant et le nombre de lignes. La recherche porte notamment sur le texte visible du commentaire.
 
-La creation saisit :
+La création d’un paiement saisit les renseignements suivants :
 
-| Champ | Regle |
+| Champ | Règle |
 | --- | --- |
-| Type d engagement | Requis. L entente doit avoir un engagement actif et approuve de ce type. |
-| Exercice | Requis. Doit etre un exercice budgetaire de l entente. |
+| Type d’engagement | Requis. L’entente doit avoir un engagement actif et approuvé de ce type. |
+| Exercice | Requis. Doit être un exercice du budget de l’entente. |
 | Type de paiement | `reimbursement` ou `advance`. |
-| Debut/fin de periode | Mois fiscaux avril a mars, codes 0 a 11. La fin ne peut pas preceder le debut. |
-| Montant | Montant positif requis. |
-| Commentaire | Facultatif. Les blancs deviennent null. |
+| Début et fin de la période | Mois de l’exercice, d’avril à mars, encodés de 0 à 11. La fin ne peut pas précéder le début. |
+| Montant du paiement | Valeur monétaire positive requise. |
+| Commentaire | Facultatif. Les commentaires vides sont convertis en valeur nulle. |
 
-Les nouveaux paiements de base sont `draft`. Les extensions peuvent remplacer l insertion apres validation.
+Les nouveaux paiements principaux sont créés à l’état `draft`. Les hooks d’opération de création d’une extension peuvent remplacer l’insertion principale après la réussite de la validation.
 
-## Page de detail
+## Page de détails
 
-La page de detail montre le contexte du paiement, les lignes, la completion et l approbation. Utilisez-la pour repartir le montant du paiement sur les lignes d engagement admissibles avant de completer le paiement.
+La page de détails du paiement affiche le contexte du paiement, les lignes de paiement, l’achèvement et l’approbation. Utilisez-la pour répartir le montant du paiement entre les lignes d’engagement admissibles avant d’achever le paiement.
 
 ## Lignes de paiement
 
-| Champ | Regle |
+| Champ | Règle |
 | --- | --- |
-| Paiement | Identifiant du paiement courant. |
-| Ligne d engagement | Requise. Le selecteur offre seulement les lignes qui correspondent a l engagement approuve et a l exercice du paiement. |
-| Montant | Montant positif requis. |
+| Paiement | Défini par la page de détails du paiement actuel. |
+| Ligne d’engagement | Requise. Le sélecteur offre seulement les lignes d’engagement qui correspondent à l’engagement approuvé et à l’exercice du paiement. |
+| Montant | Valeur monétaire positive requise. |
 
-Le tableau de detail affiche le numero de ligne d engagement, l exercice, le codage financier et le montant de ligne de paiement. Le codage financier inclut le fonds comme valeur principale ainsi que GL, centre financier, ordre interne, domaine fonctionnel et centre de couts lorsqu ils existent. Le total de detail compare le total des lignes au montant du paiement.
+Le tableau de détails affiche le numéro de la ligne d’engagement, l’exercice, le codage financier et le montant de la ligne de paiement. Le codage financier présente le fonds comme valeur principale, ainsi que le grand livre, le centre financier, l’ordre interne, le domaine fonctionnel et le centre de coûts lorsqu’ils sont présents. Le total de la page de détails compare le total des lignes de paiement au montant du paiement.
 
-## Regles d affaires
+## Règles opérationnelles
 
-| Regle | Comportement |
+| Règle | Comportement |
 | --- | --- |
-| Creation avec engagement actif approuve seulement | Sans engagement approuve actif du type choisi, la creation est rejetee. |
-| L exercice doit appartenir au budget d entente | Les exercices invalides sont rejetes. |
-| La ligne doit correspondre au contexte du paiement | Les lignes hors engagement ou hors exercice sont rejetees. |
-| Le montant ne peut pas depasser le solde d engagement | Le total des lignes de paiement pour une ligne d engagement ne peut pas depasser le solde restant de cette ligne. |
-| Etats verrouilles | `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed` et `paid` sont en lecture seule. |
-| La modification d un brouillon passe a en cours | Les changements de lignes synchronisent `draft` a `inprogress`. |
-| La completion exige un total exact | Le total des lignes doit etre positif et egal au montant du paiement. |
+| La création d’un paiement nécessite un engagement actif et approuvé | Si aucun engagement du type sélectionné n’est actif et approuvé, la création est rejetée. |
+| L’exercice doit appartenir au budget de l’entente | Les exercices non valides sont rejetés. |
+| La ligne de paiement doit correspondre à l’engagement et à l’exercice du paiement | Les lignes d’engagement qui ne correspondent pas au contexte du paiement sont rejetées. |
+| Le montant d’une ligne de paiement ne peut pas dépasser le solde de l’engagement | Le total des lignes de paiement associées à une ligne d’engagement ne peut pas dépasser le solde restant de cette ligne d’engagement. |
+| Les états verrouillés empêchent les modifications | Les paiements à l’état `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed` ou `paid` sont en lecture seule. |
+| La modification d’un paiement en brouillon le fait passer à l’état en cours | La modification des lignes fait passer les paiements à l’état `draft` à l’état `inprogress`. |
+| L’achèvement nécessite un total exact des lignes | Le paiement ne peut pas être achevé à moins que le total de ses lignes soit positif et corresponde exactement à son montant. |
 
-## Completion et approbation
+## Achèvement et approbation
 
-Type d entite : `fundingcasepayment`.
+Type d’entité d’achèvement : `fundingcasepayment`.
 
-La completion stocke le commentaire commun. Avec un modele valide, le paiement passe a `pendingapproval`; sans modele, il passe a `complete`. La section d approbation apparait pour `pendingapproval`, `approved` et `denied`.
+L’achèvement d’un paiement enregistre le commentaire d’achèvement commun. Lorsqu’un modèle d’approbation valide pour `fundingcasepayment` existe, le paiement passe à l’état `pendingapproval`; sinon, il passe à l’état `complete`.
 
-## Extensions
+La section d’approbation s’affiche pour les paiements à l’état `pendingapproval`, `approved` ou `denied`. Les actions d’approbation font progresser l’état du paiement au moyen de la feuille d’acheminement commune. Les états opérationnels ultérieurs, comme `pay`, `wait`, `processed` et `paid`, sont verrouillés dans l’interface de l’entente.
 
-La creation de paiement peut etre remplacee ou completee par des actions d extension. Un calculateur de montant peut retourner un montant suggere, un plafond, une devise, des details de calcul, des erreurs, un etat de chargement et des donnees propres a l extension. Le formulaire bloque l enregistrement si le montant depasse le plafond.
+## Points d’extension
+
+La création d’un paiement peut être remplacée ou complétée par des actions de création d’extensions enregistrées. Une extension de calcul du montant des paiements peut retourner un montant suggéré, un montant maximal, une devise, des détails de calcul, un état de chargement, des erreurs et des données propres à l’extension. Le formulaire empêche l’enregistrement lorsque le montant saisi dépasse le plafond établi par le calculateur.
+
+Consultez [Paiements automatisés](../extensions/automated-payments.md) pour les plafonds fondés sur les réclamations, les prévisions, les engagements et les retenues. [Répartition des coûts par résultat](../extensions/outcome-cost-allocation.md) peut générer des lignes de paiement pour les engagements qu’elle gère.

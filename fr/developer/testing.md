@@ -10,12 +10,26 @@ Depuis `../gcs-ssc` :
 bun run lint
 bun run typecheck
 bun run test:unit
+bun run test:integration:postgres
 bun run test:e2e
 bun run test:e2e:light
 bun run test:e2e:light:spec --spec tests/e2e/auth.spec.ts
 ```
 
-`bun run test` execute les suites unitaires et e2e. `test:all:manual` execute aussi lint, typecheck, couverture et e2e.
+`bun run test` exécute les suites unitaires et de bout en bout. `test:all:manual` exécute aussi l’analyse statique, la vérification des types, la couverture, l’agrégat PostgreSQL facultatif et les tests de bout en bout.
+
+### Agrégat PostgreSQL manuel
+
+Les suites de concurrence nécessitent la sémantique réelle de PostgreSQL et sont volontairement exclues de l’intégration continue automatique des demandes de tirage. Configurez trois URL explicites dont le nom de base de données se termine par `_test`, puis exécutez l’agrégat :
+
+```bash
+AGREEMENT_CONCURRENCY_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
+GCFORMS_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
+OUTCOME_ALLOCATION_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
+bun run test:integration:postgres
+```
+
+Les suites de concurrence des ententes principales, du cycle de vie de GC Forms et de la répartition par résultat s’exécutent l’une après l’autre et peuvent partager une même base de données jetable réservée aux tests dont le nom se termine par `_test`. Puisque `test:all:manual` appelle cet agrégat, les trois mêmes variables doivent être définies avant l’exécution de la vérification manuelle complète.
 
 ## Zones couvertes par les tests
 
@@ -31,6 +45,7 @@ La couverture pertinente inclut :
 - Configuration, schemas, routes, recherches et i18n de Commun.
 - Routes demandeur/beneficiaire, onglets enfants, routes d equipe, execution d examens et RBAC.
 - Activation d extension par agence, configuration de volet, emplacements d execution, onglets d entite, repartition serveur, migrations et SDK.
+- Ordre de l’autorisation des écritures protégées et des verrous du cycle de vie sous concurrence PostgreSQL.
 - Execution bilingue et erreurs/validations localisees.
 
 ## Choisir les tests pour admin/RBAC

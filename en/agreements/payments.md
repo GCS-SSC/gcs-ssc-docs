@@ -66,3 +66,5 @@ The approval section appears for `pendingapproval`, `approved`, and `denied` pay
 ## Extension points
 
 Payment creation can be replaced or extended by registered extension create actions. A payment amount calculator extension can return a suggested amount, a ceiling amount, currency, calculation details, loading state, errors, and extension-specific data. The form prevents saving when the entered amount exceeds the calculator ceiling.
+
+See [Automated Payments](../extensions/automated-payments.md) for claim-, forecast-, commitment-, and holdback-based ceilings. [Outcome Cost Allocation](../extensions/outcome-cost-allocation.md) can generate payment lines for commitments it manages.

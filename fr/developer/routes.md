@@ -41,6 +41,20 @@ await navigateTo(localePath(appRouteLocations.proponentEdit(id)))
 
 Les routes API sont sous `server/api`. Les fichiers dynamiques comme `[id].get.ts`, `[id].patch.ts` et `[id].delete.ts` correspondent aux methodes HTTP. L autorisation doit se faire avant mutation et devrait resoudre la portee depuis le dossier cible lorsque possible.
 
+## Écritures serveur protégées
+
+Les écritures protégées qui peuvent attendre des verrous du cycle de vie ou d’entité respectent un ordre global dans une seule transaction :
+
+1. Verrouiller et reconstruire le graphe actuel des autorisations de l’appelant.
+2. Acquérir les verrous enregistrés du cycle de vie des extensions dans un ordre déterministe selon l’extension, l’agence et le volet.
+3. Verrouiller les lignes des volets actuels.
+4. Acquérir les verrous d’entente enregistrés par les extensions.
+5. Verrouiller la ligne de l’entente et résoudre de nouveau sa portée actuelle.
+6. Autoriser l’entité actuelle au moyen du graphe d’autorisations verrouillé.
+7. Relire l’état protégé et effectuer l’écriture.
+
+Utilisez `requireFreshAuthContext` avant les verrous du domaine et `authorizeWithFreshAuthContext` après le verrouillage de la portée actuelle. L’appel d’une aide qui acquiert de nouveau les verrous des tables d’autorisation après les verrous du cycle de vie, du volet ou de l’entité inverse l’ordre des écritures protégées et peut créer un interblocage avec les modifications de rôles ou d’affectations. Un changement de portée doit être réessayé au moyen de l’aide partagée d’écriture d’entente ou échouer sans effectuer d’écriture.
+
 ## Onglets par route
 
 Les pages detail complexes utilisent un etat d onglet soutenu par la requete avec les composables d onglets. Cela rend les liens vers des sections stables tout en gardant la route centree sur l id d entite. Lors de l ajout d onglets, fournissez des valeurs stables et des libelles localises.
@@ -49,7 +63,9 @@ Les pages detail complexes utilisent un etat d onglet soutenu par la requete ave
 
 Les gestionnaires serveur d extension sont servis sous `/api/extensions/{extensionKey}/...`. L hote resout les parametres de route puis repartit vers le gestionnaire d extension correspondant.
 
-Pour les gestionnaires avec RBAC, l hote resout le parametre d entite, de volet ou d agence declare avant d executer le code d extension. Il verifie l authentification/RBAC, l activation agence et volet, ainsi que la configuration d extension resolue, puis attache le contexte stable pour `defineGcsExtensionRouteHandler` : parametres, contexte auth, config, contexte entite/volet/agence et portee autorisee.
+Pour les gestionnaires avec RBAC, l’hôte résout le paramètre d’entité, de volet ou d’agence déclaré avant d’exécuter le code de l’extension. Il vérifie l’authentification et le contrôle d’accès, l’activation pour l’agence et le volet ainsi que la configuration résolue de l’extension, puis joint le contexte stable pour `defineGcsExtensionRouteHandler` : paramètres, contexte d’authentification, configuration, contexte d’entité, de volet ou d’agence, portée autorisée, `writeAuthorization` et aides filtrées `agreementAccess`.
+
+Les transactions d’écriture d’une extension appellent `writeAuthorization.lockAuthState(trx)` avant les verrous du cycle de vie, puis `authorizeCurrentScope(trx)` ou la solution de compatibilité `authorizeCurrentEntity(trx)` après ces verrous. Les routes qui présentent des choix d’entente utilisent `agreementAccess.listVisibleOptions(...)`; les écritures visant l’entente sélectionnée doivent aussi utiliser `lockAndAuthorizeAgreement(...)` dans la même transaction.
 
 Les gestionnaires avec `auth: "manual"` sautent le contexte RBAC de l hote et doivent faire leur propre autorisation metier.
 

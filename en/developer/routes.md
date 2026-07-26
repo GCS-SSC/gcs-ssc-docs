@@ -41,6 +41,20 @@ await navigateTo(localePath(appRouteLocations.proponentEdit(id)))
 
 API routes live under `server/api`. Dynamic files such as `[id].get.ts`, `[id].patch.ts`, and `[id].delete.ts` map to HTTP methods. Authorization should happen before data mutation and should resolve scope from the target record when possible.
 
+## Protected server writes
+
+Protected writes that can wait on lifecycle or entity locks use one global order in a single transaction:
+
+1. Lock and rebuild the caller’s current authorization grant graph.
+2. Acquire registered extension lifecycle locks in deterministic extension, agency, and stream order.
+3. Lock the current stream rows.
+4. Acquire registered extension agreement locks.
+5. Lock the agreement row and re-resolve its current scope.
+6. Authorize the current entity with the locked grant graph.
+7. Re-read protected state and perform the write.
+
+Use `requireFreshAuthContext` before domain locks and `authorizeWithFreshAuthContext` after the current scope is locked. Calling a helper that reacquires authorization-table locks after lifecycle, stream, or entity locks inverts the protected-write order and can deadlock with role or assignment changes. Scope drift must retry through the shared agreement-write helper or fail without writing.
+
 ## Tab routing
 
 Complex detail pages use a query-backed tab state through route tab composables. This makes links to sections stable while keeping the page route focused on the entity id. When adding tabs, provide stable values and localized labels.
@@ -49,7 +63,9 @@ Complex detail pages use a query-backed tab state through route tab composables.
 
 Extension server handlers are dispatched under `/api/extensions/{extensionKey}/...`. The host resolves route params and then dispatches to the matching extension handler.
 
-For handlers with RBAC, the host resolves the declared entity, stream, or agency param before extension code runs. It checks auth/RBAC, agency and stream enablement, and resolved extension config, then attaches stable context for `defineGcsExtensionRouteHandler`: params, auth context, config, entity/stream/agency context, and authorized scope.
+For handlers with RBAC, the host resolves the declared entity, stream, or agency param before extension code runs. It checks auth/RBAC, agency and stream enablement, and resolved extension config, then attaches stable context for `defineGcsExtensionRouteHandler`: params, auth context, config, entity/stream/agency context, authorized scope, `writeAuthorization`, and filtered `agreementAccess` helpers.
+
+Extension write transactions call `writeAuthorization.lockAuthState(trx)` before lifecycle locks, then `authorizeCurrentScope(trx)` or the compatibility `authorizeCurrentEntity(trx)` after those locks. Agreement-selection routes use `agreementAccess.listVisibleOptions(...)`; writes to the selected agreement must additionally use `lockAndAuthorizeAgreement(...)` in the same transaction.
 
 Handlers with `auth: "manual"` skip host RBAC context and must perform their own domain authorization.
 

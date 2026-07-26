@@ -17,6 +17,8 @@ The Commitments tab summarizes each commitment, its line count, and its total li
 
 Creating a commitment starts with a commitment type. New commitments are created in draft status, without a financial system number, and without a parent amount. Extension actions may add agency-specific creation choices when configured.
 
+When [Outcome Cost Allocation](../extensions/outcome-cost-allocation.md) is enabled for a commitment type, its action replaces core creation and generates lines from the active allocation version and stream mappings.
+
 Commitment types are `commitment`, `paye`, `paye2`, and `pyp`.
 
 ## Detail page

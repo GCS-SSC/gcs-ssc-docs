@@ -2,11 +2,13 @@
 
 Extensions add local, versioned functionality to GCS-SSC. They can add agency and stream configuration, extra tabs, extra page sections, specialized create actions, payment amount calculators, server routes, public assets, extension-owned data, encrypted secrets, and bilingual messages.
 
+See [Installed Extensions](../extensions/index.md) for the packages currently included with GCS-SSC and their operating rules. Developers should use [Authoring Extensions](../developer/extensions-authoring.md).
+
 ## Registration
 
 Installed extensions are discovered when the application starts. Administrators do not create extension definitions in the UI; they enable and configure extensions that have already been installed with the application.
 
-The host validates each extension's declared `sdkVersion` and `requiredHostCapabilities` before exposing it. An extension that uses a feature without declaring the matching host capability, or that targets an unsupported SDK version, fails startup validation instead of appearing partially configured.
+The host validates each extension's declared `sdkVersion` and `requiredHostCapabilities` before exposing it. Startup validation rejects unsupported SDK versions, unknown capabilities, and undeclared capabilities that can be inferred from manifest fields. It does not inspect implementation code for uses such as API clients, key-value storage, secrets, or create-operation hooks; extension authors must audit and declare those code-only dependencies.
 
 ## Agency enablement
 
@@ -64,4 +66,6 @@ Extension config and extension key-value data are not secret stores. Config can 
 
 The GC Forms integration is an installed extension that can connect GC Forms submissions to GCS field mappings. Agency configuration stores credential metadata and encrypted private keys. Stream configuration stores the selected credential, GC Forms endpoint details, form id, confirmation behavior, and destination mappings.
 
-The current materializer is claims-first: it can create draft agreement claims and optional claim line items, then link the generated GCS records back to the GC Forms submission. Sync checks the saved GC Forms template shape before reading submissions; if the live form shape changed, users must refresh the template, review mappings, save configuration, and run sync again.
+The current materializer is claims-first: it can create submitted agreement claims and optional submitted claim line items, then link the generated GCS records back to the GC Forms submission. Imported lines without a valid budget-line match remain unallocated and can be assigned to a compatible agreement budget line while the claim is submitted. Sync checks the saved GC Forms template shape before reading submissions; if the live form shape changed, users must refresh the template, review mappings, save configuration, and run sync again. Unsupported destinations are then handled per submission after fetch, decryption, and integrity verification. The extension persists the normalized answers, attachments, and a stable `unsupported_destination` issue for each unsupported mapping, skips claim creation and confirmation for that submission, and continues processing the run.
+
+For configuration and recovery details, see [GC Forms Integration](../extensions/gc-forms.md).
