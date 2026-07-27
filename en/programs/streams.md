@@ -111,6 +111,8 @@ Stream budgets allocate part of a program fiscal-year budget to the stream. Each
 
 Configure program budgets before stream budgets. Agreement funding and commitment setup depend on the fiscal-year budget structure being present.
 
+The program-budget selector searches budgets from the current program and displays their fiscal-year labels. When editing an existing stream budget, its saved program budget is resolved by id so the label remains visible even when it is outside the current results page.
+
 ## Eligible Recipients Tab
 
 Eligible recipients define which agency applicant recipient subtypes can be used for the stream. Each row selects one agency applicant recipient subtype.

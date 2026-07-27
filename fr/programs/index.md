@@ -132,6 +132,8 @@ Les budgets de programme repartissent le financement par exercice financier de l
 
 Chaque budget de programme peut ensuite etre reference par des budgets de volet. Configurez les budgets du programme avant les budgets de volet, les engagements ou toute configuration d entente dependante de l exercice financier.
 
+Le selecteur d exercice financier recherche les exercices disponibles de l agence du programme. Lors de la modification d un budget, l exercice enregistre est resolu vers son libelle d affichage meme s il ne figure pas sur la page de resultats courante; les dossiers hors de la portee de l agence du programme ne peuvent pas etre selectionnes.
+
 ## Onglet Indicateurs De Rendement
 
 Les indicateurs de rendement sont crees sous les resultats. Chaque indicateur contient:
