@@ -14,7 +14,7 @@ L onglet Promoteurs lie des profils de demandeur/beneficiaire a une entente. Le 
 
 L onglet liste les promoteurs lies a l entente. Le selecteur offre les profils de promoteur que l utilisateur peut rattacher.
 
-Les resultats de recherche peuvent changer sans retirer la selection courante. Les promoteurs selectionnes ou preselectionnes sont resolus separement et conservent leur libelle bilingue meme s ils ne figurent pas sur la page de resultats courante. Si un profil enregistre ne peut plus etre resolu, la selection reste visible comme indisponible afin que l utilisateur puisse la retirer volontairement.
+Les resultats de recherche peuvent changer sans retirer la selection courante. Les promoteurs selectionnes ou preselectionnes sont resolus separement et conservent leur libelle bilingue meme s’ils ne figurent pas sur la page de resultats courante. Si un profil enregistre ne peut plus etre resolu, la selection reste visible comme indisponible afin que l’utilisateur puisse la retirer volontairement.
 
 La table affiche :
 

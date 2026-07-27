@@ -18,7 +18,7 @@ Un role peut etre :
 
 Le formulaire offre l option globale seulement lorsque l utilisateur courant peut creer des roles a portee globale. La selection de programme apparait seulement apres le choix d une agence. Les options de programme sont chargees depuis les paiements de transfert filtres par agence.
 
-Les selecteurs d agence et de programme recherchent tous les dossiers accessibles a l administrateur courant, et non seulement la premiere page. Lors de la modification d un role, les selections enregistrees sont resolues vers leur nom d affichage meme si elles ne figurent pas dans les resultats courants. Un programme qui n existe plus ou qui n est plus disponible dans la portee du role est indique comme indisponible. Un echec de chargement temporaire affiche une action Reessayer sans retirer la selection enregistree.
+Les selecteurs d’agence et de programme recherchent tous les dossiers accessibles a l’administrateur courant, et non seulement la premiere page. Lors de la modification d’un role, les selections enregistrees sont resolues vers leur nom d’affichage meme si elles ne figurent pas dans les resultats courants. Un programme qui n’existe plus ou qui n’est plus disponible dans la portee du role est indique comme indisponible. Un echec de chargement temporaire affiche une action Reessayer sans retirer la selection enregistree.
 
 ## Regles de portee
 

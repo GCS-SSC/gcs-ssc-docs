@@ -111,7 +111,7 @@ Les budgets de volet allouent une partie d un budget d exercice financier du pro
 
 Configurez les budgets du programme avant les budgets de volet. Le financement des ententes et la configuration des engagements dependent de la structure d exercice financier.
 
-Le selecteur de budget de programme recherche les budgets du programme courant et affiche leur libelle d exercice financier. Lors de la modification d un budget de volet, son budget de programme enregistre est resolu par identifiant afin que le libelle reste visible meme s il ne figure pas sur la page de resultats courante.
+Le selecteur de budget de programme recherche les budgets du programme courant et affiche leur libelle d’exercice financier. Lors de la modification d’un budget de volet, son budget de programme enregistre est resolu par identifiant afin que le libelle reste visible meme s’il ne figure pas sur la page de resultats courante.
 
 ## Onglet Destinataires Admissibles
 
