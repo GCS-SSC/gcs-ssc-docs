@@ -18,6 +18,8 @@ Un role peut etre :
 
 Le formulaire offre l option globale seulement lorsque l utilisateur courant peut creer des roles a portee globale. La selection de programme apparait seulement apres le choix d une agence. Les options de programme sont chargees depuis les paiements de transfert filtres par agence.
 
+Après la création, la portée parente du rôle est fixe : un rôle global demeure global et un rôle d’agence demeure lié à son agence d’origine. En mode modification, le sélecteur global/agence est désactivé. Un rôle d’agence peut tout de même passer d’une portée d’agence à une portée de programme, ou l’inverse, en ajoutant ou en retirant des programmes de cette agence, pourvu que ses capacités soient valides pour la portée obtenue. Les capacités `agency` doivent être retirées avant de faire passer le rôle à une portée de programme.
+
 Les selecteurs d’agence et de programme recherchent tous les dossiers accessibles a l’administrateur courant, et non seulement la premiere page. Lors de la modification d’un role, les selections enregistrees sont resolues vers leur nom d’affichage meme si elles ne figurent pas dans les resultats courants. Un programme qui n’existe plus ou qui n’est plus disponible dans la portee du role est indique comme indisponible. Un echec de chargement temporaire affiche une action Reessayer sans retirer la selection enregistree.
 
 ## Regles de portee
@@ -53,7 +55,7 @@ Le detail de role contient :
 - General, avec noms bilingues, descriptions, agence et contexte de portee.
 - Capacites, avec cartes d interrupteurs pour les capacites permises.
 
-Le basculement d une capacite enregistre le role immediatement. Modifier la portee du role enregistre aussi la selection complete de programmes afin que la portee ne soit pas perdue par accident.
+Le basculement d une capacite enregistre le role immediatement. Lorsqu’un rôle d’agence est modifié, l’enregistrement de la sélection complète de programmes peut faire passer la portée effective de l’agence au programme, ou l’inverse, sans changer l’agence du rôle, pourvu que ses capacités restent valides pour la portée obtenue.
 
 ## Conception recommandee
 
