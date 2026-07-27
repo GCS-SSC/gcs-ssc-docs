@@ -44,6 +44,13 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
+        installedExtensions: 'Extensions installées',
+        installedOverview: 'Vue d’ensemble',
+        automatedPayments: 'Paiements automatisés',
+        gcForms: 'Intégration GC Forms',
+        narrativeQuality: 'Qualité narrative',
+        narrativeTags: 'Étiquettes narratives',
+        outcomeAllocation: 'Répartition des coûts par résultat',
         approvals: 'Approbations et completions',
         bilingualism: 'Bilinguisme',
         deletion: 'Suppression logique',
@@ -96,6 +103,13 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
+        installedExtensions: 'Installed Extensions',
+        installedOverview: 'Overview',
+        automatedPayments: 'Automated Payments',
+        gcForms: 'GC Forms Integration',
+        narrativeQuality: 'Narrative Quality',
+        narrativeTags: 'Narrative Tags',
+        outcomeAllocation: 'Outcome Cost Allocation',
         approvals: 'Approvals and Completions',
         bilingualism: 'Bilingualism',
         deletion: 'Soft Deletion',
@@ -186,6 +200,17 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.testing, link: `${p}developer/testing` },
         { text: labels.startup, link: `${p}developer/startup` }
       ]
+    },
+    {
+      text: labels.installedExtensions,
+      items: [
+        { text: labels.installedOverview, link: `${p}extensions/` },
+        { text: labels.automatedPayments, link: `${p}extensions/automated-payments` },
+        { text: labels.gcForms, link: `${p}extensions/gc-forms` },
+        { text: labels.narrativeQuality, link: `${p}extensions/narrative-quality` },
+        { text: labels.narrativeTags, link: `${p}extensions/narrative-tags` },
+        { text: labels.outcomeAllocation, link: `${p}extensions/outcome-cost-allocation` }
+      ]
     }
   ]
 }
@@ -207,10 +232,6 @@ export default defineConfig({
     }
   },
   locales: {
-    root: {
-      label: 'Language',
-      lang: 'en-CA'
-    },
     en: {
       label: 'English',
       lang: 'en-CA',
@@ -219,6 +240,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
+          { text: 'Extensions', link: '/en/extensions/' },
           { text: 'Francais', link: '/fr/' }
         ],
         sidebar: sharedSidebar('en')
@@ -232,6 +254,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/fr/' },
+          { text: 'Extensions', link: '/fr/extensions/' },
           { text: 'English', link: '/en/' }
         ],
         sidebar: sharedSidebar('fr')

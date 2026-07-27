@@ -13,9 +13,11 @@ Import SDK contracts from `@gcs-ssc/extensions`, server helpers from `@gcs-ssc/e
 | `defineGcsExtension` | Defines the extension manifest. |
 | `GCS_EXTENSION_SDK_VERSION` | Current host SDK version for manifest compatibility. |
 | `GcsExtensionJsonConfig` | Stream configuration JSON shape. |
+| `GcsClientExtensionManifest` | Client-safe manifest passed to extension UI components. |
 | `ExtensionEntityTabContext` | Props for entity tab components. |
+| `defineGcsExtensionRouteHandler` | Adapts a route to the stable SDK request context. |
+| `defineGcsExtensionNitroPlugin` | Defines a Nitro plugin without importing host globals. |
 | `defineGcsExtensionMigration` | Wraps Kysely migrations owned by the extension. |
-| `defineGcsExtensionRouteHandler` | Wraps extension server handlers with stable route context. |
 | `registerGcsExtensionCreateOperationHandler` | Hooks core commitment/payment create operations. |
 | `createGcsExtensionUserError` | Raises localized, user-facing extension errors from server code. |
 | KV helpers | Store extension-owned non-secret state by owner type, owner id, and key. |
@@ -64,7 +66,7 @@ export default defineGcsExtension({
 | --- | --- |
 | `key` | Stable extension key. Use lowercase kebab-case and never change it after data exists. |
 | `sdkVersion` | Required compatible SDK version range, such as `^0.1.0`. The host rejects unsupported versions. |
-| `requiredHostCapabilities` | Required list of host capabilities used by the manifest or code. The host rejects missing or unknown capabilities. |
+| `requiredHostCapabilities` | Required list of host capabilities used by the manifest or implementation. Use an empty list only when none are needed. See the startup-inference limits below. |
 | `name` | Required bilingual display name. |
 | `description` | Optional bilingual description for admin screens. |
 | `admin` | Agency config, stream config modal, or stream config page components. |
@@ -79,7 +81,7 @@ The host validates component, handler, asset, and migration paths so they stay i
 
 ## Supported Capabilities
 
-Declare every capability the extension depends on:
+Declare every capability the extension depends on. At startup, the host infers capabilities represented directly by `admin`, `client`, `serverHandlers`, `migrations`, `runtime`, `assets`, and `nitroPlugin` manifest fields; it rejects inferred-but-undeclared and unknown capabilities. The host does not inspect implementation imports or calls, so authors must separately audit code-only dependencies such as API clients, KV helpers, secret helpers, and create-operation hooks.
 
 | Capability | Use |
 | --- | --- |
@@ -223,6 +225,23 @@ Tab components receive:
 | Tabs require RBAC | The host checks the declared subject/action before rendering. |
 | Proponents without lead agency do not show tabs | Proponent tabs resolve enablement through the lead agency. |
 
+## SDK UI Boundary
+
+Import host-provided wrappers and composables from `@gcs-ssc/extensions/ui`. Do not import `~/`, `~~/`, `#imports`, `#app`, or `#gcs-*`, and do not use host component names directly in an extension template. Wrappers such as `ExtensionButton`, `ExtensionFormField`, `ExtensionSaveButton`, and `ExtensionTable` preserve host behaviour behind a versioned contract.
+
+Common exports include `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayoutCard`, `ExtensionSection`, `ExtensionSaveButton`, and `ExtensionStatusBadge`.
+
+Use `useExtensionApi(extensionKey)` for extension routes and `useHostApi()` for stable host routes. Declare `extension-api-client` or `host-api-client` in `requiredHostCapabilities` as applicable; do not assemble `/api` URLs or call `fetch` directly from components. The UI entry point also provides typed host integrations:
+
+| Helper | Contract |
+| --- | --- |
+| `useExtensionConfirmDialog` | Typed asynchronous confirmation options and boolean result. |
+| `useExtensionFetch<T>` | Reactive data, status, pending, error, and refresh refs. |
+| `useExtensionGroupedTableExpansion<Row>` | Shared grouping, expansion, row, and visibility state. |
+| `useExtensionI18n` / `useExtensionToast` | Stable host localization and notification boundaries. |
+
+The host installs the concrete UI runtime. Standalone tests can install SDK test stubs instead of mounting host internals.
+
 ## Server Handlers
 
 Use `serverHandlers` for authenticated extension endpoints:
@@ -256,7 +275,7 @@ export default defineGcsExtensionRouteHandler(async ({ db, params, config, entit
 })
 ```
 
-The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `stream`, `agency`, `authorizedScope`, `readBody`, and `getHeader`. `context.event` remains available as an escape hatch, but normal handlers should not read host H3 internals directly.
+The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `stream`, `agency`, `authorizedScope`, `writeAuthorization`, `agreementAccess`, `readBody`, and `getHeader`. `context.event` remains available as an escape hatch, but normal handlers should not read host H3 internals directly.
 
 | Rule | Behaviour |
 | --- | --- |
@@ -267,13 +286,33 @@ The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `s
 | Validate all input | Extension handlers are responsible for request validation. |
 | Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing when the host has not already done so. |
 
-## UI Runtime
+Protected extension writes use the host-provided `writeAuthorization` protocol. It separates fresh authorization into two phases so authorization-table locks are never acquired after extension or entity locks. A write handler must reject a missing protocol before entering transactional business logic:
 
-`@gcs-ssc/extensions/ui` exposes host-provided wrappers and composables. Use these instead of importing Nuxt UI or host `Common*` components directly.
+```ts
+import { defineGcsExtensionRouteHandler } from '@gcs-ssc/extensions/server'
 
-Common exports include `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayoutCard`, `ExtensionSection`, `ExtensionSaveButton`, `ExtensionStatusBadge`, `useExtensionI18n`, `useExtensionToast`, `useExtensionFetch`, `useExtensionApi`, `useHostApi`, and `useExtensionGroupedTableExpansion`.
+export default defineGcsExtensionRouteHandler(async context => {
+  const writeAuthorization = context.writeAuthorization
+  if (!writeAuthorization) {
+    throw new Error('Transaction-bound extension authorization is required for this write.')
+  }
 
-Use `useExtensionApi(extensionKey)` for extension-owned routes under `/api/extensions/{extensionKey}`. Use `useHostApi()` only for stable host API routes and declare `host-api-client` when doing so.
+  // Inside the extension-owned transaction:
+  // await writeAuthorization.lockAuthState(trx)
+  // Acquire agency/stream lifecycle locks and any required entity locks.
+  // const authorizeCurrentScope = writeAuthorization.authorizeCurrentScope
+  // if (authorizeCurrentScope) {
+  //   await authorizeCurrentScope(trx)
+  // } else {
+  //   await writeAuthorization.authorizeCurrentEntity(trx)
+  // }
+  // Re-read protected state and perform the write only after both phases.
+})
+```
+
+The required order is `lockAuthState(trx)`, registered agency/stream lifecycle locks, current-scope or current-entity authorization, then protected reads and writes. Prefer `authorizeCurrentScope`; `authorizeCurrentEntity` remains the compatibility fallback. Treat a missing protocol, a rejected phase, or scope drift as fatal and let the error leave the transaction callback so every protected write rolls back.
+
+Routes that expose agreement choices must call `context.agreementAccess.listVisibleOptions(db, { streamId, action })`; the host applies agreement role and team visibility and returns active agreements only. When a transaction writes an agreement-owned record selected through such a route, require `writeAuthorization.lockAndAuthorizeAgreement` and call it after lifecycle locks and current-route authorization. A missing callback is fatal. The host locks the agreement, re-resolves its active stream, and performs fresh agreement authorization in the same transaction. A `false` result means that the agreement is inactive or no longer belongs to the requested stream; authorization denial is thrown.
 
 ## Create Actions
 
@@ -310,9 +349,12 @@ If more than one enabled extension replaces the same operation, the host blocks 
 Server-side create hooks belong in a Nitro plugin:
 
 ```ts
-import { registerGcsExtensionCreateOperationHandler } from '@gcs-ssc/extensions/server'
+import {
+  defineGcsExtensionNitroPlugin,
+  registerGcsExtensionCreateOperationHandler
+} from '@gcs-ssc/extensions/server'
 
-export default defineNitroPlugin(nitroApp => {
+export default defineGcsExtensionNitroPlugin(nitroApp => {
   registerGcsExtensionCreateOperationHandler(
     'gcs-example',
     'agreement.payments.create',
@@ -367,6 +409,26 @@ The host root encryption key is `GCS_EXTENSION_SECRETS_KEY`, a base64-encoded 32
 
 Encrypted secret helpers are exposed from `@gcs-ssc/extensions/server`: `setEncryptedExtensionSecret`, `getEncryptedExtensionSecret`, and `deleteEncryptedExtensionSecret`.
 
+## Lifecycle Locks And Guards
+
+Extensions that generate durable records from configuration must coordinate with host lifecycle changes. All lifecycle helpers require an active Kysely `Transaction`; passing a root `Kysely` client is intentionally a type error because transaction advisory locks would be released after each statement.
+
+After `writeAuthorization.lockAuthState(trx)`, call `lockGcsExtensionLifecycleScope(trx, extensionKey, agencyId, streamId)` before extension/entity locks. The canonical domain order is agency scope, stream scope, then extension-specific or entity locks. Re-read configuration after locking, call `authorizeCurrentScope(trx)` or its `authorizeCurrentEntity` compatibility fallback, and only then read or mutate protected state.
+
+Register lifecycle hooks from `defineGcsExtensionNitroPlugin`:
+
+| Registration | Use |
+| --- | --- |
+| `registerGcsExtensionDisableGuard` | Veto agency or stream disablement when extension-owned state still requires runtime support. |
+| `registerGcsExtensionAgreementLifecycleLock` | Acquire extension agreement locks before the host agreement row lock. |
+| `registerGcsExtensionAgreementStreamChangeGuard` | Reject a stream move that would invalidate extension-owned state. |
+| `registerGcsExtensionAgreementDeleteGuard` | Reject agreement deletion while extension-owned history or generated provenance must be preserved. |
+| `registerGcsExtensionAgreementPaymentMutationGuard` | Validate payment and payment-line updates, deletes, and status changes inside host transactions. |
+
+The host runs an agreement-delete guard after extension lifecycle locks are acquired and before it deletes the agreement, inside the same host transaction. The guard must read protected extension state through the supplied transaction and throw to veto deletion; the error propagates so the agreement deletion and every related write roll back together. Do not defer the check or query through a root database client.
+
+Guards should throw localized extension user errors for correctable business conflicts. They must be deterministic, transaction-bound, and safe when host routes invoke them outside the extension UI.
+
 ## Assets And I18n
 
 | Feature | Manifest field | Guidance |
@@ -390,6 +452,11 @@ Use `installExtensionTestUiRuntime` from `@gcs-ssc/extensions/testing` for stand
 | Server handlers | Ownership, enablement, RBAC or manual authorization, and validation are enforced. |
 | API clients | `useExtensionApi` and `useHostApi` build expected paths and handle errors. |
 | Secret handling | Secrets are encrypted/decrypted server-side and never returned to browser config. |
+| Transaction contract | Lifecycle helpers receive a `Transaction`, not a root database client. |
+| Concurrent lifecycle writes | Config changes, disablement, and generated work serialize in canonical lock order. |
+| Stale authorization | A request that loses access while waiting is rejected by the second `writeAuthorization` phase after lifecycle locks. |
+| Lifecycle guards | Disable, agreement move, and payment mutations cannot invalidate extension-owned records. |
+| Agreement deletion guard | Deletion is rejected in the host transaction when extension-owned history or generated provenance still requires the agreement. |
 | Create action conflicts | Duplicate replacement actions are detected. |
 | Payment calculator conflicts | Duplicate calculators are detected. |
 | Bilingual UI | English and French labels, errors, and tab names are present. |
