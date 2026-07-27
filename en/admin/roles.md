@@ -18,6 +18,8 @@ A role can be:
 
 The form only offers the global option when the current user can create roles at global scope. Program selection appears only after an agency is selected. Program options are loaded from transfer payments filtered to the selected agency.
 
+After creation, the role's parent scope is fixed: a global role remains global, and an agency role remains tied to its original agency. Edit mode disables the global/agency selector. An agency role can still move between agency-wide and program-specific effective scope by adding or removing programs within that agency, provided its abilities are valid for the resulting scope. `agency` abilities must be removed before moving the role to program scope.
+
 The agency and program selectors search the full set of records available to the current administrator rather than only the first page. When editing a role, saved selections are resolved to their display names even when they are outside the current search results. A program that no longer exists or is no longer available in the role's scope is labelled unavailable. A temporary loading failure shows a Retry action without removing the saved selection.
 
 ## Scope business rules
@@ -53,7 +55,7 @@ The role detail page contains:
 - General, showing bilingual names, descriptions, agency, and scope context.
 - Abilities, showing toggle cards for allowed abilities.
 
-Toggling an ability saves the role immediately. Updating the role's scope also saves the full program selection so scope cannot be accidentally lost.
+Toggling an ability saves the role immediately. When an agency role is updated, saving its full program selection can move effective scope between agency and program without changing the role's agency, provided its abilities remain valid for the resulting scope.
 
 ## Recommended role design
 
