@@ -132,6 +132,8 @@ Program budgets allocate funding by agency fiscal year. Each row has:
 
 Each program budget can later be referenced by stream budget rows. Configure program budgets before configuring stream budgets, commitments, or fiscal-year-driven agreement setup.
 
+The fiscal-year selector searches the fiscal years available from the program's agency. When editing a budget, the saved fiscal year is resolved to its display label even when it is not on the current results page; records outside the program's agency scope cannot be selected.
+
 ## Performance Indicators Tab
 
 Performance indicators are created under outcomes. Each indicator has:

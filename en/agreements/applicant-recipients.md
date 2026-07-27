@@ -14,6 +14,8 @@ The Proponents tab links applicant/recipient profiles to an agreement. The sourc
 
 The tab lists proponents linked to the agreement. The selector offers proponent profiles the user is allowed to attach.
 
+Search results can change without removing the current selection. Selected or preselected proponents are resolved separately and keep their bilingual display labels even when they are outside the current result page. If a saved profile can no longer be resolved, the selection remains visible as unavailable so the user can remove it deliberately.
+
 The table shows:
 
 | Column | Source |
