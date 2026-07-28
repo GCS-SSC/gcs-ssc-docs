@@ -10,7 +10,7 @@ GCS-SSC uses scoped role-based access control. A permission is not only an actio
 - User assignment: a link between a user and a role.
 - Grant scope: the effective scope built from role scope, agency id, and optional program id.
 
-The application calculates effective permissions from the user's active assignments after sign-in.
+The server calculates effective permissions from active, structurally valid assignments on each authorized request. Client-side controls reflect permission changes after client permissions are fetched again, such as when the page is reloaded or the user signs in again. Soft-deleted roles, deleted parent agencies, deleted or cross-agency program links, and program roles without an active program link do not grant permissions.
 
 ## Actions and subjects
 
