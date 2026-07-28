@@ -31,7 +31,7 @@ When a role is assigned:
 | Agency and program roles require access to the role's agency | Administrators must be allowed to update users in the target agency. |
 | Duplicate active assignment is not created | Saving the same active user-role pairing reuses the existing assignment instead of creating another one. |
 
-Deleting an assignment soft-deletes the assignment row. The user's permissions change after their session permissions refresh or they sign in again.
+Deleting an assignment soft-deletes the assignment row. Server authorization reflects the change on subsequent requests. Client-side controls update after client permissions are fetched again, such as when the page is reloaded or the user signs in again.
 
 ## Root user handling
 

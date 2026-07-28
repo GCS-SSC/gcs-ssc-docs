@@ -10,7 +10,7 @@ GCS-SSC utilise un controle d acces base sur les roles avec portee. Une permissi
 - Attribution utilisateur : lien entre un utilisateur et un role.
 - Portee accordee : portee effective construite depuis le role, l id d agence et l id optionnel de programme.
 
-L application calcule les permissions effectives a partir des attributions actives et structurellement valides apres la connexion. Les roles supprimes logiquement, les agences parentes supprimees, les liens de programme supprimes ou appartenant a une autre agence, ainsi que les roles de programme sans lien de programme actif n accordent aucune permission.
+Le serveur calcule les permissions effectives à partir des attributions actives et structurellement valides lors de chaque requête autorisée. Les contrôles côté client reflètent les changements après une nouvelle récupération des permissions côté client, par exemple après le rechargement de la page ou une nouvelle connexion. Les rôles supprimés logiquement, les agences parentes supprimées, les liens de programme supprimés ou appartenant à une autre agence, ainsi que les rôles de programme sans lien de programme actif n’accordent aucune permission.
 
 ## Actions et sujets
 

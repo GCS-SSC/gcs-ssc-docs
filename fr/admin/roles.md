@@ -55,7 +55,7 @@ Le detail de role contient :
 - General, avec noms bilingues, descriptions, agence et contexte de portee.
 - Capacites, avec cartes d interrupteurs pour les capacites permises.
 
-L enregistrement de l onglet General modifie seulement le profil et la portee du role. Les interrupteurs de capacites utilisent une operation separee et prennent effet immediatement; enregistrer le profil ne remplace donc pas les capacites, et basculer une capacite n ecrase pas les modifications de profil non enregistrees. Lorsqu un role d agence est modifie, la selection complete de programmes peut faire passer la portee effective de l agence au programme, ou l inverse, sans changer l agence du role. L operation est rejetee si la portee obtenue est incompatible avec les capacites courantes.
+L’enregistrement de l’onglet Général modifie seulement le profil et la portée du rôle. Les interrupteurs de capacités utilisent une opération séparée et prennent effet immédiatement ; enregistrer le profil ne remplace donc pas les capacités, et basculer une capacité n’écrase pas les modifications de profil non enregistrées. Lorsqu’un rôle d’agence est modifié, la sélection complète de programmes peut faire passer la portée effective de l’agence au programme, ou l’inverse, sans changer l’agence du rôle. L’opération est rejetée si la portée obtenue est incompatible avec les capacités courantes.
 
 ## Conception recommandee
 
