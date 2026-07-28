@@ -8,6 +8,8 @@ Use this page for developer implementation. Operators should use [Concepts: Exte
 
 Import SDK contracts from `@gcs-ssc/extensions`, server helpers from `@gcs-ssc/extensions/server`, UI wrappers from `@gcs-ssc/extensions/ui`, and test helpers from `@gcs-ssc/extensions/testing`. Do not import host internals such as `~~/server`, `~~/shared`, `~/`, or `#imports` for extension-owned contracts.
 
+For standalone Nuxt typechecking, import `@gcs-ssc/extensions/nuxt` once from an ambient `.d.ts` file included by the extension's TypeScript configuration. This entry point supplies type declarations for host globals; runtime UI code must still use the SDK wrappers and must not reference host component names directly.
+
 | Contract | Use |
 | --- | --- |
 | `defineGcsExtension` | Defines the extension manifest. |
@@ -286,6 +288,8 @@ The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `s
 | Validate all input | Extension handlers are responsible for request validation. |
 | Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing when the host has not already done so. |
 
+Manual handlers that resolve stream ownership must call `resolveExtensionStreamContext(db, streamId)` to resolve the active ownership chain. It returns `agencyId`, `profileId`, `streamId`, and the canonical entity scope only when the stream, its transfer payment profile, and its owning agency are all active; treat `null` as unavailable and stop the operation.
+
 Protected extension writes use the host-provided `writeAuthorization` protocol. It separates fresh authorization into two phases so authorization-table locks are never acquired after extension or entity locks. A write handler must reject a missing protocol before entering transactional business logic:
 
 ```ts
@@ -310,7 +314,7 @@ export default defineGcsExtensionRouteHandler(async context => {
 })
 ```
 
-The required order is `lockAuthState(trx)`, registered agency/stream lifecycle locks, current-scope or current-entity authorization, then protected reads and writes. Prefer `authorizeCurrentScope`; `authorizeCurrentEntity` remains the compatibility fallback. Treat a missing protocol, a rejected phase, or scope drift as fatal and let the error leave the transaction callback so every protected write rolls back.
+The required order is `lockAuthState(trx)`, registered agency/stream lifecycle locks, required extension/entity locks, current-scope or current-entity authorization, then protected reads and writes. Prefer `authorizeCurrentScope`; `authorizeCurrentEntity` remains the compatibility fallback. Treat a missing protocol, a rejected phase, or scope drift as fatal and let the error leave the transaction callback so every protected write rolls back.
 
 Routes that expose agreement choices must call `context.agreementAccess.listVisibleOptions(db, { streamId, action })`; the host applies agreement role and team visibility and returns active agreements only. When a transaction writes an agreement-owned record selected through such a route, require `writeAuthorization.lockAndAuthorizeAgreement` and call it after lifecycle locks and current-route authorization. A missing callback is fatal. The host locks the agreement, re-resolves its active stream, and performs fresh agreement authorization in the same transaction. A `false` result means that the agreement is inactive or no longer belongs to the requested stream; authorization denial is thrown.
 

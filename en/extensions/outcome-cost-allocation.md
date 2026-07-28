@@ -8,7 +8,7 @@ For each enabled commitment type, map an outcome and stream budget to an active 
 
 ## Allocation versions
 
-An agreement can have a draft, one active version, and inactive history. Allocate each outcome/fiscal-year coordinate by amount or percentage. Values must be non-negative, have no more than four decimal places, and remain within the supported exact numeric range. Percentage values resolve against that fiscal year's program funding and cent rounding is balanced deterministically.
+An agreement can have a draft, one active version, and inactive history. Allocate each outcome/fiscal-year coordinate by amount or percentage. Values must be non-negative, have no more than four decimal places, and cannot exceed `900,719,925,474.0991`. Percentage values resolve against that fiscal year's program funding and cent rounding is balanced deterministically.
 
 Completion requires the resolved allocations to cover the full agreement program-funding basis exactly and rejects stale outcomes, budget years, or mappings. Completing a draft makes it active and demotes the previous active version. It snapshots bilingual labels, each resolved amount and fiscal-year funding basis, the total funding basis, and the stream-commitment coordinates, preserving the historical version and the amount inputs used to complete it. Later commitment generation still reloads the current budgets, outcomes, mappings, and active commitments. Current validation issues in any of those records can therefore block generation or regeneration even though the completed allocation snapshot remains unchanged.
 

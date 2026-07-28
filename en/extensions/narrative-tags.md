@@ -6,7 +6,7 @@ Narrative Tags suggests and stores tags derived from bilingual agreement or prop
 
 Agreement and proponent description targets can be enabled and tuned independently. A stream shares one predefined vocabulary, whose tag definitions may include bilingual labels and aliases. Each target controls whether custom tags are allowed and exposes predefined and dynamic thresholds, phrase size, semantic and lexical weights, alias boost, negation handling, and browser or embedding cache settings.
 
-The browser extractor ranks predefined tags and can propose dynamic tags when enabled. If its model cannot initialize, the extension falls back to keyword overlap against tag labels and aliases. Suggestions are never saved automatically; the user selects or removes tags.
+For agreement descriptions, the browser extractor ranks predefined tags and can propose dynamic tags when enabled. If its model cannot initialize, the extension falls back to keyword overlap against tag labels and aliases. Proponent suggestions always use keyword overlap against the available predefined definitions; dynamic-tag and embedding settings do not affect that path. Suggestions are never saved automatically; the user selects or removes tags.
 
 ## Provenance and validation
 

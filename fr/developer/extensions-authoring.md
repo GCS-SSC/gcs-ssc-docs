@@ -8,6 +8,8 @@ Cette page porte sur la mise en œuvre destinée aux développeurs. Les responsa
 
 Importez les contrats du SDK depuis `@gcs-ssc/extensions`, les aides serveur depuis `@gcs-ssc/extensions/server`, les composants d’interface depuis `@gcs-ssc/extensions/ui` et les aides de test depuis `@gcs-ssc/extensions/testing`. N’importez pas les chemins internes de l’hôte comme `~~/server`, `~~/shared`, `~/` ou `#imports` pour les contrats appartenant à l’extension.
 
+Pour la vérification autonome des types Nuxt, importez `@gcs-ssc/extensions/nuxt` une seule fois depuis un fichier ambiant `.d.ts` inclus dans la configuration TypeScript de l’extension. Ce point d’entrée fournit les déclarations de types des variables globales de l’hôte; le code d’interface à l’exécution doit continuer d’utiliser les composants du SDK et ne doit pas référencer directement les noms de composants de l’hôte.
+
 | Contrat | Utilisation |
 | --- | --- |
 | `defineGcsExtension` | Définit le manifeste de l’extension. |
@@ -286,6 +288,8 @@ Le contexte de route stable contient `db`, `params`, `auth`, `config`, `entity`,
 | Valider toutes les entrées | Les gestionnaires de l’extension sont responsables de la validation des requêtes. |
 | Respecter les règles de propriété de l’hôte | Résolvez toujours la propriété de l’entente, du promoteur, de la réclamation, de la surveillance, du volet et de l’agence avant l’écriture lorsque l’hôte ne l’a pas déjà fait. |
 
+Les gestionnaires manuels qui résolvent la propriété d’un volet doivent appeler `resolveExtensionStreamContext(db, streamId)` pour résoudre la chaîne de propriété active. Cette aide retourne `agencyId`, `profileId`, `streamId` et la portée d’entité canonique uniquement lorsque le volet, son profil de paiement de transfert et l’agence propriétaire sont tous actifs ; traitez `null` comme une ressource indisponible et interrompez l’opération.
+
 Les écritures protégées d’une extension utilisent le protocole `writeAuthorization` fourni par l’hôte. Celui-ci sépare l’autorisation récente en deux phases afin que les verrous des tables d’autorisation ne soient jamais acquis après les verrous de l’extension ou de l’entité. Un gestionnaire d’écriture doit rejeter l’absence de ce protocole avant d’exécuter sa logique transactionnelle :
 
 ```ts
@@ -310,7 +314,7 @@ export default defineGcsExtensionRouteHandler(async context => {
 })
 ```
 
-L’ordre requis est le suivant : `lockAuthState(trx)`, verrous enregistrés du cycle de vie de l’agence et du volet, autorisation de la portée ou de l’entité actuelle, puis lectures et écritures protégées. Privilégiez `authorizeCurrentScope`; `authorizeCurrentEntity` demeure la solution de compatibilité. Traitez l’absence du protocole, le rejet d’une phase ou le changement de portée comme une erreur fatale et laissez l’erreur sortir de la fonction de rappel afin que toutes les écritures protégées soient annulées.
+L’ordre requis est le suivant : `lockAuthState(trx)`, verrous enregistrés du cycle de vie de l’agence et du volet, verrous requis de l’extension et des entités, autorisation de la portée ou de l’entité actuelle, puis lectures et écritures protégées. Privilégiez `authorizeCurrentScope`; `authorizeCurrentEntity` demeure la solution de compatibilité. Traitez l’absence du protocole, le rejet d’une phase ou le changement de portée comme une erreur fatale et laissez l’erreur sortir de la fonction de rappel afin que toutes les écritures protégées soient annulées.
 
 Les routes qui présentent des choix d’entente doivent appeler `context.agreementAccess.listVisibleOptions(db, { streamId, action })`; l’hôte applique les règles de visibilité liées aux rôles et aux équipes et retourne uniquement les ententes actives. Lorsqu’une transaction écrit un dossier appartenant à une entente choisie par une telle route, exigez `writeAuthorization.lockAndAuthorizeAgreement` et appelez-le après les verrous du cycle de vie et l’autorisation de la route actuelle. L’absence du rappel constitue une erreur fatale. L’hôte verrouille l’entente, résout de nouveau son volet actif et effectue une autorisation récente de l’entente dans la même transaction. Un résultat `false` signifie que l’entente est inactive ou qu’elle n’appartient plus au volet demandé; un refus d’autorisation produit une erreur.
 
