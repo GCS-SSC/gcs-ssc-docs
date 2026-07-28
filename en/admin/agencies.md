@@ -8,6 +8,12 @@ The Agencies page supports search, status filtering, pagination, column controls
 
 Creating or updating an agency captures bilingual profile information, abbreviations, status, GWCOA number, and external financial system id. Deletes are soft deletes. Deleted agencies disappear from normal active lists, while dependent records continue to reference historical ids.
 
+## Lifecycle consistency
+
+Agency-owned reference data is read and changed only after a lock-protected recheck confirms that the user's authorization and the relevant ownership chain are current. Concurrent lifecycle changes are serialized, so an operation does not proceed based on a parent or authorization state that was already stale when the recheck occurred.
+
+Program creation follows the same rule: a program cannot be attached to an agency that is already deleted when its locked active-state check runs.
+
 ## Detail page
 
 The agency detail page uses a vertical tab layout:
@@ -23,6 +29,8 @@ The agency detail page uses a vertical tab layout:
 - Extensions
 
 Administrators can link directly to a tab.
+
+Search in the agency-owned reference-data tabs treats `%` and `_` as ordinary characters rather than wildcard operators. Search and status filters narrow the displayed rows and pagination total, while each tab's summary continues to show agency-wide totals.
 
 ## General tab
 

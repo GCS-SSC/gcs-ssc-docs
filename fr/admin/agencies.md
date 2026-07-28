@@ -8,6 +8,12 @@ La page Agences prend en charge la recherche, le filtre de statut, la pagination
 
 La creation ou mise a jour d une agence capture les informations bilingues, abreviations, statut, numero GWCOA et identifiant du systeme financier externe. Les suppressions sont logiques. Les agences supprimees disparaissent des listes actives normales, tandis que les dossiers dependants conservent les identifiants historiques.
 
+## Cohérence du cycle de vie
+
+Les données de référence propres à une agence sont consultées ou modifiées seulement après qu’une nouvelle vérification sous verrou a confirmé que les autorisations de l’utilisateur et la chaîne de propriété pertinente sont à jour. Les changements concurrents du cycle de vie sont sérialisés ; une opération ne se poursuit donc pas en se fondant sur un dossier parent ou des droits d’accès qui étaient déjà périmés au moment de cette vérification.
+
+La création d’un programme suit la même règle : un programme ne peut pas être rattaché à une agence qui est déjà supprimée lors de la vérification sous verrou de son état actif.
+
 ## Page detail
 
 Le detail d agence utilise une disposition a onglets verticaux :
@@ -23,6 +29,8 @@ Le detail d agence utilise une disposition a onglets verticaux :
 - Extensions
 
 Les administrateurs peuvent lier directement une section.
+
+Dans les onglets de données de référence propres à l’agence, la recherche traite `%` et `_` comme des caractères ordinaires plutôt que comme des caractères génériques. Les filtres de recherche et de statut limitent les lignes affichées et le total paginé, tandis que le sommaire de chaque onglet continue d’afficher les totaux de l’agence.
 
 ## Onglet General
 
