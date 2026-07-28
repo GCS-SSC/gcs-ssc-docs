@@ -8,6 +8,8 @@ Use this page for developer implementation. Operators should use [Concepts: Exte
 
 Import SDK contracts from `@gcs-ssc/extensions`, server helpers from `@gcs-ssc/extensions/server`, UI wrappers from `@gcs-ssc/extensions/ui`, and test helpers from `@gcs-ssc/extensions/testing`. Do not import host internals such as `~~/server`, `~~/shared`, `~/`, or `#imports` for extension-owned contracts.
 
+For standalone Nuxt typechecking, import `@gcs-ssc/extensions/nuxt` once from an ambient `.d.ts` file included by the extension's TypeScript configuration. This entry point supplies type declarations for host globals; runtime UI code must still use the SDK wrappers and must not reference host component names directly.
+
 | Contract | Use |
 | --- | --- |
 | `defineGcsExtension` | Defines the extension manifest. |
@@ -285,6 +287,8 @@ The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `s
 | Throw `GcsExtensionUserError` for user-facing failures | Use localized extension messages so the UI can translate them. |
 | Validate all input | Extension handlers are responsible for request validation. |
 | Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing when the host has not already done so. |
+
+Manual handlers can call `resolveExtensionStreamContext(db, streamId)` to resolve the active ownership chain. It returns `agencyId`, `profileId`, `streamId`, and the canonical entity scope only when the stream, its transfer payment profile, and its owning agency are all active; treat `null` as unavailable and stop the operation.
 
 Protected extension writes use the host-provided `writeAuthorization` protocol. It separates fresh authorization into two phases so authorization-table locks are never acquired after extension or entity locks. A write handler must reject a missing protocol before entering transactional business logic:
 

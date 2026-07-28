@@ -25,6 +25,6 @@ The calculator shows the holdback and lets an authorized user request a release.
 
 ## Recalculation and save protection
 
-Changing a calculation input clears the previous result. Recalculate before saving. The server recalculates inside the create transaction and rejects a submitted amount above the current ceiling, so a stale browser result cannot bypass the rule.
+Changing a calculation input automatically recalculates the result. Wait for the calculation to finish and resolve any displayed error before saving. The server recalculates inside the create transaction and rejects a submitted amount above the current ceiling, so a stale browser result cannot bypass the rule.
 
 See [Agreement Payments](../agreements/payments.md) for the core payment lifecycle.

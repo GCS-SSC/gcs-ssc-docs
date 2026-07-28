@@ -25,6 +25,6 @@ Le calculateur affiche la retenue et permet à un utilisateur autorisé d’en d
 
 ## Recalcul et protection à l’enregistrement
 
-Toute modification d’une donnée du calcul efface le résultat précédent. Recalculez avant d’enregistrer. Le serveur refait le calcul dans la transaction de création et rejette un montant supérieur au plafond courant; un résultat périmé dans le navigateur ne peut donc pas contourner la règle.
+Toute modification d’une donnée relance automatiquement le calcul. Attendez la fin du calcul et corrigez toute erreur affichée avant d’enregistrer. Le serveur refait le calcul dans la transaction de création et rejette un montant supérieur au plafond courant; un résultat périmé dans le navigateur ne peut donc pas contourner la règle.
 
 Consultez [Paiements d’entente](../agreements/payments.md) pour le cycle de vie de base.

@@ -8,6 +8,8 @@ Cette page porte sur la mise en œuvre destinée aux développeurs. Les responsa
 
 Importez les contrats du SDK depuis `@gcs-ssc/extensions`, les aides serveur depuis `@gcs-ssc/extensions/server`, les composants d’interface depuis `@gcs-ssc/extensions/ui` et les aides de test depuis `@gcs-ssc/extensions/testing`. N’importez pas les chemins internes de l’hôte comme `~~/server`, `~~/shared`, `~/` ou `#imports` pour les contrats appartenant à l’extension.
 
+Pour la vérification autonome des types Nuxt, importez `@gcs-ssc/extensions/nuxt` une seule fois depuis un fichier ambiant `.d.ts` inclus dans la configuration TypeScript de l’extension. Ce point d’entrée fournit les déclarations de types des variables globales de l’hôte; le code d’interface à l’exécution doit continuer d’utiliser les composants du SDK et ne doit pas référencer directement les noms de composants de l’hôte.
+
 | Contrat | Utilisation |
 | --- | --- |
 | `defineGcsExtension` | Définit le manifeste de l’extension. |
@@ -285,6 +287,8 @@ Le contexte de route stable contient `db`, `params`, `auth`, `config`, `entity`,
 | Lancer `GcsExtensionUserError` pour les échecs visibles par l’utilisateur | Utilisez les messages localisés de l’extension afin que l’interface puisse les traduire. |
 | Valider toutes les entrées | Les gestionnaires de l’extension sont responsables de la validation des requêtes. |
 | Respecter les règles de propriété de l’hôte | Résolvez toujours la propriété de l’entente, du promoteur, de la réclamation, de la surveillance, du volet et de l’agence avant l’écriture lorsque l’hôte ne l’a pas déjà fait. |
+
+Les gestionnaires manuels peuvent appeler `resolveExtensionStreamContext(db, streamId)` pour résoudre la chaîne de propriété active. Cette aide retourne `agencyId`, `profileId`, `streamId` et la portée d’entité canonique uniquement lorsque le volet, son profil de paiement de transfert et l’agence propriétaire sont tous actifs ; traitez `null` comme une ressource indisponible et interrompez l’opération.
 
 Les écritures protégées d’une extension utilisent le protocole `writeAuthorization` fourni par l’hôte. Celui-ci sépare l’autorisation récente en deux phases afin que les verrous des tables d’autorisation ne soient jamais acquis après les verrous de l’extension ou de l’entité. Un gestionnaire d’écriture doit rejeter l’absence de ce protocole avant d’exécuter sa logique transactionnelle :
 
