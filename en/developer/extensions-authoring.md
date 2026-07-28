@@ -288,7 +288,7 @@ The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `s
 | Validate all input | Extension handlers are responsible for request validation. |
 | Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing when the host has not already done so. |
 
-Manual handlers can call `resolveExtensionStreamContext(db, streamId)` to resolve the active ownership chain. It returns `agencyId`, `profileId`, `streamId`, and the canonical entity scope only when the stream, its transfer payment profile, and its owning agency are all active; treat `null` as unavailable and stop the operation.
+Manual handlers that resolve stream ownership must call `resolveExtensionStreamContext(db, streamId)` to resolve the active ownership chain. It returns `agencyId`, `profileId`, `streamId`, and the canonical entity scope only when the stream, its transfer payment profile, and its owning agency are all active; treat `null` as unavailable and stop the operation.
 
 Protected extension writes use the host-provided `writeAuthorization` protocol. It separates fresh authorization into two phases so authorization-table locks are never acquired after extension or entity locks. A write handler must reject a missing protocol before entering transactional business logic:
 
