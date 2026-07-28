@@ -6,7 +6,7 @@ L’extension Étiquettes narratives suggère et stocke des étiquettes dérivé
 
 Les cibles de description d’entente et de promoteur peuvent être activées et réglées séparément. Le volet partage un vocabulaire prédéfini dont les définitions peuvent comprendre des libellés bilingues et des alias. Chaque cible détermine si les étiquettes personnalisées sont permises et expose les seuils prédéfinis et dynamiques, la taille des syntagmes, les pondérations sémantique et lexicale, la bonification des alias, la gestion de la négation ainsi que les caches du navigateur ou des vecteurs.
 
-L’extracteur du navigateur classe les étiquettes prédéfinies et peut proposer des étiquettes dynamiques. Si son modèle ne peut pas démarrer, l’extension utilise le chevauchement de mots-clés avec les libellés et les alias. Les suggestions ne sont jamais enregistrées automatiquement; l’utilisateur choisit ou retire les étiquettes.
+Pour les descriptions d’entente, l’extracteur du navigateur classe les étiquettes prédéfinies et peut proposer des étiquettes dynamiques. Si son modèle ne peut pas démarrer, l’extension utilise le chevauchement de mots-clés avec les libellés et les alias. Les suggestions de promoteur utilisent toujours le chevauchement de mots-clés avec les définitions prédéfinies disponibles; les réglages des étiquettes dynamiques et des vecteurs ne modifient pas ce traitement. Les suggestions ne sont jamais enregistrées automatiquement; l’utilisateur choisit ou retire les étiquettes.
 
 ## Provenance et validation
 
