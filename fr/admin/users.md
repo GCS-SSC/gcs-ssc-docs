@@ -6,7 +6,7 @@ La zone Utilisateurs gere les identites de l application et leurs attributions d
 
 La page Utilisateurs prend en charge recherche, pagination et statistiques. Les lecteurs racine ou globaux voient tous les utilisateurs actifs. Les lecteurs limites a une agence voient eux-memes, les utilisateurs attribues aux agences autorisees et les utilisateurs ayant des attributions d entite dans ces agences. Les utilisateurs supprimes sont exclus des listes normales.
 
-La table affiche avatar, nom, courriel et actions. Creer apparait seulement avec `user:create`. Supprimer apparait seulement avec `user:delete`. La suppression est logique.
+La table affiche avatar, nom, courriel et actions. Creer apparait seulement avec `user:create`. La mise a jour et la suppression dependent aussi des portees actives de l utilisateur cible : un administrateur limite a des agences doit couvrir chaque agence representee par les attributions actives de role et d entite de la cible. Une cible ayant un role global actif ne peut etre modifiee ou supprimee qu avec l acces global pour l action correspondante. Une ligne peut donc etre visible sans etre modifiable ni supprimable. La suppression est logique.
 
 ## Detail utilisateur
 
@@ -19,7 +19,7 @@ Le sommaire affiche nom, courriel, avatar et statut verifie/non verifie. La modi
 
 ## Attribuer des roles
 
-Ouvrez l onglet Attributions et utilisez Ajouter. Le selecteur de role offre seulement les roles visibles par l administrateur courant. Les libelles incluent le nom du role et le contexte de portee, comme global, agence ou programme, afin de distinguer les doublons de nom.
+Ouvrez l onglet Attributions et utilisez Ajouter. Le selecteur charge, pour l utilisateur affiche, les roles structurellement valides qui se trouvent dans la portee d attribution de l administrateur. Cette operation exige `user:update`, mais pas une capacite `role:read` sans rapport. Les libelles incluent le nom du role et le contexte de portee, comme global, agence ou programme, afin de distinguer les doublons de nom.
 
 Lorsqu un role est attribue :
 
@@ -43,10 +43,11 @@ Si un utilisateur ne voit pas une page :
 
 1. Verifiez que l utilisateur n est pas supprime.
 2. Verifiez que l attribution est active.
-3. Verifiez que le role n est pas supprime.
-4. Verifiez que le role a la bonne action et le bon sujet.
-5. Verifiez que la portee du role couvre l agence, le programme ou l entite.
-6. Demandez a l utilisateur de se deconnecter puis reconnecter si les permissions visibles semblent encore anciennes.
+3. Verifiez que le role, son agence parente et les programmes selectionnes sont actifs.
+4. Verifiez que la structure du role est valide : un role global n a pas d agence, un role d agence n a pas de lien de programme et un role de programme a au moins un programme actif dans son agence.
+5. Verifiez que le role a la bonne action et le bon sujet.
+6. Verifiez que la portee du role couvre l agence, le programme ou l entite.
+7. Demandez a l utilisateur de se deconnecter puis reconnecter si les permissions visibles semblent encore anciennes.
 
 ![Onglet Attributions utilisateur](/screenshots/fr/user-assignments.png)
 

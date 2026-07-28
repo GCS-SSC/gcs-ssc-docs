@@ -55,7 +55,7 @@ The role detail page contains:
 - General, showing bilingual names, descriptions, agency, and scope context.
 - Abilities, showing toggle cards for allowed abilities.
 
-Toggling an ability saves the role immediately. When an agency role is updated, saving its full program selection can move effective scope between agency and program without changing the role's agency, provided its abilities remain valid for the resulting scope.
+Saving General updates only the role profile and scope fields. Ability switches use a separate endpoint and take effect immediately, so saving a profile cannot accidentally replace abilities and toggling an ability cannot overwrite unsaved profile edits. Updating an agency role's program selection saves the complete selection and is rejected when the resulting scope would be inconsistent with its current abilities.
 
 ## Recommended role design
 
