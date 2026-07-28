@@ -46,6 +46,8 @@ GWCOA, Contacts, Addresses, Form Schemas, and Attachment Types are foundational.
 
 Review Schemas define the actual review content and can be checklist or assessment style. Creating a Common Review Schema uses versioning helper logic to create a draft review schema value. Review Set Setups group reviews for an entity type and scope. Review Setups attach specific schemas to a setup and order them. Review Sets and Reviews are runtime records created from those setup definitions.
 
+When a runtime Review is created or assigned to a different review schema, Common Admin copies the selected active schema's settings for custom outcomes, alignment, and reviewers onto the review. Restoring a deleted review requires its referenced schema to remain active. Restoring without changing that reference preserves the review's existing snapshot, while assigning a different active schema refreshes the snapshot from the new schema. This keeps historical review behavior stable while preventing restoration against retired configuration.
+
 For proponent reviews, the runtime Reviews tab looks up review set setups for `applicantrecipient`, creates runtime review sets, groups review rows by review set, and opens assessment detail pages for individual reviews.
 
 ## Approval resources

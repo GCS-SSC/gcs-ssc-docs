@@ -46,6 +46,8 @@ GWCOA, Contacts, Adresses, Schemas de formulaire et Types de piece jointe sont f
 
 Les Schemas d examen definissent le contenu d examen et peuvent etre de type liste de controle ou evaluation. La creation d un schema d examen Commun utilise la logique de versionnement pour creer une valeur brouillon. Les Configurations d ensembles d examen regroupent les examens par type d entite et portee. Les Configurations d examen attachent les schemas a un ensemble et les ordonnent. Les Ensembles d examen et Examens sont des enregistrements d execution crees a partir de ces definitions.
 
+Lorsqu un Examen d execution est cree ou associe a un autre schema d examen, Commun copie dans l examen les parametres du schema actif selectionne pour les resultats personnalises, l alignement et les examinateurs. La restauration d un examen supprime exige que son schema reference demeure actif. Une restauration sans changement de reference conserve l instantane existant; l attribution d un autre schema actif actualise l instantane depuis ce nouveau schema. Ce comportement stabilise les examens historiques et empeche leur restauration avec une configuration retiree.
+
 Pour les examens de promoteur, l onglet d execution recherche les configurations d ensembles pour `applicantrecipient`, cree des ensembles d examen d execution, regroupe les examens par ensemble et ouvre les pages d evaluation pour les examens individuels.
 
 ## Ressources d approbation
