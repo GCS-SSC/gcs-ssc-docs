@@ -4,43 +4,43 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
   const p = `/${locale}/`
   const labels = locale === 'fr'
     ? {
-        start: 'Demarrage',
+        start: 'Démarrage',
         home: 'Accueil',
         login: 'Connexion',
         navigation: 'Navigation',
-        setup: 'Systeme vide',
+        setup: 'Configuration d’un système vide',
         admin: 'Administration',
         agencies: 'Agences',
         common: 'Commun',
-        roles: 'Roles',
+        roles: 'Rôles',
         users: 'Utilisateurs',
         programs: 'Programmes',
-        programOverview: 'Vue d ensemble',
+        programOverview: 'Vue d’ensemble',
         streams: 'Volets',
-        schemas: 'Schemas d evaluation',
-        templates: 'Modeles d approbation',
+        schemas: 'Schémas d’évaluation',
+        templates: 'Modèles d’approbation',
         agreements: 'Ententes',
-        agreementOverview: 'Vue d ensemble',
+        agreementOverview: 'Vue d’ensemble',
         children: 'Flux enfants',
         budget: 'Budget',
         addresses: 'Adresses',
         agreementProponents: 'Promoteurs',
-        activities: 'Activites',
+        activities: 'Activités',
         commitments: 'Engagements',
         payments: 'Paiements',
-        forecasts: 'Previsions',
-        claims: 'Reclamations',
+        forecasts: 'Prévisions',
+        claims: 'Réclamations',
         documents: 'Documents',
         monitors: 'Surveillances',
         proponents: 'Promoteurs',
-        proponentOverview: 'Vue d ensemble',
+        proponentOverview: 'Vue d’ensemble',
         proponentFinancialIds: 'Identifiants financiers',
         proponentOtherNames: 'Autres noms',
         proponentAddresses: 'Adresses',
         proponentContacts: 'Contacts',
         proponentReviews: 'Examens',
         proponentAgreements: 'Ententes',
-        proponentTeam: 'Equipe',
+        proponentTeam: 'Équipe',
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
@@ -51,16 +51,16 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         narrativeQuality: 'Qualité narrative',
         narrativeTags: 'Étiquettes narratives',
         outcomeAllocation: 'Répartition des coûts par résultat',
-        approvals: 'Approbations et completions',
+        approvals: 'Approbations et achèvements',
         bilingualism: 'Bilinguisme',
         deletion: 'Suppression logique',
-        developer: 'Reference developpeur',
+        developer: 'Référence développeur',
         architecture: 'Architecture',
         routes: 'Routes',
         testing: 'Tests',
-        startup: 'Demarrage local',
-        extensionAuthoring: 'Creer des extensions',
-        documentGeneration: 'Generation de documents'
+        startup: 'Démarrage local',
+        extensionAuthoring: 'Créer des extensions',
+        documentGeneration: 'Génération de documents'
       }
     : {
         start: 'Getting Started',
@@ -224,7 +224,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'English', link: '/en/' },
-      { text: 'Francais', link: '/fr/' }
+      { text: 'Français', link: '/fr/' }
     ],
     sidebar: sharedSidebar('en'),
     search: {
@@ -241,13 +241,13 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Extensions', link: '/en/extensions/' },
-          { text: 'Francais', link: '/fr/' }
+          { text: 'Français', link: '/fr/' }
         ],
         sidebar: sharedSidebar('en')
       }
     },
     fr: {
-      label: 'Francais',
+      label: 'Français',
       lang: 'fr-CA',
       title: 'Documentation GCS-SSC',
       description: 'Documentation de GCS-SSC',

@@ -10,13 +10,31 @@ From `../gcs-ssc`:
 bun run lint
 bun run typecheck
 bun run test:unit
+bun run test:coverage
+# Requires the three *_POSTGRES_TEST_URL variables documented below.
 bun run test:integration:postgres
 bun run test:e2e
 bun run test:e2e:light
-bun run test:e2e:light:spec --spec tests/e2e/auth.spec.ts
+bun run test:e2e:light:spec tests/e2e/auth.spec.ts
+bun run quality:pr
 ```
 
 `bun run test` runs unit and e2e suites. `test:all:manual` also runs lint, typecheck, coverage, the opt-in PostgreSQL aggregate, and e2e.
+
+Automatic pull-request CI is not configured. Contributors run `quality:pr` as the authoritative local gate: it records the branch diff, runs lint and type checking, builds the extension SDK, verifies the production artifact on supported POSIX non-root hosts, and runs the app and extension unit/coverage suites. It does not run the opt-in PostgreSQL or Playwright e2e suites, so run those separately when the changed behavior depends on real database locking or browser interaction.
+
+### Production artifact checks
+
+On a POSIX non-root host, use the focused artifact commands when changing build, storage, database startup, migrations, extension assets, or deployment packaging:
+
+```bash
+bun run quality:artifact
+bun run quality:webcontainer
+```
+
+`quality:artifact` creates a fresh production build, migrates a blank database without demo seed data, restores the packaged admin dump, checks database URL precedence, and verifies that the deployed output runs from a read-only artifact tree. It is unsupported on Windows and when run as UID 0 because those environments cannot validate the required POSIX permission boundary.
+
+`quality:webcontainer` installs the matching Playwright Chromium binary, builds the standalone server, and stages a source-free WebContainer payload. Chromium verifies the generated wrapper and mount behavior with a mocked WebContainer runtime; a separate Node smoke test boots the reconstructed source-free server. The browser install downloads Chromium when it is not already cached.
 
 ### Manual PostgreSQL aggregate
 

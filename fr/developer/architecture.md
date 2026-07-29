@@ -25,6 +25,12 @@ L UI sensible aux permissions utilise `useAuth` et `useCan`. `useAuth` charge `/
 
 Les routes serveur lisent les corps et requetes valides avec des aides i18n, autorisent avec `authorize` et accedent a la base via `event.context.$db`. Les aides de route resolvent la portee depuis les dossiers cibles avant l autorisation. La suppression logique est realisee en mettant `_deleted`.
 
+## Écritures protégées et concurrence
+
+Certaines écritures à forte concurrence visant les engagements, prévisions, réclamations, rapprochements et surveillances renouvellent l’autorisation dans la transaction de base de données avant toute écriture. Ces transactions verrouillent, dans un ordre déterministe, le graphe d’autorisations de l’utilisateur, les portées du cycle de vie des extensions, les parents actifs et les lignes de l’agrégat. Après toute attente de verrou, l’écriture relit le propriétaire, l’état actif, le statut du flux et la portée avant d’appliquer les changements.
+
+Les chemins renforcés de mutation des parents et de leurs enregistrements enfants utilisent des verrous d’agrégat afin qu’une suppression du parent, une mutation d’un enfant, un achèvement et une transition d’approbation ne puissent pas s’entrecroiser et laisser un état partiel. Les suppressions demeurent logiques et mettent à jour l’agrégat et ses dépendances dans une seule transaction. Les tests d’intégration PostgreSQL couvrent l’ordre des écritures protégées et des chemins représentatifs de nouvelle validation; consultez [Tests](./testing.md#agregat-postgresql-manuel).
+
 ## Architecture RBAC
 
 La logique RBAC partagee se trouve dans `shared/utils/abilities.ts`, `shared/utils/scopes.ts` et `shared/utils/role-scope.ts`. La resolution serveur est dans `server/utils/rbac.ts` et `server/utils/authorize.ts`. Les memes concepts sont refletes cote client par `useAuth` et `useCan`.

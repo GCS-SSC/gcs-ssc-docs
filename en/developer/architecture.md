@@ -25,6 +25,12 @@ Permission-aware UI uses `useAuth` and `useCan`. `useAuth` fetches `/api/auth/ro
 
 Server routes read validated bodies and queries through i18n-aware helpers, authorize using `authorize`, and access the database through `event.context.$db`. Route helpers resolve scopes from target records before authorization. Soft deletion is implemented by updating `_deleted`.
 
+## Protected writes and concurrency
+
+Selected high-contention commitment, forecast, claim, reconciliation, and monitor writes refresh authorization inside the database transaction before writing. These transactions acquire the actor’s grant graph, extension lifecycle scopes, active parent rows, and aggregate rows in a deterministic order. After waiting for locks, the write re-reads ownership, active state, workflow status, and scope before applying changes.
+
+The hardened parent and child mutation paths use aggregate locks so a parent deletion, child mutation, completion, and approval transition cannot interleave into a partial state. Deletes remain soft deletes and update the aggregate and its dependent records in one transaction. PostgreSQL integration tests cover the protected-write lock order and representative revalidation paths; see [Testing](./testing.md#manual-postgresql-aggregate).
+
 ## RBAC architecture
 
 Shared RBAC logic lives in `shared/utils/abilities.ts`, `shared/utils/scopes.ts`, and `shared/utils/role-scope.ts`. Server resolution lives in `server/utils/rbac.ts` and `server/utils/authorize.ts`. The same concepts are mirrored on the client by `useAuth` and `useCan`.
