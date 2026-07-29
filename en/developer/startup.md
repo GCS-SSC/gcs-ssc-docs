@@ -15,10 +15,13 @@ The app uses Bun scripts, Nuxt 4, Better Auth, Kysely, and either PGlite or Post
 - `BETTER_AUTH_TRUSTED_ORIGINS`
 - `BETTER_AUTH_COOKIE_VERSION`
 - `GCS_EXTENSION_SECRETS_KEY`
+- `GCS_LOCAL_FILE_STORAGE_DIR`
 
 If `DATABASE_URL` is absent, local development can use the configured PGlite data directory.
 
 `GCS_EXTENSION_SECRETS_KEY` is required in production when extensions store encrypted credentials. It must be a base64-encoded 32-byte key. Development seed data may provide a fixed demo key for non-real local credentials only.
+
+For production local-file storage, set `GCS_LOCAL_FILE_STORAGE_DIR` to a dedicated service-owned directory. On POSIX, use a canonical path with no symbolic links in its ancestor spelling; the service identity must own the storage tree and group/other access must be disabled. On Windows, apply equivalent ACLs to the directory and its ancestors, including protection against replacement through delete-child or rename permissions.
 
 ## App setup
 

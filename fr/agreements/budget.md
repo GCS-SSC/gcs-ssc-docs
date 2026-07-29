@@ -52,3 +52,5 @@ Le pied de table affiche le nombre de dossiers, le total, le financement du prog
 ## Dependances
 
 Les previsions et reclamations utilisent les exercices et lignes budgetaires comme lignes de ventilation. Les paiements utilisent les exercices budgetaires pour contraindre les exercices et les lignes d engagement admissibles. Les engagements comparent leurs lignes au financement de programme du budget d entente.
+
+La modification du budget après le début de l’exécution en aval peut modifier les choix disponibles et la capacité restante. Finalisez le budget avant de créer des engagements, des prévisions, des réclamations ou des paiements.
