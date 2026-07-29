@@ -65,11 +65,11 @@ External sources can create more than one claim line for the same agreement budg
 
 | Action | Allowed when | Result |
 | --- | --- | --- |
-| Save submission | Claim is `draft`; `create` for missing lines and `update` for existing lines | Creates or updates only the UI-entered rows allowed by the user's corresponding action. |
-| Allocate unallocated line | Claim is `draft` or `submitted`, line is unallocated, and user has `update` | Sets the line's budget line item after validating it belongs to the Agreement and fiscal year. |
-| Ready for review | Draft claim has at least one line, no unallocated lines, and user has `update` | Sets claim status to `submitted`. |
-| Withdraw | Claim is `submitted`, no reconcile exists, and user has `update` | Sets claim status to `withdrawn`. |
-| Cancel | Claim is not `draft`, `withdrawn`, or `cancelled`, and user has `update` | Sets claim status to `cancelled`. |
+| Save submission | Claim is `draft`; `agreement:create` for missing lines and `agreement:update` for existing lines | Creates or updates only the UI-entered rows allowed by the user's corresponding action. |
+| Allocate unallocated line | Claim is `draft` or `submitted`, line is unallocated, and user has `agreement:update` | Sets the line's budget line item after validating it belongs to the Agreement and fiscal year. |
+| Ready for review | Draft claim has at least one line, no unallocated lines, and user has `agreement:update` | Sets claim status to `submitted`. |
+| Withdraw | Claim is `submitted`, no reconcile exists, and user has `agreement:update` | Sets claim status to `withdrawn`. |
+| Cancel | Claim is not `draft`, `withdrawn`, or `cancelled`, and user has `agreement:update` | Sets claim status to `cancelled`. |
 
 ## Reconciliations
 

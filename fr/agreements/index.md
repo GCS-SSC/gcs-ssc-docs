@@ -17,7 +17,7 @@ Une installation vide doit etre configuree avant que la creation d entente puiss
 
 ## Pages liste et creation
 
-La liste des ententes affiche les dossiers que l utilisateur peut lire grace a un role porte ou a une equipe exacte d entente et ouvre la page de detail. La creation de premier niveau exige un role global, d agence ou lie au programme avec `agreement:create`; une equipe ne permet jamais de creer une nouvelle entente.
+La liste des ententes affiche les dossiers que l’utilisateur peut lire grâce à un rôle à portée définie ou à une équipe exacte d’entente et ouvre la page de détail. La création de premier niveau exige un rôle global, d’agence ou lié au programme avec `agreement:create` ; une équipe ne permet jamais de créer une nouvelle entente.
 
 Le formulaire de creation enregistre :
 
@@ -33,7 +33,7 @@ Le formulaire de creation enregistre :
 
 ## Espace de detail
 
-L espace de detail modifie le profil General avec `agreement:update`. Les onglets enfants affichent chaque controle independamment : `create` ajoute des enfants, `update` modifie des dossiers existants ou un etat de flux modifiable, et `delete` supprime logiquement. Une equipe exacte d entente fournit ces actions selon son niveau, meme lorsque les roles de l utilisateur ne les donnent pas.
+L’espace de détail modifie le profil Général avec `agreement:update`. Les onglets enfants affichent chaque contrôle indépendamment : `create` ajoute des enfants, `update` modifie des dossiers existants ou un état de flux modifiable, et `delete` supprime logiquement. Une équipe exacte d’entente fournit ces actions selon son niveau, même lorsque les rôles de l’utilisateur ne les donnent pas.
 
 | Onglet | Page |
 | --- | --- |
@@ -48,7 +48,7 @@ L espace de detail modifie le profil General avec `agreement:update`. Les onglet
 | Surveillances | [Surveillances](./monitors.md) |
 | Documents | [Documents](./documents.md) |
 | Activites | [Activites](./activities.md) |
-| Equipe | Utilisateurs exacts avec `read_only`, `contributor` ou `full_access` sur cette entente enregistree. |
+| Équipe | Utilisateurs exacts avec `read_only`, `contributor` ou `full_access` sur cette entente enregistrée. |
 
 Des onglets d extension peuvent apparaitre sur les surfaces entente, reclamation, surveillance, engagement et paiement lorsqu une extension les enregistre.
 

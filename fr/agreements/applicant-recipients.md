@@ -8,7 +8,7 @@ L onglet Promoteurs lie des profils de demandeur/beneficiaire a une entente. Le 
 | --- | --- |
 | Profils demandeur/beneficiaire | La creation d entente exige au moins un identifiant et l onglet permet d ajouter d autres liens. |
 | Donnees d agence responsable | La table affiche l agence responsable du profil lie lorsque disponible. |
-| Permissions CRUD d entente | `create` ajoute un lien de promoteur, `update` modifie un lien existant et `delete` le retire par suppression logique. Le selecteur exige aussi l acces en lecture a chaque promoteur qu il expose. |
+| Permissions CRUD d’entente | `create` ajoute un lien de promoteur, `update` modifie un lien existant et `delete` le retire par suppression logique. Le sélecteur exige aussi l’accès en lecture à chaque promoteur qu’il expose. |
 
 ## Flux de page
 
@@ -22,7 +22,7 @@ La table affiche :
 | --- | --- |
 | Demandeur/beneficiaire | Nom bilingue du profil demandeur/beneficiaire. |
 | Agence responsable | Nom bilingue de l agence du profil. |
-| Actions | Modifier avec `agreement:update`; retirer avec `agreement:delete`. |
+| Actions | Modifier avec `agreement:update` ; retirer avec `agreement:delete`. |
 
 ## Regles d affaires
 

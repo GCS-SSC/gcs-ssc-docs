@@ -10,7 +10,7 @@ Avant de creer des programmes de production, configurez l agence proprietaire et
 
 | Configuration | Utilite |
 | --- | --- |
-| Profil d agence et permissions structurelles de role | Les administrateurs de programme ont besoin d un contexte d agence et d une permission de role `transfer_payment` portee. Les equipes ne s attachent pas aux programmes. |
+| Profil d’agence et permissions structurelles de rôle | Les administrateurs de programme ont besoin d’un contexte d’agence et d’une permission de rôle `transfer_payment` de portée appropriée. Les équipes ne s’attachent pas aux programmes. |
 | Exercices financiers de l agence | Les budgets de programme sont lies a ces enregistrements. |
 | Sous-types de destinataires demandeurs, types d entente, categories de couts et elements de ligne de couts | Les volets consomment ces donnees d agence. |
 | Utilisateurs communs, types "au nom de", schemas d examen, schemas de recommandation et modeles d approbation | Requis lorsque le premier volet doit generer des examens, recommandations ou approbations. |
@@ -19,7 +19,7 @@ Si l administrateur travaille dans un contexte d agence actif, le choix de l age
 
 ## Page De Liste
 
-La page Programmes affiche seulement les enregistrements que l utilisateur courant peut lire grace a une permission structurelle de role globale, d agence ou limitee aux programmes lies. Les equipes de promoteur et d entente ne donnent aucun acces aux programmes.
+La page Programmes affiche seulement les enregistrements que l’utilisateur courant peut lire grâce à une permission structurelle de rôle globale, propre à une agence ou limitée aux programmes liés. Les équipes de promoteur et d’entente ne donnent aucun accès aux programmes.
 
 La liste prend en charge:
 
@@ -150,13 +150,13 @@ Le statut du programme utilise l enum de statut de base et vaut brouillon par de
 
 ## Permissions Et Portee
 
-Les actions lire, creer, modifier et supprimer sont autorisees par le sujet de role `transfer_payment`. La portee est derivee de la structure du role et est globale, propre a une agence ou limitee aux programmes lies au role :
+Les actions lire, créer, modifier et supprimer sont autorisées par le sujet de rôle `transfer_payment`. La portée est dérivée de la structure du rôle et est globale, propre à une agence ou limitée aux programmes liés au rôle :
 
-- La creation verifie l agence selectionnee et exige donc un acces global ou d agence `transfer_payment:create` applicable.
-- La visibilite de la liste est resolue par acces global, acces d agence et programmes lies aux roles de portee programme.
-- Le detail et les actions sur les enfants comparent l agence et le programme proprietaires a l action CRUD demandee.
-- Les pages de volet et de configuration enfant demeurent dans la portee derivee du role du programme proprietaire.
-- Les equipes ne sont jamais evaluees pour les agences, programmes ou volets.
+- La création vérifie l’agence sélectionnée et exige donc un accès global ou d’agence `transfer_payment:create` applicable.
+- La visibilité de la liste est résolue par un accès global, un accès d’agence et les programmes liés aux rôles à portée de programme.
+- Le détail et les actions sur les enfants évaluent l’action CRUD demandée par rapport à l’agence et au programme propriétaires.
+- Les pages de volet et de configuration enfant demeurent dans la portée dérivée du rôle qui couvre le programme propriétaire.
+- Les équipes ne sont jamais évaluées pour les agences, les programmes ou les volets.
 
 Si un utilisateur peut lire un programme sans pouvoir le modifier, la page de detail charge quand meme, mais les actions de modification et d ajout sont masquees ou desactivees.
 

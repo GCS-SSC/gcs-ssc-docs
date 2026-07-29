@@ -6,18 +6,18 @@ Les promoteurs sont des profils de demandeur/beneficiaire. Ils peuvent etre cree
 
 | Dependence | Pourquoi c est important |
 | --- | --- |
-| Agence principale | Chaque promoteur releve d une agence. Cette agence fournit les donnees de reference, notamment les sous-types de promoteur disponibles. |
-| Sous-type de promoteur | Le sous-type doit etre configure sous l agence principale avant la creation du profil. |
-| Acces direct de l utilisateur | La creation de premier niveau exige l indicateur global Promoteur `create` de l utilisateur. Les quatre indicateurs CRUD directs sont geres dans l onglet Attributions de l utilisateur. |
-| Acces par equipe exacte | Un promoteur enregistre peut accorder `read_only`, `contributor` ou `full_access` a des utilisateurs choisis meme si leurs roles et indicateurs directs ne donnent aucun acces. |
-| Configurations d examen | Les examens apparaissent seulement lorsque des configurations admissibles existent pour les promoteurs. |
-| Configuration d entente | L onglet Ententes devient utile lorsque programmes, volets, sous-types d entente et permissions existent. |
+| Agence principale | Chaque promoteur relève d’une agence. Cette agence fournit les données de référence, notamment les sous-types de promoteur disponibles. |
+| Sous-type de promoteur | Le sous-type doit être configuré sous l’agence principale avant la création du profil. |
+| Accès direct de l’utilisateur | La création de premier niveau exige l’indicateur global Promoteur `create` de l’utilisateur. Les quatre indicateurs CRUD directs sont gérés dans l’onglet Attributions de l’utilisateur. |
+| Accès par équipe exacte | Un promoteur enregistré peut accorder `read_only`, `contributor` ou `full_access` à des utilisateurs choisis même si leurs rôles et indicateurs directs ne donnent aucun accès. |
+| Configurations d’examen | Les examens apparaissent seulement lorsque des configurations admissibles existent pour les promoteurs. |
+| Configuration d’entente | L’onglet Ententes devient utile lorsque les programmes, les volets, les sous-types d’entente et les permissions existent. |
 
 ## Page de liste
 
-La page Promoteurs prend en charge recherche, filtre de statut, pagination, controles de colonnes et actions de ligne. Les utilisateurs avec l indicateur direct Promoteur `read` voient la liste interagences; les utilisateurs qui ont seulement une equipe voient uniquement les promoteurs exacts qui leur sont attribues. La recherche aide a trouver un profil visible par identifiants, noms legaux, noms commerciaux, sous-type ou agence principale.
+La page Promoteurs prend en charge la recherche, le filtre de statut, la pagination, les contrôles de colonnes et les actions de ligne. Les utilisateurs avec l’indicateur direct Promoteur `read` voient la liste interagences ; les utilisateurs dont l’accès provient uniquement d’une équipe voient seulement les promoteurs exacts qui leur sont attribués. La recherche aide à trouver un profil visible par ses identifiants, ses noms légaux, ses noms commerciaux, son sous-type ou son agence principale.
 
-Creer apparait avec l indicateur direct Promoteur `create` et ouvre la page de creation. Modifier et Supprimer dependent de l indicateur direct correspondant ou du niveau de l equipe exacte du promoteur selectionne. Supprimer est une suppression logique qui retire le promoteur des listes actives normales sans effacer les references historiques.
+Créer apparaît avec l’indicateur direct Promoteur `create` et ouvre la page de création. Modifier et Supprimer dépendent de l’indicateur direct correspondant ou du niveau de l’équipe exacte du promoteur sélectionné. Supprimer est une suppression logique qui retire le promoteur des listes actives normales sans effacer les références historiques.
 
 ## Creer un profil
 

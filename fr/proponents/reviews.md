@@ -10,7 +10,7 @@ Les examens capturent le travail d evaluation ou de liste de controle pour un pr
 | Configuration d ensemble d examen | Groupe un ou plusieurs examens pour les promoteurs. |
 | Ordre de configuration | Controle l ordre des examens dans l ensemble. |
 | Modele d approbation | Requis lorsque les examens completes doivent etre approuves. |
-| Acces au promoteur et attribution de flux | L acces en lecture au promoteur ouvre les examens. L acces de mise a jour permet de creer les ensembles, repondre, completer, annuler, cloner ou reattribuer. Une action d approbation exige aussi l attribution a cette etape; l attribution seule ne donne jamais acces au promoteur. |
+| Accès au promoteur et attribution de flux | L’accès en lecture au promoteur ouvre les examens. L’accès de mise à jour permet de créer les ensembles, de répondre, de compléter, d’annuler, de cloner ou de réattribuer. Une action d’approbation exige aussi l’attribution à cette étape ; l’attribution seule ne donne jamais accès au promoteur. |
 
 ## Flux de page
 

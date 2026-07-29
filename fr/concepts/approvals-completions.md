@@ -16,7 +16,7 @@ Les enregistrements d’achèvement sont génériques afin que plusieurs surface
 
 ## Comportement d’exécution
 
-Les composants d’approbation et d’achèvement lisent les données de configuration, l’identifiant de l’entité courante, le statut et les permissions de l’utilisateur. Les actions typiques incluent approuver, refuser, réattribuer, voir l’état d’approbation, marquer comme terminé et enregistrer des commentaires. L’ensemble exact dépend de l’entité et du modèle configuré. L attribution de flux determine l admissibilite a une action et ne constitue pas une permission d acces : un examinateur ou approbateur assigne doit toujours posseder l acces ordinaire en lecture au promoteur, a l entente ou au contexte d agence proprietaire par le mecanisme RBAC applicable.
+Les composants d’approbation et d’achèvement lisent les données de configuration, l’identifiant de l’entité courante, le statut et les permissions de l’utilisateur. Les actions typiques incluent approuver, refuser, réattribuer, voir l’état d’approbation, marquer comme terminé et enregistrer des commentaires. L’ensemble exact dépend de l’entité et du modèle configuré. L’attribution de flux détermine l’admissibilité à une action et ne constitue pas une permission d’accès : un examinateur ou un approbateur assigné doit toujours posséder l’accès ordinaire en lecture au promoteur, à l’entente ou au contexte de l’agence propriétaire par le mécanisme RBAC applicable.
 
 ## Dépendances de configuration
 

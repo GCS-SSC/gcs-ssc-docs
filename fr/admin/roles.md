@@ -4,7 +4,7 @@ Les roles definissent les combinaisons action, sujet et portee qui deviennent le
 
 ## Liste des roles
 
-La page Roles prend en charge pagination et recherche. Les utilisateurs avec `role:read` global voient tous les roles. Les lecteurs limites a des agences voient les roles globaux et les roles de leurs agences autorisees. La table inclut les noms bilingues, descriptions, contexte d agence, capacites et ids de programmes selectionnes.
+La page Rôles prend en charge la pagination et la recherche. Les utilisateurs disposant de la permission globale `role:read` voient tous les rôles. Les lecteurs limités à certaines agences voient les rôles globaux et ceux de leurs agences autorisées. Le tableau comprend les noms bilingues, les descriptions, le contexte d’agence, les capacités et les identifiants des programmes sélectionnés.
 
 Les utilisateurs avec acces de creation peuvent ouvrir la modale de role. Les utilisateurs avec acces de mise a jour pour la portee du role peuvent le modifier. Les suppressions sont logiques.
 
@@ -36,11 +36,11 @@ L application rejette les roles de programme sans agence. Elle rejette aussi les
 
 ## Regles de capacites
 
-Les capacites sont des paires action-sujet explicites. Les actions sont `create`, `read`, `update` et `delete`. Les seuls sujets de role sont `system`, `agency`, `transfer_payment`, `role`, `user` et `agreement`. L acces aux promoteurs ne constitue volontairement pas une capacite de role; il est configure par des indicateurs directs sur l utilisateur et des equipes exactes de promoteur.
+Les capacités sont des paires action-sujet explicites. Les actions sont `create`, `read`, `update` et `delete`. Les seuls sujets de rôle sont `system`, `agency`, `transfer_payment`, `role`, `user` et `agreement`. L’accès aux promoteurs ne constitue volontairement pas une capacité de rôle ; il est configuré au moyen d’indicateurs directs sur l’utilisateur et d’équipes exactes de promoteur.
 
-La portee limite les sujets attribuables :
+La portée limite les sujets attribuables :
 
-| Sujet du role | Role global | Role d agence | Role de programme |
+| Sujet du rôle | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
 | `agency` | Oui | Oui | Non |
@@ -49,7 +49,7 @@ La portee limite les sujets attribuables :
 | `user` | Oui | Oui | Non |
 | `agreement` | Oui | Oui | Oui |
 
-Il n existe aucun sujet generique ou `all`. La portee de programme est derivee des liens actifs du role vers les programmes, et non d un champ de portee independant.
+Il n’existe aucun sujet générique ni sujet `all`. La portée de programme est dérivée des liens actifs du rôle vers les programmes, et non d’un champ de portée indépendant.
 
 L onglet Capacites du detail de role filtre les capacites permises pour la portee courante. Si un utilisateur tente un basculement invalide, l application affiche une erreur de portee et n enregistre pas la capacite invalide.
 
@@ -66,11 +66,11 @@ L’enregistrement de l’onglet Général modifie seulement le profil et la por
 
 Utilisez peu de modeles de role durables :
 
-- Administrateur racine : role global ordinaire contenant les paires action-sujet explicites requises pour les operateurs systeme de confiance. Le role initial contient les 24 paires valides et ne contourne pas l autorisation.
-- Administrateur d agence : permissions d agence, d utilisateur, de role, de paiement de transfert et d entente limitees a une agence. L acces aux promoteurs est attribue separement sur les utilisateurs ou par des equipes exactes.
-- Gestionnaire de programme : permissions paiement de transfert et entente pour des programmes selectionnes.
-- Operateur d entente : creation/mise a jour des ententes et flux enfants dans une portee programme ou agence.
-- Examinateur ou approbateur : seulement les permissions ordinaires de lecture/mise a jour d entite requises par le processus. L attribution de flux determine qui peut executer une etape assignee; elle ne donne aucun acces a l entite par elle-meme.
+- Administrateur racine : rôle global ordinaire contenant les paires action-sujet explicites requises pour les opérateurs système de confiance. Le rôle initial contient les 24 paires valides et ne contourne pas l’autorisation.
+- Administrateur d’agence : permissions d’agence, d’utilisateur, de rôle, de paiement de transfert et d’entente limitées à une agence. L’accès aux promoteurs est attribué séparément aux utilisateurs ou par des équipes exactes.
+- Gestionnaire de programme : permissions de paiement de transfert et d’entente pour des programmes sélectionnés.
+- Opérateur d’entente : création et mise à jour des ententes et des flux enfants dans une portée de programme ou d’agence.
+- Examinateur ou approbateur : seulement les permissions ordinaires de lecture et de mise à jour de l’entité requises par le processus. L’attribution de flux détermine qui peut exécuter une étape assignée ; elle ne donne elle-même aucun accès à l’entité.
 - Analyste lecture seule : lecture sans creation, mise a jour ou suppression.
 
 Evitez de creer de nombreux roles presque identiques. Preferez un role par fonction et portee par attribution.

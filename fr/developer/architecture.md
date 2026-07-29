@@ -19,7 +19,7 @@ L application source est une application Nuxt 4 monopage avec routes API serveur
 
 Les pages de liste utilisent souvent `useResourceTable` et les composants de disposition de ressource. Les pages detail utilisent souvent `CommonEntityHero` pour l en-tete repliable, les onglets de route avec `useRouteTabMap` et les aides de route de `app/utils/route-locations.ts`. Les formulaires de creation et mise a jour utilisent les schemas Zod partages avec `useZodI18n`.
 
-L UI sensible aux permissions utilise `useAuth` et `useCan`. `useAuth` charge la reponse canonique `{ grants }` depuis `/api/auth/permissions`, valide chaque permission statique et expose `authorize`, `authorizeGrant` et `hasAbility`. L acces exact d une equipe a un promoteur ou a une entente est retourne par les API d entite plutot qu ajoute a cette liste de permissions statiques.
+L’interface utilisateur sensible aux permissions utilise `useAuth` et `useCan`. `useAuth` charge la réponse canonique `{ grants }` depuis `/api/auth/permissions`, valide chaque permission statique et expose `authorize`, `authorizeGrant` et `hasAbility`. L’accès exact d’une équipe à un promoteur ou à une entente est renvoyé par les API de l’entité plutôt que d’être ajouté à cette liste de permissions statiques.
 
 ## Modeles serveur
 

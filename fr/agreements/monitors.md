@@ -9,7 +9,7 @@ Les surveillances enregistrent le travail de surveillance prevu, les elements su
 | Types de surveillance du paiement de transfert | La recherche est portee par le volet de l entente. |
 | Exercices de l agence | La recherche d exercice provisoire est portee par l agence de l entente. |
 | Modele d approbation `fundingcasemonitor` | Requis si la completion doit aller en approbation. |
-| Permissions CRUD d entente | `create` cree les surveillances et sous-dossiers, `update` les modifie et acheve les surveillances encore modifiables, et `delete` les supprime logiquement. Les actions d approbation exigent aussi l acces ordinaire en lecture et une attribution. |
+| Permissions CRUD d’entente | `create` crée les surveillances et sous-dossiers, `update` les modifie et achève les surveillances encore modifiables, et `delete` les supprime logiquement. Les actions d’approbation exigent aussi l’accès ordinaire en lecture et une attribution. |
 
 ## Flux d onglet
 

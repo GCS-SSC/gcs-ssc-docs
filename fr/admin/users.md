@@ -1,19 +1,19 @@
 # Utilisateurs
 
-La zone Utilisateurs gere les identites de l application, les attributions structurelles de roles et les quatre indicateurs directs CRUD de promoteur. Les roles fournissent l acces ordinaire porte; les indicateurs directs constituent l exception interagences globale voulue pour les promoteurs. L appartenance a une equipe exacte de promoteur ou d entente est geree sur l entite enregistree plutot que sur cette page.
+La zone Utilisateurs gère les identités de l’application, les attributions structurelles de rôles et les quatre indicateurs directs CRUD de promoteur. Les rôles fournissent l’accès ordinaire selon leur portée ; les indicateurs directs constituent l’exception globale d’accès interagences voulue pour les promoteurs. L’appartenance à une équipe exacte de promoteur ou d’entente est gérée sur l’entité enregistrée plutôt que sur cette page.
 
 ## Liste des utilisateurs
 
-La page Utilisateurs prend en charge recherche, pagination et statistiques. Les utilisateurs avec `user:read` global voient tous les utilisateurs actifs. Les lecteurs limites a une agence voient eux-memes, les utilisateurs attribues aux agences autorisees et les utilisateurs membres d equipes exactes dans ces agences. Les utilisateurs supprimes sont exclus des listes normales.
+La page Utilisateurs prend en charge la recherche, la pagination et les statistiques. Les utilisateurs disposant de la permission globale `user:read` voient tous les utilisateurs actifs. Les lecteurs limités à une agence voient leur propre compte, les utilisateurs attribués aux agences autorisées et les utilisateurs membres d’équipes exactes dans ces agences. Les utilisateurs supprimés sont exclus des listes normales.
 
-La table affiche avatar, nom, courriel et actions. Créer apparaît seulement avec `user:create`. La mise à jour et la suppression dépendent aussi des portées actives de l’utilisateur cible : un administrateur limité à des agences doit couvrir chaque agence représentée par les attributions actives de rôle et les appartenances d equipe de la cible. Une cible ayant un rôle global actif ne peut être modifiée ou supprimée qu’avec l’accès global pour l’action correspondante. Une ligne peut donc être visible sans être modifiable ni supprimable. La suppression logique de l utilisateur supprime aussi logiquement ses attributions actives.
+La table affiche avatar, nom, courriel et actions. Créer apparaît seulement avec `user:create`. La mise à jour et la suppression dépendent aussi des portées actives de l’utilisateur cible : un administrateur limité à des agences doit couvrir chaque agence représentée par les attributions actives de rôle et les appartenances d’équipe de la cible. Une cible ayant un rôle global actif ne peut être modifiée ou supprimée qu’avec l’accès global pour l’action correspondante. Une ligne peut donc être visible sans être modifiable ni supprimable. La suppression de l’utilisateur est logique et entraîne aussi la suppression logique de ses attributions actives.
 
 ## Detail utilisateur
 
 Le detail utilisateur contient :
 
 - General, avec nom, courriel, etat de verification du courriel, image et horodatages.
-- Attributions, avec les attributions structurelles actives de role et les indicateurs directs Promoteur Creer, Lire, Mettre a jour et Supprimer.
+- Attributions, avec les attributions structurelles actives de rôle et les indicateurs directs Promoteur Créer, Lire, Mettre à jour et Supprimer.
 
 Le sommaire affiche nom, courriel, avatar et statut verifie/non verifie. La modification d identite est separee de l attribution de roles.
 
@@ -33,34 +33,34 @@ Lorsqu un role est attribue :
 
 Supprimer une attribution la supprime logiquement. L’autorisation côté serveur reflète le changement lors des requêtes suivantes. Les contrôles côté client sont mis à jour après une nouvelle récupération des permissions côté client, par exemple après le rechargement de la page ou une nouvelle connexion.
 
-## Acces direct aux promoteurs
+## Accès direct aux promoteurs
 
-L onglet Attributions expose aussi quatre indicateurs independants de promoteur :
+L’onglet Attributions expose aussi quatre indicateurs indépendants de promoteur :
 
 | Indicateur | Effet |
 | --- | --- |
-| `create` | Creer des promoteurs dans n importe quelle agence. |
-| `read` | Enumerer et lire les promoteurs de toutes les agences. |
+| `create` | Créer des promoteurs dans n’importe quelle agence. |
+| `read` | Énumérer et lire les promoteurs de toutes les agences. |
 | `update` | Modifier tout promoteur et ses enregistrements enfants pris en charge. |
 | `delete` | Supprimer logiquement tout promoteur et ses enregistrements enfants pris en charge. |
 
-Ces indicateurs sont stockes directement sur l utilisateur; ils ne sont ni des capacites de role ni des lignes d attribution separees. Seul un utilisateur avec `user:update` global peut les modifier. L interface avertit que l acces est interagences et exige une confirmation avant l enregistrement. Accordez seulement les actions requises; utilisez plutot l equipe exacte d un promoteur pour donner acces a une seule entite enregistree.
+Ces indicateurs sont stockés directement sur l’utilisateur ; ils ne sont ni des capacités de rôle ni des lignes d’attribution séparées. Seul un utilisateur avec `user:update` global peut les modifier. L’interface avertit que l’accès est interagences et exige une confirmation avant l’enregistrement. Accordez seulement les actions requises ; utilisez plutôt l’équipe exacte d’un promoteur pour donner accès à une seule entité enregistrée.
 
 ## Gestion du compte racine
 
-Gardez l attribution racine limitee et auditable. La racine est un utilisateur ordinaire avec des capacites globales explicites de role et, au besoin, des indicateurs de promoteur actives separement; elle ne contourne pas l autorisation. Utilisez des roles portes pour le travail courant sur les programmes et ententes, les indicateurs directs seulement pour les taches de promoteur vraiment interagences et les equipes exactes pour collaborer sur un promoteur ou une entente enregistree.
+Gardez l’attribution racine limitée et facile à auditer. L’utilisateur racine demeure un utilisateur ordinaire avec des capacités globales explicites de rôle et, au besoin, des indicateurs de promoteur activés séparément ; il ne contourne pas l’autorisation. Utilisez des rôles à portée définie pour le travail courant sur les programmes et les ententes, les indicateurs directs seulement pour les tâches liées aux promoteurs qui sont véritablement interagences et les équipes exactes pour collaborer sur un promoteur ou une entente enregistrée.
 
-## Depannage de l acces
+## Dépannage de l’accès
 
 Si un utilisateur ne voit pas une page :
 
-1. Verifiez que l utilisateur n est pas supprime.
-2. Pour l acces porte ordinaire, verifiez que l attribution de role, le role, l agence parente et les programmes selectionnes sont actifs.
+1. Vérifiez que l’utilisateur n’est pas supprimé.
+2. Pour l’accès ordinaire selon la portée, vérifiez que l’attribution de rôle, le rôle, l’agence parente et les programmes sélectionnés sont actifs.
 3. Vérifiez que la structure du rôle est valide : un rôle global n’a pas d’agence, un rôle d’agence n’a pas de lien de programme et un rôle de programme a au moins un programme actif dans son agence.
-4. Verifiez que le role contient la bonne action et le bon sujet et que sa portee derivee couvre la ressource demandee.
-5. Pour l acces interagences aux promoteurs, verifiez l indicateur CRUD direct correspondant dans Attributions.
-6. Pour un promoteur ou une entente enregistree, verifiez l appartenance de l utilisateur a l equipe exacte et son niveau d acces sur cette entite.
-7. Demandez a l utilisateur de se deconnecter puis se reconnecter si les permissions statiques semblent anciennes. Le serveur resout l acces d equipe d entite a la demande.
+4. Vérifiez que le rôle contient la bonne action et le bon sujet et que sa portée dérivée couvre la ressource demandée.
+5. Pour l’accès interagences aux promoteurs, vérifiez l’indicateur CRUD direct correspondant dans Attributions.
+6. Pour un promoteur ou une entente enregistrée, vérifiez l’appartenance de l’utilisateur à l’équipe exacte et son niveau d’accès sur cette entité.
+7. Demandez à l’utilisateur de se déconnecter puis de se reconnecter si les permissions statiques semblent anciennes. Le serveur résout à la demande l’accès à l’entité accordé par une équipe.
 
 ![Onglet Attributions utilisateur](/screenshots/fr/user-assignments.png)
 

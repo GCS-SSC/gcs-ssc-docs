@@ -1,6 +1,6 @@
 # Commun
 
-Commun est la page d administration globale a `/fr/admin/commun`. Elle exige la permission globale explicite `system:read`; le role racine initial respecte cette regle par des capacites ordinaires et ne possede aucun contournement special.
+Commun est la page d’administration globale accessible à `/fr/admin/commun`. Elle exige la permission globale explicite `system:read` ; le rôle racine initial respecte cette règle grâce à des capacités ordinaires et ne possède aucun contournement spécial.
 
 ## Objectif
 
@@ -34,7 +34,7 @@ L ordre va volontairement des references de base vers les enregistrements d exec
 
 ## Comportement UI commun
 
-Chaque onglet affiche une table et un formulaire genere. Les types de champs comprennent texte, nombre, date, zone de texte, JSON, booleen, enum et recherche. La recherche inclut les colonnes configurees et l id. Le filtre de suppression prend en charge tous, actifs et supprimes. Pour les ressources modifiables, une ligne existante expose un interrupteur de suppression afin que les administrateurs globaux autorises puissent supprimer logiquement ou restaurer.
+Chaque onglet affiche un tableau et un formulaire généré. Les types de champs comprennent le texte, les nombres, les dates, les zones de texte, le JSON, les valeurs booléennes, les énumérations et les recherches. La recherche porte sur les colonnes configurées et l’identifiant. Le filtre de suppression accepte les valeurs Tous, Actifs et Supprimés. Pour les ressources modifiables, une ligne existante offre un interrupteur de suppression afin que les administrateurs globaux autorisés puissent la supprimer logiquement ou la restaurer.
 
 L onglet Entites est en lecture seule. Il fournit les ids d entite d execution pour les champs de recherche et ne doit pas etre cree manuellement dans l UI.
 
@@ -66,7 +66,7 @@ Les Schemas de recommandation definissent un contenu structure et un resultat JS
 
 ## Conseils operationnels
 
-Les administrateurs systeme globaux ne devraient pas utiliser Commun comme simple editeur de donnees. Plusieurs ressources pilotent les flux d execution. Modifier des schemas actifs, modeles d approbation ou configurations apres la creation de dossiers d execution peut affecter les nouveaux dossiers differemment des historiques. Preferez creer une nouvelle version ou configuration lorsque le processus metier change.
+Les administrateurs système globaux ne devraient pas utiliser Commun comme simple éditeur de données. Plusieurs ressources pilotent les flux d’exécution. Modifier des schémas actifs, des modèles d’approbation ou des configurations après la création de dossiers d’exécution peut affecter les nouveaux dossiers différemment des dossiers historiques. Préférez créer une nouvelle version ou une nouvelle configuration lorsque le processus métier change.
 
 ![Ressources Commun](/screenshots/fr/common-admin.png)
 

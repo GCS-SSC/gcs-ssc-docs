@@ -9,7 +9,7 @@ Les previsions suivent les depenses attendues par ligne budgetaire, mois, exerci
 | Exercices budgetaires de l entente | Les previsions sont creees pour les exercices budgetaires de l entente. |
 | Lignes budgetaires | La page de detail construit ses lignes editables a partir des lignes du meme exercice. |
 | Modele d approbation `fundingcaseforecast` | Requis si les previsions completees doivent etre approuvees. |
-| Permissions CRUD d entente | `create` cree les en-tetes, versions et nouvelles lignes mensuelles; `update` modifie les lignes existantes et acheve les previsions encore modifiables; `delete` supprime logiquement les dossiers de prevision. Les actions d approbation exigent aussi l acces ordinaire en lecture et une attribution. |
+| Permissions CRUD d’entente | `create` crée les en-têtes, versions et nouvelles lignes mensuelles ; `update` modifie les lignes existantes et achève les prévisions encore modifiables ; `delete` supprime logiquement les dossiers de prévision. Les actions d’approbation exigent aussi l’accès ordinaire en lecture et une attribution. |
 
 ## Flux d onglet
 
@@ -42,7 +42,7 @@ La page affiche un exercice et une version a la fois. Elle construit une grille 
 | Version | Entier non negatif normalise en chaine. |
 | Statut | Enum requis. Les nouvelles lignes de detail sont `inprogress`. |
 
-Sauvegarder la ventilation modifie les lignes mensuelles existantes seulement avec `agreement:update` et cree les lignes manquantes non nulles seulement avec `agreement:create`. L editeur expose chaque ligne selon l action requise pour cette ligne.
+Sauvegarder la ventilation modifie les lignes mensuelles existantes seulement avec `agreement:update` et crée les lignes manquantes non nulles seulement avec `agreement:create`. L’éditeur expose chaque ligne selon l’action requise pour celle-ci.
 
 ## Regles d affaires
 

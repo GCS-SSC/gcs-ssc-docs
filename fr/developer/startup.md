@@ -57,7 +57,7 @@ Utilisez `DOCGEN_ENV_FILE` pour cibler un autre fichier d environnement. Les opt
 
 ## Amorcage de l authentification
 
-Les donnees de developpement peuvent creer `root@example.com` avec `password123`. La production devrait utiliser un amorcage propre au deploiement. Apres l existence de l utilisateur racine, creez les roles et attributions par l UI, puis verifiez la reponse canonique `{ grants }` de `/api/auth/permissions`.
+Les données de développement peuvent créer `root@example.com` avec `password123`. La production devrait utiliser un amorçage propre au déploiement. Une fois que l’utilisateur racine existe, créez les rôles et les attributions par l’interface utilisateur (UI), puis vérifiez la réponse canonique `{ grants }` de `/api/auth/permissions`.
 
 ## Demarrage de la documentation
 
