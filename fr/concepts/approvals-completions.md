@@ -2,11 +2,11 @@
 
 Les approbations et les achèvements sont des contrôles d’exécution construits à partir des données d’administration. Ce ne sont pas seulement des sections d’affichage : ils déterminent quand les dossiers peuvent progresser, qui doit agir, quel texte de certification apparaît et comment l’état d’achèvement est stocké.
 
-## Configuration d approbation
+## Configuration d’approbation
 
-Les Modeles d approbation definissent le flux pour une portee et un type d entite. Les Etapes d approbation definissent sequence, description, utilisateur par defaut et titre d approbateur. Les Certifications peuvent etre attachees aux etapes et etre optionnelles ou requises. Les Types d approbation au nom d autrui sont configures par agence et decrivent les cas ou quelqu un approuve pour une autre personne.
+Les modèles d’approbation définissent le flux pour une portée et un type d’entité. Les étapes d’approbation définissent la séquence, la description, l’utilisateur par défaut et le titre de l’approbateur. Les certifications peuvent être rattachées aux étapes et être facultatives ou requises. Les types d’approbation au nom d’autrui sont configurés par agence et décrivent les cas où une personne approuve pour une autre.
 
-Les Feuilles de route sont des enregistrements d approbation d execution. Elles pointent vers une entite, un modele d approbation et un statut d approbation comme brouillon, en attente, approuve ou refuse.
+Les feuilles de route sont des enregistrements d’approbation d’exécution. Elles pointent vers une entité, un modèle d’approbation et un statut comme brouillon, en attente, approuvé ou refusé.
 
 ## Configuration des achèvements
 
@@ -14,21 +14,21 @@ Les achèvements stockent la valeur d’achèvement d’une entité, les comment
 
 Les enregistrements d’achèvement sont génériques afin que plusieurs surfaces de flux partagent le même modèle. Une configuration manquante peut empêcher une section d’apparaître ou bloquer la progression attendue.
 
-## Comportement d execution
+## Comportement d’exécution
 
 Les composants d’approbation et d’achèvement lisent les données de configuration, l’identifiant de l’entité courante, le statut et les permissions de l’utilisateur. Les actions typiques incluent approuver, refuser, réattribuer, voir l’état d’approbation, marquer comme terminé et enregistrer des commentaires. L’ensemble exact dépend de l’entité et du modèle configuré.
 
-## Dependances de configuration
+## Dépendances de configuration
 
-Avant l usage en production, confirmez :
+Avant l’usage en production, confirmez :
 
-- Les utilisateurs existent pour le routage par defaut.
-- Les modeles d approbation correspondent a la bonne portee et au bon type d entite.
-- Les etapes d approbation sont ordonnees et portent des libelles/descriptions bilingues au besoin.
-- Les certifications sont attachees aux bonnes etapes.
+- Les utilisateurs existent pour le routage par défaut.
+- Les modèles d’approbation correspondent à la bonne portée et au bon type d’entité.
+- Les étapes d’approbation sont ordonnées et portent des libellés et descriptions bilingues au besoin.
+- Les certifications sont rattachées aux bonnes étapes.
 - Les achèvements utilisent le bon type d’entité et le bon identifiant.
-- Les types d approbation au nom d autrui existent si la delegation fait partie du processus.
+- Les types d’approbation au nom d’autrui existent si la délégation fait partie du processus.
 
-## Prudence operationnelle
+## Prudence opérationnelle
 
 Modifier des modèles d’approbation ou des configurations d’examen ou d’achèvement après la création d’enregistrements d’exécution affecte les comportements futurs. Les feuilles de route et les achèvements historiques peuvent toujours pointer vers l’ancienne configuration. Préférez créer un nouveau modèle ou une nouvelle version lorsque le processus métier change.

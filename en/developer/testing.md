@@ -11,6 +11,7 @@ bun run lint
 bun run typecheck
 bun run test:unit
 bun run test:coverage
+# Requires the three *_POSTGRES_TEST_URL variables documented below.
 bun run test:integration:postgres
 bun run test:e2e
 bun run test:e2e:light

@@ -19,7 +19,7 @@ L application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou 
 
 Si `DATABASE_URL` est absent, le developpement local peut utiliser le repertoire PGlite configure.
 
-`GCS_EXTENSION_SECRETS_KEY` est requis en production lorsque les extensions stockent des identifiants chiffres. La valeur doit etre une cle de 32 octets encodee en base64. Les donnees semees de developpement peuvent fournir une cle fixe de demonstration pour des identifiants locaux non reels seulement.
+`GCS_EXTENSION_SECRETS_KEY` est requis en production lorsque les extensions stockent des identifiants chiffrés. La valeur doit être une clé de 32 octets encodée en base64. Les données d’amorçage du développement peuvent fournir une clé fixe de démonstration pour des identifiants locaux non réels uniquement.
 
 Pour le stockage local de fichiers en production, définissez `GCS_LOCAL_FILE_STORAGE_DIR` sur un répertoire réservé appartenant à l’identité du service. Sous POSIX, utilisez un chemin canonique dont les ancêtres ne contiennent aucun lien symbolique; l’identité du service doit posséder toute l’arborescence de stockage et aucun accès ne doit être accordé au groupe ni aux autres utilisateurs. Sous Windows, appliquez des listes de contrôle d’accès équivalentes au répertoire et à ses ancêtres, y compris une protection contre le remplacement au moyen des droits de suppression d’un enfant ou de renommage.
 

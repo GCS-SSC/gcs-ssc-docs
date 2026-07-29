@@ -8,7 +8,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         home: 'Accueil',
         login: 'Connexion',
         navigation: 'Navigation',
-        setup: 'Système vide',
+        setup: 'Configuration d’un système vide',
         admin: 'Administration',
         agencies: 'Agences',
         common: 'Commun',

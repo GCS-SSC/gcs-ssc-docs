@@ -11,6 +11,7 @@ bun run lint
 bun run typecheck
 bun run test:unit
 bun run test:coverage
+# Nécessite les trois variables *_POSTGRES_TEST_URL décrites ci-dessous.
 bun run test:integration:postgres
 bun run test:e2e
 bun run test:e2e:light
@@ -20,7 +21,7 @@ bun run quality:pr
 
 `bun run test` exécute les suites unitaires et de bout en bout. `test:all:manual` exécute aussi l’analyse statique, la vérification des types, la couverture, l’agrégat PostgreSQL facultatif et les tests de bout en bout.
 
-L’intégration continue automatique des demandes de tirage n’est pas configurée. Les contributeurs exécutent `quality:pr` comme vérification locale de référence : elle consigne le diff de la branche, exécute l’analyse statique et la vérification des types, compile le SDK d’extensions, vérifie l’artefact de production sur les hôtes POSIX non racines pris en charge et exécute les suites unitaires et de couverture de l’application et des extensions. Elle n’exécute pas les suites PostgreSQL facultatives ni les tests Playwright de bout en bout; exécutez-les séparément lorsque le changement dépend du verrouillage réel de la base de données ou d’une interaction dans le navigateur.
+L’intégration continue automatique des demandes de tirage n’est pas configurée. Les contributeurs exécutent `quality:pr` comme vérification locale de référence : elle consigne le diff de la branche, exécute l’analyse statique et la vérification des types, compile le SDK d’extensions, vérifie l’artefact de production sur les hôtes POSIX non racines pris en charge et exécute les suites unitaires et de couverture de l’application et des extensions. Elle n’exécute pas les suites PostgreSQL facultatives ni les tests Playwright de bout en bout ; exécutez-les séparément lorsque le changement dépend du verrouillage réel de la base de données ou d’une interaction dans le navigateur.
 
 ### Vérification des artefacts de production
 
@@ -33,7 +34,7 @@ bun run quality:webcontainer
 
 `quality:artifact` produit une nouvelle compilation de production, migre une base de données vide sans données de démonstration, restaure l’exportation d’administration empaquetée, vérifie la priorité des URL de base de données et confirme que la sortie déployée fonctionne depuis une arborescence d’artefacts en lecture seule. Cette commande n’est pas prise en charge sous Windows ni avec l’UID 0, car ces environnements ne permettent pas de valider la limite d’autorisations POSIX requise.
 
-`quality:webcontainer` installe le binaire Chromium correspondant à Playwright, compile le serveur autonome et prépare une charge utile WebContainer sans fichiers sources. Chromium vérifie le wrapper généré et le comportement de montage avec un environnement WebContainer simulé; un test de fumée Node distinct démarre le serveur reconstruit sans fichiers sources. L’installation du navigateur télécharge Chromium lorsqu’il n’est pas déjà en cache.
+`quality:webcontainer` installe le binaire Chromium correspondant à Playwright, compile le serveur autonome et prépare une charge utile WebContainer sans fichiers sources. Chromium vérifie le wrapper généré et le comportement de montage avec un environnement WebContainer simulé ; un test de fumée Node distinct démarre le serveur reconstruit sans fichiers sources. L’installation du navigateur télécharge Chromium lorsqu’il n’est pas déjà en cache.
 
 ### Agrégat PostgreSQL manuel
 

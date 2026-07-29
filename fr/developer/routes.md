@@ -7,10 +7,10 @@ Les routes sont generees par les pages Nuxt et localisees par Nuxt i18n. Utilise
 - Accueil : `/en/`, `/fr/`
 - Connexion : `/en/login`, `/fr/connexion`
 - Agences : `/en/agencies`, `/fr/agences`
-- Detail d agence : `/en/agencies/[id]`, `/fr/agences/[id]`
+- Détail d’agence : `/en/agencies/[id]`, `/fr/agences/[id]`
 - Programmes : `/en/transfer-payments`, `/fr/paiements-de-transfert`
-- Detail de programme : `/en/transfer-payments/[id]`, `/fr/paiements-de-transfert/[id]`
-- Detail de volet : `/en/transfer-payments/[id]/streams/[streamId]`, `/fr/paiements-de-transfert/[id]/volets/[streamId]`
+- Détail de programme : `/en/transfer-payments/[id]`, `/fr/paiements-de-transfert/[id]`
+- Détail de volet : `/en/transfer-payments/[id]/streams/[streamId]`, `/fr/paiements-de-transfert/[id]/volets/[streamId]`
 - Promoteurs : `/en/proponents`, `/fr/promoteurs`
 - Creation de promoteur : `/en/proponents/new`, `/fr/promoteurs/nouveau`
 - Modification/detail de promoteur : `/en/proponents/edit/[id]`, `/fr/promoteurs/modifier/[id]`
