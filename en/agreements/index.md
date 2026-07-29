@@ -17,7 +17,7 @@ An empty installation must be configured before agreement creation can succeed:
 
 ## List and create pages
 
-The Agreements list shows records the user can read and opens the agreement detail page. Create opens the new agreement form.
+The Agreements list shows records the user can read through a scoped role or an exact Agreement Team and opens the Agreement detail page. Top-level creation requires a global, agency, or linked-program role with `agreement:create`; Team membership never creates a new Agreement.
 
 The create form stores:
 
@@ -33,7 +33,7 @@ The create form stores:
 
 ## Detail workspace
 
-The agreement detail workspace opens in editable mode when the user can update the agreement. Otherwise, the General tab and child tabs render read-only details and hide create, update, and delete actions.
+The Agreement detail workspace edits the General profile with `agreement:update`. Child tabs render each control independently: `create` adds child records, `update` edits existing records or mutable workflow state, and `delete` soft-deletes. An exact Agreement Team supplies these actions according to its access level, even when the user's roles do not.
 
 | Tab | Page |
 | --- | --- |
@@ -48,6 +48,7 @@ The agreement detail workspace opens in editable mode when the user can update t
 | Monitors | [Monitors](./monitors.md) |
 | Documents | [Documents](./documents.md) |
 | Activities | [Activities](./activities.md) |
+| Team | Exact users with `read_only`, `contributor`, or `full_access` on this saved Agreement. |
 
 Extension tabs can appear on the agreement, claim, monitor, commitment, and payment surfaces when an installed extension registers them.
 

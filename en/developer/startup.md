@@ -57,7 +57,7 @@ Use `DOCGEN_ENV_FILE` to target a different env file. Advanced overrides include
 
 ## Authentication bootstrap
 
-Development seed data may create `root@example.com` with `password123`. Production should use deployment-specific bootstrap. After the root user exists, create roles and assignments through the UI so `/api/auth/roles` returns the expected permissions.
+Development seed data may create `root@example.com` with `password123`. Production should use deployment-specific bootstrap. After the root user exists, create roles and assignments through the UI and verify the canonical `{ grants }` response from `/api/auth/permissions`.
 
 ## Documentation startup
 

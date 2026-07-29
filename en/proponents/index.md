@@ -6,17 +6,18 @@ Proponents are applicant/recipient profiles. They can be created before agreemen
 
 | Dependency | Why It Matters |
 | --- | --- |
-| Lead agency | Every proponent is led by one agency. The lead agency controls reference data and many permission checks. |
+| Lead agency | Every Proponent is led by one agency. The agency supplies reference data such as the available Proponent subtypes. |
 | Proponent subtype | The subtype must be configured under the lead agency before the profile can be created. |
-| User roles | Users need proponent permissions before they can create, update, delete, review, or manage team membership. |
+| Direct user access | Top-level creation requires the user's global Proponent `create` flag. The four direct CRUD flags are managed in the user's Assignments tab. |
+| Exact Team access | A saved Proponent can grant `read_only`, `contributor`, or `full_access` to selected users even when their roles and direct flags do not provide access. |
 | Review setups | Reviews appear only when eligible review-set setups exist for proponent records. |
 | Agreement setup | The Agreements tab becomes useful after programs, streams, agreement subtypes, and agreement permissions exist. |
 
 ## List Page
 
-The Proponents page supports search, status filtering, pagination, column controls, and row actions. Search is intended to help users find a profile by identifiers, legal names, operating names, subtype, or lead agency.
+The Proponents page supports search, status filtering, pagination, column controls, and row actions. Users with the direct Proponent `read` flag see the cross-agency list; Team-only users see only the exact Proponents assigned to them. Search is intended to help users find a visible profile by identifiers, legal names, operating names, subtype, or lead agency.
 
-Create opens the proponent create page. Edit opens the detail workspace. Delete is a soft delete and removes the proponent from normal active lists without erasing historical references.
+Create appears with the direct Proponent `create` flag and opens the create page. Edit and Delete depend on the matching direct flag or the selected Proponent's exact Team level. Delete is a soft delete and removes the Proponent from normal active lists without erasing historical references.
 
 ## Create Profile
 

@@ -8,7 +8,7 @@ The Addresses tab links agreement-specific address types to common address recor
 | --- | --- |
 | Agency address types | The address type lookup returns active address types available to the agreement context. |
 | Country and jurisdiction enums | Canadian addresses require a valid jurisdiction enum value. Non-Canadian subdivisions are free text. |
-| Agreement update permission | Required to create, update, delete, and select address types. |
+| Agreement CRUD permissions | `create` adds an address and loads create lookups, `update` edits an existing address and its lookups, and `delete` soft-deletes it. |
 
 ## Page flow
 

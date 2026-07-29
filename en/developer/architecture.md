@@ -19,7 +19,7 @@ The source app is a Nuxt 4 single-page application with server API routes, share
 
 List pages commonly use `useResourceTable` and resource layout components. Detail pages commonly use `CommonEntityHero` for the collapsible header, route tabs through `useRouteTabMap`, and route location helpers from `app/utils/route-locations.ts`. Create and update forms use shared Zod schemas through `useZodI18n`.
 
-Permission-aware UI uses `useAuth` and `useCan`. `useAuth` fetches `/api/auth/roles`, validates permission rows, and exposes `authorize`, `authorizeGrant`, and `hasAbility`.
+Permission-aware UI uses `useAuth` and `useCan`. `useAuth` fetches the canonical `{ grants }` response from `/api/auth/permissions`, validates each static grant, and exposes `authorize`, `authorizeGrant`, and `hasAbility`. Exact Proponent and Agreement Team access is returned by entity APIs rather than expanded into this static grant list.
 
 ## Server patterns
 

@@ -9,7 +9,7 @@ L onglet Documents genere des documents d entente a partir de modeles de documen
 | Modeles de documents du volet | L onglet Documents peut generer des fichiers seulement depuis les modeles actifs `fundingcaseagreement` du volet de l entente. |
 | Fichiers de modele bilingues | Chaque modele de volet exige une piece jointe anglaise et une piece jointe francaise. |
 | Outils locaux de generation | La generation DOCX vers PDF et HTML vers PDF exige les outils LibreOffice/Puppeteer. Le developpement local peut utiliser l installateur decrit dans [Demarrage local](../developer/startup.md). |
-| Permission de mise a jour de l entente | Requise pour generer et supprimer les documents generes. Les utilisateurs avec lecture de l entente peuvent consulter et telecharger les documents generes. |
+| Permissions CRUD d entente | `create` genere un document, `read` enumere et telecharge les documents generes, et `delete` supprime logiquement un document genere. |
 
 ## Flux d onglet
 
@@ -21,7 +21,7 @@ L onglet Documents affiche les documents generes pour l entente courante :
 | Langue | Langue du document genere, anglais ou francais. |
 | Format de sortie | `DOCX` ou `PDF`. |
 | Genere le | Horodatage de creation du fichier. |
-| Actions | Telechargement, et suppression lorsque l utilisateur peut mettre a jour l entente. |
+| Actions | Telechargement avec `agreement:read`; suppression avec `agreement:delete`. |
 
 Les lignes de documents generes sont conservees separement du modele source. Supprimer un document genere le retire de la liste normale sans supprimer le modele du volet.
 
@@ -45,4 +45,4 @@ Les modeles DOCX utilisent des balises de style docxtemplater comme `agreement.n
 
 ## Telechargement et suppression
 
-Le telechargement retourne la piece jointe generee avec le nom de fichier sauvegarde lors de la generation. La suppression est disponible seulement aux utilisateurs qui peuvent mettre a jour l entente et supprime logiquement l enregistrement de document genere.
+Le telechargement retourne la piece jointe generee avec le nom de fichier sauvegarde lors de la generation et exige `agreement:read`. La suppression exige `agreement:delete` et supprime logiquement l enregistrement de document genere.

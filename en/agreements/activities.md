@@ -8,7 +8,7 @@ The Activities tab records bilingual activities, expected results, schedule date
 | --- | --- |
 | Stream outcomes | The outcomes selector reads active outcomes configured for the agreement's transfer payment stream. |
 | Agreement applicant-recipient links | Responsible parties are selected from applicant/recipients already linked to the agreement. |
-| Agreement update permission | Required to create, update, delete, and select related records. |
+| Agreement CRUD permissions | `create` adds an activity and loads its create lookups, `update` edits an existing activity and its lookups, and `delete` soft-deletes it. |
 
 ## Page flow
 

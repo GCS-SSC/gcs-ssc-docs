@@ -18,6 +18,10 @@ L interface regroupe les lignes par exercice, categorie de cout et sous-section.
 
 Le selecteur d exercice offre seulement les exercices configures sur le volet de l entente. Le selecteur de categorie de cout offre seulement les categories valides pour le contexte de l entente.
 
+## Autorisation
+
+La consultation du budget exige `agreement:read`. L’ajout d’un exercice ou d’une ligne budgétaire exige `agreement:create`; la modification d’un exercice ou d’une ligne existante exige `agreement:update`; leur suppression exige `agreement:delete`. Une équipe exacte d’entente peut fournir ces actions selon son niveau d’accès. Les recherches d’exercices et de catégories de coûts connexes utilisent l’action de création ou de mise à jour du formulaire qui les a ouvertes.
+
 ## Dossiers
 
 | Dossier | Champs requis |
@@ -46,6 +50,8 @@ Les lignes acceptent aussi le financement federal autre, le financement gouverne
 | Groupe categorie | Categorie bilingue, nombre de lignes, totaux groupes | Ajouter une ligne avec categorie pre-remplie et verrouillee |
 | Groupe sous-section | Texte de sous-section, nombre de lignes, totaux groupes | Ajouter une ligne avec categorie et sous-section pre-remplies et verrouillees |
 | Ligne | Nom bilingue, description, total, financement du programme, total des autres financements | Modifier ou supprimer |
+
+La table affiche seulement les actions correspondant aux permissions de l’utilisateur sur l’entente : création pour chaque action Ajouter, mise à jour pour Modifier et suppression pour Supprimer.
 
 Le pied de table affiche le nombre de dossiers, le total, le financement du programme et les autres financements. Si toutes les lignes visibles utilisent une seule devise, les totaux utilisent cette devise; les devises mixtes affichent des nombres decimaux.
 

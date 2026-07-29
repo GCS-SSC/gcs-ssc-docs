@@ -19,7 +19,7 @@ Les flux enfants sont atteints depuis les onglets de detail d une entente. Certa
 
 ## Comportement commun
 
-Tous les dossiers enfants sont portes par l entente courante. Les utilisateurs doivent pouvoir lire l entente pour consulter les enfants et pouvoir la mettre a jour pour creer, modifier, supprimer, selectionner des valeurs liees ou faire avancer un workflow, sauf lorsqu une action d approbation commune exige une permission plus precise.
+Tous les dossiers enfants sont portes par l entente courante et les routes appliquent l action executee : `agreement:read` permet de consulter, `agreement:create` de creer des enfants, `agreement:update` de modifier des dossiers existants ou de faire avancer un etat de flux modifiable, et `agreement:delete` de supprimer logiquement. Les recherches de valeurs liees utilisent l action de creation ou de mise a jour du formulaire qui les ouvre. Une equipe exacte d entente fournit ces actions selon son niveau `read_only`, `contributor` ou `full_access`. L attribution d un examinateur ou d un approbateur determine qui peut executer une action assignee, mais ne remplace jamais l acces en lecture ordinaire a l entente ou a son equipe.
 
 La plupart des suppressions sont logiques. Les enfants supprimes disparaissent des listes et selecteurs normaux mais restent disponibles pour l integrite historique.
 

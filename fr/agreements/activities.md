@@ -8,7 +8,7 @@ L onglet Activites enregistre les activites bilingues, les resultats attendus, l
 | --- | --- |
 | Resultats du volet | Le selecteur de resultats lit les resultats actifs configures pour le volet de l entente. |
 | Liens demandeur/beneficiaire de l entente | Les responsables sont choisis parmi les demandeurs/beneficiaires deja lies a l entente. |
-| Permission de mise a jour | Requise pour creer, modifier, supprimer et selectionner les dossiers lies. |
+| Permissions CRUD d entente | `create` ajoute une activite et charge ses recherches de creation, `update` modifie une activite existante et ses recherches, et `delete` la supprime logiquement. |
 
 ## Flux de page
 

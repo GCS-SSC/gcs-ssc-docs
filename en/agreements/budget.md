@@ -20,6 +20,10 @@ The Budget tab groups rows by fiscal year, cost category, and cost subsection. F
 
 The fiscal-year picker only offers years configured on the agreement's stream. The cost category picker only offers categories valid for the agreement context.
 
+## Authorization
+
+Viewing the budget requires `agreement:read`. Adding a fiscal year or budget line requires `agreement:create`; editing an existing fiscal year or line requires `agreement:update`; deleting either record requires `agreement:delete`. An exact Agreement Team can supply these actions according to its access level. Related fiscal-year and cost-category lookups use the create or update action of the form that opened them.
+
 ## Records
 
 | Record | Required fields |
@@ -48,6 +52,8 @@ Budget line items also accept optional other federal funding, other government f
 | Cost category group | Bilingual cost category, line count, grouped totals | Add line with cost category prefilled and locked |
 | Cost subsection group | Subsection text, line count, grouped totals | Add line with cost category and subsection prefilled and locked |
 | Line item | Bilingual line item name, description, total, program funding, other funding total | Edit or delete line |
+
+The table only shows each action when the user has its matching Agreement permission: create for either Add action, update for Edit, and delete for Delete.
 
 The footer shows record count, total amount, total program funding, and total other funding. If all visible rows use one currency, totals use that currency; mixed currencies render decimal totals.
 

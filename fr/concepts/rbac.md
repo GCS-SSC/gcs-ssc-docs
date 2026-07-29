@@ -1,67 +1,124 @@
-# RBAC
+# Contrôle d'accès fondé sur les rôles (RBAC)
 
-GCS-SSC utilise un controle d acces base sur les roles avec portee. Une permission n est pas seulement une action et un sujet; elle a aussi une portee derivee du role attribue.
+GCS-SSC combine trois mécanismes d'accès explicites :
 
-## Pieces centrales
+1. **Les rôles** fournissent des permissions délimitées pour l'administration du système, les agences, les programmes et les ententes.
+2. **L'accès aux promoteurs** conserve quatre permissions globales propres à l'utilisateur pour l'exception interagences liée aux promoteurs.
+3. **Les équipes** donnent à certains utilisateurs un accès à un promoteur ou à une entente précise.
 
-- Capacite : paire action/sujet, par exemple `read` sur `agreement`.
-- Role : collection bilingue de capacites.
-- Portee du role : globale, agence ou programme.
-- Attribution utilisateur : lien entre un utilisateur et un role.
-- Portee accordee : portee effective construite depuis le role, l id d agence et l id optionnel de programme.
+L'accès correspond à l'union des mécanismes applicables à l'action et à la ressource demandées. Une attribution d'équipe peut donc donner accès à son entité précise même si les rôles de l'utilisateur ne le permettent pas. Les attributions de flux de travail, comme celles de réviseur ou d'approbateur, demeurent des responsabilités de processus distinctes; elles ne sont ni des rôles RBAC ni des appartenances à une équipe.
 
-Le serveur calcule les permissions effectives à partir des attributions actives et structurellement valides lors de chaque requête autorisée. Les contrôles côté client reflètent les changements après une nouvelle récupération des permissions côté client, par exemple après le rechargement de la page ou une nouvelle connexion. Les rôles supprimés logiquement, les agences parentes supprimées, les liens de programme supprimés ou appartenant à une autre agence, ainsi que les rôles de programme sans lien de programme actif n’accordent aucune permission.
+## Actions
 
-## Actions et sujets
+Chaque permission utilise l'une des quatre actions suivantes :
 
-Les actions sont creer, lire, mettre a jour et supprimer. Les sujets comprennent all, agency, transfer payment, role, user, applicant/recipient et agreement.
-
-Le sujet `all` est special. Il peut satisfaire toute verification de sujet lorsque l action correspond, mais il est valide seulement pour les roles globaux/racine.
-
-## Hierarchie de portee
-
-Les portees sont hierarchiques :
-
-- Global couvre toutes les portees.
-- Agence couvre cette agence et ses enfants.
-- Programme couvre le programme de paiements de transfert choisi.
-- Entite couvre un chemin sous un programme, comme un dossier enfant d entente.
-
-Les controles de couverture verifient la hierarchie et les ids. Une permission pour une agence ne couvre pas une autre agence. Une permission pour un programme ne couvre pas un autre programme de la meme agence.
-
-## Regles de portee des roles
-
-La portee de role est derivee de la structure :
-
-| Structure du role | Portee effective |
+| Action | Signification |
 | --- | --- |
-| Aucune agence selectionnee | Globale |
-| Agence selectionnee et aucun programme selectionne | Agence |
-| Agence selectionnee et un ou plusieurs programmes selectionnes | Programme |
+| `create` | Créer le sujet ou, lorsqu'une équipe d'entité l'autorise, créer un enregistrement enfant. |
+| `read` | Consulter ou énumérer les enregistrements couverts par le mécanisme d'accès. |
+| `update` | Modifier un enregistrement existant couvert par le mécanisme d'accès. |
+| `delete` | Supprimer logiquement un enregistrement couvert par le mécanisme d'accès. |
 
-L attribution de capacites est restreinte :
+Le serveur autorise chaque opération. Les liens, les onglets et les boutons reflètent les capacités fournies par le serveur, mais le masquage d'un contrôle est seulement une mesure de convivialité et non la frontière de sécurité.
 
-- Les capacites `all` sont seulement globales.
-- Les capacites `agency` sont permises a portee globale ou agence.
-- Les autres capacites peuvent etre portees selon la conception du role.
+## Rôles
 
-L application rejette les donnees de portee incoherentes, les roles de programme sans agence et les ids de programme hors de l agence choisie.
+Un rôle est une collection bilingue et nommée de paires action-sujet. Sa portée est dérivée de sa structure plutôt que conservée comme une valeur modifiable séparément.
 
-## Visibilite demandeur/beneficiaire non portee
+| Structure du rôle | Portée effective |
+| --- | --- |
+| Aucune agence | Globale |
+| Une agence et aucun lien de programme | Agence |
+| Une agence et un ou plusieurs liens de programme | Programme |
 
-Le sujet demandeur/beneficiaire est traite comme non porte pour les controles de visibilite large. Cela permet a l element Promoteurs et a la liste de fonctionner avec une lecture globale demandeur/beneficiaire. Toutefois, creer, mettre a jour et supprimer appliquent encore les regles d agence principale et d equipe.
+Un rôle à portée de programme peut être lié à plusieurs programmes, mais chaque programme lié doit appartenir à l'agence du rôle. Les rôles, les attributions, les agences, les programmes ou les liens interagences supprimés ne donnent aucun accès. Un rôle dont la structure est invalide ne donne aucun accès non plus.
 
-## Acces par equipe
+### Matrice exacte des sujets de rôle
 
-Certains flux d entite permettent un repli par equipe. Pour les portees d entite sous programme, l application verifie la portee du role puis toute attribution d equipe sur l entite. Les promoteurs ont aussi une table d equipe specifique. Un membre d equipe de promoteur peut aider a satisfaire une mise a jour ou suppression lorsque l utilisateur a deja la capacite demandeur/beneficiaire mais pas de permission directe sur l agence principale.
+Les rôles contiennent uniquement les six sujets suivants. Chaque combinaison sujet-portée disponible prend en charge les actions `create`, `read`, `update` et `delete`.
 
-## Application dans l interface et a l enregistrement
+| Sujet du rôle | Rôle global | Rôle d'agence | Rôle de programme |
+| --- | :---: | :---: | :---: |
+| `system` | Oui | Non | Non |
+| `agency` | Oui | Oui | Non |
+| `transfer_payment` | Oui | Oui | Oui |
+| `role` | Oui | Oui | Non |
+| `user` | Oui | Oui | Non |
+| `agreement` | Oui | Oui | Oui |
 
-L interface cache les liens, boutons et onglets que l utilisateur ne peut pas utiliser. Les actions d enregistrement sont aussi verifiees; un controle masque est donc un indice d utilisabilite, pas la source de permission.
+La correspondance de portée suit exactement la structure :
 
-## Exemples pratiques
+- Une permission globale couvre toutes les agences et tous les programmes pour ce sujet.
+- Une permission d'agence couvre son agence et les enregistrements du sujet qui relèvent de cette agence.
+- Une permission de programme couvre uniquement les programmes liés et les ententes qui relèvent de ces programmes.
 
-- Administrateur racine : role global avec toutes les actions `all` sur `all`.
-- Administrateur d agence : role d agence avec capacites agence, utilisateur, role, promoteur, programme et entente pour une agence.
-- Gestionnaire de programme : role de programme avec capacites paiement de transfert et entente pour les programmes selectionnes.
-- Membre d equipe promoteur : capacite demandeur/beneficiaire plus appartenance a l equipe d un promoteur precis peut permettre la gestion du profil meme sans permission directe d agence principale.
+Il n'existe aucun sujet générique. Plus précisément, `all` n'est pas un sujet de rôle et aucun chemin de code propre à l'utilisateur racine ne contourne l'autorisation normale. Le rôle racine initial reçoit les 24 paires action-sujet explicites de la colonne globale de la matrice.
+
+## Accès direct d'un utilisateur aux promoteurs
+
+Les promoteurs ne constituent volontairement pas un sujet de rôle. La cible d'autorisation interne `applicant_recipient` sert aux vérifications visant les utilisateurs et les équipes, mais elle ne peut pas être sélectionnée comme capacité d'un rôle. Le travail interagences lié aux promoteurs ne correspond pas à un rôle professionnel délimité par agence ou par programme; il est donc représenté par quatre indicateurs indépendants conservés directement sur l'utilisateur :
+
+| Attribution de l'utilisateur | Effet |
+| --- | --- |
+| Promoteur `create` | Créer des promoteurs dans n'importe quelle agence. |
+| Promoteur `read` | Consulter et énumérer les promoteurs de toutes les agences. |
+| Promoteur `update` | Modifier tout promoteur et ses enregistrements enfants pris en charge. |
+| Promoteur `delete` | Supprimer logiquement tout promoteur et ses enregistrements enfants pris en charge. |
+
+Les administrateurs modifient ces indicateurs dans l'onglet **Attributions** de l'utilisateur. Seuls les utilisateurs qui possèdent l'autorisation globale `user:update` peuvent les modifier; la gestion des utilisateurs limitée à une agence ou à un programme ne peut pas déléguer cette exception interagences globale. Comme chaque indicateur donne un accès interagences, l'interface affiche un avertissement clair et demande une confirmation avant l'enregistrement.
+
+Ces indicateurs ne sont ni un rôle, ni une permission délimitée, ni un enregistrement d'attribution distinct. Ils sont inclus avec les permissions de rôle lorsque le client charge les permissions statiques de l'utilisateur. Les quatre indicateurs de l'utilisateur racine initial sont explicitement activés.
+
+## Équipes rattachées à une entité précise
+
+Une équipe est disponible uniquement pour un **promoteur** ou une **entente** déjà enregistré. Elle ajoute un utilisateur à cette seule entité précise avec un niveau d'accès :
+
+| Niveau d'accès de l'équipe | Entité précise | Enfants de cette entité |
+| --- | --- | --- |
+| `read_only` | Lecture | Lecture |
+| `contributor` | Lecture et mise à jour | Lecture, création et mise à jour |
+| `full_access` | Lecture, mise à jour et suppression | Lecture, création, mise à jour et suppression |
+
+L'accès d'équipe a volontairement des limites étroites :
+
+- Il s'applique au promoteur ou à l'entente sélectionné ainsi qu'aux enfants pris en charge dans ce même domaine.
+- Il ne s'applique pas à un autre promoteur ou à une autre entente, à des enregistrements frères, à une agence, à un programme ou à l'autre domaine d'entité.
+- Il n'est pas hérité par la hiérarchie d'agence ou de programme.
+- Il ne permet pas la création de premier niveau. La création d'un nouveau promoteur exige l'indicateur direct Promoteur `create` de l'utilisateur. La création d'une nouvelle entente exige un rôle délimité comprenant `agreement:create`.
+- Il n'exige pas de permission de rôle correspondante. L'appartenance à l'équipe constitue elle-même l'exception visant l'entité précise.
+- Il est évalué à la demande pour l'entité visée au lieu d'être ajouté à la liste statique des permissions de rôle de l'utilisateur.
+
+Les utilisateurs qui ont un accès en lecture à l'entité peuvent consulter la liste des membres de son équipe, y compris ceux dont l'accès provient d'une appartenance `read_only`. La modification de l'équipe exige un accès effectif de mise à jour à l'entité et est limitée par l'accès propre du gestionnaire :
+
+| Accès effectif du gestionnaire à l'entité | Niveau d'équipe maximal qu'il peut gérer |
+| --- | --- |
+| Mise à jour sans suppression | `contributor` |
+| Mise à jour et suppression | `full_access` |
+
+Le niveau actuel du membre et le niveau demandé doivent tous deux respecter la limite du gestionnaire. Ainsi, un contributeur ne peut ni modifier ni retirer un membre ayant l'accès complet, y compris en modifiant sa propre appartenance. Les appartenances actives en double sont refusées et le retrait est une suppression logique.
+
+## Résolution de l'accès effectif
+
+Pour chaque requête au serveur, GCS-SSC évalue uniquement les mécanismes pertinents pour la cible :
+
+- Les capacités de rôle sont comparées à la portée globale, d'agence ou de programme dérivée du rôle.
+- Les actions sur les promoteurs vérifient l'indicateur global correspondant de l'utilisateur ou une attribution d'équipe visant exactement ce promoteur.
+- Les actions sur les ententes vérifient les capacités de rôle délimitées ou une attribution d'équipe visant exactement cette entente.
+- Les routes enfants qui prennent en charge les équipes utilisent le niveau exact de l'équipe de l'entité parente et l'action effectuée sur l'enfant.
+
+Le serveur renvoie des capacités propres à l'entité pour les écrans dont les contrôles tiennent compte des équipes. Les opérations qui modifient les permissions sont vérifiées par rapport à l'état actuel de la base de données afin qu'un état client ou une session périmés ne puissent préserver un accès retiré.
+
+## Éléments volontairement exclus du modèle
+
+Le modèle d'autorisation n'utilise pas :
+
+- de sujet générique ou `all`;
+- de contournement spécial de l'autorisation pour l'utilisateur racine;
+- de champ de portée du rôle conservé indépendamment de l'agence et des liens de programme du rôle;
+- de capacités de rôle pour les promoteurs;
+- de table générale de permissions par attribution d'entité;
+- d'équipes sur les agences ou les programmes de paiements de transfert;
+- d'héritage d'équipe entre entités, enregistrements frères, agences, programmes ou domaines;
+- d'attributions de réviseur ou d'approbateur comme permissions d'accès.
+
+Cette séparation maintient les accès courants dans les rôles, rend visible l'unique exception interagences sur l'utilisateur et conserve un accès collaboratif aux entités qui est précis et vérifiable.

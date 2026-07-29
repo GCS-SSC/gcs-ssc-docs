@@ -19,7 +19,7 @@ Agreement child workflows are reached from the agreement detail tabs. Some are i
 
 ## Shared behaviour
 
-All agreement child records are scoped to the current agreement. Users need agreement read access to view child records and agreement update access to create, update, delete, select related values, or move records through workflow steps unless a shared approval action requires a more specific permission.
+All Agreement child records are scoped to the current Agreement, and routes enforce the action being performed: `agreement:read` views records, `agreement:create` creates child records, `agreement:update` changes existing records or advances mutable workflow state, and `agreement:delete` soft-deletes records. Related-value lookups use the create or update action of the form that opened them. An exact Agreement Team supplies these actions according to its `read_only`, `contributor`, or `full_access` level. A reviewer or approver assignment determines who may perform an assigned workflow action but never replaces ordinary Agreement or Team read access.
 
 Most destructive actions are soft deletes. Deleted child records disappear from normal lists and selectors but remain available for historical integrity.
 

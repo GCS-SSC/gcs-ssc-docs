@@ -1,11 +1,12 @@
 # Empty System Setup
 
-A clean GCS-SSC installation is not usable by ordinary operators until the root administrator creates a small chain of business configuration. The app is intentionally root-first: Common Admin is protected by a root-read check, RBAC must exist before non-root users can do useful work, and many workflow pages only become meaningful after agency, program, stream, review, approval, and proponent reference data exists.
+A clean GCS-SSC installation is not usable by ordinary operators until a bootstrap administrator creates a small chain of business configuration. The app is intentionally administrator-first: Common Admin requires explicit global `system:read`, RBAC must exist before delegated users can do useful work, and many workflow pages only become meaningful after agency, program, stream, review, approval, and proponent reference data exists.
 
 ## Starting assumptions
 
 - A deployer has provisioned at least one authenticated root user.
-- The root user has a global role with `all` create, read, update, and delete abilities.
+- The root user has an ordinary global role with the required explicit action/subject pairs and no special authorization bypass.
+- If the root user must work with Proponents, its four direct Proponent CRUD flags are enabled separately from the role.
 - The system may contain installation defaults, but do not assume seeded demo records exist in production.
 - All operational records should be entered in English and French where paired fields exist.
 
@@ -41,7 +42,7 @@ Create the agency profile first. The profile stores bilingual names and abbrevia
 
 ## Minimum Common Admin setup
 
-Common Admin is global and root-only. Use it for records that are not owned by one agency tab, especially runtime review, approval, completion, and recommendation resources.
+Common Admin is global and requires explicit global `system:read` access. Use it for records that are not owned by one agency tab, especially runtime review, approval, completion, and recommendation resources.
 
 Create reusable contacts and addresses first if approval or review setup will reference people or locations. Then create form schemas, attachment types, review schemas, review set setups, review setups, approval templates, approval steps, certifications, routing slips, recommendation schemas, and recommendation setups as needed by the workflows you plan to run.
 
@@ -54,12 +55,13 @@ Create roles before inviting ordinary users into operational work.
 - Keep one root administrator role global and narrow its assignment to trusted administrators.
 - Create agency administrator roles scoped to one agency when users should manage agency records, agency programs, users in that agency, or agency-scoped roles.
 - Create program roles by selecting an agency and one or more transfer payment programs.
-- Do not put `all` abilities on agency or program roles. The app rejects scope and ability combinations that are invalid.
+- Use only subjects valid for the role's derived scope. Program roles support `transfer_payment` and `agreement`; agency roles additionally support `agency`, `role`, and `user`. `system` is global only.
 - Assign roles from the user detail page. Duplicate user-role assignments return the existing assignment rather than creating a second active row.
+- In the same Assignments tab, grant the four direct Proponent CRUD flags only to users who require the global cross-agency exception. Changing these flags requires global `user:update`.
 
 ## Minimum proponent setup
 
-Before creating proponents, make sure the lead agency has applicant/recipient subtypes. The create form validates that the selected subtype exists, the lead agency exists, and the subtype belongs to the selected lead agency. New proponents are created as draft records. Updates, deletes, child-record management, and team management are then controlled by RBAC and proponent team membership.
+Before creating proponents, make sure the lead agency has applicant/recipient subtypes. The create form validates that the selected subtype exists, the lead agency exists, and the subtype belongs to the selected lead agency. New proponents are created as draft records. Top-level creation uses the user's direct Proponent `create` flag. Subsequent read, update, delete, child-record, and Team operations use the matching direct flag or an exact Proponent Team level where that action is supported.
 
 ## Minimum agreement readiness
 
@@ -74,4 +76,4 @@ Agreement creation is outside this section, but empty-system setup should still 
 
 ## Verification pass
 
-After setup, sign in as a non-root test user and verify the real sidebar. A user only sees pages for which they have the required abilities. Agreements and Proponents are hidden without read access; Admin Common is hidden unless the user has root/global read-all access. Then open one agency, one program, one stream, one proponent, and one user detail page to confirm the tabs and actions match the intended role design.
+After setup, sign in as a delegated test user and verify the real sidebar. Agreements and Proponents are hidden without scoped role, direct-user, or exact-Team read access as applicable; Common Admin is hidden without explicit global `system:read`. Then open one agency, one program, one stream, one Proponent, one Agreement, and one user detail page to confirm that role scope, direct Proponent flags, Team levels, tabs, and actions match the intended design.

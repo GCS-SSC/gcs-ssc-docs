@@ -1,19 +1,19 @@
 # Utilisateurs
 
-La zone Utilisateurs gere les identites de l application et leurs attributions de roles. Un utilisateur seul ne donne aucun acces; l acces provient des attributions actives et des capacites contenues dans ces roles.
+La zone Utilisateurs gere les identites de l application, les attributions structurelles de roles et les quatre indicateurs directs CRUD de promoteur. Les roles fournissent l acces ordinaire porte; les indicateurs directs constituent l exception interagences globale voulue pour les promoteurs. L appartenance a une equipe exacte de promoteur ou d entente est geree sur l entite enregistree plutot que sur cette page.
 
 ## Liste des utilisateurs
 
-La page Utilisateurs prend en charge recherche, pagination et statistiques. Les lecteurs racine ou globaux voient tous les utilisateurs actifs. Les lecteurs limites a une agence voient eux-memes, les utilisateurs attribues aux agences autorisees et les utilisateurs ayant des attributions d entite dans ces agences. Les utilisateurs supprimes sont exclus des listes normales.
+La page Utilisateurs prend en charge recherche, pagination et statistiques. Les utilisateurs avec `user:read` global voient tous les utilisateurs actifs. Les lecteurs limites a une agence voient eux-memes, les utilisateurs attribues aux agences autorisees et les utilisateurs membres d equipes exactes dans ces agences. Les utilisateurs supprimes sont exclus des listes normales.
 
-La table affiche avatar, nom, courriel et actions. Créer apparaît seulement avec `user:create`. La mise à jour et la suppression dépendent aussi des portées actives de l’utilisateur cible : un administrateur limité à des agences doit couvrir chaque agence représentée par les attributions actives de rôle et d’entité de la cible. Une cible ayant un rôle global actif ne peut être modifiée ou supprimée qu’avec l’accès global pour l’action correspondante. Une ligne peut donc être visible sans être modifiable ni supprimable. La suppression est logique.
+La table affiche avatar, nom, courriel et actions. Créer apparaît seulement avec `user:create`. La mise à jour et la suppression dépendent aussi des portées actives de l’utilisateur cible : un administrateur limité à des agences doit couvrir chaque agence représentée par les attributions actives de rôle et les appartenances d equipe de la cible. Une cible ayant un rôle global actif ne peut être modifiée ou supprimée qu’avec l’accès global pour l’action correspondante. Une ligne peut donc être visible sans être modifiable ni supprimable. La suppression logique de l utilisateur supprime aussi logiquement ses attributions actives.
 
 ## Detail utilisateur
 
 Le detail utilisateur contient :
 
 - General, avec nom, courriel, etat de verification du courriel, image et horodatages.
-- Attributions, avec les attributions actives de role et les libelles localises de role et d agence.
+- Attributions, avec les attributions structurelles actives de role et les indicateurs directs Promoteur Creer, Lire, Mettre a jour et Supprimer.
 
 Le sommaire affiche nom, courriel, avatar et statut verifie/non verifie. La modification d identite est separee de l attribution de roles.
 
@@ -33,21 +33,34 @@ Lorsqu un role est attribue :
 
 Supprimer une attribution la supprime logiquement. L’autorisation côté serveur reflète le changement lors des requêtes suivantes. Les contrôles côté client sont mis à jour après une nouvelle récupération des permissions côté client, par exemple après le rechargement de la page ou une nouvelle connexion.
 
+## Acces direct aux promoteurs
+
+L onglet Attributions expose aussi quatre indicateurs independants de promoteur :
+
+| Indicateur | Effet |
+| --- | --- |
+| `create` | Creer des promoteurs dans n importe quelle agence. |
+| `read` | Enumerer et lire les promoteurs de toutes les agences. |
+| `update` | Modifier tout promoteur et ses enregistrements enfants pris en charge. |
+| `delete` | Supprimer logiquement tout promoteur et ses enregistrements enfants pris en charge. |
+
+Ces indicateurs sont stockes directement sur l utilisateur; ils ne sont ni des capacites de role ni des lignes d attribution separees. Seul un utilisateur avec `user:update` global peut les modifier. L interface avertit que l acces est interagences et exige une confirmation avant l enregistrement. Accordez seulement les actions requises; utilisez plutot l equipe exacte d un promoteur pour donner acces a une seule entite enregistree.
+
 ## Gestion du compte racine
 
-Gardez l attribution racine limitee et auditable. La racine sert a la configuration systeme, Commun, l activation des extensions et les reparations d urgence. Les operations quotidiennes de programme, entente et promoteur devraient utiliser des roles portes.
+Gardez l attribution racine limitee et auditable. La racine est un utilisateur ordinaire avec des capacites globales explicites de role et, au besoin, des indicateurs de promoteur actives separement; elle ne contourne pas l autorisation. Utilisez des roles portes pour le travail courant sur les programmes et ententes, les indicateurs directs seulement pour les taches de promoteur vraiment interagences et les equipes exactes pour collaborer sur un promoteur ou une entente enregistree.
 
 ## Depannage de l acces
 
 Si un utilisateur ne voit pas une page :
 
 1. Verifiez que l utilisateur n est pas supprime.
-2. Verifiez que l attribution est active.
-3. Vérifiez que le rôle, son agence parente et les programmes sélectionnés sont actifs.
-4. Vérifiez que la structure du rôle est valide : un rôle global n’a pas d’agence, un rôle d’agence n’a pas de lien de programme et un rôle de programme a au moins un programme actif dans son agence.
-5. Vérifiez que le rôle a la bonne action et le bon sujet.
-6. Vérifiez que la portée du rôle couvre l’agence, le programme ou l’entité.
-7. Demandez à l’utilisateur de se déconnecter puis se reconnecter si les permissions visibles semblent encore anciennes.
+2. Pour l acces porte ordinaire, verifiez que l attribution de role, le role, l agence parente et les programmes selectionnes sont actifs.
+3. Vérifiez que la structure du rôle est valide : un rôle global n’a pas d’agence, un rôle d’agence n’a pas de lien de programme et un rôle de programme a au moins un programme actif dans son agence.
+4. Verifiez que le role contient la bonne action et le bon sujet et que sa portee derivee couvre la ressource demandee.
+5. Pour l acces interagences aux promoteurs, verifiez l indicateur CRUD direct correspondant dans Attributions.
+6. Pour un promoteur ou une entente enregistree, verifiez l appartenance de l utilisateur a l equipe exacte et son niveau d acces sur cette entite.
+7. Demandez a l utilisateur de se deconnecter puis se reconnecter si les permissions statiques semblent anciennes. Le serveur resout l acces d equipe d entite a la demande.
 
 ![Onglet Attributions utilisateur](/screenshots/fr/user-assignments.png)
 

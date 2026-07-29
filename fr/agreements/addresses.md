@@ -8,7 +8,7 @@ L onglet Adresses lie des types d adresse propres a l entente a des dossiers `Co
 | --- | --- |
 | Types d adresse de l agence | La recherche retourne les types d adresse actifs disponibles dans le contexte de l entente. |
 | Enums pays et juridiction | Les adresses canadiennes exigent une juridiction valide. Les subdivisions non canadiennes sont en texte libre. |
-| Permission de mise a jour | Requise pour creer, modifier, supprimer et selectionner les types d adresse. |
+| Permissions CRUD d entente | `create` ajoute une adresse et charge les recherches de creation, `update` modifie une adresse existante et ses recherches, et `delete` la supprime logiquement. |
 
 ## Flux de page
 
