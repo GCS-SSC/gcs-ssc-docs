@@ -35,7 +35,7 @@ await navigateTo(localePath(appRouteLocations.proponentEdit(id)))
 
 ## Middleware
 
-`auth.global.ts` protege les routes authentifiees et redirige les utilisateurs connectes hors de la connexion. `admin-common.ts` protege Commun en exigeant une permission racine/globale de lecture `all`.
+`auth.global.ts` protège les routes authentifiées et redirige les utilisateurs connectés hors de la page de connexion. `admin-common.ts` protège Commun en exigeant la permission globale explicite `system:read`. L’utilisateur racine initial respecte cette règle grâce à un rôle global ordinaire ; il n’existe aucun contournement réservé au compte racine.
 
 ## Style des routes API
 

@@ -21,9 +21,9 @@ The source app still contains a GitHub/social sign-in entry in the login experie
 The sidebar is permission-driven:
 
 - Home, Agencies, Programs, Roles, and Users are part of the primary navigation shell.
-- Agreements appears only when the user has any agreement read ability.
-- Proponents appears only when the user has global applicant/recipient read ability.
-- Common Admin appears only when the user has global read-all access.
-- The user menu always includes Logout and includes SQL dump download only for root/global read-all users.
+- Agreements appears when the user has a scoped `agreement:read` role permission or read access through at least one exact Agreement Team.
+- Proponents appears when the user has the direct global Proponent `read` flag or read access through at least one exact Proponent Team.
+- Common Admin appears only when the user has explicit global `system:read` access.
+- The user menu always includes Logout and includes SQL dump download only with explicit global `system:read` access.
 
-If a user signs in successfully but sees fewer pages than expected, check role assignment, role abilities, and role scope before checking the UI.
+If a user signs in successfully but sees fewer pages than expected, check structural role assignments, direct Proponent flags, and exact Team membership before checking the UI.

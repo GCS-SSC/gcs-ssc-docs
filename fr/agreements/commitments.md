@@ -9,7 +9,7 @@ Les engagements regroupent les lignes d’engagement et établissent les soldes 
 | Budget de l’entente | Le total des lignes d’engagement ne peut pas dépasser le financement de programme total de l’entente. |
 | Engagements du volet | Chaque ligne d’engagement fait référence à un engagement du volet de paiements de transfert et à son codage financier. |
 | Modèle d’approbation pour `fundingcaseagreementcommitment` | Requis si l’achèvement de l’engagement doit déclencher un processus d’approbation. Le modèle doit être associé au volet de paiements de transfert. |
-| Permission de mise à jour de l’entente | Requise pour créer ou modifier les engagements et leurs lignes, achever les engagements et gérer la feuille d’acheminement, s’il y a lieu. |
+| Permissions CRUD de l’entente | `create` crée les engagements et leurs lignes, `update` les modifie et achève les engagements encore modifiables, et `delete` les supprime logiquement. Les actions d’approbation exigent aussi l’accès ordinaire en lecture et l’attribution à l’étape d’approbation. |
 
 ## Déroulement de l’onglet
 

@@ -17,7 +17,7 @@ Une installation vide doit etre configuree avant que la creation d entente puiss
 
 ## Pages liste et creation
 
-La liste des ententes affiche les dossiers que l utilisateur peut lire et ouvre la page de detail. La creation ouvre le formulaire de nouvelle entente.
+La liste des ententes affiche les dossiers que l’utilisateur peut lire grâce à un rôle à portée définie ou à une équipe exacte d’entente et ouvre la page de détail. La création de premier niveau exige un rôle global, d’agence ou lié au programme avec `agreement:create` ; une équipe ne permet jamais de créer une nouvelle entente.
 
 Le formulaire de creation enregistre :
 
@@ -33,7 +33,7 @@ Le formulaire de creation enregistre :
 
 ## Espace de detail
 
-L espace de detail s ouvre en mode editable lorsque l utilisateur peut mettre a jour l entente. Sinon, l onglet General et les onglets enfants affichent les details en lecture seule et masquent les actions de creation, modification et suppression.
+L’espace de détail modifie le profil Général avec `agreement:update`. Les onglets enfants affichent chaque contrôle indépendamment : `create` ajoute des enfants, `update` modifie des dossiers existants ou un état de flux modifiable, et `delete` supprime logiquement. Une équipe exacte d’entente fournit ces actions selon son niveau, même lorsque les rôles de l’utilisateur ne les donnent pas.
 
 | Onglet | Page |
 | --- | --- |
@@ -48,6 +48,7 @@ L espace de detail s ouvre en mode editable lorsque l utilisateur peut mettre a 
 | Surveillances | [Surveillances](./monitors.md) |
 | Documents | [Documents](./documents.md) |
 | Activites | [Activites](./activities.md) |
+| Équipe | Utilisateurs exacts avec `read_only`, `contributor` ou `full_access` sur cette entente enregistrée. |
 
 Des onglets d extension peuvent apparaitre sur les surfaces entente, reclamation, surveillance, engagement et paiement lorsqu une extension les enregistre.
 

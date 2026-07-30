@@ -1,6 +1,6 @@
 # Proponent Team
 
-The Team tab assigns users directly to a proponent. Team membership is used to delegate access where agency or program scope alone is not specific enough.
+The Team tab assigns users directly to one saved Proponent. Team membership is an independent exact-entity access exception: it can grant access even when the user has no Proponent role ability or direct global Proponent flag.
 
 ## Setup Dependencies
 
@@ -8,24 +8,29 @@ The Team tab assigns users directly to a proponent. Team membership is used to d
 | --- | --- |
 | User account | A team member must be an application user. |
 | Proponent profile | Team records belong to a saved proponent. |
-| Proponent permissions | The administrator needs team-management permission for the profile. |
-| Supporting role | Team membership works with roles; it does not replace the need for user abilities. |
+| Effective update access | Required to manage `read_only` and `contributor` memberships. |
+| Effective delete access | Required in addition to update access to manage `full_access` memberships. |
 
 ## Fields
 
 | Field | Rule |
 | --- | --- |
 | Team member | Required user selection. Duplicate active team members are not allowed. |
+| Access level | Required: `read_only`, `contributor`, or `full_access`. |
 
 ## Business Rules
 
 | Rule | Behaviour |
 | --- | --- |
-| Team membership is profile-specific | It applies to the selected proponent, not all proponents in the same agency. |
+| `read_only` | Read the selected Proponent and its supported child records. |
+| `contributor` | Read and update the selected Proponent; read, create, and update its supported child records. |
+| `full_access` | Read, update, and soft-delete the selected Proponent; read, create, update, and soft-delete its supported child records. |
+| Team membership is exact | It applies to the selected Proponent, not another Proponent, its lead agency, a program, an Agreement, or a sibling record. |
+| Top-level creation is not inherited | Creating a new Proponent still requires the direct global Proponent `create` flag. |
 | Duplicate active members are blocked | Do not add the same user twice to the same proponent team. |
-| Team access complements roles | A user still needs the relevant proponent abilities; team membership helps scope those abilities to this profile. |
-| Deletes are soft deletes | Removing a team member hides the active assignment but preserves the history. |
+| Management is ceiling-limited | Update without delete can manage up to `contributor`; update plus delete can manage up to `full_access`. A manager cannot change or remove a membership above that ceiling. |
+| Membership removal is a soft delete | Removing a team member hides the active assignment but preserves its history. |
 
 ## Operating Guidance
 
-Use team membership for account officers, reviewers, or program staff who need direct responsibility for a particular proponent. Remove users when responsibilities change.
+Use Team membership for account officers, reviewers, or program staff who need access to one specific Proponent. Use the four direct user flags only for duties that genuinely require global cross-agency Proponent access. Remove Team members when responsibilities change.

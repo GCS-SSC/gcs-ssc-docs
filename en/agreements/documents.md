@@ -9,7 +9,7 @@ The Agreement Documents tab generates agreement documents from stream-scoped doc
 | Stream document templates | The Documents tab can generate files only from active `fundingcaseagreement` templates on the agreement stream. |
 | Bilingual template files | Each stream template needs English and French source attachments. |
 | Local document generation tools | DOCX-to-PDF and HTML-to-PDF generation need LibreOffice/Puppeteer tooling. Local development can use the installer described in [Startup](../developer/startup.md). |
-| Agreement update permission | Required to generate and delete generated documents. Users with agreement read access can view and download generated documents. |
+| Agreement CRUD permissions | `create` generates a document, `read` lists and downloads generated documents, and `delete` soft-deletes a generated document. |
 
 ## Tab flow
 
@@ -21,7 +21,7 @@ The Documents tab shows generated documents for the current agreement:
 | Language | Generated document language, English or French. |
 | Output format | `DOCX` or `PDF`. |
 | Generated at | Timestamp when the file was created. |
-| Actions | Download, and delete when the user can update the agreement. |
+| Actions | Download with `agreement:read`; delete with `agreement:delete`. |
 
 Generated document rows are retained separately from the source template. Deleting a generated document removes it from the normal list without deleting the stream template.
 
@@ -45,4 +45,4 @@ DOCX templates use docxtemplater-style tags such as `agreement.number` and secti
 
 ## Download and delete
 
-Download streams the stored generated attachment using the saved filename from generation. Delete is available only to users who can update the agreement and soft-deletes the generated document record.
+Download streams the stored generated attachment using the saved filename from generation and requires `agreement:read`. Delete requires `agreement:delete` and soft-deletes the generated document record.

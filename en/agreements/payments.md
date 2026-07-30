@@ -16,6 +16,8 @@ Payments record planned or actual payment requests against active approved commi
 
 The Payments tab displays payment type, status, fiscal-year schedule, period, comment, amount, and line count. Search includes the visible comment text.
 
+Viewing payments requires `agreement:read`. Creating a payment requires `agreement:create`; editing an existing payment or completing it requires `agreement:update`; deleting a payment requires `agreement:delete`. An exact Agreement Team can supply these actions according to its access level.
+
 Creating a payment captures:
 
 | Field | Rule |
@@ -43,6 +45,8 @@ The payment detail page shows payment context, payment lines, completion, and ap
 
 The detail table shows the commitment line number, fiscal year, financial coding, and payment-line amount. Financial coding includes the fund as the primary value and GL, fund centre, internal order, functional area, and cost centre when present. The detail total compares payment line total to payment amount.
 
+Adding a payment line requires `agreement:create`, editing an existing line requires `agreement:update`, and deleting a line requires `agreement:delete`. The eligible commitment-line lookup uses the same create or update action as the form that opened it.
+
 ## Business rules
 
 | Rule | Behaviour |
@@ -62,6 +66,8 @@ Completion entity type: `fundingcasepayment`.
 Completing a payment stores the common completion comment. With a valid approval template for `fundingcasepayment`, the payment moves to `pendingapproval`; without one, it moves to `complete`.
 
 The approval section appears for `pendingapproval`, `approved`, and `denied` payments. Approval actions move the payment status through the common routing slip. Later operational payment statuses such as `pay`, `wait`, `processed`, and `paid` are locked in the agreement UI.
+
+An assigned approver must also have ordinary `agreement:read` access through a role or exact Agreement Team. The assignment makes the user eligible for the approval step; it does not grant access to the payment or Agreement.
 
 ## Extension points
 

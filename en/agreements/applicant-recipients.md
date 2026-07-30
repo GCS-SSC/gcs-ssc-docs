@@ -8,7 +8,7 @@ The Proponents tab links applicant/recipient profiles to an agreement. The sourc
 | --- | --- |
 | Applicant/recipient profiles | Agreement creation requires at least one applicant/recipient id, and the tab can add more links later. |
 | Lead agency data | The table displays the linked profile's lead agency when available. |
-| Agreement update permission | Required to add, update, or remove linked proponents. |
+| Agreement CRUD permissions | `create` adds a Proponent link, `update` changes an existing link, and `delete` removes it by soft delete. The selector also requires read access to each Proponent it exposes. |
 
 ## Page flow
 
@@ -22,7 +22,7 @@ The table shows:
 | --- | --- |
 | Applicant/recipient | Bilingual legal/display name from the applicant/recipient profile. |
 | Lead agency | Bilingual agency name from the applicant/recipient profile. |
-| Actions | Edit and delete when the agreement can be updated. |
+| Actions | Edit with `agreement:update`; remove with `agreement:delete`. |
 
 ## Business rules
 

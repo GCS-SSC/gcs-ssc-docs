@@ -16,7 +16,7 @@ Completion records are generic so multiple workflow surfaces can share one patte
 
 ## Runtime behavior
 
-Runtime approval and completion components read setup data, current entity id, status, and current user permissions. Typical actions include approve, deny, reassign, view approval state, mark complete, and store completion comments. The exact action set depends on the entity and configured template.
+Runtime approval and completion components read setup data, current entity id, status, and current user permissions. Typical actions include approve, deny, reassign, view approval state, mark complete, and store completion comments. The exact action set depends on the entity and configured template. Workflow assignment is action eligibility, not an access grant: an assigned reviewer or approver must still have ordinary read access to the owning Proponent, Agreement, or agency context through the applicable RBAC mechanism.
 
 ## Setup dependency
 

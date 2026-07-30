@@ -10,7 +10,7 @@ Reviews capture structured assessment or checklist work for a proponent. They ar
 | Review set setup | Groups one or more reviews for proponent records. |
 | Review setup order | Controls the order of reviews inside the set. |
 | Approval template | Required when completed reviews need routing and certifications. |
-| Reviewer permissions | Users need review access to create sets, answer assessments, complete, approve, deny, or reassign. |
+| Proponent access and workflow assignment | Proponent read access opens reviews. Update access creates sets, answers assessments, completes, cancels, clones, or reassigns. An approval action additionally requires assignment to that approval step; assignment alone never grants Proponent access. |
 
 ## Page Flow
 

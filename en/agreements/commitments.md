@@ -9,7 +9,7 @@ Commitments group commitment lines and establish the approved commitment balance
 | Agreement budget | Commitment line totals cannot exceed the agreement's program funding total. |
 | Stream commitments | Each commitment line references a transfer payment stream commitment and its financial coding. |
 | Approval template for `fundingcaseagreementcommitment` | Required if commitment completion should route for approval. The template must be scoped to the transfer payment stream. |
-| Agreement update permission | Required to create/edit commitments, lines, completion, and routing-slip management where applicable. |
+| Agreement CRUD permissions | `create` creates commitments and lines, `update` edits them and completes mutable commitments, and `delete` soft-deletes them. Approval actions additionally require ordinary read access and assignment to the approval step. |
 
 ## Tab flow
 

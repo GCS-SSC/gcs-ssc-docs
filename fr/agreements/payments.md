@@ -16,6 +16,8 @@ Les paiements consignent les demandes de paiement prévues ou réelles associée
 
 L’onglet Paiements affiche le type de paiement, l’état, l’exercice prévu, la période, le commentaire, le montant et le nombre de lignes. La recherche porte notamment sur le texte visible du commentaire.
 
+La consultation des paiements exige `agreement:read`. La création d’un paiement exige `agreement:create`; la modification d’un paiement existant ou son achèvement exige `agreement:update`; sa suppression exige `agreement:delete`. Une équipe exacte d’entente peut fournir ces actions selon son niveau d’accès.
+
 La création d’un paiement saisit les renseignements suivants :
 
 | Champ | Règle |
@@ -43,6 +45,8 @@ La page de détails du paiement affiche le contexte du paiement, les lignes de p
 
 Le tableau de détails affiche le numéro de la ligne d’engagement, l’exercice, le codage financier et le montant de la ligne de paiement. Le codage financier présente le fonds comme valeur principale, ainsi que le grand livre, le centre financier, l’ordre interne, le domaine fonctionnel et le centre de coûts lorsqu’ils sont présents. Le total de la page de détails compare le total des lignes de paiement au montant du paiement.
 
+L’ajout d’une ligne de paiement exige `agreement:create`, la modification d’une ligne existante exige `agreement:update` et sa suppression exige `agreement:delete`. La recherche de lignes d’engagement admissibles utilise la même action de création ou de mise à jour que le formulaire qui l’a ouverte.
+
 ## Règles opérationnelles
 
 | Règle | Comportement |
@@ -62,6 +66,8 @@ Type d’entité d’achèvement : `fundingcasepayment`.
 L’achèvement d’un paiement enregistre le commentaire d’achèvement commun. Lorsqu’un modèle d’approbation valide pour `fundingcasepayment` existe, le paiement passe à l’état `pendingapproval`; sinon, il passe à l’état `complete`.
 
 La section d’approbation s’affiche pour les paiements à l’état `pendingapproval`, `approved` ou `denied`. Les actions d’approbation font progresser l’état du paiement au moyen de la feuille d’acheminement commune. Les états opérationnels ultérieurs, comme `pay`, `wait`, `processed` et `paid`, sont verrouillés dans l’interface de l’entente.
+
+Un approbateur affecté doit aussi posséder l’accès `agreement:read` ordinaire par un rôle ou une équipe exacte d’entente. L’affectation le rend admissible à l’étape d’approbation; elle ne lui donne pas accès au paiement ni à l’entente.
 
 ## Points d’extension
 

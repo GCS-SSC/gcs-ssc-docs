@@ -35,7 +35,7 @@ await navigateTo(localePath(appRouteLocations.proponentEdit(id)))
 
 ## Middleware
 
-`auth.global.ts` protects authenticated routes and redirects signed-in users away from login. `admin-common.ts` protects Common Admin by requiring a root/global read-all permission.
+`auth.global.ts` protects authenticated routes and redirects signed-in users away from login. `admin-common.ts` protects Common Admin by requiring the explicit global `system:read` permission. The seeded root user satisfies that rule through an ordinary global role; there is no root-user bypass.
 
 ## API route style
 

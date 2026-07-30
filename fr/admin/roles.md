@@ -4,7 +4,7 @@ Les roles definissent les combinaisons action, sujet et portee qui deviennent le
 
 ## Liste des roles
 
-La page Roles prend en charge pagination et recherche. Les lecteurs racine ou globaux voient tous les roles. Les lecteurs limites a des agences voient les roles globaux et les roles de leurs agences autorisees. La table inclut les noms bilingues, descriptions, contexte d agence, capacites et ids de programmes selectionnes.
+La page Rôles prend en charge la pagination et la recherche. Les utilisateurs disposant de la permission globale `role:read` voient tous les rôles. Les lecteurs limités à certaines agences voient les rôles globaux et ceux de leurs agences autorisées. Le tableau comprend les noms bilingues, les descriptions, le contexte d’agence, les capacités et les identifiants des programmes sélectionnés.
 
 Les utilisateurs avec acces de creation peuvent ouvrir la modale de role. Les utilisateurs avec acces de mise a jour pour la portee du role peuvent le modifier. Les suppressions sont logiques.
 
@@ -18,7 +18,7 @@ Un role peut etre :
 
 Le formulaire offre l option globale seulement lorsque l utilisateur courant peut creer des roles a portee globale. La selection de programme apparait seulement apres le choix d une agence. Les options de programme sont chargees depuis les paiements de transfert filtres par agence.
 
-Après la création, la portée parente du rôle est fixe : un rôle global demeure global et un rôle d’agence demeure lié à son agence d’origine. En mode modification, le sélecteur global/agence est désactivé. Un rôle d’agence peut tout de même passer d’une portée d’agence à une portée de programme, ou l’inverse, en ajoutant ou en retirant des programmes de cette agence, pourvu que ses capacités soient valides pour la portée obtenue. Les capacités `agency` doivent être retirées avant de faire passer le rôle à une portée de programme.
+Après la création, la portée parente du rôle est fixe : un rôle global demeure global et un rôle d’agence demeure lié à son agence d’origine. En mode modification, le sélecteur global/agence est désactivé. Un rôle d’agence peut tout de même passer d’une portée d’agence à une portée de programme, ou l’inverse, en ajoutant ou en retirant des programmes de cette agence, pourvu que ses capacités soient valides pour la portée obtenue. Les capacités `agency`, `role` et `user` doivent être retirées avant de faire passer le rôle à une portée de programme.
 
 Les selecteurs d’agence et de programme recherchent tous les dossiers accessibles a l’administrateur courant, et non seulement la premiere page. Lors de la modification d’un role, les selections enregistrees sont resolues vers leur nom d’affichage meme si elles ne figurent pas dans les resultats courants. Un programme qui n’existe plus ou qui n’est plus disponible dans la portee du role est indique comme indisponible. Un echec de chargement temporaire affiche une action Reessayer sans retirer la selection enregistree.
 
@@ -36,15 +36,20 @@ L application rejette les roles de programme sans agence. Elle rejette aussi les
 
 ## Regles de capacites
 
-Les capacites sont des paires action/sujet. Les actions sont creer, lire, mettre a jour et supprimer. Les sujets comprennent all, agency, transfer payment, role, user, applicant/recipient et agreement.
+Les capacités sont des paires action-sujet explicites. Les actions sont `create`, `read`, `update` et `delete`. Les seuls sujets de rôle sont `system`, `agency`, `transfer_payment`, `role`, `user` et `agreement`. L’accès aux promoteurs ne constitue volontairement pas une capacité de rôle ; il est configuré au moyen d’indicateurs directs sur l’utilisateur et d’équipes exactes de promoteur.
 
-La portee limite les sujets attribuables :
+La portée limite les sujets attribuables :
 
-| Regle | Comportement |
-| --- | --- |
-| Les capacites `all` sont seulement globales | Elles ne peuvent pas etre attribuees aux roles d agence ou de programme. |
-| Les capacites `agency` ne sont pas portees par programme | Elles sont permises sur les roles globaux ou d agence. |
-| Les autres sujets suivent la portee du workflow | Ils peuvent etre utilises sur les roles globaux, d agence ou de programme lorsque le flux metier le permet. |
+| Sujet du rôle | Rôle global | Rôle d’agence | Rôle de programme |
+| --- | :---: | :---: | :---: |
+| `system` | Oui | Non | Non |
+| `agency` | Oui | Oui | Non |
+| `transfer_payment` | Oui | Oui | Oui |
+| `role` | Oui | Oui | Non |
+| `user` | Oui | Oui | Non |
+| `agreement` | Oui | Oui | Oui |
+
+Il n’existe aucun sujet générique ni sujet `all`. La portée de programme est dérivée des liens actifs du rôle vers les programmes, et non d’un champ de portée indépendant.
 
 L onglet Capacites du detail de role filtre les capacites permises pour la portee courante. Si un utilisateur tente un basculement invalide, l application affiche une erreur de portee et n enregistre pas la capacite invalide.
 
@@ -61,11 +66,11 @@ L’enregistrement de l’onglet Général modifie seulement le profil et la por
 
 Utilisez peu de modeles de role durables :
 
-- Administrateur racine : permissions globales `all` pour les operateurs systeme de confiance.
-- Administrateur d agence : permissions agence, utilisateur, role, promoteur, programme et entente pour une agence.
-- Gestionnaire de programme : permissions paiement de transfert et entente pour des programmes selectionnes.
-- Operateur d entente : creation/mise a jour des ententes et flux enfants dans une portee programme ou agence.
-- Examinateur ou approbateur : lecture/mise a jour limitee aux zones requises.
+- Administrateur racine : rôle global ordinaire contenant les paires action-sujet explicites requises pour les opérateurs système de confiance. Le rôle initial contient les 24 paires valides et ne contourne pas l’autorisation.
+- Administrateur d’agence : permissions d’agence, d’utilisateur, de rôle, de paiement de transfert et d’entente limitées à une agence. L’accès aux promoteurs est attribué séparément aux utilisateurs ou par des équipes exactes.
+- Gestionnaire de programme : permissions de paiement de transfert et d’entente pour des programmes sélectionnés.
+- Opérateur d’entente : création et mise à jour des ententes et des flux enfants dans une portée de programme ou d’agence.
+- Examinateur ou approbateur : seulement les permissions ordinaires de lecture et de mise à jour de l’entité requises par le processus. L’attribution de flux détermine qui peut exécuter une étape assignée ; elle ne donne elle-même aucun accès à l’entité.
 - Analyste lecture seule : lecture sans creation, mise a jour ou suppression.
 
 Evitez de creer de nombreux roles presque identiques. Preferez un role par fonction et portee par attribution.

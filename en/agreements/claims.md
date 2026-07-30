@@ -9,7 +9,7 @@ Claims capture submitted amounts against agreement budget lines and support one 
 | Agreement budget fiscal years and line items | Claims are created for agreement budget fiscal years and submission rows come from budget lines. |
 | Common users | Reconcile records store the current common user as reviewer. |
 | Approval template for `fundingclaimreconcile` | Required when reconciliations need approval routing. |
-| Agreement update permission | Required to edit draft claims, allocate imported claim lines, start reconciliations, save reconciliation lines, complete, and manage approvals. |
+| Agreement CRUD permissions | `create` creates claims, missing submission lines, reconciliations, and missing reconcile lines; `update` changes existing records and mutable workflow state; `delete` soft-deletes claims and child records. Approval actions additionally require ordinary read access and assignment. |
 
 ## Tab flow
 
@@ -25,6 +25,8 @@ Creating a claim captures:
 | Final for year | Required boolean. |
 
 New claims start as `draft`.
+
+Creating a claim requires `agreement:create`, editing its existing header requires `agreement:update`, and deleting it requires `agreement:delete`.
 
 ## Detail page
 
@@ -51,7 +53,7 @@ The Submission tab builds editable draft rows from budget lines in the claim fis
 | Amount | Required money value. |
 | Currency | Required; the detail editor writes CAD. |
 
-Unallocated lines appear in the submission table with an Unallocated badge and their submitted labels. Users with agreement update access can allocate an unallocated line to a budget line while the claim is `draft` or `submitted`.
+Unallocated lines appear in the submission table with an Unallocated badge and their submitted labels. Users with `agreement:update` can allocate an unallocated line to a budget line while the claim is `draft` or `submitted`.
 
 The claim can be marked ready for review only when it is still `draft`, has at least one claim line, and has no unallocated lines. Ready for review changes status to `submitted`.
 
@@ -63,17 +65,17 @@ External sources can create more than one claim line for the same agreement budg
 
 | Action | Allowed when | Result |
 | --- | --- | --- |
-| Save submission | Claim status is `draft` and user can update agreement | Creates or updates UI-entered claim line items for budget rows. |
-| Allocate unallocated line | Claim status is `draft` or `submitted`, line is unallocated, and user can update agreement | Sets the line's budget line item after validating it belongs to the agreement and fiscal year. |
-| Ready for review | Draft claim has at least one line and no unallocated lines | Sets claim status to `submitted`. |
-| Withdraw | Claim status is `submitted` and no reconcile exists | Sets claim status to `withdrawn`. |
-| Cancel | Claim is not `draft`, `withdrawn`, or `cancelled` | Sets claim status to `cancelled`. |
+| Save submission | Claim is `draft`; `agreement:create` for missing lines and `agreement:update` for existing lines | Creates or updates only the UI-entered rows allowed by the user's corresponding action. |
+| Allocate unallocated line | Claim is `draft` or `submitted`, line is unallocated, and user has `agreement:update` | Sets the line's budget line item after validating it belongs to the Agreement and fiscal year. |
+| Ready for review | Draft claim has at least one line, no unallocated lines, and user has `agreement:update` | Sets claim status to `submitted`. |
+| Withdraw | Claim is `submitted`, no reconcile exists, and user has `agreement:update` | Sets claim status to `withdrawn`. |
+| Cancel | Claim is not `draft`, `withdrawn`, or `cancelled`, and user has `agreement:update` | Sets claim status to `cancelled`. |
 
 ## Reconciliations
 
 Reconciliation is shown when the claim is ready for reconciliation or when reconcile records already exist. Claims with status `submitted`, `inreview`, `reviewed`, or `complete` can show and start reconciliation work when they have no unallocated lines and no approved final reconciliation.
 
-Starting a reconciliation creates a draft reconcile for the current user and moves the claim to `inreview`. Starting or editing from a submitted, reviewed, or complete claim can return it to `inreview`.
+Starting a reconciliation requires `agreement:create`, creates a draft reconcile for the current user, and moves the claim to `inreview`. Changing an existing reconciliation or its final flag requires `agreement:update`. Starting or editing from a submitted, reviewed, or complete claim can return it to `inreview`.
 
 Reconcile line items are saved against the active reconcile:
 
@@ -85,7 +87,7 @@ Reconcile line items are saved against the active reconcile:
 | Sampled amount | Optional money value. |
 | Rationale | Optional text; blank values normalize to null. |
 
-The worklist shows every reconcile for the claim, latest first, with reviewer, status, final flag, reconciled total, sampled total, and balance. Selecting a reconcile changes the editable or read-only detail panel below the worklist.
+The worklist shows every reconcile for the claim, latest first, with reviewer, status, final flag, reconciled total, sampled total, and balance. Selecting a reconcile changes the editable or read-only detail panel below the worklist. Saving uses `agreement:update` for existing reconcile lines and `agreement:create` for missing lines.
 
 ## Final reconciliation
 
@@ -114,6 +116,6 @@ If a final reconciliation approval is denied, the reconcile is set to `denied`, 
 
 Completion entity type: `fundingclaimreconcile`.
 
-Completion is attached to the selected reconcile, not the claim header. The completion section appears when a reconcile exists. Completing a final reconcile shows an extra confirmation because it can close the claim review path. With a valid approval template, completion creates or materializes the routing slip and sets the reconcile to `pendingapproval`; otherwise it sets the reconcile to `complete`.
+Completion is attached to the selected reconcile, not the claim header, and requires `agreement:update`. The completion section appears when a reconcile exists. Completing a final reconcile shows an extra confirmation because it can close the claim review path. With a valid approval template, completion creates or materializes the routing slip and sets the reconcile to `pendingapproval`; otherwise it sets the reconcile to `complete`.
 
-When there is no approval template, completing a final reconcile moves the claim to `reviewed`; completing a non-final reconcile leaves the claim `inreview`. The approval section appears for `pendingapproval`, `approved`, and `denied` reconciles.
+When there is no approval template, completing a final reconcile moves the claim to `reviewed`; completing a non-final reconcile leaves the claim `inreview`. The approval section appears for `pendingapproval`, `approved`, and `denied` reconciles. Acting on an approval requires ordinary Agreement or exact-Team read access as well as assignment to the approval step; assignment alone does not grant access.

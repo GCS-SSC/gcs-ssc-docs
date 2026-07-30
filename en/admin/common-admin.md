@@ -1,6 +1,6 @@
 # Common Admin
 
-Common Admin is the root-only global administration page at `/en/admin/common`. Users without root or global read-all access are redirected away.
+Common Admin is the global administration page at `/en/admin/common`. It requires explicit global `system:read`; the seeded root role satisfies this through ordinary role abilities and has no special bypass.
 
 ## Purpose
 
@@ -34,7 +34,7 @@ The order intentionally moves from base reference data to runtime execution reco
 
 ## Common UI behavior
 
-Each resource tab renders a table and generated form. Field types include text, number, date, textarea, JSON, boolean, enum, and lookup fields. Search includes configured columns and the id. The deleted filter supports all, active, and deleted records. For editable resources, an existing row exposes a deleted switch so root users can soft-delete or restore records.
+Each resource tab renders a table and generated form. Field types include text, number, date, textarea, JSON, boolean, enum, and lookup fields. Search includes configured columns and the id. The deleted filter supports all, active, and deleted records. For editable resources, an existing row exposes a deleted switch so authorized global administrators can soft-delete or restore records.
 
 The Entities tab is read-only. It supplies runtime entity ids for lookup fields and should not be hand-created through the UI.
 
@@ -66,7 +66,7 @@ Recommendation Schemas define structured recommendation content and result JSON 
 
 ## Operational guidance
 
-Root users should not use Common Admin as a casual data editor. Many resources drive runtime workflows. Changing active schemas, approval templates, or setup records after runtime records exist can affect new records differently from historical records. Prefer adding a new version or new setup when the business process changes materially.
+Global system administrators should not use Common Admin as a casual data editor. Many resources drive runtime workflows. Changing active schemas, approval templates, or setup records after runtime records exist can affect new records differently from historical records. Prefer adding a new version or new setup when the business process changes materially.
 
 ![Common Admin resources](/screenshots/en/common-admin.png)
 

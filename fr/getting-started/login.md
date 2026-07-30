@@ -21,9 +21,9 @@ Le code source contient encore une entree de connexion GitHub/sociale dans l exp
 La barre laterale depend des permissions :
 
 - Accueil, Agences, Programmes, Roles et Utilisateurs font partie de la navigation principale.
-- Ententes apparait seulement lorsque l utilisateur a une capacite de lecture sur les ententes.
-- Promoteurs apparait seulement lorsque l utilisateur a une lecture globale demandeur/beneficiaire.
-- Commun apparait seulement lorsque l utilisateur a une lecture globale `all`.
-- Le menu utilisateur contient toujours Deconnexion et contient le telechargement SQL seulement pour les utilisateurs racine avec lecture globale `all`.
+- L’entrée Ententes apparaît lorsque l’utilisateur possède une permission de rôle `agreement:read` de portée appropriée ou un accès en lecture accordé par au moins une équipe exacte d’entente.
+- L’entrée Promoteurs apparaît lorsque l’utilisateur possède l’indicateur global direct Promoteur `read` ou un accès en lecture accordé par au moins une équipe exacte de promoteur.
+- L’entrée Commun apparaît seulement lorsque l’utilisateur possède l’accès global explicite `system:read`.
+- Le menu utilisateur contient toujours Déconnexion et offre le téléchargement SQL seulement avec l’accès global explicite `system:read`.
 
-Si un utilisateur se connecte mais voit moins de pages que prevu, verifiez d abord l attribution de role, les capacites du role et sa portee.
+Si un utilisateur se connecte mais voit moins de pages que prévu, vérifiez les attributions structurelles de rôle, les indicateurs directs de promoteur et l’appartenance aux équipes exactes avant de vérifier l’interface utilisateur.

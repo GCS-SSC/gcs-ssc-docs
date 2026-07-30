@@ -10,7 +10,7 @@ Before creating production programs, configure the owning agency and the agency 
 
 | Setup | Why it matters |
 | --- | --- |
-| Agency profile and user/team permissions | Program administrators need an agency context and transfer payment permissions. |
+| Agency profile and structural role permissions | Program administrators need an agency context and a scoped `transfer_payment` role permission. Teams do not attach to Programs. |
 | Agency fiscal years | Program budgets are tied to agency fiscal-year rows. |
 | Applicant recipient subtypes, agreement types, cost categories, and cost category line items | Streams consume those agency records. |
 | Common users, behalf types, review schemas, recommendation schemas, and approval templates | Required when the first stream will also generate runtime reviews, recommendations, or approvals. |
@@ -19,7 +19,7 @@ If an administrator works inside an active agency context, the agency selector i
 
 ## List Page
 
-The Programs page shows only records the current user can read through global, agency, team, or entity-scoped permissions.
+The Programs page shows only records the current user can read through a global, agency, or linked-program structural role permission. Proponent and Agreement Teams do not grant Program access.
 
 The list supports:
 
@@ -150,12 +150,13 @@ Program status uses the base status enum and defaults to draft. Active status is
 
 ## Permission and Scope Behavior
 
-Program read, create, update, and delete actions are authorized through the transfer payment resource. The scope is either global, agency-level, or entity-level:
+Program read, create, update, and delete actions are authorized through the `transfer_payment` role subject. Scope is derived from the role structure and is global, agency-wide, or limited to the role's linked Programs:
 
-- Create checks the selected agency.
-- List visibility is resolved from global access, agency access, and transfer-payment entity access.
-- Detail read and child update/delete actions use the owning agency and transfer payment ID.
-- Stream and child setup pages inherit the program agency scope.
+- Create checks the selected agency and therefore requires applicable global or agency `transfer_payment:create` access.
+- List visibility is resolved from global access, agency access, and the Programs linked to program-scoped roles.
+- Detail and child actions check the owning agency and Program against the requested CRUD action.
+- Stream and child setup pages remain under the owning Program's derived role scope.
+- Teams are never evaluated for agencies, Programs, or streams.
 
 If a user can read a program but cannot update it, the detail page still loads but edit and add actions are hidden or disabled.
 

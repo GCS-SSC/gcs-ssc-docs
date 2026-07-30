@@ -9,7 +9,7 @@ Forecasts track expected spending by agreement budget line, month, fiscal year, 
 | Agreement budget fiscal years | Forecast records are created for agreement budget fiscal years. |
 | Agreement budget line items | The detail page builds its editable rows from budget lines in the forecast fiscal year. |
 | Approval template for `fundingcaseforecast` | Required when completed forecasts need approval routing. |
-| Agreement update permission | Required to create forecasts, add versions, edit monthly amounts, complete, and manage approvals. |
+| Agreement CRUD permissions | `create` creates forecast headers, versions, and new monthly lines; `update` changes existing lines and completes mutable forecasts; `delete` soft-deletes forecast records. Approval actions also require ordinary read access and assignment. |
 
 ## Tab flow
 
@@ -44,7 +44,7 @@ Users can toggle a quarter into its three months. Editing is only available when
 | Version | Required non-negative integer normalized to a string. |
 | Status | Required status enum. New detail-page lines are created as `inprogress`. |
 
-Saving the breakdown updates existing month lines whose amount changed and creates new month lines only when the draft amount is non-zero.
+Saving the breakdown updates changed existing month lines only with `agreement:update` and creates non-zero missing month lines only with `agreement:create`. The editor exposes each row according to the action required for that row.
 
 ## Business rules
 

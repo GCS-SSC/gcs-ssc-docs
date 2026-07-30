@@ -9,7 +9,7 @@ Monitors record planned monitoring work, monitored items, findings, follow-ups, 
 | Transfer payment monitor types | The monitor type lookup is scoped to the agreement stream. |
 | Agency fiscal years | Tentative fiscal year lookup is scoped to the agreement agency. |
 | Approval template for `fundingcasemonitor` | Required when monitor completion needs approval routing. |
-| Agreement update permission | Required for monitor metadata, sub-record edits, completion, and approval management. |
+| Agreement CRUD permissions | `create` creates monitors and sub-records, `update` edits them and completes mutable monitors, and `delete` soft-deletes them. Approval actions also require ordinary read access and assignment. |
 
 ## Tab flow
 
