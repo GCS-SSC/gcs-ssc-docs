@@ -170,7 +170,9 @@ Chaque etape affiche:
 
 ## Creation De Feuilles De Route Additionnelles
 
-La section d approbation permet d ajouter une feuille de route seulement lorsque:
+L action **Ajouter** cree une nouvelle feuille de route a partir du modele d approbation configure. Elle n ajoute pas une etape d approbation individuelle a la feuille courante. L application actuelle n expose ni interface utilisateur ni API pour ajouter une etape ponctuelle en execution, meme si les dossiers d approbation distinguent les etapes du modele des etapes ajoutees.
+
+La section d approbation permet d ajouter une feuille de route de remplacement seulement lorsque:
 
 - Le mode d approbation d execution est actif.
 - L utilisateur peut gerer les approbations d examen pour l entite d execution.
@@ -178,6 +180,8 @@ La section d approbation permet d ajouter une feuille de route seulement lorsque
 - Toutes les feuilles existantes sont refusees.
 
 Cela permet un nouveau routage apres refus sans ecraser l historique de la feuille refusee.
+
+Le refus est un resultat de flux reutilisable a cette fin. Un examen et un ensemble d examens refuses peuvent etre geres uniquement pour creer la feuille de remplacement. Sa creation remet l examen a `pendingapproval` et l ensemble d examens dans un statut actif. Les autres resultats terminaux de l ensemble d examens, soit `complete`, `approved`, `withdrawn` et `cancelled`, demeurent verrouilles et ne permettent pas une autre feuille de route.
 
 ## Actions Approuver Et Refuser
 
@@ -203,6 +207,8 @@ Le refus est desactive lorsque:
 - Le commentaire est vide.
 - L utilisateur agit au nom d autrui sans selectionner un type "au nom de".
 - Les details reels sont requis mais le titre ou la date de decision manque.
+
+Les certifications obligatoires n ont pas a etre cochees pour refuser une etape. Un refus marque immediatement toute la feuille de route comme refusee, empeche les etapes suivantes de cette feuille d etre traitees et conserve la feuille comme historique immuable. Un gestionnaire peut ensuite utiliser **Ajouter** pour creer une nouvelle feuille fondee sur le modele.
 
 L action d approbation enregistre la decision, les certifications, les donnees "au nom de", les details reels lorsque fournis et le commentaire. Approuver et refuser exigent la permission d action sur approbation d examen.
 

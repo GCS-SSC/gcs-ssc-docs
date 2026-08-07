@@ -170,7 +170,9 @@ Each step shows:
 
 ## Creating Additional Routing Slips
 
-The runtime approval section allows adding a routing slip only when:
+The **Add** action creates a new routing slip from the configured approval template. It does not add an individual approval step to the current routing slip. The current application does not expose a user interface or API for adding an ad hoc runtime step, even though runtime approval records distinguish template-defined steps from added steps.
+
+The runtime approval section allows adding a replacement routing slip only when:
 
 - Approval runtime mode is active.
 - The user can manage review approvals for the runtime entity.
@@ -178,6 +180,8 @@ The runtime approval section allows adding a routing slip only when:
 - Every existing routing slip is denied.
 
 This supports re-routing after denial without overwriting the denied routing slip history.
+
+Denial is a retryable workflow outcome for this purpose. A denied review and review set may be managed only to create the replacement routing slip. Creating it moves the review back to `pendingapproval` and the review set back to an active status. Other terminal review-set outcomes—`complete`, `approved`, `withdrawn`, and `cancelled`—remain locked and cannot create another routing slip.
 
 ## Approve And Deny Actions
 
@@ -203,6 +207,8 @@ Denial is disabled when:
 - Comment is blank.
 - Acting on behalf without selecting an on-behalf type.
 - Actual approval details are required but title or decision date is missing.
+
+Required certifications do not need to be checked to deny a step. A denial immediately marks the whole routing slip denied, prevents later steps on that slip from being actioned, and preserves the slip as immutable history. A manager can then use **Add** to create a fresh template-based routing slip.
 
 The approval action records the decision, certifications, on-behalf data, actual decision details when supplied, and comment. Approve and deny both require action-review-approval permission.
 
