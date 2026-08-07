@@ -4,9 +4,9 @@ Approvals and completions are runtime controls built from administrative setup d
 
 ## Approval configuration
 
-Approval Templates define the workflow for a scope and entity type. Approval Steps define sequence, description, default user, and approver title. Certifications can attach to approval steps and can be optional or required. Approval Behalf Types are configured by agency and describe cases where someone approves for another person.
+Approval Templates define the workflow for a scope and entity type. Approval Steps define sequence, description, default user, and approver title. Certifications can attach to approval steps and can be optional or required. A template can also permit user-added approval steps and define their default bilingual names and certifications, plus which defaults users may customize. Approval Behalf Types are configured by agency and describe cases where someone approves for another person.
 
-Routing Slips are runtime approval records. They point at an entity, an approval template, and an approval status such as draft, pending approval, approved, or denied.
+Routing Slips are runtime approval records. They point at an entity, an approval template, and an approval status such as draft, pending approval, approved, or denied. Materialization copies the template's additional-approval policy onto the routing slip so later template edits affect only future slips.
 
 ## Completion configuration
 
@@ -16,7 +16,7 @@ Completion records are generic so multiple workflow surfaces can share one patte
 
 ## Runtime behavior
 
-Runtime approval and completion components read setup data, current entity id, status, and current user permissions. Typical actions include approve, deny, reassign, view approval state, mark complete, and store completion comments. The exact action set depends on the entity and configured template. Workflow assignment is action eligibility, not an access grant: an assigned reviewer or approver must still have ordinary read access to the owning Proponent, Agreement, or agency context through the applicable RBAC mechanism.
+Runtime approval and completion components read setup data, current entity id, status, and current user permissions. Typical actions include approve, deny, reassign, add an approval step before or after an eligible step, view approval state, mark complete, and store completion comments. Added steps use decimal sequences so they can be inserted without renumbering the route. The exact action set depends on the entity, the snapshotted template policy, and the user's permissions or unresolved-step assignment. Workflow assignment is action eligibility, not an access grant: an assigned reviewer or approver must still have ordinary read access to the owning Proponent, Agreement, or agency context through the applicable RBAC mechanism.
 
 ## Setup dependency
 

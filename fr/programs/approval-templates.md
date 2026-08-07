@@ -1,6 +1,6 @@
 # Modeles D Approbation
 
-Les modeles d approbation definissent des routes d approbation ordonnees. Un modele stocke le type d entite d execution, les metadonnees bilingues, les etapes d approbation ordonnees, les approbateurs par defaut, les titres d approbateur et les certifications d etape. En execution, les modeles sont materialises en feuilles de route que les utilisateurs peuvent approuver, refuser ou reattribuer.
+Les modeles d approbation definissent des routes d approbation ordonnees. Un modele stocke le type d entite d execution, les metadonnees bilingues, les etapes d approbation ordonnees, les approbateurs par defaut, les titres d approbateur, les certifications d etape et la politique des etapes ajoutees par les utilisateurs. En execution, les modeles sont materialises en feuilles de route que les utilisateurs peuvent approuver, refuser, reattribuer ou prolonger lorsque le modele le permet.
 
 Dans la configuration des paiements de transfert, les modeles sont souvent configures au niveau du volet puis references par les configurations d examen, configurations de recommandation, membres d evaluation ou flux d execution pour ententes, reclamations, previsions, paiements, surveillance, demandeurs/destinataires et travaux connexes.
 
@@ -71,6 +71,16 @@ La section General contient:
 - Type d entite. Il est affiche dans un controle enum desactive dans le detail parce que changer le type d entite apres creation changerait l utilisation du modele.
 - Nom anglais et nom francais.
 - Description anglaise et description francaise.
+
+La section Approbations additionnelles determine si les utilisateurs peuvent prolonger une feuille de route materialisee. Sa configuration comprend:
+
+- Une bascule **Permettre les approbations additionnelles**, desactivee par defaut.
+- Le nom anglais et le nom francais par defaut de chaque etape ajoutee.
+- La permission pour l utilisateur qui ajoute l etape de modifier ces noms bilingues.
+- Une liste ordonnee d enonces de certification bilingues par defaut, chacun obligatoire ou facultatif.
+- La permission pour l utilisateur qui ajoute l etape d ajouter, modifier, retirer ou reordonner les certifications, ou d en changer le caractere obligatoire.
+
+Lorsque les approbations additionnelles sont permises, les noms d etape bilingues par defaut sont obligatoires. La liste des certifications par defaut peut etre vide. La politique et ses valeurs par defaut sont copiees dans chaque feuille de route au moment de sa materialisation. Les modifications ulterieures du modele s appliquent donc seulement aux nouvelles feuilles et ne modifient pas silencieusement une route deja en cours.
 
 ## Etapes D Approbation
 
@@ -167,10 +177,26 @@ Chaque etape affiche:
 - Certifications.
 - Si l etape est courante.
 - Si l utilisateur courant peut agir ou reattribuer.
+- Si l utilisateur courant peut ajouter une etape immediatement avant ou apres.
 
-## Creation De Feuilles De Route Additionnelles
+## Ajout D Etapes D Approbation
 
-L action **Ajouter** cree une nouvelle feuille de route a partir du modele d approbation configure. Elle n ajoute pas une etape d approbation individuelle a la feuille courante. L application actuelle n expose ni interface utilisateur ni API pour ajouter une etape ponctuelle en execution, meme si les dossiers d approbation distinguent les etapes du modele des etapes ajoutees.
+Lorsque la politique copiee dans la feuille permet les approbations additionnelles, la colonne d actions propose **Ajouter avant** et **Ajouter apres** sur les etapes admissibles. L etape selectionnee sert de point d ancrage. La nouvelle etape recoit une sequence decimale entre ses voisines; aucune renumerotation ni reecriture de la route existante n est necessaire. Les insertions repetees utilisent des decimales de plus en plus precises tout en conservant un ordre d affichage sans ambiguite.
+
+La modale exige un approbateur de la meme agence. Cet utilisateur devient a la fois l approbateur par defaut et l approbateur assigne de la nouvelle etape. La modale pre-remplit les noms bilingues et les certifications copies du modele. Les noms sont en lecture seule sauf si le modele permet leur modification. Lorsque la modification des certifications est permise, l utilisateur peut les ajouter, modifier, retirer, reordonner ou changer leur caractere obligatoire ou facultatif; une liste vide est valide.
+
+Un utilisateur peut ajouter une etape dans l un des cas suivants:
+
+- Il possede la permission de gerer le flux d approbation proprietaire; ou
+- Il possede l acces ordinaire en lecture au dossier proprietaire et est assigne a une etape non resolue de la feuille de route courante.
+
+L assignation seule ne donne jamais acces au dossier proprietaire. Au moment de la sauvegarde, le serveur verifie de nouveau la permission, l assignation, la feuille courante, le point d ancrage, l agence de l approbateur choisi et la politique copiee.
+
+Une approbation peut etre ajoutee avant une etape non resolue, mais jamais avant une etape deja traitee. Une etape peut etre ajoutee apres le prefixe deja traite tant que la feuille demeure active. Aucune etape ne peut etre ajoutee a une feuille approuvee ou refusee. Une etape ajoutee par un utilisateur ne peut plus etre modifiee ni retiree apres sa creation; un gestionnaire peut toutefois la reattribuer par l action habituelle.
+
+## Creation De Feuilles De Route De Remplacement
+
+La creation d une feuille de remplacement apres un refus est distincte de l ajout d une etape a la feuille courante. La feuille de remplacement est materialisee depuis le modele configure et recoit un nouvel instantane de la politique des approbations additionnelles.
 
 La section d approbation permet d ajouter une feuille de route de remplacement seulement lorsque:
 
@@ -208,7 +234,7 @@ Le refus est desactive lorsque:
 - L utilisateur agit au nom d autrui sans selectionner un type "au nom de".
 - Les details reels sont requis mais le titre ou la date de decision manque.
 
-Les certifications obligatoires n ont pas a etre cochees pour refuser une etape. Un refus marque immediatement toute la feuille de route comme refusee, empeche les etapes suivantes de cette feuille d etre traitees et conserve la feuille comme historique immuable. Un gestionnaire peut ensuite utiliser **Ajouter** pour creer une nouvelle feuille fondee sur le modele.
+Les certifications obligatoires n ont pas a etre cochees pour refuser une etape. Un refus marque immediatement toute la feuille de route comme refusee, empeche les etapes suivantes de cette feuille d etre traitees ou ajoutees et conserve la feuille comme historique immuable. Un gestionnaire peut ensuite creer une nouvelle feuille fondee sur le modele.
 
 L action d approbation enregistre la decision, les certifications, les donnees "au nom de", les details reels lorsque fournis et le commentaire. Approuver et refuser exigent la permission d action sur approbation d examen.
 
@@ -237,6 +263,8 @@ Utilisez ces pratiques:
 
 - Creez des modeles par type d entite et par volet lorsque les routes d approbation different selon le volet du programme.
 - Gardez les numeros de sequence simples et uniques.
+- Activez les approbations additionnelles seulement lorsque le processus exige de prolonger une route active et fournissez des valeurs bilingues claires.
+- Considerez l instantane de la feuille comme la politique effective de la route en cours; modifiez le modele seulement pour changer les routes futures.
 - Utilisez des utilisateurs par defaut actifs et responsables du point operationnel.
 - Redigez le texte de certification comme l enonce exact que l approbateur doit reconnaitre.
 - Marquez une certification optionnelle seulement lorsqu elle est informative ou conditionnelle.

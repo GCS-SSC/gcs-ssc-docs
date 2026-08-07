@@ -4,9 +4,9 @@ Les approbations et les achèvements sont des contrôles d’exécution construi
 
 ## Configuration d’approbation
 
-Les modèles d’approbation définissent le flux pour une portée et un type d’entité. Les étapes d’approbation définissent la séquence, la description, l’utilisateur par défaut et le titre de l’approbateur. Les certifications peuvent être rattachées aux étapes et être facultatives ou requises. Les types d’approbation au nom d’autrui sont configurés par agence et décrivent les cas où une personne approuve pour une autre.
+Les modèles d’approbation définissent le flux pour une portée et un type d’entité. Les étapes d’approbation définissent la séquence, la description, l’utilisateur par défaut et le titre de l’approbateur. Les certifications peuvent être rattachées aux étapes et être facultatives ou requises. Un modèle peut aussi permettre l’ajout d’étapes par les utilisateurs, définir leurs noms bilingues et certifications par défaut, puis préciser quelles valeurs peuvent être personnalisées. Les types d’approbation au nom d’autrui sont configurés par agence et décrivent les cas où une personne approuve pour une autre.
 
-Les feuilles de route sont des enregistrements d’approbation d’exécution. Elles pointent vers une entité, un modèle d’approbation et un statut comme brouillon, en attente, approuvé ou refusé.
+Les feuilles de route sont des enregistrements d’approbation d’exécution. Elles pointent vers une entité, un modèle d’approbation et un statut comme brouillon, en attente, approuvé ou refusé. La matérialisation copie la politique des approbations additionnelles du modèle dans la feuille afin que les modifications ultérieures du modèle touchent seulement les futures feuilles.
 
 ## Configuration des achèvements
 
@@ -16,7 +16,7 @@ Les enregistrements d’achèvement sont génériques afin que plusieurs surface
 
 ## Comportement d’exécution
 
-Les composants d’approbation et d’achèvement lisent les données de configuration, l’identifiant de l’entité courante, le statut et les permissions de l’utilisateur. Les actions typiques incluent approuver, refuser, réattribuer, voir l’état d’approbation, marquer comme terminé et enregistrer des commentaires. L’ensemble exact dépend de l’entité et du modèle configuré. L’attribution de flux détermine l’admissibilité à une action et ne constitue pas une permission d’accès : un examinateur ou un approbateur assigné doit toujours posséder l’accès ordinaire en lecture au promoteur, à l’entente ou au contexte de l’agence propriétaire par le mécanisme RBAC applicable.
+Les composants d’approbation et d’achèvement lisent les données de configuration, l’identifiant de l’entité courante, le statut et les permissions de l’utilisateur. Les actions typiques incluent approuver, refuser, réattribuer, ajouter une étape avant ou après une étape admissible, voir l’état d’approbation, marquer comme terminé et enregistrer des commentaires. Les étapes ajoutées utilisent des séquences décimales afin de s’insérer sans renuméroter la route. L’ensemble exact dépend de l’entité, de la politique copiée du modèle et des permissions ou de l’assignation de l’utilisateur à une étape non résolue. L’attribution de flux détermine l’admissibilité à une action et ne constitue pas une permission d’accès : un examinateur ou un approbateur assigné doit toujours posséder l’accès ordinaire en lecture au promoteur, à l’entente ou au contexte de l’agence propriétaire par le mécanisme RBAC applicable.
 
 ## Dépendances de configuration
 

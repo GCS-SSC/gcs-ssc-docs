@@ -1,6 +1,6 @@
 # Approval Templates
 
-Approval templates define ordered approval routes. A template stores the runtime entity type, bilingual template metadata, ordered approval steps, default approvers, approver titles, and step certifications. At runtime, templates are materialized into routing slips that users can approve, deny, or reassign.
+Approval templates define ordered approval routes. A template stores the runtime entity type, bilingual template metadata, ordered approval steps, default approvers, approver titles, step certifications, and the policy for user-added approval steps. At runtime, templates are materialized into routing slips that users can approve, deny, reassign, or extend when the template permits it.
 
 In transfer payment setup, templates are commonly configured at the stream level and then referenced by review setups, recommendation setups, assessment members, or runtime workflows for agreements, claims, forecasts, payments, monitoring, applicant recipients, and related work.
 
@@ -71,6 +71,16 @@ The General section contains:
 - Entity type. This is displayed in a disabled enum control on detail because changing the runtime entity type after creation would change how the template is used.
 - English and French name.
 - English and French description.
+
+The Additional Approvals section controls whether users can extend a materialized routing slip. Its configuration includes:
+
+- An **Allow additional approvals** switch. It is off by default.
+- The default English and French name for every added step.
+- Whether the user adding a step may change those bilingual names.
+- An ordered list of default bilingual certification statements, each marked required or optional.
+- Whether the user adding a step may add, edit, remove, reorder, or change the requiredness of those certifications.
+
+When additional approvals are enabled, the bilingual default step names are required. Default certifications may be empty. The policy and its defaults are copied to each routing slip when it is materialized. Later template changes therefore apply only to future routing slips; they do not silently change a route that is already in progress.
 
 ## Approval Steps
 
@@ -167,10 +177,26 @@ Each step shows:
 - Certifications.
 - Whether the step is current.
 - Whether the current user can action or reassign it.
+- Whether the current user can add a step immediately before or after it.
 
-## Creating Additional Routing Slips
+## Adding Approval Steps
 
-The **Add** action creates a new routing slip from the configured approval template. It does not add an individual approval step to the current routing slip. The current application does not expose a user interface or API for adding an ad hoc runtime step, even though runtime approval records distinguish template-defined steps from added steps.
+When the routing slip's snapshotted policy allows additional approvals, the action column offers **Add before** and **Add after** on eligible steps. The selected step is the anchor for the insertion. The new step uses a decimal sequence between its neighbours, so an approval can be inserted without renumbering or rewriting the existing route. Repeated insertions use increasingly specific decimal values while the displayed order remains unambiguous.
+
+The add modal requires an agency-scoped approver. That user becomes both the default and assigned approver for the new step. The modal prefills the bilingual step names and certifications copied from the template. The names are read-only unless the template permits name changes. When certification changes are permitted, the user may add, edit, remove, reorder, or change the required/optional setting; an empty certification list is valid.
+
+A user can add a step when either:
+
+- They have permission to manage the owning approval workflow; or
+- They have ordinary read access to the owning record and are assigned to any unresolved step on the current routing slip.
+
+Assignment alone never grants access to the owning record. The server checks the permission, assignment, current routing slip, anchor, selected approver's agency, and snapshotted policy again when saving.
+
+An approval may be added before an unresolved step, but never before a step that has already been actioned. A step may be added after the already-actioned prefix while the routing slip is still active. No step can be added to an approved or denied routing slip. User-added steps cannot be edited or removed after creation; a manager can still reassign one through the normal reassignment action.
+
+## Creating Replacement Routing Slips
+
+Creating a replacement routing slip after denial is separate from adding a step to the current routing slip. A replacement is materialized from the configured template and receives a fresh snapshot of the template's additional-approval policy.
 
 The runtime approval section allows adding a replacement routing slip only when:
 
@@ -208,7 +234,7 @@ Denial is disabled when:
 - Acting on behalf without selecting an on-behalf type.
 - Actual approval details are required but title or decision date is missing.
 
-Required certifications do not need to be checked to deny a step. A denial immediately marks the whole routing slip denied, prevents later steps on that slip from being actioned, and preserves the slip as immutable history. A manager can then use **Add** to create a fresh template-based routing slip.
+Required certifications do not need to be checked to deny a step. A denial immediately marks the whole routing slip denied, prevents later steps on that slip from being actioned or added, and preserves the slip as immutable history. A manager can then create a fresh template-based routing slip.
 
 The approval action records the decision, certifications, on-behalf data, actual decision details when supplied, and comment. Approve and deny both require action-review-approval permission.
 
@@ -237,6 +263,8 @@ Use these practices:
 
 - Create templates per entity type and stream when approval routes differ by program stream.
 - Keep step sequence numbers simple and unique.
+- Enable additional approvals only where the business process needs users to extend a live route, and provide clear bilingual defaults.
+- Treat the routing-slip snapshot as the effective policy for an in-progress route; edit the template only to change future routes.
 - Use default users who are active common users and have appropriate operational responsibility.
 - Write certification text as the exact statement the approver must acknowledge.
 - Mark a certification optional only when it is informational or conditional.
