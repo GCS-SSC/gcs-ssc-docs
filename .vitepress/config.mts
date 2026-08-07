@@ -40,6 +40,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         proponentContacts: 'Contacts',
         proponentReviews: 'Examens',
         proponentAgreements: 'Ententes',
+        proponentFundingHistory: 'Historique du financement',
         proponentTeam: 'Équipe',
         concepts: 'Concepts',
         rbac: 'RBAC',
@@ -99,6 +100,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         proponentContacts: 'Contacts',
         proponentReviews: 'Reviews',
         proponentAgreements: 'Agreements',
+        proponentFundingHistory: 'Funding History',
         proponentTeam: 'Team',
         concepts: 'Concepts',
         rbac: 'RBAC',
@@ -177,6 +179,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.proponentContacts, link: `${p}proponents/contacts` },
         { text: labels.proponentReviews, link: `${p}proponents/reviews` },
         { text: labels.proponentAgreements, link: `${p}proponents/agreements` },
+        { text: labels.proponentFundingHistory, link: `${p}proponents/funding-history` },
         { text: labels.proponentTeam, link: `${p}proponents/team` }
       ]
     },

@@ -45,6 +45,7 @@ The detail page contains a collapsible hero and route tabs:
 | [Contacts](./contacts.md) | People and communication details. |
 | [Reviews](./reviews.md) | Runtime review sets and assessment work. |
 | [Agreements](./agreements.md) | Agreements linked to the proponent. |
+| [Funding History](./funding-history.md) | System agreements and lightweight external funding records associated with the proponent. |
 | [Team](./team.md) | Users directly assigned to the proponent. |
 
 Extension tabs can also appear when an enabled extension contributes a proponent tab.

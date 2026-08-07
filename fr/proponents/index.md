@@ -45,6 +45,7 @@ La page detail contient un sommaire repliable et des onglets:
 | [Contacts](./contacts.md) | Personnes et coordonnees. |
 | [Examens](./reviews.md) | Ensembles d examen et evaluations d execution. |
 | [Ententes](./agreements.md) | Ententes liees au promoteur. |
+| [Historique du financement](./funding-history.md) | Ententes du systeme et dossiers de financement externes legers associes au promoteur. |
 | [Equipe](./team.md) | Utilisateurs affectes directement au promoteur. |
 
 Des onglets d extension peuvent aussi apparaitre lorsqu une extension activee contribue un onglet de promoteur.
