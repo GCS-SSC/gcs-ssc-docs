@@ -1,66 +1,77 @@
 # Agreement Forecasts
 
-Forecasts track expected spending by agreement budget line, month, fiscal year, and version. The summary tab groups forecast versions by budget fiscal year; the detail page edits the monthly breakdown.
+Forecasts distribute expected agreement spending across current budget lines, fiscal months, and user-selected version numbers. Open an agreement and select **Forecasts**; the tab groups displayed versions by agreement budget fiscal year.
 
-## Empty installation setup
+## Before you begin
 
-| Configuration | Why it matters |
+| Requirement | Verified behaviour |
 | --- | --- |
-| Agreement budget fiscal years | Forecast records are created for agreement budget fiscal years. |
-| Agreement budget line items | The detail page builds its editable rows from budget lines in the forecast fiscal year. |
-| Approval template for `fundingcaseforecast` | Required when completed forecasts need approval routing. |
-| Agreement CRUD permissions | `create` creates forecast headers, versions, and new monthly lines; `update` changes existing lines and completes mutable forecasts; `delete` soft-deletes forecast records. Approval actions also require ordinary read access and assignment. |
+| Current agreement budget | A forecast header must reference a stable fiscal-year identity present in the current budget version. Its editable grid uses current-version budget lines with that same stable fiscal-year identity. |
+| Agreement access | `read` loads the overview. `create` creates headers and missing monthly lines; `update` changes headers and existing lines and completes a forecast; `delete` soft-deletes headers or lines. Exact Agreement Team access can grant these child-record actions. |
+| Common user record | Completion requires the signed-in account to resolve to an active `Common_User`. |
+| Optional completion workflow | A published workflow setup for `fundingcaseforecast` can start after completion and may later set its configured success or failure status. |
 
-## Tab flow
+Writes repeat Agreement authorization inside a transaction after locking the agreement and every affected forecast aggregate. Cross-agreement, deleted, and non-current budget identities are rejected.
 
-The Forecasts tab summarizes forecast headers, budget lines, and forecast line items.
+## Create and browse forecasts
 
-The tab groups by fiscal year. Each row represents a forecast version for that fiscal year:
+Choose **Add forecast** and select one of the fiscal years derived from current budget lines. The server creates an inactive `draft` header. The database does not require a forecast to contain lines and does not enforce one inactive header per agreement/fiscal year.
 
-| Column | Meaning |
+The tab derives its rows rather than storing separate version records:
+
+| Display | Source |
 | --- | --- |
-| Version | Version number from forecast line items. New forecasts with no lines show version `0`. |
-| Status | First line status for that version, or `draft` when no lines exist. |
-| Lines | Number of forecast line items in the version. |
-| Total forecasted | Sum of line amounts in the version. |
+| Fiscal-year group | The forecast header's stable budget fiscal-year identity and current fiscal-year label. |
+| Version | Each distinct `egcs_fc_version` found on that header's active monthly lines. A header with no lines is represented as version `0`. |
+| Status | The single status on the forecast header; all displayed versions therefore have the same lifecycle status. |
+| Lines and total | Count and sum of active lines for that header and version. Totals are formatted as CAD without converting stored currencies. |
 
-Adding a forecast creates a forecast header for a budget fiscal year. Adding a version opens the detail page with the next version selected.
+Search matches fiscal year, version, localized status, line count, or total. Filtering, grouping, sorting, and pagination occur in the browser after the full overview loads.
 
-## Detail page
+**Add version** does not copy data or create a version entity. It opens the same forecast header with the next numeric version in the URL. Saving non-zero cells creates lines tagged with that number.
 
-The detail page displays one fiscal year and one selected version at a time. It builds a grid from every agreement budget line in the forecast fiscal year and the twelve fiscal-year months from April through March.
+::: warning Header and version uniqueness
+The API permits multiple inactive forecast headers for the same agreement/fiscal year. It also permits duplicate active lines with the same forecast, budget line, month, and version. The grouped UI assumes a single header per fiscal-year group for group edit/delete/add-version actions, and the detail grid keeps only one duplicate in its in-memory cell map. Create one header per fiscal year and one line per budget-line/month/version coordinate.
+:::
 
-Users can toggle a quarter into its three months. Editing is only available when the forecast is not locked.
+## Edit the monthly breakdown
 
-## Forecast line items
+The detail route accepts a `version` query value; an absent value defaults to `0`. The grid groups current budget lines by bilingual cost category and cost subsection. It initially shows quarterly totals from April through March; select a quarter heading to expose its three monthly inputs. Search matches category, subsection, both language line-item names, or description.
 
-| Field | Rule |
+| Line field | Rule |
 | --- | --- |
-| Forecast | Required forecast id. |
-| Budget line item | Required. Must belong to the forecast fiscal year and agreement. |
-| Month | Required integer 0 to 11, where 0 is April and 11 is March. |
-| Amount | Required money value. |
-| Currency | Required currency enum; the detail editor writes CAD. |
-| Version | Required non-negative integer normalized to a string. |
-| Status | Required status enum. New detail-page lines are created as `inprogress`. |
+| Forecast | Required editable header in this agreement. A direct PATCH can move a line to another editable forecast in the same agreement. |
+| Budget line | Required stable line identity from the current budget version, the same agreement, and the target forecast's fiscal year. |
+| Month | Integer `0` through `11`: April through March. |
+| Amount | Required `numeric(19,2)` value, at most two decimals and at most 90 trillion in absolute value. The UI sets a minimum of zero, but server validation and the database do not enforce non-negative values. |
+| Currency | Required currency enum. The current grid always creates `cad`; it does not expose currency selection or conversion. |
+| Version | Required non-negative integer, normalized to decimal text for the API and stored as bigint. |
 
-Saving the breakdown updates changed existing month lines only with `agreement:update` and creates non-zero missing month lines only with `agreement:create`. The editor exposes each row according to the action required for that row.
+**Save breakdown** processes cells sequentially. It PATCHes a changed existing line when the user has `update`, and POSTs a missing non-zero line when the user has `create`. A zero in a missing cell creates nothing; changing an existing cell to zero preserves a zero-valued line. No bulk transaction spans the whole grid, so an error after earlier requests can leave those earlier cells saved. Refresh, correct the reported cell, and save again.
 
-## Business rules
+The first created line changes a `draft` forecast to `inprogress`; later line edits do not otherwise change its header status. The API can soft-delete individual lines, but the current grid offers no line-delete action. Deleting an editable header soft-deletes that header and all its active lines atomically.
 
-| Rule | Behaviour |
-| --- | --- |
-| Forecast fiscal year must belong to the agreement budget | Invalid fiscal-year ids are rejected. |
-| Forecast line budget item must belong to the forecast fiscal year | Budget lines from another agreement or fiscal year are rejected. |
-| Locked status is line based | If any line for the forecast is `complete`, `pendingapproval`, `approved`, or `denied`, the detail page is locked. |
-| Completion requires lines | Completing a forecast with no line items is rejected. |
-| Completion locks all lines | Completion updates all line items for the forecast to `complete` or `pendingapproval` depending on approval setup. |
-| Approval activates the approved forecast | When approved, the forecast becomes active and other forecasts for the same agreement/fiscal year are deactivated. |
+::: warning Changing the fiscal year after lines exist
+The header PATCH validates the new fiscal year but does not validate, move, or delete existing lines. Lines tied to the former fiscal year's budget coordinates can disappear from the new grid while still counting as forecast lines and completion evidence. Do not change a forecast fiscal year after entering breakdown data. If it happened, stop completion and use authorized API/data reconciliation to remove or correctly reassign the stale lines.
+:::
 
-## Completion and approval
+## Lifecycle and completion
 
-Completion entity type: `fundingcaseforecast`.
+The header statuses `complete`, `pendingapproval`, `approved`, and `denied` are locked. A completion record or an active `draft`, `pendingapproval`, or `approved` routing slip also blocks header and line mutation even if the header status appears editable.
 
-The completion runtime can complete only when the forecast has line items and no line item is in a locked status. With a valid stream approval template, completion moves lines to `pendingapproval`; without a template, it moves lines to `complete`.
+Completion requires Agreement `update`, an editable header, no previous completion, and at least one active line across any version. Comments are optional. In one fresh-authorized transaction it creates the common completion, sets the header to `complete`, and starts any published `fundingcaseforecast` completion workflow; the completion hook is emitted after commit.
 
-Approval status is aggregated from line statuses. If any line is denied, the forecast reads denied. If all are approved, it reads approved. If any are pending approval, it reads pending approval. If all are complete, it reads complete.
+Completion applies to the entire forecast header, not only the version selected in the URL. It does not set `egcs_fc_active`, clone a version, or validate that every visible budget coordinate has a line. A completed forecast therefore remains inactive unless a separate approval runtime later approves it.
+
+## Approval runtime limitation
+
+The server has generic forecast approval support. An explicit caller can use a valid stream-scoped `fundingcaseforecast` approval template to create a routing slip for a `complete` or `denied` forecast with lines. Sequential approval, denial, reassignment, and additional-approval rules then operate through the common runtime. Final approval sets the header to `approved` and active and deactivates other headers for the same agreement and fiscal-year identity; denial sets `denied` and inactive.
+
+Core completion does **not** inspect the template or create that routing slip, and the forecast detail page mounts completion and workflow sections but no approval component. Configuring the template alone therefore does not add approval to this screen. Treat approval as an API/integration capability until a supported host or extension flow invokes it. See [Approvals and completions](../concepts/approvals-completions.md) and [Workflows](../concepts/workflows.md).
+
+## Recovery
+
+- Completion cannot be repeated or undone from this page. Create a replacement forecast only after checking for an existing header for that fiscal year.
+- Locked forecasts cannot be edited or deleted through these routes. Editable deletion is logical rather than physical.
+- If the fiscal-year picker is empty, add active lines to the agreement's current [Budget](budget.md); a year with no current budget lines is not offered by the UI even though the server validates the fiscal-year row itself.
+- If a budget amendment replaces current rows while preserving stable lineage, the forecast follows matching stable fiscal-year and line identities. A deleted or unmatched current line disappears from the editable grid.

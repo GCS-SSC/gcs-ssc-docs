@@ -1,0 +1,152 @@
+[
+  {
+    "id": "config:runtime-environment",
+    "source": "nuxt.config.ts; server/utils/db.ts; server/utils/auth.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "nuxt.config.ts; server/utils/db.ts; server/utils/auth.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the named runtime sources; paired operator configuration documents precedence, safe values, failure boundaries, and recovery guidance."
+  },
+  {
+    "id": "config:local-setup-commands",
+    "source": "package.json; scripts/setup-workspaces.ts; scripts/dev.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "package.json; scripts/setup-workspaces.ts; scripts/dev.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified setup, development cleanup semantics, forwarded host/port behaviour, build, test, artifact, and quality commands in both locales."
+  },
+  {
+    "id": "config:database-modes",
+    "source": "server/utils/db.ts; server/plugins/migrations.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "server/utils/db.ts; server/plugins/migrations.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified PostgreSQL precedence/pool configuration, PGlite fallback, ordered fail-fast core migrations, and enabled-extension migrations."
+  },
+  {
+    "id": "config:authentication-providers",
+    "source": "server/utils/auth.ts; nuxt.config.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "server/utils/auth.ts; nuxt.config.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified Better Auth secret, URL/origin precedence, cookie versioning, email/password, conditional GitHub provider, and local-origin restrictions."
+  },
+  {
+    "id": "config:storage-document-generation",
+    "source": "server/utils/file-storage.ts; server/utils/local-file-storage.ts; server/utils/document-generation.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "server/utils/file-storage.ts; server/utils/local-file-storage.ts; server/utils/document-generation.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified local-only private storage, converter/browser variables, coupled backup requirements, permissions, and dependency failure boundaries."
+  },
+  {
+    "id": "config:docker-railway",
+    "source": "Dockerfile; docker-compose.yml; railway.json",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "Dockerfile; docker-compose.yml; railway.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified build/runtime images, non-root identity, persistent topology, validated build mode, Compose health/persistence, and Railway probe/restart wiring."
+  },
+  {
+    "id": "config:ci-demo-webcontainer",
+    "source": ".github/workflows; scripts/webcontainer.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      ".github/workflows; scripts/webcontainer.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manual Pages workflow, frozen recursive-submodule build, staged-and-tested WebContainer artifact, demo-only boundary, and inactive review example."
+  },
+  {
+    "id": "config:health-readiness",
+    "source": "server/api/health.get.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "server/api/health.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified public SELECT 1 readiness response, safe 503 response, and explicit limits of storage/converter/remote-service coverage."
+  },
+  {
+    "id": "config:quality-testing",
+    "source": "package.json; scripts/agent; vitest*.ts; playwright.config.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "package.json; scripts/agent; vitest*.ts; playwright.config.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified root and extension-owned test boundaries plus supported lint, typecheck, coverage, PostgreSQL, managed E2E, artifact, PR, and whole-quality commands."
+  },
+  {
+    "id": "config:extension-packaging",
+    "source": "modules/gcs-extensions.ts; Dockerfile; package.json",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "modules/gcs-extensions.ts; Dockerfile; package.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified SDK-first build, five installed extension workspaces, exact Docker fallback pins, local overlay, generated registry boundary, and pin-alignment requirement."
+  }
+]

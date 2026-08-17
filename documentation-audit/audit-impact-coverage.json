@@ -1,0 +1,1736 @@
+[
+  {
+    "id": "audit-impact:findings:ADMIN-001-approval-behalf-search-wildcards",
+    "source": "audit/findings/ADMIN-001-approval-behalf-search-wildcards.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/ADMIN-001-approval-behalf-search-wildcards.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:ADMIN-002-template-user-lookup-authorized-after-resolution",
+    "source": "audit/findings/ADMIN-002-template-user-lookup-authorized-after-resolution.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/ADMIN-002-template-user-lookup-authorized-after-resolution.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGENCY-001-agency-list-search-treated-wildcards-as-patterns",
+    "source": "audit/findings/AGENCY-001-agency-list-search-treated-wildcards-as-patterns.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGENCY-001-agency-list-search-treated-wildcards-as-patterns.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGENCY-002-agency-subresources-exposed-cross-scope-existence",
+    "source": "audit/findings/AGENCY-002-agency-subresources-exposed-cross-scope-existence.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGENCY-002-agency-subresources-exposed-cross-scope-existence.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGENCY-003-agency-lookup-query-contract-drift",
+    "source": "audit/findings/AGENCY-003-agency-lookup-query-contract-drift.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGENCY-003-agency-lookup-query-contract-drift.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGENCY-004-holdback-duplicate-code-errors-were-unmapped",
+    "source": "audit/findings/AGENCY-004-holdback-duplicate-code-errors-were-unmapped.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGENCY-004-holdback-duplicate-code-errors-were-unmapped.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-001-similarity-edit-accepted-unrelated-stream",
+    "source": "audit/findings/AGREEMENT-001-similarity-edit-accepted-unrelated-stream.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-001-similarity-edit-accepted-unrelated-stream.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-002-financial-routes-resolved-ownership-before-authorization",
+    "source": "audit/findings/AGREEMENT-002-financial-routes-resolved-ownership-before-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-002-financial-routes-resolved-ownership-before-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-003-financial-lookups-treated-wildcards-as-patterns",
+    "source": "audit/findings/AGREEMENT-003-financial-lookups-treated-wildcards-as-patterns.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-003-financial-lookups-treated-wildcards-as-patterns.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-004-claim-transitions-did-not-lock-claim-aggregate",
+    "source": "audit/findings/AGREEMENT-004-claim-transitions-did-not-lock-claim-aggregate.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-004-claim-transitions-did-not-lock-claim-aggregate.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-005-team-routes-bypassed-resource-authorization",
+    "source": "audit/findings/AGREEMENT-005-team-routes-bypassed-resource-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-005-team-routes-bypassed-resource-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-006-operational-routes-resolved-ownership-before-authorization",
+    "source": "audit/findings/AGREEMENT-006-operational-routes-resolved-ownership-before-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-006-operational-routes-resolved-ownership-before-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AGREEMENT-007-generated-document-delete-left-storage-object",
+    "source": "audit/findings/AGREEMENT-007-generated-document-delete-left-storage-object.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AGREEMENT-007-generated-document-delete-left-storage-object.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AR-001-funding-history-recipient-delete-weaker-than-patch",
+    "source": "audit/findings/AR-001-funding-history-recipient-delete-weaker-than-patch.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AR-001-funding-history-recipient-delete-weaker-than-patch.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-001-additional-reviewer-uses-approver-gate",
+    "source": "audit/findings/AUTH-001-additional-reviewer-uses-approver-gate.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-001-additional-reviewer-uses-approver-gate.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-002-assessment-set-stream-writes-lacked-fresh-authorization",
+    "source": "audit/findings/AUTH-002-assessment-set-stream-writes-lacked-fresh-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-002-assessment-set-stream-writes-lacked-fresh-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-003-agency-mutating-routes-lacked-fresh-authorization",
+    "source": "audit/findings/AUTH-003-agency-mutating-routes-lacked-fresh-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-003-agency-mutating-routes-lacked-fresh-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-004-delegated-auth-route-exception-was-implicit",
+    "source": "audit/findings/AUTH-004-delegated-auth-route-exception-was-implicit.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-004-delegated-auth-route-exception-was-implicit.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-005-additional-reviewer-routes-resolved-before-authentication",
+    "source": "audit/findings/AUTH-005-additional-reviewer-routes-resolved-before-authentication.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-005-additional-reviewer-routes-resolved-before-authentication.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-006-approval-runtime-fresh-actor-boundaries",
+    "source": "audit/findings/AUTH-006-approval-runtime-fresh-actor-boundaries.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-006-approval-runtime-fresh-actor-boundaries.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-007-additional-reviewer-lookup-used-read-access",
+    "source": "audit/findings/AUTH-007-additional-reviewer-lookup-used-read-access.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-007-additional-reviewer-lookup-used-read-access.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-008-transfer-payment-profile-patch-used-stale-authorization",
+    "source": "audit/findings/AUTH-008-transfer-payment-profile-patch-used-stale-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-008-transfer-payment-profile-patch-used-stale-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-009-transfer-payment-resource-existence-oracle",
+    "source": "audit/findings/AUTH-009-transfer-payment-resource-existence-oracle.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-009-transfer-payment-resource-existence-oracle.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-010-outcome-indicator-writes-used-stale-authorization",
+    "source": "audit/findings/AUTH-010-outcome-indicator-writes-used-stale-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-010-outcome-indicator-writes-used-stale-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTH-011-failed-signout-navigated-with-live-session",
+    "source": "audit/findings/AUTH-011-failed-signout-navigated-with-live-session.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTH-011-failed-signout-navigated-with-live-session.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year",
+    "source": "audit/findings/AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:BACKGROUND-001-browser-worker-failures-left-features-loading",
+    "source": "audit/findings/BACKGROUND-001-browser-worker-failures-left-features-loading.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/BACKGROUND-001-browser-worker-failures-left-features-loading.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:CONCURRENCY-002-stream-create-inverted-profile-parent-locks",
+    "source": "audit/findings/CONCURRENCY-002-stream-create-inverted-profile-parent-locks.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/CONCURRENCY-002-stream-create-inverted-profile-parent-locks.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:CONCURRENCY-INV-001-workflow-advance-lock-order",
+    "source": "audit/findings/CONCURRENCY-INV-001-workflow-advance-lock-order.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/CONCURRENCY-INV-001-workflow-advance-lock-order.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DB-INV-001-unsafe-numeric-number-coercion",
+    "source": "audit/findings/DB-INV-001-unsafe-numeric-number-coercion.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DB-INV-001-unsafe-numeric-number-coercion.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DB-INV-002-commitment-budget-version-enforcement",
+    "source": "audit/findings/DB-INV-002-commitment-budget-version-enforcement.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DB-INV-002-commitment-budget-version-enforcement.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DB-INV-003-financial-composite-ownership",
+    "source": "audit/findings/DB-INV-003-financial-composite-ownership.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DB-INV-003-financial-composite-ownership.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DB-INV-004-claim-reconcile-status-control",
+    "source": "audit/findings/DB-INV-004-claim-reconcile-status-control.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DB-INV-004-claim-reconcile-status-control.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DOCUMENT-001-html-pdf-rendering-allowed-template-network-and-script",
+    "source": "audit/findings/DOCUMENT-001-html-pdf-rendering-allowed-template-network-and-script.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DOCUMENT-001-html-pdf-rendering-allowed-template-network-and-script.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DOCUMENT-002-template-uploads-were-unbounded-and-trusted-client-mime",
+    "source": "audit/findings/DOCUMENT-002-template-uploads-were-unbounded-and-trusted-client-mime.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DOCUMENT-002-template-uploads-were-unbounded-and-trusted-client-mime.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:DOCUMENT-003-template-delete-orphaned-bilingual-attachments",
+    "source": "audit/findings/DOCUMENT-003-template-delete-orphaned-bilingual-attachments.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/DOCUMENT-003-template-delete-orphaned-bilingual-attachments.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:EXT-001-disabled-runtime-resolvers-executed-before-enablement",
+    "source": "audit/findings/EXT-001-disabled-runtime-resolvers-executed-before-enablement.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/EXT-001-disabled-runtime-resolvers-executed-before-enablement.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:EXT-002-public-asset-mounts-were-not-namespaced",
+    "source": "audit/findings/EXT-002-public-asset-mounts-were-not-namespaced.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/EXT-002-public-asset-mounts-were-not-namespaced.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots",
+    "source": "audit/findings/EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract",
+    "source": "audit/findings/GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:GCFORMS-002-stream-list-exposed-decrypted-submission-records",
+    "source": "audit/findings/GCFORMS-002-stream-list-exposed-decrypted-submission-records.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/GCFORMS-002-stream-list-exposed-decrypted-submission-records.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets",
+    "source": "audit/findings/GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics",
+    "source": "audit/findings/GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:I18N-001-transfer-payment-french-parity",
+    "source": "audit/findings/I18N-001-transfer-payment-french-parity.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/I18N-001-transfer-payment-french-parity.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:I18N-002-missing-runtime-translation-contract-keys",
+    "source": "audit/findings/I18N-002-missing-runtime-translation-contract-keys.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/I18N-002-missing-runtime-translation-contract-keys.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:I18N-003-extension-credential-validation-leaked-zod-prose",
+    "source": "audit/findings/I18N-003-extension-credential-validation-leaked-zod-prose.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/I18N-003-extension-credential-validation-leaked-zod-prose.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:I18N-004-dynamic-ui-translation-references-missing",
+    "source": "audit/findings/I18N-004-dynamic-ui-translation-references-missing.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/I18N-004-dynamic-ui-translation-references-missing.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:LOG-001-security-mutations-lacked-actor-event-trail",
+    "source": "audit/findings/LOG-001-security-mutations-lacked-actor-event-trail.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/LOG-001-security-mutations-lacked-actor-event-trail.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:OPERATIONS-001-docker-submodule-fallback-drifted-from-gitlinks",
+    "source": "audit/findings/OPERATIONS-001-docker-submodule-fallback-drifted-from-gitlinks.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/OPERATIONS-001-docker-submodule-fallback-drifted-from-gitlinks.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:OPERATIONS-002-pages-uploaded-an-unverified-stale-demo-directory",
+    "source": "audit/findings/OPERATIONS-002-pages-uploaded-an-unverified-stale-demo-directory.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/OPERATIONS-002-pages-uploaded-an-unverified-stale-demo-directory.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:OPERATIONS-003-deployment-health-check-did-not-test-database-readiness",
+    "source": "audit/findings/OPERATIONS-003-deployment-health-check-did-not-test-database-readiness.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/OPERATIONS-003-deployment-health-check-did-not-test-database-readiness.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities",
+    "source": "audit/findings/OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced",
+    "source": "audit/findings/OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:PLATFORM-001-startup-continued-after-migration-failure",
+    "source": "audit/findings/PLATFORM-001-startup-continued-after-migration-failure.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/PLATFORM-001-startup-continued-after-migration-failure.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:PLATFORM-002-locale-detector-ignored-language-quality",
+    "source": "audit/findings/PLATFORM-002-locale-detector-ignored-language-quality.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/PLATFORM-002-locale-detector-ignored-language-quality.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:PRIVACY-001-admin-dump-leaked-worker-diagnostics",
+    "source": "audit/findings/PRIVACY-001-admin-dump-leaked-worker-diagnostics.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/PRIVACY-001-admin-dump-leaked-worker-diagnostics.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:REVIEW-001-runtime-review-sets-depended-on-deleted-setups",
+    "source": "audit/findings/REVIEW-001-runtime-review-sets-depended-on-deleted-setups.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/REVIEW-001-runtime-review-sets-depended-on-deleted-setups.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:REVIEW-002-assessments-bypassed-pinned-schema-version",
+    "source": "audit/findings/REVIEW-002-assessments-bypassed-pinned-schema-version.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/REVIEW-002-assessments-bypassed-pinned-schema-version.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:REVIEW-003-review-clone-dropped-approval-snapshot",
+    "source": "audit/findings/REVIEW-003-review-clone-dropped-approval-snapshot.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/REVIEW-003-review-clone-dropped-approval-snapshot.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:ROLE-001-role-list-search-treated-wildcards-as-patterns",
+    "source": "audit/findings/ROLE-001-role-list-search-treated-wildcards-as-patterns.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/ROLE-001-role-list-search-treated-wildcards-as-patterns.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:SCOUT-003-stream-budget-aggregate-concurrency",
+    "source": "audit/findings/SCOUT-003-stream-budget-aggregate-concurrency.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/SCOUT-003-stream-budget-aggregate-concurrency.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:SCOUT-004-review-member-create-concurrency",
+    "source": "audit/findings/SCOUT-004-review-member-create-concurrency.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/SCOUT-004-review-member-create-concurrency.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:SCOUT-005-template-cleanup-failures-no-longer-return-as-commit-failures",
+    "source": "audit/findings/SCOUT-005-template-cleanup-failures-no-longer-return-as-commit-failures.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/SCOUT-005-template-cleanup-failures-no-longer-return-as-commit-failures.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:SCOUT-006-transfer-payment-setup-writes-used-stale-authorization",
+    "source": "audit/findings/SCOUT-006-transfer-payment-setup-writes-used-stale-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/SCOUT-006-transfer-payment-setup-writes-used-stale-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:SCOUT-007-publication-errors-now-transaction-failures",
+    "source": "audit/findings/SCOUT-007-publication-errors-now-transaction-failures.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/SCOUT-007-publication-errors-now-transaction-failures.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:STATE-001-workflow-cancellation-rewrote-soft-deleted-children",
+    "source": "audit/findings/STATE-001-workflow-cancellation-rewrote-soft-deleted-children.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/STATE-001-workflow-cancellation-rewrote-soft-deleted-children.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:TP-001-stream-list-search-treated-wildcards-as-patterns",
+    "source": "audit/findings/TP-001-stream-list-search-treated-wildcards-as-patterns.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/TP-001-stream-list-search-treated-wildcards-as-patterns.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-001-login-exposed-provider-error-text",
+    "source": "audit/findings/UI-001-login-exposed-provider-error-text.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-001-login-exposed-provider-error-text.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-002-claim-reconcile-sent-server-owned-status",
+    "source": "audit/findings/UI-002-claim-reconcile-sent-server-owned-status.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-002-claim-reconcile-sent-server-owned-status.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-003-extension-config-rendered-raw-errors",
+    "source": "audit/findings/UI-003-extension-config-rendered-raw-errors.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-003-extension-config-rendered-raw-errors.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-004-complete-claim-reconcile-remained-editable",
+    "source": "audit/findings/UI-004-complete-claim-reconcile-remained-editable.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-004-complete-claim-reconcile-remained-editable.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-005-dashboard-showed-fabricated-data-and-scaffold-actions",
+    "source": "audit/findings/UI-005-dashboard-showed-fabricated-data-and-scaffold-actions.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-005-dashboard-showed-fabricated-data-and-scaffold-actions.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-006-resource-crud-dialogs-lacked-accessible-descriptions",
+    "source": "audit/findings/UI-006-resource-crud-dialogs-lacked-accessible-descriptions.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-006-resource-crud-dialogs-lacked-accessible-descriptions.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-007-user-navigation-ignored-read-capability",
+    "source": "audit/findings/UI-007-user-navigation-ignored-read-capability.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-007-user-navigation-ignored-read-capability.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-008-materialized-approvals-hidden-without-active-workflow",
+    "source": "audit/findings/UI-008-materialized-approvals-hidden-without-active-workflow.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-008-materialized-approvals-hidden-without-active-workflow.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-009-agency-profile-showed-fabricated-health-metrics",
+    "source": "audit/findings/UI-009-agency-profile-showed-fabricated-health-metrics.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-009-agency-profile-showed-fabricated-health-metrics.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:UI-010-shared-crud-icon-actions-lacked-accessible-names",
+    "source": "audit/findings/UI-010-shared-crud-icon-actions-lacked-accessible-names.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/UI-010-shared-crud-icon-actions-lacked-accessible-names.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:USER-001-assignment-routes-resolved-before-authorization",
+    "source": "audit/findings/USER-001-assignment-routes-resolved-before-authorization.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/USER-001-assignment-routes-resolved-before-authorization.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:USER-002-user-search-treated-wildcards-as-patterns",
+    "source": "audit/findings/USER-002-user-search-treated-wildcards-as-patterns.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/USER-002-user-search-treated-wildcards-as-patterns.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:findings:WORKFLOW-001-retry-lineage-selection",
+    "source": "audit/findings/WORKFLOW-001-retry-lineage-selection.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/findings/WORKFLOW-001-retry-lineage-selection.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:DB-INV-001",
+    "source": "audit/investigations/DB-INV-001.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/DB-INV-001.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:DB-INV-002",
+    "source": "audit/investigations/DB-INV-002.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/DB-INV-002.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-001",
+    "source": "audit/investigations/SCOUT-001.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-001.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-002",
+    "source": "audit/investigations/SCOUT-002.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-002.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-003",
+    "source": "audit/investigations/SCOUT-003.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-003.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-004",
+    "source": "audit/investigations/SCOUT-004.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-004.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-005",
+    "source": "audit/investigations/SCOUT-005.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-005.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-006",
+    "source": "audit/investigations/SCOUT-006.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-006.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-007",
+    "source": "audit/investigations/SCOUT-007.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-007.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:SCOUT-008",
+    "source": "audit/investigations/SCOUT-008.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/SCOUT-008.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database-integrity-inventory",
+    "source": "audit/investigations/database-integrity-inventory.json",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database-integrity-inventory.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database:CONCURRENCY-INV-001",
+    "source": "audit/investigations/database/CONCURRENCY-INV-001.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database/CONCURRENCY-INV-001.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database:CONCURRENCY-INV-002",
+    "source": "audit/investigations/database/CONCURRENCY-INV-002.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database/CONCURRENCY-INV-002.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database:DB-INV-001",
+    "source": "audit/investigations/database/DB-INV-001.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database/DB-INV-001.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database:DB-INV-002",
+    "source": "audit/investigations/database/DB-INV-002.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database/DB-INV-002.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database:DB-INV-003",
+    "source": "audit/investigations/database/DB-INV-003.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database/DB-INV-003.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:database:DB-INV-004",
+    "source": "audit/investigations/database/DB-INV-004.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/database/DB-INV-004.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:investigations:i18n-completeness-inventory",
+    "source": "audit/investigations/i18n-completeness-inventory.json",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/investigations/i18n-completeness-inventory.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:browser-personas:agency-manager-fr",
+    "source": "audit/browser-personas/agency-manager-fr.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/browser-personas/agency-manager-fr.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:browser-personas:restricted-team-user",
+    "source": "audit/browser-personas/restricted-team-user.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/browser-personas/restricted-team-user.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:browser-personas:reviewer-approver",
+    "source": "audit/browser-personas/reviewer-approver.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/browser-personas/reviewer-approver.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  },
+  {
+    "id": "audit-impact:browser-personas:root-admin",
+    "source": "audit/browser-personas/root-admin.md",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/audit-impact.md",
+    "fr": "fr/developer/audit-impact.md",
+    "evidence": [
+      "audit/browser-personas/root-admin.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+  }
+]

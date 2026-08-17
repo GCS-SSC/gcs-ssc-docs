@@ -1,46 +1,47 @@
-# Adresses d entente
+# Adresses de l’entente
 
-L onglet Adresses lie des types d adresse propres a l entente a des dossiers `Common_Address`. Chaque ligne est un enfant d entente plus une adresse commune liee.
+L’onglet **Adresses** conserve les emplacements utilisés expressément par une entente. Chaque ligne lie l’entente et un type d’adresse appartenant à l’agence à un enregistrement d’adresse commune.
 
-## Configuration d une installation vide
+## Accès et liste
 
-| Configuration | Utilite |
+L’accès `read` à l’entente permet d’énumérer les liens actifs dont l’adresse commune et le type d’adresse sont également actifs. Les accès `create`, `update` et `delete` affichent séparément les commandes Ajouter, Modifier et Supprimer. Les niveaux exacts de l’équipe de l’entente fournissent les actions correspondantes.
+
+Le tableau présente le type d’adresse bilingue, la première ligne de rue, la ville et le code postal ou ZIP. La recherche porte aussi sur la subdivision, les trois lignes de rue et le type d’adresse dans l’une ou l’autre langue.
+
+La recherche des types d’adresse contient seulement les types actifs appartenant à l’agence courante de l’entente et autorisés pour l’action de création ou de modification demandée. Le serveur répète cette vérification d’agence lors de l’enregistrement; un type d’une autre agence est invalide même si son identifiant est soumis directement.
+
+## Champs et validation
+
+| Champ | Règle |
 | --- | --- |
-| Types d adresse de l agence | La recherche retourne les types d adresse actifs disponibles dans le contexte de l entente. |
-| Enums pays et juridiction | Les adresses canadiennes exigent une juridiction valide. Les subdivisions non canadiennes sont en texte libre. |
-| Permissions CRUD d’entente | `create` ajoute une adresse et charge ses recherches de création, `update` modifie une adresse existante et ses recherches, et `delete` la supprime logiquement. |
+| Type d’adresse | Type actif obligatoire appartenant à l’agence de l’entente. |
+| Première ligne de rue | Obligatoire; les deuxième et troisième lignes sont facultatives. |
+| Ville | Obligatoire. |
+| Pays | Valeur de pays prise en charge obligatoire. |
+| Province, territoire, État ou subdivision | Obligatoire. Pour le Canada (`ca`), il faut choisir une juridiction canadienne configurée; pour un autre pays, la saisie est libre. La base de données applique aussi la règle canadienne. |
+| Code postal ou ZIP | Obligatoire. |
+| Téléphone principal | Valeur numérique obligatoire; le poste est un entier facultatif. |
+| Identifiant de circonscription fédérale | Entier obligatoire. |
+| Identifiant d’adresse du GC | Identifiant numérique facultatif. |
 
-## Flux de page
+Le schéma d’API accepte aussi une latitude et une longitude facultatives, bien que la fenêtre actuelle ne les affiche pas.
 
-L onglet affiche les adresses de l entente et ouvre un modal de creation ou modification. Le champ type d adresse offre seulement les types actifs et valides pour l entente.
+## Créer et modifier
 
-La liste affiche le type d adresse, la rue 1, la ville et le code postal ou ZIP. Le type d adresse est bilingue.
+La création insère atomiquement l’adresse commune et le lien à l’entente après une nouvelle vérification de l’autorisation. La modification peut changer le type, les détails de l’adresse ou les deux. L’identifiant enfant doit appartenir à l’entente indiquée dans l’adresse URL.
 
-## Champs
+Une adresse commune peut être référencée par une autre entente ou un promoteur. Lorsqu’une autre référence active existe, le serveur refuse la modification des champs d’adresse partagés afin de ne pas changer silencieusement un autre dossier. Une modification limitée au type demeure permise puisqu’elle ne touche que le lien de cette entente.
 
-| Champ | Notes |
-| --- | --- |
-| Type d adresse | Requis. Doit etre un type d adresse d agence valide pour l entente. |
-| Rue 1 | Champ d adresse commune requis. |
-| Rue 2 et rue 3 | Champs facultatifs. |
-| Ville | Requise. |
-| Pays | Enum de pays requis. |
-| Subdivision | Requise. Pour le Canada, doit etre une valeur de juridiction. Pour les autres pays, saisie texte. |
-| Identifiant GC d adresse | Numerique facultatif. |
-| Circonscription federale | Numerique facultatif. |
-| Telephone principal et poste | Numeriques facultatifs. |
-| Code postal ou ZIP | Requis. |
+## Suppression et rétablissement
 
-## Regles d affaires
+La suppression verrouille le lien et l’adresse commune, puis supprime logiquement le lien de cette entente. L’adresse commune est supprimée logiquement seulement lorsqu’aucun autre lien actif d’entente ou de promoteur ne la référence. Cette action ne supprime jamais les autres liens.
 
-| Regle | Comportement |
-| --- | --- |
-| Le type d adresse est valide avant enregistrement | Les utilisateurs peuvent seulement sauvegarder un type d adresse valide pour l entente. |
-| Les details d adresse et le lien d entente sont sauvegardes ensemble | Une nouvelle ligne cree les details d adresse et le lien propre a l entente. |
-| Les mises a jour peuvent changer le type et les details | La modification peut changer le type d adresse d entente et les champs d adresse. |
-| La suppression est logique | Les adresses supprimees disparaissent des listes normales mais restent disponibles pour l historique. |
-| Les subdivisions canadiennes sont contraintes | Les adresses canadiennes exigent une province ou un territoire valide. |
+Il n’existe aucune commande de restauration. Ajoutez l’adresse de nouveau après une suppression accidentelle. Si une modification signale que l’adresse est partagée, corrigez seulement le type ou créez une adresse distincte plutôt que de tenter de l’écraser.
 
-## Dependances
+L’index actuel de la base de données accélère la recherche par entente et adresse, mais n’est pas unique; le service n’impose donc pas un seul lien actif par identifiant d’adresse commune. Vérifiez la liste avant de créer des emplacements répétés.
 
-Les adresses ne pilotent pas directement les flux financiers. Elles dependent des donnees de reference de l agence et du schema commun d adresse.
+## Guides connexes
+
+- [Vue d’ensemble des ententes](./index.md)
+- [Adresses des promoteurs](../proponents/addresses.md)
+- [Administration des agences](../admin/agencies.md)

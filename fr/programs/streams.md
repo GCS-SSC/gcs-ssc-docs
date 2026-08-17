@@ -31,6 +31,7 @@ L assistant de volet cree le volet et plusieurs collections de configuration enf
 Les etapes de l assistant sont:
 
 - General: identite du volet, volet parent, descriptions, objectifs, indicateur de redistribution et statut.
+- Bases de retenue : base de retenue de l'agence et libellé bilingue propre au volet.
 - Budgets: budgets de volet lies aux budgets d exercice financier du programme.
 - Destinataires: sous-types de destinataires demandeurs admissibles.
 - Lignes de couts: elements de ligne de categorie de couts de l agence et ratios de partage des couts du volet.
@@ -47,27 +48,29 @@ Le schema de l assistant initialise aussi des tableaux pour les configurations d
 
 ## Validation De L Assistant
 
-L assistant empeche les conflits courants:
+L’assistant empêche les conflits courants :
 
-- Un budget de programme ne peut etre selectionne qu une fois dans les budgets de volet.
-- Les sous-types de destinataire admissible doivent etre uniques.
-- Les elements de ligne de couts doivent etre uniques.
-- L unicite d un type de modification repose sur la categorie modifiee et le nom bilingue.
-- Les sous-types de modification doivent referencer un type de modification qui existe encore dans l assistant.
-- Les noms de sous-type de modification doivent etre uniques dans leur type de modification.
-- Les sous-types d entente doivent etre uniques.
-- Les noms bilingues des types de surveillance doivent etre uniques.
-- Les noms bilingues des domaines d expertise doivent etre uniques.
-- Les configurations d examen actives ne doivent pas dupliquer l ordre ou le nom bilingue dans le meme type d entite.
-- Les configurations de recommandation actives ne doivent pas dupliquer le nom bilingue dans le meme type d entite.
-
-Les choix selectionnes doivent appartenir au bon parent: les volets parents et budgets de programme au programme courant; les sous-types de destinataire, lignes de couts, types d entente, schemas d examen et schemas de recommandation a l agence du programme.
+| Règle | Comportement |
+| --- | --- |
+| Un seul budget de volet par budget de programme | Un budget de programme ne peut être sélectionné qu’une fois. |
+| Les bases de retenue doivent être uniques et appartenir à l'agence | Une base de retenue de l'agence ne peut apparaître qu'une fois et doit appartenir à l'agence du programme. |
+| Les sous-types de destinataire doivent être uniques | Les doublons de sous-types de destinataire admissible sont bloqués. |
+| Les éléments de ligne de catégorie de coûts doivent être uniques | Les doublons de lignes de coûts du volet sont bloqués. |
+| L’unicité d’un type de modification repose sur sa catégorie et son nom bilingue | Deux types de modification ne peuvent partager la même catégorie modifiée et la même combinaison de noms bilingues. |
+| Un sous-type de modification doit viser un type actuel | La suppression d’un type de modification invalide ses sous-types. |
+| Les noms de sous-type doivent être uniques dans leur type | Un même type de modification ne peut contenir deux sous-types du même nom. |
+| Les sous-types d’entente doivent être uniques | Les doublons d’association de sous-types d’entente sont bloqués. |
+| Les noms de types de surveillance doivent être uniques | Les doublons de noms bilingues sont bloqués. |
+| Les domaines d’expertise doivent être uniques | Les doublons de noms bilingues sont bloqués. |
+| Les configurations d’examen et de recommandation ne doivent pas se contredire | Une configuration active ne peut répéter l’ordre ou le nom bilingue dans un même type d’entité. |
+| Les dossiers choisis doivent appartenir au bon parent | Les volets parents et budgets appartiennent au programme; les choix appartenant à l’agence appartiennent à l’agence du programme. |
 
 ## Onglets De Detail Du Volet
 
 La page de detail du volet expose ces onglets:
 
 - General.
+- Bases de retenue.
 - Budgets.
 - Destinataires admissibles.
 - Elements de ligne de categorie de couts.
@@ -83,6 +86,7 @@ La page de detail du volet expose ces onglets:
 - Modeles d approbation.
 - Modeles de documents.
 - Configurations de recommandation.
+- Configurations de flux de travail.
 - Extensions.
 
 Chaque onglet utilise le meme patron: tableau de ressources, modale ou editeur, validation et suppression logique lorsque la suppression est permise.
@@ -100,6 +104,10 @@ L onglet General affiche l identite et les champs descriptifs du volet:
 - Statut.
 
 Modifiez ces champs depuis l action de la page de volet ou depuis l onglet Volets du programme parent.
+
+## Onglet Bases De Retenue
+
+Bases de retenue associe au volet les bases de retenue actives de l'agence et donne à chaque association un nom français et anglais. La base choisie doit appartenir à l'agence du programme et ne peut apparaître qu'une fois dans une association active du volet. Configurez ces associations avant que les règles de retenue d'une entente en aient besoin.
 
 ## Onglet Budgets
 
@@ -204,7 +212,7 @@ Les configurations d examen definissent comment les evaluations sont generees po
 - Ordre.
 - Indicateur sequentiel.
 - Modele d approbation optionnel.
-- Indicateur actif.
+- Statut du cycle de vie, version et état de publication en attente.
 - Un ou plusieurs membres de configuration.
 
 Chaque membre est lie a un schema d evaluation, a un ordre et a un modele d approbation optionnel. Les lignes affichent aussi les metadonnees du schema comme le nom, le nom du resultat, la version et le statut.
@@ -218,6 +226,10 @@ Regles metier:
 - Les schemas d examen doivent appartenir a l agence du volet et correspondre au type d entite configure.
 
 Implication d execution: lorsque la configuration est activee pour des entites supportees, elle peut generer du travail d examen commun. Les configurations sequentielles controlent si les membres s executent en sequence ou en parallele.
+
+Une nouvelle configuration commence à l'état d'ébauche. L'activation d'une ébauche valide publie l'instantané courant de la configuration et de ses membres comme version 1. Modifier une configuration active crée du contenu en attente; l'action Publier est offerte seulement lorsqu'un changement valide existe. Les examens d'exécution demeurent épinglés à l'instantané publié de la configuration et du schéma qui les a générés; une modification ultérieure ne réécrit donc pas silencieusement le travail existant. L'éditeur détaillé peut associer un schéma existant de la même agence ou créer un schéma d'évaluation ou de liste de vérification, puis ouvrir son éditeur.
+
+Le code source conserve aussi les contrats d'API d'ensembles d'évaluation propres au volet et un composant Ensembles d'évaluation non monté. Celui-ci n'est inscrit dans aucune page ni dans la carte d'onglets courante et n'a donc aucun chemin de navigation utilisateur pris en charge. Les intégrations qui utilisent ces API doivent quand même respecter la propriété du volet, les membres d'évaluation seulement, l'autorisation actualisée, l'unicité et la suppression logique; les administrateurs doivent utiliser Configurations d'examen dans l'interface courante.
 
 ## Onglet Configurations De Recommandation
 
@@ -240,6 +252,10 @@ Utilisez cet onglet lorsque les routes d approbation doivent varier selon le vol
 
 Voir [Modeles d approbation](./approval-templates.md) pour le comportement complet des modeles et de l approbation en execution.
 
+## Onglet Configurations De Flux De Travail
+
+Les configurations de flux de travail définissent l'orchestration propre au volet déclenchée par une complétion ou une recommandation. Une configuration conserve le type d'entité d'exécution, le nom et la description bilingues, les statuts de départ permis, les statuts de début, de réussite et d'échec, un modèle d'approbation source facultatif, des configurations d'examen et de recommandation facultatives, l'état actif et l'autorisation de reprise. Les ressources liées doivent correspondre au même contexte de volet et d'entité. La publication ou l'activation régit les futures matérialisations; les exécutions existantes conservent leur propre filiation et leur état.
+
 ## Onglet Modeles De Documents
 
 Les modeles de documents de volet definissent les fichiers sources utilises par la generation de documents d entente. L onglet affiche le type d entite, le nom anglais, le genre de modele, les formats de sortie, l etat actif, les pieces jointes bilingues et les actions de ligne.
@@ -252,11 +268,13 @@ Chaque modele stocke :
 | Nom anglais/francais | Nom d affichage bilingue requis. |
 | Description anglaise/francaise | Description bilingue requise affichee lorsque les utilisateurs choisissent un modele sur une entente. |
 | Genre de modele | `docx` ou `html`. |
-| Formats de sortie | Un ou plusieurs de `docx` et `pdf`; les modeles HTML sont limites a `pdf`. |
+| Formats de sortie | Un ou plusieurs formats compatibles : les modèles DOCX permettent `docx` et/ou `pdf`; les modèles HTML permettent `html` et/ou `pdf`. |
 | Fichier anglais/francais | Requis a la creation. Les modeles DOCX acceptent `.docx`; les modeles HTML acceptent `.html` ou `.htm`. |
 | Actif | Seuls les modeles actifs d entente sont disponibles dans l onglet Documents d une entente. |
 
-Modifier un modele peut mettre a jour les metadonnees, les formats de sortie, l etat actif et l un ou l autre fichier de langue. Remplacer un fichier de langue stocke une nouvelle piece jointe et retire la piece jointe remplacee du stockage normal. Supprimer un modele le supprime logiquement; les documents d entente deja generes restent des enregistrements separes.
+La création utilise des données multiparties et exige les deux fichiers linguistiques. Chaque fichier est limité à 10 Mio et la requête complète à 21 Mio. La validation du genre de fichier repose actuellement sur l'extension du nom (`.docx`, ou `.html`/`.htm`); les opérateurs doivent donc traiter la permission de téléversement comme un accès fiable de création de contenu. Le genre de modèle devient immuable après la création.
+
+La modification peut mettre à jour les métadonnées, les formats compatibles, l'état actif et l'un ou l'autre fichier linguistique. Le remplacement stocke une nouvelle pièce jointe puis nettoie l'ancienne après la mise à jour de la base; une mise à jour échouée nettoie les nouvelles pièces créées. La suppression logique retire le modèle et ses pièces jointes sources de l'utilisation active. Les documents d'entente déjà générés demeurent des dossiers distincts. Un téléchargement autorise la relation précise entre le volet actif et le modèle, puis retourne la pièce jointe source française ou anglaise demandée.
 
 Note operationnelle : la generation PDF depuis DOCX utilise LibreOffice, et HTML vers PDF utilise Puppeteer. Le developpement local peut installer ces outils avec la commande de generation de documents decrite dans [Demarrage local](../developer/startup.md).
 
@@ -273,6 +291,12 @@ Les extensions controlent les parametres d extension propres au volet. La config
 ![Configuration des extensions de volet](/screenshots/fr/stream-extensions.png)
 
 _Capture reelle de l environnement de developpement avec donnees semees. Les enregistrements montres sont seulement des exemples et ne sont pas crees dans une installation fraiche._
+
+## Cycle De Vie, Échec Et Reprise
+
+Les suppressions de volets et de configurations sont logiques, sauf indication contraire dans une section spécialisée. La suppression d'un volet verrouille le volet courant et les portées d'entente appartenant aux extensions, revérifie l'accès précis de suppression dans la chaîne active programme-agence et permet aux extensions enregistrées de bloquer la suppression. Une portée de propriété qui change à répétition échoue de façon sûre plutôt que d'utiliser une autorisation périmée. Les anciennes configurations enfants ne sont pas effacées physiquement, mais les chemins exigeant un volet actif ne les exposent plus.
+
+Les écritures du volet et de ses enfants utilisent des transactions avec autorisation actualisée et recalculent leur chaîne de parents canonique. Un volet parent doit être un volet frère actif du même programme, et un volet ne peut être son propre parent. Les choix appartenant à l'agence, les budgets de programme et les configurations imbriquées doivent appartenir à la chaîne courante. Les ressources absentes et inaccessibles sont volontairement masquées de façon semblable. Après un conflit localisé, une sélection invalide, un dépassement de capacité ou une erreur de portée simultanée, rechargez l'onglet, corrigez le dossier référencé et réessayez.
 
 ## Dependances D Execution
 

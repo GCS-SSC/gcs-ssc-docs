@@ -46,6 +46,18 @@ L’onglet Attributions expose aussi quatre indicateurs indépendants de promote
 
 Ces indicateurs sont stockés directement sur l’utilisateur ; ils ne sont ni des capacités de rôle ni des lignes d’attribution séparées. Seul un utilisateur avec `user:update` global peut les modifier. L’interface avertit que l’accès est interagences et exige une confirmation avant l’enregistrement. Accordez seulement les actions requises ; utilisez plutôt l’équipe exacte d’un promoteur pour donner accès à une seule entité enregistrée.
 
+## Activation d’un utilisateur avec identifiants
+
+La création d’un profil utilisateur ne crée pas de compte avec mot de passe. Un administrateur d’utilisateurs autorisé globalement peut activer un profil non vérifié en définissant son mot de passe initial. L’activation est offerte seulement si l’utilisateur est actif, non vérifié et ne possède aucun compte. Un profil vérifié ou un compte géré par un autre fournisseur est refusé plutôt que remplacé.
+
+Le mot de passe est haché avant que le compte avec identifiants et l’état vérifié soient écrits dans une même transaction. Le mot de passe brut n’est ni renvoyé ni ajouté aux métadonnées d’audit. Communiquez l’identifiant initial par un canal approuvé et exigez que le destinataire respecte la politique de gestion des identifiants de l’organisation.
+
+## Piste d’audit de sécurité
+
+Les mutations de sécurité des rôles et des utilisateurs ajoutent un `security_audit_event` dans la même transaction que la modification. Les événements couvrent la création, le profil, la suppression et les capacités d’un rôle; la création, le profil, la suppression et l’activation d’un utilisateur; les indicateurs directs de promoteur; ainsi que la création et la suppression d’affectations de rôle. Les dossiers identifient l’acteur authentifié, une catégorie d’événement contrainte, le type et l’identifiant de la cible, l’horodatage et des métadonnées structurelles non sensibles. Ils excluent les noms, adresses courriel, images, identifiants, jetons et hachages de mots de passe.
+
+La base de données refuse la modification et la suppression de ces événements à ajout seulement. Une mutation métier échouée ne produit donc aucun événement d’audit, tandis qu’un échec d’insertion de l’audit annule la mutation. L’accès aux données d’audit brutes relève de l’exploitation et de la sécurité; l’interface de gestion des utilisateurs n’offre aucun afficheur général de journal d’audit.
+
 ## Gestion du compte racine
 
 Gardez l’attribution racine limitée et facile à auditer. L’utilisateur racine demeure un utilisateur ordinaire avec des capacités globales explicites de rôle et, au besoin, des indicateurs de promoteur activés séparément ; il ne contourne pas l’autorisation. Utilisez des rôles à portée définie pour le travail courant sur les programmes et les ententes, les indicateurs directs seulement pour les tâches liées aux promoteurs qui sont véritablement interagences et les équipes exactes pour collaborer sur un promoteur ou une entente enregistrée.

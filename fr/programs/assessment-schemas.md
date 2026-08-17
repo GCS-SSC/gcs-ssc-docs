@@ -291,6 +291,8 @@ Si un type "au nom de" exige les details reels, l approbateur doit saisir le tit
 
 ## Conseils Operationnels
 
+Les opérations d'enregistrement, d'activation et de publication revérifient la chaîne active volet-programme-agence et l'accès précis `transfer_payment:update` dans une transaction actualisée. Un schéma inaccessible est masqué comme un schéma absent. L'activation échoue si le schéma n'est pas une ébauche valide; la publication échoue s'il n'est pas actif ou ne possède aucun contenu valide en attente. Lorsqu'une validation signale une dépendance brisée, un champ d'aide inconnu, un code en double, un cycle de calcul ou un état de publication invalide, gardez l'éditeur ouvert, corrigez la section ou l'élément référencé, enregistrez de nouveau, puis activez ou publiez.
+
 Utilisez ces pratiques pour des schemas stables:
 
 - Traitez les codes independants de la langue comme des identifiants durables.

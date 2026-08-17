@@ -1,34 +1,29 @@
 # Proponent Agreements
 
-The Agreements tab shows agreements linked to the proponent. It is a relationship view, not a replacement for the Agreements workspace.
+The **Agreements** tab is a relationship view of active GCS-SSC agreements linked to the selected proponent. Use it to find and open an agreement; manage recipients and agreement lifecycle data in the agreement workspace.
 
-## Setup Dependencies
+## Visibility and navigation
 
-| Dependency | Why It Matters |
-| --- | --- |
-| Agreement configuration | Agencies, programs, streams, agreement subtypes, and reference data must exist before agreements can be created. |
-| Agreement permissions | Users need agreement read access to see linked agreements and create access to start new ones. |
-| Proponent profile | The current proponent can be preselected during agreement creation. |
+Opening the tab requires read access to the proponent. The server then applies agreement visibility independently. Only linked agreements that you can read through global, agency, transfer-payment, or exact Agreement Team scope are returned; inaccessible agreements are omitted rather than displayed as masked rows.
 
-## Table Contents
+The table shows agreement number, bilingual title, program, stream, agreement type, and an open action. Search matches agreement number; English or French title; program, stream, or agency name; and agreement-type name. Results include only active links and active agreement, stream, program, agency, subtype, and agreement-type records.
 
-| Column | Meaning |
-| --- | --- |
-| Agreement number | The business identifier for the agreement. |
-| Title | Bilingual agreement title in the active language. |
-| Program and stream | The transfer payment context for the agreement. |
-| Agreement type or subtype | The configured agreement classification. |
-| Action | Opens the agreement detail workspace when the user can read it. |
+Select the bilingual title or arrow action to open the agreement. Access is checked again by the destination API; visibility on this tab does not grant broader agreement rights.
 
-## Business Rules
+## Create an agreement from the tab
 
-| Rule | Behaviour |
-| --- | --- |
-| Agreements are owned by stream context | The proponent relationship does not change program, stream, or agency ownership. |
-| Creation can start from this tab | When allowed, the create flow opens with the current proponent preselected. |
-| One agreement can have multiple proponents | The relationship is many-to-many through the agreement Proponents tab. |
-| Removing a relationship happens on the agreement | Manage linked proponents from the agreement detail workspace. |
+The **New agreement** button appears when the client reports agreement-create permission in at least one scope. It opens the regular agreement wizard with the current proponent supplied as a preselected query value. This is a convenience, not an authorization shortcut: the chosen agency, program, and stream must still be within your create scope, and every server step validates the agreement contract.
 
-## Operating Guidance
+Before creating an agreement, configure the agency, transfer-payment program and stream, agreement subtype, fiscal and reference data, and any required templates. A proponent may be linked to many agreements, and an agreement may have several proponents.
 
-Use this tab to understand the proponent's active and historical funding relationships. Open the agreement when you need budget, commitment, payment, claim, forecast, monitoring, or approval details.
+## Update or remove a relationship
+
+This tab does not edit or delete agreements and does not remove recipient links. Open the agreement and use its **Proponents** area with the required agreement permissions. Removing a link does not delete the proponent profile or agreement; agreement deletion follows its own lifecycle and dependency rules.
+
+If an expected agreement is absent, confirm that the link and its configuration records are active and that you have read scope for the agreement itself. Proponent Team access alone does not expand agreement scope.
+
+## Related guides
+
+- [Proponent profiles](./index.md)
+- [Funding history](./funding-history.md)
+- [Proponent Teams](./team.md)

@@ -1,36 +1,49 @@
 # Proponent Addresses
 
-The Addresses tab stores address records for the proponent. Use it for mailing, operating, headquarters, or other addresses required by agency process.
+Use the **Addresses** tab for the proponent’s mailing, operating, headquarters, or other organizational locations. Agreement-specific address records are managed separately on an agreement.
 
-## Setup Dependencies
+Open **Proponents**, select a saved profile, and choose **Addresses**. The active list shows street line 1, city, and postal or ZIP code. Search matches city, subdivision, postal or ZIP code, and any of the three street lines.
 
-| Dependency | Why It Matters |
+## Access and actions
+
+| Effective access to the proponent | Available actions |
 | --- | --- |
-| Proponent profile | Addresses belong to a saved profile. |
-| Country and province/territory reference data | Canadian addresses use a controlled province/territory selection. |
-| Address business convention | Decide when to use mailing, physical, headquarters, or other address types consistently. |
+| Read-only access | View, search, and page through active addresses. |
+| Contributor access | View and add addresses. |
+| Full access | View, add, edit, and delete addresses. |
+| No access | The server refuses the request. |
 
-## Fields
+Global proponent privileges and an exact Proponent Team assignment can provide access. Child actions use the corresponding `read`, `create`, `update`, or `delete` permission. Writes lock the profile and re-evaluate authorization inside the transaction.
+
+## Fields and validation
 
 | Field | Rule |
 | --- | --- |
-| Street lines | Street 1 is required; street 2 and street 3 are optional. |
+| Street line 1 | Required; lines 2 and 3 are optional. |
 | City | Required. |
-| Country | Required. |
-| Province, territory, state, or subdivision | Required. Canadian addresses use the controlled Canadian jurisdiction list; other countries use free text. |
+| Country | Required value from the country list. |
+| Province, territory, state, or subdivision | Required. For Canada (`ca`), select a valid province or territory; for other countries, enter free text. The database also enforces the Canadian rule. |
 | Postal or ZIP code | Required. |
-| Phone and extension | Optional. |
-| GC address ID and federal riding ID | Optional administrative identifiers. |
+| Main phone | Required numeric value; extension is an optional integer. |
+| Federal riding ID | Required integer. |
+| GC address ID | Optional numeric identifier. |
 
-## Business Rules
+The service contract also supports optional latitude and longitude, although the current tab form does not expose those two fields.
 
-| Rule | Behaviour |
-| --- | --- |
-| Address belongs to the proponent | Do not enter agreement-specific addresses here unless they identify the proponent itself. |
-| Canadian subdivision is controlled | Use the standard province or territory value for Canada. |
-| Non-Canadian subdivision is free text | Enter the appropriate state, province, region, or equivalent. |
-| Deletes are soft deletes | Removed addresses disappear from active lists but remain available for audit. |
+## Record ownership and shared addresses
 
-## Operating Guidance
+Adding an address creates a common address row and a link to the proponent in one transaction. A link always belongs to exactly one parent profile, and only active links to active common addresses appear.
 
-Keep the most current mailing and operating addresses active. If an address changes, update the existing address when it represents a correction; add a new address when it represents a distinct business location.
+An address may also be referenced by another proponent or an agreement. To avoid silently changing another record, the server refuses an edit when another active reference exists. Review the other record and separate the addresses before trying again.
+
+Deleting an address always soft-deletes this proponent’s link. The common address is also soft-deleted only when no other active proponent or agreement still refers to it. There is no restore control in this tab; add the address again after an accidental deletion. Deleting it here does not delete an agreement or another proponent’s link.
+
+## Recovery
+
+Validation errors are returned in the request language. Correct missing required fields or an invalid Canadian subdivision and retry. If the address is reported as shared, do not repeatedly overwrite it; resolve the other active reference or add a distinct address. Refresh after a concurrent change or a not-found response.
+
+## Related guides
+
+- [Proponent profiles](./index.md)
+- [Contacts](./contacts.md)
+- [Agreements](./agreements.md)

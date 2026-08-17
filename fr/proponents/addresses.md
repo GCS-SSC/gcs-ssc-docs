@@ -1,36 +1,49 @@
-# Adresses de promoteur
+# Adresses du promoteur
 
-L onglet Adresses stocke les adresses du promoteur. Utilisez-le pour les adresses postales, operationnelles, de siege social ou autres adresses exigees par le processus.
+Utilisez l’onglet **Adresses** pour les emplacements postaux, opérationnels, du siège social ou autres du promoteur. Les adresses propres à une entente sont gérées séparément dans l’entente.
 
-## Dependances
+Ouvrez **Promoteurs**, sélectionnez un profil enregistré, puis choisissez **Adresses**. La liste active présente la première ligne de rue, la ville et le code postal ou ZIP. La recherche porte sur la ville, la subdivision, le code postal ou ZIP et chacune des trois lignes de rue.
 
-| Dependence | Pourquoi c est important |
+## Accès et actions
+
+| Accès effectif au promoteur | Actions disponibles |
 | --- | --- |
-| Profil de promoteur | Les adresses appartiennent a un profil sauvegarde. |
-| References pays et province/territoire | Les adresses canadiennes utilisent une selection controlee. |
-| Convention d adresse | Definissez quand utiliser adresse postale, physique, siege social ou autre. |
+| Accès en lecture seule | Consulter et rechercher les adresses actives, et parcourir les pages. |
+| Accès de contributeur | Consulter et ajouter des adresses. |
+| Accès complet | Consulter, ajouter, modifier et supprimer des adresses. |
+| Aucun accès | Le serveur refuse la demande. |
 
-## Champs
+Les privilèges globaux relatifs aux promoteurs et une affectation exacte à l’équipe du promoteur peuvent donner accès. Les actions sur les lignes enfants emploient l’autorisation `read`, `create`, `update` ou `delete` correspondante. Une écriture verrouille le profil et réévalue l’autorisation dans la transaction.
 
-| Champ | Regle |
+## Champs et validation
+
+| Champ | Règle |
 | --- | --- |
-| Lignes de rue | Ligne 1 obligatoire; lignes 2 et 3 optionnelles. |
+| Première ligne de rue | Obligatoire; les deuxième et troisième lignes sont facultatives. |
 | Ville | Obligatoire. |
-| Pays | Obligatoire. |
-| Province, territoire, etat ou subdivision | Obligatoire. Les adresses canadiennes utilisent la liste controlee; les autres pays utilisent du texte libre. |
+| Pays | Valeur obligatoire de la liste des pays. |
+| Province, territoire, État ou subdivision | Obligatoire. Pour le Canada (`ca`), sélectionnez une province ou un territoire valide; pour un autre pays, saisissez du texte libre. La base de données applique aussi la règle canadienne. |
 | Code postal ou ZIP | Obligatoire. |
-| Telephone et poste | Optionnels. |
-| ID adresse GC et circonscription federale | Identifiants administratifs optionnels. |
+| Téléphone principal | Valeur numérique obligatoire; le poste est un entier facultatif. |
+| Identifiant de circonscription fédérale | Entier obligatoire. |
+| Identifiant d’adresse du GC | Identifiant numérique facultatif. |
 
-## Regles metier
+Le contrat de service accepte aussi une latitude et une longitude facultatives, bien que le formulaire actuel de l’onglet n’affiche pas ces deux champs.
 
-| Regle | Comportement |
-| --- | --- |
-| L adresse appartient au promoteur | Ne saisissez pas ici des adresses propres a une entente sauf si elles identifient le promoteur. |
-| La subdivision canadienne est controlee | Utilisez la province ou le territoire standard. |
-| La subdivision non canadienne est en texte libre | Entrez l etat, province, region ou equivalent. |
-| Les suppressions sont logiques | Les adresses retirees sont masquees mais conservees pour audit. |
+## Propriété de l’enregistrement et adresses partagées
 
-## Conseils
+L’ajout crée une adresse commune et un lien vers le promoteur dans une seule transaction. Un lien appartient toujours à un seul profil parent, et seuls les liens actifs vers des adresses communes actives sont affichés.
 
-Gardez actives les adresses postale et operationnelle courantes. Modifiez une adresse lorsqu il s agit d une correction; ajoutez une nouvelle adresse lorsqu il s agit d un emplacement distinct.
+Une adresse peut également être référencée par un autre promoteur ou une entente. Pour éviter de modifier silencieusement un autre dossier, le serveur refuse une modification lorsqu’une autre référence active existe. Examinez l’autre dossier et séparez les adresses avant de réessayer.
+
+La suppression marque toujours comme supprimé le lien de ce promoteur. L’adresse commune est elle aussi supprimée logiquement seulement si aucun autre promoteur ni aucune entente active ne la référence. Cet onglet n’offre aucune commande de restauration; ajoutez l’adresse de nouveau après une suppression accidentelle. Sa suppression ici ne supprime ni une entente ni le lien d’un autre promoteur.
+
+## Rétablissement
+
+Les erreurs de validation sont retournées dans la langue de la demande. Corrigez les champs obligatoires manquants ou une subdivision canadienne non valide, puis réessayez. Si le système indique que l’adresse est partagée, ne tentez pas de l’écraser à répétition; corrigez l’autre référence active ou ajoutez une adresse distincte. Actualisez après une modification simultanée ou une réponse indiquant que l’élément est introuvable.
+
+## Guides connexes
+
+- [Profils des promoteurs](./index.md)
+- [Contacts](./contacts.md)
+- [Ententes](./agreements.md)

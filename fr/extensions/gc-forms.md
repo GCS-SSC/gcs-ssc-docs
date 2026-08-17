@@ -42,3 +42,36 @@ La désactivation ou la suppression d’une agence ou d’un volet est bloquée 
 Le point de terminaison qui énumère les soumissions est strictement en lecture seule. Il interroge la version de connexion déjà enregistrée qui correspond à la configuration actuelle et retourne une liste vide lorsque la configuration n’a pas encore créé cette version. Une lecture ne crée et ne met jamais à jour une connexion, une intégration ou une correspondance.
 
 L’onglet GC Forms d’une réclamation affiche la soumission source liée à la réclamation générée. Les onglets de promoteur et de surveillance sont installés, mais ils demeurent vides tant que ces destinations ne sont pas prises en charge par le matérialiseur.
+
+## Référence des routes et autorisations
+
+Chaque route passe par le répartiteur hôte authentifié, puis répète sa vérification de portée propre à l'extension. La liste des justificatifs exige `agency:read`; leur création, modification et suppression exigent `agency:update`. La lecture du modèle et des soumissions, le téléchargement du modèle de réclamation, la liste des échecs et les onglets sources exigent la lecture de l'organisme, du volet, du demandeur-bénéficiaire ou de l'entente propriétaire exacte. L'actualisation du modèle, la synchronisation et la reprise manuelle exigent la modification du volet.
+
+Le manifeste de prévisualisation déclare la lecture du volet, mais `preview.post.ts` appelle aussi `authorizeGcFormsStream(..., 'update')`; l'accès effectif à la prévisualisation est donc `transfer_payment:update`, et non la lecture. Cet écart est suivi sous `DOC-032`.
+
+| Opération | Comportement |
+| --- | --- |
+| Liste/création/modification/suppression des justificatifs | Retourne uniquement les métadonnées; valide les libellés bilingues, l'identité distante et la clé privée PEM. Une modification d'authentification augmente `revision`; répéter les valeurs courantes ou modifier les libellés ne le fait pas. La suppression d'une ligne absente est idempotente et, lorsqu'elle est sûre, supprime logiquement les métadonnées et le secret chiffré. |
+| Modèle stocké / actualisation | GET est local. POST obtient le formulaire distant, exige la structure des questions de réclamation, normalise un catalogue, le stocke pour la connexion immuable et retourne le titre bilingue et le catalogue. |
+| Téléchargement du modèle de réclamation | Produit le contrat courant du formulaire de réclamation du volet; ce n'est pas une exportation des soumissions distantes. |
+| Prévisualisation | Normalise les réponses fournies et applique les correspondances fournies sans persistance. Malgré la déclaration de lecture du manifeste, la route exige la modification du volet. |
+| Liste des soumissions | Lit seulement la connexion courante déjà persistée; les métadonnées de réponse ne représentent pas une pagination réelle. |
+| Synchronisation | Exécute la vérification préalable locale des confirmations, la préparation distante, de courts lots de matérialisation autorisés et le rapprochement des confirmations après validation. La réponse indique l'exécution et les nombres découverts, importés, ignorés et problématiques; un échec individuel ne fait pas nécessairement échouer toute l'exécution. |
+| Liste/reprise des échecs | Énumère seulement les échecs récupérables de matérialisation de réclamation et les choix d'entente filtrés par l'hôte. La reprise accepte `{ agreementId }`, autorise de nouveau la modification de cette entente et refuse un état ou une portée périmés. |
+| Source d'entité | Énumère les liens de destination actifs du plus récent au plus ancien. L'onglet actuel montre l'état stocké, la date reçue et les valeurs associées sérialisées telles quelles en JSON; une erreur de lecture produit le même état vide plutôt que d'en exposer les détails. |
+
+## Sécurité du service externe
+
+Les URL de base de l'API et du fournisseur d'identité doivent utiliser HTTPS, ne peuvent contenir de justificatifs, de requête ou de fragment, et refusent les adresses littérales locales, privées, lien-local, de documentation, multidiffusion et réservées. Les redirections sont désactivées. Le déploiement doit aussi contrôler le DNS et les sorties réseau, car le schéma valide le texte du nom d'hôte configuré sans figer sa résolution DNS.
+
+Le client signe une assertion JWT RS256 de 60 secondes, l'échange contre un jeton porteur, met ce jeton en cache par client et réessaie une requête après une réponse 401 avec un nouveau jeton. Les appels de jeton et d'API expirent après 15 secondes par défaut. Les erreurs consignent seulement l'état HTTP, jamais les jetons, clés ou corps de réponse distants.
+
+L'enveloppe d'une soumission utilise RSA-OAEP/SHA-256 pour déballer la clé, le nonce et l'étiquette d'authentification de 16 octets d'AES-256-GCM. Le JSON déchiffré doit respecter son schéma et le texte des réponses doit correspondre à la somme MD5 fournie avant l'association. MD5 sert ici de somme d'interopérabilité après un déchiffrement authentifié, et non de mécanisme de confidentialité ou d'authenticité. Les pièces jointes sont représentées par des métadonnées (`source_url`, somme, indicateur de risque et chemin de stockage facultatif); le matérialiseur actuel axé sur les réclamations ne les télécharge ni ne les joint aux réclamations hôtes.
+
+## Données et intégrité de l'extension
+
+Les deux migrations créent, dans le schéma `extensions`, les tables de justificatifs, connexions immuables, modèles, intégrations et correspondances immuables, soumissions, pièces jointes, exécutions d'importation, liens de destination et substitutions manuelles, puis ajoutent la colonne facultative `Funding_Case_Agreement_Claim.egcs_fc_gcformssubmissionuuid` avec un index actif unique. Les identifiants `bigserial` traversent le contrat d'application sous forme de chaînes.
+
+Des index uniques partiels imposent une connexion active par identité distante complète, un modèle par connexion, une intégration par connexion et empreinte, une clé de correspondance par intégration, un nom de soumission par connexion, une substitution manuelle par soumission et destination, et une réclamation active par UUID de soumission GC Forms. Les clés étrangères interdisent la suppression en cascade et les lignes d'extension utilisent `_deleted`; l'extension n'offre aucun processus de suppression physique. Le schéma stocke intentionnellement le type et l'identifiant de propriétaire des destinations comme lien générique, sans clé étrangère composite polymorphe du noyau; l'autorisation hôte et les matérialiseurs doivent donc valider la propriété avant toute écriture.
+
+Sauvegardez ensemble la base de données d'application et la clé racine des secrets chiffrés. La restauration des tables sans la valeur correspondante de `GCS_EXTENSION_SECRETS_KEY` rend le chiffrement des justificatifs inutilisable; restaurer seulement les secrets ou seulement les tables d'extension brise les identités de connexion immuables et la reprise des confirmations historiques.

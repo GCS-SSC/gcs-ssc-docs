@@ -1,121 +1,105 @@
-# Reclamations d entente
+# Réclamations et rapprochement d’entente
 
-Les reclamations capturent les montants soumis contre les lignes budgetaires d entente et prennent en charge un ou plusieurs rapprochements. Le flux a deux surfaces principales : soumission et rapprochement.
+Les réclamations consignent les coûts reçus pour une période financière de l’entente. Les rapprochements sont des dossiers distincts, attribués à un examinateur, qui évaluent les lignes soumises, consignent les montants rapprochés et échantillonnés et peuvent être désignés comme rapprochement final de la réclamation.
 
-## Configuration d une installation vide
+## Avant de commencer
 
-| Configuration | Utilite |
+Ouvrez une entente, puis sélectionnez **Réclamations**. L’entente doit posséder une version budgétaire courante avec au moins un exercice et une ligne budgétaire. Les références de la réclamation et de ses lignes utilisent les identités budgétaires stables; une modification peut donc remplacer la version courante sans changer leurs identifiants logiques.
+
+| Action | Action requise sur l’entente |
 | --- | --- |
-| Exercices et lignes budgetaires | Les reclamations sont creees pour les exercices budgetaires et les lignes de soumission viennent du budget. |
-| Utilisateurs communs | Les rapprochements stockent l utilisateur courant comme examinateur. |
-| Modele d approbation `fundingclaimreconcile` | Requis si les rapprochements doivent etre approuves. |
-| Permissions CRUD d’entente | `create` crée les réclamations, les lignes de soumission manquantes, les rapprochements et les lignes de rapprochement manquantes ; `update` modifie les dossiers existants et les états de flux modifiables ; `delete` supprime logiquement les réclamations et leurs enfants. Les actions d’approbation exigent aussi l’accès ordinaire en lecture et une attribution. |
+| Parcourir les réclamations, ouvrir les détails, consulter les soumissions et les rapprochements | `agreement:read` |
+| Créer une réclamation, une ligne, un rapprochement ou une ligne de rapprochement | `agreement:create` |
+| Modifier, attribuer, soumettre, retirer, annuler, achever ou changer l’indicateur final | `agreement:update` |
+| Supprimer une réclamation, une ligne, un rapprochement ou une ligne de rapprochement par son API | `agreement:delete` |
 
-## Flux d onglet
+Un rôle ou l’équipe exacte de l’entente peut fournir ces actions. L’accès à un volet, à un budget, à une soumission ou à une autre entente connexe n’élargit pas cette limite. Les écritures résolvent de nouveau la portée et l’autorisation dans la transaction et acquièrent, selon le cas, les verrous ordonnés de l’entente, de la réclamation et du rapprochement.
 
-L onglet regroupe les reclamations par exercice et affiche l identifiant, la periode, le statut, le montant soumis et le montant rapproche.
+## Parcourir et créer des réclamations
 
-La creation saisit :
+L’onglet Réclamations regroupe les lignes selon le libellé de l’exercice courant. Il affiche l’identifiant de chaque réclamation, la période d’avril à mars, l’état, le total soumis et la somme de toutes les lignes de rapprochement actives associées à la réclamation. La recherche porte sur l’exercice, l’identifiant, la période et l’état localisés ou l’un des totaux affichés.
 
-| Champ | Regle |
+Les boutons de modification et de suppression du groupe agissent actuellement sur la première réclamation du groupe d’exercice. Ouvrez une réclamation précise à partir de sa propre ligne pour travailler sans ambiguïté. Lorsque plusieurs réclamations partagent un exercice, ne supposez pas qu’une action de groupe vise la ligne que vous consultiez.
+
+| Champ de la réclamation | Règle |
 | --- | --- |
-| Exercice | Exercice budgetaire d entente requis. |
-| Date de reception | Date requise. |
-| Debut/fin de periode | Mois fiscaux avril a mars, codes 0 a 11. La fin ne peut pas preceder le debut. |
-| Final pour l exercice | Booleen requis. |
+| Exercice | Identité stable obligatoire d’un exercice de la version courante du budget de l’entente. |
+| Date de réception | Date et heure obligatoires; le formulaire recueille une date civile. |
+| Début et fin de la période | Indices obligatoires de `0` (avril) à `11` (mars); la fin ne peut précéder le début. |
+| Finale pour l’exercice | Indicateur booléen obligatoire et descriptif; la base de données ne limite pas un exercice à une seule réclamation ainsi marquée. |
 
-Les nouvelles reclamations commencent a `draft`.
+Une réclamation créée par le noyau commence à l’état `draft`. Son en-tête ne peut être modifié ou supprimé logiquement que pendant qu’il est modifiable. Sa suppression marque aussi logiquement ses lignes, ses rapprochements et leurs lignes dans la même transaction; les lignes historiques demeurent dans la base.
 
-La création d’une réclamation exige `agreement:create`, la modification de son en-tête existant exige `agreement:update` et sa suppression exige `agreement:delete`.
+Un changement d’exercice valide l’exercice courant de destination, mais ne migre ni ne revérifie les lignes existantes. Des lignes attribuées à l’ancien exercice peuvent disparaître de la grille Soumission tout en restant rattachées à la réclamation et admissibles au rapprochement. Ne changez pas l’exercice après la saisie des lignes. Si cela s’est produit, arrêtez le traitement et rapprochez les lignes masquées au moyen d’un examen de données autorisé avant la soumission.
 
-## Page de detail
+## Préparer la soumission
 
-La page de detail de reclamation utilise le sommaire de detail commun. Le titre est l identifiant de reclamation et les metadonnees incluent le numero d entente, le titre d entente, l exercice, la periode de reclamation et le statut.
+L’onglet **Soumission** regroupe les lignes budgétaires de l’exercice courant selon la catégorie de coûts bilingue et la sous-section. Il affiche les montants soumis, rapprochés et le solde. La recherche porte sur la catégorie, la sous-section, le nom bilingue de la ligne ou sa description.
 
-La page contient :
+Saisissez le montant soumis de chaque ligne requise, puis sélectionnez **Enregistrer la soumission**. Une nouvelle cellule à zéro est ignorée; une cellule non nulle crée une ligne de réclamation en dollars canadiens. Une cellule existante est modifiée lorsque son montant change. La page envoie une requête par ligne modifiée, en séquence, plutôt qu’une transaction globale. Si une requête tardive échoue, les lignes précédentes restent enregistrées; actualisez la page, comparez chaque ligne et ne reprenez que les corrections manquantes.
 
-| Onglet | Utilite |
+L’API hôte prend aussi en charge la description, la devise, les libellés soumis facultatifs de catégorie, sous-section et ligne, le déplacement vers une autre réclamation modifiable et la suppression logique. Ces commandes CRUD complètes ne sont pas montées dans la grille actuelle. La base dérive l’entente de chaque ligne à partir de sa réclamation et utilise des clés étrangères composites pour garder toute ligne budgétaire sélectionnée dans cette entente.
+
+Aucune contrainte d’unicité active n’existe pour `(réclamation, ligne budgétaire)`. Une API directe ou une importation peut donc créer des doublons. Pendant que la réclamation est modifiable, la grille utilise la première ligne correspondante; une fois verrouillée, elle affiche séparément les lignes multiples. Évitez les lignes logiques en double et rapprochez-les avant la soumission.
+
+### Lignes importées non attribuées
+
+L’extension [Intégration de GC Forms](../extensions/gc-forms.md) peut matérialiser atomiquement une réclamation et zéro ou plusieurs lignes. Elle crée directement la réclamation à l’état `submitted`, consigne un UUID unique de la soumission source et des liens de destination, puis empêche une seconde matérialisation. Une ligne source qui ne peut correspondre à une ligne budgétaire courante peut rester non attribuée avec ses libellés soumis.
+
+La page principale affiche ces lignes et permet à un utilisateur ayant `agreement:update` d’attribuer chacune à une ligne budgétaire courante compatible pendant que la réclamation est `draft` ou `submitted`. Pour une réclamation soumise, cette attribution unique de la valeur nulle vers une ligne budgétaire est la seule modification permise. Le rapprochement ne peut commencer tant que toutes les lignes actives ne sont pas attribuées.
+
+## Soumettre, retirer ou annuler
+
+Sélectionnez **Prête pour l’examen** pour faire passer une réclamation en brouillon à `submitted`. Le serveur exige au moins une ligne active et aucune ligne non attribuée. Il n’impose aucun maximum par rapport au budget, aucun total positif et aucune ligne unique par coordonnée budgétaire.
+
+Une réclamation `submitted` peut être retirée seulement avant la création de tout rapprochement actif. Le retrait écrit `withdrawn`; il ne ramène pas la réclamation en brouillon. Une réclamation qui n’est plus en brouillon et qui n’est pas déjà `withdrawn` ou `cancelled` peut être annulée, même après le début du rapprochement. L’annulation écrit `cancelled`. Ces deux états sont terminaux et verrouillés dans la page principale.
+
+Le cycle de vie reconnu par cette fonction est :
+
+`draft` → `submitted` → `inreview` → `reviewed`
+
+Une réclamation `submitted` peut plutôt devenir `withdrawn`; la plupart des états autres que brouillon peuvent devenir `cancelled`. La création ou la modification d’un rapprochement fait passer les états parents admissibles à `inreview`. L’approbation d’un rapprochement final fait passer la réclamation à `reviewed`; l’approbation d’un rapprochement non final et le refus la laissent à `inreview`.
+
+## Créer et comparer les rapprochements
+
+L’onglet **Rapprochement** devient accessible lorsque la réclamation est `submitted`, `inreview`, `reviewed` ou `complete`, ou lorsqu’un historique de rapprochement existe déjà. La création exige que toutes les lignes soient attribuées et qu’aucun rapprochement final approuvé n’existe. Le serveur inscrit l’utilisateur commun courant comme examinateur, crée un rapprochement `draft` et fait passer la réclamation à `inreview`.
+
+Plusieurs rapprochements actifs peuvent exister. La page les classe du plus récent au plus ancien et affiche l’examinateur, l’état, l’indicateur final, le total rapproché, le total échantillonné et le solde soumis moins rapproché. Sélectionnez une ligne pour la consulter et la modifier. Un seul rapprochement actif par réclamation peut avoir `isfinal = true`; la validation de l’application et un index unique partiel de la base l’imposent. Lorsqu’un rapprochement final est refusé, le moteur d’approbation efface son indicateur final afin qu’un autre puisse être désigné.
+
+Pour chaque ligne de réclamation, une ligne de rapprochement contient :
+
+| Champ | Contrat |
 | --- | --- |
-| Soumission | Saisir les montants par ligne budgetaire, consulter les lignes soumises importees ou non allouees, allouer ces lignes aux lignes budgetaires d entente et marquer pret pour examen. |
-| Rapprochement | Demarrer ou choisir des rapprochements, saisir les montants rapproches et echantillonnes, marquer un rapprochement final, completer et voir les approbations. |
-| Extensions | Onglets facultatifs fournis par extensions. |
+| Montant rapproché | Valeur `numeric(19,2)` obligatoire. |
+| Montant échantillonné | Valeur `numeric(19,2)` facultative; la grille envoie zéro lorsqu’elle conserve sa valeur par défaut. |
+| Justification | Texte libre facultatif. |
 
-## Lignes de soumission
+Une seule ligne active de rapprochement peut viser une ligne de réclamation donnée dans le même rapprochement. Des clés étrangères composites garantissent leur appartenance à la même réclamation. Lorsque l’utilisateur sélectionne **Enregistrer le rapprochement**, la grille crée ou modifie chaque ligne de réclamation en séquence. Une erreur tardive peut produire un rapprochement partiel; actualisez et comparez toutes les lignes avant l’achèvement.
 
-L onglet Soumission construit les lignes de brouillon editables a partir du budget du meme exercice. La sauvegarde cree ou modifie des lignes de reclamation :
+Les champs de l’interface ont un minimum de zéro, mais les schémas d’API partagés emploient des validateurs monétaires signés et la base n’a aucune contrainte de non-négativité pour les montants soumis, rapprochés ou échantillonnés. Le serveur n’exige pas non plus que le total rapproché égale le total soumis, que l’échantillon ne dépasse pas le montant rapproché, qu’une justification soit fournie ou que la réclamation respecte le budget. Le solde affiché est informatif et non une règle d’achèvement.
 
-| Champ | Regle |
-| --- | --- |
-| Reclamation | Fixee par la page de detail courante. |
-| Ligne budgetaire | Generalement une ligne budgetaire de l entente dans l exercice de la reclamation; peut etre temporairement null pour des lignes importees ou externes. |
-| Categorie, sous-section, ligne soumise | Libelles externes facultatifs utilises pendant qu une ligne n est pas allouee. |
-| Description | Heritee de la ligne budgetaire pour les lignes saisies dans l UI, ou fournie par l import/source pour les lignes non allouees. |
-| Montant | Montant requis. |
-| Devise | Requise; l editeur ecrit CAD. |
+Les modifications d’en-tête ou de ligne font passer un rapprochement non verrouillé à `inprogress` et les réclamations parentes admissibles à `inreview`. L’API peut déplacer une ligne vers un autre rapprochement modifiable et supprimer logiquement les rapprochements et leurs lignes; la page de détails actuelle n’expose aucune de ces suppressions.
 
-Les lignes non allouées apparaissent dans la table de soumission avec un indicateur Non alloué et leurs libellés soumis. Les utilisateurs avec `agreement:update` peuvent allouer une ligne non allouée à une ligne budgétaire lorsque la réclamation est `draft` ou `submitted`.
+## Achèvement, approbation et flux de travail
 
-La reclamation peut etre marquee prete pour examen seulement si elle est `draft`, contient au moins une ligne et ne contient aucune ligne non allouee. Elle passe alors a `submitted`.
+Le rapprochement sélectionné présente les commandes Achèvement et Flux de travail. L’achèvement exige `agreement:update`, un rapprochement modifiable, aucun rapprochement final déjà approuvé pour la réclamation, aucun achèvement existant et au moins une ligne active. Il ne valide ni les totaux ni l’indicateur final.
 
-## Plusieurs lignes par ligne budgetaire
+En cas de réussite, la transaction consigne le commentaire et l’utilisateur communs d’achèvement, fait passer directement le rapprochement à `complete`, démarre tout flux `fundingclaimreconcile` applicable, valide la transaction, puis émet le hook d’achèvement. La réclamation parente demeure `inreview`. L’achèvement ne consulte aucun modèle d’approbation et ne crée aucune feuille d’acheminement.
 
-Des sources externes peuvent creer plus d une ligne de reclamation pour la meme ligne budgetaire d entente. En lecture seule et dans les contextes soumis, l onglet Soumission affiche chaque ligne soumise separement afin que le detail importe ne soit pas regroupe. En brouillon editable, l editeur normal affiche une entree de montant par ligne budgetaire.
+Une API générique d’approbation distincte existe pour les intégrations autorisées. Un appelant explicite peut matérialiser le modèle `fundingclaimreconcile` valide du volet et faire passer un rapprochement achevé ou autrement modifiable à `pendingapproval`. Les approbateurs affectés doivent posséder l’accès ordinaire à l’entente exacte. L’approbation produit `approved`; le refus produit `denied`, efface `isfinal` et laisse la réclamation à `inreview`. L’approbation d’un rapprochement final fait passer la réclamation à `reviewed` et bloque toute nouvelle création, modification, achèvement ou désignation finale de rapprochement.
 
-## Actions de reclamation
+La page actuelle de la réclamation ne monte aucune section d’approbation et l’achèvement n’appelle pas cette API. La simple configuration d’un modèle d’approbation de rapprochement ne soumet donc pas à l’approbation les rapprochements créés dans l’interface principale.
 
-| Action | Permise lorsque | Resultat |
-| --- | --- | --- |
-| Sauvegarder la soumission | Réclamation `draft` ; `agreement:create` pour les lignes manquantes et `agreement:update` pour les lignes existantes | Crée ou modifie uniquement les lignes saisies dans l’interface utilisateur que l’action correspondante autorise. |
-| Allouer une ligne non allouée | Réclamation `draft` ou `submitted`, ligne non allouée et action `agreement:update` | Définit la ligne budgétaire après avoir validé qu’elle appartient à l’entente et à l’exercice. |
-| Prêt pour examen | Brouillon avec au moins une ligne, aucune ligne non allouée et action `agreement:update` | Passe à `submitted`. |
-| Retirer | Statut `submitted`, aucun rapprochement et action `agreement:update` | Passe à `withdrawn`. |
-| Annuler | Non `draft`, `withdrawn` ou `cancelled`, avec action `agreement:update` | Passe à `cancelled`. |
+## États verrouillés et reprise
 
-## Rapprochements
+Les modifications ordinaires de l’en-tête et des lignes de réclamation sont verrouillées aux états `submitted`, `inreview`, `reviewed`, `withdrawn` et `cancelled`, sauf l’attribution unique d’une ligne non attribuée pendant l’état `submitted`. Les rapprochements sont verrouillés à `complete`, `pendingapproval`, `approved` et `denied`; un achèvement conservé interdit aussi les modifications.
 
-Le rapprochement est visible lorsque la réclamation est admissible au rapprochement ou lorsqu’il existe déjà des rapprochements. Les réclamations aux statuts `submitted`, `inreview`, `reviewed` ou `complete` peuvent afficher et démarrer le travail de rapprochement lorsqu’elles n’ont aucune ligne non allouée et aucun rapprochement final approuvé.
+En cas d’échec d’un enregistrement, actualisez avant de réessayer, car les écritures des grilles ne sont pas atomiques. Si la soumission est refusée, vérifiez qu’au moins une ligne existe et que toutes les lignes importées sont attribuées. Si la désignation finale est refusée, examinez l’autre rapprochement portant déjà cet indicateur. Lorsqu’un rapprochement final approuvé existe, considérez la réclamation comme fermée; le noyau n’offre aucune action de réouverture.
 
-Démarrer un rapprochement exige `agreement:create`, crée un brouillon pour l’utilisateur courant et déplace la réclamation à `inreview`. Modifier un rapprochement existant ou son indicateur final exige `agreement:update`. Démarrer ou modifier un rapprochement à partir d’une réclamation soumise, examinée ou complétée peut la ramener à `inreview`.
+## Contrat de développement
 
-Lignes de rapprochement :
+La famille principale compte 16 gestionnaires limités à l’entente : aperçu; création, modification, suppression, préparation pour l’examen, retrait et annulation d’une réclamation; création, modification et suppression d’une ligne de réclamation; création, modification et suppression d’un rapprochement; création, modification et suppression d’une ligne de rapprochement. Les données de détails proviennent de l’aperçu plutôt que d’une route GET propre à la réclamation. Les corps utilisent les schémas Zod localisés partagés et la réponse normalisée `VALIDATION_FAILED`.
 
-| Champ | Regle |
-| --- | --- |
-| Rapprochement | Fixe par le rapprochement selectionne. |
-| Ligne de reclamation | Requise et doit appartenir a la reclamation. |
-| Montant rapproche | Montant requis. |
-| Montant echantillonne | Montant facultatif. |
-| Justification | Texte facultatif; blanc devient null. |
+Les identifiants de réclamation et d’enfants sont des valeurs PostgreSQL `bigint` retournées comme chaînes; les références budgétaires stables sont des UUID. Les identifiants de rapprochement sont des identités polymorphes `Common_Entity` enregistrées sous le type `fundingclaimreconcile`, ce qui permet l’acheminement commun des achèvements, approbations, flux de travail et onglets d’extension. La suppression logique est utilisée partout. Les verrous d’agrégat suivent l’ordre des identités de l’entente, de la réclamation et du rapprochement afin de sérialiser les mutations et la vérification de l’indicateur final.
 
-La liste affiche les rapprochements du plus récent au plus ancien avec examinateur, statut, indicateur final, total rapproché, total échantillonné et solde. Choisir un rapprochement change le panneau de détail modifiable ou en lecture seule sous la liste. La sauvegarde utilise `agreement:update` pour les lignes de rapprochement existantes et `agreement:create` pour les lignes manquantes.
-
-## Rapprochement final
-
-Chaque reclamation peut avoir seulement un rapprochement final. Le panneau du rapprochement selectionne inclut une case finale lorsque le rapprochement est editable. Les utilisateurs peuvent marquer le rapprochement actif final seulement si aucun autre rapprochement de la reclamation n est deja final.
-
-Completer un rapprochement final affiche un avertissement et une confirmation supplementaires. Apres l existence d un rapprochement final approuve, la reclamation est verrouillee contre les nouveaux rapprochements, les modifications de rapprochement et la completion de rapprochement. Cela empeche des rapprochements ulterieurs de modifier une reclamation finalisee.
-
-Si l approbation d un rapprochement final est refusee, le rapprochement passe a `denied`, son indicateur final est retire et la reclamation retourne a `inreview`.
-
-## Regles d affaires
-
-| Regle | Comportement |
-| --- | --- |
-| Les reclamations brouillon sont les seules editables | `submitted`, `inreview`, `reviewed`, `withdrawn` et `cancelled` verrouillent les modifications normales de soumission. |
-| Les lignes non allouees doivent etre allouees avant l avancee du flux | Pret pour examen et nouveau rapprochement sont bloques tant qu une ligne de reclamation n a pas de ligne budgetaire. |
-| L allocation a une fenetre plus large que l edition de soumission | Les lignes non allouees peuvent etre allouees en `draft` ou `submitted`; les autres modifications exigent toujours `draft`. |
-| Le demarrage du rapprochement exige une reclamation admissible | Un nouveau rapprochement exige `submitted`, `inreview`, `reviewed` ou `complete`, aucune ligne non allouee et aucun rapprochement final approuve. |
-| Les rapprochements exigent une reclamation prete | L edition des lignes exige une reclamation admissible au rapprochement et aucun rapprochement final approuve. |
-| Les etats verrouilles bloquent le rapprochement | `pendingapproval`, `approved` et `denied` sont verrouilles. |
-| La completion exige des lignes | Un rapprochement vide ne peut pas etre complete. |
-| Un seul rapprochement final est permis | Creer ou marquer un deuxieme rapprochement final est rejete. |
-| Un rapprochement final approuve verrouille la reclamation | Les nouveaux rapprochements et la completion sont rejetes apres approbation d un rapprochement final. |
-| L approbation met a jour la reclamation | Un rapprochement final approuve passe la reclamation a `reviewed`; un rapprochement non final approuve garde la reclamation a `inreview`; un refus retire l indicateur final et laisse la reclamation a `inreview`. |
-
-## Completion et approbation
-
-Type d entite : `fundingclaimreconcile`.
-
-La complétion est attachée au rapprochement sélectionné, pas à l’en-tête de réclamation, et exige `agreement:update`. La section de complétion apparaît lorsqu’un rapprochement existe. Compléter un rapprochement final affiche une confirmation supplémentaire, car cela peut fermer le parcours d’examen de la réclamation. Avec un modèle valide, la complétion crée ou matérialise la feuille de route et passe le rapprochement à `pendingapproval` ; sans modèle, elle le passe à `complete`.
-
-Sans modèle d’approbation, compléter un rapprochement final passe la réclamation à `reviewed` ; compléter un rapprochement non final laisse la réclamation à `inreview`. La section d’approbation apparaît pour les rapprochements `pendingapproval`, `approved` et `denied`. Agir sur une approbation exige l’accès ordinaire en lecture à l’entente, accordé par un rôle ou son équipe exacte, ainsi qu’une attribution à l’étape ; l’attribution seule ne donne aucun accès.
+Consultez [Budget de l’entente](./budget.md), [Prévisions](./forecasts.md), [Paiements](./payments.md), [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).

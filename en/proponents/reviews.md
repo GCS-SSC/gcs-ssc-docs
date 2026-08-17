@@ -1,54 +1,44 @@
 # Proponent Reviews
 
-Reviews capture structured assessment or checklist work for a proponent. They are generated from configured review set setups and can include assessment schemas, completion, and approvals.
+The **Reviews** tab groups runtime assessments and checklists created for a proponent. It is the launch point for review sets; answers, scoring, completion, approvals, and retry behaviour use the shared runtime-review flow.
 
-## Setup Dependencies
+## Access and page behaviour
 
-| Dependency | Why It Matters |
-| --- | --- |
-| Review schema | Defines the checklist or assessment content. |
-| Review set setup | Groups one or more reviews for proponent records. |
-| Review setup order | Controls the order of reviews inside the set. |
-| Approval template | Required when completed reviews need routing and certifications. |
-| Proponent access and workflow assignment | Proponent read access opens reviews. Update access creates sets, answers assessments, completes, cancels, clones, or reassigns. An approval action additionally requires assignment to that approval step; assignment alone never grants Proponent access. |
+Read access to the proponent lists its active review sets and review children. Update access adds the controls to create a set, cancel a non-terminal set, and clone an eligible denied or cancelled review. An exact Proponent Team assignment can provide these owning-entity permissions. Approval assignment is an additional requirement for an approval decision and never grants proponent access by itself.
 
-## Page Flow
+The table groups reviews by set and initially expands each group. A group displays the pinned setup name, agency, review count, set status, success result when known, and the **On completion** or **Sequential** flags captured at creation. Each child displays its pinned bilingual review name, type, and status. Search on this endpoint covers the review-set ID and pinned English/French set name.
 
-The Reviews tab groups review rows by review set. Users with update access can create a review set from eligible setups. Each individual review row can be opened in the assessment workspace.
+Open an assessment or checklist from its name or arrow. The destination enforces owning-proponent access again.
 
-| Action | Result |
-| --- | --- |
-| Create review set | Generates the configured review rows for the proponent. |
-| Open review | Opens the assessment or checklist page for that review. |
-| Cancel review set | Stops a non-terminal set when the process should not continue. |
-| Clone review | Creates a new review from a denied or cancelled review when rework is needed. |
+## Eligible setup lookup
 
-## Business Rules
+Select **Add** to search eligible active, published review-set setups—not every configured setup. A setup is eligible only when:
 
-| Rule | Behaviour |
-| --- | --- |
-| Review setup must match proponents | Only setups configured for proponent records are eligible. |
-| Setup scope must apply to the proponent | A stream-scoped setup is currently eligible only when the proponent is linked to an agreement under that transfer payment stream. A setup scoped directly to the proponent is also eligible. |
-| Agency ownership must match | Every active assessment schema in the setup must belong to the proponent's lead agency. |
-| Review sets group related reviews | A set can contain one or more review rows depending on setup. |
-| Sequential setups should be followed in order | Users should complete earlier configured reviews before relying on later review conclusions. |
-| Terminal statuses protect history | Completed, approved, denied, withdrawn, or cancelled sets should not be edited as ordinary drafts. |
-| Approval templates add routing | Completed reviews can require approver decisions and certifications. |
-| Schema changes affect future work | Existing review responses preserve their runtime context; update setup intentionally before creating new sets. |
+- its target entity type is `applicantrecipient`;
+- its scope is this exact proponent, or it is a transfer-payment-stream scope reached through one of this proponent’s active agreement links;
+- the linked program’s agency matches the proponent’s lead agency for a stream-scoped setup; and
+- every active member schema is active and belongs to the proponent’s lead agency.
 
-## Why the Setup List Can Be Empty
+The lookup description shows the owning agency and, for a stream-scoped setup, the stream. If the list is empty, verify publication/activation, entity type, exact scope, active agreement link, lead agency, and every member schema. There is no implemented intake-based eligibility path.
 
-The Add dialog is an eligibility lookup, not a list of every review set setup configured in the system. It is empty when no active assessment setup satisfies the proponent type, scope, and lead-agency rules. In the current implementation, a stream-scoped setup does not appear unless the proponent is already associated with an agreement under that stream.
+## Create and run a set
 
-## Planned Intake-Based Eligibility
+Selecting a setup creates the set and its assessment/checklist children transactionally from the published configuration. The server locks the proponent and applicable ownership graph, rebuilds authorization, and revalidates scope and agency ownership before materialization. A second set from the same setup is refused while an earlier one remains in a blocking in-progress state.
 
-Funding Case Intake is planned but not yet implemented. Once available, a stream-scoped review set setup will be eligible through either of these paths:
+Sequential sets advance in configured member order. On-completion sets interact with the owning workflow/completion path defined by their setup. Runtime rows retain pinned schema versions and configuration, so later administrator edits affect future sets rather than rewriting existing work.
 
-1. The proponent is associated with an agreement under the transfer payment stream.
-2. The proponent is associated with a funding case intake whose funding opportunity profile belongs to the transfer payment stream.
+For answering, result calculation, additional reviewers, strict completion, approval handoff, and locked states, see [Runtime Reviews](../concepts/runtime-reviews.md). For approval decisions, see [Approvals and Completions](../concepts/approvals-completions.md).
 
-The intake path is therefore `Proponent -> Funding Case Intake -> Funding Opportunity Profile -> Transfer Payment Stream`. The same active-status, soft-deletion, entity-type, assessment-schema, and lead-agency checks will continue to apply. This planned path expands how a stream becomes applicable; it does not make every stream setup globally available.
+## Cancel and retry
 
-## Operating Guidance
+An authorized updater can cancel a set unless its status is `complete`, `approved`, `denied`, `withdrawn`, or `cancelled`. Cancellation is a terminal historical outcome, not deletion.
 
-Use proponent reviews to assess eligibility, financial capacity, risk, or readiness. Until intake-based eligibility is implemented, a stream-scoped setup requires an agreement association. If reviews are required before agreement creation, use a setup scoped directly to the proponent or account for this current limitation in the operating process.
+Within a non-terminal set, a denied or cancelled child review can be cloned for rework. The clone starts as a new draft in the same set and retains the source review’s pinned schema version, approval configuration, checklist/assessment mode, and behavioural flags. The original remains in history. The retry control is hidden once the set itself is terminal.
+
+If an action fails because the target or permission changed concurrently, refresh the tab and reassess the current state. Do not create a separate set merely to bypass a blocked or terminal transition.
+
+## Related guides
+
+- [Runtime Reviews](../concepts/runtime-reviews.md)
+- [Assessment Schemas and Review Setup](../programs/assessment-schemas.md)
+- [Proponent profiles](./index.md)

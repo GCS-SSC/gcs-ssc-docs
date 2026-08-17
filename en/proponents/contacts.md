@@ -1,27 +1,48 @@
 # Proponent Contacts
 
-Contacts record people associated with the proponent. They support communication, review coordination, and agreement administration.
+Use **Contacts** for people associated with a proponent. A proponent contact is a common contact record linked to the selected profile; it is not automatically an application login or Team member.
 
-## Fields
+Open **Proponents**, select a saved profile, and choose **Contacts**. The active table shows name, email, and English job title. Search matches name, email, or either language’s job title.
+
+## Access and actions
+
+| Effective access to the proponent | Available actions |
+| --- | --- |
+| Read-only access | View, search, and page through active contacts. |
+| Contributor access | View and add contacts. |
+| Full access | View, add, edit, and delete contacts. |
+| No access | The server refuses the request. |
+
+Global proponent privileges and an exact Proponent Team assignment can provide access. The server authorizes each child action against its parent profile. Writes lock the profile and rebuild authorization in the transaction.
+
+## Fields and validation
 
 | Field | Rule |
 | --- | --- |
-| Name | Required contact name. |
-| Email | Required when the contact should receive operational correspondence. |
-| Phone and extension | Optional business phone details. |
-| Title and bilingual job title | Use when role context matters to reviews or approvals. |
-| Language preference | English or French. |
-| Primary account | Indicates the main contact when the proponent has multiple contacts. |
+| Name | Required. |
+| Email | Required. Active common contacts use a case-insensitive globally unique email address. |
+| General language preference | Required value from the supported language-preference list. |
+| English and French job titles | Both are required persisted values. |
+| Primary account | Required yes/no value. The application does not enforce that only one contact per proponent is primary. |
+| Title | Optional. |
+| Business phone and extension | Optional numeric values. |
 
-## Business Rules
+The language preference records a service preference; it does not translate the stored name or replace either required job-title value.
 
-| Rule | Behaviour |
-| --- | --- |
-| Contacts belong to the proponent | Do not use proponent contacts as reusable system users. |
-| Primary contact should be unique by convention | The UI does not replace business judgment; maintain one current primary contact unless the organization requires otherwise. |
-| Language preference drives communication expectations | Keep it current for bilingual service obligations. |
-| Deletes are soft deletes | Removed contacts are hidden from active use but preserved for history. |
+## Record ownership and shared contacts
 
-## Operating Guidance
+Adding a contact creates the common contact and its proponent link in one transaction. The email uniqueness rule applies across all active common contacts, not just within this proponent. Use a genuinely distinct address for a different person; a duplicate email cannot be saved.
 
-Create at least one reliable contact before reviews or agreements begin. Update contact information when staff change so reviewers and agreement officers can reach the correct person.
+A common contact can also be referenced by another proponent or by completion and approval configuration. The server locks the contact before checking those references. It refuses an edit when another active reference exists so the change cannot silently affect another record.
+
+Deleting a contact soft-deletes this proponent’s link. The common contact is soft-deleted only when no other active proponent, completion, or approval-step reference remains. There is no restore action in this tab. Deleting a link does not remove an application user account, Team membership, or another record’s live reference.
+
+## Recovery
+
+Correct missing required values or a duplicate email and retry. If the contact is reported as shared, update the owning/shared context or create a distinct contact instead. Refresh after a concurrent edit or a not-found response.
+
+## Related guides
+
+- [Proponent profiles](./index.md)
+- [Addresses](./addresses.md)
+- [Proponent Teams](./team.md)

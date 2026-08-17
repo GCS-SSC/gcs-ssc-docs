@@ -1,0 +1,11 @@
+# Travail en arrière-plan et gestion des échecs
+
+GCS-SSC ne possède aucun système général de files d’attente, de planification, de notification ou d’envoi de courriels côté serveur. Les moteurs d’approbation, d’examen, d’achèvement, de recommandation et de flux progressent au moyen d’opérations persistantes déclenchées par des requêtes. L’exploitant ne doit pas présumer qu’un processus distinct réparera une opération métier abandonnée, sauf si la requête documentée est relancée.
+
+Le vidage SQL administratif est le seul processus serveur construit séparément. Les requêtes partagent une seule génération en cours, sont limitées dans le temps, acceptent l’annulation par l’appelant et terminent le processus lors du nettoyage. Une exportation échouée ou expirée ne produit aucun téléchargement réussi; vérifiez la capacité et les journaux du serveur avant de réessayer.
+
+Qualité narrative et Étiquettes narratives emploient des Web Workers dans le navigateur et des modèles empaquetés. Ils exécutent une inférence locale facultative, non des tâches serveur privilégiées. Un échec d’initialisation réinitialise le worker partagé et affiche un état localisé d’indisponibilité ou de repli; il ne doit pas bloquer le formulaire hôte. Si l’échec persiste, vérifiez la présence des ressources `/extensions/<extension-key>/...` dans l’artéfact de production.
+
+La synchronisation GC Forms est déclenchée par des requêtes à l’API de l’extension; ce n’est pas un service planifié. Les échecs de matérialisation conservés sont des dossiers de travail administratifs. Après correction de la configuration ou des données sources, relancez-les au moyen de l’action de reprise autorisée de l’extension. N’exposez jamais les charges utiles déchiffrées ni les exceptions diagnostiques brutes dans les consignes ou les journaux destinés aux utilisateurs.
+
+Utilisez les journaux de l’application pour le démarrage, les migrations, la répartition et les échecs inattendus, tout en sachant que le dépôt ne configure pas de système universel de journaux structurés ou de métriques. La surveillance de plateforme devrait sonder `/api/health`, observer les redémarrages et les limites de ressources, et ajouter une surveillance d’infrastructure pour la base de données, le disque et les sauvegardes.

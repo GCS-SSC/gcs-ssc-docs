@@ -1,46 +1,47 @@
 # Agreement Addresses
 
-The Addresses tab links agreement-specific address types to common address records. Each address row is an agreement child record plus a linked `Common_Address` record.
+The **Addresses** tab stores locations used specifically by an agreement. Each row links the agreement and an agency-owned address type to a common address record.
 
-## Empty installation setup
+## Access and list
 
-| Configuration | Why it matters |
+Agreement `read` access lists active links whose common address and address type are also active. `create`, `update`, and `delete` independently expose Add, Edit, and Delete. Exact Agreement Team levels supply the corresponding actions.
+
+The table shows bilingual address type, street line 1, city, and postal or ZIP code. Search also matches subdivision, all three street lines, and either language of the address type.
+
+The address-type lookup contains only active types owned by the agreement’s current agency and authorized for the requested create or update action. The server repeats that agency check when saving; a type from another agency is invalid even if its ID is submitted directly.
+
+## Fields and validation
+
+| Field | Rule |
 | --- | --- |
-| Agency address types | The address type lookup returns active address types available to the agreement context. |
-| Country and jurisdiction enums | Canadian addresses require a valid jurisdiction enum value. Non-Canadian subdivisions are free text. |
-| Agreement CRUD permissions | `create` adds an address and loads create lookups, `update` edits an existing address and its lookups, and `delete` soft-deletes it. |
-
-## Page flow
-
-The tab shows agreement addresses and opens a modal for create and edit. The address type field only offers active address types that are valid for the agreement.
-
-The list shows address type, street line 1, city, and postal or ZIP code. Address type is bilingual.
-
-## Fields
-
-| Field | Notes |
-| --- | --- |
-| Address type | Required. Must be a configured agency address type valid for the agreement. |
-| Street 1 | Required common address field. |
-| Street 2 and street 3 | Optional common address fields. |
+| Address type | Required active type owned by the agreement’s agency. |
+| Street line 1 | Required; lines 2 and 3 are optional. |
 | City | Required. |
-| Country | Required country enum. |
-| Subdivision | Required. For Canada, it must be one of the jurisdiction enum values. For other countries, it is entered as text. |
-| GC address id | Optional numeric field. |
-| Federal riding id | Optional numeric field. |
-| Main phone and extension | Optional numeric fields. |
-| Postal code or ZIP code | Required. |
+| Country | Required supported country value. |
+| Province, territory, state, or subdivision | Required. For Canada (`ca`), it must be a configured Canadian jurisdiction; for other countries it is free text. The database also enforces the Canadian rule. |
+| Postal or ZIP code | Required. |
+| Main phone | Required numeric value; extension is an optional integer. |
+| Federal riding ID | Required integer. |
+| GC address ID | Optional numeric identifier. |
 
-## Business rules
+The API schema also accepts optional latitude and longitude, although the current modal does not display them.
 
-| Rule | Behaviour |
-| --- | --- |
-| Address type is validated before save | Users can only save an address type that is valid for the agreement. |
-| Address details and agreement link are saved together | A new row creates both the address details and the agreement-specific address link. |
-| Updates can change both address type and address details | Editing an address can update the agreement address type and the address fields. |
-| Delete is a soft delete | Deleted agreement addresses disappear from normal lists but remain available for historical integrity. |
-| Canadian subdivisions are constrained | Canadian addresses require a valid province or territory. |
+## Create and edit
 
-## Dependencies
+Create inserts the common address and agreement link atomically after fresh agreement authorization. Editing may change the address type, address details, or both. The child ID must belong to the agreement in the URL.
 
-Addresses do not drive the financial child workflows directly. They depend on agency reference data and the common address schema. They are useful for agreement administration, correspondence, and reporting where the implementation reads agreement addresses.
+A common address can be referenced by another agreement or a proponent. If another active reference exists, the server refuses changes to the shared address fields so another record cannot be changed silently. A type-only edit remains allowed because it changes only this agreement link.
+
+## Delete and recovery
+
+Delete locks the agreement link and common address, then soft-deletes this agreement link. The common address is soft-deleted only when no other active agreement or proponent link refers to it. Other links are never deleted by this action.
+
+There is no restore control. Re-add an address after an accidental deletion. If an edit reports that the address is shared, correct only the type or create a distinct address instead of retrying an overwrite.
+
+The current database index accelerates agreement/address lookup but is not unique, so the service does not enforce one active link per common-address ID. Check the list before creating repeated business locations.
+
+## Related guides
+
+- [Agreement overview](./index.md)
+- [Proponent addresses](../proponents/addresses.md)
+- [Agency administration](../admin/agencies.md)

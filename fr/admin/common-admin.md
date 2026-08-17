@@ -1,73 +1,87 @@
-# Commun
+# Administration commune
 
-Commun est la page d’administration globale accessible à `/fr/admin/commun`. Elle exige la permission globale explicite `system:read` ; le rôle racine initial respecte cette règle grâce à des capacités ordinaires et ne possède aucun contournement spécial.
+L'Administration commune est le gestionnaire global de ressources piloté par configuration à `/fr/admin/commun`. Elle exige une capacité globale explicite `system:read`. Le middleware client redirige vers l'accueil si cette capacité manque ou si sa vérification échoue, mais chaque route d'API applique aussi sa propre autorisation.
 
-## Objectif
+## Ordre des ressources et propriété
 
-Utilisez Commun pour les configurations reutilisables et les enregistrements d execution qui ne sont pas possedes par un onglet detail d agence. La page est pilotee par configuration; chaque onglet offre donc une experience coherente de table, formulaire, validation et recherche.
-
-## Ordre des ressources
-
-L ordre des onglets est :
+Les onglets adressables par route apparaissent dans cet ordre exact :
 
 1. GWCOA
-2. Entites
+2. Entités
 3. Contacts
 4. Adresses
-5. Schemas de formulaire
-6. Types de piece jointe
-7. Schemas d examen
-8. Configurations d ensembles d examen
-9. Configurations d examen
-10. Completions
-11. Ensembles d examen
+5. Schémas de formulaire
+6. Types de pièce jointe
+7. Schémas d'examen
+8. Configurations d'ensembles d'examens
+9. Configurations d'examen
+10. Achèvements
+11. Ensembles d'examens
 12. Examens
-13. Modeles d approbation
-14. Etapes d approbation
+13. Modèles d'approbation
+14. Étapes d'approbation
 15. Certifications
 16. Feuilles de route
-17. Schemas de recommandation
+17. Schémas de recommandation
 18. Configurations de recommandation
 19. Recommandations
 
-L ordre va volontairement des references de base vers les enregistrements d execution.
+Ces enregistrements appartiennent aux tables communes globales, même si certains portent une portée d'agence ou de volet. La page standard exige toujours l'accès global au système. Les types de pièce jointe et les schémas d'examen ou de recommandation filtrés par agence peuvent aussi être lus par leurs recherches à portée autorisée; cela ne donne pas accès à la page Administration commune.
 
-## Comportement UI commun
+## Utiliser le gestionnaire partagé
 
-Chaque onglet affiche un tableau et un formulaire généré. Les types de champs comprennent le texte, les nombres, les dates, les zones de texte, le JSON, les valeurs booléennes, les énumérations et les recherches. La recherche porte sur les colonnes configurées et l’identifiant. Le filtre de suppression accepte les valeurs Tous, Actifs et Supprimés. Pour les ressources modifiables, une ligne existante offre un interrupteur de suppression afin que les administrateurs globaux autorisés puissent la supprimer logiquement ou la restaurer.
+Choisissez un onglet dans la navigation de gauche ou utilisez sa valeur de requête `section`. L'onglet par défaut est Contacts. L'en-tête affiche le total et le nombre actif de la ressource choisie. Chaque tableau permet la pagination, la recherche dans les colonnes configurées et l'identifiant, ainsi qu'un filtre pour toutes les lignes, les lignes actives ou les lignes supprimées.
 
-L onglet Entites est en lecture seule. Il fournit les ids d entite d execution pour les champs de recherche et ne doit pas etre cree manuellement dans l UI.
+Sélectionnez **Ajouter** pour ouvrir un formulaire généré, ou ouvrez une ligne pour la modifier. Les champs peuvent être du texte, un nombre, une date, du texte multiligne, du JSON, un booléen, une énumération ou une recherche serveur. Les colonnes bilingues de nom et de description s'affichent dans la langue courante avec repli. Les recherches chargent les libellés et hydratent la valeur choisie en modification, y compris une référence supprimée lorsque le contrat du champ le permet.
 
-## Ressources de reference
+Pour une adresse canadienne, la subdivision utilise la liste des provinces et territoires; un autre pays la transforme en texte libre et efface la valeur canadienne incompatible. Le contenu d'un schéma de recommandation utilise l'éditeur structuré lorsqu'il existe. Les autres champs JSON utilisent une zone de texte JSON et doivent respecter le schéma choisi.
 
-GWCOA, Contacts, Adresses, Schemas de formulaire et Types de piece jointe sont fondamentaux. Ils fournissent des references de plan comptable, personnes reutilisables, adresses reutilisables, JSON de schema de formulaire dynamique et libelles de piece jointe filtrables par agence. Les schemas de formulaire et types de piece jointe peuvent etre lies a une agence.
+Une ligne modifiable existante offre **Supprimé**. L'activation effectue une suppression logique; la désactivation tente une restauration. Cette page ne supprime physiquement aucun enregistrement Common.
 
-## Ressources d examen
+## Ressources en lecture seule
 
-Les Schemas d examen definissent le contenu d examen et peuvent etre de type liste de controle ou evaluation. La creation d un schema d examen Commun utilise la logique de versionnement pour creer une valeur brouillon. Les Configurations d ensembles d examen regroupent les examens par type d entite et portee. Les Configurations d examen attachent les schemas a un ensemble et les ordonnent. Les Ensembles d examen et Examens sont des enregistrements d execution crees a partir de ces definitions.
+Les onglets suivants sont volontairement en lecture seule dans ce gestionnaire générique :
 
-Lorsqu’un Examen d’exécution est créé ou associé à un autre schéma d’examen, Commun copie dans l’examen les paramètres du schéma actif sélectionné pour les résultats personnalisés, l’alignement et les examinateurs. La restauration d’un examen supprimé exige que son schéma référencé demeure actif. Une restauration sans changement de référence conserve l’instantané existant ; l’attribution d’un autre schéma actif actualise l’instantané à partir de ce nouveau schéma. Ce comportement stabilise les examens historiques et empêche leur restauration avec une configuration retirée.
+- Entités, le registre d'identités polymorphes alimenté par les enregistrements métier.
+- Modèles d'approbation, Étapes d'approbation et Certifications, gérés dans l'éditeur de modèles du volet.
+- Feuilles de route, qui sont des enregistrements d'exécution gérés par les actions d'approbation.
 
-Pour les examens de promoteur, l onglet d execution recherche les configurations d ensembles pour `applicantrecipient`, cree des ensembles d examen d execution, regroupe les examens par ensemble et ouvre les pages d evaluation pour les examens individuels.
+Le serveur refuse la création ou la modification de ces ressources même si un client tente l'appel directement.
 
-## Ressources d approbation
+## Groupes de ressources modifiables
 
-Les Modeles d approbation decrivent un flux pour une portee et un type d entite. Les Etapes d approbation definissent sequence, utilisateur par defaut et titre d approbateur. Les Certifications peuvent etre attachees aux etapes et preciser un texte optionnel ou requis. Les Feuilles de route sont des enregistrements d approbation d execution lies a une entite et un modele.
+| Groupe | Ressources | Contrat important |
+| --- | --- | --- |
+| Référence | GWCOA, Contacts, Adresses, Schémas de formulaire, Types de pièce jointe | Créez-les avant les enregistrements qui les recherchent. Une ressource liée à une agence doit référencer un propriétaire valide. Les noms et descriptions avec colonnes EN/FR exigent les deux valeurs. |
+| Conception des examens | Schémas d'examen, Configurations d'ensembles, Configurations d'examen | Un schéma est créé comme brouillon de version 0. Les configurations fixent la portée et le type d'entité exacts, l'ordre des membres, l'approbation facultative, le mode séquentiel, le déclencheur d'achèvement et l'état actif. Utilisez de préférence les éditeurs de volet pour publier la configuration de production. |
+| Exécution des examens | Ensembles d'examens, Examens | Les enregistrements pointent vers des entités sources et des configurations précises. Un nouvel examen copie les indicateurs de résultats personnalisés, d'alignement et d'examinateurs du schéma actif. Un changement de schéma actualise ces indicateurs; une restauration exige un schéma actif, tandis qu'une restauration avec le même schéma conserve l'instantané existant. |
+| Achèvement | Achèvements | Stocke l'identité typée de l'entité, la valeur, les commentaires, l'utilisateur Common et la date. Le travail métier normal doit utiliser l'action d'exécution de l'enregistrement source. |
+| Conception des recommandations | Schémas de recommandation, Configurations de recommandation | Les schémas portent l'identité bilingue, le type d'entité, le statut, le résultat et la définition structurée. Les configurations lient un schéma et un modèle d'approbation facultatif à une portée et un type exacts. |
+| Exécution des recommandations | Recommandations | Stocke la configuration, l'identité typée de l'entité, la valeur de recommandation et les réponses. Le travail normal doit utiliser le flux de la source. |
 
-Les sections d approbation et de completion ne sont utiles que lorsque modeles, etapes, utilisateurs, certifications et correspondances d entite existent.
+## Autorisation et validation
 
-## Ressources de completion
+La liste et la lecture exigent normalement `system:read` à portée globale; la création exige `system:create`; la modification, la suppression logique et la restauration exigent `system:update`. La création et la modification valident avec le schéma Zod de la ressource, puis reconstruisent l'autorisation globale dans une transaction avant la mutation. La modification verrouille la ligne cible ou utilise le chemin de verrouillage plus strict de la ressource. Un nom de ressource inconnu, un identifiant manquant, une mutation en lecture seule, une référence ou un JSON invalide et une validation localisée produisent l'enveloppe d'erreur API standard.
 
-Les Completions stockent la valeur de completion d une entite, les commentaires, l utilisateur et la date. Les types d entite comprennent les examens et recommandations communs ainsi que les flux d entente : admissions, modifications, surveillances, reclamations, previsions, paiements et recommandations.
+La recherche neutralise les caractères génériques SQL. Les identifiants bigint sont acceptés comme chaînes ou nombres lorsque le contrat le prévoit et les API exposées par PostgreSQL/Kysely les retournent sous forme de chaînes. Une modification est partielle, mais l'enregistrement fusionné doit demeurer valide.
 
-## Ressources de recommandation
+Deux routes de recherche partagées accompagnent le gestionnaire générique :
 
-Les Schemas de recommandation definissent un contenu structure et un resultat JSON. Les Configurations de recommandation attachent ces schemas et des modeles d approbation optionnels a une portee/type d entite. Les Recommandations sont des lignes d execution avec valeurs de recommandation et JSON de reponse.
+| Route | Accès et forme |
+| --- | --- |
+| `GET /api/admin/agency/approval-behalf-types` | Exige `system:read` global. Retourne une liste interagences paginée avec les noms bilingues du type de représentation et de l'agence, `egcs_ay_require_actual`, l'état de suppression, le `total` filtré et les statistiques globales non filtrées `stats.total` et `stats.active`. La recherche traite `%`, `_` et les caractères d'échappement comme du texte littéral et porte aussi sur l'identifiant numérique. Une requête `deleted` explicite l'emporte sur `status=active|deleted`. |
+| `GET /api/metadata/enums?name=...` | Route volontairement publique afin que la connexion et les contrôles partagés puissent charger les valeurs autorisées. Retourne un simple tableau ordonné de chaînes; elle n'accepte jamais un nom arbitraire de type PostgreSQL. `ability` retourne le catalogue statique des capacités, plusieurs énumérations applicatives proviennent de constantes statiques et les autres énumérations autorisées suivent l'ordre PostgreSQL. Un nom invalide produit l'erreur localisée `ENUM_INVALID`. |
 
-## Conseils operationnels
+La route des types de représentation est un inventaire administratif, et non le sélecteur d'agence à portée limitée. Ses statistiques décrivent la table entière même lorsque la liste d'éléments est recherchée ou filtrée. Les libellés d'énumération affichés dans les contrôles sont traduits côté client à partir de ces codes stables; cette route ne retourne pas de texte d'affichage localisé.
 
-Les administrateurs système globaux ne devraient pas utiliser Commun comme simple éditeur de données. Plusieurs ressources pilotent les flux d’exécution. Modifier des schémas actifs, des modèles d’approbation ou des configurations après la création de dossiers d’exécution peut affecter les nouveaux dossiers différemment des dossiers historiques. Préférez créer une nouvelle version ou une nouvelle configuration lorsque le processus métier change.
+## Dépendances et rétablissement
 
-![Ressources Commun](/screenshots/fr/common-admin.png)
+Créez les références avant les configurations, puis les configurations avant les enregistrements d'exécution. Créez notamment les utilisateurs actifs et les portées d'agence ou de volet avant les configurations d'approbation ou d'examen; publiez les schémas et modèles de production dans leurs éditeurs spécialisés avant de matérialiser le travail.
 
-_Capture reelle de l environnement de developpement avec donnees semees. Les enregistrements montres sont seulement des exemples et ne sont pas crees dans une installation fraiche._
+Si une recherche est vide, vérifiez que la ressource existe, n'est pas supprimée, respecte les filtres d'agence et de type d'entité et que vous avez la permission de lecture à sa portée. Si une restauration échoue, restaurez ou remplacez d'abord les dépendances actives exigées. Si l'enregistrement signale un changement concurrent de permission ou de propriété, rechargez la page au lieu de soumettre de nouveau un état périmé.
+
+L'Administration commune est une surface experte de configuration et de réparation, pas un remplacement des pages d'exécution normales. Une modification directe d'une configuration active ou d'un enregistrement d'exécution peut différencier le travail nouveau et historique. Préservez l'historique figé et publiez une nouvelle version lorsque le processus métier change.
+
+![Ressources de l'Administration commune](/screenshots/fr/common-admin.png)
+
+_La capture utilise des données de développement préchargées. Une installation neuve ne contient pas ces exemples._

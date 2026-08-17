@@ -1,48 +1,64 @@
-# Activites d entente
+# Activités de l'entente
 
-L onglet Activites enregistre les activites bilingues, les resultats attendus, les dates, les resultats du volet et les responsables. Les activites sont des enfants d entente integres; elles n ont pas de page de detail separee.
+Utilisez l'onglet **Activités** d'une entente pour décrire les travaux, l'échéancier, les résultats attendus, les résultats de programme connexes et les bénéficiaires responsables. Les activités sont des fiches intégrées à l'entente; elles n'ont pas de page de détail distincte.
 
-## Configuration d une installation vide
+## Accès et préalables
 
-| Configuration | Utilite |
+L'entente doit exister et être visible dans votre portée exacte sur l'entente. L'action `read` permet d'afficher les activités, `create` de les ajouter, `update` de les modifier et `delete` de les retirer. Le serveur vérifie l'action demandée sur l'entente et renvoie volontairement la même réponse d'introuvable lorsque l'entente est absente ou inaccessible.
+
+Avant de créer une activité :
+
+- configurez les résultats dans le programme de paiements de transfert de l'entente;
+- liez chaque bénéficiaire responsable voulu dans l'onglet **Bénéficiaires** de l'entente;
+- vérifiez que votre équipe d'entente ou votre rôle général accorde l'action requise.
+
+Les recherches de résultats et de responsables utilisent la même action `create` ou `update` que le formulaire ouvert. Elles ne permettent pas de contourner l'autorisation sur l'entente.
+
+## Ajouter ou modifier une activité
+
+L'onglet ouvre un formulaire plein écran. Tous les champs ci-dessous sont obligatoires.
+
+| Champ | Règle |
 | --- | --- |
-| Resultats du volet | Le selecteur de resultats lit les resultats actifs configures pour le volet de l entente. |
-| Liens demandeur/beneficiaire de l entente | Les responsables sont choisis parmi les demandeurs/beneficiaires deja lies a l entente. |
-| Permissions CRUD d’entente | `create` ajoute une activité et charge ses recherches de création, `update` modifie une activité existante et ses recherches, et `delete` la supprime logiquement. |
+| Nom anglais | Valeur non vide d'au plus 255 caractères. |
+| Nom français | Valeur non vide d'au plus 255 caractères. |
+| Date de début | Date obligatoire. |
+| Date de fin | Date obligatoire, égale ou postérieure à la date de début. |
+| Description anglaise | Texte non vide. |
+| Description française | Texte non vide. |
+| Résultats attendus en anglais | Texte non vide. |
+| Résultats attendus en français | Texte non vide. |
+| Résultats connexes | Au moins un résultat actif et unique appartenant au programme de l'entente. |
+| Responsables | Au moins un lien actif et unique entre l'entente et un bénéficiaire lui-même actif. |
 
-## Flux de page
+Les sélecteurs de résultats et de responsables offrent une recherche côté serveur et la sélection multiple. Si un seul responsable est disponible au chargement d'un nouveau formulaire, l'interface le sélectionne automatiquement; vous pouvez tout de même modifier ce choix. Lorsqu'une recherche est vide, son bouton de sélection est désactivé et l'interface indique qu'aucun choix n'est disponible.
 
-L onglet liste les activites de l entente. Le modal est plein ecran parce que les activites contiennent de longs champs bilingues et deux champs multi-selection.
+Changer la langue de l'interface change les noms affichés, et non les valeurs anglaises et françaises enregistrées. Chaque champ linguistique doit être rempli séparément.
 
-Recherches :
+## Liste et recherche
 
-| Recherche | Choix offerts |
-| --- | --- |
-| Resultats | Resultats actifs configures pour le volet de l entente. |
-| Responsables | Liens demandeur/beneficiaire deja rattaches a l entente. |
+Le tableau présente le nom et la description dans la langue active, les dates de début et de fin, les résultats attendus dans la langue active ainsi que les pastilles de résultats et de responsables. Il est paginé. La recherche porte sur l'identifiant de l'activité; le nom, la description ou les résultats attendus en anglais ou en français; les noms des résultats; ainsi que les dénominations sociales ou noms commerciaux des bénéficiaires. Elle ne porte **pas** sur les dates affichées.
 
-## Champs
+Les liens de résultat inactifs, les liens inactifs entre l'entente et un bénéficiaire et les bénéficiaires supprimés sont omis des résultats et des pastilles.
 
-| Champ | Regle |
-| --- | --- |
-| Nom anglais et francais | Requis, maximum 255 caracteres. |
-| Description anglaise et francaise | Requise. |
-| Date de debut et de fin | Requises. La date de fin ne peut pas preceder la date de debut. |
-| Resultats attendus anglais et francais | Requis. |
-| Resultats | Tableau requis d identifiants uniques de resultats du volet. |
-| Responsables | Tableau requis d identifiants uniques de liens demandeur/beneficiaire. |
+## Validation, concurrence et reprise
 
-## Regles d affaires
+Dans la transaction d'écriture, le serveur verrouille les lignes établies de portée et d'entente, puis revérifie la portée exacte. Il confirme ensuite que chaque résultat appartient toujours au programme de l'entente et que chaque identifiant de responsable appartient toujours à cette entente. Un choix périmé, supprimé, rattaché à un autre programme ou à une autre entente est rejeté au moyen d'une erreur d'API ou de validation localisée.
 
-| Regle | Comportement |
-| --- | --- |
-| Les resultats doivent appartenir au volet | Les identifiants invalides sont rejetes. |
-| Les responsables doivent appartenir a l entente | Les identifiants invalides sont rejetes. |
-| Les selections dupliquees sont invalides | Les deux tableaux rejettent les doublons. |
-| La plage de dates est validee a l enregistrement | Si les deux dates sont presentes, le debut doit etre avant ou egal a la fin. |
+Les changements de sélection sont synchronisés dans la même transaction. Les liens retirés sont supprimés logiquement; sélectionner de nouveau le même résultat ou responsable restaure le lien existant lorsque c'est possible. Une défaillance partielle annule ensemble l'activité et ses sélections. La base de données impose aussi la plage de dates, l'appartenance à l'entente et à la version ainsi qu'un seul lien actif pour chaque paire activité-résultat et activité-responsable.
 
-## Comportement de table
+Si un autre auteur modifie l'accès ou la configuration connexe avant l'enregistrement, rechargez l'entente et rouvrez le formulaire. Une mise à jour vide ne change pas l'activité et renvoie ses valeurs courantes.
 
-Les activites affichent le nom et la description bilingues, la periode, les resultats attendus bilingues, les badges de resultats et les badges de responsables. La recherche couvre les dates, noms, descriptions, resultats attendus, resultats et responsables.
+## Suppression et versions
 
-Les activites ne declenchent pas de completion ni d approbation dans l implementation courante. Elles peuvent servir au narratif d entente, aux modifications et aux extensions.
+La suppression d'une activité demande une confirmation, puis supprime logiquement l'activité et ses liens de résultat. Les liens de responsables deviennent invisibles parce que leur activité parente est supprimée, mais la route principale de suppression ne marque pas séparément ces lignes comme supprimées. L'onglet Activités n'offre aucune restauration; la reprise exige une intervention administrative ou sur les données autorisée.
+
+L'onglet Activités ordinaire lit et modifie uniquement l'unique version de travail courante des activités de l'entente. La création d'une entente crée automatiquement cette version. La préparation d'une modification emploie un instantané et des routes d'activités propres à la modification; elle ne modifie pas silencieusement les lignes de l'onglet courant. Les points de contrôle des révisions approuvées conservent la provenance de leur version. Consultez [Ententes de financement](./index.md) pour la carte des onglets.
+
+Une activité ne lance pas elle-même une approbation, une évaluation, une réalisation ni un flux de travail.
+
+## Guides connexes
+
+- [Ententes de financement](./index.md)
+- [Bénéficiaires de l'entente](./applicant-recipients.md)
+- [Programmes et résultats](../programs/index.md)

@@ -1,6 +1,6 @@
 # Promoteurs
 
-Les promoteurs sont des profils de demandeur/beneficiaire. Ils peuvent etre crees avant les ententes, examines independamment, affectes a des equipes et lies a une ou plusieurs ententes.
+Les promoteurs sont des profils de demandeur ou de bénéficiaire. Ils peuvent être créés avant les ententes, examinés indépendamment, affectés à des équipes et liés à une ou plusieurs ententes.
 
 ## Dependances de configuration
 
@@ -21,14 +21,14 @@ Créer apparaît avec l’indicateur direct Promoteur `create` et ouvre la page 
 
 ## Creer un profil
 
-La page de creation commence un profil brouillon. Les utilisateurs choisissent l agence principale et le sous-type, puis saisissent les noms bilingues, descriptions, identifiants et renseignements SCIAN.
+La page de création commence un profil brouillon. Les utilisateurs choisissent l'agence principale et le sous-type, puis saisissent les noms légaux, commerciaux et d'organisme de recherche ainsi que les descriptions bilingues. Les identifiants de registre et le SCIAN se trouvent dans l'onglet Registres après la création.
 
 | Regle | Comportement |
 | --- | --- |
 | L agence principale est obligatoire | Un promoteur ne peut pas exister sans agence responsable. |
 | Le sous-type est obligatoire | Le sous-type classifie le promoteur et doit appartenir a l agence principale. |
-| Le SCIAN est obligatoire a la creation | Le profil doit inclure la classification d industrie requise pour les rapports et examens. |
-| Le numero d entreprise doit etre unique lorsqu il est fourni | Les doublons actifs sont bloques pour eviter les profils organisationnels en double. |
+| Chaque valeur bilingue principale exige au moins une langue | Le nom légal, le nom commercial et la description exigent chacun une valeur anglaise ou française; les deux langues assurent un affichage bilingue complet. |
+| L'agence et le sous-type doivent correspondre | Le sous-type doit être actif et appartenir à l'agence principale choisie; le formulaire l'efface lorsque l'agence change. |
 | Les nouveaux profils commencent en brouillon | Les utilisateurs peuvent completer les onglets de soutien avant l utilisation operationnelle. |
 | Les champs bilingues doivent etre maintenus ensemble | Les noms et descriptions sont affiches dans la langue active. |
 
@@ -40,6 +40,7 @@ La page detail contient un sommaire repliable et des onglets:
 | --- | --- |
 | General | Profil de base, identifiants, agence, sous-type, statut, noms et descriptions. |
 | [Identifiants financiers](./agency-financial-ids.md) | Identifiants financiers propres aux agences. |
+| Registres | Numéros d'entreprise, de bienfaisance, provinciaux, autochtones, SCIAN et autres identifiants avec validation selon le type. |
 | [Autres noms](./other-names.md) | Noms legaux, commerciaux, historiques ou informels alternatifs. |
 | [Adresses](./addresses.md) | Adresses physiques ou postales. |
 | [Contacts](./contacts.md) | Personnes et coordonnees. |
@@ -57,7 +58,6 @@ L onglet General affiche ou modifie:
 | Groupe de champs | Contenu |
 | --- | --- |
 | Agence et classification | Agence principale, sous-type et statut. |
-| Identifiants | Numero d entreprise, numero de bienfaisance, numero provincial et SCIAN. |
 | Noms bilingues | Noms legaux, commerciaux et d organisme de recherche en anglais et francais. |
 | Descriptions bilingues | Descriptions anglaise et francaise du profil. |
 
@@ -69,7 +69,7 @@ Lorsque l utilisateur peut modifier le promoteur, General devient un formulaire 
 | --- | --- |
 | 1 | Configurer l agence principale et les sous-types. |
 | 2 | Creer le profil en brouillon. |
-| 3 | Ajouter identifiants, autres noms, adresses et contacts. |
+| 3 | Ajouter les identifiants de registre, les autres noms, les adresses et les contacts. |
 | 4 | Ajouter des membres d equipe si l acces doit etre delegue. |
 | 5 | Executer les examens lorsque le processus l exige. |
 | 6 | Lier le promoteur aux ententes pendant la creation d entente ou depuis l onglet Promoteurs de l entente. |

@@ -291,6 +291,8 @@ If an on-behalf type requires actual approval details, the approver must enter a
 
 ## Operational Guidance
 
+Save, activate, and publish operations recheck the active stream/program/agency chain and exact `transfer_payment:update` access inside a fresh transaction. An inaccessible schema is masked like a missing one. Activation fails unless the schema is a valid draft; publication fails unless it is active and has valid pending content. When validation identifies a broken dependency, unknown helper field, duplicate code, calculation cycle, or invalid publication state, keep the editor open, correct the referenced section/item, save again, and only then activate or publish.
+
 Use these practices for stable schemas:
 
 - Treat language-independent codes as durable identifiers.

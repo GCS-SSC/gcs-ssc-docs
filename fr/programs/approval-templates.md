@@ -82,6 +82,12 @@ La section Approbations additionnelles determine si les utilisateurs peuvent pro
 
 Lorsque les approbations additionnelles sont permises, les noms d etape bilingues par defaut sont obligatoires. La liste des certifications par defaut peut etre vide. La politique et ses valeurs par defaut sont copiees dans chaque feuille de route au moment de sa materialisation. Les modifications ulterieures du modele s appliquent donc seulement aux nouvelles feuilles et ne modifient pas silencieusement une route deja en cours.
 
+## Cycle De Vie Et Publication Du Modèle
+
+Un nouveau modèle est une ébauche. L'enregistrement modifie son en-tête, ses étapes, ses certifications et sa politique d'approbations additionnelles de travail, mais ne rend pas cette configuration disponible à la matérialisation d'exécution. Activer est offert seulement pour une ébauche et publie le premier instantané complet comme version 1. Modifier un modèle actif crée des changements en attente; Publier est offert seulement lorsque la configuration de travail diffère de l'instantané publié et avance la version.
+
+L'instantané publié contient l'identité du modèle, la politique et les certifications par défaut des approbations additionnelles, les identités, séquences et utilisateurs par défaut des étapes ordonnées ainsi que la politique de certification de chaque étape. Les feuilles de route d'exécution copient cet instantané. Une feuille existante conserve donc sa route d'origine après une publication ultérieure.
+
 ## Etapes D Approbation
 
 Les etapes d approbation sont les actions ordonnees d une feuille de route. Chaque etape contient:
@@ -258,6 +264,8 @@ Les modeles d approbation et les completions sont distincts mais apparaissent so
 Les administrateurs doivent configurer a la fois la route du modele et la configuration d execution qui decide quand la route est requise.
 
 ## Conseils Operationnels
+
+Les routes de modèle résolvent l'autorisation depuis leur portée conservée. Un modèle de volet exige l'action précise sur le programme et le volet propriétaires; une portée globale ou commune utilise sa limite d'autorisation configurée. Les écritures revérifient la portée et l'autorisation courantes dans une transaction. Un modèle absent et un modèle inaccessible utilisent la même limite de type « introuvable ». L'activation ou la publication échoue pour un état de cycle de vie invalide, des étapes ou certifications incomplètes ou en double, un utilisateur par défaut inactif ou invalide, ou l'absence de changement en attente. Rechargez après des modifications simultanées, corrigez la dépendance indiquée, enregistrez tout le modèle et réessayez.
 
 Utilisez ces pratiques:
 

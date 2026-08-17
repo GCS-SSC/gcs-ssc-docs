@@ -29,7 +29,7 @@ La liste prend en charge:
 - Compteurs de sommaire pour le total des programmes et les programmes actifs lorsque la donnee est disponible.
 - Actions creer, modifier, supprimer et assistant lorsque l utilisateur a la permission de paiement de transfert correspondante.
 
-La suppression utilise le flux commun de confirmation et un comportement de suppression logique. Les administrateurs devraient l utiliser comme correction de configuration, non comme action normale de fin de vie pour un programme qui a deja des volets ou des ententes d execution.
+La suppression utilise le flux commun de confirmation et supprime logiquement le profil. Les administrateurs devraient l'utiliser comme correction de configuration, et non comme action normale de fin de vie pour un programme ayant un historique opérationnel.
 
 ## Modale De Creation Rapide
 
@@ -79,7 +79,7 @@ A la soumission, l assistant cree le profil, les resultats, les objectifs, les b
 
 L ouverture d un programme affiche un sommaire repliable avec le nom et la description bilingues. Le bouton de modification ouvre la meme modale de profil que la liste, avec les dates normalisees pour les champs de date.
 
-La page de detail utilise des onglets verticaux pour General et Volets.
+La page de détail utilise six onglets verticaux pouvant être liés directement : Général, Volets, Résultats, Objectifs, Budgets et Indicateurs de rendement. L'onglet sélectionné est conservé dans le paramètre de requête `section`; un administrateur peut donc ajouter une zone de configuration précise à ses favoris.
 
 ## Onglet General
 
@@ -132,6 +132,8 @@ Les budgets de programme repartissent le financement par exercice financier de l
 
 Chaque budget de programme peut ensuite etre reference par des budgets de volet. Configurez les budgets du programme avant les budgets de volet, les engagements ou toute configuration d entente dependante de l exercice financier.
 
+Un budget de programme ne peut pas être réduit sous la somme de ses affectations actives aux budgets de volet, ni être supprimé tant que de telles affectations le référencent. Rechargez la page avant de réessayer si un autre administrateur a modifié les affectations simultanément.
+
 Le selecteur d’exercice financier recherche les exercices disponibles de l’agence du programme. Lors de la modification d’un budget, l’exercice enregistre est resolu vers son libelle d’affichage meme s’il ne figure pas sur la page de resultats courante; les dossiers hors de la portee de l’agence du programme ne peuvent pas etre selectionnes.
 
 ## Onglet Indicateurs De Rendement
@@ -159,6 +161,12 @@ Les actions lire, créer, modifier et supprimer sont autorisées par le sujet de
 - Les équipes ne sont jamais évaluées pour les agences, les programmes ou les volets.
 
 Si un utilisateur peut lire un programme sans pouvoir le modifier, la page de detail charge quand meme, mais les actions de modification et d ajout sont masquees ou desactivees.
+
+## Suppression, Échec Et Reprise
+
+Les suppressions du profil et de ses enfants sont logiques plutôt que physiques. Supprimer un profil ne supprime pas physiquement ses volets ni ses anciennes configurations, mais les chemins exigeant un profil actif ne les exposent plus. Avant la suppression, le serveur verrouille le profil et l'ensemble courant de volets actifs, vérifie de nouveau l'accès précis de suppression et demande à chaque extension enregistrée de protéger la portée de chaque volet. Une règle de cycle de vie d'extension peut bloquer l'opération. Si l'ensemble de volets actifs change à répétition pendant l'acquisition des verrous, la requête produit une erreur localisée de changement de portée au lieu de supprimer selon un état périmé.
+
+Les créations, modifications, assistants et mutations d'enfants revérifient l'autorisation et la propriété active dans des transactions. L'agence d'un profil existant est immuable. Une ressource absente et une ressource inaccessible sont volontairement difficiles à distinguer; vérifiez l'identifiant ainsi que la portée globale, d'agence ou de programme lié de l'utilisateur. Les valeurs bilingues en double, les dates ou URL invalides, les exercices d'une autre agence et les valeurs financières non sûres produisent des erreurs localisées de validation ou de conflit. Rechargez après un changement simultané, corrigez le champ indiqué et soumettez de nouveau; les valeurs de la fenêtre demeurent disponibles après une erreur d'API ordinaire.
 
 ## Ordre De Configuration Operationnelle
 

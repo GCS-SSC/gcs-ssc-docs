@@ -1,69 +1,97 @@
-# Surveillances d entente
+# Surveillance des ententes
 
-Les surveillances enregistrent le travail de surveillance prevu, les elements surveilles, les constatations, les suivis, les mises a jour, les pratiques prometteuses et la completion. Elles ont un resume dans l onglet et une page de detail.
+Les surveillances d'entente regroupent un exercice de surveillance : son calendrier, ses objectifs, ses éléments de travail, ses constatations, ses suivis, ses mises à jour, ses pratiques prometteuses, son achèvement et tout flux de travail configuré. Ouvrez **Ententes**, sélectionnez une entente, puis choisissez **Surveillances**. Sélectionnez le type de surveillance pour ouvrir son espace de travail.
 
-## Configuration d une installation vide
+## Avant de créer une surveillance
 
-| Configuration | Utilite |
+L'entente doit déjà être rattachée à un volet de paiement de transfert et à une agence. Les administrateurs doivent configurer les données de référence suivantes :
+
+| Dépendance | Portée appliquée |
 | --- | --- |
-| Types de surveillance du paiement de transfert | La recherche est portee par le volet de l entente. |
-| Exercices de l agence | La recherche d exercice provisoire est portee par l agence de l entente. |
-| Modele d approbation `fundingcasemonitor` | Requis si la completion doit aller en approbation. |
-| Permissions CRUD d’entente | `create` crée les surveillances et sous-dossiers, `update` les modifie et achève les surveillances encore modifiables, et `delete` les supprime logiquement. Les actions d’approbation exigent aussi l’accès ordinaire en lecture et une attribution. |
+| Type de surveillance | Type non supprimé appartenant au volet actuel de l'entente. |
+| Exercice provisoire | Exercice non supprimé appartenant à l'agence de l'entente. |
+| Modèle d'approbation de surveillance | Facultatif et distinct de l'achèvement direct; il doit viser le volet et le type d'entité `fundingcasemonitor`. |
+| Configuration de flux de travail | Facultative; l'achèvement lance le flux d'achèvement applicable lorsqu'il est configuré. |
 
-## Flux d onglet
+L'onglet Surveillances exige l'accès `read` à l'entente. Le serveur vérifie l'action d'entente correspondante, soit `create`, `update` ou `delete`, pour chaque écriture; les équipes et les portées d'accès sont appliquées côté serveur. Les requêtes de recherche répètent l'action exigée par le formulaire (`create` ou `update`).
 
-L onglet affiche le type, l exercice provisoire, le trimestre, l indicateur sur place, le statut et les actions.
+## Créer et gérer l'en-tête
 
-La creation saisit :
+La liste affiche le type, l'exercice, le trimestre provisoire, l'indicateur sur place, le statut et les actions. La recherche porte sur les deux langues du type, le libellé de l'exercice, le trimestre et la valeur Oui/Non localisée.
 
-| Champ | Regle |
+| Champ | Règle |
 | --- | --- |
-| Type | Type de surveillance requis du volet. |
-| Exercice provisoire | Exercice d agence requis. |
-| Trimestre provisoire | Entier requis de 1 a 4. |
-| Sur place | Booleen requis. |
+| Type | Obligatoire. Le serveur rejette un type hors du volet de l'entente même si un appelant contourne le sélecteur. Les noms bilingues résident dans le dossier de référence du volet. |
+| Exercice provisoire | Obligatoire. Le serveur rejette un exercice hors de l'agence de l'entente. Son libellé d'affichage est identique dans les réponses des deux langues. |
+| Trimestre provisoire | Petit entier obligatoire de 1 à 4; la validation et PostgreSQL appliquent tous deux cette plage. |
+| Sur place | Valeur vrai/faux obligatoire. |
 
-Les nouvelles surveillances commencent a `draft`.
+Une nouvelle surveillance commence à `draft`. Son ouverture affiche Planification, Éléments, Constatations, Suivis, Pratiques prometteuses et Flux de travail, puis les onglets d'extension activés qui ciblent `monitor`. Tant que la surveillance est modifiable, les quatre champs d'en-tête peuvent être changés.
 
-## Page de detail
+::: warning Le statut n'avance pas lors d'une modification
+Même si le code source contient l'utilitaire `syncAgreementMonitorEditingStatus`, aucune route actuelle ne l'appelle. La création ou la modification de sous-dossiers ne fait donc **pas** automatiquement passer `draft` à `inprogress`. Considérez le statut affiché comme la valeur enregistrée, et non comme une preuve de la quantité de travail saisie.
+:::
 
-L espace de detail contient :
+## Consigner le travail de surveillance
 
-| Onglet | Dossiers |
+Toute création, modification ou suppression d'un sous-dossier exige la permission correspondant à l'opération, renouvelle l'autorisation dans une transaction, verrouille l'agrégat de surveillance et rejette une surveillance à l'état `complete`, `pendingapproval`, `approved` ou `denied`. Le lien parent-enfant est revérifié avant la mutation.
+
+| Espace | Contenu obligatoire et comportement |
 | --- | --- |
-| Planification | Metadonnees et objectifs de surveillance. |
-| Elements | Liste de controle ou elements de travail. |
-| Constatations | Constatations avec type de recommandation/action et responsable. |
-| Suivis | Actions de suivi et historique des mises a jour. |
-| Pratiques prometteuses | Pratiques positives observees. |
-| Flux | Completion et approbation. |
-| Extensions | Onglets facultatifs d extension. |
+| Planification | Un ou plusieurs objectifs en texte libre. Aucune règle d'unicité ni de nombre minimal ne s'applique. |
+| Éléments | Nom (maximum de 255 caractères), détail, dates de début et de fin prévues, indicateur de surveillance et dates réelles facultatives. La fin prévue ne peut précéder le début prévu. Lorsque **Surveillé** est vrai, les deux dates réelles sont obligatoires; lorsqu'elles existent toutes deux, la fin réelle ne peut précéder le début réel. |
+| Constatations | Nom (maximum de 255 caractères), type d'action, partie responsable et détail. Les types d'action sont `amendment`, `mandatoryaction`, `suggestedaction` et `none`. |
+| Suivis | Nom (maximum de 255 caractères), partie responsable et date d'échéance. La création enregistre toujours le statut `open`; le formulaire de suivi ne permet pas de modifier directement ce statut. |
+| Mises à jour de suivi | Texte, statut et date de mise à jour. Le statut est `open`, `onhold`, `completed`, `cancelled` ou `unabletocomplete`. La visionneuse des mises à jour permet l'ajout, la modification et la suppression lorsque l'utilisateur est autorisé. |
+| Pratiques prometteuses | Un ou plusieurs dossiers de pratique en texte libre. |
 
-## Sous-dossiers
+Les valeurs de partie responsable utilisées par les constatations et les suivis sont `applicantrecipient`, `organization` et `joint`. L'interface localise les libellés d'énumération; le texte libre de surveillance est enregistré tel qu'il est saisi plutôt que dans des champs français et anglais jumelés.
 
-| Dossier | Champs requis | Notes |
-| --- | --- | --- |
-| Objectif de planification | Surveillance, objectif | Capture ce que l activite de surveillance doit evaluer. |
-| Element | Surveillance, nom, debut/fin prevus, detail, indicateur surveille | Si surveille est vrai, debut et fin reels sont requis. Les plages de dates doivent etre valides. |
-| Constatation | Surveillance, nom, type de recommandation, responsable, detail | Type : `amendment`, `mandatoryaction`, `suggestedaction`, `none`. Responsable : demandeur/beneficiaire, organisation ou conjoint. |
-| Suivi | Surveillance, nom du suivi, responsable, date d echeance | Le statut est gere par les mises a jour. |
-| Mise a jour de suivi | Suivi, texte, statut, date | La creation, modification ou suppression synchronise le statut du suivi avec la derniere mise a jour, ou `open` s il n en reste aucune. |
-| Pratique prometteuse | Surveillance, texte | Dossier texte libre. |
+### Statut et historique d'un suivi
 
-## Regles d affaires
+Après la création, la modification ou la suppression logique d'une mise à jour, le suivi parent prend le statut de la mise à jour non supprimée ayant le plus grand identifiant de base de données. S'il n'en reste aucune, il revient à `open`. Il s'agit de l'ordre d'insertion, et non de la date de mise à jour saisie : antidater un nouveau dossier ne l'empêche pas de devenir la source du statut. La modification du suivi lui-même ne change pas ce statut dérivé.
 
-| Regle | Comportement |
+## Achever une surveillance
+
+Utilisez **Flux de travail > Achever** pendant que la surveillance est modifiable. L'achèvement exige au moins un élément de surveillance non supprimé. Il n'exige pas d'objectif de planification, que tous les éléments soient marqués surveillés, des dates réelles pour les éléments non surveillés, des constatations, des suivis résolus, des pratiques prometteuses ni la réussite d'une approbation distincte.
+
+La requête d'achèvement :
+
+1. renouvelle l'autorisation de mise à jour de l'entente et verrouille la surveillance;
+2. revérifie qu'aucun achèvement n'existe et qu'au moins un élément demeure;
+3. fait passer la surveillance à `complete`;
+4. crée un seul dossier d'achèvement commun avec l'utilisateur commun actuel et les commentaires facultatifs;
+5. lance le flux d'achèvement configuré, s'il y a lieu;
+6. émet le crochet d'achèvement après la validation de la transaction.
+
+L'achèvement est à sens unique dans l'espace principal actuel. Une surveillance achevée et tous ses sous-dossiers sont en lecture seule.
+
+::: warning L'achèvement ne lance pas l'approbation de la surveillance
+L'achèvement direct écrit toujours `complete`. Il ne consulte pas un modèle d'approbation `fundingcasemonitor` et ne crée pas de feuille d'acheminement, même lorsqu'un modèle valide existe.
+:::
+
+## Limite entre approbation et flux de travail
+
+Le moteur d'approbation générique prend en charge `fundingcasemonitor` : une API explicite ou une intégration de flux autorisée peut créer une feuille d'acheminement à partir du modèle actuel du volet, attribuer des étapes séquentielles, permettre des étapes supplémentaires configurées, réattribuer une étape en attente et consigner les décisions d'approbation ou de refus. La création de cette feuille fait passer la surveillance à `pendingapproval`; la décision finale fait passer la feuille et la surveillance à `approved` ou `denied`. L'approbateur actuellement affecté traite la prochaine étape en attente, tandis que les opérations de gestion exigent une nouvelle autorisation de mise à jour de l'entente.
+
+La page principale de surveillance n'offre aucune commande pour créer la première feuille d'acheminement autonome. Sa section Flux de travail affiche les approbations seulement lorsqu'une feuille a déjà été matérialisée ou qu'un flux configuré atteint son étape d'approbation de la source. N'indiquez pas aux utilisateurs que la sélection d'**Achever** mène conditionnellement à l'approbation.
+
+Les flux d'achèvement sont aussi distincts de l'approbation autonome. Un flux configuré peut lancer une séquence d'examen, de recommandation et d'approbation finale. La section Flux de travail affiche les tentatives actuelle et antérieures, et les utilisateurs autorisés peuvent reprendre une exécution échouée admissible. Consultez [Flux de travail](../concepts/workflows.md) et [Approbations, achèvements et intégration des flux de travail](../concepts/approvals-completions.md).
+
+## Supprimer et récupérer prudemment
+
+La suppression d'un sous-dossier active son indicateur `_deleted`. La suppression d'un suivi supprime aussi logiquement ses mises à jour. La suppression d'une surveillance modifiable supprime logiquement, dans une seule transaction, la surveillance, ses objectifs, ses éléments, ses constatations, ses pratiques prometteuses, ses suivis et leurs mises à jour. Les clés étrangères interdisent la suppression physique; les routes prises en charge utilisent plutôt la suppression logique.
+
+La suppression n'est plus offerte après `complete`, `pendingapproval`, `approved` ou `denied`. Confirmez la surveillance exacte avant de la supprimer; l'interface principale n'offre aucune restauration. En cas d'échec, aucun message de réussite n'est affiché et la fenêtre demeure ouverte pour correction. Après un résultat réseau incertain, actualisez avant de réessayer, car le serveur pourrait déjà avoir validé l'écriture.
+
+## Résumé du contrat d'API
+
+| Groupe de routes | Contrat |
 | --- | --- |
-| Le type doit appartenir au volet | Les types invalides sont rejetes. |
-| L exercice doit appartenir a l agence | Les exercices invalides sont rejetes. |
-| Les etats verrouilles bloquent les modifications | `complete`, `pendingapproval`, `approved` et `denied` sont en lecture seule. |
-| La modification fait progresser le statut | Les modifications synchronisent la surveillance a `inprogress` sauf si elle est deja en approbation. |
-| La completion exige du contenu | Il faut au moins un element de surveillance. |
-| Le statut de suivi vient des mises a jour | La derniere mise a jour non supprimee controle le statut du suivi. |
+| `GET /api/agreements/{id}/monitors-overview` | Liste autorisée avec noms de type bilingues et libellé d'exercice. |
+| `POST /api/agreements/{id}/monitors` | Création `draft` validée avec autorisation renouvelée. |
+| `GET/PATCH/DELETE /api/agreements/{id}/monitors/{monitorId}` | Lecture de l'agrégat complet, modification de l'en-tête modifiable ou cascade transactionnelle de suppressions logiques. |
+| `GET /api/agreements/{id}/monitors/lookups/*` | Types de surveillance du volet ou exercices de l'agence, paginés et interrogeables; l'autorisation suit `permission_action`. |
+| `/monitor-planning`, `/monitor-items`, `/monitor-findings`, `/monitor-followups`, `/monitor-followup-updates`, `/monitor-promising-practices` | Chaque groupe offre POST ainsi que PATCH et DELETE par identifiant de sous-dossier; aucune route GET distincte n'est nécessaire puisque la réponse de détail de l'agrégat fournit toutes les lignes. |
 
-## Completion et approbation
-
-Type d entite : `fundingcasemonitor`.
-
-La completion cree un enregistrement commun. Avec un modele valide pour `fundingcasemonitor`, la surveillance passe a `pendingapproval`; sans modele, elle passe a `complete`. La section d approbation apparait dans l onglet Flux pour `pendingapproval`, `approved` ou `denied`.
+Les erreurs de validation utilisent la langue de la requête et la réponse normalisée `VALIDATION_FAILED`. Une surveillance ou un sous-dossier absent ou rattaché à une autre entente est rejeté; l'autorisation n'est jamais déduite d'un identifiant fourni dans le corps de la requête.

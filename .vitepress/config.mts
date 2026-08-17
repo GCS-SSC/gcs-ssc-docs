@@ -18,6 +18,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         programOverview: 'Vue d’ensemble',
         streams: 'Volets',
         schemas: 'Schémas d’évaluation',
+        checklistSchemas: 'Schémas de listes de vérification',
+        recommendationSchemas: 'Schémas et configurations de recommandation',
         templates: 'Modèles d’approbation',
         agreements: 'Ententes',
         agreementOverview: 'Vue d’ensemble',
@@ -35,6 +37,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         proponents: 'Promoteurs',
         proponentOverview: 'Vue d’ensemble',
         proponentFinancialIds: 'Identifiants financiers',
+        proponentRegistries: 'Registres',
         proponentOtherNames: 'Autres noms',
         proponentAddresses: 'Adresses',
         proponentContacts: 'Contacts',
@@ -42,6 +45,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         proponentAgreements: 'Ententes',
         proponentFundingHistory: 'Historique du financement',
         proponentTeam: 'Équipe',
+        agreementTeam: 'Équipe de l’entente',
+        amendments: 'Modifications',
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
@@ -53,6 +58,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         narrativeTags: 'Étiquettes narratives',
         outcomeAllocation: 'Répartition des coûts par résultat',
         approvals: 'Approbations et achèvements',
+        workflows: 'Flux de travail',
+        runtimeReviews: 'Examens en cours d’exécution',
         bilingualism: 'Bilinguisme',
         deletion: 'Suppression logique',
         developer: 'Référence développeur',
@@ -61,7 +68,15 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         testing: 'Tests',
         startup: 'Démarrage local',
         extensionAuthoring: 'Créer des extensions',
-        documentGeneration: 'Génération de documents'
+        documentGeneration: 'Génération de documents',
+        dataModel: 'Modèle de données',
+        validationI18n: 'Validation et localisation',
+        operator: 'Exploitation',
+        configuration: 'Configuration',
+        deployment: 'Déploiement et reprise',
+        backgroundWork: 'Travail en arrière-plan',
+        apiReference: 'Référence de l’API',
+        auditImpact: 'Incidence de l’audit'
       }
     : {
         start: 'Getting Started',
@@ -78,6 +93,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         programOverview: 'Overview',
         streams: 'Streams',
         schemas: 'Assessment Schemas',
+        checklistSchemas: 'Checklist Schemas',
+        recommendationSchemas: 'Recommendation Schemas and Setups',
         templates: 'Approval Templates',
         agreements: 'Agreements',
         agreementOverview: 'Overview',
@@ -95,6 +112,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         proponents: 'Proponents',
         proponentOverview: 'Overview',
         proponentFinancialIds: 'Agency Financial IDs',
+        proponentRegistries: 'Registries',
         proponentOtherNames: 'Other Names',
         proponentAddresses: 'Addresses',
         proponentContacts: 'Contacts',
@@ -102,6 +120,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         proponentAgreements: 'Agreements',
         proponentFundingHistory: 'Funding History',
         proponentTeam: 'Team',
+        agreementTeam: 'Agreement Team',
+        amendments: 'Amendments',
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
@@ -113,6 +133,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         narrativeTags: 'Narrative Tags',
         outcomeAllocation: 'Outcome Cost Allocation',
         approvals: 'Approvals and Completions',
+        workflows: 'Workflows',
+        runtimeReviews: 'Runtime Reviews',
         bilingualism: 'Bilingualism',
         deletion: 'Soft Deletion',
         developer: 'Developer Reference',
@@ -121,7 +143,15 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         testing: 'Testing',
         startup: 'Startup',
         extensionAuthoring: 'Authoring Extensions',
-        documentGeneration: 'Document Generation'
+        documentGeneration: 'Document Generation',
+        dataModel: 'Data Model',
+        validationI18n: 'Validation and Localization',
+        operator: 'Operations',
+        configuration: 'Configuration',
+        deployment: 'Deployment and Recovery',
+        backgroundWork: 'Background Work',
+        apiReference: 'API Reference',
+        auditImpact: 'Audit Impact'
       }
 
   return [
@@ -149,6 +179,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.programOverview, link: `${p}programs/` },
         { text: labels.streams, link: `${p}programs/streams` },
         { text: labels.schemas, link: `${p}programs/assessment-schemas` },
+        { text: labels.checklistSchemas, link: `${p}programs/checklist-schemas` },
+        { text: labels.recommendationSchemas, link: `${p}programs/recommendations` },
         { text: labels.templates, link: `${p}programs/approval-templates` }
       ]
     },
@@ -161,6 +193,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.addresses, link: `${p}agreements/addresses` },
         { text: labels.agreementProponents, link: `${p}agreements/applicant-recipients` },
         { text: labels.activities, link: `${p}agreements/activities` },
+        { text: labels.agreementTeam, link: `${p}agreements/team` },
+        { text: labels.amendments, link: `${p}agreements/amendments` },
         { text: labels.commitments, link: `${p}agreements/commitments` },
         { text: labels.payments, link: `${p}agreements/payments` },
         { text: labels.forecasts, link: `${p}agreements/forecasts` },
@@ -174,6 +208,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       items: [
         { text: labels.proponentOverview, link: `${p}proponents/` },
         { text: labels.proponentFinancialIds, link: `${p}proponents/agency-financial-ids` },
+        { text: labels.proponentRegistries, link: `${p}proponents/registries` },
         { text: labels.proponentOtherNames, link: `${p}proponents/other-names` },
         { text: labels.proponentAddresses, link: `${p}proponents/addresses` },
         { text: labels.proponentContacts, link: `${p}proponents/contacts` },
@@ -189,6 +224,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.rbac, link: `${p}concepts/rbac` },
         { text: labels.extensions, link: `${p}concepts/extensions` },
         { text: labels.approvals, link: `${p}concepts/approvals-completions` },
+        { text: labels.workflows, link: `${p}concepts/workflows` },
+        { text: labels.runtimeReviews, link: `${p}concepts/runtime-reviews` },
         { text: labels.bilingualism, link: `${p}concepts/bilingualism` },
         { text: labels.deletion, link: `${p}concepts/soft-deletion` }
       ]
@@ -200,8 +237,34 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.routes, link: `${p}developer/routes` },
         { text: labels.extensionAuthoring, link: `${p}developer/extensions-authoring` },
         { text: labels.documentGeneration, link: `${p}developer/document-generation` },
+        { text: labels.dataModel, link: `${p}developer/data-model` },
+        { text: labels.validationI18n, link: `${p}developer/validation-i18n` },
+        { text: labels.auditImpact, link: `${p}developer/audit-impact` },
         { text: labels.testing, link: `${p}developer/testing` },
         { text: labels.startup, link: `${p}developer/startup` }
+      ]
+    },
+    {
+      text: labels.operator,
+      items: [
+        { text: labels.configuration, link: `${p}operator/configuration` },
+        { text: labels.deployment, link: `${p}operator/deployment` },
+        { text: labels.backgroundWork, link: `${p}operator/background-work` }
+      ]
+    },
+    {
+      text: labels.apiReference,
+      items: [
+        { text: labels.agencies, link: `${p}developer/api/agencies` },
+        { text: labels.agreements, link: `${p}developer/api/agreements` },
+        { text: labels.proponents, link: `${p}developer/api/applicant-recipients` },
+        { text: labels.templates, link: `${p}developer/api/approvals` },
+        { text: labels.extensions, link: `${p}developer/api/extensions` },
+        { text: labels.users, link: `${p}developer/api/identity` },
+        { text: labels.common, link: `${p}developer/api/platform` },
+        { text: labels.schemas, link: `${p}developer/api/reviews` },
+        { text: labels.programs, link: `${p}developer/api/transfer-payments` },
+        { text: labels.approvals, link: `${p}developer/api/workflows` }
       ]
     },
     {

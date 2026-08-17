@@ -1,9 +1,13 @@
 {
-  "packageManager": "bun@1.3.8",
+  "packageManager": "bun@1.3.13",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "docs:inventory": "bun run scripts/generate-documentation-inventory.ts",
+    "docs:references": "bun run scripts/generate-api-reference.ts",
+    "docs:audit-impact": "bun run scripts/generate-audit-impact-reference.ts",
+    "docs:check": "bun run scripts/docs-check.ts"
   },
   "devDependencies": {
     "vitepress": "^1.6.4"

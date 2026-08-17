@@ -1,0 +1,2552 @@
+[
+  {
+    "id": "extension:host-platform",
+    "source": "modules/gcs-extensions.ts; packages/gcs-ssc-extensions",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/extensions-authoring.md",
+    "fr": "fr/developer/extensions-authoring.md",
+    "evidence": [
+      "modules/gcs-extensions.ts",
+      "packages/gcs-ssc-extensions/src/index.ts",
+      "packages/gcs-ssc-extensions/src/server.ts",
+      "packages/gcs-ssc-extensions/src/ui.ts",
+      "server/api/extensions/**",
+      "server/utils/extensions.ts",
+      "server/utils/extension-dispatch-route.ts",
+      "server/utils/extension-runtime-route.ts",
+      "server/utils/extension-agreement-operation-routes.ts",
+      "server/plugins/migrations.ts",
+      "shared/types/schemas/extensions.ts",
+      "shared/utils/extensions.ts",
+      "tests/unit/extensions-*.test.ts",
+      "packages/gcs-ssc-extensions/tests/unit/*.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified host scanner/generated registries, public SDK entry points, client-safe boundary, enablement/configuration APIs, dynamic dispatch and RBAC/manual-auth split, fresh-write protocol, contribution discovery and mounted UI, migrations, lifecycle guards, KV/secrets/assets, failure states, and runtime-resolver limitation; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments",
+    "source": "extensions/gcs-automated-payments/extension.config.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:stream-config-modal",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:payment-amount-calculators",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:server-handlers",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:server-handler-rbac",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:extension-ui",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:extension-api-client",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:extension-create-operation-hooks",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:capability:extension-lifecycle-hooks",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:handler:0",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#handler:/agreements/[agreementId]/calculate-payment",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:tab:0",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-automated-payments:operation:0",
+    "source": "extensions/gcs-automated-payments/extension.config.ts#operation:agreement.payments.create",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/automated-payments.md",
+    "fr": "fr/extensions/automated-payments.md",
+    "evidence": [
+      "extensions/gcs-automated-payments/extension.config.ts",
+      "extensions/gcs-automated-payments/shared/automated-payments.ts",
+      "extensions/gcs-automated-payments/server/activation.ts",
+      "extensions/gcs-automated-payments/server/calculation-data.ts",
+      "extensions/gcs-automated-payments/server/api/calculate-payment.post.ts",
+      "extensions/gcs-automated-payments/server/plugins/create-hooks.ts",
+      "extensions/gcs-automated-payments/components/StreamAutomatedPaymentsConfig.vue",
+      "extensions/gcs-automated-payments/components/AutomatedPaymentAmountCalculator.vue",
+      "extensions/gcs-automated-payments/tests/unit",
+      "app/components/Agreement/AgreementPaymentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:agency-config",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:stream-config-modal",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:stream-config-page",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:entity-tabs",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:server-handlers",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:server-handler-rbac",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:migrations",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:runtime-resolution",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:extension-ui",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:extension-api-client",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:host-api-client",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:extension-secrets",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:capability:extension-lifecycle-hooks",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:0",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/agencies/[agencyId]/credentials",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:1",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/agencies/[agencyId]/credentials",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:2",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/agencies/[agencyId]/credentials/[credentialId]",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:3",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/agencies/[agencyId]/credentials/[credentialId]",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:4",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/template",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:5",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/claim-template",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:6",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/template",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:7",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/submissions",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:8",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/materialization-failures",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:9",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/materialization-failures/[submissionId]/agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:10",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/sync",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:11",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/streams/[streamId]/preview",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:12",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/proponents/[applicantRecipientId]/submissions",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:13",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/claims/[claimId]/submissions",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:handler:14",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#handler:/monitors/[monitorId]/submissions",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:migration:0",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#migration:{ path: './server/migrations/0001_gcforms_integration.ts' }, { path: './server/migrations/0002_claim_submission_uuid.ts' }",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:tab:0",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#tab:proponent",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:tab:1",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#tab:claim",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:tab:2",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#tab:monitor",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:tab:3",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#tab:proponent",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:tab:4",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#tab:claim",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-gcforms-integration:tab:5",
+    "source": "extensions/gcs-gcforms-integration/extension.config.ts#tab:monitor",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/gc-forms.md",
+    "fr": "fr/extensions/gc-forms.md",
+    "evidence": [
+      "extensions/gcs-gcforms-integration/extension.config.ts",
+      "extensions/gcs-gcforms-integration/shared/gcforms.ts",
+      "extensions/gcs-gcforms-integration/server/api",
+      "extensions/gcs-gcforms-integration/server/runtime.ts",
+      "extensions/gcs-gcforms-integration/server/credentials.ts",
+      "extensions/gcs-gcforms-integration/server/gcforms-client.ts",
+      "extensions/gcs-gcforms-integration/server/submission-materialization.ts",
+      "extensions/gcs-gcforms-integration/server/materialize-claims.ts",
+      "extensions/gcs-gcforms-integration/server/materialization-failures.ts",
+      "extensions/gcs-gcforms-integration/server/plugins/lifecycle-guards.ts",
+      "extensions/gcs-gcforms-integration/server/migrations",
+      "extensions/gcs-gcforms-integration/components",
+      "extensions/gcs-gcforms-integration/tests"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:stream-config-modal",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:textarea-slots",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:server-handlers",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:server-handler-rbac",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:public-assets",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:extension-ui",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:capability:extension-api-client",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:handler:0",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#handler:/streams/[streamId]/assessment-targets",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:slot:0",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#slot:textarea.after",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:asset:0",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#asset:/extensions/gcs-narrative-quality/client",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-quality:asset:1",
+    "source": "extensions/gcs-narrative-quality/extension.config.ts#asset:/extensions/gcs-narrative-quality/models",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-quality.md",
+    "fr": "fr/extensions/narrative-quality.md",
+    "evidence": [
+      "extensions/gcs-narrative-quality/extension.config.ts",
+      "extensions/gcs-narrative-quality/components",
+      "extensions/gcs-narrative-quality/client",
+      "extensions/gcs-narrative-quality/server/api/extensions/gcs-narrative-quality/streams/[streamId]/assessment-targets.get.ts",
+      "extensions/gcs-narrative-quality/ui",
+      "extensions/gcs-narrative-quality/tests/unit",
+      "server/api/extensions/streams/[streamId]/index.patch.ts",
+      "server/utils/extension-dispatch-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:stream-config-modal",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:textarea-slots",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:server-handlers",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:server-handler-rbac",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:runtime-resolution",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:public-assets",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:extension-ui",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:extension-api-client",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:capability:extension-lifecycle-hooks",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:handler:0",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#handler:/streams/[streamId]/agreements/[agreementId]/tags",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:handler:1",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#handler:/streams/[streamId]/agreements/[agreementId]/tags",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:handler:2",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#handler:/agencies/[agencyId]/applicant-recipients/[applicantRecipientId]/tags",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:slot:0",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#slot:agreement.descriptions.after",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:slot:1",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#slot:proponent.descriptions.after",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:tab:0",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:tab:1",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:tab:2",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#tab:proponent",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:asset:0",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#asset:/extensions/gcs-narrative-tags/client",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-narrative-tags:asset:1",
+    "source": "extensions/gcs-narrative-tags/extension.config.ts#asset:/extensions/gcs-narrative-tags/models",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/narrative-tags.md",
+    "fr": "fr/extensions/narrative-tags.md",
+    "evidence": [
+      "extensions/gcs-narrative-tags/extension.config.ts",
+      "extensions/gcs-narrative-tags/components",
+      "extensions/gcs-narrative-tags/client",
+      "extensions/gcs-narrative-tags/server/narrative-tags-route.ts",
+      "extensions/gcs-narrative-tags/server/runtime.ts",
+      "extensions/gcs-narrative-tags/server/nitro-plugin.ts",
+      "extensions/gcs-narrative-tags/server/api",
+      "extensions/gcs-narrative-tags/tests/unit",
+      "server/utils/extension-runtime-route.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Manifest, capabilities, contributions, enablement, RBAC, storage, failure, and deployment boundaries require direct verification."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:stream-config-modal",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: stream-config-modal."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:entity-tabs",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: entity-tabs."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:create-actions",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: create-actions."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:server-handlers",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: server-handlers."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:server-handler-rbac",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: server-handler-rbac."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:migrations",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: migrations."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:extension-ui",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: extension-ui."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:extension-api-client",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: extension-api-client."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:host-api-client",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: host-api-client."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:extension-create-operation-hooks",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: extension-create-operation-hooks."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:capability:extension-lifecycle-hooks",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities",
+    "audience": [
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Declared host capability: extension-lifecycle-hooks."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:handler:0",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocations",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocations"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "handler contribution: /agreements/[agreementId]/allocations."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:handler:1",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocations",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocations"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "handler contribution: /agreements/[agreementId]/allocations."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:handler:2",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:handler:3",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions/[allocationVersionId]/complete",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions/[allocationVersionId]/complete"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions/[allocationVersionId]/complete."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:handler:4",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions/[allocationVersionId]",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions/[allocationVersionId]"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions/[allocationVersionId]."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:migration:0",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#migration:{ path: './server/migrations/0001_outcome_cost_allocation.ts' }, { path: './server/migrations/0002_versioned_allocations.ts' }, { path: './server/migrations/0003_scoped_allocations.ts' }",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#migration:{ path: './server/migrations/0001_outcome_cost_allocation.ts' }, { path: './server/migrations/0002_versioned_allocations.ts' }, { path: './server/migrations/0003_scoped_allocations.ts' }"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "migration contribution: { path: './server/migrations/0001_outcome_cost_allocation.ts' }, { path: './server/migrations/0002_versioned_allocations.ts' }, { path: './server/migrations/0003_scoped_allocations.ts' }."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:tab:0",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "tab contribution: agreement."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:tab:1",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "tab contribution: agreement."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:tab:2",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "tab contribution: agreement."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:tab:3",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "tab contribution: agreement."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:tab:4",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "tab contribution: agreement."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:tab:5",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "tab contribution: agreement."
+  },
+  {
+    "id": "extension:gcs-outcome-cost-allocation:operation:0",
+    "source": "extensions/gcs-outcome-cost-allocation/extension.config.ts#operation:agreement.commitments.create",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/extensions/outcome-cost-allocation.md",
+    "fr": "fr/extensions/outcome-cost-allocation.md",
+    "evidence": [
+      "extensions/gcs-outcome-cost-allocation/extension.config.ts#operation:agreement.commitments.create"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "operation contribution: agreement.commitments.create."
+  }
+]

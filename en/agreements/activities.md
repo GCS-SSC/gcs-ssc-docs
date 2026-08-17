@@ -1,48 +1,64 @@
-# Agreement Activities
+# Agreement activities
 
-The Activities tab records bilingual activities, expected results, schedule dates, stream outcomes, and responsible parties. Activities are inline agreement child records; they do not have a separate detail page.
+Use the **Activities** tab on an agreement to describe the work, schedule, expected results, related program outcomes, and responsible proponents. Activities are records inside the agreement; they do not have separate detail pages.
 
-## Empty installation setup
+## Access and prerequisites
 
-| Configuration | Why it matters |
-| --- | --- |
-| Stream outcomes | The outcomes selector reads active outcomes configured for the agreement's transfer payment stream. |
-| Agreement applicant-recipient links | Responsible parties are selected from applicant/recipients already linked to the agreement. |
-| Agreement CRUD permissions | `create` adds an activity and loads its create lookups, `update` edits an existing activity and its lookups, and `delete` soft-deletes it. |
+The agreement must exist and be visible through your exact Agreement scope. `read` lists activities, `create` adds them, `update` changes them, and `delete` removes them. The server checks the requested permission against the agreement and deliberately returns the same not-found response when the agreement is absent or inaccessible.
 
-## Page flow
+Before creating an activity:
 
-The tab lists agreement activities. The modal is fullscreen because activities contain longer bilingual text fields and two multi-select fields.
+- configure the outcomes on the agreement's transfer payment program;
+- link every intended responsible proponent on the agreement's **Proponents** tab; and
+- make sure your Agreement Team or broader role grants the required action.
 
-Lookups:
+Outcome and responsible-party lookups use the same `create` or `update` action as the form being opened. They cannot be used to bypass the agreement permission check.
 
-| Lookup | What users can select |
-| --- | --- |
-| Outcomes | Active outcomes configured for the agreement's stream. |
-| Responsible parties | Proponent/applicant-recipient links already attached to the agreement. |
+## Add or edit an activity
 
-## Fields
+The tab opens a full-screen form. Every field below is required.
 
 | Field | Rule |
 | --- | --- |
-| English and French name | Required, maximum 255 characters. |
-| English and French description | Required. |
-| Start and end date | Required. End date cannot be before start date. |
-| English and French expected results | Required. |
-| Outcomes | Required array of unique stream outcome ids. |
-| Responsible parties | Required array of unique agreement applicant-recipient link ids. |
+| English name | Non-empty; maximum 255 characters. |
+| French name | Non-empty; maximum 255 characters. |
+| Start date | Required date. |
+| End date | Required date and must be on or after the start date. |
+| English description | Non-empty text. |
+| French description | Non-empty text. |
+| English expected results | Non-empty text. |
+| French expected results | Non-empty text. |
+| Related outcomes | At least one unique, active outcome belonging to the agreement's program. |
+| Responsible parties | At least one unique, active agreement-proponent link whose proponent is also active. |
 
-## Business rules
+The outcome and responsible-party pickers support server-side search and multiple selection. If there is exactly one available responsible party when a new form loads, the interface selects it automatically; you can still change the selection. An empty lookup disables its selection button and indicates that no choice is available.
 
-| Rule | Behaviour |
-| --- | --- |
-| Outcomes must belong to the stream | Invalid outcome ids are rejected. |
-| Responsible parties must belong to the agreement | Invalid responsible party ids are rejected. |
-| Duplicate selections are invalid | Both selection arrays reject duplicate ids. |
-| Date range is validated on save | If both dates are present, start must be on or before end. |
+Changing the locale changes displayed names, not the stored English and French values. Both language fields must be supplied independently.
 
-## Table behaviour
+## Listing and search
 
-Activities display bilingual name and description, schedule start and end, bilingual expected results, outcome badges, and responsible-party badges. Search covers dates, bilingual names and descriptions, expected results, outcomes, and responsible parties through the resource table.
+The table shows the localized activity name and description, start and end dates, localized expected results, outcome badges, and responsible-party badges. It is paginated. Search matches the activity ID; English or French name, description, or expected results; outcome names; and proponent legal or operating names. It does **not** search the displayed dates.
 
-Activities do not trigger completion or approvals in the current implementation. They can be referenced in agreement narrative, amendments, and extension behaviour when an extension is installed.
+Inactive outcome links, inactive agreement-proponent links, and deleted proponents are omitted from list results and badges.
+
+## Validation, concurrency, and recovery
+
+The server rechecks the exact agreement scope inside the write transaction after locking the established agreement and scope rows. It then verifies that every selected outcome still belongs to the agreement's program and every responsible-party ID still belongs to this agreement. Stale, deleted, foreign-program, or foreign-agreement choices are rejected with a localized validation/API error.
+
+Selection changes are synchronized transactionally. Removed links are soft-deleted; selecting the same outcome or responsible party later restores its existing link when possible. Partial failures roll back the activity and its selections together. The database also enforces the date range, agreement/version ownership, and one active link per activity/outcome and activity/responsible-party pair.
+
+If another writer changes access or related configuration before save, reload the agreement and reopen the form. An empty patch leaves the activity unchanged and returns its current values.
+
+## Delete and version behaviour
+
+Deleting an activity asks for confirmation and soft-deletes the activity plus its outcome links. Responsible-party links become invisible because their parent activity is deleted, but the core delete route does not separately mark those rows deleted. There is no restore action in the Activities tab; recovery requires an authorized administrative/data operation.
+
+The normal Activities tab reads and edits only the agreement's single current working activity version. Creating an agreement creates that working version automatically. Amendment preparation uses a separate snapshot and amendment-specific activity routes; it does not silently edit the current tab's rows. Approved revision checkpoints retain their version provenance. See [Funding agreements](./index.md) for the agreement tab map.
+
+Activities do not themselves start an approval, review, completion, or workflow.
+
+## Related guides
+
+- [Funding agreements](./index.md)
+- [Agreement proponents](./applicant-recipients.md)
+- [Programs and outcomes](../programs/index.md)

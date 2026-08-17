@@ -29,7 +29,7 @@ The list supports:
 - Hero counts for total programs and active programs when active-count data is available.
 - Create, edit, delete, and wizard actions when the user has the corresponding transfer payment permission.
 
-Deleting a program uses the shared confirmation flow and soft-delete behavior. Administrators should treat deletion as a setup correction, not as a normal end-of-life action for programs that already have streams or runtime agreements.
+Deleting a program uses the shared confirmation flow and soft-deletes the profile. Administrators should treat deletion as a setup correction, not as a normal end-of-life action for a program with operational history.
 
 ## Quick Create Modal
 
@@ -79,7 +79,7 @@ On submit, the wizard creates the profile, outcomes, objectives, budgets, and pe
 
 Opening a program displays a collapsible hero with the bilingual program name and description. The edit button opens the same profile modal used from the list, with date values normalized for date inputs.
 
-The detail page uses vertical tabs for General and Streams.
+The detail page uses six linkable vertical tabs: General, Streams, Outcomes, Objectives, Budgets, and Performance Indicators. The selected tab is stored in the `section` query parameter, so administrators can bookmark a specific configuration area.
 
 ## General Tab
 
@@ -132,6 +132,8 @@ Program budgets allocate funding by agency fiscal year. Each row has:
 
 Each program budget can later be referenced by stream budget rows. Configure program budgets before configuring stream budgets, commitments, or fiscal-year-driven agreement setup.
 
+A program budget cannot be reduced below the sum of its active stream-budget allocations, and it cannot be deleted while active stream allocations still reference it. Reload before retrying if another administrator changed allocations concurrently.
+
 The fiscal-year selector searches the fiscal years available from the program's agency. When editing a budget, the saved fiscal year is resolved to its display label even when it is not on the current results page; records outside the program's agency scope cannot be selected.
 
 ## Performance Indicators Tab
@@ -159,6 +161,12 @@ Program read, create, update, and delete actions are authorized through the `tra
 - Teams are never evaluated for agencies, Programs, or streams.
 
 If a user can read a program but cannot update it, the detail page still loads but edit and add actions are hidden or disabled.
+
+## Deletion, Failure, and Recovery
+
+Profile and child deletes are logical rather than physical. Deleting a profile does not physically delete its streams or historical setup rows, but active-profile paths no longer expose them. Before deletion, the server locks the current profile and active stream set, freshly checks exact delete access, and asks every registered extension to guard each stream scope. An extension lifecycle guard can block the operation. If the active stream set changes repeatedly while locks are acquired, the request fails with a localized scope-change error instead of deleting against stale state.
+
+Create, update, wizard, and child mutations recheck authorization and active ownership inside transactions. The agency on an existing profile is immutable. A missing and an inaccessible resource are deliberately difficult to distinguish; confirm both the identifier and the user's global, agency, or linked-program scope. Duplicate bilingual values, invalid dates or URLs, out-of-agency fiscal years, and unsafe financial values return localized validation or conflict errors. Reload after a concurrent change, correct the indicated field, and resubmit; modal values remain available after ordinary API failures.
 
 ## Operational Setup Order
 

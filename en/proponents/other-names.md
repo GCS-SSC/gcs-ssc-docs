@@ -1,24 +1,36 @@
 # Proponent Other Names
 
-Other Names record alternate names for a proponent. They help users find and interpret organizations that operate under more than one name or have changed names over time.
+Use **Other Names** to record a trade name, former name, acronym, or other alternate name for a saved proponent profile. The values support profile interpretation and can be searched within this tab.
 
-## Fields
+Open **Proponents**, select a profile, and choose **Other Names**. The table lists active names in creation order and supports search and pagination.
 
-| Field | Rule |
+## Access and actions
+
+| Effective access to the proponent | Available actions |
 | --- | --- |
-| English name | Required alternate name in English. |
-| French name | Required alternate name in French. |
-| Description | Optional context such as historical name, trade name, acronym, or former legal name. |
+| Read-only access | View, search, and page through active names. |
+| Contributor access | View and add names. |
+| Full access | View, add, edit, and delete names. |
+| No access | The server refuses the request even if a URL is entered directly. |
 
-## Business Rules
+Global proponent privileges and an exact-entity Proponent Team assignment can provide access. Every server request rechecks the action against the parent profile. Writes run in a transaction, lock the profile, and rebuild authorization before changing data.
 
-| Rule | Behaviour |
-| --- | --- |
-| Names should be meaningful | Do not add punctuation-only, duplicate, or temporary search hints. |
-| Historical names should remain available | Keep former names when they explain older agreements, claims, or documents. |
-| Bilingual values should be paired | If only one real-world language exists, repeat the accepted name in both fields rather than leaving a blank. |
-| Deletes are soft deletes | Removing a name hides it from active lists without erasing past context. |
+## Field and validation
 
-## Operating Guidance
+An other-name record contains one required **Other name** value. It is trimmed and cannot be blank. It is not a bilingual English/French pair and has no description field.
 
-Add other names before users begin searching for the proponent in agreement creation. This reduces duplicate profile creation caused by alternate operating names.
+The same active name cannot be added twice to one proponent. A name used by a different proponent is allowed. After a name has been deleted, the same value can be added again because uniqueness applies only to active rows.
+
+## Add, edit, and delete
+
+Select **Add**, enter the alternate name, and save. Use the row actions to edit or delete it. An edit or delete must identify an active child row belonging to the profile in the URL; a row from another proponent is treated as not found.
+
+Deletion is logical: the link row is marked deleted and disappears from the active list. There is no restore control in this tab. If deletion was accidental, add the name again. Existing agreements and historical records are not changed.
+
+If saving fails, keep the modal open, correct a blank or duplicate value, and retry. Refresh the profile if another user changed the record concurrently.
+
+## Related guides
+
+- [Proponent profiles](./index.md)
+- [Registries](./registries.md)
+- [Contacts](./contacts.md)

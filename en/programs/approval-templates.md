@@ -82,6 +82,12 @@ The Additional Approvals section controls whether users can extend a materialize
 
 When additional approvals are enabled, the bilingual default step names are required. Default certifications may be empty. The policy and its defaults are copied to each routing slip when it is materialized. Later template changes therefore apply only to future routing slips; they do not silently change a route that is already in progress.
 
+## Template Lifecycle And Publication
+
+A new template is a draft. Saving changes its working header, steps, certifications, and additional-approval policy but does not make that configuration available to runtime materialization. Activate is available only for a draft and publishes the first complete configuration snapshot as version 1. Editing an active template creates pending changes; Publish is available only when the working configuration differs from its published snapshot and advances the version.
+
+The published snapshot contains the template identity, additional-approval policy/default certifications, ordered step identities/sequences/default users, and each step's certification policy. Runtime routing slips copy this snapshot. Existing slips therefore retain their original route even after a later publication.
+
 ## Approval Steps
 
 Approval steps are the ordered actions in a routing slip. Each step contains:
@@ -258,6 +264,8 @@ Approval templates and completions are separate but often appear together in run
 Administrators should configure both the template route and the runtime setup that decides when the route is required.
 
 ## Operational Guidance
+
+Template routes resolve authorization from their stored scope. Stream-scoped templates require the exact owning program/stream action; global/common scope uses its configured authorization boundary. Writes recheck the current scope and authorization inside a transaction. Missing and inaccessible templates use the same not-found-style boundary. Activation or publication fails for an invalid lifecycle state, incomplete/duplicate steps or certifications, inactive or invalid default users, or no pending change. Reload after concurrent edits, correct the highlighted dependency, save the complete template, and retry.
 
 Use these practices:
 

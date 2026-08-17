@@ -42,3 +42,36 @@ Agency or stream disablement and deletion are blocked while the affected histori
 The submission-list endpoint is strictly read-only. It queries the already-persisted connection version that matches the current configuration and returns an empty list when setup has not created that version. Reads never create or update connections, integrations, or mappings.
 
 The GC Forms tab on a claim shows the source submission linked to that generated claim. Proponent and monitor tabs are installed but remain empty until the materializer supports those destinations.
+
+## Route and permission reference
+
+Every route is reached through the authenticated host dispatcher and then repeats its extension-specific scope check. Agency credential listing requires `agency:read`; create, patch, and delete require `agency:update`. Template and submission listing, claim-template download, failure listing, and entity source tabs require read on the exact agency, stream, Proponent, or owning agreement. Template refresh, sync, and manual failure recovery require stream update.
+
+The preview manifest declares stream read, but `preview.post.ts` additionally calls `authorizeGcFormsStream(..., 'update')`; effective preview access is therefore `transfer_payment:update`, not read. This mismatch is tracked as `DOC-032`.
+
+| Operation | Behaviour |
+| --- | --- |
+| Credential list/create/patch/delete | Returns metadata only; validates bilingual labels, remote identity fields and PEM private keys. Authentication changes increment `revision`; repeating the current values or changing labels does not. Delete is idempotent for an absent row and soft-deletes metadata plus the encrypted secret when safe. |
+| Stored template / refresh | GET is local. POST obtains the remote form, requires the claim question shape, normalizes a field catalog, stores it for the immutable connection, and returns bilingual title/catalog data. |
+| Claim-template download | Generates the current stream claim form contract; it is not a remote-submission export. |
+| Preview | Normalizes supplied answers and applies supplied mappings without persistence. Despite the manifest read declaration, the handler requires stream update. |
+| Submission list | Reads only the current already-persisted connection; response metadata is unpaginated. |
+| Sync | Performs local pending-confirmation preflight, remote preparation, short authorized materialization batches, and post-commit confirmation reconciliation. The response reports run id and discovered/imported/skipped/problem counts; individual failures do not necessarily fail the whole run. |
+| Failure list/recovery | Lists only recoverable claim materialization failures and host-filtered agreement options. Recovery accepts `{ agreementId }`, freshly authorizes that agreement for update, and rejects stale status or scope. |
+| Entity source | Lists active destination links newest-first. The current tab deliberately shows stored status, received value, and raw JSON-stringified mapped values; fetch errors collapse to the same empty state rather than exposing details. |
+
+## External-service security
+
+API and identity-provider base URLs must use HTTPS, cannot contain credentials, query strings, or fragments, and reject literal localhost, private, link-local, documentation, multicast, and reserved IP ranges. Redirects are disabled. Deployments must additionally control DNS and egress because the schema validates the configured hostname text and does not pin DNS resolution.
+
+The client signs a 60-second RS256 JWT assertion, exchanges it for a bearer token, caches the token per client, and retries one request after a 401 with a fresh token. Token and API calls default to a 15-second timeout. Error text records only HTTP status, not tokens, keys, or remote response bodies.
+
+Submission envelopes use RSA-OAEP/SHA-256 to unwrap the AES-256-GCM key, nonce, and 16-byte authentication tag. The decrypted JSON must pass its schema and the answer text must match the supplied MD5 integrity checksum before mapping. MD5 here is an interoperability checksum after authenticated decryption, not the confidentiality/authenticity primitive. Attachments are represented by metadata (`source_url`, checksum, malicious flag, optional storage path); the current claims-first materializer does not download or attach them to host claims.
+
+## Extension data and integrity
+
+The two migrations create credential, immutable connection, template, immutable integration/mapping, submission, attachment, import-run, destination-link, and manual-override tables in the `extensions` schema, then add nullable `Funding_Case_Agreement_Claim.egcs_fc_gcformssubmissionuuid` with an active unique index. Bigserial ids cross the application boundary as strings.
+
+Partial unique indexes enforce one active connection per complete remote identity, one template per connection, one integration per connection/fingerprint, one mapping key per integration, one submission name per connection, one manual override per submission/destination, and one active claim per GC Forms submission UUID. Foreign keys use restrict deletion and extension rows use `_deleted`; the extension has no physical-delete workflow. The schema intentionally stores destination owner type/id as a generic link rather than a core polymorphic composite foreign key, so host authorization and materializers must validate ownership before writing.
+
+Back up the application database and encrypted-secret root together. Restoring tables without the matching `GCS_EXTENSION_SECRETS_KEY` leaves credential ciphertext unusable; restoring only secrets or only extension tables breaks immutable connection identities and historical confirmation recovery.

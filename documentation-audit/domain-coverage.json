@@ -1,0 +1,274 @@
+[
+  {
+    "id": "domain:platform-shell",
+    "source": "nuxt.config.ts; app/app.vue; app/layouts; app/middleware",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "nuxt.config.ts; app/app.vue; app/layouts; app/middleware"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:identity-rbac-teams",
+    "source": "server/utils/auth.ts; server/utils/authorize.ts; server/utils/rbac.ts; server/utils/team-auth.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/concepts/rbac.md",
+    "fr": "fr/concepts/rbac.md",
+    "evidence": [
+      "server/utils/auth.ts; server/utils/authorize.ts; server/utils/rbac.ts; server/utils/team-auth.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:agency-administration",
+    "source": "server/api/agency; app/pages/agencies",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency; app/pages/agencies"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:transfer-payment-design",
+    "source": "server/api/transfer-payments; app/pages/transfer-payments",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/programs/index.md",
+    "fr": "fr/programs/index.md",
+    "evidence": [
+      "server/api/transfer-payments; app/pages/transfer-payments"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:applicant-recipients",
+    "source": "server/api/applicant-recipients; app/pages/proponents",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients; app/pages/proponents"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:agreements-financial-lifecycle",
+    "source": "server/api/agreements; app/pages/agreements",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements; app/pages/agreements"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:reviews-assessments-checklists",
+    "source": "server/api/reviews; server/api/review-sets",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/programs/assessment-schemas.md",
+    "fr": "fr/programs/assessment-schemas.md",
+    "evidence": [
+      "server/api/reviews; server/api/review-sets"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:approvals-recommendations-completions-workflows",
+    "source": "server/api/approvals; server/api/completions; server/api/workflows",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/api/approvals; server/api/completions; server/api/workflows"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:common-administration",
+    "source": "server/api/admin/common",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/admin/common-admin.md",
+    "fr": "fr/admin/common-admin.md",
+    "evidence": [
+      "server/api/admin/common"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:database-integrity-concurrency",
+    "source": "server/database/migrations; server/utils/*transaction*",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations; server/utils/*transaction*"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:i18n-validation-errors",
+    "source": "i18n; shared/types/schemas; server/utils/api-validate.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/validation-i18n.md",
+    "fr": "fr/developer/validation-i18n.md",
+    "evidence": [
+      "i18n; shared/types/schemas; server/utils/api-validate.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:files-documents",
+    "source": "server/utils/file-storage.ts; server/utils/document-generation.ts",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/developer/document-generation.md",
+    "fr": "fr/developer/document-generation.md",
+    "evidence": [
+      "server/utils/file-storage.ts; server/utils/document-generation.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:extensions",
+    "source": "modules/gcs-extensions.ts; extensions; packages/gcs-ssc-extensions",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/concepts/extensions.md",
+    "fr": "fr/concepts/extensions.md",
+    "evidence": [
+      "modules/gcs-extensions.ts; extensions; packages/gcs-ssc-extensions"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:workers-background-processing",
+    "source": "server/workers; extensions/*/client",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/background-work.md",
+    "fr": "fr/operator/background-work.md",
+    "evidence": [
+      "server/workers; extensions/*/client"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:build-deployment-operations",
+    "source": "package.json; nuxt.config.ts; Dockerfile; railway.json; .github/workflows",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/deployment.md",
+    "fr": "fr/operator/deployment.md",
+    "evidence": [
+      "package.json; nuxt.config.ts; Dockerfile; railway.json; .github/workflows"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  },
+  {
+    "id": "domain:accessibility-ui-states",
+    "source": "app/components; app/pages",
+    "audience": [
+      "end-user",
+      "administrator",
+      "operator",
+      "developer"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components; app/pages"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+  }
+]

@@ -1,64 +1,77 @@
-# Previsions d entente
+# Prévisions d’entente
 
-Les previsions suivent les depenses attendues par ligne budgetaire, mois, exercice et version. L onglet resume les versions par exercice; la page de detail modifie la ventilation mensuelle.
+Les prévisions répartissent les dépenses attendues de l’entente entre les lignes du budget courant, les mois de l’exercice et des numéros de version choisis par l’utilisateur. Ouvrez une entente et sélectionnez **Prévisions**; l’onglet regroupe les versions affichées par exercice budgétaire de l’entente.
 
-## Configuration d une installation vide
+## Avant de commencer
 
-| Configuration | Utilite |
+| Exigence | Comportement vérifié |
 | --- | --- |
-| Exercices budgetaires de l entente | Les previsions sont creees pour les exercices budgetaires de l entente. |
-| Lignes budgetaires | La page de detail construit ses lignes editables a partir des lignes du meme exercice. |
-| Modele d approbation `fundingcaseforecast` | Requis si les previsions completees doivent etre approuvees. |
-| Permissions CRUD d’entente | `create` crée les en-têtes, versions et nouvelles lignes mensuelles ; `update` modifie les lignes existantes et achève les prévisions encore modifiables ; `delete` supprime logiquement les dossiers de prévision. Les actions d’approbation exigent aussi l’accès ordinaire en lecture et une attribution. |
+| Budget courant de l’entente | Un en-tête de prévision doit faire référence à l’identité stable d’un exercice présente dans la version budgétaire courante. Sa grille modifiable utilise les lignes de la version courante ayant la même identité stable d’exercice. |
+| Accès à l’entente | L’action `read` charge le résumé. L’action `create` crée les en-têtes et les lignes mensuelles manquantes; `update` modifie les en-têtes et les lignes existantes et achève une prévision; `delete` supprime logiquement les en-têtes ou les lignes. L’accès exact de l’équipe de l’entente peut accorder ces actions sur les dossiers enfants. |
+| Dossier d’utilisateur commun | L’achèvement exige que le compte connecté corresponde à un `Common_User` actif. |
+| Flux de travaux d’achèvement facultatif | Un flux de travaux publié pour `fundingcaseforecast` peut démarrer après l’achèvement et appliquer plus tard son état de réussite ou d’échec configuré. |
 
-## Flux d onglet
+Les écritures répètent l’autorisation sur l’entente dans une transaction après avoir verrouillé l’entente et chaque agrégat de prévision touché. Les identités d’une autre entente, supprimées ou absentes du budget courant sont refusées.
 
-L onglet resume les en-tetes de prevision, les lignes budgetaires et les lignes de prevision.
+## Créer et parcourir les prévisions
 
-L onglet regroupe par exercice. Chaque ligne represente une version :
+Choisissez **Ajouter une prévision** et sélectionnez un exercice dérivé des lignes du budget courant. Le serveur crée un en-tête `draft` inactif. La base de données n’exige pas qu’une prévision contienne des lignes et n’impose pas un seul en-tête inactif par entente et par exercice.
 
-| Colonne | Signification |
+L’onglet calcule ses rangées plutôt que de stocker des dossiers de version distincts :
+
+| Affichage | Source |
 | --- | --- |
-| Version | Numero de version des lignes. Une prevision sans ligne affiche `0`. |
-| Statut | Premier statut de ligne de la version, ou `draft` si aucune ligne. |
-| Lignes | Nombre de lignes dans la version. |
-| Total prevu | Somme des montants de la version. |
+| Groupe d’exercice | L’identité stable de l’exercice budgétaire de l’en-tête et le libellé de l’exercice courant. |
+| Version | Chaque valeur `egcs_fc_version` distincte trouvée dans les lignes mensuelles actives de cet en-tête. Un en-tête sans ligne est représenté comme version `0`. |
+| État | L’unique état de l’en-tête de prévision; toutes les versions affichées ont donc le même état de cycle de vie. |
+| Lignes et total | Nombre et somme des lignes actives de cet en-tête et de cette version. Les totaux sont présentés en dollars canadiens sans convertir les devises stockées. |
 
-Ajouter une prevision cree un en-tete pour un exercice budgetaire. Ajouter une version ouvre la page de detail avec la prochaine version selectionnee.
+La recherche correspond à l’exercice, à la version, à l’état localisé, au nombre de lignes ou au total. Le filtrage, le regroupement, le tri et la pagination se font dans le navigateur après le chargement du résumé complet.
 
-## Page de detail
+**Ajouter une version** ne copie aucune donnée et ne crée aucune entité de version. L’action ouvre le même en-tête de prévision avec le prochain numéro de version dans l’URL. L’enregistrement de cellules non nulles crée des lignes portant ce numéro.
 
-La page affiche un exercice et une version a la fois. Elle construit une grille avec toutes les lignes budgetaires de l exercice et les douze mois fiscaux d avril a mars. Un trimestre peut etre developpe en trois mois.
+::: warning Unicité des en-têtes et des versions
+L’API permet plusieurs en-têtes de prévision inactifs pour la même entente et le même exercice. Elle permet aussi des lignes actives en double ayant la même prévision, la même ligne budgétaire, le même mois et la même version. L’interface groupée suppose un seul en-tête par groupe d’exercice pour les actions de modification, de suppression et d’ajout de version; la grille de détails ne conserve qu’un doublon dans sa correspondance en mémoire. Créez un seul en-tête par exercice et une seule ligne par coordonnée ligne budgétaire-mois-version.
+:::
 
-## Lignes de prevision
+## Modifier la ventilation mensuelle
 
-| Champ | Regle |
+La route de détails accepte une valeur `version` dans la requête; en son absence, la valeur par défaut est `0`. La grille regroupe les lignes du budget courant par catégorie de coûts bilingue et par sous-section de coûts. Elle montre d’abord les totaux trimestriels d’avril à mars; sélectionnez l’en-tête d’un trimestre pour afficher ses trois champs mensuels. La recherche correspond à la catégorie, à la sous-section, aux noms de ligne dans les deux langues ou à la description.
+
+| Champ de ligne | Règle |
 | --- | --- |
-| Prevision | Identifiant requis. |
-| Ligne budgetaire | Requise. Doit appartenir a l exercice et a l entente de la prevision. |
-| Mois | Entier requis de 0 a 11, 0 etant avril. |
-| Montant | Montant requis. |
-| Devise | Enum requis; l editeur ecrit CAD. |
-| Version | Entier non negatif normalise en chaine. |
-| Statut | Enum requis. Les nouvelles lignes de detail sont `inprogress`. |
+| Prévision | En-tête modifiable obligatoire de cette entente. Une requête PATCH directe peut déplacer une ligne vers une autre prévision modifiable de la même entente. |
+| Ligne budgétaire | Identité stable obligatoire d’une ligne de la version budgétaire courante, de la même entente et du même exercice que la prévision cible. |
+| Mois | Entier de `0` à `11`, soit d’avril à mars. |
+| Montant | Valeur `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas 90 billions. L’interface fixe un minimum de zéro, mais la validation du serveur et la base de données n’imposent pas une valeur non négative. |
+| Devise | Valeur d’énumération de devise obligatoire. La grille actuelle crée toujours `cad`; elle n’offre ni choix ni conversion de devise. |
+| Version | Entier non négatif obligatoire, normalisé en texte décimal pour l’API et stocké comme bigint. |
 
-Sauvegarder la ventilation modifie les lignes mensuelles existantes seulement avec `agreement:update` et crée les lignes manquantes non nulles seulement avec `agreement:create`. L’éditeur expose chaque ligne selon l’action requise pour celle-ci.
+L’action **Enregistrer la ventilation** traite les cellules séquentiellement. Elle applique PATCH à une ligne existante modifiée lorsque l’utilisateur possède `update`, et POST à une ligne manquante non nulle lorsqu’il possède `create`. Une cellule manquante à zéro ne crée rien; le passage d’une cellule existante à zéro conserve une ligne de valeur nulle. Aucune transaction globale ne couvre toute la grille : une erreur survenant après des requêtes réussies peut laisser les premières cellules enregistrées. Actualisez, corrigez la cellule signalée et enregistrez de nouveau.
 
-## Regles d affaires
+La première ligne créée fait passer une prévision `draft` à `inprogress`; les modifications ultérieures de lignes ne changent pas autrement l’état de l’en-tête. L’API peut supprimer logiquement des lignes individuelles, mais la grille actuelle n’offre aucune action de suppression de ligne. La suppression d’un en-tête modifiable supprime logiquement celui-ci et toutes ses lignes actives de façon atomique.
 
-| Regle | Comportement |
-| --- | --- |
-| L exercice doit appartenir au budget d entente | Les exercices invalides sont rejetes. |
-| La ligne budgetaire doit appartenir a l exercice de la prevision | Les lignes d une autre entente ou d un autre exercice sont rejetees. |
-| Le verrouillage est base sur les lignes | Si une ligne est `complete`, `pendingapproval`, `approved` ou `denied`, la page est verrouillee. |
-| La completion exige des lignes | Une prevision sans lignes ne peut pas etre completee. |
-| La completion verrouille toutes les lignes | Les lignes passent a `complete` ou `pendingapproval` selon la configuration d approbation. |
-| L approbation active la prevision approuvee | A l approbation, la prevision devient active et les autres previsions du meme exercice sont desactivees. |
+::: warning Changement d’exercice après la saisie de lignes
+La requête PATCH de l’en-tête valide le nouvel exercice, mais elle ne valide, ne déplace et ne supprime aucune ligne existante. Les lignes liées aux coordonnées budgétaires de l’ancien exercice peuvent disparaître de la nouvelle grille tout en continuant de compter comme lignes de prévision et comme preuve exigée pour l’achèvement. Ne changez pas l’exercice d’une prévision après avoir saisi sa ventilation. Si cela s’est produit, arrêtez l’achèvement et utilisez une intervention autorisée par API ou sur les données afin de supprimer ou de réattribuer correctement les lignes périmées.
+:::
 
-## Completion et approbation
+## Cycle de vie et achèvement
 
-Type d entite : `fundingcaseforecast`.
+Les états d’en-tête `complete`, `pendingapproval`, `approved` et `denied` sont verrouillés. Un dossier d’achèvement ou une feuille d’acheminement active à l’état `draft`, `pendingapproval` ou `approved` bloque aussi toute modification de l’en-tête et des lignes, même si l’état de l’en-tête semble modifiable.
 
-La completion est permise seulement si la prevision a des lignes et aucune ligne verrouillee. Avec un modele valide, les lignes passent a `pendingapproval`; sans modele, elles passent a `complete`.
+L’achèvement exige l’action `update` sur l’entente, un en-tête modifiable, aucun achèvement antérieur et au moins une ligne active, peu importe sa version. Les commentaires sont facultatifs. Dans une transaction avec autorisation actualisée, il crée l’achèvement commun, fait passer l’en-tête à `complete` et lance tout flux de travaux d’achèvement `fundingcaseforecast` publié; le point d’extension d’achèvement est émis après la validation de la transaction.
 
-Le statut est agrege a partir des lignes : une ligne refusee donne `denied`; toutes approuvees donnent `approved`; une ligne en attente donne `pendingapproval`; toutes completees donnent `complete`.
+L’achèvement s’applique à tout l’en-tête de prévision, et non à la seule version sélectionnée dans l’URL. Il ne règle pas `egcs_fc_active`, ne copie aucune version et ne vérifie pas que chaque coordonnée budgétaire visible comporte une ligne. Une prévision achevée demeure donc inactive à moins qu’un moteur d’approbation distinct ne l’approuve plus tard.
+
+## Limite du moteur d’approbation
+
+Le serveur offre un moteur générique d’approbation des prévisions. Un appelant explicite peut utiliser un modèle `fundingcaseforecast` valide associé au volet pour créer une feuille d’acheminement visant une prévision `complete` ou `denied` qui comporte des lignes. L’approbation séquentielle, le refus, la réattribution et les règles d’approbation supplémentaire utilisent ensuite le moteur commun. L’approbation finale fait passer l’en-tête à `approved`, l’active et désactive les autres en-têtes de la même entente et de la même identité d’exercice; le refus le fait passer à `denied` et le rend inactif.
+
+L’achèvement principal ne consulte **pas** le modèle et ne crée pas cette feuille d’acheminement. La page de détails monte les sections d’achèvement et de flux de travaux, mais aucun composant d’approbation. La seule configuration du modèle n’ajoute donc pas l’approbation à cet écran. Considérez l’approbation comme une capacité d’API ou d’intégration jusqu’à ce qu’un flux hôte ou d’extension pris en charge l’appelle. Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travaux](../concepts/workflows.md).
+
+## Rétablissement
+
+- L’achèvement ne peut pas être répété ni annulé à partir de cette page. Créez une prévision de remplacement seulement après avoir vérifié s’il existe déjà un en-tête pour cet exercice.
+- Les prévisions verrouillées ne peuvent pas être modifiées ni supprimées par ces routes. La suppression d’une prévision modifiable est logique plutôt que physique.
+- Si le sélecteur d’exercice est vide, ajoutez des lignes actives au [Budget](budget.md) courant de l’entente; l’interface n’offre pas un exercice sans ligne budgétaire courante, même si le serveur valide le dossier d’exercice lui-même.
+- Lorsqu’un amendement budgétaire remplace les rangées courantes tout en préservant la filiation stable, la prévision suit les identités d’exercice et de ligne correspondantes. Une ligne courante supprimée ou sans correspondance disparaît de la grille modifiable.

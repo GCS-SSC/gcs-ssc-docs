@@ -46,6 +46,18 @@ The Assignments tab also exposes four independent Proponent flags:
 
 These flags are stored directly on the user and are not role abilities or separate assignment rows. Only a caller with global `user:update` can change them. The interface warns that the access is cross-agency and requires confirmation before saving. Grant only the actions the user needs; exact access to one saved Proponent should use its Team instead.
 
+## Activating a credential user
+
+Creating a user profile does not create a password account. A globally authorized user administrator can activate an unverified profile by setting its initial credential password. Activation is available only while the user is active, unverified, and has no existing account. A verified profile or an account managed by another provider is rejected rather than overwritten.
+
+The password is hashed before the credential account and verified status are written in one transaction. The raw password is not returned or added to audit metadata. Communicate the initial credential through an approved channel and require the recipient to follow the organization’s credential-handling policy.
+
+## Security audit trail
+
+Role and user security mutations append a `security_audit_event` in the same transaction as the change. Covered events include role creation, profile/deletion and ability changes; user creation, profile/deletion and activation; direct Proponent flag changes; and role-assignment creation/deletion. Records identify the authenticated actor, constrained event category, target type/identifier, timestamp, and non-sensitive structural metadata. They exclude names, email addresses, images, credentials, tokens, and password hashes.
+
+The database rejects updates and deletes to these append-only events. A failed domain mutation therefore produces no audit event, and an audit insertion failure rolls back the mutation. Access to raw audit data is an operational/security responsibility; the user-management UI does not expose a general audit-log viewer.
+
 ## Root user handling
 
 Keep the root assignment narrow and auditable. Root is an ordinary user with explicit global role abilities and, when needed, separately enabled Proponent flags; it has no authorization bypass. Use scoped roles for routine program and Agreement work, direct flags only for genuine cross-agency Proponent duties, and exact Teams for collaboration on one saved Proponent or Agreement.

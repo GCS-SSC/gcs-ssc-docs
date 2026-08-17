@@ -1,31 +1,26 @@
-# Identifiants financiers de promoteur
+# Identifiants financiers d'agence du promoteur
 
-Les identifiants financiers stockent la valeur qu une agence utilise pour le promoteur dans son systeme financier ou de subventions. Un meme promoteur peut avoir plusieurs identifiants propres aux agences.
-
-## Dependances
-
-| Dependence | Pourquoi c est important |
-| --- | --- |
-| Profil de promoteur | Les identifiants sont des enregistrements enfants d un profil existant. |
-| Acces a l agence | Les utilisateurs peuvent ajouter des identifiants seulement pour les agences qu ils peuvent gerer. |
-| Convention financiere | L agence devrait definir le format et la signification avant la saisie. |
+L'onglet **Identifiants financiers d'agence** associe un promoteur existant à l'identifiant entier utilisé par un système financier ou de subventions d'une agence. Ouvrez **Promoteurs**, choisissez un profil, puis **Identifiants financiers d'agence**. Le tableau permet la recherche, la pagination, la création, la modification et la suppression logique selon les permissions du profil parent.
 
 ## Champs
 
-| Champ | Regle |
+| Champ | Règle |
 | --- | --- |
-| Agence | Obligatoire. Selectionnez l agence proprietaire de l identifiant. |
-| Identifiant financier | Obligatoire. Saisissez l identifiant exactement comme utilise par l agence. |
+| Agence | Facultative. Lorsqu'elle est fournie, elle doit référencer une agence active. La recherche liste les agences actives après avoir autorisé l'action de création ou de modification sur le promoteur parent. |
+| Identifiant du système financier | Entier sûr obligatoire. Il est stocké dans un `bigint` PostgreSQL; l'interface actuelle utilise un champ numérique. |
 
-## Regles metier
+Puisque l'agence est facultative dans le contrat source actuel, un identifiant sans portée peut être enregistré. Sélectionnez de préférence une agence lorsque l'identifiant lui appartient afin de préserver clairement sa provenance.
 
-| Regle | Comportement |
-| --- | --- |
-| L agence doit etre valide pour l utilisateur | Le selecteur offre seulement les agences accessibles. |
-| L identifiant appartient a un promoteur | Ne l utilisez pas pour creer des alias entre promoteurs. |
-| Les enregistrements peuvent etre modifies | Mettez a jour la valeur lorsqu une agence remplace son identifiant local. |
-| Les suppressions sont logiques | Un identifiant retire est masque tout en conservant le contexte historique. |
+## Unicité et cycle de vie
 
-## Conseils
+Pour les lignes qui ont une agence, le triplet actif `(agence, promoteur, identifiant du système financier)` est unique. PostgreSQL considère les valeurs `NULL` comme distinctes dans cet index; la contrainte n'empêche donc pas les doublons actifs lorsque le champ Agence est vide. Évitez ces doublons ambigus dans les opérations.
 
-Utilisez cet onglet lorsque les ententes, paiements, reclamations ou rapports doivent rapprocher un promoteur GCS-SSC avec un identifiant financier d agence. Les identifiants globaux appartiennent plutot a l onglet General.
+L'agence ne doit pas nécessairement être l'agence principale du promoteur. L'accès est imposé sur le promoteur parent exact et n'est pas déduit de l'agence choisie. La création et la modification refusent une agence fournie qui est supprimée ou inconnue. Une modification fusionne et valide la ligne complète; une suppression fixe `_deleted = true`. La ligne supprimée disparaît de la recherche active et ne participe plus à l'index d'unicité partiel, mais les données historiques demeurent.
+
+Chaque mutation revérifie le promoteur parent et la permission enfant demandée dans une transaction dont l'autorisation est actualisée. L'identifiant de l'enfant doit appartenir au parent indiqué dans l'URL. Un accès d'équipe `read_only` permet la lecture, `contributor` la création et la modification, et `full_access` permet aussi la suppression.
+
+## Recherche et rétablissement
+
+La recherche porte sur l'identifiant financier et les deux noms localisés de l'agence. Une agence supprimée n'est pas affichée comme ligne active. Si le sélecteur est vide ou qu'un enregistrement échoue, confirmez que le promoteur existe toujours, que votre permission directe ou d'équipe permet l'action et que l'agence est active. Si l'identifiant appartient réellement à une agence, ne contournez pas une agence invalide en vidant le champ; restaurez ou choisissez la bonne agence.
+
+Utilisez [Registres](./registries.md) pour les numéros d'entreprise, les comptes de programme de l'ARC, le SCIAN et les autres identifiants de registre externes.

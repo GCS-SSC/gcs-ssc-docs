@@ -1,71 +1,81 @@
 # Extensions
 
-Extensions add local, versioned functionality to GCS-SSC. They can add agency and stream configuration, extra tabs, extra page sections, specialized create actions, payment amount calculators, server routes, public assets, extension-owned data, encrypted secrets, and bilingual messages.
+Extensions are code packages installed with GCS-SSC. They can add configuration screens, page slots and tabs, specialized commitment or payment actions, payment calculators, authenticated server routes, database objects, public assets, and lifecycle guards. An administrator can enable an installed package, but cannot install one from the UI.
 
-See [Installed Extensions](../extensions/index.md) for the packages currently included with GCS-SSC and their operating rules. Developers should use [Authoring Extensions](../developer/extensions-authoring.md).
+See [Installed Extensions](../extensions/index.md) for the five packages shipped in this checkout. Extension developers should also read [Authoring Extensions](../developer/extensions-authoring.md) and the [host API reference](../developer/api/extensions.md).
 
-## Registration
+## The three operating switches
 
-Installed extensions are discovered when the application starts. Administrators do not create extension definitions in the UI; they enable and configure extensions that have already been installed with the application.
+Do not treat “installed,” “enabled,” and “configured” as synonyms.
 
-The host validates each extension's declared `sdkVersion` and `requiredHostCapabilities` before exposing it. Startup validation rejects unsupported SDK versions, unknown capabilities, and undeclared capabilities that can be inferred from manifest fields. It does not inspect implementation code for uses such as API clients, key-value storage, secrets, or create-operation hooks; extension authors must audit and declare those code-only dependencies.
+1. The Nuxt build scans directories under `extensions/`. It validates each package and generates client and server registries. Invalid SDK ranges, capabilities, paths, RBAC declarations, duplicate identities, or asset namespaces stop the build. An incomplete directory missing `package.json` or `extension.config.ts` is skipped with a warning.
+2. A user with `agency:update` enables the registered extension for an agency. Enabling runs its pending migrations in the same transaction before the enablement row is saved. A migration failure rolls back and leaves the extension disabled.
+3. A user with `transfer_payment:update` enables and configures it for a stream. The agency switch must still be on. Runtime agreement, claim, monitor, action, and calculator contributions require both switches; Proponent contributions use the lead agency because a Proponent is not stream-owned.
 
-## Agency enablement
+Disabling an agency extension runs registered disable guards, then turns off all active stream rows for that extension in the agency. Re-enabling the agency does **not** restore those stream switches. Stream enable and disable guards can also refuse a change with a localized business error.
 
-Agency enablement is the first operational switch. Users need agency read access to view extension state and agency update access to enable or disable an extension.
+## Agency administration
 
-When an extension is enabled for an agency, the app runs that extension's migrations. A manual Run Migrations action is also available for enabled extensions. If the extension is disabled at agency level, the app disables that extension for all streams under the agency.
+Open an agency and select **Extensions**. The table lists every package registered in the running build, including packages not yet enabled; it shows localized names and descriptions, current status, and these actions:
 
-Agency extensions can also expose a configuration screen. If an extension provides a custom agency config component, the modal renders it; otherwise it renders JSON text. Agency config is appropriate for non-secret settings that apply across the agency.
+- switch the agency enablement on or off;
+- open the extension's custom agency configuration, or edit JSON when it has no custom component;
+- run pending migrations manually while the extension is enabled.
 
-## Stream configuration
+Agency configuration is ordinary browser-visible JSON, not a secret store. Closing a changed full-screen modal asks whether to discard the draft. Invalid fallback JSON prevents saving. The list does not report whether migrations are pending or current: a successful manual run reports success, while a failed enable or run returns a localized API error.
 
-Stream configuration is available only when the extension is enabled for the agency. The stream Extensions tab lists agency-enabled extensions, allows stream enablement, and opens configuration.
+Agency reads require `agency:read`; enablement, configuration, and migration actions require `agency:update`. Writes lock authorization state, the extension/agency lifecycle scope, and the active agency, then repeat authorization before changing data.
 
-Most extensions use a full-screen configuration modal. If the extension provides a custom stream config component, the modal renders it; otherwise it renders JSON text.
+## Stream administration
 
-An extension can instead declare `admin.streamConfigPage`. In that case the Configure action opens a dedicated full-page configuration route with the program, stream, agency, extension metadata, current config, and host layout flag. Use full-page configuration when the setup needs more space, nested tables, credential setup, or a workflow that does not fit well in a modal.
+Open a transfer-payment stream and select **Extensions**. Only extensions currently enabled for its owning agency appear. The stream table supports localized search, status, an enable switch, and configuration when the page grants child-update access.
 
-The app rejects configuration for unknown extensions, disabled agency extensions, invalid JSON, and known extension-specific invalid states. When narrative quality is enabled for a stream with no configured target, the app defaults the agreement-level target on so the extension has a visible runtime surface.
+Configuration uses one of three surfaces:
 
-## Runtime slots
+- a contributed full-screen modal component;
+- a dedicated locale-aware page at `/extension/{key}/config` (French: `/extension/{key}/configuration`) when the manifest declares `admin.streamConfigPage`;
+- a JSON editor when no custom modal exists.
 
-Runtime slots are named places in existing pages where an enabled extension can render extra content. Supported slots include text-area after-slots, agreement description slots, agreement profile field/section slots, and proponent description slots.
+The dedicated page requires a `streamId` query value and normally receives `transferPaymentId` and `agencyId` for breadcrumbs and component context. It loads the authoritative stream registry, refuses an extension absent from that registry, shows a generic redacted error alert on loading failures, and delegates saving to the contributed component. If no registered page/modal component resolves, it shows an unavailable warning rather than a host save form.
 
-For stream context, both agency enablement and stream enablement must be true. For agency-only context, the extension can render when the agency is enabled or when its runtime resolver explicitly returns an enabled resolution.
+Stream writes reject a missing/deleted stream, an unknown extension, a disabled agency switch, invalid JSON, authorization drift, and extension guard failures. The host takes the authorization-state and extension lifecycle locks, re-resolves the active stream ownership, repeats `transfer_payment:update`, checks agency enablement, runs the guard, and only then upserts the stream row. Enabling Narrative Quality with an otherwise empty configuration adds its agreement-level target so a meter can render.
 
-## Entity tabs
+## Runtime contributions
 
-Extensions can add tabs to agreements, proponents, claims, and monitors. A tab appears only when the extension is enabled for the relevant agency or stream and the user has the required access.
+The host discovers contributions through authenticated, authorization-filtered endpoints; the browser never decides enablement or RBAC by itself.
 
-Proponent tabs require agency enablement and use empty config by default because proponents are not stream-scoped.
-
-## Operator Responsibilities
-
-| Responsibility | Guidance |
+| Contribution | Host behaviour |
 | --- | --- |
-| Enable extensions at agency level first | Stream configuration is unavailable until the agency switch is on. |
-| Configure streams deliberately | Stream settings can change agreement, payment, or review behavior. |
-| Run migrations when prompted | Extension-owned data structures must be ready before runtime use. |
-| Test runtime pages after enablement | Confirm new tabs, slots, actions, and calculators appear only where expected. |
-| Disable with care | Disabling an agency extension also disables it for streams under that agency. |
+| Slots | Seven named slots can render beside shared text areas, agreement descriptions/profile fields/sections, and Proponent descriptions. Requests carry the intended `create`, `read`, or `update` action. Invalid or inaccessible ownership fails; no usable context returns an empty list. |
+| Entity tabs | Agreement, Proponent, claim, and monitor tabs resolve the exact active entity and owning agency/stream. The host checks entity read access and each tab's declared RBAC pair before returning its component and configuration. Missing IDs, deleted entities, disabled extensions, and denied tab RBAC produce no tab. |
+| Create actions | Commitment and payment pages request append/replace actions for the current agreement. No agreement produces an empty result. More than one enabled `replace` action yields `EXTENSION_CREATE_OPERATION_CONFLICT`; the host does not choose one. |
+| Payment calculators | Payment creation supports one enabled calculator. More than one yields `EXTENSION_PAYMENT_AMOUNT_CALCULATOR_CONFLICT`; configuration must be corrected before relying on a calculator. |
 
-## Create actions and calculators
+Host components resolve only names present in the generated component registry. A missing component therefore renders nothing. Successful create actions call the host callback to refresh the owning table. Calculator components emit a result and an extension-keyed payload; the host form applies the result, but server-side business validation remains authoritative.
 
-Extensions can add create actions for agreement commitments and payments. They can also add payment amount calculators. The host detects conflicts when more than one replace-style create action or more than one payment calculator is available for the same operation.
+### Runtime resolver limitation
 
-Installed financial extensions can also add agreement tabs with their own totals. For example, the outcome cost allocation tab shows allocated and unallocated amounts by allocation version, commitment type, and fiscal year so users can see whether the agreement program funding has been fully allocated.
+The current executable path consults an extension runtime resolver only while loading agency/Proponent slots. Its returned configuration is used only when the resolver says it is enabled; however, a false or absent result does not suppress the slot—it falls back to `{}`. Stream slots use persisted stream configuration and do not call the runtime resolver. Operators and authors must not depend on the resolver alone to hide current slots; use agency/stream enablement and host RBAC. This discrepancy is tracked as `DOC-030`.
 
-## Data and migrations
+## Dynamic server routes and trust boundary
 
-Extension-owned data can be stored separately from core GCS records. Deleting extension-owned key-value data follows the same soft-delete expectation as the rest of the application.
+All extension routes enter through `/api/extensions/{extensionKey}/...` and require an authenticated session before dispatch. The build registry matches an exact method and segment pattern; it does not support an arbitrary filesystem route. The dispatcher isolates resolved parameters while calling the handler and restores the original request context afterward.
 
-Extension config and extension key-value data are not secret stores. Config can be rendered in browser-side admin components, and KV entries are ordinary JSON state. Private keys, API tokens, refresh tokens, signing secrets, and similar values belong in the SDK encrypted secret store, which is backed by separate encrypted storage and a deployment-managed `GCS_EXTENSION_SECRETS_KEY`. Secret metadata may be displayed for administration, but decrypted secret values are server-only.
+An RBAC-declared handler gets host-resolved agency, stream, or exact entity context, effective configuration, and the declared subject/action check. Agency and stream states are rechecked. Entity routes support agreements, Proponents, claims, and monitors; claim/monitor authorization remains in the owning agreement domain. A handler declared `auth: "manual"` receives authentication only and must perform its own complete domain authorization and enablement checks.
 
-## GC Forms integration
+Protected extension writes use the supplied two-phase `writeAuthorization`: lock auth state in the same transaction, acquire lifecycle/entity locks, repeat current-scope authorization, then read and mutate. Agreement selections use the host visibility helper, and writes to a selected agreement use the same-transaction agreement lock and fresh authorization callback. Missing protocols or scope drift are fatal. Expected extension user errors are localized into the normal API error envelope; unexpected errors remain server failures.
 
-The GC Forms integration is an installed extension that can connect GC Forms submissions to GCS field mappings. Agency configuration stores the API base URL, identity-provider URL, default confirmation behavior, credential metadata—including the form id—and encrypted private keys. Stream configuration stores the selected credential reference and destination mappings.
+## Migrations, state, and secrets
 
-The current materializer is claims-first: it can create submitted agreement claims and optional submitted claim line items, then link the generated GCS records back to the GC Forms submission. Imported lines without a valid budget-line match remain unallocated and can be assigned to a compatible agreement budget line while the claim is submitted. Sync checks the saved GC Forms template shape before reading submissions; if the live form shape changed, users must refresh the template, review mappings, save configuration, and run sync again. Unsupported destinations are then handled per submission after fetch, decryption, and integrity verification. The extension persists the normalized answers, attachments, and a stable `unsupported_destination` issue for each unsupported mapping, skips claim creation and confirmation for that submission, and continues processing the run.
+Each extension has separately hashed Kysely migration history and lock tables. Runs are pending-only and return migration name, direction, and status. Startup automatically applies migrations only for extensions enabled by at least one active agency; operators should still deploy compatible code and migrations before allowing traffic.
 
-For configuration and recovery details, see [GC Forms Integration](../extensions/gc-forms.md).
+Use extension KV for simple non-secret JSON. KV deletion is soft deletion. Use extension-owned migrated tables for relational or reportable workflows. Use the encrypted secret helpers for credentials and private keys; AES-256-GCM records are bound to extension and owner identity. The deployment-managed `GCS_EXTENSION_SECRETS_KEY` must be a base64-encoded 32-byte value and must never enter config, KV, source control, seed data for real environments, or client payloads.
+
+## Operational checklist
+
+- Confirm the extension is packaged in the deployed build and appears in the agency registry.
+- Enable it at agency level and resolve any migration or disable-guard error.
+- Configure and enable each intended stream; re-enable streams explicitly after an agency-level disable.
+- Store secrets through the encrypted server helpers, not the JSON editors.
+- Test every contributed tab, slot, action, calculator, and server workflow with both permitted and denied users.
+- After an upgrade, run pending migrations and verify the affected host lifecycle guards before processing production records.

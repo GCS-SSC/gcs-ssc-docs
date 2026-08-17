@@ -31,6 +31,7 @@ The stream wizard creates the stream and several child setup collections togethe
 The wizard steps are:
 
 - General: stream identity, parent stream, descriptions, objectives, further-distribution flag, and status.
+- Holdback bases: agency holdback basis plus a bilingual stream label.
 - Budgets: stream budget rows linked to program fiscal-year budget rows.
 - Recipients: eligible applicant recipient subtypes.
 - Cost lines: agency cost category line items and stream cost-sharing ratios.
@@ -52,6 +53,7 @@ The wizard prevents common setup conflicts:
 | Rule | Behaviour |
 | --- | --- |
 | Stream budgets are one row per program budget | A program budget can be selected only once. |
+| Holdback bases must be unique and agency-owned | A selected agency holdback basis can appear only once and must belong to the program's agency. |
 | Recipient subtype selections must be unique | Duplicate eligible recipient subtype rows are blocked. |
 | Cost category line item selections must be unique | Duplicate stream cost line rows are blocked. |
 | Amendment type uniqueness uses category and bilingual name | Two amendment types cannot share the same amended category and bilingual name combination. |
@@ -68,6 +70,7 @@ The wizard prevents common setup conflicts:
 The stream detail page exposes these tabs:
 
 - General.
+- Holdback Bases.
 - Budgets.
 - Eligible Recipients.
 - Cost Category Line Items.
@@ -83,6 +86,7 @@ The stream detail page exposes these tabs:
 - Approval Templates.
 - Document Templates.
 - Recommendation Setups.
+- Workflow Setups.
 - Extensions.
 
 Each setup tab uses the same add/edit/delete pattern: a resource table, a modal or editor, validation, and soft-delete where delete is supported.
@@ -100,6 +104,10 @@ The General tab shows the stream identity and descriptive fields:
 - Status.
 
 Edit these fields from the stream page action or from the parent program's Streams tab.
+
+## Holdback Bases Tab
+
+Holdback Bases maps the agency's active holdback bases into the stream and gives each mapping an English and French name. The selected agency basis must belong to the program's agency, and it can appear only once in an active stream mapping. Configure these mappings before agreement holdback rules need them.
 
 ## Budgets Tab
 
@@ -204,7 +212,7 @@ Review setups configure how assessment reviews are generated for runtime entitie
 - Order.
 - Sequential flag.
 - Optional approval template.
-- Active flag.
+- Lifecycle status, version, and pending-publication state.
 - One or more review setup members.
 
 Each member links to an assessment review schema, has an order, and can have its own optional approval template. Member rows also carry schema metadata such as schema name, outcome name, version, and status for display.
@@ -218,6 +226,10 @@ Business rules:
 - Review schemas must belong to the stream's agency and match the configured entity type.
 
 Runtime implication: when enabled for supported runtime entities, the setup can generate common review work. Sequential setups control whether members are executed in sequence or in parallel.
+
+New setups begin as drafts. Activating a valid draft publishes its current setup/member snapshot as version 1. Editing an active setup creates pending publication content; Publish is available only when the active setup has a valid change. Runtime reviews remain pinned to the published setup and schema snapshot that generated them, so later edits do not silently rewrite existing work. The detail editor can associate an existing same-agency schema or create a new assessment/checklist schema and then open its editor.
+
+The source also retains stream-scoped Assessment Set API contracts and an unmounted Assessment Sets component. They are not registered in the current stream tab map and therefore have no supported end-user navigation path. Integrations using those APIs must still obey the same stream ownership, assessment-only member, fresh-authorization, uniqueness, and soft-delete rules; administrators should use Review Setups in the current UI.
 
 ## Recommendation Setups Tab
 
@@ -240,6 +252,10 @@ Use this tab when approval routes must vary by stream. Common/global templates c
 
 See [Approval Templates](./approval-templates.md) for the full template and runtime approval behavior.
 
+## Workflow Setups Tab
+
+Workflow setups define stream-scoped orchestration triggered by completion or recommendation. A setup stores the runtime entity type, bilingual name and description, allowed starting statuses, start/success/failure statuses, optional source approval template, optional review and recommendation setups, active state, and whether retry is allowed. Linked resources must match the same stream/entity context. Publishing or activating a setup governs future workflow materialization; existing workflow runs retain their own lineage and state.
+
 ## Document Templates Tab
 
 Stream document templates define the source files used by agreement document generation. The tab shows entity type, English name, template kind, output formats, active status, bilingual attachments, and row actions.
@@ -252,11 +268,13 @@ Each template stores:
 | English/French name | Required bilingual display name. |
 | English/French description | Required bilingual description shown when users choose a template on an agreement. |
 | Template kind | `docx` or `html`. |
-| Output formats | One or more of `docx` and `pdf`; HTML templates are limited to `pdf`. |
+| Output formats | One or more compatible formats: DOCX templates allow `docx` and/or `pdf`; HTML templates allow `html` and/or `pdf`. |
 | English/French file | Required on create. DOCX templates accept `.docx`; HTML templates accept `.html` or `.htm`. |
 | Active | Only active agreement templates are available in the agreement Documents tab. |
 
-Editing a template can update metadata, output formats, active status, and either language file. Replacing a language file stores a new attachment and removes the replaced attachment from normal storage. Deleting a template soft-deletes the template; generated agreement documents created earlier remain separate records.
+Creation uses multipart data and requires both language files. Each file is limited to 10 MiB and the complete request to 21 MiB. File-kind validation currently uses the filename extension (`.docx`, or `.html`/`.htm`); operators must therefore treat template-upload permission as trusted content-authoring access. Template kind becomes immutable after creation.
+
+Editing can update metadata, compatible output formats, active status, and either language file. Replacing a language file stores a new attachment and cleans up the replaced attachment after the database update; a failed update cleans up newly created attachments. Deleting a template soft-deletes it and its source attachments from active use. Generated agreement documents created earlier remain separate records. Downloads authorize the exact active stream/template relationship and return the requested English or French source attachment.
 
 Operational note: PDF generation from DOCX uses LibreOffice, and HTML-to-PDF uses Puppeteer. Local development can install these tools with the document generation setup command in [Startup](../developer/startup.md).
 
@@ -273,6 +291,12 @@ Extensions control stream-specific extension settings. Extension configuration i
 ![Stream extensions configuration](/screenshots/en/stream-extensions.png)
 
 _Actual screenshot from the seeded development environment. The records shown are examples only and are not created in a fresh installation._
+
+## Lifecycle, Failure, and Recovery
+
+Stream and setup deletions are soft deletes unless a specialized section says otherwise. Stream deletion locks the current stream and extension-owned agreement scopes, rechecks exact delete access against the active program/agency chain, and lets registered extensions block deletion. A repeatedly changing ownership scope fails closed rather than using stale authorization. Historical child setup is not physically erased, but active-stream paths stop exposing it.
+
+Stream and child writes use fresh-authorized transactions and re-resolve their canonical parent chain. Parent streams must be active siblings in the same program and a stream cannot parent itself. Agency-owned selections, program budgets, and nested setup resources must belong to the current chain. Missing and inaccessible resources are intentionally masked similarly. On a localized conflict, invalid selection, capacity failure, or concurrent scope error, reload the current tab, correct the referenced record, and retry.
 
 ## Runtime Dependencies
 

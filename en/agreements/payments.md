@@ -1,76 +1,99 @@
 # Agreement Payments
 
-Payments record planned or actual payment requests against active approved commitments. Payment lines allocate the payment amount to approved commitment lines.
+Payments record reimbursement or advance requests against an eligible Agreement commitment. A payment header defines the period and requested amount; its lines allocate that amount to the commitment's financial coding.
 
-## Empty installation setup
+## Before you begin
 
-| Configuration | Why it matters |
+Open an Agreement and select **Payments**. The following setup must already exist:
+
+| Dependency | Verified requirement |
 | --- | --- |
-| Agreement budget fiscal years | Payment fiscal years are selected from agreement budget fiscal years. |
-| Approved active commitment | Creating a payment requires an active approved commitment of the selected commitment type. |
-| Commitment lines | Payment lines select eligible commitment lines for the payment's commitment and fiscal year. |
-| Approval template for `fundingcasepayment` | Required when completed payments must go through approval. |
-| Optional payment amount calculator extension | Extensions can suggest payment amounts, apply ceilings, or replace create actions. |
+| Agreement budget | The payment uses a stable fiscal-year identity from the current Agreement budget version. |
+| Commitment | Creation ultimately requires an active, non-deleted commitment of the selected type whose status is `complete` or `approved`. |
+| Commitment lines | Coding lines must belong to that exact commitment and map to the payment's current Agreement fiscal year. |
+| Optional workflow setup | Completion can start an applicable workflow for `fundingcasepayment`. |
+| Optional approval template | The server has a separate payment-approval runtime, but core completion and the current detail page do not invoke it. See [Completion, approval, and workflow](#completion-approval-and-workflow). |
 
-## Tab flow
+Reading the tab and detail page requires `agreement:read`. Header or line creation requires `agreement:create`, updates and completion require `agreement:update`, and deletion requires `agreement:delete`. A role or the exact Agreement Team may supply these actions. Access to a related stream, commitment, or another Agreement does not broaden the boundary. Missing or inaccessible records are returned without disclosing cross-scope data.
 
-The Payments tab displays payment type, status, fiscal-year schedule, period, comment, amount, and line count. Search includes the visible comment text.
+## Browse payments
 
-Viewing payments requires `agreement:read`. Creating a payment requires `agreement:create`; editing an existing payment or completing it requires `agreement:update`; deleting a payment requires `agreement:delete`. An exact Agreement Team can supply these actions according to its access level.
+The tab lists payment type, status, current fiscal-year label, April-to-March period, comment, amount, and line count. Search is client-side over all loaded rows and matches the localized payment type and status, fiscal year, comment, amount, or line count. The table paginates 25 filtered rows at a time.
 
-Creating a payment captures:
+Select the payment type to open its detail page. The header there shows the amount, status, and the raw stored period indexes; use the localized April-to-March period shown on the Payments tab when confirming dates.
+
+## Create or edit a payment
 
 | Field | Rule |
 | --- | --- |
-| Commitment type | Required. The agreement must have an active approved commitment of this type. |
-| Fiscal year | Required. Must be an agreement budget fiscal year. |
-| Payment type | `reimbursement` or `advance`. |
-| Period start/end | Fiscal-year months, April through March, encoded as 0 to 11. End cannot be before start. |
-| Payment amount | Required positive money value. |
-| Comment | Optional. Blank comments normalize to null. |
+| Commitment type | Required. The form stores a type, while the server resolves an eligible active commitment of that type. |
+| Fiscal year | Required. It is the stable identity of an active row in the current Agreement budget version, not the version-specific row ID. |
+| Payment type | Required: `reimbursement` or `advance`. |
+| Period start and end | Required integer indexes from `0` (April) through `11` (March); end must be at or after start. |
+| Payment amount | Required, finite, positive money value within the shared request limit; persisted as `numeric(19,2)`. |
+| Comment | Optional; blank input is stored as `null`. |
 
-New core payments are created as `draft`. Extension create hooks can replace the core insert after validation succeeds.
+A core-created payment starts as `draft`. Editing its header or changing its lines moves a draft to `inprogress`. The API response also presents a draft header as `inprogress` after an edit.
 
-## Detail page
+The commitment picker currently includes all `complete` commitments, even inactive ones, and active `approved` commitments. Saving is stricter: it resolves only an active `complete` or `approved` commitment by type. A displayed inactive completed option can therefore fail at save, or resolve another active commitment of the same type. Do not treat picker presence as proof of eligibility; verify the active commitment on the Commitments tab.
 
-The payment detail page shows payment context, payment lines, completion, and approval. Use it to allocate the payment amount to eligible commitment lines before completing the payment.
+Changing the commitment or fiscal year is refused once the payment has any active line. Remove or reconcile the lines first. Other header edits remain subject to the lifecycle lock below. The server rechecks authorization and Agreement scope inside the write transaction before mutation.
 
-## Payment lines
+The tab shows edit and delete controls from the caller's broad permissions, even for a locked row. If an action is rejected, refresh the page and use the status returned by the server rather than retrying the stale modal.
 
-| Field | Rule |
-| --- | --- |
-| Payment | Set by the current payment detail page. |
-| Commitment line | Required. The selector only offers commitment lines that match the payment's approved commitment and fiscal year. |
-| Amount | Required positive money value. |
+## Allocate payment lines
 
-The detail table shows the commitment line number, fiscal year, financial coding, and payment-line amount. Financial coding includes the fund as the primary value and GL, fund centre, internal order, functional area, and cost centre when present. The detail total compares payment line total to payment amount.
-
-Adding a payment line requires `agreement:create`, editing an existing line requires `agreement:update`, and deleting a line requires `agreement:delete`. The eligible commitment-line lookup uses the same create or update action as the form that opened it.
-
-## Business rules
+The detail page lists the commitment line number, fiscal year, fund, optional GL and description, fund centre, internal order, functional area, cost centre, and allocated amount. Search matches those displayed coding values. The total below the table compares all active lines with the payment header amount.
 
 | Rule | Behaviour |
 | --- | --- |
-| Payment creation requires an active approved commitment | If no commitment of the selected type is active and approved, creation is rejected. |
-| Fiscal year must belong to the agreement budget | Invalid fiscal years are rejected. |
-| Payment line must match the payment commitment and fiscal year | Commitment lines outside the payment context are rejected. |
-| Payment line amount cannot exceed commitment balance | The payment line total for a commitment line cannot exceed that commitment line's remaining balance. |
-| Locked statuses block edits | `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, and `paid` are read-only. |
-| Editing a draft payment moves it to in progress | Line changes sync draft payments to `inprogress`. |
-| Completion requires exact line total | The payment cannot complete unless line total is positive and exactly equals payment amount. |
+| Positive amount | Each line must be greater than zero and is stored at two-decimal precision. Both request validation and the database enforce positivity. |
+| Exact parent | The payment must belong to this Agreement and the line must belong to the payment's selected commitment. Composite database foreign keys preserve that relationship. |
+| Fiscal-year match | The commitment line's stream budget must map to the payment's stable current Agreement fiscal year. |
+| One coding line per payment | Only one active line may reference a particular commitment line within the same payment. |
+| Remaining balance | Across all active, non-denied payments, the sum assigned to a commitment line plus the proposed amount cannot exceed that commitment line's amount. A patch excludes the line being changed. |
 
-## Completion and approval
+The balance check locks the commitment line, serializing competing host writes to the same balance. Parent payments are locked in deterministic ID order before a moved child line is locked; a detected scope change is retried up to three times. A line PATCH API can move a line to another editable payment in the same Agreement, although the mounted detail modal keeps the current payment selected. The destination commitment, fiscal year, uniqueness, and balance are all revalidated.
 
-Completion entity type: `fundingcasepayment`.
+Deleting a line soft-deletes it. Deleting a payment locks its active lines and soft-deletes the lines and header together. Deleted records no longer appear or count toward balances; database history remains. Deletion and edits are refused once the payment is locked.
 
-Completing a payment stores the common completion comment. With a valid approval template for `fundingcasepayment`, the payment moves to `pendingapproval`; without one, it moves to `complete`.
+## Completion, approval, and workflow
 
-The approval section appears for `pendingapproval`, `approved`, and `denied` payments. Approval actions move the payment status through the common routing slip. Later operational payment statuses such as `pay`, `wait`, `processed`, and `paid` are locked in the agreement UI.
+The core detail page has **Completion** and **Workflow** sections; it has no payment approval section.
 
-An assigned approver must also have ordinary `agreement:read` access through a role or exact Agreement Team. The assignment makes the user eligible for the approval step; it does not grant access to the payment or Agreement.
+Completion is transactional. It locks the payment and its active lines, rechecks `agreement:update`, refuses a second completion, and requires:
 
-## Extension points
+- at least one active line and a positive line total; and
+- an exact PostgreSQL numeric sum equal to the payment header amount.
 
-Payment creation can be replaced or extended by registered extension create actions. A payment amount calculator extension can return a suggested amount, a ceiling amount, currency, calculation details, loading state, errors, and extension-specific data. The form prevents saving when the entered amount exceeds the calculator ceiling.
+On success it records the common completion comment and user, changes the payment directly to `complete`, starts any applicable `fundingcasepayment` workflow, commits, and then emits the completion hook. It does not inspect a payment approval template or create a routing slip.
 
-See [Automated Payments](../extensions/automated-payments.md) for claim-, forecast-, commitment-, and holdback-based ceilings. [Outcome Cost Allocation](../extensions/outcome-cost-allocation.md) can generate payment lines for commitments it manages.
+A generic payment approval API does exist for authorized integrations. An explicit caller can materialize the stream's `fundingcasepayment` template, move the payment to `pendingapproval`, and process assigned approvals to `approved` or `denied`. Assigned approvers still need ordinary access to the exact Agreement. That API is not called by the core completion button and its controls are not mounted on the payment page. Consequently, configuring a payment approval template alone does not put a core-UI payment into approval.
+
+The schema also defines `pay`, `wait`, `processed`, and `paid`. They are locked if encountered, but no current core route or installed extension advances a payment into those four operational states. Do not describe them as an automated processing pipeline.
+
+## Lifecycle and recovery
+
+`draft` and `inprogress` are editable. `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, and `paid` are locked against header and line mutation.
+
+If completion reports a total mismatch, compare the header amount with the full unfiltered line total, then correct the editable header or lines. If a balance error occurs, inspect other non-denied payments against the same commitment line. A denied payment no longer consumes that balance. If an extension refuses a mutation, preserve its generated provenance and follow the extension-specific recovery guidance rather than bypassing the host route.
+
+## Extension effects
+
+The create surface supports append or replacement actions and one payment-amount calculator. Conflicting replacement actions or multiple calculators disable core creation and show a conflict warning.
+
+### Automated Payments
+
+When enabled for the stream, [Automated Payments](../extensions/automated-payments.md) calculates a CAD suggested amount and ceiling from claims, forecasts, earlier non-denied payments, remaining approved commitment lines, and configured holdback rules. The calculator appears only during creation, recalculates as fields change, and may collect a holdback release. The UI copies the suggestion into the amount and blocks values above the ceiling; the server recalculates and enforces the ceiling in the creation transaction, then stores normalized holdback metadata. It does not create lines or advance payment statuses.
+
+### Outcome Cost Allocation
+
+When [Outcome Cost Allocation](../extensions/outcome-cost-allocation.md) manages the selected commitment, its post-create hook calculates allocation-derived payment lines in the same transaction and moves the new payment from `draft` to `inprogress`. Generated lines must exactly fit the managed commitment coordinates and remaining coverage. The extension then prevents changing or deleting those lines and protects sensitive header fields, while still allowing ordinary non-sensitive edits and valid status changes. It can also prevent resurrecting a denied generated payment when current allocation coverage is insufficient. Keep the extension enabled while generated provenance exists.
+
+## Developer contract
+
+The payment family contains 11 Agreement-scoped handlers: overview; header create, detail, patch, and delete; line create, patch, and delete; and commitment, fiscal-year, and commitment-line lookups. Bodies use the shared localized Zod schemas and standard localized validation response. Bigint identities accept the shared external ID forms and are returned as strings by the PostgreSQL/Kysely contract.
+
+Header ownership is derived from its commitment by a database trigger. A line's commitment is derived from its payment, with composite foreign keys proving both payment-to-commitment and line-to-commitment membership. The core database enforces positive `numeric(19,2)` amounts and active per-payment coding uniqueness; the cross-payment remaining-balance rule and completion total equality are transactional application rules rather than database aggregate constraints.
+
+See [Commitments](./commitments.md), [Agreement Budget](./budget.md), [Approvals and Completions](../concepts/approvals-completions.md), and [Workflows](../concepts/workflows.md).

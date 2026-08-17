@@ -1,91 +1,107 @@
 # Agencies
 
-Agencies are the administrative root for most business configuration. Programs belong to agencies, many reference lists are agency-owned, and scoped RBAC checks use agency ids to decide what a user can see or change.
+Agencies are the administrative root for programs and most business reference data. Agency scope is also an authorization boundary: seeing an agency identifier in another record does not grant access to it.
 
-## List page
+## Access and permissions
 
-The Agencies page supports search, status filtering, pagination, column controls, row selection, and create/update modals. The hero shows total agencies and active agency count when available.
+The server enforces every operation. Navigation visibility and client-side controls are conveniences, not authorization.
 
-Creating or updating an agency captures bilingual profile information, abbreviations, status, GWCOA number, and external financial system id. Deletes are soft deletes. Deleted agencies disappear from normal active lists, while dependent records continue to reference historical ids.
+| Operation | Required scope |
+| --- | --- |
+| List or read agencies and agency-owned reference data | An applicable `agency:read` grant |
+| Create an agency | Global `agency:create` |
+| Edit or delete an agency | `agency:update` or `agency:delete` for that exact agency |
+| Create or delete agency-owned reference data | The corresponding permission for that exact agency |
+| Create a program from the Programs tab | `transfer_payment:create` for that exact agency |
 
-## Lifecycle consistency
+Missing and inaccessible child records normally produce the same not-found response. This prevents an identifier from revealing data across agency boundaries.
 
-Agency-owned reference data is read and changed only after a lock-protected recheck confirms that the user's authorization and the relevant ownership chain are current. Concurrent lifecycle changes are serialized, so an operation does not proceed based on a parent or authorization state that was already stale when the recheck occurred.
+## List and agency profile
 
-Program creation follows the same rule: a program cannot be attached to an agency that is already deleted when its locked active-state check runs.
+The Agencies page provides literal-text search, status filtering, pagination, column controls, row selection, and create, edit, and delete actions. `%` and `_` are searched as ordinary characters, not SQL wildcards. The summary reports all and active agencies within the caller's scope.
 
-## Detail page
+The agency form contains:
 
-The agency detail page uses a vertical tab layout:
+| Field | Rule |
+| --- | --- |
+| GWCOA organization | Required server-backed lookup; creation requires global create access and editing requires access to the exact agency |
+| Financial-system ID | Required numeric identifier |
+| English and French names | Required, maximum 100 characters each |
+| English and French abbreviations | Required, maximum 10 characters each |
+| Status | Draft, active, or inactive |
 
-- General
-- Programs
-- Cost Categories
-- Fiscal Years
-- Address Types
-- Applicant/Recipient Subtypes
-- Approval Behalf
-- Agreement Types
-- Extensions
+The General tab displays those values. Agency profile edits replace only submitted fields. The active profile tuple of financial-system ID, both names, and status must be unique.
 
-Administrators can link directly to a tab.
+## Detail navigation
 
-Search in the agency-owned reference-data tabs treats `%` and `_` as ordinary characters rather than wildcard operators. Search and status filters narrow the displayed rows and pagination total, while each tab's summary continues to show agency-wide totals.
+The detail page has ten linkable tabs:
 
-## General tab
+1. General
+2. Programs
+3. Cost Categories
+4. Fiscal Years
+5. Holdback Bases
+6. Address Types
+7. Applicant/Recipient Subtypes
+8. Approval Behalf
+9. Agreement Types
+10. Extensions
 
-General displays the bilingual profile, abbreviations, GWCOA linkage, financial system id, and lifecycle status. The edit action opens the agency modal. Treat the agency id and financial links as integration-sensitive data: changing them after programs and agreements exist can affect reconciliation and reporting.
+Each reference-data tab supports literal search, status filtering, pagination, and agency-wide summary counts. Search and status filters change the displayed rows and paginated total, while the summary remains an agency-wide total.
 
-## Programs tab
+## Programs
 
-Programs lists transfer payment profiles owned by the agency. Users with `transfer_payment:create` in that agency can create a program directly or use the program wizard. The tab fixes the agency id so new programs are attached to the current agency.
+Programs lists transfer-payment profiles owned by the agency. Authorized users can create a profile directly or start the program wizard; the current agency is fixed as the owner. A locked active-state check prevents a concurrent agency deletion from accepting a new program.
 
-Programs are the parent of streams. Most agreement configuration happens at stream level, so the agency should have fiscal years, cost categories, and core reference data before programs are opened for production use.
+Programs contain streams. Configure the agency's fiscal years, cost categories, and other required lookups before opening a program for operational use.
 
-## Cost Categories
+## Agency reference data
 
-Cost Categories define financial buckets. Each category can be expanded to manage line items. These line items feed agreement budgets, commitments, payments, claims, and cost allocation logic. Create categories before configuring stream cost line items or agreement financial workflows.
+| Tab | Stored values and constraints | Supported actions | Principal use |
+| --- | --- | --- | --- |
+| Cost Categories | Required English and French names, each unique among active categories in the agency | List, create, soft-delete | Financial grouping for program, agreement, claim, payment, and allocation records |
+| Cost-category line items | Required English and French names, each unique among active items in its category | List, create, soft-delete | Detailed budget and expenditure classification |
+| Fiscal Years | Display label (maximum 9 characters), year from 1900 through 2100, start date, and end date not before start | List, create, soft-delete | Budgets, forecasts, commitments, payments, claims, and monitoring periods |
+| Holdback Bases | Required code plus English and French names; active code is unique in the agency | List, create, edit, soft-delete | Agreement holdback configuration |
+| Address Types | Required English and French names, each unique among active values in the agency | List, create, soft-delete | Classification of proponent and agreement addresses |
+| Applicant/Recipient Subtypes | Applicant/recipient type plus required bilingual name and description; names are unique for the active agency/type combination | List, create, soft-delete | Classification available to proponents whose lead agency owns the subtype |
+| Approval Behalf | Required English and French names plus `require actual`; names are unique among active values in the agency | List, create, soft-delete | Delegated approval rules and whether actual-approver details are required |
+| Agreement Types | Agreement-type enum plus required English and French names; names are unique for the active agency/type combination | List, create, soft-delete | Classification of agreements created for the agency |
 
-## Fiscal Years
+These lists do not offer a general rename/edit action. Create a corrected value and retire the obsolete value when a resource supports only create and delete. Holdback Bases is the exception and has an edit action.
 
-Fiscal Years store a display label and numeric fiscal year. They are referenced by program and stream budgets, agreement forecasts, commitments, payments, claims, and monitoring records. Create the full fiscal-year range for a program before entering budget records.
+## Lifecycle, concurrency, and deletion
 
-## Address Types
+Agency and child deletions are logical (`_deleted = true`), not physical. Deleted values disappear from active lookups while historical foreign keys remain intact.
 
-Address Types classify addresses used by proponent and agreement records. They are bilingual reference values and should be stable. Rename carefully because users may interpret historical addresses through the current label.
+Sensitive writes re-resolve authorization and ownership inside lock-protected transactions. The operation fails safely if the user's grant, the agency, or an ownership chain changed concurrently. Child lookups and mutations also confirm that the owning agency remains active.
 
-## Applicant/Recipient Subtypes
-
-Applicant/Recipient Subtypes classify proponent records and include an applicant/recipient type plus bilingual name and description. Proponents can only use subtypes that belong to their selected lead agency.
-
-## Approval Behalf Types
-
-Approval Behalf Types describe cases where a user approves on behalf of another person. The `require actual` flag controls whether additional details must be collected. Configure these before production approval workflows require delegated approvals.
-
-## Agreement Types
-
-Agreement Types classify agreement records by an agreement type enum and bilingual label. Create them before agreement operators begin creating agreements for the agency.
+Deleting an agency requires exact-agency delete access and a fresh view of its grant graph. The operation is blocked when extension state prevents deletion. A successful deletion also retires the agency-owned roles, role abilities, program-scope grants, and user-role assignments that could otherwise preserve access. Other historical child records are not physically removed; they become unavailable through active-agency paths.
 
 ## Extensions
 
-The Extensions tab lists registered extensions and whether each is enabled for the agency. Enabling an extension runs its migrations. Disabling an extension also disables that extension for all streams under the agency. Stream-level configuration is available only for agency-enabled extensions.
+The Extensions tab shows registered extensions and agency enablement state. Only extensions enabled for the agency can be configured at stream scope. Disabling an agency extension disables its stream-level enablement for every stream under that agency. Extension availability, authorization, configuration, storage, and migrations remain governed by the host extension lifecycle.
 
-## Dependency order
+## Setup order
 
-For a new agency, use this order:
+For a new agency, a practical dependency order is:
 
-1. General profile.
-2. Fiscal Years.
-3. Cost Categories and line items.
-4. Address Types.
-5. Applicant/Recipient Subtypes.
-6. Agreement Types.
-7. Approval Behalf Types.
-8. Extensions at agency level.
-9. Programs.
-10. Program streams and stream-level setup.
+1. Complete the General profile.
+2. Add Fiscal Years.
+3. Add Cost Categories and line items.
+4. Add Holdback Bases, Address Types, Applicant/Recipient Subtypes, Approval Behalf types, and Agreement Types required by the business process.
+5. Enable required Extensions at agency scope.
+6. Create Programs.
+7. Add program streams and complete stream-level setup.
 
-This order gives downstream program, proponent, and agreement pages complete lookup data from the beginning.
+## Failure and recovery
+
+- A duplicate active value returns a localized conflict message; change the conflicting field or retire the existing value.
+- An invalid date range, year, identifier, or missing bilingual field returns field-level localized validation errors.
+- A missing or inaccessible agency or child resource returns not found; confirm both the identifier and the caller's exact scope.
+- A concurrent authorization or lifecycle change can reject an otherwise valid submission; reload the page before retrying.
+- If a selected GWCOA item cannot be hydrated, confirm that it still exists and that the current create/update permission allows the lookup.
+- Save buttons remain disabled while a request is pending. After an API failure, the modal stays available so the values can be corrected and resubmitted.
 
 ![Agency programs tab](/screenshots/en/agency-program-setup.png)
 

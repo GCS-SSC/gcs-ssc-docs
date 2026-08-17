@@ -1,34 +1,29 @@
-# Ententes d un promoteur
+# Ententes du promoteur
 
-L onglet Ententes affiche les ententes liees au promoteur. C est une vue de relation, pas un remplacement de l espace Ententes.
+L’onglet **Ententes** est une vue des relations entre le promoteur sélectionné et les ententes GCS-SSC actives. Utilisez-le pour trouver et ouvrir une entente; gérez les bénéficiaires et le cycle de vie dans l’espace de travail de l’entente.
 
-## Dependances
+## Visibilité et navigation
 
-| Dependence | Pourquoi c est important |
-| --- | --- |
-| Configuration d entente | Agences, programmes, volets, sous-types et references doivent exister. |
-| Permissions d entente | Les utilisateurs ont besoin de lecture pour voir les ententes et de creation pour en demarrer. |
-| Profil de promoteur | Le promoteur courant peut etre preselectionne pendant la creation. |
+L’ouverture de l’onglet exige un accès en lecture au promoteur. Le serveur applique ensuite la visibilité des ententes de façon indépendante. Seules les ententes liées que vous pouvez consulter au moyen d’une portée globale, d’agence, de paiement de transfert ou d’une équipe exacte de l’entente sont retournées; les ententes inaccessibles sont omises plutôt qu’affichées sous forme masquée.
 
-## Colonnes
+Le tableau présente le numéro d’entente, le titre bilingue, le programme, le volet, le type d’entente et une action d’ouverture. La recherche porte sur le numéro; le titre anglais ou français; le nom du programme, du volet ou de l’agence; et le nom du type d’entente. Les résultats comprennent uniquement les liens actifs ainsi que les enregistrements actifs d’entente, de volet, de programme, d’agence, de sous-type et de type d’entente.
 
-| Colonne | Signification |
-| --- | --- |
-| Numero d entente | Identifiant metier de l entente. |
-| Titre | Titre bilingue dans la langue active. |
-| Programme et volet | Contexte de paiement de transfert. |
-| Type ou sous-type | Classification configuree. |
-| Action | Ouvre l espace detail lorsque l utilisateur peut lire l entente. |
+Sélectionnez le titre bilingue ou la flèche pour ouvrir l’entente. L’API de destination vérifie de nouveau l’accès; la visibilité dans cet onglet n’accorde aucun droit plus large sur l’entente.
 
-## Regles metier
+## Créer une entente depuis l’onglet
 
-| Regle | Comportement |
-| --- | --- |
-| Les ententes appartiennent au contexte de volet | La relation promoteur ne change pas le programme, le volet ou l agence proprietaire. |
-| La creation peut commencer ici | Lorsque permis, le flux de creation s ouvre avec le promoteur courant preselectionne. |
-| Une entente peut avoir plusieurs promoteurs | La relation est plusieurs-a-plusieurs par l onglet Promoteurs de l entente. |
-| Retirer une relation se fait dans l entente | Gere les promoteurs lies depuis l espace detail de l entente. |
+Le bouton **Nouvelle entente** apparaît lorsque le client indique une autorisation de création d’entente dans au moins une portée. Il ouvre l’assistant habituel en fournissant le promoteur courant comme valeur présélectionnée dans la requête. Il s’agit d’un raccourci, et non d’un contournement de l’autorisation : l’agence, le programme et le volet choisis doivent toujours appartenir à votre portée de création, et chaque étape au serveur valide le contrat de l’entente.
 
-## Conseils
+Avant la création, configurez l’agence, le programme et le volet de paiements de transfert, le sous-type d’entente, les données financières et de référence et les modèles requis. Un promoteur peut être lié à plusieurs ententes, et une entente peut compter plusieurs promoteurs.
 
-Utilisez cet onglet pour comprendre les relations de financement actives et historiques du promoteur. Ouvrez l entente pour les budgets, engagements, paiements, reclamations, previsions, surveillances ou approbations.
+## Modifier ou retirer une relation
+
+Cet onglet ne modifie ni ne supprime les ententes et ne retire aucun lien de bénéficiaire. Ouvrez l’entente et utilisez sa section **Promoteurs** avec les autorisations requises sur l’entente. Le retrait d’un lien ne supprime ni le profil du promoteur ni l’entente; la suppression d’une entente suit ses propres règles de cycle de vie et de dépendance.
+
+Si une entente attendue est absente, vérifiez que le lien et les enregistrements de configuration sont actifs et que vous disposez d’une portée de lecture pour l’entente elle-même. L’accès par l’équipe du promoteur n’élargit pas à lui seul la portée des ententes.
+
+## Guides connexes
+
+- [Profils des promoteurs](./index.md)
+- [Historique du financement](./funding-history.md)
+- [Équipes des promoteurs](./team.md)
