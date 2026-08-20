@@ -8,12 +8,12 @@ Open **Proponents**, select a profile, and choose **Other Names**. The table lis
 
 | Effective access to the proponent | Available actions |
 | --- | --- |
-| Read-only access | View, search, and page through active names. |
-| Contributor access | View and add names. |
-| Full access | View, add, edit, and delete names. |
+| Viewer | View, search, and page through active names; no exact assignment is required. |
+| Contributor plus exact Proponent assignment | View, add, and edit names. |
+| Manager plus exact Proponent assignment | View, add, edit, and delete names. |
 | No access | The server refuses the request even if a URL is entered directly. |
 
-Global proponent privileges and an exact-entity Proponent Team assignment can provide access. Every server request rechecks the action against the parent profile. Writes run in a transaction, lock the profile, and rebuild authorization before changing data.
+Viewer reads alternate names. Creating/updating requires Contributor plus the exact parent assignment; deleting requires Manager plus that assignment. Every server request checks the parent profile, and writes lock it before rebuilding authorization.
 
 ## Field and validation
 

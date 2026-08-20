@@ -6,7 +6,7 @@ Commitments group financial-coding lines that payments can consume. Open an agre
 
 | Requirement | Verified behaviour |
 | --- | --- |
-| Agreement access | Reading uses Agreement `read`. Creating a commitment or line uses `create`; editing uses `update`; deleting uses `delete`. Exact Agreement Team access can grant the corresponding child-record action. |
+| Authorization | Agreement Viewer reads. Creating a commitment requires Contributor plus the exact Agreement assignment and makes the creator primary. Later commitment/line mutations require Contributor or Manager plus the exact commitment assignment. |
 | Current agreement budget | Each individual commitment's active line total is capped by total program funding across the agreement's current budget version. |
 | Stream commitments | The agreement's stream must have fiscal-year stream commitments with financial coding. The picker searches GL description or fiscal-year display and cannot select another stream's configuration. |
 | Common user record | Completion requires the signed-in account to resolve to an active `Common_User`. |
@@ -53,7 +53,7 @@ The application currently accepts zero and negative commitment-line amounts. The
 
 ## Complete a commitment
 
-Completion is available only while the user has Agreement `update`, the commitment is editable, no earlier completion exists, and at least one active line remains. Comments are optional.
+Completion is available only with a Contributor Agreement role ceiling and the exact commitment assignment, while the commitment is editable, no earlier completion exists, and at least one active line remains. Comments are optional.
 
 Completion is atomic and performs these actions:
 

@@ -7,7 +7,7 @@ Les prévisions répartissent les dépenses attendues de l’entente entre les l
 | Exigence | Comportement vérifié |
 | --- | --- |
 | Budget courant de l’entente | Un en-tête de prévision doit faire référence à l’identité stable d’un exercice présente dans la version budgétaire courante. Sa grille modifiable utilise les lignes de la version courante ayant la même identité stable d’exercice. |
-| Accès à l’entente | L’action `read` charge le résumé. L’action `create` crée les en-têtes et les lignes mensuelles manquantes; `update` modifie les en-têtes et les lignes existantes et achève une prévision; `delete` supprime logiquement les en-têtes ou les lignes. L’accès exact de l’équipe de l’entente peut accorder ces actions sur les dossiers enfants. |
+| Autorisation | Lecteur Entente consulte. La création d’une prévision exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. Les modifications ou l’achèvement exigent Contributeur et l’affectation exacte à la prévision; la suppression exige Gestionnaire et cette affectation. |
 | Dossier d’utilisateur commun | L’achèvement exige que le compte connecté corresponde à un `Common_User` actif. |
 | Flux de travaux d’achèvement facultatif | Un flux de travaux publié pour `fundingcaseforecast` peut démarrer après l’achèvement et appliquer plus tard son état de réussite ou d’échec configuré. |
 
@@ -59,7 +59,7 @@ La requête PATCH de l’en-tête valide le nouvel exercice, mais elle ne valide
 
 Les états d’en-tête `complete`, `pendingapproval`, `approved` et `denied` sont verrouillés. Un dossier d’achèvement ou une feuille d’acheminement active à l’état `draft`, `pendingapproval` ou `approved` bloque aussi toute modification de l’en-tête et des lignes, même si l’état de l’en-tête semble modifiable.
 
-L’achèvement exige l’action `update` sur l’entente, un en-tête modifiable, aucun achèvement antérieur et au moins une ligne active, peu importe sa version. Les commentaires sont facultatifs. Dans une transaction avec autorisation actualisée, il crée l’achèvement commun, fait passer l’en-tête à `complete` et lance tout flux de travaux d’achèvement `fundingcaseforecast` publié; le point d’extension d’achèvement est émis après la validation de la transaction.
+L’achèvement exige un plafond de rôle Entente Contributeur et l’affectation exacte à la prévision, un en-tête modifiable, aucun achèvement antérieur et au moins une ligne active, peu importe sa version. Les commentaires sont facultatifs. Dans une transaction avec autorisation actualisée, il crée l’achèvement commun, fait passer l’en-tête à `complete` et lance tout flux de travaux d’achèvement `fundingcaseforecast` publié; le point d’extension d’achèvement est émis après la validation de la transaction.
 
 L’achèvement s’applique à tout l’en-tête de prévision, et non à la seule version sélectionnée dans l’URL. Il ne règle pas `egcs_fc_active`, ne copie aucune version et ne vérifie pas que chaque coordonnée budgétaire visible comporte une ligne. Une prévision achevée demeure donc inactive à moins qu’un moteur d’approbation distinct ne l’approuve plus tard.
 

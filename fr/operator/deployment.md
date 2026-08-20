@@ -4,7 +4,7 @@
 
 `bun run build` construit le SDK public des extensions, l’artéfact Nuxt/Nitro `node-server` et le processus de vidage SQL administratif. Le résultat comprend une application Web et une API Node; il ne s’agit pas d’un site entièrement statique.
 
-Le `Dockerfile` à la racine définit le conteneur de production. Il fixe Bun 1.3.13 pour la construction et Node 24 Bookworm Slim pour l’exécution, puis installe Chromium et LibreOffice Writer. Une construction distante récupère tout sous-module absent au SHA exact du gitlink avant que la copie des sources superpose les extractions locales. Le processus s’exécute sous l’utilisateur non privilégié `node`.
+Le `Dockerfile` à la racine définit le conteneur de production. Il fixe Bun 1.3.13 pour la construction et Node 24 Bookworm Slim pour l’exécution, puis installe Chromium et LibreOffice Writer. Il copie aussi l’espace de travail `gcs-ssc-authorization` avant l’installation figée. Une construction distante récupère tout sous-module absent au SHA exact du gitlink avant que la copie des sources superpose les extractions locales; Docker et l’aperçu WebContainer produisent ensuite leur migration de démonstration avec le même outil de regroupement. Le processus s’exécute sous l’utilisateur non privilégié `node`.
 
 Railway emploie ce Dockerfile et sonde `/api/health`. Docker Compose fournit un câblage local équivalent sur le port hôte 8995 par défaut.
 

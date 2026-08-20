@@ -1,16 +1,16 @@
 # API des bénéficiaires demandeurs
 
-Profils de promoteur, identité, relations, historique du financement, examens, ententes et équipes.
+Profils de promoteur, identité, relations, historique du financement, examens, ententes et affectations exactes.
 
 Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
 
-## Gestionnaires (41)
+## Gestionnaires (36)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
-| DELETE | `/api/applicant-recipients/[id]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/applicant-recipients/[id].delete.ts` |
-| GET | `/api/applicant-recipients/[id]` | getEntityTeamAccessLevel | — | `server/api/applicant-recipients/[id].get.ts` |
-| PATCH | `/api/applicant-recipients/[id]` | — | — | `server/api/applicant-recipients/[id].patch.ts` |
+| DELETE | `/api/applicant-recipients/[id]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id].delete.ts` |
+| GET | `/api/applicant-recipients/[id]` | — | — | `server/api/applicant-recipients/[id].get.ts` |
+| PATCH | `/api/applicant-recipients/[id]` | resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id].patch.ts` |
 | DELETE | `/api/applicant-recipients/[id]/addresses/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/addresses/[childId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/addresses/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAddressPatchSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/addresses/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/addresses` | resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/addresses/index.get.ts` |
@@ -40,12 +40,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | PATCH | `/api/applicant-recipients/[id]/registries/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientRegistryCreateSchema, ApplicantRecipientRegistryPatchSchema, parseI18n, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/registries/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/registries` | resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/registries/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/registries` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientRegistryCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/registries/index.post.ts` |
-| DELETE | `/api/applicant-recipients/[id]/team/[teamId]` | — | — | `server/api/applicant-recipients/[id]/team/[teamId].delete.ts` |
-| PATCH | `/api/applicant-recipients/[id]/team/[teamId]` | — | — | `server/api/applicant-recipients/[id]/team/[teamId].patch.ts` |
-| GET | `/api/applicant-recipients/[id]/team` | — | — | `server/api/applicant-recipients/[id]/team/index.get.ts` |
-| POST | `/api/applicant-recipients/[id]/team` | — | — | `server/api/applicant-recipients/[id]/team/index.post.ts` |
-| GET | `/api/applicant-recipients/[id]/team/lookups/users` | — | — | `server/api/applicant-recipients/[id]/team/lookups/users.get.ts` |
-| GET | `/api/applicant-recipients` | getEntityTeamAccessLevels | ApplicantRecipientPaginationSchema, PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/index.get.ts` |
+| GET | `/api/applicant-recipients` | — | ApplicantRecipientPaginationSchema, PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/index.get.ts` |
 | POST | `/api/applicant-recipients` | — | ApplicantRecipientProfileSchema, readValidatedBodyI18n | `server/api/applicant-recipients/index.post.ts` |
 | GET | `/api/applicant-recipients/lookups/agencies` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/lookups/agencies.get.ts` |
 | GET | `/api/applicant-recipients/lookups/subtypes` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/lookups/subtypes.get.ts` |

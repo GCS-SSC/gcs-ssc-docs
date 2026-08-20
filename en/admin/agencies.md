@@ -76,7 +76,7 @@ Agency and child deletions are logical (`_deleted = true`), not physical. Delete
 
 Sensitive writes re-resolve authorization and ownership inside lock-protected transactions. The operation fails safely if the user's grant, the agency, or an ownership chain changed concurrently. Child lookups and mutations also confirm that the owning agency remains active.
 
-Deleting an agency requires exact-agency delete access and a fresh view of its grant graph. The operation is blocked when extension state prevents deletion. A successful deletion also retires the agency-owned roles, role abilities, program-scope grants, and user-role assignments that could otherwise preserve access. Other historical child records are not physically removed; they become unavailable through active-agency paths.
+Deleting an agency requires exact-agency delete access and a fresh view of its grant graph. The operation is blocked when extension state prevents deletion. A successful deletion also retires the agency-owned roles, role-permission rows, program-scope grants, and user-role assignments that could otherwise preserve access. Other historical child records are not physically removed; they become unavailable through active-agency paths.
 
 ## Extensions
 

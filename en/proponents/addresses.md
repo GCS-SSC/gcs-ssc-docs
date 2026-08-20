@@ -8,12 +8,12 @@ Open **Proponents**, select a saved profile, and choose **Addresses**. The activ
 
 | Effective access to the proponent | Available actions |
 | --- | --- |
-| Read-only access | View, search, and page through active addresses. |
-| Contributor access | View and add addresses. |
-| Full access | View, add, edit, and delete addresses. |
+| Viewer | View, search, and page through active addresses; no exact assignment is required. |
+| Contributor plus exact Proponent assignment | View, add, and edit addresses. |
+| Manager plus exact Proponent assignment | View, add, edit, and delete addresses. |
 | No access | The server refuses the request. |
 
-Global proponent privileges and an exact Proponent Team assignment can provide access. Child actions use the corresponding `read`, `create`, `update`, or `delete` permission. Writes lock the profile and re-evaluate authorization inside the transaction.
+Viewer reads addresses. Creating/updating requires Contributor plus the exact parent assignment; deleting requires Manager plus that assignment. Writes lock the Proponent and re-evaluate authorization inside the transaction.
 
 ## Fields and validation
 

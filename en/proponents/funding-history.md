@@ -20,7 +20,7 @@ Reading the tab requires read access to the current proponent. A linked system a
 | Update access to every linked proponent | Edit the external details and recipient set. |
 | Delete access to the current proponent | Unlink the external record from this proponent. |
 
-Global Proponent permissions and exact Proponent Team assignments are evaluated for each affected profile. Recipient choices list only active profiles available for the requested create or update action. Every multi-recipient write locks the active profiles in stable order and rechecks authorization in the transaction.
+Each affected profile is evaluated separately. Reads use its Proponent Viewer scope. Mutations require the role ceiling for the requested operation—Contributor for create or update and Manager for delete—plus the exact assignment to every parent affected by that operation. The selector lists only active profiles eligible for the requested action, and the write locks them in stable order before rechecking authorization.
 
 ## Add external funding
 
@@ -69,4 +69,4 @@ There is no restore command in this tab. If the wrong link was removed and the h
 
 - [Proponent profiles](./index.md)
 - [Agreements](./agreements.md)
-- [Proponent Teams](./team.md)
+- [Proponent assigned users](./team.md)

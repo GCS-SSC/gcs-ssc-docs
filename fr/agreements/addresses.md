@@ -4,7 +4,7 @@ L’onglet **Adresses** conserve les emplacements utilisés expressément par un
 
 ## Accès et liste
 
-L’accès `read` à l’entente permet d’énumérer les liens actifs dont l’adresse commune et le type d’adresse sont également actifs. Les accès `create`, `update` et `delete` affichent séparément les commandes Ajouter, Modifier et Supprimer. Les niveaux exacts de l’équipe de l’entente fournissent les actions correspondantes.
+Le plafond Lecteur de l’entente énumère les liens actifs dont l’adresse et le type sont actifs. La création ou modification exige Contributeur et l’affectation exacte à l’entente; la suppression exige Gestionnaire et cette affectation. Les adresses emploient l’entente comme racine d’affectation.
 
 Le tableau présente le type d’adresse bilingue, la première ligne de rue, la ville et le code postal ou ZIP. La recherche porte aussi sur la subdivision, les trois lignes de rue et le type d’adresse dans l’une ou l’autre langue.
 

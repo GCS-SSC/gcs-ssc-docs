@@ -1,44 +1,48 @@
-# Équipe de l'entente
+# Utilisateurs affectés à l’entente
 
-L'onglet **Équipe** accorde à des utilisateurs de l'application un accès à une seule entente enregistrée précise. Utilisez-le lorsqu'une personne doit travailler sur cette entente sans obtenir de privilèges plus larges sur l'agence, le programme, le volet ou les ententes.
+L’onglet **Utilisateurs affectés** présente le registre de travail exact d’une entente enregistrée. Il répartit cette entente entre des utilisateurs qui possèdent déjà un plafond de rôle Entente suffisant à sa portée d’agence et de programme; il ne crée pas de permission à lui seul.
 
-Une affectation à l'équipe d'une entente ne s'étend ni à une autre entente ni à un bénéficiaire lié. Elle ne permet pas de créer une nouvelle entente. Une affectation à une approbation ou à une évaluation ne remplace pas non plus l'accès ordinaire en lecture à l'entente.
+## Accès requis
 
-## Niveaux d'accès
+La lecture du registre exige soit :
 
-| Niveau | Actions sur cette entente précise |
-| --- | --- |
-| `read_only` | Lire l'entente, ses fiches enfants prises en charge et la liste de l'équipe. |
-| `contributor` | Lire et modifier l'entente; lire, créer et modifier ses fiches enfants prises en charge. |
-| `full_access` | Actions de contribution, plus la suppression logique de l'entente et de ses fiches enfants prises en charge. |
+- Lecteur ou un niveau supérieur pour `agreement` à la portée actuelle de l’entente;
+- `manage_assignments` pour `agreement` à cette portée.
 
-Toute personne ayant un accès effectif en lecture peut consulter la liste active. La recherche porte sur le nom ou le courriel des utilisateurs actifs; les résultats sont paginés et triés par nom. Les affectations et les comptes d'utilisateur supprimés sont omis.
+L’ajout, la promotion ou le retrait d’utilisateurs exige `manage_assignments`. L’accès métier Contributeur ou Gestionnaire n’implique pas la gestion du registre, et `manage_assignments` seul n’expose aucun contenu de l’entente, financier, documentaire ou de flux.
 
-## Plafond de gestion
+## Règles du registre
 
-Les actions de ligne et les niveaux pouvant être accordés dépendent de vos permissions effectives sur l'entente :
+Chaque entente active doit compter au moins une affectation active et exactement un utilisateur principal. Le principal dirige le travail; il n’est pas un membre plus privilégié. Un utilisateur affecté a encore besoin du plafond Lecteur pour lire et de la règle des deux clés pour modifier l’entente.
 
-- l'accès de modification permet de gérer les affectations `read_only` et `contributor`;
-- l'accès de modification et de suppression permet aussi de gérer les affectations `full_access`;
-- un niveau existant ou demandé supérieur à votre plafond ne peut être ni modifié ni retiré.
+Le registre demeure lisible lorsqu’un utilisateur existant devient inactif ou perd son admissibilité Contributeur. Un principal inadmissible reste ainsi visible pour correction; les changements de rôle ne réécrivent pas silencieusement l’historique.
 
-Ces permissions peuvent provenir d'un rôle à portée déterminée ou de votre propre affectation exacte à l'équipe de l'entente.
+## Ajouter un utilisateur affecté
 
-## Ajouter, modifier ou retirer un membre
+Sélectionnez **Ajouter un utilisateur** et recherchez les personnes admissibles. La cible doit être active et posséder Contributeur ou Gestionnaire pour `agreement` globalement ou à la portée actuelle d’agence et de programme de l’entente. Le serveur rejette les utilisateurs inactifs, ceux qui sont seulement Lecteur, ceux qui sont hors portée, les doublons actifs, les champs inconnus et les identifiants mal formés.
 
-Sélectionnez **Ajouter un membre**, choisissez un niveau dans votre plafond, puis recherchez un utilisateur. La recherche contient les utilisateurs actifs de l'application qui n'ont pas déjà une affectation active à cette entente précise. Elle n'est pas limitée à l'agence de l'entente.
+Le nouvel utilisateur n’est pas principal. L’affectation à une entente n’influe pas sur une autre entente du même programme.
 
-L'utilisateur et le niveau d'accès sont obligatoires. Le serveur rejette un utilisateur inactif, une affectation active en double, un niveau inconnu et les champs supplémentaires. La modification change uniquement le niveau d'accès. Le retrait demande une confirmation et supprime logiquement l'affectation; un utilisateur retiré peut être ajouté de nouveau.
+## Changer l’utilisateur principal
 
-Selon l'opération, les écritures verrouillent l'utilisateur visé, l'entente et l'affectation existante, reconstruisent l'autorisation dans la transaction, puis réappliquent le plafond aux niveaux existant et demandé. Un identifiant d'équipe appartenant à une autre entente ou à un autre type d'entité est traité comme introuvable. Une entente absente et une entente inaccessible ne sont pas distinguées pour l'appelant.
+Choisissez **Rendre principal** pour une affectation active et admissible. L’opération promeut cet utilisateur et rétrograde atomiquement l’ancien principal. Elle ne peut promouvoir une affectation inactive, inadmissible, manquante ou retirée.
 
-::: warning Protection contre la perte d'accès
-Il n'existe aucune protection spéciale contre le retrait du dernier gestionnaire ou son propre retrait. Rétrograder ou retirer la seule affectation qui donne l'accès de modification peut empêcher immédiatement toute autre gestion de l'équipe. Confirmez qu'une autre personne autorisée demeure en place. La reprise exige une autre personne suffisamment autorisée; l'onglet Équipe n'offre aucun rétablissement autonome.
-:::
+Si le principal courant est inadmissible, ajoutez ou repérez d’abord un remplaçant admissible, promouvez-le, puis retirez l’ancienne affectation s’il y a lieu.
 
-## Guides connexes
+## Retirer un utilisateur affecté
 
-- [Ententes de financement](./index.md)
-- [Bénéficiaires de l'entente](./applicant-recipients.md)
-- [Rôles et permissions](../admin/roles.md)
-- [Équipe du promoteur](../proponents/team.md)
+Un utilisateur non principal peut être retiré lorsqu’il reste au moins une affectation active. Le serveur refuse le retrait du principal et de la dernière personne affectée. Le retrait est une suppression logique qui préserve les références historiques.
+
+## Changements d’état et de portée
+
+Le registre peut changer lorsque l’entente est `draft`, `pendingapproval` ou `active`. Une entente terminale ou supprimée est verrouillée. Chaque écriture recharge le volet, le programme, l’agence, le graphe des rôles, l’admissibilité, l’état et le registre courant dans une transaction.
+
+Le déplacement du propriétaire ou de la portée de programme modifie les vérifications d’autorisation et d’admissibilité suivantes. Révisez le registre lors d’un changement de portée; une affectation existante demeure visible même si l’utilisateur n’est plus admissible dans la nouvelle portée.
+
+## Travail enfant affecté indépendamment
+
+Le registre de l’entente n’est pas hérité par les réclamations, rapprochements, paiements, prévisions, surveillances, modifications, engagements, examens ou recommandations qui possèdent leur propre registre exact. La création d’un de ces enfants exige Contributeur et l’affectation parente requise, puis rend son créateur principal de cet enfant. Les actions suivantes sur l’enfant exigent son affectation exacte.
+
+Les données enfants ordinaires, comme les adresses, promoteurs, activités, lignes budgétaires et documents, continuent d’utiliser l’entente elle-même comme racine d’affectation.
+
+Pour coordonner plusieurs entités, utilisez [Gestion des affectations](../admin/assignments.md). Pour le modèle d’autorisation, consultez [Permissions de rôle et affectations exactes](../concepts/rbac.md).

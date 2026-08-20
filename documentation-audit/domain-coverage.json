@@ -14,11 +14,11 @@
       "nuxt.config.ts; app/app.vue; app/layouts; app/middleware"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
-    "id": "domain:identity-rbac-teams",
-    "source": "server/utils/auth.ts; server/utils/authorize.ts; server/utils/rbac.ts; server/utils/team-auth.ts",
+    "id": "domain:identity-rbac-assignments",
+    "source": "packages/gcs-ssc-authorization; server/utils/authorize.ts; server/utils/entity-assignment.ts; server/utils/entity-assignment-write.ts",
     "audience": [
       "end-user",
       "administrator",
@@ -28,10 +28,19 @@
     "en": "en/concepts/rbac.md",
     "fr": "fr/concepts/rbac.md",
     "evidence": [
-      "server/utils/auth.ts; server/utils/authorize.ts; server/utils/rbac.ts; server/utils/team-auth.ts"
+      "packages/gcs-ssc-authorization/src/abilities.ts",
+      "packages/gcs-ssc-authorization/src/grants.ts",
+      "packages/gcs-ssc-authorization/src/server/assigned-items.ts",
+      "server/utils/authorize.ts",
+      "server/utils/entity-assignment.ts",
+      "server/utils/entity-assignment-write.ts",
+      "server/database/migrations/0003_rbac.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/authorization-package-exact-grants.test.ts",
+      "tests/unit/entity-assignment-authorization.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Traced the cumulative role ceiling, scope hierarchy, exact existing-record mutation key, creator-primary creation, independent manage_assignments grant, assignee eligibility, roster integrity and lifecycle, fresh authorization and locking, approval/reviewer separation, UI visibility, and bilingual RBAC/assignment guidance at target 45222e26c5a98dccb8b4a574571206bbf1f91397."
   },
   {
     "id": "domain:agency-administration",
@@ -65,7 +74,7 @@
       "server/api/transfer-payments; app/pages/transfer-payments"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:applicant-recipients",
@@ -82,7 +91,7 @@
       "server/api/applicant-recipients; app/pages/proponents"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:agreements-financial-lifecycle",
@@ -99,7 +108,7 @@
       "server/api/agreements; app/pages/agreements"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:reviews-assessments-checklists",
@@ -116,7 +125,7 @@
       "server/api/reviews; server/api/review-sets"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:approvals-recommendations-completions-workflows",
@@ -133,7 +142,7 @@
       "server/api/approvals; server/api/completions; server/api/workflows"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:common-administration",
@@ -167,7 +176,7 @@
       "server/database/migrations; server/utils/*transaction*"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:i18n-validation-errors",
@@ -184,7 +193,7 @@
       "i18n; shared/types/schemas; server/utils/api-validate.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:files-documents",
@@ -218,7 +227,7 @@
       "modules/gcs-extensions.ts; extensions; packages/gcs-ssc-extensions"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:workers-background-processing",
@@ -252,7 +261,7 @@
       "package.json; nuxt.config.ts; Dockerfile; railway.json; .github/workflows"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "domain:accessibility-ui-states",
@@ -269,6 +278,6 @@
       "app/components; app/pages"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   }
 ]

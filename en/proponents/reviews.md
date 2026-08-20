@@ -4,7 +4,7 @@ The **Reviews** tab groups runtime assessments and checklists created for a prop
 
 ## Access and page behaviour
 
-Read access to the proponent lists its active review sets and review children. Update access adds the controls to create a set, cancel a non-terminal set, and clone an eligible denied or cancelled review. An exact Proponent Team assignment can provide these owning-entity permissions. Approval assignment is an additional requirement for an approval decision and never grants proponent access by itself.
+Proponent Viewer access lists its active review sets and children. Creating a set requires a Contributor ceiling and the exact Proponent assignment; the creator becomes primary on independently assigned runtime reviews. Cancelling or cloning later work requires the relevant exact assignment and Contributor ceiling. Approval assignment is an additional decision requirement and never grants Proponent access by itself.
 
 The table groups reviews by set and initially expands each group. A group displays the pinned setup name, agency, review count, set status, success result when known, and the **On completion** or **Sequential** flags captured at creation. Each child displays its pinned bilingual review name, type, and status. Search on this endpoint covers the review-set ID and pinned English/French set name.
 

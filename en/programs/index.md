@@ -10,7 +10,7 @@ Before creating production programs, configure the owning agency and the agency 
 
 | Setup | Why it matters |
 | --- | --- |
-| Agency profile and structural role permissions | Program administrators need an agency context and a scoped `transfer_payment` role permission. Teams do not attach to Programs. |
+| Agency profile and structural role permissions | Program administrators need an agency context and a scoped `transfer_payment` role permission. Exact assignments apply only to the 11 assignable runtime casework types; they do not attach to agency, Program, or stream configuration records. |
 | Agency fiscal years | Program budgets are tied to agency fiscal-year rows. |
 | Applicant recipient subtypes, agreement types, cost categories, and cost category line items | Streams consume those agency records. |
 | Common users, behalf types, review schemas, recommendation schemas, and approval templates | Required when the first stream will also generate runtime reviews, recommendations, or approvals. |
@@ -19,7 +19,7 @@ If an administrator works inside an active agency context, the agency selector i
 
 ## List Page
 
-The Programs page shows only records the current user can read through a global, agency, or linked-program structural role permission. Proponent and Agreement Teams do not grant Program access.
+The Programs page shows only records the current user can read through a global, agency, or linked-program structural `transfer_payment` role permission. Exact Proponent and Agreement assignments do not grant Program access, and configuration access never derives from another runtime assignment.
 
 The list supports:
 
@@ -158,7 +158,7 @@ Program read, create, update, and delete actions are authorized through the `tra
 - List visibility is resolved from global access, agency access, and the Programs linked to program-scoped roles.
 - Detail and child actions check the owning agency and Program against the requested CRUD action.
 - Stream and child setup pages remain under the owning Program's derived role scope.
-- Teams are never evaluated for agencies, Programs, or streams.
+- Exact entity assignments are never evaluated for agencies, Programs, or streams.
 
 If a user can read a program but cannot update it, the detail page still loads but edit and add actions are hidden or disabled.
 

@@ -13,11 +13,11 @@ L’accès en lecture à l’entente permet d’énumérer les liens actifs vers
 | `update` | Remplacer le profil d’un lien existant. |
 | `delete` | Retirer un lien par suppression logique. |
 
-L’accès exact par l’équipe de l’entente fournit ces actions selon son niveau. Le promoteur sélectionné constitue une limite d’autorisation distincte : l’ajout ou le remplacement exige aussi un accès effectif en lecture à ce promoteur actif. Une équipe d’entente n’accorde pas l’accès aux promoteurs.
+La lecture des liens exige le plafond Lecteur de l’entente. L’ajout ou le remplacement exige Contributeur et l’affectation exacte à l’entente; le retrait exige Gestionnaire et cette affectation. Le promoteur est une frontière distincte et doit être lisible grâce à Lecteur `applicant_recipient`. L’affectation à l’entente n’accorde pas l’accès au promoteur.
 
 ## Sélection lors de la création
 
-Le formulaire de nouvelle entente exige au moins un promoteur et refuse les identifiants en double dans le tableau soumis. Son sélecteur consultable présente seulement les profils actifs que l’utilisateur peut lire grâce à des privilèges globaux relatifs aux promoteurs ou à une équipe exacte du promoteur. Les identifiants sélectionnés sont hydratés séparément afin que leurs libellés survivent à la pagination et à la recherche; le formulaire signale un profil sélectionné comme indisponible s’il ne peut plus être résolu.
+Le formulaire de nouvelle entente exige au moins un promoteur et refuse les identifiants en double. Son sélecteur présente seulement les profils actifs lisibles par la portée Lecteur Promoteur globale ou de l’agence principale de l’appelant. Les identifiants choisis sont hydratés séparément afin que leurs libellés survivent à la pagination et à la recherche; un profil enregistré qui ne peut plus être résolu est marqué indisponible.
 
 La création verrouille chaque profil sélectionné et revérifie l’accès en lecture dans la transaction qui insère l’entente et les liens. Si un profil devient inactif ou inaccessible, toute la création échoue.
 

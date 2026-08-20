@@ -17,10 +17,10 @@ Pour les lignes qui ont une agence, le triplet actif `(agence, promoteur, identi
 
 L'agence ne doit pas nécessairement être l'agence principale du promoteur. L'accès est imposé sur le promoteur parent exact et n'est pas déduit de l'agence choisie. La création et la modification refusent une agence fournie qui est supprimée ou inconnue. Une modification fusionne et valide la ligne complète; une suppression fixe `_deleted = true`. La ligne supprimée disparaît de la recherche active et ne participe plus à l'index d'unicité partiel, mais les données historiques demeurent.
 
-Chaque mutation revérifie le promoteur parent et la permission enfant demandée dans une transaction dont l'autorisation est actualisée. L'identifiant de l'enfant doit appartenir au parent indiqué dans l'URL. Un accès d'équipe `read_only` permet la lecture, `contributor` la création et la modification, et `full_access` permet aussi la suppression.
+La lecture exige le plafond Lecteur du promoteur. Chaque mutation revérifie le parent et son affectation exacte dans une transaction à autorisation actualisée : Contributeur crée ou modifie et Gestionnaire supprime. L’identifiant de l’enfant doit appartenir au parent indiqué dans l’URL.
 
 ## Recherche et rétablissement
 
-La recherche porte sur l'identifiant financier et les deux noms localisés de l'agence. Une agence supprimée n'est pas affichée comme ligne active. Si le sélecteur est vide ou qu'un enregistrement échoue, confirmez que le promoteur existe toujours, que votre permission directe ou d'équipe permet l'action et que l'agence est active. Si l'identifiant appartient réellement à une agence, ne contournez pas une agence invalide en vidant le champ; restaurez ou choisissez la bonne agence.
+La recherche porte sur l’identifiant financier et les deux noms localisés de l’agence. Une agence supprimée n’est pas affichée comme ligne active. Si le sélecteur est vide ou qu’un enregistrement échoue, confirmez que le promoteur existe toujours, que votre plafond de rôle et votre affectation exacte permettent la mutation et que l’agence est active. Si l’identifiant appartient réellement à une agence, ne contournez pas une agence invalide en vidant le champ; restaurez ou choisissez la bonne agence.
 
 Utilisez [Registres](./registries.md) pour les numéros d'entreprise, les comptes de programme de l'ARC, le SCIAN et les autres identifiants de registre externes.

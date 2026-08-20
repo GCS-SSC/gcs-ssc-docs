@@ -2,7 +2,7 @@
 
 Répartition des coûts par résultat distribue le financement de programme d’une entente entre les résultats référencés et utilise les correspondances du volet pour générer des lignes d’engagement et de paiement.
 
-L’extension doit être installée, activée pour l’agence de l’entente, puis activée et configurée dans son volet. Son onglet d’entente et l’action de remplacement **Ajouter un engagement** exigent `agreement:update`; le point de terminaison de lecture exige `agreement:read`, les écritures de répartition et de version exigent `agreement:update`, et la suppression d’un brouillon exige `agreement:delete`. L’hôte résout l’entité d’entente exacte et applique les portées et l’accès par équipe habituels avant la répartition. Les routes d’écriture exigent aussi le rappel transactionnel de nouvelle autorisation de l’hôte.
+L’extension doit être installée, activée pour l’agence de l’entente, puis activée et configurée dans son volet. Son onglet d’entente et l’action de remplacement **Ajouter un engagement** exigent `agreement:update`; le point de terminaison de lecture exige le plafond de rôle de portée `agreement:read`, les écritures de répartition et de version exigent une affectation exacte avec `agreement:update`, et la suppression d’un brouillon exige une affectation exacte avec `agreement:delete`. L’hôte résout l’entité d’entente exacte et applique ces règles avant la répartition. Les routes d’écriture exigent aussi le rappel transactionnel de nouvelle autorisation de l’hôte.
 
 ## Correspondances du volet
 

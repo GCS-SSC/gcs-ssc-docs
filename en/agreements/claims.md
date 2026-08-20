@@ -6,14 +6,17 @@ Claims record costs received for an Agreement fiscal period. Reconciliations are
 
 Open an Agreement and select **Claims**. The Agreement needs a current budget version with at least one fiscal year and budget line. Claim and line references use stable budget identities, so an amendment can replace the current version without changing their logical IDs.
 
-| Action | Required Agreement action |
+| Action | Required access |
 | --- | --- |
-| Browse claims, open details, view submissions and reconciliations | `agreement:read` |
-| Create a claim, claim line, reconciliation, or reconciliation line | `agreement:create` |
-| Edit, allocate, submit, withdraw, cancel, complete, or change final status | `agreement:update` |
-| Delete a claim, claim line, reconciliation, or reconciliation line through its API | `agreement:delete` |
+| Browse claims, open details, and view submissions or reconciliations | Agreement Viewer ceiling; no exact assignment. |
+| Create a claim | Contributor ceiling plus the exact Agreement assignment; the creator becomes the claim's primary user. |
+| Create or update claim lines; allocate, submit, withdraw, cancel, or edit a claim | Contributor ceiling plus the exact claim assignment. |
+| Create a reconciliation | Contributor ceiling plus the exact claim assignment; the creator becomes the reconciliation's primary user. |
+| Create or update reconciliation lines; complete or change the final designation | Contributor ceiling plus the exact reconciliation assignment. |
+| Delete a claim or claim line through its API | Manager ceiling plus the exact claim assignment. |
+| Delete a reconciliation or reconciliation line through its API | Manager ceiling plus the exact reconciliation assignment. |
 
-A role or the exact Agreement Team may supply these actions. Access to a related stream, budget, submission, or another Agreement does not broaden the boundary. Writes re-resolve scope and authorization in the transaction and take ordered Agreement, claim, and reconciliation locks as applicable.
+Agreement Viewer reads claims. Creating a claim requires Contributor plus the exact Agreement assignment and makes the creator primary. Creating a reconciliation requires Contributor plus the exact claim assignment and makes the creator primary on the reconciliation. Later mutations require the matching claim/reconciliation assignment and Contributor or Manager. A related stream, budget, submission, or Agreement does not broaden the boundary; writes take ordered locks and rebuild authorization.
 
 ## Browse and create claims
 
@@ -46,7 +49,7 @@ There is no active uniqueness constraint for `(claim, budget line)`. Direct API 
 
 [GC Forms Integration](../extensions/gc-forms.md) can materialize a claim and zero or more lines atomically. It creates the claim directly as `submitted`, records a unique source-submission UUID and destination links, and prevents duplicate materialization. A source line that cannot be mapped to a current budget line can remain unallocated with its submitted labels.
 
-The core page displays unallocated lines and lets a user with `agreement:update` assign each one to a compatible current budget line while the claim is `draft` or `submitted`. For a submitted claim, this one-time null-to-budget allocation is the only permitted line edit. Reconciliation cannot start until every active line is allocated.
+The core page displays unallocated lines and lets a user with a Contributor Agreement role ceiling and the exact claim assignment map each one to a compatible current budget line while the claim is `draft` or `submitted`. For a submitted claim, this one-time null-to-budget allocation is the only permitted line edit. Reconciliation cannot start until every active line is allocated.
 
 ## Submit, withdraw, or cancel
 
@@ -82,7 +85,7 @@ Header/line edits move an unlocked reconciliation to `inprogress` and eligible p
 
 ## Completion, approval, and workflow
 
-The selected reconciliation has Completion and Workflow controls. Completion requires `agreement:update`, an editable reconciliation, no already approved final reconciliation for the claim, no existing completion, and at least one active reconciliation line. It does not validate totals or the final marker.
+The selected reconciliation has Completion and Workflow controls. Completion requires a Contributor Agreement role ceiling and the exact reconciliation assignment, an editable reconciliation, no already approved final reconciliation for the claim, no existing completion, and at least one active reconciliation line. It does not validate totals or the final marker.
 
 On success the transaction records the common completion comment and user, writes the reconciliation directly to `complete`, starts any applicable `fundingclaimreconcile` workflow, commits, and emits the completion hook. The parent claim remains `inreview`. Completion does not inspect an approval template or create a routing slip.
 

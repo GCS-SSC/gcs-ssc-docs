@@ -1,15 +1,15 @@
 # API des ententes
 
-Profils d’entente, ressources enfants, finances, cycle de vie, équipes, documents et production.
+Profils d’entente, ressources enfants, finances, cycle de vie, affectations exactes, documents et production.
 
 Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
 
-## Gestionnaires (137)
+## Gestionnaires (136)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/agreements/[id]` | executeFreshAuthorizedAgreementWrite, resolveAgreementScopeContext | — | `server/api/agreements/[id].delete.ts` |
-| GET | `/api/agreements/[id]` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, getEntityTeamAccessLevel, resolveAgreementScopeContext | — | `server/api/agreements/[id].get.ts` |
+| GET | `/api/agreements/[id]` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, resolveAgreementScopeContext | — | `server/api/agreements/[id].get.ts` |
 | PATCH | `/api/agreements/[id]` | resolveAgreementScopeContext | — | `server/api/agreements/[id].patch.ts` |
 | DELETE | `/api/agreements/[id]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/activities/[childId].delete.ts` |
 | PATCH | `/api/agreements/[id]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/activities/[childId].patch.ts` |
@@ -131,12 +131,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | POST | `/api/agreements/[id]/payments` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/index.post.ts` |
 | GET | `/api/agreements/[id]/payments/lookups/commitments` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/commitments.get.ts` |
 | GET | `/api/agreements/[id]/payments/lookups/fiscal-years` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/fiscal-years.get.ts` |
-| DELETE | `/api/agreements/[id]/team/[teamId]` | — | — | `server/api/agreements/[id]/team/[teamId].delete.ts` |
-| PATCH | `/api/agreements/[id]/team/[teamId]` | — | — | `server/api/agreements/[id]/team/[teamId].patch.ts` |
-| GET | `/api/agreements/[id]/team` | — | — | `server/api/agreements/[id]/team/index.get.ts` |
-| POST | `/api/agreements/[id]/team` | — | — | `server/api/agreements/[id]/team/index.post.ts` |
-| GET | `/api/agreements/[id]/team/lookups/users` | — | — | `server/api/agreements/[id]/team/lookups/users.get.ts` |
-| GET | `/api/agreements` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, getEntityTeamAccessLevels, requireAuthContext | AgreementsPaginationSchema, PaginationSchema, getValidatedQueryI18n | `server/api/agreements/index.get.ts` |
+| GET | `/api/agreements` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireAuthContext | AgreementsPaginationSchema, PaginationSchema, getValidatedQueryI18n | `server/api/agreements/index.get.ts` |
 | POST | `/api/agreements` | authorizeWithFreshAuthContext, requireFreshAuthContext, resolveAgreementStreamScopeContext | FundingCaseAgreementCreateSchema, readValidatedBodyI18n | `server/api/agreements/index.post.ts` |
 | GET | `/api/agreements/lookups/agreement-subtypes` | — | — | `server/api/agreements/lookups/agreement-subtypes.get.ts` |
 | GET | `/api/agreements/lookups/applicant-recipients` | — | ApplicantRecipientLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agreements/lookups/applicant-recipients.get.ts` |
@@ -145,3 +140,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | GET | `/api/agreements/lookups/streams` | resolveAgreementScopeContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/streams.get.ts` |
 | POST | `/api/agreements/similarity` | requireAuthContext, resolveAgreementScopeContext, resolveAgreementStreamScopeContext | BodySchema, readValidatedBodyI18n | `server/api/agreements/similarity.post.ts` |
 | GET | `/api/applicant-recipients/[id]/agreements` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agreements/index.get.ts` |
+| GET | `/api/claim-reconciliations/[reconcileId]` | — | — | `server/api/claim-reconciliations/[reconcileId].get.ts` |
+| PATCH | `/api/claim-reconciliations/[reconcileId]` | resolveAgreementScopeContext | — | `server/api/claim-reconciliations/[reconcileId].patch.ts` |
+| PATCH | `/api/claim-reconciliations/[reconcileId]/lines/[lineId]` | resolveAgreementScopeContext | — | `server/api/claim-reconciliations/[reconcileId]/lines/[lineId].patch.ts` |
+| POST | `/api/claim-reconciliations/[reconcileId]/lines` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileLineItemCreateSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/index.post.ts` |

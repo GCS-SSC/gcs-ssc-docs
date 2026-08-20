@@ -53,15 +53,15 @@ Extension implementation tests belong to each extension workspace and are not di
 
 ## Packaging, CI, and demo boundary
 
-The Docker build validates `ENVIRONMENT_TYPE`, performs a frozen workspace install, builds the complete application, and copies only `.output` into the Node 24 runtime image. For remote contexts that omit submodules, it fetches the SDK and five installed extensions at the exact commits recorded in the Dockerfile; local checkout contents overlay them before build. Keep these pins aligned with repository gitlinks.
+The Docker build validates `ENVIRONMENT_TYPE`, copies the repository-owned `packages/gcs-ssc-authorization` workspace before the frozen install, builds the application, and copies only `.output` into Node 24. Remote contexts that omit submodules fetch the SDK and five extensions at Dockerfile-pinned gitlink commits; local contents overlay them. Keep pins aligned with repository gitlinks. The core authorization package is not a submodule and must remain in the build context.
 
-The sole active deployment workflow is manually dispatched GitHub Pages demo publication. It checks out recursive submodules, pins Bun 1.3.13, performs a frozen install and node-server build, stages the output plus demo migration/assets into a WebContainer preview, verifies that staged artifact, and uploads the verified directory. The Codex PR-review workflow is an inactive manual example, not a required CI gate.
+The sole active deployment workflow is manually dispatched GitHub Pages demo publication. It checks out recursive submodules, pins Bun 1.3.13, performs a frozen install and node-server build, stages the output plus demo migration/assets into a WebContainer preview, verifies that artifact, and uploads it. Docker and WebContainer both call `scripts/build-demo-migration.ts`; its Bun plugin resolves Nuxt `~~/` imports, the generated extension registry, and the real `kysely-pglite` package path before emitting `demo.mjs`.
 
 The WebContainer artifact is a self-contained browser demo. Its tooling rejects escaping links, cycles, non-regular or multiply linked files, host-path leakage, and stale/unverified staging. Demo controls, seed data, in-browser credentials, and PGlite persistence are never a production security or recovery model.
 
 ## Startup order
 
-On startup, Nitro initializes Kysely, applies the ten ordered core migrations, then applies registered enabled-extension migrations. A migration failure stops startup. The deliberately public `GET /api/health` probe executes `SELECT 1`; it returns `200 {"status":"ok"}` only when the request/database path is ready and returns 503 without environment diagnostics otherwise.
+On startup, Nitro initializes Kysely, applies the ten ordered core migrations, then enabled-extension migrations. Migration failure stops startup. API authentication middleware explicitly bypasses the deliberately public `GET /api/health` route. The handler executes `SELECT 1`, returning `200 {"status":"ok"}` only when the request/database path is ready and 503 without environment diagnostics otherwise.
 
 The probe establishes process/API/database readiness only. It does not verify storage writability, Chromium, LibreOffice, remote extension services, browser-worker assets, backups, or business-data health. Monitor those dependencies separately. A compacted local migration-history error may be resolved with the explicitly destructive `bun run dev:clean`; production data requires an approved migration or recovery procedure.
 

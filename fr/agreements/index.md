@@ -1,18 +1,18 @@
 # Ententes de financement
 
-Les ententes de financement sont des dossiers d’exécution appartenant à un volet de paiements de transfert. Une entente relie la configuration du volet aux promoteurs, aux adresses, aux budgets, aux activités, aux modifications, aux engagements, aux prévisions, aux paiements, aux réclamations, à la surveillance, aux documents, aux examens, aux approbations, aux flux de travail et à une équipe exacte de l’entente.
+Les ententes de financement sont des dossiers d’exécution appartenant à un volet de paiements de transfert. Une entente relie la configuration du volet aux promoteurs, adresses, budgets, activités, modifications, engagements, prévisions, paiements, réclamations, surveillances, documents, examens, soumissions d’approbation, flux et affectations exactes.
 
 ## Modèle d’accès
 
-La liste des ententes retourne seulement les dossiers actifs que l’utilisateur peut lire au moyen d’une attribution globale, d’agence, de paiement de transfert ou d’une équipe exacte de l’entente. La recherche porte sur le numéro d’entente; le titre anglais ou français; le nom de l’agence, du programme ou du volet; et le nom du type d’entente. Un filtre facultatif d’agence restreint davantage la liste. Chaque ligne fournit ses propres capacités de modification, de suppression et de gestion de l’équipe; les commandes sont activées séparément.
+La liste retourne les dossiers actifs couverts par la permission de rôle `agreement` au moins Lecteur de l’utilisateur à portée globale, d’agence ou de programme. La lecture n’exige pas d’affectation exacte. La recherche porte sur le numéro; le titre anglais ou français; le nom de l’agence, du programme ou du volet; et le type d’entente. Un filtre d’agence restreint la liste. Chaque ligne indique ses capacités de modification et de suppression; les commandes sont activées séparément.
 
-| Niveau exact de l’équipe | Actions sur l’entente |
+| Combinaison requise | Actions sur l’entente |
 | --- | --- |
-| `read_only` | Lire cette entente et ses enfants pris en charge. |
-| `contributor` | Lire et modifier cette entente; lire, créer et modifier ses enfants pris en charge. |
-| `full_access` | Actions du contributeur, plus suppression logique. |
+| Plafond Lecteur | Lire l’entente et ses enfants ordinaires. |
+| Plafond Contributeur + affectation exacte | Modifier l’entente et créer/modifier les enfants ordinaires. |
+| Plafond Gestionnaire + affectation exacte | Actions du contributeur et suppression logique. |
 
-L’accès par équipe n’accorde jamais la création d’une nouvelle entente. Le bouton **Nouvelle entente** exige `agreement:create` dans une portée statique, et le serveur vérifie la portée exacte de l’agence et du programme du volet sélectionné.
+L’action **Nouvelle entente** exige un plafond Contributeur pour `agreement`; le serveur vérifie la portée exacte d’agence et de programme du volet choisi. Comme aucune affectation n’existe encore, la création enregistre atomiquement l’entente et rend son créateur principal. L’administration du registre exige ensuite la capacité `manage_assignments` distincte.
 
 ## Configuration préalable
 
@@ -45,7 +45,7 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %. Il co
 | Cote de risque | Valeur non négative facultative; si elle est fournie, elle doit correspondre à une cote active du volet. |
 | Promoteurs | Au moins un profil actif unique; la personne responsable de la création doit pouvoir lire chaque sélection. Consultez [Promoteurs de l’entente](./applicant-recipients.md). |
 
-Le changement de volet dans le formulaire efface le sous-type, la base de retenue et la cote de risque, puisque ces valeurs appartiennent au volet. La création verrouille les portées d’extension et le volet sélectionné, reconstruit l’autorisation, verrouille chaque promoteur choisi, valide toutes les références entre volets, insère atomiquement l’entente et ses liens de bénéficiaires et enregistre l’entité commune typée de l’entente.
+Le changement de volet dans le formulaire efface le sous-type, la base de retenue et la cote de risque, puisque ces valeurs appartiennent au volet. La création verrouille les portées d’extension et le volet sélectionné, reconstruit l’autorisation, verrouille chaque promoteur choisi, valide les références entre volets, insère l’entente et ses liens, enregistre l’entité typée et crée atomiquement l’affectation principale du créateur.
 
 ## Correspondance des numéros d’entente
 
@@ -69,12 +69,12 @@ La route de détail résout d’abord la portée d’agence, de programme et de 
 | Paiements | [Paiements](./payments.md) |
 | Prévisions | [Prévisions](./forecasts.md) |
 | Réclamations | [Réclamations et rapprochement](./claims.md) |
-| Réclamations | [Réclamations](./claims.md) |
 | Surveillances | [Surveillance](./monitors.md) |
 | Documents | [Documents](./documents.md) |
 | Activités | [Activités](./activities.md) |
-| Modifications | Création, instantanés, approbations, annulation et application des modifications. |
-| Équipe | Appartenance exacte à l’équipe de l’entente et plafonds de gestion. |
+| Recommandation | Flux de soumission publié, dossier immuable, recommandations et approbations. |
+| Modifications | Création, instantanés, soumission d’approbation, annulation et promotion. |
+| Utilisateurs affectés | Registre exact de l’entente; les mutations exigent `manage_assignments`. |
 
 Les extensions activées peuvent ajouter des onglets et des champs au profil. Les routes de détail enfant remplacent l’espace d’onglets parent tout en conservant le contexte de l’entente.
 
@@ -88,7 +88,7 @@ La réduction ou le déplacement de la période d’aide est refusé lorsqu’un
 
 ## Suppression et rétablissement
 
-La suppression exige un accès effectif `agreement:delete`, demande une confirmation dans la liste, puis verrouille l’entente et reconstruit l’autorisation. Chaque garde de suppression d’entente fournie par une extension activée s’exécute avant la suppression logique du profil. Une garde ou une dépendance de base de données peut refuser l’opération; aucune suppression partielle n’est validée.
+La suppression exige le plafond Gestionnaire et l’affectation exacte, demande une confirmation dans la liste, puis verrouille et autorise de nouveau l’entente. Une soumission d’approbation active bloque la suppression. Chaque garde de suppression d’une extension s’exécute avant la suppression logique; une garde ou une dépendance peut refuser l’opération et aucune suppression partielle n’est validée.
 
 Les ententes supprimées logiquement disparaissent des listes actives et des projections de relations. L’application n’offre aucune commande de restauration d’entente. Corrigez l’état dépendant ou la configuration d’extension avant de réessayer une suppression refusée. Après une suppression accidentelle réussie, le rétablissement exige une intervention opérationnelle au niveau de la base de données plutôt que la recréation manuelle de l’historique enfant.
 

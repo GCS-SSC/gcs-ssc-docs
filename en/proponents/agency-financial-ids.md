@@ -17,10 +17,10 @@ For rows with an agency, the active `(agency, Proponent, financial system ID)` t
 
 The agency is not required to be the Proponent's lead agency. Access is enforced against the exact parent Proponent, not inferred from the selected agency. Create and update reject a supplied deleted or unknown agency. Updates merge and validate the complete row; deletion sets `_deleted = true`. A soft-deleted row disappears from active search and no longer participates in the partial uniqueness index, while historical data remains.
 
-Every mutation rechecks the parent Proponent and the requested child permission inside a fresh-authorized transaction. The child id must belong to the parent id in the URL. `read_only` Team access reads, `contributor` creates and updates, and `full_access` can also delete.
+Reading requires the Proponent Viewer ceiling. Every mutation rechecks the parent Proponent and its exact assignment inside a fresh-authorized transaction: Contributor creates or updates and Manager deletes. The child ID must belong to the parent ID in the URL.
 
 ## Search and recovery
 
-Search matches the financial system ID and either localized agency name. A deleted agency is not displayed as an active list row. If the selector is empty or a save fails, confirm that the parent Proponent still exists, your Team/direct permission permits the action, and the agency is active. If the identifier is genuinely agency-owned, do not work around an invalid agency by clearing the field; restore or select the correct agency.
+Search matches the financial system ID and either localized agency name. A deleted agency is not displayed as an active list row. If the selector is empty or a save fails, confirm that the parent Proponent still exists, your role ceiling and exact assignment permit the mutation, and the agency is active. If the identifier is genuinely agency-owned, do not work around an invalid agency by clearing the field; restore or select the correct agency.
 
 Use [Registries](./registries.md) for business numbers, CRA program accounts, NAICS, and other external registry identifiers.

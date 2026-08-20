@@ -10,7 +10,7 @@ The **Documents** tab generates files from the agreement stream's templates, lis
 | Template kind | `docx` or `html`. The configured output list can include the native kind and `pdf`; incompatible native formats are rejected. |
 | Conversion tools | DOCX-to-PDF requires LibreOffice. HTML-to-PDF requires Puppeteer's browser. See [Document generation](../developer/document-generation.md). |
 | Persistent storage | The local attachment root must be durable and backed up with the database. See [Operator configuration](../operator/configuration.md). |
-| Agreement permissions | `read` lists templates/files and downloads; `create` generates; `delete` removes a generated artifact. The server enforces scoped and Team access. |
+| Agreement authorization | Viewer lists templates/files and downloads; Contributor plus the exact Agreement assignment generates; Manager plus that assignment removes an artifact. |
 
 If no eligible template exists, the modal has no template to select and generation remains disabled. Template availability is not cached permanently: the tab loads it when mounted, while every generation request revalidates the template against the agreement stream.
 

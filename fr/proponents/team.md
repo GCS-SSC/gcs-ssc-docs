@@ -1,49 +1,48 @@
-# Équipe du promoteur
+# Utilisateurs affectés au promoteur
 
-L’onglet **Équipe** accorde à un utilisateur de l’application un accès à un seul promoteur enregistré précis. Utilisez-le pour le personnel qui doit travailler sur ce profil sans obtenir de privilèges globaux sur tous les promoteurs.
+L’onglet **Utilisateurs affectés** présente le registre de travail exact d’un promoteur enregistré. Il répartit ce profil entre des utilisateurs qui possèdent déjà un plafond de rôle Promoteur suffisant pour l’agence principale; il ne crée pas de permission à lui seul.
 
-L’accès par équipe est une attribution indépendante et propre à l’entité exacte. Il n’est pas hérité de l’agence responsable du promoteur et ne s’étend ni à un autre promoteur, ni à un programme, ni à une entente liée, ni à un enregistrement frère. Il n’accorde pas non plus la création de promoteurs de premier niveau; la création d’un profil exige toujours la capacité globale directe `applicant_recipient:create`.
+## Accès requis
 
-## Niveaux d’accès
+La lecture du registre exige soit :
 
-| Niveau | Actions sur ce promoteur précis |
-| --- | --- |
-| `read_only` | Lire le profil, ses enregistrements enfants pris en charge et la liste de son équipe. |
-| `contributor` | Lire et modifier le profil; lire, créer et modifier les enregistrements enfants pris en charge. |
-| `full_access` | Actions du contributeur, plus suppression logique du profil et des enregistrements enfants pris en charge. |
+- Lecteur ou un niveau supérieur pour `applicant_recipient` à la portée de l’agence principale actuelle du promoteur;
+- `manage_assignments` pour `applicant_recipient` à cette portée.
 
-Les autres domaines appliquent toujours leur propre autorisation. Par exemple, une appartenance à l’équipe du promoteur ne rend pas une entente liée lisible et n’affecte pas le membre à une étape d’approbation d’examen.
+L’ajout, la promotion ou le retrait d’utilisateurs exige `manage_assignments`. L’accès métier Contributeur ou Gestionnaire n’implique pas la gestion du registre, et `manage_assignments` seul ne révèle pas le profil du promoteur.
 
-## Consulter et rechercher l’équipe
+## Règles du registre
 
-Toute personne ayant un accès effectif en lecture au promoteur peut ouvrir la liste de l’équipe. Elle présente les affectations actives dont le compte utilisateur est également actif, triées par nom d’utilisateur. La recherche porte sur le nom ou le courriel et prend en charge la pagination.
+Chaque promoteur actif doit compter au moins une affectation active et exactement un utilisateur principal. Le principal dirige le travail; il n’est pas un membre plus privilégié. Un utilisateur affecté a encore besoin du plafond Lecteur pour lire et de la règle des deux clés pour modifier le profil.
 
-Les actions de chaque ligne dépendent de votre plafond de gestion, et non seulement de votre capacité à lire la liste :
+Le registre demeure lisible lorsqu’un utilisateur existant devient inactif ou perd son admissibilité Contributeur. Un principal inadmissible reste ainsi visible pour correction; les changements de rôle ne réécrivent pas silencieusement l’historique.
 
-- l’accès effectif de modification au promoteur permet de gérer les affectations `read_only` et `contributor`;
-- l’accès effectif de modification et de suppression permet aussi de gérer les affectations `full_access`;
-- vous ne pouvez ni modifier ni retirer une affectation supérieure à votre plafond, ni accorder un niveau supérieur à celui-ci.
+## Ajouter un utilisateur affecté
 
-Ces autorisations effectives peuvent provenir d’une capacité globale ou de votre propre affectation exacte à l’équipe.
+Sélectionnez **Ajouter un utilisateur** et recherchez les personnes admissibles. La cible doit être active et posséder Contributeur ou Gestionnaire pour `applicant_recipient` globalement ou à l’agence principale du promoteur. Le serveur rejette les utilisateurs inactifs, ceux qui sont seulement Lecteur, ceux qui sont hors portée, les doublons actifs, les champs inconnus et les identifiants mal formés.
 
-## Ajouter un membre
+Le nouvel utilisateur n’est pas principal. L’ajout de la même personne à un autre promoteur crée une affectation exacte distincte et ne relie pas les dossiers.
 
-Sélectionnez **Ajouter un membre de l’équipe**, choisissez un niveau compris dans votre plafond, puis recherchez un utilisateur. La recherche contient les utilisateurs actifs de l’application qui n’ont pas déjà une affectation active à ce promoteur précis; elle n’est pas limitée par l’agence du promoteur.
+## Changer l’utilisateur principal
 
-L’utilisateur et le niveau d’accès sont obligatoires. Le serveur refuse un utilisateur inactif, une affectation active en double, un niveau inconnu ou une charge utile comportant des champs supplémentaires. Un utilisateur peut appartenir aux équipes de plusieurs promoteurs différents.
+Choisissez **Rendre principal** pour une affectation active et admissible. L’opération promeut cet utilisateur et rétrograde atomiquement l’ancien principal. Elle ne peut promouvoir une affectation inactive, inadmissible, manquante ou retirée.
 
-## Modifier ou retirer un membre
+Si le principal courant est inadmissible, ajoutez ou repérez d’abord un remplaçant admissible, promouvez-le, puis retirez l’ancienne affectation s’il y a lieu.
 
-La modification change seulement le niveau d’accès de l’affectation; elle ne change pas l’utilisateur. Le retrait demande une confirmation et supprime logiquement l’affectation. Un compte utilisateur supprimé disparaît aussi de la liste active. Un utilisateur retiré précédemment peut être ajouté de nouveau, car la prévention des doublons vise les affectations actives.
+## Retirer un utilisateur affecté
 
-Les écritures d’appartenance s’exécutent dans une transaction. Le serveur verrouille l’utilisateur touché, verrouille et résout de nouveau le promoteur actif et l’affectation, reconstruit l’autorisation et réapplique les plafonds au niveau existant et au niveau demandé avant l’écriture. Un identifiant d’affectation provenant d’une autre entité ou d’un autre type d’entité est traité comme introuvable.
+Un utilisateur non principal peut être retiré lorsqu’il reste au moins une affectation active. Le serveur refuse le retrait du principal et de la dernière personne affectée. Le retrait est une suppression logique qui n’efface pas les références historiques.
 
-::: warning Protection contre la perte d’accès
-Il n’existe aucune protection spéciale visant le « dernier gestionnaire » ou le retrait de sa propre affectation. La réduction ou le retrait de la seule attribution qui vous donne l’accès de modification peut vous empêcher immédiatement de gérer l’équipe. Avant de modifier votre propre affectation ou la dernière affectation `full_access`, confirmez qu’une autre personne ou un administrateur global conserve un accès suffisant. Le rétablissement exige un autre gestionnaire autorisé; l’équipe n’offre aucune commande d’autorétablissement.
-:::
+## Changements d’état et de portée
 
-## Guides connexes
+Le registre ne peut changer que lorsque le promoteur est `draft` ou `active`. Un profil terminal ou supprimé est verrouillé. Chaque écriture recharge l’agence principale, le graphe des rôles, l’admissibilité, l’état et le registre courant dans une transaction; une page périmée ne peut donc pas conserver l’accès après un changement concurrent.
 
-- [Profils des promoteurs](./index.md)
-- [Rôles et autorisations](../admin/roles.md)
-- [Ententes du promoteur](./agreements.md)
+Le changement d’agence principale modifie la portée utilisée par les autorisations et les vérifications d’admissibilité suivantes. Révisez le registre et les permissions dans le cadre de ce changement; une affectation existante peut demeurer visible même si son utilisateur n’est plus admissible dans la nouvelle agence.
+
+## Frontières
+
+- L’affectation à un promoteur n’accorde pas l’accès à un autre promoteur, à une entente liée, à un examen ou une recommandation affecté indépendamment, à une agence ou à un programme.
+- Elle ne crée pas de permission de premier niveau sur les promoteurs. La création exige un plafond Contributeur à l’agence principale choisie et rend le créateur principal dans la transaction de création.
+- Les affectations d’approbateur et de réviseur demeurent des responsabilités de flux distinctes.
+
+Pour coordonner plusieurs entités, utilisez [Gestion des affectations](../admin/assignments.md). Pour le modèle d’autorisation, consultez [Permissions de rôle et affectations exactes](../concepts/rbac.md).

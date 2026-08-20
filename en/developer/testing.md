@@ -57,11 +57,11 @@ Relevant coverage includes:
 - Client authorization composables.
 - Server authorization utilities.
 - RBAC scope edges and role scope validation.
-- Role ability lifecycle.
-- User assignment RBAC.
+- Cumulative role-permission lifecycle.
+- Structural user roles and exact entity-assignment RBAC.
 - Agency management and agency scope RBAC.
 - Admin Common app config, schemas, routes, lookups, and i18n.
-- Applicant/recipient routes, child tabs, team routes, review runtime, and RBAC.
+- Applicant/recipient routes, child tabs, exact assignment routes, review runtime, and RBAC.
 - Extension agency enablement, stream configuration, runtime slots, entity tabs, server dispatch, migrations, and SDK behavior.
 - Protected-write authorization and lifecycle lock ordering under PostgreSQL concurrency.
 - Bilingual runtime and localized validation/API errors.
@@ -72,7 +72,7 @@ For role or user changes, run unit tests around `rbac`, `role-scope`, `roles-rou
 
 For agency setup changes, run agency route, agency schema, agency lookup, agency management, and agency-scope RBAC tests.
 
-For proponents, run applicant-recipient auth, routes, team routes, child routes, review routes, and applicant-recipient e2e tests.
+For proponents, run applicant-recipient auth, routes, assignment routes, child routes, review routes, and applicant-recipient e2e tests.
 
 For Common Admin, run admin-common schema, route, lookup, column, app-config, modal validation, and page tests.
 

@@ -10,7 +10,7 @@ Avant de creer des programmes de production, configurez l agence proprietaire et
 
 | Configuration | Utilite |
 | --- | --- |
-| Profil d’agence et permissions structurelles de rôle | Les administrateurs de programme ont besoin d’un contexte d’agence et d’une permission de rôle `transfer_payment` de portée appropriée. Les équipes ne s’attachent pas aux programmes. |
+| Profil d’agence et permissions structurelles de rôle | Les administrateurs de programme ont besoin d’un contexte d’agence et d’une permission de rôle `transfer_payment` de portée appropriée. Les affectations exactes visent seulement les 11 types de dossiers d’exécution attribuables; elles ne s’attachent pas aux dossiers de configuration d’agence, de programme ou de volet. |
 | Exercices financiers de l agence | Les budgets de programme sont lies a ces enregistrements. |
 | Sous-types de destinataires demandeurs, types d entente, categories de couts et elements de ligne de couts | Les volets consomment ces donnees d agence. |
 | Utilisateurs communs, types "au nom de", schemas d examen, schemas de recommandation et modeles d approbation | Requis lorsque le premier volet doit generer des examens, recommandations ou approbations. |
@@ -19,7 +19,7 @@ Si l administrateur travaille dans un contexte d agence actif, le choix de l age
 
 ## Page De Liste
 
-La page Programmes affiche seulement les enregistrements que l’utilisateur courant peut lire grâce à une permission structurelle de rôle globale, propre à une agence ou limitée aux programmes liés. Les équipes de promoteur et d’entente ne donnent aucun accès aux programmes.
+La page Programmes affiche seulement les enregistrements que l’utilisateur courant peut lire grâce à une permission structurelle de rôle `transfer_payment` globale, propre à une agence ou limitée aux programmes liés. Les affectations exactes de promoteur ou d’entente ne donnent aucun accès aux programmes, et l’accès à la configuration ne découle jamais d’une autre affectation d’exécution.
 
 La liste prend en charge:
 
@@ -158,7 +158,7 @@ Les actions lire, créer, modifier et supprimer sont autorisées par le sujet de
 - La visibilité de la liste est résolue par un accès global, un accès d’agence et les programmes liés aux rôles à portée de programme.
 - Le détail et les actions sur les enfants évaluent l’action CRUD demandée par rapport à l’agence et au programme propriétaires.
 - Les pages de volet et de configuration enfant demeurent dans la portée dérivée du rôle qui couvre le programme propriétaire.
-- Les équipes ne sont jamais évaluées pour les agences, les programmes ou les volets.
+- Les affectations exactes d’entité ne sont jamais évaluées pour les agences, les programmes ou les volets.
 
 Si un utilisateur peut lire un programme sans pouvoir le modifier, la page de detail charge quand meme, mais les actions de modification et d ajout sont masquees ou desactivees.
 

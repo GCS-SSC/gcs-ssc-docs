@@ -6,7 +6,7 @@ Une installation GCS-SSC propre n’est pas utilisable par les opérateurs ordin
 
 - Un déploiement a provisionné au moins un utilisateur racine authentifié.
 - L’utilisateur racine possède un rôle global ordinaire avec les paires action-sujet explicites requises et aucun contournement spécial d’autorisation.
-- Si l’utilisateur racine doit travailler avec des promoteurs, ses quatre indicateurs directs CRUD de promoteur sont activés séparément du rôle.
+- Le rôle racine comprend explicitement seulement les niveaux cumulatifs requis et les capacités nécessaires de gestion des affectations aux ententes ou promoteurs; racine n’a aucun contournement.
 - La base de donnees peut contenir des valeurs de migration, mais il ne faut pas supposer que les donnees de demonstration existent en production.
 - Les enregistrements operationnels doivent etre saisis en anglais et en francais lorsque des champs apparies existent.
 
@@ -55,13 +55,13 @@ Creez les roles avant de donner du travail operationnel aux utilisateurs ordinai
 - Gardez un role Administrateur racine global et limitez son attribution aux administrateurs de confiance.
 - Creez des roles Administrateur d agence limites a une agence lorsque des utilisateurs doivent gerer les dossiers d agence, programmes, utilisateurs de cette agence ou roles propres a cette agence.
 - Creez des roles de programme en choisissant une agence et un ou plusieurs programmes de paiements de transfert.
-- Utilisez seulement les sujets valides pour la portée dérivée du rôle. Les rôles de programme acceptent `transfer_payment` et `agreement`. Les rôles d’agence acceptent `agency`, `transfer_payment`, `role`, `user` et `agreement`. `system` est exclusivement global.
+- Utilisez seulement les sujets valides pour la portée dérivée. Les rôles de programme acceptent uniquement `transfer_payment` et `agreement`. Les rôles d’agence acceptent `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`. `system` est exclusivement global.
 - Attribuez les roles depuis le detail de l utilisateur. Les attributions dupliquees retournent l attribution existante au lieu de creer une deuxieme ligne active.
-- Dans le même onglet Attributions, accordez les quatre indicateurs directs CRUD de promoteur seulement aux utilisateurs qui ont besoin de l’exception globale d’accès interagences. Leur modification exige la permission globale `user:update`.
+- Accordez Lecteur, Contributeur ou Gestionnaire par sujet. Accordez `manage_assignments` indépendamment sur les permissions Entente ou Promoteur seulement aux coordonnateurs des affectations.
 
 ## Configuration minimale des promoteurs
 
-Avant de créer des promoteurs, assurez-vous que l’agence principale possède des sous-types de demandeur/bénéficiaire. Le sous-type choisi doit exister, l’agence principale doit exister et le sous-type doit appartenir à cette agence. Les nouveaux promoteurs sont créés à l’état brouillon. La création de premier niveau utilise l’indicateur direct Promoteur `create`. Les opérations suivantes de lecture, de mise à jour, de suppression, de gestion des enfants et de gestion d’équipe utilisent l’indicateur direct correspondant ou le niveau d’une équipe exacte lorsque l’action correspondante est prise en charge.
+Avant de créer des promoteurs, assurez-vous que l’agence principale possède des sous-types. Le formulaire valide la relation agence-sous-type. La création exige le plafond Contributeur `applicant_recipient` à cette agence, crée un brouillon et rend le créateur principal. Lecteur à portée définie gère la lecture; les mutations suivantes du profil ou de ses enfants exigent le niveau cumulatif et l’affectation exacte. Les changements du registre exigent `manage_assignments` séparément.
 
 ## Preparation minimale aux ententes
 
@@ -76,4 +76,4 @@ La creation d entente est couverte ailleurs, mais la preparation d un systeme vi
 
 ## Verification
 
-Après la configuration, connectez-vous comme utilisateur délégué de test et vérifiez la vraie barre latérale. Ententes et Promoteurs sont cachés sans accès en lecture provenant, selon le domaine, d’un rôle à portée définie, d’un indicateur direct ou d’une équipe exacte ; Commun est caché sans permission globale explicite `system:read`. Ouvrez ensuite une agence, un programme, un volet, un promoteur, une entente et un utilisateur pour confirmer que la portée des rôles, les indicateurs directs de promoteur, les niveaux d’équipe, les onglets et les actions correspondent au modèle prévu.
+Après la configuration, connectez-vous comme utilisateur délégué et vérifiez la barre latérale. Ententes et Promoteurs sont cachés sans le plafond Lecteur correspondant; Gestion des affectations sans `manage_assignments`; Commun sans Lecteur Système global. Ouvrez ensuite une agence, un programme, un volet, un promoteur, une entente et un utilisateur pour confirmer la portée, les niveaux cumulatifs, les affectations exactes, les onglets et les actions.

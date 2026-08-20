@@ -1,6 +1,6 @@
 # Promoteurs
 
-Les promoteurs sont des profils de demandeur ou de bénéficiaire. Ils peuvent être créés avant les ententes, examinés indépendamment, affectés à des équipes et liés à une ou plusieurs ententes.
+Les promoteurs sont des profils de demandeur ou de bénéficiaire. Ils peuvent être créés avant les ententes, examinés indépendamment, affectés à des registres exacts et liés à une ou plusieurs ententes.
 
 ## Dependances de configuration
 
@@ -8,16 +8,16 @@ Les promoteurs sont des profils de demandeur ou de bénéficiaire. Ils peuvent �
 | --- | --- |
 | Agence principale | Chaque promoteur relève d’une agence. Cette agence fournit les données de référence, notamment les sous-types de promoteur disponibles. |
 | Sous-type de promoteur | Le sous-type doit être configuré sous l’agence principale avant la création du profil. |
-| Accès direct de l’utilisateur | La création de premier niveau exige l’indicateur global Promoteur `create` de l’utilisateur. Les quatre indicateurs CRUD directs sont gérés dans l’onglet Attributions de l’utilisateur. |
-| Accès par équipe exacte | Un promoteur enregistré peut accorder `read_only`, `contributor` ou `full_access` à des utilisateurs choisis même si leurs rôles et indicateurs directs ne donnent aucun accès. |
+| Permission de rôle à portée définie | La création exige un plafond Contributeur `applicant_recipient` global ou à l’agence principale choisie. |
+| Affectation exacte | La modification d’un promoteur enregistré exige son affectation exacte en plus du plafond du rôle. Le créateur devient automatiquement principal. |
 | Configurations d’examen | Les examens apparaissent seulement lorsque des configurations admissibles existent pour les promoteurs. |
 | Configuration d’entente | L’onglet Ententes devient utile lorsque les programmes, les volets, les sous-types d’entente et les permissions existent. |
 
 ## Page de liste
 
-La page Promoteurs prend en charge la recherche, le filtre de statut, la pagination, les contrôles de colonnes et les actions de ligne. Les utilisateurs avec l’indicateur direct Promoteur `read` voient la liste interagences ; les utilisateurs dont l’accès provient uniquement d’une équipe voient seulement les promoteurs exacts qui leur sont attribués. La recherche aide à trouver un profil visible par ses identifiants, ses noms légaux, ses noms commerciaux, son sous-type ou son agence principale.
+La page Promoteurs prend en charge la recherche, le filtre d’état, la pagination, les contrôles de colonnes et les actions de ligne. Elle retourne les profils couverts par le plafond Lecteur global ou de l’agence principale de l’utilisateur; la lecture n’exige pas d’affectation exacte. La recherche porte sur les identifiants, les noms légaux et commerciaux, le sous-type et l’agence principale.
 
-Créer apparaît avec l’indicateur direct Promoteur `create` et ouvre la page de création. Modifier et Supprimer dépendent de l’indicateur direct correspondant ou du niveau de l’équipe exacte du promoteur sélectionné. Supprimer est une suppression logique qui retire le promoteur des listes actives normales sans effacer les références historiques.
+Créer apparaît avec un plafond Contributeur dans une portée disponible. Modifier exige Contributeur et l’affectation exacte; Supprimer exige Gestionnaire et l’affectation. La suppression logique retire le promoteur des listes actives ordinaires sans effacer les références historiques.
 
 ## Creer un profil
 
@@ -47,7 +47,7 @@ La page detail contient un sommaire repliable et des onglets:
 | [Examens](./reviews.md) | Ensembles d examen et evaluations d execution. |
 | [Ententes](./agreements.md) | Ententes liees au promoteur. |
 | [Historique du financement](./funding-history.md) | Ententes du systeme et dossiers de financement externes legers associes au promoteur. |
-| [Equipe](./team.md) | Utilisateurs affectes directement au promoteur. |
+| [Utilisateurs affectés](./team.md) | Registre exact du travail; les changements exigent `manage_assignments`. |
 
 Des onglets d extension peuvent aussi apparaitre lorsqu une extension activee contribue un onglet de promoteur.
 
@@ -70,6 +70,6 @@ Lorsque l utilisateur peut modifier le promoteur, General devient un formulaire 
 | 1 | Configurer l agence principale et les sous-types. |
 | 2 | Creer le profil en brouillon. |
 | 3 | Ajouter les identifiants de registre, les autres noms, les adresses et les contacts. |
-| 4 | Ajouter des membres d equipe si l acces doit etre delegue. |
+| 4 | Utiliser Utilisateurs affectés ou Gestion des affectations pour répartir le profil entre les utilisateurs admissibles. |
 | 5 | Executer les examens lorsque le processus l exige. |
 | 6 | Lier le promoteur aux ententes pendant la creation d entente ou depuis l onglet Promoteurs de l entente. |

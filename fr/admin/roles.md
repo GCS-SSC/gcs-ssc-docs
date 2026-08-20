@@ -1,44 +1,46 @@
-# Roles
+# Rôles
 
-Les roles definissent les combinaisons action, sujet et portee qui deviennent les permissions des utilisateurs. L application applique les regles de role dans les controles visibles et lors de l enregistrement; un role doit donc rester coherent avant d etre utilise.
+Les rôles définissent une permission réutilisable sur un sujet à portée globale, d’agence ou de programme. Une permission enregistre un niveau d’accès cumulatif — Lecteur, Contributeur ou Gestionnaire — et, pour le travail sur les ententes ou les promoteurs, peut autoriser indépendamment la gestion des affectations.
 
-## Liste des roles
+## Liste des rôles
 
-La page Rôles prend en charge la pagination et la recherche. Les utilisateurs disposant de la permission globale `role:read` voient tous les rôles. Les lecteurs limités à certaines agences voient les rôles globaux et ceux de leurs agences autorisées. Le tableau comprend les noms bilingues, les descriptions, le contexte d’agence, les capacités et les identifiants des programmes sélectionnés.
+La page Rôles prend en charge la recherche et la pagination. Un lecteur global des rôles voit tous les rôles actifs; un lecteur limité à une agence voit les rôles globaux et ceux d’une agence autorisée. Chaque ligne affiche le nom bilingue du rôle, le contexte d’agence, la portée et jusqu’à trois badges de permission suivis de `+N` s’il en existe davantage.
 
-Les utilisateurs avec acces de creation peuvent ouvrir la modale de role. Les utilisateurs avec acces de mise a jour pour la portee du role peuvent le modifier. Les suppressions sont logiques.
+Les commandes de création et de modification exigent Contributeur pour `role` à la portée cible; la suppression logique exige Gestionnaire. Les rôles supprimés ne contribuent plus aux permissions et n’apparaissent pas dans les sélecteurs ordinaires.
 
-## Selection de portee
+## Sélection de la portée
 
-Un role peut etre :
+Un rôle peut être :
 
-- Global : aucune agence selectionnee.
-- Limite a une agence : une agence selectionnee et aucun programme.
-- Limite a un programme : une agence selectionnee et un ou plusieurs programmes selectionnes.
+- global : aucune agence sélectionnée;
+- limité à une agence : une agence sélectionnée et aucun programme sélectionné;
+- limité à des programmes : une agence et un ou plusieurs programmes de paiement de transfert de cette agence sélectionnés.
 
-Le formulaire offre l option globale seulement lorsque l utilisateur courant peut creer des roles a portee globale. La selection de programme apparait seulement apres le choix d une agence. Les options de programme sont chargees depuis les paiements de transfert filtres par agence.
+Seul un administrateur autorisé à créer des rôles globaux peut choisir Global. La sélection des programmes apparaît après celle d’une agence. Les sélecteurs avec recherche chargent tous les dossiers accessibles à l’administrateur et hydratent les valeurs enregistrées qui ne figurent pas dans la page de résultats courante.
 
-Après la création, la portée parente du rôle est fixe : un rôle global demeure global et un rôle d’agence demeure lié à son agence d’origine. En mode modification, le sélecteur global/agence est désactivé. Un rôle d’agence peut tout de même passer d’une portée d’agence à une portée de programme, ou l’inverse, en ajoutant ou en retirant des programmes de cette agence, pourvu que ses capacités soient valides pour la portée obtenue. Les capacités `agency`, `role` et `user` doivent être retirées avant de faire passer le rôle à une portée de programme.
+La portée parente du rôle ne peut pas passer de globale à agence ou inversement après la création. Un rôle d’agence peut passer d’une couverture de toute l’agence à des programmes précis lorsque les permissions résultantes demeurent compatibles. Les programmes enregistrés manquants ou indisponibles sont étiquetés plutôt que retirés silencieusement.
 
-Les selecteurs d’agence et de programme recherchent tous les dossiers accessibles a l’administrateur courant, et non seulement la premiere page. Lors de la modification d’un role, les selections enregistrees sont resolues vers leur nom d’affichage meme si elles ne figurent pas dans les resultats courants. Un programme qui n’existe plus ou qui n’est plus disponible dans la portee du role est indique comme indisponible. Un echec de chargement temporaire affiche une action Reessayer sans retirer la selection enregistree.
+## Règles de portée
 
-## Regles de portee
-
-La portee effective vient de la structure du role :
-
-| Structure du role | Portee effective |
+| Structure du rôle | Portée effective |
 | --- | --- |
-| Aucune agence selectionnee | Globale |
-| Agence selectionnee et aucun programme selectionne | Agence |
-| Agence selectionnee et un ou plusieurs programmes selectionnes | Programme |
+| Aucune agence | Globale |
+| Agence sans programme | Agence |
+| Agence et un ou plusieurs programmes | Programme |
 
-L application rejette les roles de programme sans agence. Elle rejette aussi les programmes selectionnes qui n appartiennent pas a l agence du role.
+Les liens de programme doivent appartenir à l’agence du rôle. Des contraintes de base de données revérifient le graphe complet du rôle et de ses permissions à la validation de la transaction; une mise à jour du profil ou d’une permission ne peut donc pas laisser une combinaison incompatible.
 
-## Regles de capacites
+## Niveaux de permission
 
-Les capacités sont des paires action-sujet explicites. Les actions sont `create`, `read`, `update` et `delete`. Les seuls sujets de rôle sont `system`, `agency`, `transfer_payment`, `role`, `user` et `agreement`. L’accès aux promoteurs ne constitue volontairement pas une capacité de rôle ; il est configuré au moyen d’indicateurs directs sur l’utilisateur et d’équipes exactes de promoteur.
+L’onglet Permissions affiche une ligne par sujet pris en charge. Sélectionnez `Aucun`, `Lecteur`, `Contributeur` ou `Gestionnaire` :
 
-La portée limite les sujets attribuables :
+| Niveau | Actions cumulatives |
+| --- | --- |
+| Lecteur | Lecture |
+| Contributeur | Lecture, création, modification |
+| Gestionnaire | Lecture, création, modification, suppression |
+
+Les sujets sont `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
 
 | Sujet du rôle | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
@@ -48,33 +50,40 @@ La portée limite les sujets attribuables :
 | `role` | Oui | Oui | Non |
 | `user` | Oui | Oui | Non |
 | `agreement` | Oui | Oui | Oui |
+| `applicant_recipient` | Oui | Oui | Non |
 
-Il n’existe aucun sujet générique ni sujet `all`. La portée de programme est dérivée des liens actifs du rôle vers les programmes, et non d’un champ de portée indépendant.
+Il n’existe ni sujet générique ni ensemble de commutateurs CRUD indépendants. Le serveur rejette une ligne de sujet en double ou un sujet incompatible avec la portée effective du rôle.
 
-L onglet Capacites du detail de role filtre les capacites permises pour la portee courante. Si un utilisateur tente un basculement invalide, l application affiche une erreur de portee et n enregistre pas la capacite invalide.
+## Capacité de gestion des affectations
 
-## Onglets detail
+Les lignes de permission Entente et Promoteur offrent aussi **Gérer les affectations**. Cette capacité est indépendante :
 
-Le detail de role contient :
+- elle peut être activée lorsque le niveau d’accès au sujet est `Aucun`;
+- Gestionnaire ne l’active pas automatiquement;
+- elle expose seulement les surfaces minimales Gestion des affectations et du registre;
+- elle ne révèle pas le contenu de l’entité et n’affecte pas l’administrateur comme utilisateur.
 
-- General, avec noms bilingues, descriptions, agence et contexte de portee.
-- Capacites, avec cartes d interrupteurs pour les capacites permises.
+Choisir le niveau `Aucun` et désactiver Gérer les affectations supprime la ligne de permission. Consultez [Gestion des affectations](./assignments.md) et [Permissions de rôle et affectations exactes](../concepts/rbac.md).
 
-L’enregistrement de l’onglet Général modifie seulement le profil et la portée du rôle. Les interrupteurs de capacités utilisent une opération séparée et prennent effet immédiatement ; enregistrer le profil ne remplace donc pas les capacités, et basculer une capacité n’écrase pas les modifications de profil non enregistrées. Lorsqu’un rôle d’agence est modifié, la sélection complète de programmes peut faire passer la portée effective de l’agence au programme, ou l’inverse, sans changer l’agence du rôle. L’opération est rejetée si la portée obtenue est incompatible avec les capacités courantes.
+## Onglets de détail et enregistrement
 
-## Conception recommandee
+La page de détail contient :
 
-Utilisez peu de modeles de role durables :
+- Général, avec les noms et descriptions bilingues, l’agence et la portée de programme.
+- Permissions, avec le sélecteur de niveau et les commutateurs de gestion des affectations admissibles.
 
-- Administrateur racine : rôle global ordinaire contenant les paires action-sujet explicites requises pour les opérateurs système de confiance. Le rôle initial contient les 24 paires valides et ne contourne pas l’autorisation.
-- Administrateur d’agence : permissions d’agence, d’utilisateur, de rôle, de paiement de transfert et d’entente limitées à une agence. L’accès aux promoteurs est attribué séparément aux utilisateurs ou par des équipes exactes.
-- Gestionnaire de programme : permissions de paiement de transfert et d’entente pour des programmes sélectionnés.
-- Opérateur d’entente : création et mise à jour des ententes et des flux enfants dans une portée de programme ou d’agence.
-- Examinateur ou approbateur : seulement les permissions ordinaires de lecture et de mise à jour de l’entité requises par le processus. L’attribution de flux détermine qui peut exécuter une étape assignée ; elle ne donne elle-même aucun accès à l’entité.
-- Analyste lecture seule : lecture sans creation, mise a jour ou suppression.
+Général et Permissions sont enregistrés indépendamment. Une mise à jour par sujet remplace atomiquement cette ligne et prend effet lors des autorisations serveur suivantes. Les modifications du profil ne peuvent écraser les permissions, et un changement de permission ne peut enregistrer une portée de rôle invalide.
 
-Evitez de creer de nombreux roles presque identiques. Preferez un role par fonction et portee par attribution.
+La création, les mises à jour de profil, la suppression et le remplacement de permissions d’un rôle ajoutent des enregistrements `security_audit_event` non sensibles dans la même transaction. Un changement échoué ne produit aucune ligne d’audit.
 
-![Onglet Capacites d un role](/screenshots/fr/role-abilities.png)
+## Conception recommandée des rôles
 
-_Capture reelle de l environnement de developpement avec donnees semees. Les enregistrements montres sont seulement des exemples et ne sont pas crees dans une installation fraiche._
+- Administrateur racine : rôle global comportant les niveaux Gestionnaire requis et les capacités explicites de gestion des affectations. Il demeure un rôle ordinaire sans contournement.
+- Administrateur d’agence : niveaux d’agence, d’utilisateur, de rôle, de paiement de transfert, d’entente et de promoteur pour une agence, selon les besoins.
+- Gestionnaire de programme : niveaux de paiement de transfert et d’entente pour les programmes choisis.
+- Coordonnateur des affectations : seulement la capacité `manage_assignments` requise pour les ententes ou les promoteurs à une portée étroite.
+- Agent de traitement : plafonds Contributeur pour les sujets propriétaires; les affectations exactes déterminent la file de travail réelle.
+- Réviseur ou approbateur : plafond ordinaire de l’entité requis par le processus et responsabilité de flux affectée séparément.
+- Analyste en lecture seule : niveaux Lecteur sans capacité de gestion des affectations.
+
+Privilégiez un petit ensemble de rôles durables fondés sur les fonctions. Utilisez la portée et les attributions utilisateur-rôle pour varier la couverture, puis les affectations exactes pour répartir le travail enregistré.

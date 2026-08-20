@@ -28,6 +28,6 @@ Create, update, and delete first authorize the requested action against the exac
 
 ## Search and recovery
 
-Search matches number, registry type, and the Other comment. If an action is hidden, check your direct Proponent permission or exact Team level: `read_only` reads, `contributor` creates and updates, and `full_access` can also soft-delete. If a save fails, verify the type-specific format, supply an Other comment where required, and confirm that the active type/number pair is not already registered.
+Search matches number, registry type, and the Other comment. Viewer reads; Contributor plus the exact Proponent assignment creates or updates; Manager plus that assignment can soft-delete. If a save fails, verify the role scope and assignment, the type-specific format, the required Other comment, and that the active type/number pair is not already registered.
 
-See [Proponents](./index.md), [Agency Financial IDs](./agency-financial-ids.md), and [Team](./team.md).
+See [Proponents](./index.md), [Agency Financial IDs](./agency-financial-ids.md), and [Assigned users](./team.md).

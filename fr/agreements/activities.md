@@ -10,7 +10,7 @@ Avant de créer une activité :
 
 - configurez les résultats dans le programme de paiements de transfert de l'entente;
 - liez chaque bénéficiaire responsable voulu dans l'onglet **Bénéficiaires** de l'entente;
-- vérifiez que votre équipe d'entente ou votre rôle général accorde l'action requise.
+- vérifiez que votre plafond de rôle et votre affectation exacte à l’entente permettent la mutation.
 
 Les recherches de résultats et de responsables utilisent la même action `create` ou `update` que le formulaire ouvert. Elles ne permettent pas de contourner l'autorisation sur l'entente.
 

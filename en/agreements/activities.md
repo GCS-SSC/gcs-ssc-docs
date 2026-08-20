@@ -10,7 +10,7 @@ Before creating an activity:
 
 - configure the outcomes on the agreement's transfer payment program;
 - link every intended responsible proponent on the agreement's **Proponents** tab; and
-- make sure your Agreement Team or broader role grants the required action.
+- make sure your Agreement role ceiling and exact Agreement assignment permit the mutation.
 
 Outcome and responsible-party lookups use the same `create` or `update` action as the form being opened. They cannot be used to bypass the agreement permission check.
 

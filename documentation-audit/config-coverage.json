@@ -12,7 +12,7 @@
       "nuxt.config.ts; server/utils/db.ts; server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the named runtime sources; paired operator configuration documents precedence, safe values, failure boundaries, and recovery guidance."
+    "notes": "Verified against the named runtime sources; paired operator configuration documents precedence, safe values, failure boundaries, and recovery guidance. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:local-setup-commands",
@@ -27,7 +27,7 @@
       "package.json; scripts/setup-workspaces.ts; scripts/dev.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified setup, development cleanup semantics, forwarded host/port behaviour, build, test, artifact, and quality commands in both locales."
+    "notes": "Verified setup, development cleanup semantics, forwarded host/port behaviour, build, test, artifact, and quality commands in both locales. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:database-modes",
@@ -42,7 +42,7 @@
       "server/utils/db.ts; server/plugins/migrations.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified PostgreSQL precedence/pool configuration, PGlite fallback, ordered fail-fast core migrations, and enabled-extension migrations."
+    "notes": "Verified PostgreSQL precedence/pool configuration, PGlite fallback, ordered fail-fast core migrations, and enabled-extension migrations. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:authentication-providers",
@@ -57,7 +57,7 @@
       "server/utils/auth.ts; nuxt.config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified Better Auth secret, URL/origin precedence, cookie versioning, email/password, conditional GitHub provider, and local-origin restrictions."
+    "notes": "Verified Better Auth secret, URL/origin precedence, cookie versioning, email/password, conditional GitHub provider, and local-origin restrictions. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:storage-document-generation",
@@ -87,7 +87,7 @@
       "Dockerfile; docker-compose.yml; railway.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified build/runtime images, non-root identity, persistent topology, validated build mode, Compose health/persistence, and Railway probe/restart wiring."
+    "notes": "Verified build/runtime images, non-root identity, persistent topology, validated build mode, Compose health/persistence, and Railway probe/restart wiring. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:ci-demo-webcontainer",
@@ -102,7 +102,7 @@
       ".github/workflows; scripts/webcontainer.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manual Pages workflow, frozen recursive-submodule build, staged-and-tested WebContainer artifact, demo-only boundary, and inactive review example."
+    "notes": "Verified manual Pages workflow, frozen recursive-submodule build, staged-and-tested WebContainer artifact, demo-only boundary, and inactive review example. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:health-readiness",
@@ -117,7 +117,7 @@
       "server/api/health.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified public SELECT 1 readiness response, safe 503 response, and explicit limits of storage/converter/remote-service coverage."
+    "notes": "Verified public SELECT 1 readiness response, safe 503 response, and explicit limits of storage/converter/remote-service coverage. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:quality-testing",
@@ -132,7 +132,7 @@
       "package.json; scripts/agent; vitest*.ts; playwright.config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified root and extension-owned test boundaries plus supported lint, typecheck, coverage, PostgreSQL, managed E2E, artifact, PR, and whole-quality commands."
+    "notes": "Verified root and extension-owned test boundaries plus supported lint, typecheck, coverage, PostgreSQL, managed E2E, artifact, PR, and whole-quality commands. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "config:extension-packaging",
@@ -147,6 +147,6 @@
       "modules/gcs-extensions.ts; Dockerfile; package.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified SDK-first build, five installed extension workspaces, exact Docker fallback pins, local overlay, generated registry boundary, and pin-alignment requirement."
+    "notes": "Verified SDK-first build, five installed extension workspaces, exact Docker fallback pins, local overlay, generated registry boundary, and pin-alignment requirement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   }
 ]

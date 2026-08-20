@@ -4,7 +4,7 @@ The **Agreements** tab is a relationship view of active GCS-SSC agreements linke
 
 ## Visibility and navigation
 
-Opening the tab requires read access to the proponent. The server then applies agreement visibility independently. Only linked agreements that you can read through global, agency, transfer-payment, or exact Agreement Team scope are returned; inaccessible agreements are omitted rather than displayed as masked rows.
+Opening the tab requires Proponent Viewer access. The server then applies Agreement visibility independently and returns only linked Agreements covered by the user's global, agency, or program Viewer scope; inaccessible records are omitted rather than masked.
 
 The table shows agreement number, bilingual title, program, stream, agreement type, and an open action. Search matches agreement number; English or French title; program, stream, or agency name; and agreement-type name. Results include only active links and active agreement, stream, program, agency, subtype, and agreement-type records.
 
@@ -20,10 +20,10 @@ Before creating an agreement, configure the agency, transfer-payment program and
 
 This tab does not edit or delete agreements and does not remove recipient links. Open the agreement and use its **Proponents** area with the required agreement permissions. Removing a link does not delete the proponent profile or agreement; agreement deletion follows its own lifecycle and dependency rules.
 
-If an expected agreement is absent, confirm that the link and its configuration records are active and that you have read scope for the agreement itself. Proponent Team access alone does not expand agreement scope.
+If an expected Agreement is absent, confirm that the link and configuration records are active and that the `agreement` Viewer scope covers it. A Proponent assignment does not expand Agreement scope.
 
 ## Related guides
 
 - [Proponent profiles](./index.md)
 - [Funding history](./funding-history.md)
-- [Proponent Teams](./team.md)
+- [Proponent assigned users](./team.md)

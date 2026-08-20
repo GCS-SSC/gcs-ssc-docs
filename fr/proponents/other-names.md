@@ -8,12 +8,12 @@ Ouvrez **Promoteurs**, sélectionnez un profil, puis choisissez **Autres noms**.
 
 | Accès effectif au promoteur | Actions disponibles |
 | --- | --- |
-| Accès en lecture seule | Consulter et rechercher les noms actifs, et parcourir les pages. |
-| Accès de contributeur | Consulter et ajouter des noms. |
-| Accès complet | Consulter, ajouter, modifier et supprimer des noms. |
+| Lecteur | Consulter et rechercher les noms actifs, et parcourir les pages; aucune affectation exacte n’est requise. |
+| Contributeur et affectation exacte au promoteur | Consulter, ajouter et modifier des noms. |
+| Gestionnaire et affectation exacte au promoteur | Consulter, ajouter, modifier et supprimer des noms. |
 | Aucun accès | Le serveur refuse la demande, même si l’adresse URL est saisie directement. |
 
-Les privilèges globaux relatifs aux promoteurs et une affectation exacte à l’équipe du promoteur peuvent donner accès. Chaque demande au serveur revérifie l’action par rapport au profil parent. Une écriture s’exécute dans une transaction, verrouille le profil et reconstruit l’autorisation avant de modifier les données.
+Lecteur consulte les autres noms. La création ou modification exige Contributeur et l’affectation exacte au parent; la suppression exige Gestionnaire et cette affectation. Chaque requête vérifie le profil parent, et une écriture le verrouille avant de reconstruire l’autorisation.
 
 ## Champ et validation
 

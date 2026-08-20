@@ -6,14 +6,17 @@ Les réclamations consignent les coûts reçus pour une période financière de 
 
 Ouvrez une entente, puis sélectionnez **Réclamations**. L’entente doit posséder une version budgétaire courante avec au moins un exercice et une ligne budgétaire. Les références de la réclamation et de ses lignes utilisent les identités budgétaires stables; une modification peut donc remplacer la version courante sans changer leurs identifiants logiques.
 
-| Action | Action requise sur l’entente |
+| Action | Accès requis |
 | --- | --- |
-| Parcourir les réclamations, ouvrir les détails, consulter les soumissions et les rapprochements | `agreement:read` |
-| Créer une réclamation, une ligne, un rapprochement ou une ligne de rapprochement | `agreement:create` |
-| Modifier, attribuer, soumettre, retirer, annuler, achever ou changer l’indicateur final | `agreement:update` |
-| Supprimer une réclamation, une ligne, un rapprochement ou une ligne de rapprochement par son API | `agreement:delete` |
+| Parcourir les réclamations, ouvrir les détails et consulter les soumissions ou les rapprochements | Plafond Entente Lecteur; aucune affectation exacte. |
+| Créer une réclamation | Plafond Contributeur et affectation exacte à l’entente; le créateur devient principal de la réclamation. |
+| Créer ou modifier des lignes; attribuer, soumettre, retirer, annuler ou modifier une réclamation | Plafond Contributeur et affectation exacte à la réclamation. |
+| Créer un rapprochement | Plafond Contributeur et affectation exacte à la réclamation; le créateur devient principal du rapprochement. |
+| Créer ou modifier des lignes de rapprochement; achever ou changer l’indicateur final | Plafond Contributeur et affectation exacte au rapprochement. |
+| Supprimer une réclamation ou une ligne par son API | Plafond Gestionnaire et affectation exacte à la réclamation. |
+| Supprimer un rapprochement ou une ligne de rapprochement par son API | Plafond Gestionnaire et affectation exacte au rapprochement. |
 
-Un rôle ou l’équipe exacte de l’entente peut fournir ces actions. L’accès à un volet, à un budget, à une soumission ou à une autre entente connexe n’élargit pas cette limite. Les écritures résolvent de nouveau la portée et l’autorisation dans la transaction et acquièrent, selon le cas, les verrous ordonnés de l’entente, de la réclamation et du rapprochement.
+Lecteur Entente consulte les réclamations. La création d’une réclamation exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. La création d’un rapprochement exige Contributeur et l’affectation exacte à la réclamation, puis rend le créateur principal du rapprochement. Les mutations suivantes exigent l’affectation à la réclamation ou au rapprochement et Contributeur ou Gestionnaire. Un volet, budget, une soumission ou une autre entente n’élargit pas la frontière; les écritures prennent des verrous ordonnés et reconstruisent l’autorisation.
 
 ## Parcourir et créer des réclamations
 
@@ -46,7 +49,7 @@ Aucune contrainte d’unicité active n’existe pour `(réclamation, ligne budg
 
 L’extension [Intégration de GC Forms](../extensions/gc-forms.md) peut matérialiser atomiquement une réclamation et zéro ou plusieurs lignes. Elle crée directement la réclamation à l’état `submitted`, consigne un UUID unique de la soumission source et des liens de destination, puis empêche une seconde matérialisation. Une ligne source qui ne peut correspondre à une ligne budgétaire courante peut rester non attribuée avec ses libellés soumis.
 
-La page principale affiche ces lignes et permet à un utilisateur ayant `agreement:update` d’attribuer chacune à une ligne budgétaire courante compatible pendant que la réclamation est `draft` ou `submitted`. Pour une réclamation soumise, cette attribution unique de la valeur nulle vers une ligne budgétaire est la seule modification permise. Le rapprochement ne peut commencer tant que toutes les lignes actives ne sont pas attribuées.
+La page principale affiche ces lignes et permet à un utilisateur ayant le plafond de rôle Entente Contributeur et l’affectation exacte à la réclamation d’attribuer chacune à une ligne budgétaire courante compatible pendant que la réclamation est `draft` ou `submitted`. Pour une réclamation soumise, cette attribution unique de la valeur nulle vers une ligne budgétaire est la seule modification permise. Le rapprochement ne peut commencer tant que toutes les lignes actives ne sont pas attribuées.
 
 ## Soumettre, retirer ou annuler
 
@@ -82,7 +85,7 @@ Les modifications d’en-tête ou de ligne font passer un rapprochement non verr
 
 ## Achèvement, approbation et flux de travail
 
-Le rapprochement sélectionné présente les commandes Achèvement et Flux de travail. L’achèvement exige `agreement:update`, un rapprochement modifiable, aucun rapprochement final déjà approuvé pour la réclamation, aucun achèvement existant et au moins une ligne active. Il ne valide ni les totaux ni l’indicateur final.
+Le rapprochement sélectionné présente les commandes Achèvement et Flux de travail. L’achèvement exige le plafond de rôle Entente Contributeur et l’affectation exacte au rapprochement, un rapprochement modifiable, aucun rapprochement final déjà approuvé pour la réclamation, aucun achèvement existant et au moins une ligne active. Il ne valide ni les totaux ni l’indicateur final.
 
 En cas de réussite, la transaction consigne le commentaire et l’utilisateur communs d’achèvement, fait passer directement le rapprochement à `complete`, démarre tout flux `fundingclaimreconcile` applicable, valide la transaction, puis émet le hook d’achèvement. La réclamation parente demeure `inreview`. L’achèvement ne consulte aucun modèle d’approbation et ne crée aucune feuille d’acheminement.
 

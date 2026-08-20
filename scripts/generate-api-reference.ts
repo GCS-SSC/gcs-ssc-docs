@@ -23,6 +23,9 @@ const walk = async (directory: string): Promise<string[]> => {
 }
 
 const groupFor = (source: string): string => {
+  if (source.includes('/entity-assignments/') || source.includes('/assigned-work') || source.includes('/assignment-management')) return 'identity'
+  if (source.includes('/claim-reconciliations/')) return 'agreements'
+  if (source.includes('/recommendations/')) return 'workflows'
   if (source.includes('/agreements/')) return 'agreements'
   if (source.includes('/applicant-recipients/')) return 'applicant-recipients'
   if (source.includes('/transfer-payments/')) return 'transfer-payments'
@@ -67,15 +70,15 @@ for (const path of await walk(join(appRoot, 'server/api'))) {
 }
 
 const names: Record<string, { en: string, fr: string, enSummary: string, frSummary: string }> = {
-  agreements: { en: 'Agreement API', fr: 'API des ententes', enSummary: 'Agreement profiles, child resources, finance, lifecycle, Teams, documents, and generation.', frSummary: 'Profils d’entente, ressources enfants, finances, cycle de vie, équipes, documents et production.' },
-  'applicant-recipients': { en: 'Applicant-recipient API', fr: 'API des bénéficiaires demandeurs', enSummary: 'Proponent profiles, identity, relationships, funding history, reviews, agreements, and Teams.', frSummary: 'Profils de promoteur, identité, relations, historique du financement, examens, ententes et équipes.' },
+  agreements: { en: 'Agreement API', fr: 'API des ententes', enSummary: 'Agreement profiles, child resources, finance, lifecycle, exact assignments, documents, and generation.', frSummary: 'Profils d’entente, ressources enfants, finances, cycle de vie, affectations exactes, documents et production.' },
+  'applicant-recipients': { en: 'Applicant-recipient API', fr: 'API des bénéficiaires demandeurs', enSummary: 'Proponent profiles, identity, relationships, funding history, reviews, agreements, and exact assignments.', frSummary: 'Profils de promoteur, identité, relations, historique du financement, examens, ententes et affectations exactes.' },
   'transfer-payments': { en: 'Transfer-payment API', fr: 'API des paiements de transfert', enSummary: 'Program and stream design, reference relationships, financial setup, schemas, publication, and workflow configuration.', frSummary: 'Conception des programmes et volets, relations de référence, configuration financière, schémas, publication et configuration des flux.' },
   reviews: { en: 'Review API', fr: 'API des examens', enSummary: 'Runtime review sets, assessment and checklist responses, reviewers, cancellation, completion, and retry.', frSummary: 'Ensembles d’examens exécutés, réponses d’évaluation et de liste de contrôle, examinateurs, annulation, achèvement et reprise.' },
   approvals: { en: 'Approval API', fr: 'API des approbations', enSummary: 'Approval-template authoring/versioning and generic routing-slip actions.', frSummary: 'Conception/versionnage des modèles d’approbation et actions génériques sur les bordereaux.' },
   workflows: { en: 'Workflow and completion API', fr: 'API des flux et des achèvements', enSummary: 'Workflow runs/items, recommendations, completion, cancellation, and retry.', frSummary: 'Exécutions/éléments de flux, recommandations, achèvement, annulation et reprise.' },
   extensions: { en: 'Extension host API', fr: 'API hôte des extensions', enSummary: 'Discovery metadata, enablement/configuration, dynamic dispatch, runtime contributions, and extension storage.', frSummary: 'Métadonnées de découverte, activation/configuration, répartition dynamique, contributions d’exécution et stockage d’extension.' },
   agencies: { en: 'Agency API', fr: 'API des agences', enSummary: 'Agency profiles and agency-owned bilingual reference data.', frSummary: 'Profils d’agence et données de référence bilingues appartenant à l’agence.' },
-  identity: { en: 'Identity and RBAC API', fr: 'API d’identité et de contrôle d’accès', enSummary: 'Better Auth delegation, permissions, users, roles, assignments, and Team navigation hints.', frSummary: 'Délégation Better Auth, permissions, utilisateurs, rôles, affectations et indices de navigation des équipes.' },
+  identity: { en: 'Identity and RBAC API', fr: 'API d’identité et de contrôle d’accès', enSummary: 'Better Auth delegation, role permissions, exact entity assignments, assigned work, and assignment management.', frSummary: 'Délégation Better Auth, permissions de rôle, affectations exactes, travail affecté et gestion des affectations.' },
   platform: { en: 'Platform and administration API', fr: 'API de plateforme et d’administration', enSummary: 'Common administration, metadata, health, and remaining platform endpoints.', frSummary: 'Administration commune, métadonnées, état de santé et autres points d’entrée de plateforme.' }
 }
 

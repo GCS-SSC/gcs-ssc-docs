@@ -1,44 +1,46 @@
 # Roles
 
-Roles define the action, subject, and scope combinations that become user permissions. The app enforces role rules both in visible controls and when actions are saved, so a role must be internally consistent before it can be used.
+Roles define a reusable subject permission at global, agency, or program scope. A permission records one cumulative access level—Viewer, Contributor, or Manager—and, for Agreement or Proponent work, may independently allow assignment management.
 
 ## Role list
 
-The Roles page supports pagination and search. Users with global `role:read` see all roles. Agency-scoped role readers see global roles and roles in their allowed agencies. The table includes bilingual role names, descriptions, agency context, abilities, and selected program ids where applicable.
+The Roles page supports search and pagination. A global role reader sees all active roles; an agency-scoped reader sees global roles and roles in an allowed agency. Each row shows the bilingual role name, agency context, scope, and up to three permission badges followed by `+N` when more exist.
 
-Users with create access can open the role modal. Users with update access for a role's scope can edit it. Deletes are soft deletes.
+Create and edit controls require Contributor `role` access at the target scope; soft deletion requires Manager. Deleted roles no longer contribute permissions or appear in ordinary selectors.
 
 ## Scope selection
 
 A role can be:
 
 - Global: no agency selected.
-- Agency-scoped: an agency selected and no program ids selected.
-- Program-scoped: an agency selected and one or more transfer payment programs selected.
+- Agency-scoped: one agency selected and no program selected.
+- Program-scoped: one agency selected and one or more transfer payment programs in that agency selected.
 
-The form only offers the global option when the current user can create roles at global scope. Program selection appears only after an agency is selected. Program options are loaded from transfer payments filtered to the selected agency.
+Only an administrator able to create global roles can choose Global. Program selection appears after an agency is selected. Searchable selectors load all records available to the administrator and hydrate saved values that are outside the current result page.
 
-After creation, the role's parent scope is fixed: a global role remains global, and an agency role remains tied to its original agency. Edit mode disables the global/agency selector. An agency role can still move between agency-wide and program-specific effective scope by adding or removing programs within that agency, provided its abilities are valid for the resulting scope. `agency`, `role`, and `user` abilities must be removed before moving the role to program scope.
+The role's parent scope cannot move between global and agency after creation. An agency role can move between agency-wide and program-specific coverage when the resulting permissions remain compatible. Missing or unavailable saved programs are labelled rather than silently removed.
 
-The agency and program selectors search the full set of records available to the current administrator rather than only the first page. When editing a role, saved selections are resolved to their display names even when they are outside the current search results. A program that no longer exists or is no longer available in the role's scope is labelled unavailable. A temporary loading failure shows a Retry action without removing the saved selection.
-
-## Scope business rules
-
-Effective scope is derived from role structure:
+## Scope rules
 
 | Role structure | Effective scope |
 | --- | --- |
-| No agency selected | Global |
-| Agency selected and no programs selected | Agency |
-| Agency selected and one or more programs selected | Program |
+| No agency | Global |
+| Agency and no programs | Agency |
+| Agency and one or more programs | Program |
 
-The app rejects program-scoped roles without an agency. It also rejects selected programs that do not belong to the role's agency.
+Program links must belong to the role's agency. Database constraints recheck the full role-permission graph at transaction commit, so a profile or permission update cannot leave an incompatible combination.
 
-## Ability rules
+## Permission levels
 
-Abilities are explicit action/subject pairs. Actions are `create`, `read`, `update`, and `delete`. The only role subjects are `system`, `agency`, `transfer_payment`, `role`, `user`, and `agreement`. Proponent access is deliberately not a role ability; it is configured through direct user flags and exact Proponent Teams.
+The Permissions tab shows one row per supported subject. Select `None`, `Viewer`, `Contributor`, or `Manager`:
 
-Scope limits which subjects can be assigned:
+| Level | Cumulative actions |
+| --- | --- |
+| Viewer | Read |
+| Contributor | Read, create, update |
+| Manager | Read, create, update, delete |
+
+The subjects are `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
 
 | Role subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
@@ -48,33 +50,40 @@ Scope limits which subjects can be assigned:
 | `role` | Yes | Yes | No |
 | `user` | Yes | Yes | No |
 | `agreement` | Yes | Yes | Yes |
+| `applicant_recipient` | Yes | Yes | No |
 
-There is no wildcard or `all` subject. Program scope is derived from the role's active program links, not from an independently stored scope field.
+There is no wildcard subject and no set of independent CRUD toggles. The server rejects a duplicate subject row or a subject that is incompatible with the role's effective scope.
 
-The role detail Abilities tab filters to allowed abilities for the role's current scope. If a user attempts an invalid ability toggle, the app shows a scope mismatch error and does not save the invalid ability.
+## Assignment-management capability
 
-## Detail tabs
+Agreement and Proponent permission rows also offer **Manage assignments**. This capability is independent:
 
-The role detail page contains:
+- it can be enabled while the subject's access level is `None`;
+- Manager does not enable it automatically;
+- it exposes only the minimized Assignment Management and roster surfaces; and
+- it does not reveal entity content or make the administrator an assigned user.
 
-- General, showing bilingual names, descriptions, agency, and scope context.
-- Abilities, showing toggle cards for allowed abilities.
+Setting the access level to `None` and turning Manage assignments off removes the permission row. See [Assignment Management](./assignments.md) and [role permissions and exact assignments](../concepts/rbac.md).
 
-Saving General updates only the role profile and scope fields. Ability switches use a separate endpoint and take effect immediately, so saving a profile cannot accidentally replace abilities and toggling an ability cannot overwrite unsaved profile edits. Updating an agency role's program selection saves the complete selection and is rejected when the resulting scope would be inconsistent with its current abilities.
+## Detail tabs and saving
+
+The detail page contains:
+
+- General, with bilingual names, descriptions, agency, and program scope.
+- Permissions, with the access-level selector and eligible assignment-management switches.
+
+General and Permissions save independently. A per-subject permission update atomically replaces that row and takes effect on subsequent server authorization. Profile edits cannot overwrite permission changes, and a permission change cannot save an invalid role scope.
+
+Role creation, profile updates, deletion, and permission replacements append non-sensitive `security_audit_event` records in the same transaction. A failed change produces no audit row.
 
 ## Recommended role design
 
-Use a small number of durable role patterns:
+- Root Administrator: a global role with the required Manager levels and explicit assignment-management capabilities. It remains an ordinary role and has no bypass.
+- Agency Administrator: agency, user, role, transfer-payment, Agreement, and Proponent levels at one agency as needed.
+- Program Manager: transfer-payment and Agreement levels for selected programs.
+- Assignment Coordinator: only the required Agreement and/or Proponent `manage_assignments` capability at a narrow scope.
+- Caseworker: Contributor ceilings for the owning subjects; exact entity assignments determine the actual work queue.
+- Reviewer or Approver: the ordinary entity ceiling required by the process plus the separately assigned workflow responsibility.
+- Read-only Analyst: Viewer levels without assignment-management capability.
 
-- Root Administrator: an ordinary global role containing the required explicit action/subject pairs for trusted system operators. The seeded role contains all 24 valid pairs and does not bypass authorization.
-- Agency Administrator: agency, user, role, transfer payment, and agreement permissions scoped to one agency as needed. Proponent access is assigned separately on users or exact Teams.
-- Program Manager: transfer payment and agreement permissions scoped to selected programs.
-- Agreement Operator: create/update agreement and child workflow records in a program or agency scope.
-- Reviewer or Approver: give only the ordinary entity read/update role permissions required by the process. Workflow assignment determines who may perform an assigned step; it does not grant entity access by itself.
-- Read-only Analyst: read access with no create/update/delete abilities.
-
-Avoid creating many near-duplicate roles. Prefer a role per job function and scope it through assignment.
-
-![Role abilities tab](/screenshots/en/role-abilities.png)
-
-_Actual screenshot from the seeded development environment. The records shown are examples only and are not created in a fresh installation._
+Prefer a small set of durable job-function roles. Use scope and user-role assignments to vary coverage, then exact entity assignments to allocate saved work.

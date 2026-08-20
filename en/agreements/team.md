@@ -1,44 +1,48 @@
-# Agreement Team
+# Agreement assigned users
 
-The **Team** tab grants application users access to one exact saved agreement. Use it when someone needs to work on this agreement without receiving broader agency, program, stream, or agreement privileges.
+The **Assigned users** tab shows the exact work roster for one saved Agreement. It allocates that Agreement to users who already have a sufficient Agreement role ceiling at its agency/program scope; it does not create permission by itself.
 
-An Agreement Team grant does not extend to another agreement or to a linked proponent. It does not permit creation of a new agreement, and an approval or review assignment does not replace ordinary Agreement read access.
+## Required access
 
-## Access levels
+Reading the roster requires either:
 
-| Level | Actions on this exact agreement |
-| --- | --- |
-| `read_only` | Read the agreement, supported child records, and Team roster. |
-| `contributor` | Read and update the agreement; read, create, and update supported child records. |
-| `full_access` | Contributor actions plus soft deletion of the agreement and supported child records. |
+- Viewer or higher for `agreement` at the Agreement's current scope; or
+- `agreement` `manage_assignments` at that scope.
 
-Any effective reader can view the active roster. Search matches active users by name or email, with pagination and name ordering. Deleted assignments and deleted user accounts are omitted.
+Adding, promoting, or removing users requires `manage_assignments`. Contributor or Manager business access does not imply roster management, and `manage_assignments` alone exposes no Agreement, financial, document, or workflow content.
 
-## Management ceiling
+## Roster rules
 
-Row actions and assignable levels are limited by your effective Agreement permissions:
+Every active Agreement must have at least one active assignment and exactly one primary. The primary user is the work lead, not a more privileged member. An assigned user still needs the Viewer role ceiling to read and the two-key rule to change the Agreement.
 
-- update access can manage `read_only` and `contributor` assignments;
-- update plus delete access can also manage `full_access` assignments;
-- an existing or requested level above your ceiling cannot be changed or removed.
+The roster remains readable when an existing user becomes inactive or loses Contributor eligibility. This makes an ineligible primary visible for correction; role changes do not silently rewrite assignment history.
 
-These permissions may come from a scoped role or your own exact Agreement Team membership.
+## Add an assigned user
 
-## Add, change, or remove a member
+Select **Add user** and search the eligible users. A candidate must be active and have Contributor or Manager for `agreement` globally or at this Agreement's current agency/program scope. The server rejects inactive users, Viewer-only users, out-of-scope users, active duplicates, unknown fields, and malformed identifiers.
 
-Select **Add team member**, choose an access level within your ceiling, and search for a user. The lookup contains active application users who do not already have an active assignment on this exact agreement. It is not limited to the agreement's agency.
+The new user is non-primary. An assignment to one Agreement does not affect another Agreement in the same program.
 
-The user and access level are required. The server rejects inactive users, duplicate active assignments, unknown levels, and extra fields. Editing changes only the access level. Removing asks for confirmation and soft-deletes the assignment; a removed user may be added again.
+## Change the primary user
 
-Writes lock the target user, agreement, and existing assignment as applicable, rebuild authorization inside the transaction, and reapply the existing/requested-level ceiling before changing data. A Team ID belonging to another agreement or entity type is treated as not found. Missing and inaccessible agreements are not distinguished to the caller.
+Choose **Make primary** on an active eligible assignment. The operation promotes that user and demotes the previous primary atomically. It cannot promote an inactive, ineligible, missing, or removed assignment.
 
-::: warning Access-loss safeguard
-There is no last-manager or self-removal guard. Downgrading or removing the only assignment that provides update access can immediately prevent further Team management. Confirm that another authorized manager remains. Recovery requires another sufficiently authorized user; the Team tab has no self-restore control.
-:::
+If the current primary is ineligible, first add or identify an eligible replacement, promote the replacement, and then remove the old assignment if appropriate.
 
-## Related guides
+## Remove an assigned user
 
-- [Funding agreements](./index.md)
-- [Agreement proponents](./applicant-recipients.md)
-- [Roles and permissions](../admin/roles.md)
-- [Proponent Team](../proponents/team.md)
+A non-primary user can be removed while at least one active assignment remains. The server refuses removal of the primary and of the last assigned user. Removal is a soft delete and preserves historical references.
+
+## Status and scope changes
+
+The roster can change while the Agreement is `draft`, `pendingapproval`, or `active`. A terminal or deleted Agreement is locked. Every write reloads the stream, program, agency, role graph, user eligibility, status, and current roster inside one transaction.
+
+Moving ownership or program scope changes later authorization and eligibility checks. Review the roster when the scope changes; an existing assignment remains visible even if the user no longer qualifies at the new scope.
+
+## Independently assigned child work
+
+The Agreement roster is not inherited by claims, claim reconciliations, payments, forecasts, monitors, amendments, commitments, reviews, or recommendations that have their own exact roster. Creating one of these children requires Contributor plus the required parent assignment and assigns its creator as that child's primary user. Later child actions require the child's exact assignment.
+
+Ordinary child data, such as addresses, proponents, activities, budget lines, and documents, continues to use the Agreement itself as the assignment root.
+
+For cross-entity coordination, use [Assignment Management](../admin/assignments.md). For the authorization model, see [Role permissions and exact assignments](../concepts/rbac.md).

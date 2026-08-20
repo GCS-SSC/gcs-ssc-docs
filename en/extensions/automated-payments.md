@@ -57,7 +57,7 @@ The available amount before holdback is claims plus unclaimed forecast in the se
 - remaining approved commitment;
 - availability before holdback plus an allowed release.
 
-This is a ceiling, not proof that the payment is otherwise eligible. Core payment schema, commitment resolution, budget, lifecycle, approval, and Team/RBAC rules still apply.
+This is a ceiling, not proof that the payment is otherwise eligible. Core payment schema, commitment resolution, budget, lifecycle, approval, scoped-role, and exact-assignment rules still apply.
 
 ## Holdback release and provenance
 

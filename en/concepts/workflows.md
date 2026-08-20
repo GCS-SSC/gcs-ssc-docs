@@ -1,61 +1,91 @@
 # Workflows
 
-Workflows connect a stream's published review, recommendation, and approval configuration to a runtime record such as a payment, forecast, monitor, commitment, amendment, claim reconciliation, or review. They change the source record's status while work is underway and preserve the exact configuration used by each attempt.
+Workflows connect a stream's published review, recommendation, and approval configuration to runtime records. A `standard` workflow handles ordinary review/completion progression. An `approval_submission` workflow creates the immutable evidence packet used to approve an Agreement or amendment.
 
 ## Configure a workflow setup
 
-Open **Programs**, open a program and stream, and choose **Workflow Setups**. The list supports bilingual search, creation, opening a setup, and deletion when your transfer-payment permissions allow it. The detail page groups the fields into Identity, Routing, Transitions, and Behaviour.
+Open a program and stream, then choose **Workflow Setups**. The detail editor groups identity, routing, transitions, and behaviour.
 
 | Field | Meaning |
 | --- | --- |
-| English/French name and description | Bilingual administrative identity shown in the current locale. |
-| Entity type | The kind of runtime record to which the setup applies. |
-| Entry point | `completion` starts as part of completing a source record; `recommendation` is started explicitly from the workflow section. |
-| Allowed start statuses | At least one source status from which a run may start. |
-| Start, success, and failure status | Status applied to the source at start, successful completion, or unsuccessful termination. |
+| English/French identity | Administrative name and description. |
+| Entity type | Runtime target. |
+| Entry point | `completion` starts through a completion action; `recommendation` starts explicitly. |
+| Purpose | `standard` or `approval_submission`. |
+| Allowed start statuses | Source statuses from which the workflow may start. |
+| Start/success/failure status | Status applied to the target at each outcome. |
 | Review set | Optional published review plan that runs first. |
-| Recommendation set | Optional ordered published recommendation plan. |
-| Source approval template | Optional final approval after reviews and recommendations. |
-| Active | Makes a published setup eligible for resolution. |
-| Allow retry | Permits a failed attempt to be retried with that attempt's setup. |
+| Recommendation set | Optional ordered recommendation plan; required for recommendation entry and approval submission. |
+| Source approval | Optional final approval after other stages. |
+| Allow retry | Allows the latest failed attempt to retry its pinned setup. |
 
-A setup belongs to the exact stream in the URL and stored scope. Read, create, update, publish, and delete operations enforce the parent program/stream relationship and transfer-payment permission. Writes re-resolve authorization and lock the ownership path inside the transaction; a related identifier does not broaden access.
+A setup belongs to the exact stream in the URL. Read and mutation operations require the matching `transfer_payment` role ceiling and scope; exact business assignments do not grant configuration access.
+
+Approval-submission purpose is allowed only at stream scope for `fundingcaseagreement` or `fundingcaseamendment`. Publication requires a published recommendation set and at least one approval stage: a member approval, recommendation-plan final approval, or source approval.
 
 ## Activate and publish
 
-New setups are drafts. **Activate** is available only for a draft and creates version 1 of its published configuration. Saving an active setup changes the working copy and displays a pending-publication state; **Publish** is available only when those working values differ from the published configuration and increments the version.
+New setups are drafts. Activate creates published version 1. Saving an active setup changes its working copy; Publish validates dependencies, stores the next immutable configuration snapshot, and advances the version.
 
-Activation or publication fails if a linked review setup, recommendation setup, or approval template is inactive or lacks a published version. Publication stores a complete snapshot of the workflow and embeds the linked published review plan, recommendation plan, per-recommendation approvals, and final approval. Existing runs therefore do not change when an administrator edits or republishes setup records later.
+Publication fails when a linked review setup, recommendation setup, or approval template is inactive or unpublished. A published configuration embeds the exact review plan, recommendation plan, member approvals, and final approval used by future runs. Existing runs remain pinned when administrators edit or republish the setup.
 
-Deleting a setup soft-deletes and deactivates it. It no longer resolves for new runs, while historical runs retain their pinned configuration and lineage.
+Deleting a setup soft-deletes and deactivates it for new runs. Historical runs keep their configuration and lineage.
 
-## Runtime sequence
+## Standard runtime sequence
 
-The runtime resolves an active, published setup for the source entity type, owning stream scope, entry point, and current source status. If several records match, current code selects the lowest setup id; administrators should avoid overlapping active setups because the UI does not provide a priority control.
+The runtime resolves an active published setup by target type, stream, purpose, entry point, and current status. Exact-scope uniqueness prevents two active setups with the same scope, entity type, and purpose, but broader and narrower matching scopes can still overlap. If several match, current resolution selects the highest database setup ID; it does not prefer the most specific scope or fail on ambiguity. Avoid overlapping setups.
 
-The configured stages execute in this order:
+Stages execute in this order:
 
-1. The review set, when configured. A failed review set fails the workflow. A successful set advances it. A second blocking review set in draft, in-progress, or pending-approval state prevents a duplicate start.
-2. Recommendation members, in their configured order. A draft response can be saved. Submission validates every required response and derives the result from the deciding question. A member's approval route must finish before the result advances. A final `not_recommended` result fails the run; a recommended result advances to the next member.
-3. The source approval template, when configured, runs after the preceding stages. Approval completes the run; denial fails it.
-4. With no remaining stage, the run completes immediately.
+1. A configured review set runs. Failure fails the workflow; success advances it.
+2. Recommendation members run one at a time in configured order. The run initiator becomes primary assignee of each newly materialized recommendation.
+3. An optional member approval gates that member's result.
+4. An optional final/source approval gates the completed plan.
+5. With no remaining stage, the run completes.
 
-Starting changes the source to the configured start status. A completed run applies the configured success status. Failed and cancelled runs have `success = false` and apply the configured failure status. The run statuses exposed by the UI include processing, pending review, pending recommendation, pending recommendation approval, pending source approval, complete, failed, and cancelled.
+A Not Recommended result fails the recommendation set only when that member's **Fail set on Not Recommended** option was published as true. Otherwise the runtime advances to the next member or final stage. This policy is snapshotted with the plan.
+
+Start, success, failure, and cancellation apply the setup's configured target statuses. Runtime states include processing, pending review, pending recommendation, pending recommendation approval, pending source approval, complete, failed, and cancelled.
+
+## Agreement approval submission
+
+Agreement and amendment detail pages mount an approval-submission Workflow section under Recommendation. Starting it performs one transaction that locks the current source, creates the workflow run, and writes one immutable `Funding_Case_Agreement_Approval_Submission` packet with schema version 1, submission time, and lowercase SHA-256 canonical hash.
+
+An Agreement packet includes its profile with resolved bilingual reference labels, linked Proponents and registry values, current budget, and current activities. An amendment packet includes its selected amendment types/subtypes and only the domains being changed: budget for a budget amendment, activities for an activity amendment, and proposed dates for a duration amendment. Unchanged Agreement profile and Proponent data are omitted from an amendment packet.
+
+Source budget/activity version IDs are retained for lineage. Mutable foreign-key labels are resolved into the packet so later reference-data renames do not rewrite what approvers saw. The UI presents the saved packet in grouped, collapsible sections and does not rebuild it from live values.
+
+While an approval-submission run is active, protected Agreement/amendment profile, budget, activity, deletion, and lifecycle operations reject conflicting writes. A cancelled or failed run applies the configured failure status and does not promote data.
+
+## Approval completion and revisions
+
+Before successful completion, the runtime locks the Agreement and recomputes the packet hash. A mismatch fails promotion. It then:
+
+1. promotes only the packet-approved amendment domains when the target is an amendment;
+2. closes the amendment and assigns its revision number when applicable;
+3. writes exactly one `Funding_Case_Agreement_Revision` linked to the approval submission; and
+4. applies the configured success status and completes the run.
+
+The initial Agreement approval writes revision 0. Approved amendments increment from the latest revision. The unique approval-submission link makes completion idempotent if advancement is retried.
+
+::: warning Capacity remains an operator check
+Approval packets freeze the proposed amendment budget but the amendment promotion path still does not add the current-budget cross-Agreement stream-capacity check. Confirm capacity before final approval; packet integrity proves what was approved, not that the proposal fits the stream ceiling.
+:::
 
 ## Work with a run
 
-The source record's Workflow section shows the applicable start action, the snapshotted step sequence, current statuses, recommendation questions, approvals, and previous unsuccessful attempts. A completion-entry setup does not expose a manual start button: complete the source action that owns the entry point. A recommendation-entry setup exposes **Start recommendation** when editing is allowed. If an approval was already materialized outside an active workflow run, the approval section remains available.
+The source Workflow section shows start/retry/cancel actions, the pinned sequence, statuses, recommendation questions, approval steps, previous unsuccessful attempts, and any immutable approval packet. Saving a recommendation retains `draft`; submitting validates required responses and derives the outcome from its published deciding question.
 
-Select a review to open its checklist or assessment and return to the source. Select a recommendation to edit its bilingual published questions. Saving keeps it in draft; submitting checks the published schema and then either opens its approval, advances to the next recommendation, or ends the run. Final and recommendation approvals use the ordinary routing-slip actions and assignment rules.
+The top-level recommendation page supports direct Assigned Work links. Updates require an active exact recommendation assignment, a current Contributor ceiling for its resolved owner, and `draft` status. An assigned approval user can read the approval-submission packet needed for that approval even when ordinary Agreement reading is unavailable.
 
-The runtime read requires ordinary assessment read access to the owning context. Starting, saving/submitting a recommendation, cancelling, and retrying require assessment-save access and a registered Common user. Assignment to a review or approval determines who may act; it is not an access grant to the owning record.
+Exact recommendation, review, and approval assignments are separate. They do not grant parent or sibling access. See [Role permissions and exact assignments](./rbac.md).
 
 ## Cancel, retry, and recover
 
-Cancellation is allowed only while a run is active. In one fresh-authorized transaction it cancels active recommendations, reviews, review sets, routing slips, and workflow items, then marks the run cancelled and applies the configured failure status.
+Cancellation is available only for an active run. It cancels active runtime children and workflow items, marks the run cancelled, and applies the configured failure status in one transaction.
 
-**Retry** appears only for an unsuccessful run whose pinned setup is still active, published, in the same valid scope, and has **Allow retry** enabled. Retry uses that failed run's setup and entry point; it does not silently switch to a newer active setup. Only the latest unsuccessful attempt can start a new retry, and an active run is returned instead of creating a duplicate.
+Retry is available only for the latest unsuccessful run when its pinned setup is still active, published, scope-valid, and permits retry. It reuses that attempt's setup and entry point; it does not silently select a newer setup. An active run is returned rather than duplicated.
 
-If start is unavailable, confirm that the setup is active and published, the entity type and entry point match, the source has an allowed status, all linked plans are published, and no run or blocking review set is active. Correct the working setup and publish it for future runs. A historical attempt cannot be rewritten; use its Previous view for evidence and start or retry only through the supported action.
+If start is unavailable, verify target status, purpose, stream scope, published dependencies, assignment and Contributor ceiling, and the absence of an active run or blocking review set. Historical packets and attempts cannot be edited; correct source/configuration for a future run or use the supported retry path.
 
-See [Recommendation Schemas and Setups](../programs/recommendations.md), [Approval Templates](../programs/approval-templates.md), and [Approvals and Completions](approvals-completions.md).
+See [Recommendation schemas and setups](../programs/recommendations.md), [Approval templates](../programs/approval-templates.md), [Agreement amendments](../agreements/amendments.md), and [Approvals and completions](approvals-completions.md).

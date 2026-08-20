@@ -9,20 +9,6 @@ These records are historical navigation evidence, not instructions to reproduce 
 - Use final executable source, migrations, runtime wiring, and regression tests as authority.
 - A historical item is terminal only when its applicable current contract appears in both locales or a source-backed not-applicable reason is recorded.
 
-## Current-source reconciliation
-
-All 80 findings, 18 investigations/inventories, and four browser-persona records were reconciled against the final checkout. The historical records report terminal remediation or observational evidence, and their current contracts are covered by the paired task, operator, extension, API, validation, data-integrity, authorization, and workflow references. In particular:
-
-- authorization findings map to the current exact-resource masking and fresh-authorization transaction contracts;
-- database investigations map to current composite ownership, numeric safety, lifecycle constraints, deferred enforcement, and lock ordering;
-- operations findings map to fail-fast migrations, database-backed readiness, verified artifact staging, private storage, safe rendering, and cleanup;
-- extension findings map to host enablement/capabilities and each owning extension guide; and
-- UI/persona evidence maps to permission-aware navigation, bilingual presentation, accessible controls, truthful empty states, and server-owned lifecycle transitions.
-
-Three paths named in the historical prose are not current root files. The narrative diagnostic scanner was superseded by the owning `narrative-quality-slot-component.test.ts` and `narrative-tags-slot-component.test.ts` suites; Automated Payments lifecycle E2E coverage lives under that extension workspace; and `HomeStats.vue` is absent because deletion of the fabricated dashboard was the verified remediation. These are reconciled evidence moves/deletions, not unresolved documentation claims.
-
-The register is a disposition index rather than a vulnerability playbook. Follow the linked current guides for supported behaviour: [RBAC and protected writes](./architecture.md#rbac-architecture), [data model](./data-model.md), [validation and i18n](./validation-i18n.md), [extensions](../concepts/extensions.md), [runtime reviews](../concepts/runtime-reviews.md), [approvals and completions](../concepts/approvals-completions.md), [workflows](../concepts/workflows.md), and [operator configuration](../operator/configuration.md).
-
 ## Impact register (102)
 
 | Item | Current documentation area | Current impact disposition | Source |

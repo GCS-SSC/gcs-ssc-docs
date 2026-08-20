@@ -6,7 +6,7 @@ A clean GCS-SSC installation is not usable by ordinary operators until a bootstr
 
 - A deployer has provisioned at least one authenticated root user.
 - The root user has an ordinary global role with the required explicit action/subject pairs and no special authorization bypass.
-- If the root user must work with Proponents, its four direct Proponent CRUD flags are enabled separately from the role.
+- The root role explicitly includes only the required cumulative access levels and any needed Agreement/Proponent assignment-management capabilities; root has no bypass.
 - The system may contain installation defaults, but do not assume seeded demo records exist in production.
 - All operational records should be entered in English and French where paired fields exist.
 
@@ -55,13 +55,13 @@ Create roles before inviting ordinary users into operational work.
 - Keep one root administrator role global and narrow its assignment to trusted administrators.
 - Create agency administrator roles scoped to one agency when users should manage agency records, agency programs, users in that agency, or agency-scoped roles.
 - Create program roles by selecting an agency and one or more transfer payment programs.
-- Use only subjects valid for the role's derived scope. Program roles support `transfer_payment` and `agreement`; agency roles additionally support `agency`, `role`, and `user`. `system` is global only.
+- Use only subjects valid for the role's derived scope. Program roles support only `transfer_payment` and `agreement`. Agency roles support `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`. `system` is global only.
 - Assign roles from the user detail page. Duplicate user-role assignments return the existing assignment rather than creating a second active row.
-- In the same Assignments tab, grant the four direct Proponent CRUD flags only to users who require the global cross-agency exception. Changing these flags requires global `user:update`.
+- Grant Viewer, Contributor, or Manager per role subject. Grant `manage_assignments` independently on Agreement/Proponent permission rows only to assignment coordinators.
 
 ## Minimum proponent setup
 
-Before creating proponents, make sure the lead agency has applicant/recipient subtypes. The create form validates that the selected subtype exists, the lead agency exists, and the subtype belongs to the selected lead agency. New proponents are created as draft records. Top-level creation uses the user's direct Proponent `create` flag. Subsequent read, update, delete, child-record, and Team operations use the matching direct flag or an exact Proponent Team level where that action is supported.
+Before creating Proponents, make sure the lead agency has applicant/recipient subtypes. The form validates the selected agency/subtype relationship. Top-level creation requires a Contributor `applicant_recipient` ceiling at that lead agency, creates a draft, and makes the creator primary. Scoped Viewer handles reads; later profile/child mutations require the cumulative ceiling and exact Proponent assignment. Roster changes require separate `manage_assignments`.
 
 ## Minimum agreement readiness
 
@@ -76,4 +76,4 @@ Agreement creation is outside this section, but empty-system setup should still 
 
 ## Verification pass
 
-After setup, sign in as a delegated test user and verify the real sidebar. Agreements and Proponents are hidden without scoped role, direct-user, or exact-Team read access as applicable; Common Admin is hidden without explicit global `system:read`. Then open one agency, one program, one stream, one Proponent, one Agreement, and one user detail page to confirm that role scope, direct Proponent flags, Team levels, tabs, and actions match the intended design.
+After setup, sign in as a delegated test user and verify the real sidebar. Agreements and Proponents are hidden without the corresponding scoped Viewer ceiling; Assignment Management is hidden without `manage_assignments`; Common Admin is hidden without global System Viewer. Open an agency, program, stream, Proponent, Agreement, and user to confirm role scope, cumulative levels, exact assignments, tabs, and actions.

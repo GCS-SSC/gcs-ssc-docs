@@ -1,49 +1,48 @@
-# Proponent Team
+# Proponent assigned users
 
-The **Team** tab grants an application user access to one exact saved proponent. Use it for staff who need this profile without giving them global cross-proponent privileges.
+The **Assigned users** tab shows the exact work roster for one saved Proponent. It allocates that profile to users who already have a sufficient Proponent role ceiling at the lead agency; it does not create permission by itself.
 
-Team access is an independent exact-entity grant. It does not inherit from the proponent’s lead agency and does not extend to another proponent, a program, a linked agreement, or any sibling record. It also does not grant top-level Proponent creation; creating a new profile still requires the direct global `applicant_recipient:create` ability.
+## Required access
 
-## Access levels
+Reading the roster requires either:
 
-| Level | Actions on this exact proponent |
-| --- | --- |
-| `read_only` | Read the profile, its supported child records, and its Team roster. |
-| `contributor` | Read and update the profile; read, create, and update supported child records. |
-| `full_access` | Contributor actions plus soft deletion of the profile and supported child records. |
+- Viewer or higher for `applicant_recipient` at the Proponent's current lead-agency scope; or
+- `applicant_recipient` `manage_assignments` at that scope.
 
-Other domains still enforce their own authorization. For example, a Proponent Team membership does not make a linked agreement readable or assign the member to a review approval step.
+Adding, promoting, or removing users requires `manage_assignments`. Contributor or Manager business access does not imply roster management, and `manage_assignments` alone does not reveal the Proponent profile.
 
-## View and search the roster
+## Roster rules
 
-Any effective reader of the proponent can open the Team roster. It lists active assignments whose user account is also active, ordered by user name. Search matches name or email and supports pagination.
+Every active Proponent must have at least one active assignment and exactly one primary. The primary user is the work lead, not a more privileged member. An assigned user still needs the Viewer role ceiling to read and the two-key rule to change the profile.
 
-The row actions depend on your management ceiling, not merely on whether the roster is readable:
+The roster remains readable when an existing user becomes inactive or loses Contributor eligibility. This makes an ineligible primary visible for correction; role changes do not silently rewrite assignment history.
 
-- effective proponent update access can manage `read_only` and `contributor` assignments;
-- effective update plus delete access can also manage `full_access` assignments;
-- you cannot modify or remove an existing assignment above your ceiling or grant a level above it.
+## Add an assigned user
 
-These effective permissions may come from a global ability or from your own exact Team assignment.
+Select **Add user** and search the eligible users. A candidate must be active and have Contributor or Manager for `applicant_recipient` globally or at this Proponent's lead agency. The server rejects inactive users, Viewer-only users, out-of-scope users, active duplicates, unknown fields, and malformed identifiers.
 
-## Add a member
+The new user is non-primary. Adding the same person to another Proponent creates a separate exact assignment and does not connect the records.
 
-Select **Add team member**, choose an access level within your ceiling, and search for a user. The lookup contains active application users who do not already have an active assignment on this exact proponent; it is not restricted by the proponent’s agency.
+## Change the primary user
 
-The user and access level are required. The server rejects an inactive user, duplicate active assignment, unknown level, or payload with extra fields. A user may belong to the Teams of several different proponents.
+Choose **Make primary** on an active eligible assignment. The operation promotes that user and demotes the previous primary atomically. It cannot promote an inactive, ineligible, missing, or removed assignment.
 
-## Change or remove a member
+If the current primary is ineligible, first add or identify an eligible replacement, promote the replacement, and then remove the old assignment if appropriate.
 
-Editing changes only the assignment’s access level; it does not change the user. Removing a member asks for confirmation and soft-deletes the assignment. A deleted user account also disappears from the active roster. A previously removed user can be added again because duplicate prevention applies to active assignments.
+## Remove an assigned user
 
-Membership writes run in a transaction. The server locks the affected user, locks and re-resolves the active proponent and assignment, rebuilds authorization, and reapplies both the existing-level and requested-level ceiling checks before writing. A membership ID from a different entity or entity type is treated as not found.
+A non-primary user can be removed while at least one active assignment remains. The server refuses removal of the primary and of the last assigned user. Removal is a soft delete and does not erase historical references.
 
-::: warning Access-loss safeguard
-There is no special “last manager” or self-removal guard. Downgrading or removing the only grant that gives you update access can immediately prevent you from managing the Team again. Before changing your own assignment or the last `full_access` assignment, confirm that another user or a global administrator retains sufficient access. Recovery requires another authorized manager; there is no Team self-restore control.
-:::
+## Status and scope changes
 
-## Related guides
+The roster can change only while the Proponent is `draft` or `active`. A terminal or deleted profile is locked. Every write reloads the lead agency, role graph, user eligibility, status, and current roster inside one transaction, so a stale page cannot preserve access after a concurrent change.
 
-- [Proponent profiles](./index.md)
-- [Roles and permissions](../admin/roles.md)
-- [Proponent agreements](./agreements.md)
+Changing the Proponent's lead agency changes the scope used by later authorization and eligibility checks. Review the roster and permissions as part of that change; an existing assignment can remain visible even when its user no longer qualifies at the new agency.
+
+## Boundaries
+
+- A Proponent assignment does not grant access to another Proponent, a linked Agreement, an independently assigned review or recommendation, an agency, or a program.
+- It does not create top-level Proponent permission. Creation requires a Contributor role ceiling at the selected lead agency and makes the creator primary in the creation transaction.
+- Approval and reviewer assignments remain separate workflow responsibilities.
+
+For cross-entity coordination, use [Assignment Management](../admin/assignments.md). For the authorization model, see [Role permissions and exact assignments](../concepts/rbac.md).

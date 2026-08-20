@@ -26,7 +26,7 @@
       "packages/gcs-ssc-extensions/tests/unit/*.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified host scanner/generated registries, public SDK entry points, client-safe boundary, enablement/configuration APIs, dynamic dispatch and RBAC/manual-auth split, fresh-write protocol, contribution discovery and mounted UI, migrations, lifecycle guards, KV/secrets/assets, failure states, and runtime-resolver limitation; documented bilingually."
+    "notes": "Verified host scanner/generated registries, public SDK entry points, client-safe boundary, enablement/configuration APIs, dynamic dispatch and RBAC/manual-auth split, fresh-write protocol, contribution discovery and mounted UI, migrations, lifecycle guards, KV/secrets/assets, failure states, and runtime-resolver limitation; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments",
@@ -52,7 +52,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:stream-config-modal",
@@ -77,7 +77,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:payment-amount-calculators",
@@ -102,7 +102,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:server-handlers",
@@ -127,7 +127,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:server-handler-rbac",
@@ -152,7 +152,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:extension-ui",
@@ -177,7 +177,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:extension-api-client",
@@ -202,7 +202,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:extension-create-operation-hooks",
@@ -227,7 +227,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:capability:extension-lifecycle-hooks",
@@ -252,7 +252,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:handler:0",
@@ -278,7 +278,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:tab:0",
@@ -304,7 +304,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-automated-payments:operation:0",
@@ -330,7 +330,7 @@
       "app/components/Agreement/AgreementPaymentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest/capabilities, stream enablement guard and configuration, sole payment-calculator contribution (no separate tab/create action), exact agreement-update route RBAC, financial inputs/formulas/rounding, disabled-type behavior, transactional create ceiling hook, capped holdback metadata, errors, failure/recovery, package boundary, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration",
@@ -359,7 +359,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:agency-config",
@@ -387,7 +387,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:stream-config-modal",
@@ -415,7 +415,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:stream-config-page",
@@ -443,7 +443,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:entity-tabs",
@@ -471,7 +471,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:server-handlers",
@@ -499,7 +499,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:server-handler-rbac",
@@ -527,7 +527,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:migrations",
@@ -555,7 +555,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:runtime-resolution",
@@ -583,7 +583,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:extension-ui",
@@ -611,7 +611,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:extension-api-client",
@@ -639,7 +639,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:host-api-client",
@@ -667,7 +667,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:extension-secrets",
@@ -695,7 +695,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:capability:extension-lifecycle-hooks",
@@ -723,7 +723,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:0",
@@ -752,7 +752,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:1",
@@ -781,7 +781,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:2",
@@ -810,7 +810,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:3",
@@ -839,7 +839,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:4",
@@ -868,7 +868,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:5",
@@ -897,7 +897,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:6",
@@ -926,7 +926,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:7",
@@ -955,7 +955,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:8",
@@ -984,7 +984,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:9",
@@ -1013,7 +1013,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:10",
@@ -1042,7 +1042,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:11",
@@ -1071,7 +1071,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:12",
@@ -1100,7 +1100,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:13",
@@ -1129,7 +1129,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:handler:14",
@@ -1158,7 +1158,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:migration:0",
@@ -1187,7 +1187,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:tab:0",
@@ -1216,7 +1216,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:tab:1",
@@ -1245,7 +1245,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:tab:2",
@@ -1274,7 +1274,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:tab:3",
@@ -1303,7 +1303,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:tab:4",
@@ -1332,7 +1332,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-gcforms-integration:tab:5",
@@ -1361,7 +1361,7 @@
       "extensions/gcs-gcforms-integration/tests"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually."
+    "notes": "Verified owning manifest and every declared capability/contribution; agency credentials and encrypted-secret lifecycle; stream/page configuration; templates, preview, sync, confirmation, recovery, and entity-source routes; exact host/fresh authorization and lifecycle locks; external crypto/network boundary; immutable versioning, migrations and uniqueness; claims-first materialization, unsupported destinations, failure states, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality",
@@ -1385,7 +1385,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:stream-config-modal",
@@ -1408,7 +1408,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:textarea-slots",
@@ -1431,7 +1431,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:server-handlers",
@@ -1454,7 +1454,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:server-handler-rbac",
@@ -1477,7 +1477,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:public-assets",
@@ -1500,7 +1500,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:extension-ui",
@@ -1523,7 +1523,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:capability:extension-api-client",
@@ -1546,7 +1546,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:handler:0",
@@ -1570,7 +1570,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:slot:0",
@@ -1594,7 +1594,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:asset:0",
@@ -1618,7 +1618,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-quality:asset:1",
@@ -1642,7 +1642,7 @@
       "server/utils/extension-dispatch-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, stream normalization and configuration profiles, assessment-target discovery and effective dispatcher enablement/RBAC, exact textarea target mapping, browser-global worker/model queue, adaptive scoring and presentation, same-origin worker/WASM/model assets, privacy, failure/retry states, absence of persistence/secrets/hooks, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags",
@@ -1667,7 +1667,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:stream-config-modal",
@@ -1691,7 +1691,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:textarea-slots",
@@ -1715,7 +1715,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:server-handlers",
@@ -1739,7 +1739,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:server-handler-rbac",
@@ -1763,7 +1763,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:runtime-resolution",
@@ -1787,7 +1787,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:public-assets",
@@ -1811,7 +1811,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:extension-ui",
@@ -1835,7 +1835,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:extension-api-client",
@@ -1859,7 +1859,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:capability:extension-lifecycle-hooks",
@@ -1883,7 +1883,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:handler:0",
@@ -1908,7 +1908,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:handler:1",
@@ -1933,7 +1933,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:handler:2",
@@ -1958,7 +1958,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:slot:0",
@@ -1983,7 +1983,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:slot:1",
@@ -2008,7 +2008,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:tab:0",
@@ -2033,7 +2033,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:tab:1",
@@ -2058,7 +2058,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:tab:2",
@@ -2083,7 +2083,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:asset:0",
@@ -2108,7 +2108,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-narrative-tags:asset:1",
@@ -2133,7 +2133,7 @@
       "server/utils/extension-runtime-route.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually."
+    "notes": "Verified manifest/capabilities, independent target config, agreement/Proponent slots, effective host runtime-resolver limitation, source-aware read routes, transactional agreement PATCH and core profile hooks, KV/provenance validation, browser worker/local model and keyword fallback, assets/failure states, absence of migrations/secrets, and owning tests; documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation",
@@ -2150,7 +2150,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Manifest, capabilities, contributions, enablement, RBAC, storage, failure, and deployment boundaries require direct verification."
+    "notes": "Manifest, capabilities, contributions, enablement, RBAC, storage, failure, and deployment boundaries require direct verification. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:stream-config-modal",
@@ -2166,7 +2166,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: stream-config-modal."
+    "notes": "Declared host capability: stream-config-modal. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:entity-tabs",
@@ -2182,7 +2182,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: entity-tabs."
+    "notes": "Declared host capability: entity-tabs. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:create-actions",
@@ -2198,7 +2198,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: create-actions."
+    "notes": "Declared host capability: create-actions. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:server-handlers",
@@ -2214,7 +2214,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: server-handlers."
+    "notes": "Declared host capability: server-handlers. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:server-handler-rbac",
@@ -2230,7 +2230,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: server-handler-rbac."
+    "notes": "Declared host capability: server-handler-rbac. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:migrations",
@@ -2246,7 +2246,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: migrations."
+    "notes": "Declared host capability: migrations. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:extension-ui",
@@ -2262,7 +2262,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: extension-ui."
+    "notes": "Declared host capability: extension-ui. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:extension-api-client",
@@ -2278,7 +2278,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: extension-api-client."
+    "notes": "Declared host capability: extension-api-client. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:host-api-client",
@@ -2294,7 +2294,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: host-api-client."
+    "notes": "Declared host capability: host-api-client. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:extension-create-operation-hooks",
@@ -2310,7 +2310,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: extension-create-operation-hooks."
+    "notes": "Declared host capability: extension-create-operation-hooks. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:capability:extension-lifecycle-hooks",
@@ -2326,7 +2326,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#requiredHostCapabilities"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Declared host capability: extension-lifecycle-hooks."
+    "notes": "Declared host capability: extension-lifecycle-hooks. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:handler:0",
@@ -2343,7 +2343,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocations"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "handler contribution: /agreements/[agreementId]/allocations."
+    "notes": "handler contribution: /agreements/[agreementId]/allocations. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:handler:1",
@@ -2360,7 +2360,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocations"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "handler contribution: /agreements/[agreementId]/allocations."
+    "notes": "handler contribution: /agreements/[agreementId]/allocations. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:handler:2",
@@ -2377,7 +2377,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions."
+    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:handler:3",
@@ -2394,7 +2394,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions/[allocationVersionId]/complete"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions/[allocationVersionId]/complete."
+    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions/[allocationVersionId]/complete. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:handler:4",
@@ -2411,7 +2411,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#handler:/agreements/[agreementId]/allocation-versions/[allocationVersionId]"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions/[allocationVersionId]."
+    "notes": "handler contribution: /agreements/[agreementId]/allocation-versions/[allocationVersionId]. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:migration:0",
@@ -2428,7 +2428,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#migration:{ path: './server/migrations/0001_outcome_cost_allocation.ts' }, { path: './server/migrations/0002_versioned_allocations.ts' }, { path: './server/migrations/0003_scoped_allocations.ts' }"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "migration contribution: { path: './server/migrations/0001_outcome_cost_allocation.ts' }, { path: './server/migrations/0002_versioned_allocations.ts' }, { path: './server/migrations/0003_scoped_allocations.ts' }."
+    "notes": "migration contribution: { path: './server/migrations/0001_outcome_cost_allocation.ts' }, { path: './server/migrations/0002_versioned_allocations.ts' }, { path: './server/migrations/0003_scoped_allocations.ts' }. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:tab:0",
@@ -2445,7 +2445,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "tab contribution: agreement."
+    "notes": "tab contribution: agreement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:tab:1",
@@ -2462,7 +2462,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "tab contribution: agreement."
+    "notes": "tab contribution: agreement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:tab:2",
@@ -2479,7 +2479,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "tab contribution: agreement."
+    "notes": "tab contribution: agreement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:tab:3",
@@ -2496,7 +2496,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "tab contribution: agreement."
+    "notes": "tab contribution: agreement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:tab:4",
@@ -2513,7 +2513,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "tab contribution: agreement."
+    "notes": "tab contribution: agreement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:tab:5",
@@ -2530,7 +2530,7 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#tab:agreement"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "tab contribution: agreement."
+    "notes": "tab contribution: agreement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "extension:gcs-outcome-cost-allocation:operation:0",
@@ -2547,6 +2547,6 @@
       "extensions/gcs-outcome-cost-allocation/extension.config.ts#operation:agreement.commitments.create"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "operation contribution: agreement.commitments.create."
+    "notes": "operation contribution: agreement.commitments.create. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   }
 ]

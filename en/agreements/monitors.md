@@ -13,7 +13,7 @@ The agreement must already point to a transfer-payment stream and agency. Admini
 | Monitor approval template | Optional and separate from direct completion; it must be scoped to the stream and entity type `fundingcasemonitor`. |
 | Workflow setup | Optional; completion starts the applicable completion workflow when one is configured. |
 
-The Monitors tab requires agreement `read` access. The server checks the corresponding agreement `create`, `update`, or `delete` action for every write; Team and scoped access are enforced on the server. Lookup requests repeat the action required by the form (`create` or `update`).
+Agreement Viewer reads Monitors. Creating a monitor requires Contributor plus the exact Agreement assignment and makes the creator primary. Later monitor mutations require Contributor or Manager plus the exact monitor assignment. Lookup requests repeat the ceiling required by the form, and writes recheck scope/assignment on the server.
 
 ## Create and manage the monitor header
 
@@ -57,7 +57,7 @@ Use **Workflow > Complete** while the monitor is editable. Completion requires a
 
 The completion request:
 
-1. refreshes agreement update authorization and locks the monitor;
+1. refreshes the Contributor Agreement role ceiling and exact monitor assignment, then locks the monitor;
 2. rechecks that no completion exists and at least one item remains;
 3. sets the monitor to `complete`;
 4. creates one common completion record with the current mapped Common User and optional comments;

@@ -19,7 +19,7 @@ Agreement child workflows are reached from the agreement detail tabs. Some are i
 
 ## Shared behaviour
 
-All Agreement child records are scoped to the current Agreement, and routes enforce the action being performed: `agreement:read` views records, `agreement:create` creates child records, `agreement:update` changes existing records or advances mutable workflow state, and `agreement:delete` soft-deletes records. Related-value lookups use the create or update action of the form that opened them. An exact Agreement Team supplies these actions according to its `read_only`, `contributor`, or `full_access` level. A reviewer or approver assignment determines who may perform an assigned workflow action but never replaces ordinary Agreement or Team read access.
+All child records resolve the current Agreement scope. Viewer reads. Ordinary children require Contributor plus the exact Agreement assignment for create/update and Manager plus that assignment for soft deletion. Independently assigned claims, reconciliations, payments, forecasts, monitors, amendments, commitments, reviews, and recommendations use the parent assignment for creation, create a creator-primary child roster, and require that child's assignment for later mutations. Related-value lookups use the ceiling of the form that opened them. Reviewer/approver assignment determines who may perform an assigned workflow action but never replaces ordinary owner reading.
 
 Most destructive actions are soft deletes. Deleted child records disappear from normal lists and selectors but remain available for historical integrity.
 
@@ -36,6 +36,6 @@ The complex execution records use common status rules:
 | Claim reconcile | `draft`, `inprogress`, `complete` while the claim is ready and no approved final reconcile exists | `pendingapproval`, `approved`, `denied` |
 | Monitor | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
 
-Completion writes a `Common_Completion` record. When a valid stream-scoped approval template exists for the entity type, completion moves the execution record to `pendingapproval` and materializes or enables the approval routing slip. Without an approval template, completion leaves the record at `complete`.
+Completion writes a `Common_Completion` record. Core completion for commitments, payments, forecasts, monitors, and claim reconciliations writes `complete` directly and can start a published completion workflow. It does not inspect a standalone approval template or materialize its routing slip; those generic approval runtimes require an explicit API/integration caller, while a completion workflow can independently reach a configured source-approval stage. Consult the entity guide for its exact boundary.
 
 Approval sections use the common routing-slip actions. Approving every current step moves the target to `approved`; any denial moves it to `denied`; otherwise it stays `pendingapproval`. Denied records may allow a new routing slip depending on workflow configuration.

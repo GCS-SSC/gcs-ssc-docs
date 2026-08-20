@@ -26,6 +26,8 @@ An Approval Template is only configuration. Runtime materialization creates a Ro
 
 Some workflows materialize the route automatically. Where the UI displays **Add**, a user with approval-management access can create the applicable route manually. Missing, inactive, unpublished, wrong-scope, or wrong-entity templates prevent materialization. The table groups steps by routing slip, preserves prior slips as history where supported, and identifies the current route.
 
+An Agreement or amendment approval-submission workflow also creates an immutable approval packet. An original Agreement packet snapshots the full profile, proponents, current budget, and current activities. An amendment packet records its selected amendment types and subtypes and includes only the selected snapshot domains—budget, activities, or proposed duration dates. The workflow stores the packet's SHA-256 hash, and the approval view verifies it before showing the bilingual packet. Successful approval promotes the packet to an immutable Agreement revision: revision `0` for the original Agreement submission and the next positive revision number for an amendment. Starting another submission while one is active, changing covered data during that run, or rewriting/deleting a stored packet is blocked.
+
 ## Act on a step
 
 Only the first unresolved step is current. **Approve** or **Deny** is available only to its assigned Common user, while the owner remains accessible and the route is not locked. In the action dialog:

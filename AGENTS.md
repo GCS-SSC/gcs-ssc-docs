@@ -4,7 +4,7 @@ This is the bilingual VitePress documentation for GCS-SSC. Keep equivalent Engli
 
 ## Application sync baseline
 
-The documentation is synchronized through GCS-SSC `main` commit `debd15e3600e9c140b23756d849dc40964a27910` (committed `2026-08-16T20:39:00-04:00`). This was determined from the latest application `main` commit preceding documentation commit `1284a85816e327518905cf5a7536c689781311cc` (`2026-08-17T00:24:35-04:00`).
+The documentation is synchronized through GCS-SSC `main` commit `45222e26c5a98dccb8b4a574571206bbf1f91397` (committed `2026-08-19T14:12:34-04:00`). The original baseline was determined from the latest application `main` commit preceding documentation commit `1284a85816e327518905cf5a7536c689781311cc` (`2026-08-17T00:24:35-04:00`); subsequent baselines are advanced through verified incremental synchronization.
 
 For every subsequent sync, review application changes incrementally from the recorded commit through the target `main` commit. After the documentation and generated inventories are synchronized and checks pass, replace the application commit hash and datetime above with that target commit's full hash and committer datetime.
 

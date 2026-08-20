@@ -1,43 +1,31 @@
-# Role-based access control (RBAC)
+# Role permissions and exact assignments
 
-GCS-SSC combines three explicit access mechanisms:
+GCS-SSC authorization has two independent layers:
 
-1. **Roles** provide scoped permissions for system administration, agencies, programs, and agreements.
-2. **Proponent access** stores four global, per-user permissions for the cross-agency Proponent exception.
-3. **Teams** give selected users access to one exact Proponent or Agreement.
+1. A **role permission** supplies the maximum access level for a subject at global, agency, or program scope.
+2. An **exact entity assignment** identifies the saved Proponent, Agreement, review, recommendation, claim, reconciliation, payment, forecast, monitor, amendment, or commitment on which the user may work.
 
-Access is the union of the mechanisms that apply to the requested action and resource. A Team assignment can therefore grant access to its exact entity even when the user's roles do not. Workflow assignments, such as an assigned reviewer or approver, remain separate business-process responsibilities and are not RBAC roles or Team membership.
+Viewer permits scoped reads without an assignment. For mutations on an existing assignable entity, both keys are normally required. An assignment never raises the role ceiling, and a broad role permission does not allocate every matching record to the user's work queue.
 
-## Actions
+Approval and reviewer assignments are separate workflow responsibilities. They can authorize the assigned approval or review action, but they do not replace ordinary access to the owning business entity.
 
-Every permission uses one of four actions:
+## Access levels
 
-| Action | Meaning |
+Each role permission has one cumulative access level:
+
+| Level | Allowed actions |
 | --- | --- |
-| `create` | Create the subject, or create a child record when granted by an entity Team. |
-| `read` | View or list records covered by the access mechanism. |
-| `update` | Change an existing record covered by the access mechanism. |
-| `delete` | Soft-delete a record covered by the access mechanism. |
+| Viewer | Read. |
+| Contributor | Read, create, and update. |
+| Manager | Read, create, update, and delete. |
 
-The server authorizes every operation. Links, tabs, and buttons reflect the server-provided capabilities, but hiding a control is only a usability feature and is not the security boundary.
+`None` means that the role supplies no access ceiling for that subject. There are no independent CRUD switches and Manager is not a wildcard for separate capabilities.
 
-## Roles
+## Subjects and scopes
 
-A role is a bilingual, named collection of action/subject pairs. Its scope is derived from its structure instead of being stored as an independently editable value.
+The supported subjects are `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
 
-| Role structure | Effective scope |
-| --- | --- |
-| No agency | Global |
-| One agency and no program links | Agency |
-| One agency and one or more program links | Program |
-
-A program-scoped role can link to more than one program, but every linked program must belong to the role's agency. Deleted roles, assignments, agencies, programs, or cross-agency program links do not grant access. A structurally invalid role does not grant access either.
-
-### Exact role subject matrix
-
-Roles contain only the following six subjects. Each available subject/scope combination supports `create`, `read`, `update`, and `delete`.
-
-| Role subject | Global role | Agency role | Program role |
+| Subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
 | `system` | Yes | No | No |
 | `agency` | Yes | Yes | No |
@@ -45,80 +33,89 @@ Roles contain only the following six subjects. Each available subject/scope comb
 | `role` | Yes | Yes | No |
 | `user` | Yes | Yes | No |
 | `agreement` | Yes | Yes | Yes |
+| `applicant_recipient` | Yes | Yes | No |
 
-Scope matching is exact to the structure:
+A global role has no agency. An agency role is tied to one agency and has no program links. A program role is tied to one agency and one or more active programs in that agency. Database constraints reject incompatible role-permission and scope combinations.
 
-- A global permission covers all agencies and programs for that subject.
-- An agency permission covers its agency and the subject records beneath that agency.
-- A program permission covers only its linked programs and the agreement records beneath those programs.
+The resource determines the scope used for the check. An Agreement resolves through its stream and program; a Proponent resolves through its lead agency. Agency-scoped Proponent permission is therefore supported without granting cross-agency access.
 
-There is no wildcard subject. In particular, `all` is not a role subject and no root-user code path bypasses normal authorization. The seeded root role receives all 24 explicit action/subject pairs in the global column of the matrix.
+## The two-key rule
 
-## Direct Proponent access on a user
+For an existing assignment-root entity:
 
-Proponents are deliberately not a role subject. The internal `applicant_recipient` authorization target is used for direct-user and Team checks, but it cannot be selected as a role ability. Cross-agency Proponent work does not fit an agency- or program-scoped job role, so it is represented by four independent flags stored directly on the user:
-
-| User assignment | Effect |
-| --- | --- |
-| Proponent `create` | Create Proponents in any agency. |
-| Proponent `read` | View and list Proponents across all agencies. |
-| Proponent `update` | Update any Proponent and its supported child records. |
-| Proponent `delete` | Soft-delete any Proponent and its supported child records. |
-
-Administrators edit these flags in the user's **Assignments** tab. Only callers with global `user:update` permission can change them; agency- or program-scoped user management cannot delegate this global cross-agency exception. Because each flag grants cross-agency access, the interface presents a clear warning and confirmation before saving.
-
-These flags are not a role, a scoped grant, or a separate assignment record. They are included with role permissions when the client loads the user's static permissions. The seeded root user has all four flags explicitly enabled.
-
-## Exact-entity Teams
-
-A Team is available only on a saved **Proponent** or **Agreement**. It adds a user to that one exact entity with one access level:
-
-| Team access level | Exact entity | Children of that entity |
+| Operation | Role ceiling | Exact assignment |
 | --- | --- | --- |
-| `read_only` | Read | Read |
-| `contributor` | Read and update | Read, create, and update |
-| `full_access` | Read, update, and delete | Read, create, update, and delete |
+| Read | Viewer or higher | Not required |
+| Create an ordinary child row | Contributor or higher on the parent subject | Required on the parent assignment root |
+| Update | Contributor or higher | Required |
+| Delete | Manager | Required |
 
-Team access has intentionally narrow boundaries:
+Top-level creation is the main exception because the new record does not yet have an assignment. Creating a Proponent or Agreement requires Contributor at the selected owner scope. The transaction creates the entity and assigns the creator as its primary user. Creating an independently assigned casework item follows the same pattern for that child.
 
-- It applies to the selected Proponent or Agreement and supported children in that same domain.
-- It does not apply to another Proponent or Agreement, sibling records, an agency, a program, or the other entity domain.
-- It is not inherited through agency or program hierarchy.
-- It does not grant top-level creation. Creating a new Proponent requires the user's direct Proponent `create` flag. Creating a new Agreement requires a scoped role with `agreement:create`.
-- It does not require a matching role permission. Team membership is itself the exact-entity exception.
-- It is evaluated on demand for the requested entity rather than being expanded into the user's static role-permission list.
+An ordinary child row, such as an address or budget line, uses its owning Proponent or Agreement as the assignment root. Independently assigned casework uses itself as the root. A parent assignment does not grant access to an independently assigned child; a child assignment does not grant the parent or any sibling.
 
-Users with read access to the entity can see its Team roster, including readers whose access comes from `read_only` membership. Team changes require effective update access to the entity and are limited by the manager's own access:
+## Assignable entities
 
-| Manager's effective entity access | Highest Team level they can manage |
+The exact assignment roster applies to:
+
+- Proponents and Agreements;
+- common reviews and recommendations;
+- claims and claim reconciliations;
+- payments, forecasts, and monitors;
+- amendments and commitments.
+
+An active assignable entity must have at least one active assigned user and exactly one primary user. The primary marker identifies the lead; it does not give extra business permissions. All active assigned users have the same entity boundary and remain limited by their own role ceilings.
+
+Only workable statuses accept roster changes. For example, Proponent assignments are editable in `draft` and `active`; Agreement assignments in `draft`, `pendingapproval`, and `active`; review and most financial casework use their own open-status policies; recommendations and amendments accept changes only in `draft`. Terminal records can remain visible in Assignment Management while their roster is locked.
+
+Deleting an assignable entity soft-deletes its active assignments. Roster changes are serialized and database triggers enforce the non-empty, one-primary invariant at transaction commit.
+
+## Managing assignments
+
+`manage_assignments` is an independent role capability available only for `agreement` and `applicant_recipient`. It can be granted without Viewer and is not implied by Manager. It authorizes the minimized assignment-management projection and roster operations for assignable entities owned by that subject at the role's scope.
+
+It does **not** grant access to business, personal, financial, document, or workflow content. It also does not assign the administrator to the entity. See [Assignment Management](../admin/assignments.md) for the task workflow.
+
+An eligible assignee must be an active user with Contributor or Manager permission for the owning subject at the entity's current scope. A user who later becomes inactive or ineligible remains visible on the historical roster, but cannot be added, promoted, or used to satisfy a new write. Existing assignment history is not silently rewritten when roles change.
+
+## Roster visibility and mutations
+
+The Assigned users tab on an accessible Proponent or Agreement can be read by a user with the role Viewer ceiling for that owner. Assignment managers can also read the minimized roster through their independent management capability. An exact assignment by itself is insufficient because it never creates a role ceiling.
+
+Roster actions require current `manage_assignments` permission; ordinary Contributor or Manager access to the business entity is not a substitute. The server re-resolves the role graph and entity scope inside the write transaction.
+
+| Action | Invariant |
 | --- | --- |
-| Update without delete | `contributor` |
-| Update and delete | `full_access` |
+| Add | User is active, eligible, and not already actively assigned. |
+| Make primary | User is already actively assigned and eligible; the previous primary is demoted atomically. |
+| Remove | The primary and the last active assignment cannot be removed. |
 
-Both the member's current level and requested level must be within the manager's ceiling. This prevents a contributor from changing or removing a full-access member, including by editing their own membership. Duplicate active membership is rejected, and removal is a soft delete.
+## Assigned Work
 
-## How effective access is resolved
+The Home page's Assigned Work queue contains only the user's exact assignments that are still open under each entity's status policy and for which the user still has at least Viewer permission. It covers the eleven assignable entity types, sorts primary work first, and links directly to the appropriate detail page.
 
-For each server request, GCS-SSC evaluates only the mechanisms relevant to the target:
+Search matches English/French identifiers, raw types and statuses, localized type/status labels, and record labels. The entity-type filter and pagination operate on the full eligible result set; the Home widget requests ten rows at a time.
 
-- Role abilities are checked against the role's derived global, agency, or program scope.
-- Proponent actions check the user's matching global Proponent flag or an exact Proponent Team assignment.
-- Agreement actions check scoped role abilities or an exact Agreement Team assignment.
-- Team-enabled child routes use the parent entity's exact Team level and the child action being performed.
+## Fresh authorization
 
-The server returns entity-specific capabilities for screens that need Team-aware controls. Permission-changing writes are checked against current database state so stale client state or a stale session cannot preserve removed access.
+Protected writes do not trust a page that was opened before a role, scope, assignment, status, or ownership change. The server begins a transaction, locks and rebuilds the caller's current authorization graph, resolves the current entity owner and assignment root, and then authorizes the requested mutation. A stale client state therefore cannot preserve revoked access.
 
-## What is intentionally not part of the model
+## Navigation implications
 
-The authorization model does not use:
+- Agreements and Proponents appear when the user has a role permission that can read that subject; assignment membership is not a navigation grant by itself.
+- Assignment Management appears when the user has any active `manage_assignments` grant.
+- Programs, roles, users, agencies, and Common administration use their own role subjects and scopes; exact entity assignments do not extend to them.
+- Workflow approval and review tasks remain separately assigned and do not expand the sidebar.
 
-- a wildcard or `all` subject;
-- a special root-user authorization bypass;
-- a persisted role-scope field independent of the role's agency and program links;
-- role abilities for Proponents;
-- a general-purpose entity-assignment grant table;
-- Teams on agencies or transfer payment programs;
-- Team inheritance across entities, siblings, agencies, programs, or domains; or
-- reviewer and approver workflow assignments as access grants.
+## Deliberate non-features
 
-This separation keeps routine access role-based, makes the one cross-agency exception visible on the user, and keeps collaborative entity access exact and auditable.
+The application does not provide:
+
+- independent create/read/update/delete role switches;
+- direct Proponent access flags stored on a user;
+- Team access levels such as `read_only`, `contributor`, or `full_access`;
+- assignments on agencies or programs;
+- inheritance from a parent to independently assigned children or siblings; or
+- an authorization bypass for a seeded or root user.
+
+The older Team routes and tabs have been removed. Saved entity access should be diagnosed using the role ceiling, resource scope, exact assignment root, entity status, and any separate workflow assignment.

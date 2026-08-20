@@ -1,6 +1,6 @@
 # Proponent Contacts
 
-Use **Contacts** for people associated with a proponent. A proponent contact is a common contact record linked to the selected profile; it is not automatically an application login or Team member.
+Use **Contacts** for people associated with a Proponent. A Proponent contact is a common contact record linked to the selected profile; it is not automatically an application login or assigned user.
 
 Open **Proponents**, select a saved profile, and choose **Contacts**. The active table shows name, email, and English job title. Search matches name, email, or either language’s job title.
 
@@ -8,12 +8,12 @@ Open **Proponents**, select a saved profile, and choose **Contacts**. The active
 
 | Effective access to the proponent | Available actions |
 | --- | --- |
-| Read-only access | View, search, and page through active contacts. |
-| Contributor access | View and add contacts. |
-| Full access | View, add, edit, and delete contacts. |
+| Viewer | View, search, and page through active contacts; no exact assignment is required. |
+| Contributor plus exact Proponent assignment | View, add, and edit contacts. |
+| Manager plus exact Proponent assignment | View, add, edit, and delete contacts. |
 | No access | The server refuses the request. |
 
-Global proponent privileges and an exact Proponent Team assignment can provide access. The server authorizes each child action against its parent profile. Writes lock the profile and rebuild authorization in the transaction.
+Viewer reads contacts. Creating/updating requires Contributor plus the exact parent assignment; deleting requires Manager plus that assignment. The server authorizes every child action against the Proponent and rebuilds authorization after locking it for a write.
 
 ## Fields and validation
 
@@ -35,7 +35,7 @@ Adding a contact creates the common contact and its proponent link in one transa
 
 A common contact can also be referenced by another proponent or by completion and approval configuration. The server locks the contact before checking those references. It refuses an edit when another active reference exists so the change cannot silently affect another record.
 
-Deleting a contact soft-deletes this proponent’s link. The common contact is soft-deleted only when no other active proponent, completion, or approval-step reference remains. There is no restore action in this tab. Deleting a link does not remove an application user account, Team membership, or another record’s live reference.
+Deleting a contact soft-deletes this Proponent's link. The common contact is soft-deleted only when no other active Proponent, completion, or approval-step reference remains. There is no restore action in this tab. Deleting a link does not remove an application user account, exact assignment, or another record's live reference.
 
 ## Recovery
 
@@ -45,4 +45,4 @@ Correct missing required values or a duplicate email and retry. If the contact i
 
 - [Proponent profiles](./index.md)
 - [Addresses](./addresses.md)
-- [Proponent Teams](./team.md)
+- [Proponent assigned users](./team.md)

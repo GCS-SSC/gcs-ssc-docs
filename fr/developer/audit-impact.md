@@ -9,20 +9,6 @@ Ces dossiers constituent des repères historiques, non des consignes pour reprod
 - Faire autorité sur les sources exécutables, migrations, câblage d’exécution et tests de régression finaux.
 - Un élément historique devient terminal seulement si son contrat actuel applicable figure dans les deux langues ou si une justification d’inapplicabilité fondée sur les sources est consignée.
 
-## Réconciliation avec les sources actuelles
-
-Les 80 constatations, les 18 enquêtes ou inventaires et les quatre dossiers de personas ont tous été rapprochés de l’extraction finale. Les dossiers historiques signalent une correction terminale ou une preuve d’observation, et leurs contrats actuels figurent dans les guides bilingues de tâches, d’exploitation, d’extensions, d’API, de validation, d’intégrité, d’autorisation et de processus. Plus précisément :
-
-- les constatations d’autorisation correspondent aux contrats actuels de masquage de la ressource exacte et de transaction avec réautorisation;
-- les enquêtes de base de données correspondent à la propriété composite, la sécurité numérique, les contraintes de cycle de vie, l’application différée et l’ordre des verrous;
-- les constatations d’exploitation correspondent aux migrations à arrêt obligatoire, à la sonde appuyée par la base, à la préparation vérifiée des artéfacts, au stockage privé, au rendu sûr et au nettoyage;
-- les constatations d’extension correspondent à l’activation et aux capacités de l’hôte ainsi qu’au guide de chaque extension propriétaire;
-- les preuves d’interface et de personas correspondent à la navigation selon les permissions, la présentation bilingue, les contrôles accessibles, les états vides fidèles et les transitions de cycle de vie appartenant au serveur.
-
-Trois chemins cités dans les textes historiques ne sont plus des fichiers racines actuels. Le balayage des diagnostics narratifs a été remplacé par les suites propriétaires `narrative-quality-slot-component.test.ts` et `narrative-tags-slot-component.test.ts`; la couverture E2E du cycle de vie des paiements automatisés réside dans l’espace de travail de cette extension; et `HomeStats.vue` est absent puisque la suppression du tableau de bord fictif constituait la correction vérifiée. Il s’agit de déplacements ou suppressions de preuve rapprochés, et non d’affirmations documentaires non résolues.
-
-Le registre est un index de dispositions, et non un manuel de vulnérabilités. Consultez les guides actuels liés pour le comportement pris en charge : [contrôle d’accès et écritures protégées](./architecture.md#architecture-rbac), [modèle de données](./data-model.md), [validation et internationalisation](./validation-i18n.md), [extensions](../concepts/extensions.md), [révisions à l’exécution](../concepts/runtime-reviews.md), [approbations et achèvements](../concepts/approvals-completions.md), [processus](../concepts/workflows.md) et [configuration d’exploitation](../operator/configuration.md).
-
 ## Registre des incidences (102)
 
 | Élément | Domaine documentaire actuel | Disposition de l’incidence actuelle | Source |

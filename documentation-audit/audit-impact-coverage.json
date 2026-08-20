@@ -31,7 +31,7 @@
       "audit/findings/ADMIN-002-template-user-lookup-authorized-after-resolution.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGENCY-001-agency-list-search-treated-wildcards-as-patterns",
@@ -116,7 +116,7 @@
       "audit/findings/AGREEMENT-001-similarity-edit-accepted-unrelated-stream.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGREEMENT-002-financial-routes-resolved-ownership-before-authorization",
@@ -133,7 +133,7 @@
       "audit/findings/AGREEMENT-002-financial-routes-resolved-ownership-before-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGREEMENT-003-financial-lookups-treated-wildcards-as-patterns",
@@ -150,7 +150,7 @@
       "audit/findings/AGREEMENT-003-financial-lookups-treated-wildcards-as-patterns.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGREEMENT-004-claim-transitions-did-not-lock-claim-aggregate",
@@ -167,7 +167,7 @@
       "audit/findings/AGREEMENT-004-claim-transitions-did-not-lock-claim-aggregate.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGREEMENT-005-team-routes-bypassed-resource-authorization",
@@ -184,7 +184,7 @@
       "audit/findings/AGREEMENT-005-team-routes-bypassed-resource-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGREEMENT-006-operational-routes-resolved-ownership-before-authorization",
@@ -201,7 +201,7 @@
       "audit/findings/AGREEMENT-006-operational-routes-resolved-ownership-before-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AGREEMENT-007-generated-document-delete-left-storage-object",
@@ -218,7 +218,7 @@
       "audit/findings/AGREEMENT-007-generated-document-delete-left-storage-object.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AR-001-funding-history-recipient-delete-weaker-than-patch",
@@ -252,7 +252,7 @@
       "audit/findings/AUTH-001-additional-reviewer-uses-approver-gate.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-002-assessment-set-stream-writes-lacked-fresh-authorization",
@@ -269,7 +269,7 @@
       "audit/findings/AUTH-002-assessment-set-stream-writes-lacked-fresh-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-003-agency-mutating-routes-lacked-fresh-authorization",
@@ -286,7 +286,7 @@
       "audit/findings/AUTH-003-agency-mutating-routes-lacked-fresh-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-004-delegated-auth-route-exception-was-implicit",
@@ -303,7 +303,7 @@
       "audit/findings/AUTH-004-delegated-auth-route-exception-was-implicit.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-005-additional-reviewer-routes-resolved-before-authentication",
@@ -320,7 +320,7 @@
       "audit/findings/AUTH-005-additional-reviewer-routes-resolved-before-authentication.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-006-approval-runtime-fresh-actor-boundaries",
@@ -337,7 +337,7 @@
       "audit/findings/AUTH-006-approval-runtime-fresh-actor-boundaries.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-007-additional-reviewer-lookup-used-read-access",
@@ -354,7 +354,7 @@
       "audit/findings/AUTH-007-additional-reviewer-lookup-used-read-access.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-008-transfer-payment-profile-patch-used-stale-authorization",
@@ -371,7 +371,7 @@
       "audit/findings/AUTH-008-transfer-payment-profile-patch-used-stale-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-009-transfer-payment-resource-existence-oracle",
@@ -388,7 +388,7 @@
       "audit/findings/AUTH-009-transfer-payment-resource-existence-oracle.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-010-outcome-indicator-writes-used-stale-authorization",
@@ -405,7 +405,7 @@
       "audit/findings/AUTH-010-outcome-indicator-writes-used-stale-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTH-011-failed-signout-navigated-with-live-session",
@@ -422,7 +422,7 @@
       "audit/findings/AUTH-011-failed-signout-navigated-with-live-session.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year",
@@ -728,7 +728,7 @@
       "audit/findings/GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:I18N-001-transfer-payment-french-parity",
@@ -745,7 +745,7 @@
       "audit/findings/I18N-001-transfer-payment-french-parity.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:I18N-002-missing-runtime-translation-contract-keys",
@@ -762,7 +762,7 @@
       "audit/findings/I18N-002-missing-runtime-translation-contract-keys.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:I18N-003-extension-credential-validation-leaked-zod-prose",
@@ -779,7 +779,7 @@
       "audit/findings/I18N-003-extension-credential-validation-leaked-zod-prose.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:I18N-004-dynamic-ui-translation-references-missing",
@@ -796,7 +796,7 @@
       "audit/findings/I18N-004-dynamic-ui-translation-references-missing.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:LOG-001-security-mutations-lacked-actor-event-trail",
@@ -1017,7 +1017,7 @@
       "audit/findings/ROLE-001-role-list-search-treated-wildcards-as-patterns.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:SCOUT-003-stream-budget-aggregate-concurrency",
@@ -1085,7 +1085,7 @@
       "audit/findings/SCOUT-006-transfer-payment-setup-writes-used-stale-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:SCOUT-007-publication-errors-now-transaction-failures",
@@ -1255,7 +1255,7 @@
       "audit/findings/UI-007-user-navigation-ignored-read-capability.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:UI-008-materialized-approvals-hidden-without-active-workflow",
@@ -1323,7 +1323,7 @@
       "audit/findings/USER-001-assignment-routes-resolved-before-authorization.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:USER-002-user-search-treated-wildcards-as-patterns",
@@ -1340,7 +1340,7 @@
       "audit/findings/USER-002-user-search-treated-wildcards-as-patterns.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:findings:WORKFLOW-001-retry-lineage-selection",
@@ -1663,7 +1663,7 @@
       "audit/investigations/i18n-completeness-inventory.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:browser-personas:agency-manager-fr",
@@ -1697,7 +1697,7 @@
       "audit/browser-personas/restricted-team-user.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
+    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "audit-impact:browser-personas:reviewer-approver",

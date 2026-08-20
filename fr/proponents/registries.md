@@ -28,6 +28,6 @@ La création, la modification et la suppression autorisent d'abord l'action sur 
 
 ## Recherche et rétablissement
 
-La recherche porte sur le numéro, le type de registre et le commentaire Autre. Si une action est masquée, vérifiez votre permission directe sur les promoteurs ou votre niveau d'équipe exact : `read_only` permet la lecture, `contributor` la création et la modification, et `full_access` permet aussi la suppression logique. Si l'enregistrement échoue, vérifiez le format du type, fournissez le commentaire Autre requis et confirmez que la paire active type-numéro n'existe pas déjà.
+La recherche porte sur le numéro, le type de registre et le commentaire Autre. Lecteur permet la lecture; Contributeur et l’affectation exacte au promoteur permettent la création ou modification; Gestionnaire et cette affectation permettent la suppression logique. Si l’enregistrement échoue, vérifiez la portée et l’affectation, le format, le commentaire Autre requis et l’absence d’une paire active type-numéro identique.
 
-Consultez [Promoteurs](./index.md), [Identifiants financiers d'agence](./agency-financial-ids.md) et [Équipe](./team.md).
+Consultez [Promoteurs](./index.md), [Identifiants financiers d’agence](./agency-financial-ids.md) et [Utilisateurs affectés](./team.md).

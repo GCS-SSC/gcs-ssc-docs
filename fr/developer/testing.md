@@ -57,11 +57,11 @@ La couverture pertinente inclut :
 - Composables client d autorisation.
 - Utilitaires serveur d autorisation.
 - Cas limites RBAC et validation de portee de role.
-- Cycle de vie des capacites de role.
-- RBAC des attributions utilisateur.
+- Cycle de vie des permissions cumulatives de rôle.
+- RBAC des rôles structurels et des affectations exactes d’entité.
 - Gestion d agence et RBAC par portee d agence.
 - Configuration, schemas, routes, recherches et i18n de Commun.
-- Routes demandeur/beneficiaire, onglets enfants, routes d equipe, execution d examens et RBAC.
+- Routes demandeur/beneficiaire, onglets enfants, routes d’affectation exacte, execution d examens et RBAC.
 - Activation d extension par agence, configuration de volet, emplacements d execution, onglets d entite, repartition serveur, migrations et SDK.
 - Ordre de l’autorisation des écritures protégées et des verrous du cycle de vie sous concurrence PostgreSQL.
 - Execution bilingue et erreurs/validations localisees.
@@ -72,7 +72,7 @@ Pour les roles ou utilisateurs, executez les tests autour de `rbac`, `role-scope
 
 Pour les changements d agence, executez les tests de route d agence, schema d agence, recherche d agence, gestion d agence et RBAC par portee d agence.
 
-Pour les promoteurs, executez les tests d auth demandeur/beneficiaire, routes, routes d equipe, routes enfants, routes d examen et e2e demandeur/beneficiaire.
+Pour les promoteurs, executez les tests d auth demandeur/beneficiaire, routes, routes d’affectation, routes enfants, routes d examen et e2e demandeur/beneficiaire.
 
 Pour Commun, executez les tests de schema, route, recherche, colonnes, app-config, validation de modale et page.
 

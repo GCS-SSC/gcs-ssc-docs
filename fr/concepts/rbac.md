@@ -1,43 +1,31 @@
-# Contrôle d'accès fondé sur les rôles (RBAC)
+# Permissions de rôle et affectations exactes
 
-GCS-SSC combine trois mécanismes d'accès explicites :
+L’autorisation de GCS-SSC comporte deux couches indépendantes :
 
-1. **Les rôles** fournissent des permissions délimitées pour l'administration du système, les agences, les programmes et les ententes.
-2. **L'accès aux promoteurs** conserve quatre permissions globales propres à l'utilisateur pour l'exception interagences liée aux promoteurs.
-3. **Les équipes** donnent à certains utilisateurs un accès à un promoteur ou à une entente précise.
+1. Une **permission de rôle** fournit le niveau d’accès maximal pour un sujet à portée globale, d’agence ou de programme.
+2. Une **affectation à une entité exacte** désigne le promoteur, l’entente, l’examen, la recommandation, la réclamation, le rapprochement, le paiement, la prévision, la surveillance, la modification ou l’engagement enregistré sur lequel l’utilisateur peut travailler.
 
-L'accès correspond à l'union des mécanismes applicables à l'action et à la ressource demandées. Une attribution d'équipe peut donc donner accès à son entité précise même si les rôles de l'utilisateur ne le permettent pas. Les attributions de flux de travail, comme celles de réviseur ou d'approbateur, demeurent des responsabilités de processus distinctes; elles ne sont ni des rôles RBAC ni des appartenances à une équipe.
+Lecteur permet les lectures dans la portée sans affectation. Pour les mutations d’une entité pouvant être affectée existante, les deux clés sont normalement requises. Une affectation n’élève jamais le plafond du rôle et une permission étendue ne place pas tous les dossiers correspondants dans la file de travail de l’utilisateur.
 
-## Actions
+Les affectations d’approbateur et de réviseur sont des responsabilités de flux distinctes. Elles peuvent autoriser l’action d’approbation ou d’examen attribuée, mais elles ne remplacent pas l’accès ordinaire à l’entité métier propriétaire.
 
-Chaque permission utilise l'une des quatre actions suivantes :
+## Niveaux d’accès
 
-| Action | Signification |
+Chaque permission de rôle possède un niveau d’accès cumulatif :
+
+| Niveau | Actions permises |
 | --- | --- |
-| `create` | Créer le sujet ou, lorsqu'une équipe d'entité l'autorise, créer un enregistrement enfant. |
-| `read` | Consulter ou énumérer les enregistrements couverts par le mécanisme d'accès. |
-| `update` | Modifier un enregistrement existant couvert par le mécanisme d'accès. |
-| `delete` | Supprimer logiquement un enregistrement couvert par le mécanisme d'accès. |
+| Lecteur | Lecture. |
+| Contributeur | Lecture, création et modification. |
+| Gestionnaire | Lecture, création, modification et suppression. |
 
-Le serveur autorise chaque opération. Les liens, les onglets et les boutons reflètent les capacités fournies par le serveur, mais le masquage d'un contrôle est seulement une mesure de convivialité et non la frontière de sécurité.
+`Aucun` signifie que le rôle ne fournit aucun plafond d’accès pour ce sujet. Il n’existe pas de commutateurs CRUD indépendants et Gestionnaire n’est pas un caractère générique pour les capacités distinctes.
 
-## Rôles
+## Sujets et portées
 
-Un rôle est une collection bilingue et nommée de paires action-sujet. Sa portée est dérivée de sa structure plutôt que conservée comme une valeur modifiable séparément.
+Les sujets pris en charge sont `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
 
-| Structure du rôle | Portée effective |
-| --- | --- |
-| Aucune agence | Globale |
-| Une agence et aucun lien de programme | Agence |
-| Une agence et un ou plusieurs liens de programme | Programme |
-
-Un rôle à portée de programme peut être lié à plusieurs programmes, mais chaque programme lié doit appartenir à l'agence du rôle. Les rôles, les attributions, les agences, les programmes ou les liens interagences supprimés ne donnent aucun accès. Un rôle dont la structure est invalide ne donne aucun accès non plus.
-
-### Matrice exacte des sujets de rôle
-
-Les rôles contiennent uniquement les six sujets suivants. Chaque combinaison sujet-portée disponible prend en charge les actions `create`, `read`, `update` et `delete`.
-
-| Sujet du rôle | Rôle global | Rôle d'agence | Rôle de programme |
+| Sujet | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
 | `agency` | Oui | Oui | Non |
@@ -45,80 +33,89 @@ Les rôles contiennent uniquement les six sujets suivants. Chaque combinaison su
 | `role` | Oui | Oui | Non |
 | `user` | Oui | Oui | Non |
 | `agreement` | Oui | Oui | Oui |
+| `applicant_recipient` | Oui | Oui | Non |
 
-La correspondance de portée suit exactement la structure :
+Un rôle global n’a pas d’agence. Un rôle d’agence est lié à une agence et n’a aucun lien de programme. Un rôle de programme est lié à une agence et à un ou plusieurs programmes actifs de cette agence. Des contraintes de base de données rejettent les combinaisons incompatibles de permissions et de portées.
 
-- Une permission globale couvre toutes les agences et tous les programmes pour ce sujet.
-- Une permission d'agence couvre son agence et les enregistrements du sujet qui relèvent de cette agence.
-- Une permission de programme couvre uniquement les programmes liés et les ententes qui relèvent de ces programmes.
+La ressource détermine la portée utilisée par la vérification. Une entente est résolue par son volet et son programme; un promoteur, par son agence principale. Une permission de promoteur limitée à une agence est donc possible sans accorder un accès interagences.
 
-Il n'existe aucun sujet générique. Plus précisément, `all` n'est pas un sujet de rôle et aucun chemin de code propre à l'utilisateur racine ne contourne l'autorisation normale. Le rôle racine initial reçoit les 24 paires action-sujet explicites de la colonne globale de la matrice.
+## La règle des deux clés
 
-## Accès direct d'un utilisateur aux promoteurs
+Pour une entité racine d’affectation existante :
 
-Les promoteurs ne constituent volontairement pas un sujet de rôle. La cible d'autorisation interne `applicant_recipient` sert aux vérifications visant les utilisateurs et les équipes, mais elle ne peut pas être sélectionnée comme capacité d'un rôle. Le travail interagences lié aux promoteurs ne correspond pas à un rôle professionnel délimité par agence ou par programme; il est donc représenté par quatre indicateurs indépendants conservés directement sur l'utilisateur :
-
-| Attribution de l'utilisateur | Effet |
-| --- | --- |
-| Promoteur `create` | Créer des promoteurs dans n'importe quelle agence. |
-| Promoteur `read` | Consulter et énumérer les promoteurs de toutes les agences. |
-| Promoteur `update` | Modifier tout promoteur et ses enregistrements enfants pris en charge. |
-| Promoteur `delete` | Supprimer logiquement tout promoteur et ses enregistrements enfants pris en charge. |
-
-Les administrateurs modifient ces indicateurs dans l'onglet **Attributions** de l'utilisateur. Seuls les utilisateurs qui possèdent l'autorisation globale `user:update` peuvent les modifier; la gestion des utilisateurs limitée à une agence ou à un programme ne peut pas déléguer cette exception interagences globale. Comme chaque indicateur donne un accès interagences, l'interface affiche un avertissement clair et demande une confirmation avant l'enregistrement.
-
-Ces indicateurs ne sont ni un rôle, ni une permission délimitée, ni un enregistrement d'attribution distinct. Ils sont inclus avec les permissions de rôle lorsque le client charge les permissions statiques de l'utilisateur. Les quatre indicateurs de l'utilisateur racine initial sont explicitement activés.
-
-## Équipes rattachées à une entité précise
-
-Une équipe est disponible uniquement pour un **promoteur** ou une **entente** déjà enregistré. Elle ajoute un utilisateur à cette seule entité précise avec un niveau d'accès :
-
-| Niveau d'accès de l'équipe | Entité précise | Enfants de cette entité |
+| Opération | Plafond du rôle | Affectation exacte |
 | --- | --- | --- |
-| `read_only` | Lecture | Lecture |
-| `contributor` | Lecture et mise à jour | Lecture, création et mise à jour |
-| `full_access` | Lecture, mise à jour et suppression | Lecture, création, mise à jour et suppression |
+| Lire | Lecteur ou niveau supérieur | Non requise |
+| Créer une ligne enfant ordinaire | Contributeur ou niveau supérieur sur le sujet parent | Requise sur la racine d’affectation parente |
+| Modifier | Contributeur ou niveau supérieur | Requise |
+| Supprimer | Gestionnaire | Requise |
 
-L'accès d'équipe a volontairement des limites étroites :
+La création de premier niveau est la principale exception puisque le nouvel enregistrement n’a pas encore d’affectation. La création d’un promoteur ou d’une entente exige Contributeur à la portée propriétaire choisie. La transaction crée l’entité et affecte son créateur comme utilisateur principal. La création d’un dossier de traitement affecté indépendamment suit le même modèle pour cet enfant.
 
-- Il s'applique au promoteur ou à l'entente sélectionné ainsi qu'aux enfants pris en charge dans ce même domaine.
-- Il ne s'applique pas à un autre promoteur ou à une autre entente, à des enregistrements frères, à une agence, à un programme ou à l'autre domaine d'entité.
-- Il n'est pas hérité par la hiérarchie d'agence ou de programme.
-- Il ne permet pas la création de premier niveau. La création d'un nouveau promoteur exige l'indicateur direct Promoteur `create` de l'utilisateur. La création d'une nouvelle entente exige un rôle délimité comprenant `agreement:create`.
-- Il n'exige pas de permission de rôle correspondante. L'appartenance à l'équipe constitue elle-même l'exception visant l'entité précise.
-- Il est évalué à la demande pour l'entité visée au lieu d'être ajouté à la liste statique des permissions de rôle de l'utilisateur.
+Une ligne enfant ordinaire, telle qu’une adresse ou une ligne budgétaire, emploie son promoteur ou son entente propriétaire comme racine d’affectation. Un dossier de traitement affecté indépendamment s’emploie lui-même comme racine. L’affectation au parent n’accorde pas l’accès à un enfant affecté indépendamment; l’affectation à l’enfant n’accorde ni le parent ni un dossier frère.
 
-Les utilisateurs qui ont un accès en lecture à l'entité peuvent consulter la liste des membres de son équipe, y compris ceux dont l'accès provient d'une appartenance `read_only`. La modification de l'équipe exige un accès effectif de mise à jour à l'entité et est limitée par l'accès propre du gestionnaire :
+## Entités pouvant être affectées
 
-| Accès effectif du gestionnaire à l'entité | Niveau d'équipe maximal qu'il peut gérer |
+Le registre d’affectation exacte s’applique aux éléments suivants :
+
+- promoteurs et ententes;
+- examens et recommandations communs;
+- réclamations et rapprochements de réclamation;
+- paiements, prévisions et surveillances;
+- modifications et engagements.
+
+Une entité active pouvant être affectée doit compter au moins un utilisateur affecté actif et exactement un utilisateur principal. Le marqueur principal désigne le responsable; il ne confère pas de permissions métier supplémentaires. Tous les utilisateurs affectés actifs partagent la même frontière d’entité et demeurent limités par leur propre plafond de rôle.
+
+Seuls les états permettant le travail acceptent les changements de registre. Par exemple, les affectations de promoteur sont modifiables aux états `draft` et `active`; celles d’entente aux états `draft`, `pendingapproval` et `active`; les examens et la plupart des dossiers financiers suivent leurs propres politiques d’état ouvert; les recommandations et modifications n’acceptent les changements qu’à l’état `draft`. Les dossiers terminaux peuvent demeurer visibles dans Gestion des affectations, mais leur registre est verrouillé.
+
+La suppression d’une entité pouvant être affectée supprime logiquement ses affectations actives. Les changements du registre sont sérialisés et des déclencheurs de base de données imposent l’invariant non vide avec un seul principal à la validation de la transaction.
+
+## Gérer les affectations
+
+`manage_assignments` est une capacité de rôle indépendante disponible seulement pour `agreement` et `applicant_recipient`. Elle peut être accordée sans Lecteur et n’est pas comprise dans Gestionnaire. Elle autorise la projection minimale de gestion et les opérations de registre pour les entités pouvant être affectées qui appartiennent à ce sujet et à la portée du rôle.
+
+Elle **n’accorde pas** l’accès au contenu métier, personnel, financier, documentaire ou de flux. Elle n’affecte pas non plus l’administrateur à l’entité. Consultez [Gestion des affectations](../admin/assignments.md) pour le déroulement de la tâche.
+
+Une personne admissible doit être un utilisateur actif qui possède la permission Contributeur ou Gestionnaire pour le sujet propriétaire à la portée actuelle de l’entité. Un utilisateur devenu inactif ou inadmissible demeure visible dans le registre historique, mais ne peut être ajouté, promu ni servir à satisfaire une nouvelle écriture. Les changements de rôle ne réécrivent pas silencieusement l’historique des affectations.
+
+## Visibilité et mutations du registre
+
+L’onglet Utilisateurs affectés d’un promoteur ou d’une entente accessible peut être lu par une personne qui possède le plafond Lecteur pour ce propriétaire. Les gestionnaires d’affectations peuvent aussi lire le registre minimal grâce à leur capacité de gestion indépendante. Une affectation exacte seule ne suffit pas puisqu’elle ne crée jamais de plafond de rôle.
+
+Les actions du registre exigent la permission `manage_assignments` actuelle; l’accès métier ordinaire Contributeur ou Gestionnaire ne la remplace pas. Le serveur résout à nouveau le graphe des rôles et la portée de l’entité dans la transaction d’écriture.
+
+| Action | Invariant |
 | --- | --- |
-| Mise à jour sans suppression | `contributor` |
-| Mise à jour et suppression | `full_access` |
+| Ajouter | L’utilisateur est actif, admissible et pas déjà affecté activement. |
+| Rendre principal | L’utilisateur est déjà affecté activement et admissible; l’ancien principal est rétrogradé atomiquement. |
+| Retirer | L’utilisateur principal et la dernière affectation active ne peuvent être retirés. |
 
-Le niveau actuel du membre et le niveau demandé doivent tous deux respecter la limite du gestionnaire. Ainsi, un contributeur ne peut ni modifier ni retirer un membre ayant l'accès complet, y compris en modifiant sa propre appartenance. Les appartenances actives en double sont refusées et le retrait est une suppression logique.
+## Travail affecté
 
-## Résolution de l'accès effectif
+La file Travail affecté de la page d’accueil contient seulement les affectations exactes de l’utilisateur qui sont encore ouvertes selon la politique d’état de chaque entité et pour lesquelles il conserve au moins la permission Lecteur. Elle couvre les onze types d’entités pouvant être affectées, trie d’abord le travail principal et fournit un lien direct vers la page de détail appropriée.
 
-Pour chaque requête au serveur, GCS-SSC évalue uniquement les mécanismes pertinents pour la cible :
+La recherche correspond aux identifiants anglais et français, aux types et états bruts, aux libellés de type et d’état localisés et aux libellés des dossiers. Le filtre de type d’entité et la pagination s’appliquent au jeu complet admissible; le composant d’accueil demande dix lignes à la fois.
 
-- Les capacités de rôle sont comparées à la portée globale, d'agence ou de programme dérivée du rôle.
-- Les actions sur les promoteurs vérifient l'indicateur global correspondant de l'utilisateur ou une attribution d'équipe visant exactement ce promoteur.
-- Les actions sur les ententes vérifient les capacités de rôle délimitées ou une attribution d'équipe visant exactement cette entente.
-- Les routes enfants qui prennent en charge les équipes utilisent le niveau exact de l'équipe de l'entité parente et l'action effectuée sur l'enfant.
+## Autorisation actualisée
 
-Le serveur renvoie des capacités propres à l'entité pour les écrans dont les contrôles tiennent compte des équipes. Les opérations qui modifient les permissions sont vérifiées par rapport à l'état actuel de la base de données afin qu'un état client ou une session périmés ne puissent préserver un accès retiré.
+Les écritures protégées ne font pas confiance à une page ouverte avant un changement de rôle, de portée, d’affectation, d’état ou de propriétaire. Le serveur commence une transaction, verrouille et reconstruit le graphe d’autorisation courant de l’appelant, résout le propriétaire et la racine d’affectation actuels, puis autorise la mutation. Un état client périmé ne peut donc pas conserver un accès révoqué.
 
-## Éléments volontairement exclus du modèle
+## Conséquences pour la navigation
 
-Le modèle d'autorisation n'utilise pas :
+- Ententes et Promoteurs apparaissent lorsque l’utilisateur possède une permission de rôle pouvant lire ce sujet; l’affectation seule n’accorde pas la navigation.
+- Gestion des affectations apparaît lorsque l’utilisateur possède une capacité `manage_assignments` active.
+- Les programmes, rôles, utilisateurs, agences et l’administration Commune utilisent leurs propres sujets et portées; les affectations exactes ne s’y étendent pas.
+- Les tâches d’approbation et d’examen demeurent affectées séparément et n’élargissent pas la barre latérale.
 
-- de sujet générique ou `all`;
-- de contournement spécial de l'autorisation pour l'utilisateur racine;
-- de champ de portée du rôle conservé indépendamment de l'agence et des liens de programme du rôle;
-- de capacités de rôle pour les promoteurs;
-- de table générale de permissions par attribution d'entité;
-- d'équipes sur les agences ou les programmes de paiements de transfert;
-- d'héritage d'équipe entre entités, enregistrements frères, agences, programmes ou domaines;
-- d'attributions de réviseur ou d'approbateur comme permissions d'accès.
+## Non-fonctionnalités délibérées
 
-Cette séparation maintient les accès courants dans les rôles, rend visible l'unique exception interagences sur l'utilisateur et conserve un accès collaboratif aux entités qui est précis et vérifiable.
+L’application ne fournit pas :
+
+- de commutateurs indépendants de création, lecture, modification et suppression pour les rôles;
+- d’indicateurs d’accès direct aux promoteurs stockés sur l’utilisateur;
+- de niveaux d’équipe comme `read_only`, `contributor` ou `full_access`;
+- d’affectations aux agences ou aux programmes;
+- d’héritage d’un parent vers les enfants affectés indépendamment ou les dossiers frères;
+- de contournement d’autorisation pour un utilisateur initial ou racine.
+
+Les anciennes routes et les anciens onglets Équipe ont été retirés. Pour diagnostiquer l’accès à une entité enregistrée, vérifiez le plafond du rôle, la portée de la ressource, la racine d’affectation exacte, l’état de l’entité et toute affectation de flux distincte.

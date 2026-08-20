@@ -1,52 +1,66 @@
-# Recommendation Schemas And Setups
+# Recommendation schemas and setups
 
-Recommendation configuration has two layers. A schema defines the bilingual questions and the option that produces the canonical `recommended` or `not_recommended` outcome. A stream recommendation setup orders one or more published schemas and optionally wraps member or final results in approval routes.
+Recommendation configuration has two layers. An agency-owned schema defines bilingual questions and the canonical Recommended/Not Recommended result. A stream setup orders published schemas, chooses per-member failure policy, and can attach member or final approval routes.
 
-## Navigation And Access
+## Navigation and access
 
-Open a stream and select Recommendation Setups. The grouped table lists setups by runtime entity type and exposes their ordered schema members. Open a setup to edit its identity and members; open a member schema to use the schema editor.
+Open a program and stream, then select **Recommendation Setups**. The grouped list organizes setups by runtime entity type. A setup detail page manages its identity, final approval, and ordered members; a schema detail page edits the questions.
 
-Reading requires `transfer_payment:read` for the exact program. Creating, updating, deleting, activating, or publishing requires the corresponding exact `transfer_payment` action. Server routes derive the active agency/program/stream chain and mask inaccessible resources like missing ones. Teams do not grant stream-configuration access.
+Viewer for `transfer_payment` reads configuration in the exact program. Contributor creates and updates; Manager deletes. Activate and Publish are update operations. Server routes rebuild the active agency/program/stream chain and mask inaccessible records. Exact work assignments do not grant stream-configuration access.
 
-## Recommendation Schema
+## Recommendation schema
 
-A schema is agency-owned and has an entity type, bilingual name, status, version, result metadata, and a recommendation definition. Creation from a stream must use the stream's agency.
+A schema records entity type, bilingual name, agency, status/version, result metadata, and a definition. Creation from a stream always uses that stream's agency.
 
-The editor contains General and Form Sections. A valid definition requires at least one section; every section requires a bilingual label and at least one subsection; every subsection requires a bilingual label and at least one question. Section, subsection, question, option, and help keys are language-independent runtime identities and must be unique where validated.
-
-Questions support:
+The editor contains General and Form Sections. A valid definition needs at least one section, one subsection per section, and one question per subsection. Section, subsection, question, option, and help keys are language-independent runtime identities and must be unique where required.
 
 | Type | Fields and rules |
 | --- | --- |
-| `radio` | Required bilingual question, at least two uniquely keyed bilingual options, optional bilingual option descriptions, and optional outcome mapping |
-| `text` | Required bilingual question, optional bilingual description, and maximum length from 1 through 10,000 |
+| `radio` | Bilingual question, at least two uniquely keyed bilingual options, optional descriptions, and optional outcome mappings. |
+| `text` | Bilingual question, optional description, and maximum length from 1 through 10,000. |
 
-Either type can be required and can carry bilingual help. Exactly one question must be marked as the deciding result question. It must be a required radio question, and every option on it must map to `recommended` or `not_recommended`. Selecting a different deciding question clears outcome mappings from the former one.
+Either type can be required and can provide bilingual help. Exactly one question is the deciding result question. It must be a required radio question and every option on it must map to `recommended` or `not_recommended`. Selecting a new deciding question clears result mappings from the former one.
 
-## Schema Publication
+## Create a schema while configuring a setup
 
-Saving validates and updates the working schema. Publish locks the same-agency schema in a fresh-authorized stream transaction, creates an immutable schema-version row from the current definition/result metadata, marks the schema active, and increments its numeric version by `0.01` rounded to two decimal places. Runtime recommendations refer to a specific schema-version row, so later publications do not rewrite existing work.
+On a setup detail page, **Create schema** opens a short modal for member order, optional same-stream recommendation approval template, and **Fail set on Not Recommended**. Continue creates a draft, agency-owned schema with a minimal bilingual deciding question, associates it to the setup in one transaction, and opens the schema editor.
 
-## Recommendation Setup
+The order must be a positive integer unused by an active member. The approval template, when supplied, must be valid for `commonrecommendation` in that stream. A failure creates neither a partial member nor an orphaned schema.
 
-A setup stores runtime entity type, bilingual name and description, optional final approval template, active flag, lifecycle status/version/pending-publication state, and ordered members. Each member selects one same-agency recommendation schema, an integer order, and an optional member approval template.
+Use **Associate schema** instead when the agency schema already exists.
 
-Within a setup, schema selections and order values must be unique. A publishable plan requires at least one member, contiguous ordering beginning at 1, a published version for every member schema, and published configurations for every referenced approval template. The setup and its members must match the stream's agency/entity context.
+## Schema publication
 
-New setups are drafts. Activate publishes the first immutable configuration snapshot and makes the setup active. Editing an active setup produces pending content; Publish replaces the published plan only after all dependencies validate and advances the setup version. Generated recommendation work remains pinned to the published plan, member schema versions, and approval configurations used at creation.
+Save validates the working schema. Publish freshly authorizes the stream operation, creates an immutable schema-version row, marks the schema active, and advances its numeric version by `0.01`, rounded to two decimal places.
 
-## Runtime Consequences
+Runtime recommendations point to an exact schema-version row. Editing and republishing therefore affects future work only.
 
-Runtime forms validate required responses, radio option keys, and text lengths against their pinned definitions. The server derives the authoritative outcome from the selected option on the single deciding question. Setup order determines recommendation progression; member-level approval can gate an individual result, and the optional final approval can gate the combined recommendation plan.
+## Recommendation setup
 
-Workflow setups may use a published recommendation setup as a recommendation entry point. Saving or submitting runtime recommendations does not authorize access to the owning entity by itself; normal exact entity/Team access and assigned workflow rules still apply.
+A setup stores runtime entity type, bilingual name/description, optional final approval, lifecycle/version state, and ordered members. Each member selects one same-agency schema, a unique integer order, an optional member approval, and **Fail set on Not Recommended** (off by default).
 
-## Deletion, Failure, And Recovery
+A publishable plan requires at least one member, contiguous orders beginning at 1, a published version for every schema, and a published configuration for every approval template. The setup and all dependencies must match the stream and entity context.
 
-- Setup and member deletion are soft deletes. Historical runtime lineage remains intact.
-- Publication fails for empty or non-contiguous members, an unpublished schema, an invalid entity/agency reference, or an unpublished approval template.
-- Schema validation fails for duplicate keys, an invalid question structure, or anything other than exactly one valid deciding question.
-- A missing/inaccessible resource returns the masked contract. Confirm the identifier and exact scope rather than probing another agency.
-- All mutations recheck current ownership and authorization in a transaction. Reload after a concurrent lifecycle change, repair the highlighted dependency, save, and retry publication.
+Activate publishes version 1 and makes the setup eligible. Editing an active setup creates pending content; Publish snapshots the next plan only after full validation. The immutable plan includes each member's schema version, failure flag, and approval configuration plus the final approval.
 
-See [Streams](./streams.md), [Approval Templates](./approval-templates.md), and [Approvals and Completions](../concepts/approvals-completions.md).
+Members can be edited or soft-deleted while configuring the setup. Soft deletion removes the active association without deleting the reusable schema or historical runtime lineage.
+
+## Runtime consequences
+
+Starting a workflow materializes a recommendation set from its pinned published plan and creates only the next member's draft recommendation. The run initiator becomes that recommendation's primary exact assignee. Later members are created one at a time as preceding members finish.
+
+The direct Recommendation page loads the pinned bilingual schema and responses. Saving or submitting requires the exact recommendation assignment, Contributor for the resolved owner, and `draft` status. Submission validates required responses, option keys, and text lengths, then derives the result from the deciding question.
+
+An attached member approval runs before progression. Without an approval, or after its success, Not Recommended fails the set only when that member's published failure flag is true. Otherwise the next recommendation or optional final approval begins. Cancellation retires pending runtime children without changing the published setup.
+
+An approval-submission workflow for an Agreement or amendment must reference a published recommendation plan and contain at least one approval stage. Its recommendation detail can also show the immutable, hashed approval packet to an authorized Agreement reader or assigned approver. See [Workflows](../concepts/workflows.md).
+
+## Failure and recovery
+
+- Publication rejects empty or non-contiguous members, unpublished schemas, invalid scope/entity references, and unpublished approval templates.
+- Schema validation rejects duplicate keys, invalid question structures, and anything other than one valid deciding question.
+- Runtime saves reject non-draft or unassigned work and responses outside the pinned definition.
+- Concurrent configuration changes are rechecked in a fresh-authorized transaction.
+- Historical plans and runtime responses are never rewritten by repairing a working setup; save and publish a future version.
+
+See [Streams](./streams.md), [Approval templates](./approval-templates.md), [Workflows](../concepts/workflows.md), and [Role permissions and exact assignments](../concepts/rbac.md).

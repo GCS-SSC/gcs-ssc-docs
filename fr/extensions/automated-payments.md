@@ -57,7 +57,7 @@ Le montant disponible avant retenue est constitué des demandes, des prévisions
 - le solde d'engagement approuvé;
 - le montant disponible avant retenue, augmenté d'une libération permise.
 
-Ce plafond ne prouve pas que le paiement est autrement admissible. Le schéma de base, la résolution de l'engagement, le budget, le cycle de vie, l'approbation et les règles d'équipe et de contrôle d'accès s'appliquent toujours.
+Ce plafond ne prouve pas que le paiement est autrement admissible. Le schéma de base, la résolution de l'engagement, le budget, le cycle de vie, l'approbation ainsi que les règles de rôle de portée et d’affectation exacte s'appliquent toujours.
 
 ## Libération de retenue et provenance
 

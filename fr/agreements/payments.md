@@ -14,7 +14,7 @@ Ouvrez une entente, puis sélectionnez **Paiements**. La configuration suivante 
 | Configuration de flux de travail facultative | L’achèvement peut démarrer un flux applicable à `fundingcasepayment`. |
 | Modèle d’approbation facultatif | Le serveur possède un moteur d’approbation distinct pour les paiements, mais l’achèvement principal et la page de détails actuelle ne l’appellent pas. Consultez [Achèvement, approbation et flux de travail](#achèvement-approbation-et-flux-de-travail). |
 
-La consultation de l’onglet et de la page de détails exige `agreement:read`. La création d’un en-tête ou d’une ligne exige `agreement:create`, leur modification et l’achèvement exigent `agreement:update`, et leur suppression exige `agreement:delete`. Un rôle ou l’équipe exacte de l’entente peut accorder ces actions. L’accès à un volet, à un engagement ou à une autre entente connexe n’élargit pas cette limite. Une ressource absente ou inaccessible est retournée sans divulguer de données d’une autre portée.
+Lecteur Entente consulte l’onglet et le détail. La création d’un paiement exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. Les modifications et l’achèvement suivants exigent Contributeur et l’affectation exacte au paiement; la suppression exige Gestionnaire et cette affectation. Un volet, engagement ou une autre entente n’élargit pas la frontière. Les dossiers absents ou inaccessibles ne divulguent aucune donnée hors portée.
 
 ## Parcourir les paiements
 
@@ -61,7 +61,7 @@ La suppression d’une ligne est logique. La suppression d’un paiement verroui
 
 La page de détails principale contient les sections **Achèvement** et **Flux de travail**; elle ne contient aucune section d’approbation du paiement.
 
-L’achèvement est transactionnel. Il verrouille le paiement et ses lignes actives, revérifie `agreement:update`, refuse un second achèvement et exige :
+L’achèvement est transactionnel. Il verrouille le paiement et ses lignes actives, revérifie le plafond de rôle Entente Contributeur et l’affectation exacte au paiement, refuse un second achèvement et exige :
 
 - au moins une ligne active et un total de lignes positif;
 - une somme numérique PostgreSQL exactement égale au montant de l’en-tête.

@@ -80,6 +80,11 @@ const row = (
 
 const pageDestination = (source: string): string => {
   const normalized = source.toLowerCase()
+  if (normalized.includes('/assignment-management') || normalized.includes('/assignedusers')) return 'admin/assignments.md'
+  if (normalized.includes('/claim-reconciliations/')) return 'agreements/claims.md'
+  if (normalized.includes('/recommendations/')) return 'concepts/workflows.md'
+  if (normalized.includes('/recommendationsetupschemacreatemodal')) return 'programs/recommendations.md'
+  if (normalized.includes('/homestats')) return 'getting-started/navigation.md'
   if (normalized.includes('/agreement/fields/')) return 'agreements/index.md'
   if (normalized.includes('/agreement') || normalized.includes('/agreements/')) return 'agreements/index.md'
   if (normalized.includes('/applicantrecipient') || normalized.includes('/proponents/')) return 'proponents/index.md'
@@ -96,6 +101,9 @@ const pageDestination = (source: string): string => {
 }
 
 const apiDestination = (source: string): string => {
+  if (source.includes('/entity-assignments/') || source.includes('/assigned-work') || source.includes('/assignment-management')) return 'developer/api/identity.md'
+  if (source.includes('/claim-reconciliations/')) return 'developer/api/agreements.md'
+  if (source.includes('/recommendations/')) return 'developer/api/workflows.md'
   if (source.includes('/agreements/')) return 'developer/api/agreements.md'
   if (source.includes('/applicant-recipients/')) return 'developer/api/applicant-recipients.md'
   if (source.includes('/transfer-payments/')) return 'developer/api/transfer-payments.md'
@@ -158,10 +166,21 @@ for (const name of migrationNames) {
     /createTable\(['"`]([^'"`]+)['"`]\)/g,
     /createType\(['"`]([^'"`]+)['"`]\)/g,
     /CREATE(?: OR REPLACE)? FUNCTION\s+([\w.]+)/gi,
-    /CREATE(?: CONSTRAINT)? TRIGGER\s+([\w.]+)/gi,
+    /CREATE(?: CONSTRAINT)? TRIGGER\s+([\w.]+)(?=\s)/gi,
     /ADD CONSTRAINT\s+([\w.]+)/gi
   ]) {
     for (const match of text.matchAll(pattern)) mechanisms.add(match[1])
+  }
+  if (text.includes('createAssignmentLifecycleTriggers')) {
+    for (const match of text.matchAll(/createAssignmentLifecycleTriggers\(\s*db,\s*'[^']+',\s*'[^']+',\s*'([^']+)'\s*\)/g)) {
+      mechanisms.add(`trg_enforce_${match[1]}_assignment_roster`)
+      mechanisms.add(`trg_soft_delete_${match[1]}_assignments`)
+    }
+    const assignmentEntities = text.match(/const assignmentEntities\s*=\s*\[([\s\S]*?)\]\s+as const/)?.[1] ?? ''
+    for (const match of assignmentEntities.matchAll(/\[\s*'[^']+',\s*'[^']+',\s*'([^']+)'\s*\]/g)) {
+      mechanisms.add(`trg_enforce_${match[1]}_assignment_roster`)
+      mechanisms.add(`trg_soft_delete_${match[1]}_assignments`)
+    }
   }
   for (const mechanism of [...mechanisms].sort()) {
     dataRows.push(row(`data:${name}:${mechanism.toLowerCase()}`, `${source}#${mechanism}`, ['developer', 'operator'], 'developer/data-model.md', 'Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract.'))
@@ -202,7 +221,7 @@ await writeCoverage('extension-coverage.json', extensionRows)
 
 const domains = [
   ['platform-shell', 'nuxt.config.ts; app/app.vue; app/layouts; app/middleware', 'getting-started/navigation.md'],
-  ['identity-rbac-teams', 'server/utils/auth.ts; server/utils/authorize.ts; server/utils/rbac.ts; server/utils/team-auth.ts', 'concepts/rbac.md'],
+  ['identity-rbac-assignments', 'packages/gcs-ssc-authorization; server/utils/authorize.ts; server/utils/entity-assignment.ts; server/utils/entity-assignment-write.ts', 'concepts/rbac.md'],
   ['agency-administration', 'server/api/agency; app/pages/agencies', 'admin/agencies.md'],
   ['transfer-payment-design', 'server/api/transfer-payments; app/pages/transfer-payments', 'programs/index.md'],
   ['applicant-recipients', 'server/api/applicant-recipients; app/pages/proponents', 'proponents/index.md'],

@@ -12,7 +12,7 @@ Configurez les éléments suivants dans cet ordre :
 4. les lignes actives des catégories de coûts du volet;
 5. l'entente enregistrée et ses dates d'aide autorisée.
 
-`agreement:read` affiche le budget. L'ajout d'un exercice ou d'une ligne utilise `agreement:create`, la modification utilise `agreement:update` et la suppression utilise `agreement:delete`. Un rôle à portée déterminée ou une équipe exacte d'entente peut fournir ces actions. Les routes de recherche exigent la même action de création ou de modification que le formulaire qui les a ouvertes.
+Le plafond Lecteur de l’entente affiche le budget. L’ajout ou la modification d’exercices et de lignes exige Contributeur et l’affectation exacte à l’entente; la suppression exige Gestionnaire et cette affectation. Les lignes budgétaires emploient l’entente comme racine. Les recherches exigent le même plafond que le formulaire qui les a ouvertes.
 
 Les écritures emploient la transaction établie pour l'entente : le serveur verrouille l'entente et la chaîne de portée, reconstruit l'autorisation, résout le volet courant, puis modifie uniquement la version de travail courante du budget.
 

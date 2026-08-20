@@ -13,7 +13,7 @@ Avant qu un volet puisse utiliser des schemas d evaluation en operation, configu
 - Schemas d examen communs pour l agence et le type d entite, avec type d examen evaluation.
 - Configurations d examen de volet ou ensembles d evaluation qui referencent ces schemas.
 - Modeles d approbation si la completion de l evaluation ou les etapes d examen exigent une route d approbation.
-- Utilisateurs et equipes avec permissions de lire, sauvegarder, completer et approuver pour les entites d execution pertinentes.
+- Utilisateurs disposant des rôles de portée et des affectations exactes d’entité ou de flux nécessaires pour lire, enregistrer, terminer et approuver le travail généré.
 
 ## Ou Ouvrir Les Schemas
 

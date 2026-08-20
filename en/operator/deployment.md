@@ -4,7 +4,7 @@
 
 `bun run build` builds the public extension SDK, the Nuxt/Nitro node-server artifact, and the administrative SQL-dump worker. The result is a browser application plus a Node API, not a static-only site.
 
-The root `Dockerfile` is the production container definition. It pins Bun 1.3.13 for the build, Node 24 Bookworm Slim for runtime, and installs Chromium and LibreOffice Writer. Remote builds fetch each missing submodule at the exact gitlink SHA before the source copy overlays local checkouts. The process runs as the non-root `node` user.
+The root `Dockerfile` pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Development builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
 
 Railway uses this Dockerfile and probes `/api/health`. Docker Compose provides equivalent local wiring on host port 8995 by default.
 

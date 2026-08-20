@@ -8,12 +8,12 @@ Ouvrez **Promoteurs**, sélectionnez un profil enregistré, puis choisissez **Ad
 
 | Accès effectif au promoteur | Actions disponibles |
 | --- | --- |
-| Accès en lecture seule | Consulter et rechercher les adresses actives, et parcourir les pages. |
-| Accès de contributeur | Consulter et ajouter des adresses. |
-| Accès complet | Consulter, ajouter, modifier et supprimer des adresses. |
+| Lecteur | Consulter et rechercher les adresses actives, et parcourir les pages; aucune affectation exacte n’est requise. |
+| Contributeur et affectation exacte au promoteur | Consulter, ajouter et modifier des adresses. |
+| Gestionnaire et affectation exacte au promoteur | Consulter, ajouter, modifier et supprimer des adresses. |
 | Aucun accès | Le serveur refuse la demande. |
 
-Les privilèges globaux relatifs aux promoteurs et une affectation exacte à l’équipe du promoteur peuvent donner accès. Les actions sur les lignes enfants emploient l’autorisation `read`, `create`, `update` ou `delete` correspondante. Une écriture verrouille le profil et réévalue l’autorisation dans la transaction.
+Lecteur consulte les adresses. La création ou modification exige Contributeur et l’affectation exacte au parent; la suppression exige Gestionnaire et cette affectation. Une écriture verrouille le promoteur et réévalue l’autorisation dans la transaction.
 
 ## Champs et validation
 

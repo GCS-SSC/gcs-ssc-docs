@@ -14,7 +14,7 @@ Open an Agreement and select **Payments**. The following setup must already exis
 | Optional workflow setup | Completion can start an applicable workflow for `fundingcasepayment`. |
 | Optional approval template | The server has a separate payment-approval runtime, but core completion and the current detail page do not invoke it. See [Completion, approval, and workflow](#completion-approval-and-workflow). |
 
-Reading the tab and detail page requires `agreement:read`. Header or line creation requires `agreement:create`, updates and completion require `agreement:update`, and deletion requires `agreement:delete`. A role or the exact Agreement Team may supply these actions. Access to a related stream, commitment, or another Agreement does not broaden the boundary. Missing or inaccessible records are returned without disclosing cross-scope data.
+Agreement Viewer reads the tab/detail. Creating a payment requires Contributor plus the exact Agreement assignment and makes the creator primary. Later payment/line updates and completion require Contributor plus the exact payment assignment; deletion requires Manager plus that assignment. A related stream, commitment, or Agreement does not broaden the boundary. Missing/inaccessible records do not disclose cross-scope data.
 
 ## Browse payments
 
@@ -61,7 +61,7 @@ Deleting a line soft-deletes it. Deleting a payment locks its active lines and s
 
 The core detail page has **Completion** and **Workflow** sections; it has no payment approval section.
 
-Completion is transactional. It locks the payment and its active lines, rechecks `agreement:update`, refuses a second completion, and requires:
+Completion is transactional. It locks the payment and its active lines, rechecks the Contributor Agreement role ceiling and exact payment assignment, refuses a second completion, and requires:
 
 - at least one active line and a positive line total; and
 - an exact PostgreSQL numeric sum equal to the payment header amount.

@@ -4,9 +4,9 @@ Use the agreement's **Amendments** tab to prepare a controlled change without ed
 
 ## Setup and access
 
-The agreement's stream must have active amendment types. Each type declares the part it amends—such as `budget`, `duration`, or `activities`—and whether at least one associated subtype is required. To submit an amendment for approval through the runtime API, the stream must also have an active, valid approval template for `fundingcaseamendment`.
+The agreement's stream must have active amendment types. Each type declares the part it amends—`budget`, `duration`, or `activities`—and whether an associated subtype is required. To submit through the core approval UI, the stream also needs a published `approval_submission` workflow for `fundingcaseamendment`, a published recommendation set, and at least one published approval stage.
 
-Agreement `read`, `create`, `update`, and `delete` permissions govern the corresponding amendment actions. Exact Agreement Team access can provide them. Every write re-resolves and locks the agreement scope in the fresh-authorized transaction; an amendment ID must belong to the agreement in the URL.
+Viewer, Contributor, and Manager Agreement role ceilings govern read, create/update, and delete. The user also needs the exact Agreement assignment to create the child and the amendment's own exact assignment for later work; creation makes the creator its primary assigned user. Every write re-resolves and locks the scope and assignment in a fresh-authorized transaction. An amendment ID must belong to the Agreement in the URL.
 
 Only one active `draft` or `pendingapproval` amendment may exist for an agreement. Approved, denied, cancelled, and soft-deleted amendments do not prevent a replacement draft.
 
@@ -24,7 +24,7 @@ Subtypes outside the selected types, inactive records, duplicates, and records f
 
 ## Detail workspace and scope
 
-The detail page has **General**, **Budget**, **Activities**, and **Recommendation** tabs. General is editable only in `draft`; terminal records retain their type/subtype badges as history.
+The detail page has **General**, **Budget**, **Activities**, **Recommendation**, and **Assigned users** tabs. General is editable only in `draft`; terminal records retain their type/subtype badges and assignment roster as history.
 
 In General, you can change the bilingual name, types, subtypes, and—when a duration type is selected—both proposed authorized-assistance dates. At least one language and one type remain required. Both duration dates are required together and end must be on or after start.
 
@@ -52,31 +52,23 @@ Amendment-specific budget-line create/update routes validate ownership, type cap
 
 A draft with the `activities` capability can copy the current activity version once, including outcome and responsible-party selections. The amendment's Activities tab then supports the same required bilingual fields, date range, active program outcomes, and active agreement-proponent choices described in [Agreement activities](./activities.md), but all changes remain inside the amendment snapshot.
 
-Activity snapshot routes require the draft snapshot to exist. Create, update, and delete use their matching Agreement permission. Deletion soft-deletes the copied activity and both selection-link families.
+Activity snapshot routes require the draft snapshot to exist. Creating or updating requires a Contributor Agreement role ceiling and the exact amendment assignment; deletion requires Manager plus that same assignment. Deletion soft-deletes the copied activity and both selection-link families.
 
 ## Approval, promotion, and revision
 
-The approval runtime supports this sequence:
+The **Recommendation** tab now renders the approval-submission workflow. Starting it while the amendment is `draft` atomically creates the run and an immutable schema-version-1 packet with submission time and SHA-256 canonical hash. The packet includes the amendment's bilingual identity, selected types/subtypes, and only its changed domains: the proposed budget version, activity version, and/or duration dates. Unchanged Agreement profile and Proponent content is not duplicated.
 
-1. materialize the stream's published amendment approval template while the amendment is `draft`;
-2. set the amendment and routing slip to `pendingapproval`;
-3. process the current assigned step, certifications, reassignment, and any allowed additional approvals through the generalized approval runtime;
-4. on denial, set both records to `denied`;
-5. on final approval, atomically promote the amendment.
+Recommendation members run from their pinned published schemas and can use member or final approval routes. The packet is shown from saved JSON in grouped, collapsible sections; mutable reference labels are resolved at submission so later renames do not change the evidence.
 
-Promotion verifies any proposed duration against the selected snapshot (or current budget when there is no snapshot). It applies proposed dates, assigns the next amendment number, promotes snapshot content into new current working budget/activity versions, preserves the amendment and source-version lineage, and sets the amendment to `approved`. If promotion validation fails, the final approval decision rolls back.
+While the run is active, conflicting Agreement/amendment, snapshot, lifecycle, and deletion mutations are locked. Cancelling the workflow itself is the exception: the Workflow section can terminate the active run and its children without changing packet source data. On failure or denial, the configured failure status applies and no snapshot is promoted. On success, the runtime recomputes the packet hash, promotes only the domains present in the approved packet, applies proposed dates, closes and numbers the amendment, writes a `Funding_Case_Agreement_Revision` linked uniquely to the approval submission, and applies the configured success status. Promotion and revision insertion occur in the same transaction.
 
-The current promotion path does **not** insert a `Funding_Case_Agreement_Revision` record. Do not use that table as evidence that an approved amendment has a persisted revision checkpoint; use the amendment, routing slip, and budget/activity version lineage that the runtime actually writes.
-
-::: warning Core amendment UI is incomplete
-The current **Recommendation** tab renders explanatory text only. It does not render a recommendation form, approval section, or action that materializes the amendment approval chain. The server-side generalized approval runtime supports `fundingcaseamendment`, but the core amendment page cannot submit the draft or display/act on its steps. A draft can therefore be prepared and cancelled in the core UI but cannot be approved there. Do not claim approval is complete based on the placeholder tab; use only an authorized supported integration until the UI is implemented.
-:::
+An assigned approver can read the exact packet required for the decision. Editing the amendment or recommendation still requires the corresponding exact assignment and Contributor ceiling; approval assignment does not grant general Agreement access.
 
 ## Cancel, delete, and recover
 
-**Cancel** is available for `draft` and `pendingapproval`. It sets the amendment and any draft/pending routing slip to `cancelled`; it does not delete the record or snapshots. Cancellation is terminal and permits a new draft.
+The amendment's **Cancel** control is displayed while it remains open, but the server rejects that amendment-lifecycle request while an approval submission is active. First cancel the active run from the Workflow section; that cancels its active children. Then use **Cancel** on the amendment to cancel any remaining draft/pending routing slip, set the amendment to `cancelled`, and close it without deleting the record or snapshots. Amendment cancellation is terminal and permits a new draft.
 
-Deletion requires Agreement delete access and is permitted only in `draft`. It transactionally soft-deletes copied budget lines/years, activities and their selection links, both snapshot versions, type/subtype links, and the amendment. Approved, denied, cancelled, and pending-approval amendments cannot be deleted through this route.
+Deletion requires a Manager Agreement role ceiling and the exact amendment assignment and is permitted only in `draft`. It transactionally soft-deletes copied budget lines/years, activities and their selection links, both snapshot versions, type/subtype links, and the amendment. Approved, denied, cancelled, and pending-approval amendments cannot be deleted through this route.
 
 There is no restore control. For an accidental cancellation or deletion, preserve the audit trail and have an authorized administrator assess recovery instead of recreating history under the same identity.
 

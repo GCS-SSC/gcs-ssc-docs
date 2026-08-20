@@ -1,79 +1,72 @@
 # Utilisateurs
 
-La zone Utilisateurs gère les identités de l’application, les attributions structurelles de rôles et les quatre indicateurs directs CRUD de promoteur. Les rôles fournissent l’accès ordinaire selon leur portée ; les indicateurs directs constituent l’exception globale d’accès interagences voulue pour les promoteurs. L’appartenance à une équipe exacte de promoteur ou d’entente est gérée sur l’entité enregistrée plutôt que sur cette page.
+La zone Utilisateurs gère les identités de l’application et les attributions structurelles de rôles. Les affectations exactes de travail sont gérées sur l’entité ou dans [Gestion des affectations](./assignments.md); il n’existe aucun indicateur d’accès direct aux promoteurs sur l’utilisateur.
 
 ## Liste des utilisateurs
 
-La page Utilisateurs prend en charge la recherche, la pagination et les statistiques. Les utilisateurs disposant de la permission globale `user:read` voient tous les utilisateurs actifs. Les lecteurs limités à une agence voient leur propre compte, les utilisateurs attribués aux agences autorisées et les utilisateurs membres d’équipes exactes dans ces agences. Les utilisateurs supprimés sont exclus des listes normales.
+La page Utilisateurs prend en charge la recherche, la pagination et les statistiques. Un Lecteur global de `user` voit tous les utilisateurs actifs. Un lecteur limité à une agence voit son propre compte et les utilisateurs dont les attributions de rôles actives sont entièrement couvertes par ses agences autorisées. Les utilisateurs supprimés sont exclus des listes ordinaires.
 
-La table affiche avatar, nom, courriel et actions. Créer apparaît seulement avec `user:create`. La mise à jour et la suppression dépendent aussi des portées actives de l’utilisateur cible : un administrateur limité à des agences doit couvrir chaque agence représentée par les attributions actives de rôle et les appartenances d’équipe de la cible. Une cible ayant un rôle global actif ne peut être modifiée ou supprimée qu’avec l’accès global pour l’action correspondante. Une ligne peut donc être visible sans être modifiable ni supprimable. La suppression de l’utilisateur est logique et entraîne aussi la suppression logique de ses attributions actives.
+La table affiche l’avatar, le nom, le courriel et les actions disponibles. La création exige Contributeur pour `user`. La modification ou la suppression exige aussi que la portée de l’appelant couvre chaque attribution de rôle active de la cible; un utilisateur possédant un rôle global exige un accès global. Gestionnaire est requis pour supprimer. Une ligne peut donc être lisible sans être modifiable.
 
-## Detail utilisateur
+La suppression d’un utilisateur est logique. Elle retire les attributions utilisateur-rôle actives sans effacer les références historiques d’audit ou métier. Les affectations exactes demeurent visibles comme historique inactif ou inadmissible afin qu’un coordonnateur puisse repérer et remplacer un principal touché lorsque le registre est encore modifiable.
 
-Le detail utilisateur contient :
+## Détail d’un utilisateur
 
-- General, avec nom, courriel, etat de verification du courriel, image et horodatages.
-- Attributions, avec les attributions structurelles actives de rôle et les indicateurs directs Promoteur Créer, Lire, Mettre à jour et Supprimer.
+La page de détail contient :
 
-Le sommaire affiche nom, courriel, avatar et statut verifie/non verifie. La modification d identite est separee de l attribution de roles.
+- Général, avec le nom, le courriel, l’état de vérification du courriel, l’image et les horodatages.
+- Attributions, avec les attributions structurelles de rôles actives de l’utilisateur.
 
-## Attribuer des roles
+L’en-tête présente le nom, le courriel, l’avatar et l’état vérifié ou non vérifié. La modification des champs d’identité est distincte de l’attribution des rôles. La charge utile du profil ne contient aucun indicateur d’autorisation propre aux promoteurs.
 
-Ouvrez l’onglet Attributions et utilisez Ajouter. Le sélecteur charge, pour l’utilisateur affiché, les rôles structurellement valides qui se trouvent dans la portée d’attribution de l’administrateur. Cette opération exige `user:update`, mais pas une capacité `role:read` sans rapport. Les libellés incluent le nom du rôle et le contexte de portée, comme global, agence ou programme, afin de distinguer les doublons de nom.
+## Attribuer des rôles
 
-Lorsqu un role est attribue :
+Ouvrez Attributions et sélectionnez **Attribuer un rôle**. Le sélecteur charge les rôles actifs que l’administrateur peut attribuer à cette cible. Les libellés indiquent le contexte global, d’agence ou de programme afin de distinguer les rôles qui portent le même nom.
 
-| Regle | Comportement |
+| Règle | Comportement |
 | --- | --- |
-| L utilisateur cible doit etre actif | Les utilisateurs supprimes ne peuvent pas recevoir de nouvelles attributions actives. |
-| Le role doit etre actif | Les roles supprimes ne peuvent pas etre attribues. |
-| Les roles globaux exigent la mise a jour globale des utilisateurs | Les administrateurs sans cet acces ne peuvent pas attribuer de roles globaux. |
-| Les roles d agence ou programme exigent l acces a l agence du role | L administrateur doit pouvoir mettre a jour les utilisateurs dans l agence visee. |
-| Les doublons actifs ne sont pas crees | Enregistrer la meme paire utilisateur-role reutilise l attribution existante. |
+| La cible doit être active | Un utilisateur supprimé ne peut recevoir un rôle. |
+| Le rôle doit être actif | Un rôle supprimé ne peut être attribué. |
+| Rôle global | Exige un accès Contributeur global pour `user`. |
+| Rôle d’agence ou de programme | Exige un accès Contributeur couvrant l’agence du rôle. |
+| Paire active existante | Retourne l’attribution existante; aucune ligne active en double n’est créée. |
 
-Supprimer une attribution la supprime logiquement. L’autorisation côté serveur reflète le changement lors des requêtes suivantes. Les contrôles côté client sont mis à jour après une nouvelle récupération des permissions côté client, par exemple après le rechargement de la page ou une nouvelle connexion.
+Le retrait d’un rôle supprime logiquement l’attribution. Les vérifications serveur utilisent le graphe modifié lors des requêtes suivantes. Rechargez la page ou reconnectez-vous pour actualiser les commandes clientes déterminées par les permissions.
 
-## Accès direct aux promoteurs
+## Affectations exactes de travail
 
-L’onglet Attributions expose aussi quatre indicateurs indépendants de promoteur :
+Un utilisateur peut être affecté à des promoteurs, ententes, examens, recommandations, réclamations, rapprochements, paiements, prévisions, surveillances, modifications ou engagements précis. Ces lignes ne sont pas des rôles structurels et n’apparaissent pas sur la page de détail de l’utilisateur.
 
-| Indicateur | Effet |
-| --- | --- |
-| `create` | Créer des promoteurs dans n’importe quelle agence. |
-| `read` | Énumérer et lire les promoteurs de toutes les agences. |
-| `update` | Modifier tout promoteur et ses enregistrements enfants pris en charge. |
-| `delete` | Supprimer logiquement tout promoteur et ses enregistrements enfants pris en charge. |
+Une affectation exacte ne fait que désigner le travail. L’utilisateur doit aussi posséder une permission de rôle au moins Lecteur pour le sujet propriétaire et la portée actuelle de la ressource; Contributeur ou Gestionnaire est requis pour les mutations. Les gestionnaires d’affectations ajoutent ou retirent les utilisateurs dans l’onglet Utilisateurs affectés de l’entité ou dans la page de gestion dédiée.
 
-Ces indicateurs sont stockés directement sur l’utilisateur ; ils ne sont ni des capacités de rôle ni des lignes d’attribution séparées. Seul un utilisateur avec `user:update` global peut les modifier. L’interface avertit que l’accès est interagences et exige une confirmation avant l’enregistrement. Accordez seulement les actions requises ; utilisez plutôt l’équipe exacte d’un promoteur pour donner accès à une seule entité enregistrée.
+## Activer un utilisateur avec identifiant
 
-## Activation d’un utilisateur avec identifiants
+La création d’un profil utilisateur ne crée pas de compte avec mot de passe. Un administrateur d’utilisateurs autorisé globalement peut activer un profil actif, non vérifié et sans compte en définissant son mot de passe initial. Un profil vérifié ou un compte géré par un autre fournisseur est rejeté plutôt qu’écrasé.
 
-La création d’un profil utilisateur ne crée pas de compte avec mot de passe. Un administrateur d’utilisateurs autorisé globalement peut activer un profil non vérifié en définissant son mot de passe initial. L’activation est offerte seulement si l’utilisateur est actif, non vérifié et ne possède aucun compte. Un profil vérifié ou un compte géré par un autre fournisseur est refusé plutôt que remplacé.
-
-Le mot de passe est haché avant que le compte avec identifiants et l’état vérifié soient écrits dans une même transaction. Le mot de passe brut n’est ni renvoyé ni ajouté aux métadonnées d’audit. Communiquez l’identifiant initial par un canal approuvé et exigez que le destinataire respecte la politique de gestion des identifiants de l’organisation.
+Le mot de passe est haché avant l’écriture atomique du compte avec identifiant et de l’état vérifié. Le mot de passe brut n’est ni retourné ni inclus dans les métadonnées d’audit. Communiquez-le par un canal approuvé et respectez la politique de l’organisation sur les identifiants.
 
 ## Piste d’audit de sécurité
 
-Les mutations de sécurité des rôles et des utilisateurs ajoutent un `security_audit_event` dans la même transaction que la modification. Les événements couvrent la création, le profil, la suppression et les capacités d’un rôle; la création, le profil, la suppression et l’activation d’un utilisateur; les indicateurs directs de promoteur; ainsi que la création et la suppression d’affectations de rôle. Les dossiers identifient l’acteur authentifié, une catégorie d’événement contrainte, le type et l’identifiant de la cible, l’horodatage et des métadonnées structurelles non sensibles. Ils excluent les noms, adresses courriel, images, identifiants, jetons et hachages de mots de passe.
+Les mutations de sécurité des rôles et des utilisateurs ajoutent un `security_audit_event` dans la même transaction. Les événements actuels couvrent la création, la modification du profil, la suppression et le remplacement des permissions d’un rôle; la création, la modification du profil, la suppression et l’activation d’un utilisateur; ainsi que la création ou le retrait d’une attribution utilisateur-rôle.
 
-La base de données refuse la modification et la suppression de ces événements à ajout seulement. Une mutation métier échouée ne produit donc aucun événement d’audit, tandis qu’un échec d’insertion de l’audit annule la mutation. L’accès aux données d’audit brutes relève de l’exploitation et de la sécurité; l’interface de gestion des utilisateurs n’offre aucun afficheur général de journal d’audit.
+Les enregistrements indiquent l’acteur authentifié, une catégorie d’événement contrainte, le type et l’identifiant de la cible, l’horodatage et des métadonnées structurelles non sensibles. Ils excluent les noms, courriels, images, identifiants de connexion, jetons et hachages de mot de passe. Des déclencheurs refusent les modifications et suppressions d’événements d’audit. Les changements du registre d’une entité exacte sont régis par leur propre transaction d’affectation et leurs preuves de cycle de vie.
 
-## Gestion du compte racine
+## Traitement de l’utilisateur racine
 
-Gardez l’attribution racine limitée et facile à auditer. L’utilisateur racine demeure un utilisateur ordinaire avec des capacités globales explicites de rôle et, au besoin, des indicateurs de promoteur activés séparément ; il ne contourne pas l’autorisation. Utilisez des rôles à portée définie pour le travail courant sur les programmes et les ententes, les indicateurs directs seulement pour les tâches liées aux promoteurs qui sont véritablement interagences et les équipes exactes pour collaborer sur un promoteur ou une entente enregistrée.
+Racine est un utilisateur ordinaire possédant une attribution explicite à un rôle global. Il ne bénéficie d’aucun contournement d’autorisation. Gardez ses permissions et ses capacités de gestion des affectations limitées et auditables; utilisez des rôles à portée définie pour l’administration courante et des affectations exactes pour les dossiers enregistrés.
 
 ## Dépannage de l’accès
 
-Si un utilisateur ne voit pas une page :
+Si un utilisateur ne peut voir ou modifier une ressource :
 
-1. Vérifiez que l’utilisateur n’est pas supprimé.
-2. Pour l’accès ordinaire selon la portée, vérifiez que l’attribution de rôle, le rôle, l’agence parente et les programmes sélectionnés sont actifs.
-3. Vérifiez que la structure du rôle est valide : un rôle global n’a pas d’agence, un rôle d’agence n’a pas de lien de programme et un rôle de programme a au moins un programme actif dans son agence.
-4. Vérifiez que le rôle contient la bonne action et le bon sujet et que sa portée dérivée couvre la ressource demandée.
-5. Pour l’accès interagences aux promoteurs, vérifiez l’indicateur CRUD direct correspondant dans Attributions.
-6. Pour un promoteur ou une entente enregistrée, vérifiez l’appartenance de l’utilisateur à l’équipe exacte et son niveau d’accès sur cette entité.
-7. Demandez à l’utilisateur de se déconnecter puis de se reconnecter si les permissions statiques semblent anciennes. Le serveur résout à la demande l’accès à l’entité accordé par une équipe.
+1. Confirmez que l’utilisateur, l’attribution de rôle, le rôle, l’agence parente et les programmes liés sont actifs.
+2. Confirmez que la structure du rôle correspond à une portée globale, d’agence ou de programme.
+3. Vérifiez le niveau d’accès cumulatif du sujet et la portée propriétaire actuelle de la ressource.
+4. Pour un travail enregistré pouvant être affecté, vérifiez la racine d’affectation exacte et l’état permettant le travail.
+5. Pour administrer un registre, vérifiez la capacité `manage_assignments` distincte.
+6. Pour une action d’approbation ou d’examen, vérifiez l’affectation de flux distincte.
+7. Rechargez la page ou reconnectez-vous si les commandes clientes sont périmées; les écritures serveur emploient toujours l’état courant de la base de données.
 
 ![Onglet Attributions utilisateur](/screenshots/fr/user-assignments.png)
 
-_Capture reelle de l environnement de developpement avec donnees semees. Les enregistrements montres sont seulement des exemples et ne sont pas crees dans une installation fraiche._
+_Exemple réel de l’environnement initial. L’onglet Attributions présente seulement les rôles structurels; les affectations aux entités exactes sont gérées ailleurs._

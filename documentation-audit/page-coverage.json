@@ -69,7 +69,7 @@
       "app/pages/agreements/[id].vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/amendments/[amendmentId].vue",
@@ -105,7 +105,7 @@
       "tests/e2e/agreement-amendments.spec.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced across exact Agreement authorization, draft/type/subtype validation, budget/activity snapshots and stable identities, duration rules, approval promotion/cancellation, aggregate soft deletion, mounted list/detail UI, schema/migration constraints, 117 focused unit tests, and 3 managed E2E tests. Current approval UI, snapshot capacity, and unwritten revision-row limitations are recorded as DOC-008 through DOC-010 and documented bilingually."
+    "notes": "Directly traced across exact Agreement authorization, draft/type/subtype validation, budget/activity snapshots and stable identities, duration rules, approval promotion/cancellation, aggregate soft deletion, mounted list/detail UI, schema/migration constraints, 117 focused unit tests, and 3 managed E2E tests. The remaining amendment budget-capacity limitation is recorded as DOC-009; DOC-008 and DOC-010 are resolved at the target and the paired guidance reflects the current approval and revision paths. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/claims/[claimId].vue",
@@ -127,7 +127,7 @@
       "fr/agreements/claims.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Mounted Claims tab/detail behavior, permissions, submission/reconciliation grids, transitions, completion/workflow boundary, GC Forms effect, failures, and recovery are verified bilingually."
+    "notes": "Mounted Claims tab/detail behavior, permissions, submission/reconciliation grids, transitions, completion/workflow boundary, GC Forms effect, failures, and recovery are verified bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/commitments/[commitmentId].vue",
@@ -148,7 +148,7 @@
       "app/components/Agreement/AgreementCommitmentsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Commitments tab and localized detail page, including browser-side search/totals, CRUD modals, extension create-action replacement/conflict handling, locked states, completion, workflow, and the verified absence of an approval component; covered by the paired guide and focused UI tests."
+    "notes": "Directly traced the mounted Commitments tab and localized detail page, including browser-side search/totals, CRUD modals, extension create-action replacement/conflict handling, locked states, completion, workflow, and the verified absence of an approval component; covered by the paired guide and focused UI tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/forecasts/[forecastId].vue",
@@ -169,7 +169,7 @@
       "app/components/Agreement/AgreementForecastsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Forecasts grouped tab and localized monthly-breakdown detail page, including client-derived versions, quarter/month expansion, per-action cell saves, status locks, completion/workflow sections, absent approval controls, and focused UI tests."
+    "notes": "Directly traced the mounted Forecasts grouped tab and localized monthly-breakdown detail page, including client-derived versions, quarter/month expansion, per-action cell saves, status locks, completion/workflow sections, absent approval controls, and focused UI tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/monitors/[monitorId].vue",
@@ -188,7 +188,7 @@
       "fr/agreements/monitors.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Monitors list and localized detail workspace: search, lookups, metadata and six child-resource editors, permissions, locked states, follow-up update history, direct completion, workflow/approval presentation, extension tabs, errors, and bilingual guidance."
+    "notes": "Directly traced the mounted Monitors list and localized detail workspace: search, lookups, metadata and six child-resource editors, permissions, locked states, follow-up update history, direct completion, workflow/approval presentation, extension tabs, errors, and bilingual guidance. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/payments/[paymentId].vue",
@@ -209,7 +209,7 @@
       "fr/agreements/payments.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Mounted Payment tab/detail behavior, permissions, fields, lifecycle locks, completion/workflow boundary, extension effects, failures, and recovery are verified in both locale guides."
+    "notes": "Mounted Payment tab/detail behavior, permissions, fields, lifecycle locks, completion/workflow boundary, extension effects, failures, and recovery are verified in both locale guides. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/index.vue",
@@ -224,7 +224,7 @@
       "app/pages/agreements/index.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/agreements/new.vue",
@@ -239,7 +239,7 @@
       "app/pages/agreements/new.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/assessments/[reviewId].vue",
@@ -257,6 +257,26 @@
     "notes": "Directly traced the mounted assessment/checklist pages, question/result UI, sidebar states, additional reviewers, completion handoff, locking, and recovery against source, paired runtime-review guidance, and 109 passing focused tests (3 additional cases skipped by their source suite)."
   },
   {
+    "id": "page:app/pages/assignment-management.vue",
+    "source": "app/pages/assignment-management.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/assignments.md",
+    "fr": "fr/admin/assignments.md",
+    "evidence": [
+      "app/pages/assignment-management.vue",
+      "server/utils/entity-assignment.ts",
+      "server/utils/agreement-assignment-target.ts",
+      "packages/gcs-ssc-authorization/src/server/assigned-items.ts",
+      "tests/unit/assignment-management-route.test.ts",
+      "tests/e2e/assignment-management.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced independent manage_assignments scope resolution, minimized target projection, eleven entity types, search/filter/pagination, assignee eligibility, terminal roster locks, and paired Assignment Management guidance."
+  },
+  {
     "id": "page:app/pages/checklists/[reviewId].vue",
     "source": "app/pages/checklists/[reviewId].vue",
     "audience": [
@@ -270,6 +290,25 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced the mounted assessment/checklist pages, question/result UI, sidebar states, additional reviewers, completion handoff, locking, and recovery against source, paired runtime-review guidance, and 109 passing focused tests (3 additional cases skipped by their source suite)."
+  },
+  {
+    "id": "page:app/pages/claim-reconciliations/[reconcileId].vue",
+    "source": "app/pages/claim-reconciliations/[reconcileId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/claims.md",
+    "fr": "fr/agreements/claims.md",
+    "evidence": [
+      "app/pages/claim-reconciliations/[reconcileId].vue",
+      "server/utils/agreement-claim.ts",
+      "server/utils/agreement-assignment-target.ts",
+      "server/utils/entity-authorization-policy.ts",
+      "tests/unit/claim-reconciliation-line-route-binding.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the standalone claim-reconciliation workspace, exact aggregate authorization, line ownership, editable/locked states, transactional writes, completion/workflow integration, localized errors, and paired Claims guidance."
   },
   {
     "id": "page:app/pages/extension/[id]/config.vue",
@@ -314,7 +353,7 @@
       "tests/unit/use-resource-crud-state.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42."
+    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/login.vue",
@@ -354,7 +393,7 @@
       "app/pages/proponents/edit/[id].vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced list/create/edit/general profile layouts, route tabs, bilingual validation/error grouping, agency/subtype lookup hydration/reset, extension description slot, permission-dependent read/edit/delete states, loading/errors, and navigation against source, paired guidance, and the focused 56-test core-profile suite."
+    "notes": "Directly traced list/create/edit/general profile layouts, route tabs, bilingual validation/error grouping, agency/subtype lookup hydration/reset, extension description slot, permission-dependent read/edit/delete states, loading/errors, and navigation against source, paired guidance, and the focused 56-test core-profile suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/proponents/index.vue",
@@ -369,7 +408,7 @@
       "app/pages/proponents/index.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced list/create/edit/general profile layouts, route tabs, bilingual validation/error grouping, agency/subtype lookup hydration/reset, extension description slot, permission-dependent read/edit/delete states, loading/errors, and navigation against source, paired guidance, and the focused 56-test core-profile suite."
+    "notes": "Directly traced list/create/edit/general profile layouts, route tabs, bilingual validation/error grouping, agency/subtype lookup hydration/reset, extension description slot, permission-dependent read/edit/delete states, loading/errors, and navigation against source, paired guidance, and the focused 56-test core-profile suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/proponents/new.vue",
@@ -384,7 +423,26 @@
       "app/pages/proponents/new.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced list/create/edit/general profile layouts, route tabs, bilingual validation/error grouping, agency/subtype lookup hydration/reset, extension description slot, permission-dependent read/edit/delete states, loading/errors, and navigation against source, paired guidance, and the focused 56-test core-profile suite."
+    "notes": "Directly traced list/create/edit/general profile layouts, route tabs, bilingual validation/error grouping, agency/subtype lookup hydration/reset, extension description slot, permission-dependent read/edit/delete states, loading/errors, and navigation against source, paired guidance, and the focused 56-test core-profile suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+  },
+  {
+    "id": "page:app/pages/recommendations/[recommendationId].vue",
+    "source": "app/pages/recommendations/[recommendationId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "app/pages/recommendations/[recommendationId].vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/entity-assignment.ts",
+      "shared/types/schemas/recommendation/recommendation.ts",
+      "tests/unit/workflow-runtime-routes.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced direct recommendation retrieval and draft update, owner/roster/approval visibility, exact-assignment mutation gate, pinned schema display, workflow progression, localized errors, and paired workflow guidance."
   },
   {
     "id": "page:app/pages/roles/[id].vue",
@@ -409,7 +467,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/roles/index.vue",
@@ -434,7 +492,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/transfer-payments/[id].vue",
@@ -673,7 +731,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/pages/users/index.vue",
@@ -698,7 +756,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/layouts/default.vue",
@@ -725,7 +783,7 @@
       "tests/unit/use-resource-crud-state.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42."
+    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "page:app/middleware/admin-common.ts",
@@ -1092,7 +1150,7 @@
       "tests/unit/agreement-amendment-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against exact Agreement authorization and fresh locking, current activity-version filtering, localized schema, program-outcome and agreement-proponent validation, transactional selection synchronization, mounted lookup UI, migration constraints, amendment snapshots, and focused tests; documented in the paired Agreement Activities guide."
+    "notes": "Directly traced against exact Agreement authorization and fresh locking, current activity-version filtering, localized schema, program-outcome and agreement-proponent validation, transactional selection synchronization, mounted lookup UI, migration constraints, amendment snapshots, and focused tests; documented in the paired Agreement Activities guide. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementAddressesTab.vue",
@@ -1113,7 +1171,7 @@
       "tests/unit/funding-case-agreement-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against exact Agreement authorization, fresh-write locking, localized validation, agency-owned address-type lookup, shared Common_Address reference protection, mounted CRUD tab, migration indexes, and focused regression tests; documented in the paired Agreement Addresses guide."
+    "notes": "Directly traced against exact Agreement authorization, fresh-write locking, localized validation, agency-owned address-type lookup, shared Common_Address reference protection, mounted CRUD tab, migration indexes, and focused regression tests; documented in the paired Agreement Addresses guide. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementAmendmentsTab.vue",
@@ -1149,7 +1207,7 @@
       "tests/e2e/agreement-amendments.spec.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced across exact Agreement authorization, draft/type/subtype validation, budget/activity snapshots and stable identities, duration rules, approval promotion/cancellation, aggregate soft deletion, mounted list/detail UI, schema/migration constraints, 117 focused unit tests, and 3 managed E2E tests. Current approval UI, snapshot capacity, and unwritten revision-row limitations are recorded as DOC-008 through DOC-010 and documented bilingually."
+    "notes": "Directly traced across exact Agreement authorization, draft/type/subtype validation, budget/activity snapshots and stable identities, duration rules, approval promotion/cancellation, aggregate soft deletion, mounted list/detail UI, schema/migration constraints, 117 focused unit tests, and 3 managed E2E tests. The remaining amendment budget-capacity limitation is recorded as DOC-009; DOC-008 and DOC-010 are resolved at the target and the paired guidance reflects the current approval and revision paths. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementApplicantRecipientsTab.vue",
@@ -1164,7 +1222,7 @@
       "app/components/Agreement/AgreementApplicantRecipientsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against independent Agreement and Proponent authorization, active lookup and label hydration, exact-parent child ownership, fresh agreement/profile locks, soft deletion, post-create cardinality behavior, mounted selector/tab controls, migration indexing, and 127 passing focused tests."
+    "notes": "Directly traced against independent Agreement and Proponent authorization, active lookup and label hydration, exact-parent child ownership, fresh agreement/profile locks, soft deletion, post-create cardinality behavior, mounted selector/tab controls, migration indexing, and 127 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementBudgetTab.vue",
@@ -1195,7 +1253,7 @@
       "tests/unit/funding-case-amendment-migration.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against exact Agreement authorization and fresh locking, current-version stable identities, fiscal-year/cost-line ownership, localized schemas, money precision, cross-agreement stream capacity, downstream claim/payment guards, amendment lineage, grouped UI, migration constraints, and 217 focused passing tests. The verified fiscal-year PATCH limitation is recorded as DOC-007 and documented bilingually."
+    "notes": "Directly traced against exact Agreement authorization and fresh locking, current-version stable identities, fiscal-year/cost-line ownership, localized schemas, money precision, cross-agreement stream capacity, downstream claim/payment guards, amendment lineage, grouped UI, migration constraints, and 217 focused passing tests. The verified fiscal-year PATCH limitation is recorded as DOC-007 and documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementClaimsTab.vue",
@@ -1217,7 +1275,7 @@
       "fr/agreements/claims.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Mounted Claims tab/detail behavior, permissions, submission/reconciliation grids, transitions, completion/workflow boundary, GC Forms effect, failures, and recovery are verified bilingually."
+    "notes": "Mounted Claims tab/detail behavior, permissions, submission/reconciliation grids, transitions, completion/workflow boundary, GC Forms effect, failures, and recovery are verified bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementCommitmentsTab.vue",
@@ -1238,7 +1296,7 @@
       "app/pages/agreements/[id]/commitments/[commitmentId].vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Commitments tab and localized detail page, including browser-side search/totals, CRUD modals, extension create-action replacement/conflict handling, locked states, completion, workflow, and the verified absence of an approval component; covered by the paired guide and focused UI tests."
+    "notes": "Directly traced the mounted Commitments tab and localized detail page, including browser-side search/totals, CRUD modals, extension create-action replacement/conflict handling, locked states, completion, workflow, and the verified absence of an approval component; covered by the paired guide and focused UI tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementDocumentsTab.vue",
@@ -1258,7 +1316,7 @@
       "fr/agreements/documents.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Agreement Documents tab: template loading, locale defaults, format reset, generation/download/delete actions, permission states, list rendering, errors, and bilingual operational guidance."
+    "notes": "Directly traced the mounted Agreement Documents tab: template loading, locale defaults, format reset, generation/download/delete actions, permission states, list rendering, errors, and bilingual operational guidance. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementForecastsTab.vue",
@@ -1279,7 +1337,7 @@
       "app/pages/agreements/[id]/forecasts/[forecastId].vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Forecasts grouped tab and localized monthly-breakdown detail page, including client-derived versions, quarter/month expansion, per-action cell saves, status locks, completion/workflow sections, absent approval controls, and focused UI tests."
+    "notes": "Directly traced the mounted Forecasts grouped tab and localized monthly-breakdown detail page, including client-derived versions, quarter/month expansion, per-action cell saves, status locks, completion/workflow sections, absent approval controls, and focused UI tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementGeneralTab.vue",
@@ -1294,7 +1352,7 @@
       "app/components/Agreement/AgreementGeneralTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementMonitorsTab.vue",
@@ -1313,7 +1371,7 @@
       "fr/agreements/monitors.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted Monitors list and localized detail workspace: search, lookups, metadata and six child-resource editors, permissions, locked states, follow-up update history, direct completion, workflow/approval presentation, extension tabs, errors, and bilingual guidance."
+    "notes": "Directly traced the mounted Monitors list and localized detail workspace: search, lookups, metadata and six child-resource editors, permissions, locked states, follow-up update history, direct completion, workflow/approval presentation, extension tabs, errors, and bilingual guidance. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementPaymentsTab.vue",
@@ -1334,7 +1392,7 @@
       "fr/agreements/payments.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Mounted Payment tab/detail behavior, permissions, fields, lifecycle locks, completion/workflow boundary, extension effects, failures, and recovery are verified in both locale guides."
+    "notes": "Mounted Payment tab/detail behavior, permissions, fields, lifecycle locks, completion/workflow boundary, extension effects, failures, and recovery are verified in both locale guides. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementProfileFormPage.vue",
@@ -1349,7 +1407,7 @@
       "app/components/Agreement/AgreementProfileFormPage.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementProfileHero.vue",
@@ -1364,7 +1422,7 @@
       "app/components/Agreement/AgreementProfileHero.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/AgreementProfilesTable.vue",
@@ -1379,7 +1437,7 @@
       "app/components/Agreement/AgreementProfilesTable.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/Fields/AgreementActivityOutcomesField.vue",
@@ -1403,7 +1461,7 @@
       "tests/unit/agreement-amendment-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against exact Agreement authorization and fresh locking, current activity-version filtering, localized schema, program-outcome and agreement-proponent validation, transactional selection synchronization, mounted lookup UI, migration constraints, amendment snapshots, and focused tests; documented in the paired Agreement Activities guide."
+    "notes": "Directly traced against exact Agreement authorization and fresh locking, current activity-version filtering, localized schema, program-outcome and agreement-proponent validation, transactional selection synchronization, mounted lookup UI, migration constraints, amendment snapshots, and focused tests; documented in the paired Agreement Activities guide. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/Fields/AgreementActivityResponsiblePartiesField.vue",
@@ -1427,7 +1485,7 @@
       "tests/unit/agreement-amendment-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against exact Agreement authorization and fresh locking, current activity-version filtering, localized schema, program-outcome and agreement-proponent validation, transactional selection synchronization, mounted lookup UI, migration constraints, amendment snapshots, and focused tests; documented in the paired Agreement Activities guide."
+    "notes": "Directly traced against exact Agreement authorization and fresh locking, current activity-version filtering, localized schema, program-outcome and agreement-proponent validation, transactional selection synchronization, mounted lookup UI, migration constraints, amendment snapshots, and focused tests; documented in the paired Agreement Activities guide. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/Fields/AgreementApplicantRecipientsField.vue",
@@ -1442,7 +1500,7 @@
       "app/components/Agreement/Fields/AgreementApplicantRecipientsField.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against independent Agreement and Proponent authorization, active lookup and label hydration, exact-parent child ownership, fresh agreement/profile locks, soft deletion, post-create cardinality behavior, mounted selector/tab controls, migration indexing, and 127 passing focused tests."
+    "notes": "Directly traced against independent Agreement and Proponent authorization, active lookup and label hydration, exact-parent child ownership, fresh agreement/profile locks, soft deletion, post-create cardinality behavior, mounted selector/tab controls, migration indexing, and 127 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Agreement/Fields/AgreementProfileFields.vue",
@@ -1457,7 +1515,7 @@
       "app/components/Agreement/Fields/AgreementProfileFields.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
+    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/ApplicantRecipient/ApplicantRecipientAddressesTab.vue",
@@ -1653,21 +1711,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced against independently resolved owning-entity visibility, mounted relationship tab behavior, exact setup/agreement scopes, runtime authorization and locks, localized presentation, and 67 passing focused tests; documented in the dedicated paired guide."
-  },
-  {
-    "id": "component:app/components/ApplicantRecipient/ApplicantRecipientTeamTab.vue",
-    "source": "app/components/ApplicantRecipient/ApplicantRecipientTeamTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/proponents/team.md",
-    "fr": "fr/proponents/team.md",
-    "evidence": [
-      "app/components/ApplicantRecipient/ApplicantRecipientTeamTab.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against exact-entity Team capabilities and ceilings, active-user lookup, exact-parent membership resolution, fresh user/entity/assignment locks, soft deletion, mounted wrapper behavior, and 22 passing focused tests; documented in the paired Proponent Team guide."
   },
   {
     "id": "component:app/components/ApplicantRecipient/Fields/ApplicantRecipientProfileFields.vue",
@@ -3050,6 +3093,32 @@
     "notes": "Directly traced the mounted completion state/action UI and approval routing-slip table, decision, certification, reassignment, inserted-step, history/detail, disabled, error, and recovery states against source, paired guidance, and the focused 84-test suite."
   },
   {
+    "id": "component:app/components/Common/AssignedUsers.vue",
+    "source": "app/components/Common/AssignedUsers.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/assignments.md",
+    "fr": "fr/admin/assignments.md",
+    "evidence": [
+      "app/components/Common/AssignedUsers.vue",
+      "server/api/entity-assignments/[entityType]/[entityId]/index.get.ts",
+      "server/api/entity-assignments/[entityType]/[entityId]/index.post.ts",
+      "server/api/entity-assignments/[entityType]/[entityId]/[userId].delete.ts",
+      "server/api/entity-assignments/[entityType]/[entityId]/primary.patch.ts",
+      "server/api/entity-assignments/[entityType]/[entityId]/users.get.ts",
+      "server/utils/entity-assignment.ts",
+      "server/utils/entity-assignment-write.ts",
+      "shared/types/schemas/entity-assignment.ts",
+      "tests/unit/entity-assignment-management-routes.test.ts",
+      "tests/unit/entity-assignment-authorization.test.ts",
+      "tests/e2e/assignment-management.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Directly traced across the reusable Assigned users table and modal, exact roster list/add/remove/primary routes, eligible-user lookup, lifecycle and authorization helpers, request schemas, unit coverage, and the managed assignment E2E path. The paired guide documents the two-key authorization model, eligible-user boundary, exactly-one-primary invariant, lifecycle locks, and both embedded and central management surfaces. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+  },
+  {
     "id": "component:app/components/Common/AsyncCommandPaletteLookup.vue",
     "source": "app/components/Common/AsyncCommandPaletteLookup.vue",
     "audience": [
@@ -3231,30 +3300,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
-  },
-  {
-    "id": "component:app/components/Common/EntityTeamTab.vue",
-    "source": "app/components/Common/EntityTeamTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/agreements/team.md",
-    "fr": "fr/agreements/team.md",
-    "evidence": [
-      "app/components/Common/EntityTeamTab.vue",
-      "server/utils/entity-team.ts",
-      "server/utils/entity-team-routes.ts",
-      "server/utils/team-auth.ts",
-      "shared/utils/teams.ts",
-      "shared/types/schemas/team.ts",
-      "tests/unit/agreement-team-route-authorization.test.ts",
-      "tests/unit/agreement-team-route-inventory.test.ts",
-      "tests/unit/components/common-entity-team-tab.test.ts",
-      "tests/unit/agreements-routes.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced for Agreement and shared Proponent use against canonical exact-entity scope resolution, management ceilings, fresh transactional authorization and locks, active-user lookup, soft deletion, mounted shared editor, and focused tests; documented in the paired Agreement Team guide."
   },
   {
     "id": "component:app/components/Common/EntityTypeBadge.vue",
@@ -3695,6 +3740,26 @@
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
   },
   {
+    "id": "component:app/components/Common/Workflow/ApprovalPacket.vue",
+    "source": "app/components/Common/Workflow/ApprovalPacket.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "app/components/Common/Workflow/ApprovalPacket.vue",
+      "server/utils/agreement-approval-submission.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/database/migrations/0009_funding_case_agreement.ts",
+      "tests/unit/agreement-approval-packet-ui.test.ts",
+      "tests/unit/agreement-approval-submission.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced bilingual immutable approval-packet rendering, domain sections, SHA-256 verification, workflow lock state, successful revision promotion, failure presentation, and paired approval guidance."
+  },
+  {
     "id": "component:app/components/Common/Workflow/Section.vue",
     "source": "app/components/Common/Workflow/Section.vue",
     "audience": [
@@ -3707,7 +3772,7 @@
       "app/components/Common/Workflow/Section.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the workflow setup list/modal/detail/publication UI and runtime current/history, start, recommendation, approval, cancellation, and retry states against source, paired guidance, and the focused 52-test workflow suite."
+    "notes": "Directly traced the workflow setup list/modal/detail/publication UI and runtime current/history, start, recommendation, approval, cancellation, and retry states against source, paired guidance, and the focused 52-test workflow suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Extension/AgencyExtensionsTab.vue",
@@ -4002,31 +4067,6 @@
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
   },
   {
-    "id": "component:app/components/Role/RoleAbilitiesTab.vue",
-    "source": "app/components/Role/RoleAbilitiesTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/admin/roles.md",
-    "fr": "fr/admin/roles.md",
-    "evidence": [
-      "app/components/Role/RoleAbilitiesTab.vue",
-      "en/getting-started/login.md + fr/getting-started/login.md",
-      "en/admin/roles.md + fr/admin/roles.md",
-      "en/admin/users.md + fr/admin/users.md",
-      "en/concepts/rbac.md + fr/concepts/rbac.md",
-      "tests/unit/roles-index-page-requests.test.ts",
-      "tests/unit/users-index-page-requests.test.ts",
-      "tests/unit/user-role-assignment-access.test.ts",
-      "tests/unit/user-assignable-roles-route.test.ts",
-      "tests/unit/use-role-modal-state.test.ts",
-      "tests/unit/users-routes.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
-  },
-  {
     "id": "component:app/components/Role/RoleAssignmentModal.vue",
     "source": "app/components/Role/RoleAssignmentModal.vue",
     "audience": [
@@ -4049,7 +4089,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Role/RoleDetailGeneralTab.vue",
@@ -4074,7 +4114,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/Role/RoleModal.vue",
@@ -4099,7 +4139,27 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+  },
+  {
+    "id": "component:app/components/Role/RolePermissionsTab.vue",
+    "source": "app/components/Role/RolePermissionsTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/roles.md",
+    "fr": "fr/admin/roles.md",
+    "evidence": [
+      "app/components/Role/RolePermissionsTab.vue",
+      "shared/types/schemas/rbac.ts",
+      "shared/utils/abilities.ts",
+      "server/utils/role-routes.ts",
+      "tests/unit/role-permission-expansion.test.ts",
+      "tests/e2e/role-permissions-lifecycle.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced cumulative role-level controls, independent Agreement/Proponent assignment-management switches, allowed subjects by role scope, pending/disabled behavior, persistence, and paired role guidance."
   },
   {
     "id": "component:app/components/Role/RoleTable.vue",
@@ -4124,7 +4184,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/AreasOfExpertiseTab.vue",
@@ -5188,7 +5248,7 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row."
+    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupDetailPage.vue",
@@ -5209,7 +5269,7 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row."
+    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupItemModal.vue",
@@ -5231,7 +5291,7 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row."
+    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupModal.vue",
@@ -5253,7 +5313,25 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row."
+    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+  },
+  {
+    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupSchemaCreateModal.vue",
+    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupSchemaCreateModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/programs/recommendations.md",
+    "fr": "fr/programs/recommendations.md",
+    "evidence": [
+      "app/components/TransferPayment/TransferPaymentRecommendationSetupSchemaCreateModal.vue",
+      "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/items/create-schema.post.ts",
+      "shared/types/schemas/recommendation/recommendation.ts",
+      "tests/unit/recommendation-form-components.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the inline bilingual schema form, deciding-result rule, atomic create-and-associate request, pending/error state, and paired Recommendation guidance."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupTab.vue",
@@ -5275,7 +5353,7 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row."
+    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupDetailHero.vue",
@@ -5299,7 +5377,7 @@
       "fr/programs/assessment-schemas.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests."
+    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupDetailPage.vue",
@@ -5323,7 +5401,7 @@
       "fr/programs/assessment-schemas.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests."
+    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupItemModal.vue",
@@ -5347,7 +5425,7 @@
       "fr/programs/assessment-schemas.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests."
+    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupModal.vue",
@@ -5371,7 +5449,7 @@
       "fr/programs/assessment-schemas.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests."
+    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupSchemaCreateModal.vue",
@@ -5395,7 +5473,7 @@
       "fr/programs/assessment-schemas.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests."
+    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupsTab.vue",
@@ -5419,7 +5497,7 @@
       "fr/programs/assessment-schemas.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests."
+    "notes": "Directly traced mounted review-setup and assessment-schema pages/editors, lifecycle actions, permissions, validation, pending publication, snapshot behavior, and failure states against source, paired guides, and 135 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentStreamAmendmentTypesTab.vue",
@@ -5836,7 +5914,7 @@
       "tests/unit/users-routes.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "component:app/components/User/UserDetailGeneralTab.vue",
@@ -5887,5 +5965,23 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct page/component/middleware sweep completed; navigation, permission-dependent controls, modal validation, activation, assignments, deletion, empty/error state, bilingual fields, and security audit consequences are covered in paired guides. Focused identity server suite passed 64/64."
+  },
+  {
+    "id": "component:app/components/home/HomeStats.vue",
+    "source": "app/components/home/HomeStats.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/home/HomeStats.vue",
+      "app/pages/index.vue",
+      "tests/unit/layouts/default-layout.test.ts",
+      "documentation-audit/documentation-findings.md"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified the four hard-coded dashboard counts, demonstration trend/progress, always-operational badge, inert cards/actions, live Assigned Work boundary, DOC-035 warning, and paired Navigation guidance."
   }
 ]

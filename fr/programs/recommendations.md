@@ -1,52 +1,66 @@
-# Schémas Et Configurations De Recommandation
+# Schémas et configurations de recommandation
 
-La configuration des recommandations comporte deux couches. Un schéma définit les questions bilingues et l'option qui produit le résultat canonique `recommended` ou `not_recommended`. Une configuration de recommandation de volet ordonne un ou plusieurs schémas publiés et peut entourer les résultats des membres ou le résultat final de routes d'approbation.
+La configuration des recommandations comporte deux couches. Un schéma appartenant à une agence définit les questions bilingues et le résultat canonique Recommandé ou Non recommandé. Une configuration de volet ordonne les schémas publiés, choisit la politique d’échec par membre et peut ajouter des approbations de membre ou finale.
 
-## Navigation Et Accès
+## Navigation et accès
 
-Ouvrez un volet et sélectionnez Configurations de recommandation. Le tableau groupé liste les configurations par type d'entité d'exécution et montre leurs membres ordonnés. Ouvrez une configuration pour modifier son identité et ses membres; ouvrez le schéma d'un membre pour utiliser l'éditeur de schéma.
+Ouvrez un programme et un volet, puis sélectionnez **Configurations de recommandation**. La liste groupée organise les configurations par type d’entité d’exécution. La page de détail d’une configuration gère son identité, son approbation finale et ses membres ordonnés; la page d’un schéma modifie les questions.
 
-La consultation exige `transfer_payment:read` pour le programme précis. Créer, modifier, supprimer, activer ou publier exige l'action `transfer_payment` précise correspondante. Les routes serveur dérivent la chaîne active agence-programme-volet et masquent une ressource inaccessible comme une ressource absente. Les équipes n'accordent aucun accès à la configuration du volet.
+Lecteur pour `transfer_payment` lit la configuration dans le programme exact. Contributeur crée et modifie; Gestionnaire supprime. Activer et Publier sont des opérations de modification. Les routes serveur reconstruisent la chaîne active agence-programme-volet et masquent les dossiers inaccessibles. Les affectations exactes de travail n’accordent pas l’accès à la configuration du volet.
 
-## Schéma De Recommandation
+## Schéma de recommandation
 
-Un schéma appartient à une agence et possède un type d'entité, un nom bilingue, un statut, une version, des métadonnées de résultat et une définition de recommandation. Sa création depuis un volet doit utiliser l'agence du volet.
+Un schéma enregistre le type d’entité, le nom bilingue, l’agence, l’état et la version, les métadonnées du résultat et une définition. La création depuis un volet emploie toujours l’agence de ce volet.
 
-L'éditeur contient Général et Sections du formulaire. Une définition valide exige au moins une section; chaque section exige un libellé bilingue et au moins une sous-section; chaque sous-section exige un libellé bilingue et au moins une question. Les clés de section, sous-section, question, option et aide sont des identités d'exécution indépendantes de la langue et doivent être uniques là où elles sont validées.
-
-Les questions prennent en charge :
+L’éditeur contient Général et Sections du formulaire. Une définition valide exige au moins une section, une sous-section par section et une question par sous-section. Les clés de section, sous-section, question, option et aide sont des identités d’exécution indépendantes de la langue et doivent être uniques lorsqu’exigé.
 
 | Type | Champs et règles |
 | --- | --- |
-| `radio` | Question bilingue obligatoire, au moins deux options bilingues aux clés uniques, descriptions bilingues facultatives des options et association facultative à un résultat |
-| `text` | Question bilingue obligatoire, description bilingue facultative et longueur maximale de 1 à 10 000 |
+| `radio` | Question bilingue, au moins deux options bilingues à clé unique, descriptions facultatives et correspondances de résultat facultatives. |
+| `text` | Question bilingue, description facultative et longueur maximale de 1 à 10 000. |
 
-Chaque type peut être obligatoire et contenir de l'aide bilingue. Une seule question doit être désignée comme question de résultat décisive. Elle doit être une question radio obligatoire, et chacune de ses options doit être associée à `recommended` ou `not_recommended`. Choisir une autre question décisive efface les associations de résultat de l'ancienne.
+Les deux types peuvent être obligatoires et offrir une aide bilingue. Exactement une question détermine le résultat. Elle doit être une question radio obligatoire et chaque option doit correspondre à `recommended` ou `not_recommended`. Le choix d’une nouvelle question décisive efface les correspondances de l’ancienne.
 
-## Publication Du Schéma
+## Créer un schéma pendant la configuration
 
-L'enregistrement valide et met à jour le schéma de travail. Publier verrouille le schéma de la même agence dans une transaction de volet avec autorisation actualisée, crée une version immuable depuis la définition et les métadonnées de résultat courantes, rend le schéma actif et incrémente sa version numérique de `0.01`, arrondie à deux décimales. Les recommandations d'exécution référencent une version précise du schéma; une publication ultérieure ne réécrit donc pas le travail existant.
+Dans la page de détail, **Créer un schéma** ouvre une courte fenêtre pour l’ordre du membre, un modèle facultatif d’approbation de recommandation du même volet et **Faire échouer l’ensemble si Non recommandé**. Continuer crée un schéma brouillon appartenant à l’agence avec une question décisive bilingue minimale, l’associe à la configuration dans une transaction et ouvre l’éditeur.
 
-## Configuration De Recommandation
+L’ordre doit être un entier positif inutilisé par un membre actif. Le modèle d’approbation, s’il est fourni, doit être valide pour `commonrecommendation` dans ce volet. Un échec ne crée ni membre partiel ni schéma orphelin.
 
-Une configuration conserve le type d'entité d'exécution, le nom et la description bilingues, un modèle d'approbation final facultatif, l'indicateur actif, le statut/version/état de publication en attente et des membres ordonnés. Chaque membre choisit un schéma de recommandation de la même agence, un ordre entier et un modèle d'approbation facultatif propre au membre.
+Utilisez plutôt **Associer un schéma** lorsque le schéma de l’agence existe déjà.
 
-Dans une configuration, les schémas choisis et les ordres doivent être uniques. Un plan publiable exige au moins un membre, des ordres contigus commençant à 1, une version publiée de chaque schéma membre et une configuration publiée de chaque modèle d'approbation référencé. La configuration et ses membres doivent correspondre au contexte d'agence et d'entité du volet.
+## Publication du schéma
 
-Une nouvelle configuration commence comme ébauche. Activer publie le premier instantané immuable et rend la configuration active. Modifier une configuration active crée du contenu en attente; Publier remplace le plan publié seulement après validation de toutes les dépendances et avance la version. Le travail de recommandation généré demeure épinglé au plan, aux versions de schéma des membres et aux configurations d'approbation utilisés lors de sa création.
+Enregistrer valide le schéma de travail. Publier autorise de nouveau l’opération du volet, crée une ligne de version immuable, marque le schéma actif et augmente sa version numérique de `0.01`, arrondie à deux décimales.
 
-## Conséquences À L'Exécution
+Les recommandations d’exécution pointent vers une ligne de version exacte. La modification et la republication touchent donc seulement le travail futur.
 
-Les formulaires d'exécution valident les réponses obligatoires, les clés d'option radio et les longueurs de texte selon leur définition épinglée. Le serveur dérive le résultat faisant autorité depuis l'option choisie sur l'unique question décisive. L'ordre de la configuration détermine la progression; une approbation de membre peut bloquer un résultat individuel et l'approbation finale facultative peut bloquer le plan combiné.
+## Configuration de recommandation
 
-Une configuration de flux de travail peut utiliser une configuration de recommandation publiée comme point d'entrée de recommandation. Enregistrer ou soumettre une recommandation d'exécution n'accorde pas à lui seul l'accès à l'entité propriétaire; l'accès précis normal à l'entité ou par équipe et les règles d'assignation du flux continuent de s'appliquer.
+Une configuration stocke le type d’entité d’exécution, le nom et la description bilingues, l’approbation finale facultative, l’état et la version du cycle de vie et les membres ordonnés. Chaque membre choisit un schéma de la même agence, un ordre entier unique, une approbation facultative et **Faire échouer l’ensemble si Non recommandé** (désactivé par défaut).
 
-## Suppression, Échec Et Reprise
+Un plan publiable exige au moins un membre, des ordres contigus commençant à 1, une version publiée de chaque schéma et une configuration publiée de chaque modèle d’approbation. La configuration et toutes ses dépendances doivent correspondre au contexte du volet et de l’entité.
 
-- La suppression d'une configuration ou d'un membre est logique. La filiation historique d'exécution demeure intacte.
-- La publication échoue si les membres sont absents ou non contigus, si un schéma n'est pas publié, si une référence d'agence ou d'entité est invalide ou si un modèle d'approbation n'est pas publié.
-- La validation du schéma échoue pour des clés en double, une structure de question invalide ou toute situation autre qu'une seule question décisive valide.
-- Une ressource absente ou inaccessible produit le contrat masqué. Vérifiez l'identifiant et la portée précise plutôt que de sonder une autre agence.
-- Toutes les mutations revérifient la propriété et l'autorisation courantes dans une transaction. Rechargez après un changement simultané, réparez la dépendance indiquée, enregistrez et réessayez la publication.
+Activer publie la version 1 et rend la configuration admissible. La modification d’une configuration active crée du contenu en attente; Publier fige le prochain plan seulement après validation complète. Le plan immuable comprend la version de schéma, l’indicateur d’échec et la configuration d’approbation de chaque membre ainsi que l’approbation finale.
 
-Voir [Volets](./streams.md), [Modèles d'approbation](./approval-templates.md) et [Approbations et achèvements](../concepts/approvals-completions.md).
+Les membres peuvent être modifiés ou supprimés logiquement pendant la configuration. La suppression logique retire l’association active sans supprimer le schéma réutilisable ni la filiation historique d’exécution.
+
+## Conséquences à l’exécution
+
+Le démarrage d’un flux matérialise un ensemble depuis son plan publié figé et crée seulement la recommandation brouillon du prochain membre. L’initiateur devient la personne principale affectée à cette recommandation. Les membres suivants sont créés un à la fois à mesure que les précédents se terminent.
+
+La page directe Recommandation charge le schéma bilingue et les réponses figés. L’enregistrement ou la soumission exige l’affectation exacte à la recommandation, Contributeur pour le propriétaire résolu et l’état `draft`. La soumission valide les réponses obligatoires, les clés d’option et les longueurs, puis dérive le résultat de la question décisive.
+
+Une approbation de membre s’exécute avant la progression. Sans approbation, ou après sa réussite, Non recommandé fait échouer l’ensemble seulement lorsque l’indicateur publié de ce membre est vrai. Sinon, la prochaine recommandation ou l’approbation finale facultative commence. L’annulation retire les enfants d’exécution en attente sans changer la configuration publiée.
+
+Un flux de soumission d’approbation d’une entente ou modification doit référencer un plan publié et comporter au moins une étape d’approbation. Le détail d’une recommandation peut aussi montrer le dossier d’approbation immuable et haché à un lecteur d’entente autorisé ou à un approbateur affecté. Consultez [Flux de travail](../concepts/workflows.md).
+
+## Échec et récupération
+
+- La publication rejette les membres vides ou non contigus, les schémas non publiés, les références de portée ou d’entité invalides et les modèles d’approbation non publiés.
+- La validation du schéma rejette les clés en double, les structures de question invalides et tout autre résultat qu’une seule question décisive valide.
+- Les enregistrements d’exécution rejettent le travail qui n’est pas brouillon ou n’est pas affecté et les réponses hors de la définition figée.
+- Les changements de configuration concurrents sont revérifiés dans une transaction à autorisation actualisée.
+- Les plans et réponses historiques ne sont jamais réécrits lors de la réparation d’une configuration de travail; enregistrez et publiez une version future.
+
+Consultez [Volets](./streams.md), [Modèles d’approbation](./approval-templates.md), [Flux de travail](../concepts/workflows.md) et [Permissions de rôle et affectations exactes](../concepts/rbac.md).

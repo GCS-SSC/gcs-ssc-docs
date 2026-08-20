@@ -13,7 +13,7 @@ L'entente doit déjà être rattachée à un volet de paiement de transfert et �
 | Modèle d'approbation de surveillance | Facultatif et distinct de l'achèvement direct; il doit viser le volet et le type d'entité `fundingcasemonitor`. |
 | Configuration de flux de travail | Facultative; l'achèvement lance le flux d'achèvement applicable lorsqu'il est configuré. |
 
-L'onglet Surveillances exige l'accès `read` à l'entente. Le serveur vérifie l'action d'entente correspondante, soit `create`, `update` ou `delete`, pour chaque écriture; les équipes et les portées d'accès sont appliquées côté serveur. Les requêtes de recherche répètent l'action exigée par le formulaire (`create` ou `update`).
+Lecteur Entente consulte les surveillances. La création exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. Les mutations suivantes exigent Contributeur ou Gestionnaire et l’affectation exacte à la surveillance. Les recherches reprennent le plafond du formulaire et les écritures revérifient portée et affectation côté serveur.
 
 ## Créer et gérer l'en-tête
 
@@ -57,7 +57,7 @@ Utilisez **Flux de travail > Achever** pendant que la surveillance est modifiabl
 
 La requête d'achèvement :
 
-1. renouvelle l'autorisation de mise à jour de l'entente et verrouille la surveillance;
+1. renouvelle le plafond de rôle Entente Contributeur et l'affectation exacte à la surveillance, puis verrouille la surveillance;
 2. revérifie qu'aucun achèvement n'existe et qu'au moins un élément demeure;
 3. fait passer la surveillance à `complete`;
 4. crée un seul dossier d'achèvement commun avec l'utilisateur commun actuel et les commentaires facultatifs;

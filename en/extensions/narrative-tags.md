@@ -16,7 +16,7 @@ When available definitions or sources change, invalid stale tags are filtered ra
 
 ## Transactional write authorization
 
-Agreement-tag writes resolve enough initial context to reject malformed requests, then perform all protected work in one transaction. The route locks the caller’s current authorization graph first, acquires the extension’s agency and stream lifecycle locks, freshly authorizes the current entity, and then re-resolves the agreement and current extension configuration. Tag validation and the upsert use that locked current scope, so an agency, stream, configuration, agreement lifecycle, role, or team-access change cannot race a stale write. Hosts must provide `writeAuthorization`; the current-scope callback is preferred and the current-entity callback remains the compatibility fallback.
+Agreement-tag writes resolve enough initial context to reject malformed requests, then perform all protected work in one transaction. The route locks the caller’s current authorization graph first, acquires the extension’s agency and stream lifecycle locks, freshly authorizes the current entity, and then re-resolves the agreement and current extension configuration. Tag validation and the upsert use that locked current scope, so an agency, stream, configuration, agreement lifecycle, role, or exact-assignment change cannot race a stale write. Hosts must provide `writeAuthorization`; the current-scope callback is preferred and the current-entity callback remains the compatibility fallback.
 
 ## Current Proponent resolver limitation
 
@@ -24,7 +24,7 @@ The intended resolver collects a lead-agency source plus enabled streams from li
 
 ## Persistence and browser behaviour
 
-Agreement GET/PATCH requires both extension switches and exact agreement read/update access. PATCH locks authorization and the extension lifecycle, reauthorizes, re-resolves current config, validates `{ tags }`, and upserts extension KV. Proponent GET requires exact applicant-recipient/Team read access and removes stored tags whose source is no longer visible. Proponent writes—and field-keyed agreement writes—are persisted by the corresponding core profile-update hooks inside the host transaction; suggestions only update the form payload and are not saved until the surrounding profile save succeeds.
+Agreement GET/PATCH requires both extension switches. GET uses scoped `agreement:read`; PATCH requires the scoped Contributor-or-higher ceiling plus exact agreement assignment, then locks authorization and the extension lifecycle, reauthorizes, re-resolves current config, validates `{ tags }`, and upserts extension KV. Proponent GET uses scoped `applicant_recipient:read` and removes stored tags whose source is no longer visible. Proponent writes—and field-keyed agreement writes—are persisted by the corresponding core profile-update hooks inside the already-authorized host profile transaction; suggestions only update the form payload and are not saved until the surrounding profile save succeeds.
 
 KV owners are `fundingcaseagreement` and `applicantrecipient`; keys are `agreement-description-tags` and `text-field-tags`. Predefined selections must match the applicable current definition. Custom tags require permission on that exact target. Proponent source provenance must match a currently available agency/stream source, and duplicates are removed by source plus tag identity. The extension has no migration or secret store; preserve KV in database backups.
 

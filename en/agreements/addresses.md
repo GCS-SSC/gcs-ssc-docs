@@ -4,7 +4,7 @@ The **Addresses** tab stores locations used specifically by an agreement. Each r
 
 ## Access and list
 
-Agreement `read` access lists active links whose common address and address type are also active. `create`, `update`, and `delete` independently expose Add, Edit, and Delete. Exact Agreement Team levels supply the corresponding actions.
+Agreement Viewer lists active links whose common address and type are active. Creating/updating requires Contributor plus the exact Agreement assignment; deleting requires Manager plus that assignment. Addresses use the Agreement as their assignment root.
 
 The table shows bilingual address type, street line 1, city, and postal or ZIP code. Search also matches subdivision, all three street lines, and either language of the address type.
 

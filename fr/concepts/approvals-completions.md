@@ -26,6 +26,8 @@ Un modèle d'approbation n'est qu'une configuration. La matérialisation crée u
 
 Certains flux matérialisent automatiquement le circuit. Lorsque l'interface affiche **Ajouter**, une personne ayant la permission de gérer les approbations peut créer manuellement le circuit applicable. Un modèle absent, inactif, non publié, de mauvaise portée ou de mauvais type d'entité empêche la matérialisation. Le tableau groupe les étapes par feuille de route, conserve les feuilles antérieures comme historique lorsque l'adaptateur le permet et indique le circuit courant.
 
+Un flux de soumission d’approbation d’entente ou de modification crée aussi un paquet d’approbation immuable. Le paquet d’une entente initiale fige le profil complet, les promoteurs, le budget courant et les activités courantes. Le paquet d’une modification consigne les types et sous-types sélectionnés et contient seulement les domaines d’instantané choisis — budget, activités ou dates de durée proposées. Le flux conserve l’empreinte SHA-256 du paquet, et la vue d’approbation la vérifie avant d’afficher le paquet bilingue. Une approbation réussie promeut le paquet en révision immuable de l’entente : révision `0` pour la soumission initiale et prochain numéro positif pour une modification. Le démarrage d’une autre soumission pendant qu’une exécution est active, la modification des données couvertes durant cette exécution ainsi que la réécriture ou la suppression d’un paquet conservé sont bloqués.
+
 ## Traiter une étape
 
 Seule la première étape non résolue est courante. **Approuver** ou **Refuser** est offert uniquement à l'utilisateur Common qui y est assigné, tant que le propriétaire demeure accessible et que le circuit n'est pas verrouillé. Dans la boîte de décision :

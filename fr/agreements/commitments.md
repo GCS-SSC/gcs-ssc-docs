@@ -6,7 +6,7 @@ Les engagements regroupent les lignes de codage financier que les paiements peuv
 
 | Exigence | Comportement vérifié |
 | --- | --- |
-| Accès à l’entente | La lecture utilise l’action `read` sur l’entente. La création d’un engagement ou d’une ligne utilise `create`; la modification utilise `update`; la suppression utilise `delete`. L’accès exact de l’équipe de l’entente peut accorder l’action correspondante sur les dossiers enfants. |
+| Autorisation | Lecteur Entente consulte. La création d’un engagement exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. Les mutations suivantes de l’engagement ou de ses lignes exigent Contributeur ou Gestionnaire et l’affectation exacte à l’engagement. |
 | Budget courant de l’entente | Le total des lignes actives de chaque engagement est plafonné par le financement de programme total de la version budgétaire courante de l’entente. |
 | Engagements du volet | Le volet de l’entente doit comporter des engagements par exercice avec leur codage financier. Le sélecteur recherche la description du grand livre ou l’exercice et ne permet pas de choisir la configuration d’un autre volet. |
 | Dossier d’utilisateur commun | L’achèvement exige que le compte connecté corresponde à un `Common_User` actif. |
@@ -53,7 +53,7 @@ L’application accepte actuellement les montants nuls et négatifs dans les lig
 
 ## Achever un engagement
 
-L’achèvement est offert uniquement si l’utilisateur possède l’action `update` sur l’entente, si l’engagement demeure modifiable, si aucun achèvement antérieur n’existe et si au moins une ligne active demeure. Les commentaires sont facultatifs.
+L’achèvement est offert uniquement avec un plafond de rôle Entente Contributeur et l’affectation exacte à l’engagement, si l’engagement demeure modifiable, si aucun achèvement antérieur n’existe et si au moins une ligne active demeure. Les commentaires sont facultatifs.
 
 L’achèvement est atomique et effectue les actions suivantes :
 

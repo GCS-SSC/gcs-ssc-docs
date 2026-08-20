@@ -1,6 +1,6 @@
 # Contacts du promoteur
 
-Utilisez **Contacts** pour les personnes associées à un promoteur. Un contact de promoteur est un contact commun lié au profil sélectionné; il ne devient pas automatiquement un compte de connexion ni un membre de l’équipe.
+Utilisez **Contacts** pour les personnes associées à un promoteur. Un contact est une fiche commune liée au profil sélectionné; il ne devient pas automatiquement un compte de connexion ni un utilisateur affecté.
 
 Ouvrez **Promoteurs**, sélectionnez un profil enregistré, puis choisissez **Contacts**. Le tableau actif présente le nom, le courriel et le titre de poste anglais. La recherche porte sur le nom, le courriel et le titre de poste dans l’une ou l’autre langue.
 
@@ -8,12 +8,12 @@ Ouvrez **Promoteurs**, sélectionnez un profil enregistré, puis choisissez **Co
 
 | Accès effectif au promoteur | Actions disponibles |
 | --- | --- |
-| Accès en lecture seule | Consulter et rechercher les contacts actifs, et parcourir les pages. |
-| Accès de contributeur | Consulter et ajouter des contacts. |
-| Accès complet | Consulter, ajouter, modifier et supprimer des contacts. |
+| Lecteur | Consulter et rechercher les contacts actifs, et parcourir les pages; aucune affectation exacte n’est requise. |
+| Contributeur et affectation exacte au promoteur | Consulter, ajouter et modifier des contacts. |
+| Gestionnaire et affectation exacte au promoteur | Consulter, ajouter, modifier et supprimer des contacts. |
 | Aucun accès | Le serveur refuse la demande. |
 
-Les privilèges globaux relatifs aux promoteurs et une affectation exacte à l’équipe du promoteur peuvent donner accès. Le serveur autorise chaque action sur une ligne enfant par rapport au profil parent. Une écriture verrouille le profil et reconstruit l’autorisation dans la transaction.
+Lecteur consulte les contacts. La création ou modification exige Contributeur et l’affectation exacte au parent; la suppression exige Gestionnaire et cette affectation. Le serveur autorise chaque action enfant par rapport au promoteur et reconstruit l’autorisation après l’avoir verrouillé pour une écriture.
 
 ## Champs et validation
 
@@ -35,7 +35,7 @@ L’ajout crée le contact commun et son lien au promoteur dans une seule transa
 
 Un contact commun peut également être référencé par un autre promoteur ou par une configuration d’achèvement ou d’approbation. Le serveur verrouille le contact avant de vérifier ces références. Il refuse une modification lorsqu’une autre référence active existe afin que le changement ne touche pas silencieusement un autre dossier.
 
-La suppression marque comme supprimé le lien de ce promoteur. Le contact commun est supprimé logiquement seulement lorsqu’il ne reste aucune référence active provenant d’un autre promoteur, d’un achèvement ou d’une étape d’approbation. Cet onglet n’offre aucune commande de restauration. La suppression d’un lien ne supprime ni un compte utilisateur de l’application, ni une appartenance à une équipe, ni la référence active d’un autre dossier.
+La suppression marque comme supprimé le lien de ce promoteur. Le contact commun est supprimé logiquement seulement lorsqu’il ne reste aucune référence active provenant d’un autre promoteur, d’un achèvement ou d’une étape d’approbation. Cet onglet n’offre aucune restauration. La suppression d’un lien ne supprime ni un compte utilisateur, ni une affectation exacte, ni la référence active d’un autre dossier.
 
 ## Rétablissement
 
@@ -45,4 +45,4 @@ Corrigez les valeurs obligatoires manquantes ou un courriel en double, puis rée
 
 - [Profils des promoteurs](./index.md)
 - [Adresses](./addresses.md)
-- [Équipes des promoteurs](./team.md)
+- [Utilisateurs affectés aux promoteurs](./team.md)

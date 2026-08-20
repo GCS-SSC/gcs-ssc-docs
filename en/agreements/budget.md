@@ -12,7 +12,7 @@ Configure the following in order:
 4. active stream cost-category line items; and
 5. the saved agreement and its authorized-assistance dates.
 
-`agreement:read` displays the budget. Adding a fiscal year or line uses `agreement:create`; editing uses `agreement:update`; deleting uses `agreement:delete`. A scoped role or exact Agreement Team may supply these actions. Lookup routes require the same create/update action as the form that opened them.
+Agreement Viewer displays the budget. Adding or editing fiscal years/lines requires Contributor plus the exact Agreement assignment; deleting requires Manager plus that assignment. Budget rows use the Agreement assignment root. Lookup routes require the same create/update ceiling as the form that opened them.
 
 Writes use the established agreement transaction: the server locks the agreement and scope chain, rebuilds authorization, resolves the current stream, and then mutates only the current working budget version.
 

@@ -13,7 +13,7 @@ Before a stream can use assessment schemas operationally, configure:
 - Common review schemas for the agency and entity type, with review type set to assessment.
 - Stream review setup or assessment-set rows that reference those schemas.
 - Approval templates if assessment completion or review steps require approval routing.
-- Users and teams with read, save, complete, and approval permissions for the relevant runtime entities.
+- Users with the required scoped roles and exact runtime-entity or workflow assignments for reading, saving, completing, and approving the generated work.
 
 ## Where Schemas Are Opened
 

@@ -2,7 +2,7 @@
 
 Outcome Cost Allocation distributes an agreement's program funding across referenced outcomes and uses stream mappings to generate commitment and payment lines.
 
-The extension must be installed, enabled for the agreement's agency, and enabled and configured on its stream. Its agreement tab and replacement **Add commitment** action require `agreement:update`; the allocation read endpoint requires `agreement:read`, allocation and version writes require `agreement:update`, and draft deletion requires `agreement:delete`. The host resolves the exact agreement entity and applies normal scope and Team access before dispatch. Write routes also require the host's fresh-authorization transaction callback.
+The extension must be installed, enabled for the agreement's agency, and enabled and configured on its stream. Its agreement tab and replacement **Add commitment** action require `agreement:update`; the allocation read endpoint requires the scoped `agreement:read` role ceiling, allocation and version writes require exact assignment plus `agreement:update`, and draft deletion requires exact assignment plus `agreement:delete`. The host resolves the exact agreement entity and applies those rules before dispatch. Write routes also require the host's fresh-authorization transaction callback.
 
 ## Stream mappings
 

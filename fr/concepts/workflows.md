@@ -1,61 +1,91 @@
 # Flux de travail
 
-Les flux de travail relient la configuration publiée des examens, des recommandations et des approbations d'un volet à un enregistrement d'exécution, par exemple un paiement, une prévision, une surveillance, un engagement, une modification, un rapprochement de réclamation ou un examen. Ils modifient le statut de l'enregistrement source pendant le traitement et conservent la configuration exacte de chaque tentative.
+Les flux relient la configuration publiée des examens, recommandations et approbations d’un volet aux dossiers d’exécution. Un flux `standard` gère la progression ordinaire des examens et achèvements. Un flux `approval_submission` crée le dossier de preuve immuable servant à approuver une entente ou une modification.
 
-## Configurer un flux de travail
+## Configurer un flux
 
-Ouvrez **Programmes**, puis un programme et un volet, et choisissez **Configurations de flux de travail**. La liste permet la recherche bilingue, la création, l'ouverture et la suppression selon vos permissions sur le programme de paiements de transfert. La page détaillée regroupe les champs sous Identité, Routage, Transitions et Comportement.
+Ouvrez un programme et un volet, puis choisissez **Configurations de flux**. L’éditeur de détail regroupe l’identité, l’acheminement, les transitions et le comportement.
 
 | Champ | Signification |
 | --- | --- |
-| Nom et description en anglais et en français | Identité administrative bilingue affichée dans la langue courante. |
-| Type d'entité | Type d'enregistrement d'exécution auquel la configuration s'applique. |
-| Point d'entrée | `completion` démarre lors de l'achèvement d'un enregistrement source; `recommendation` est démarré explicitement dans la section du flux. |
-| Statuts de départ permis | Au moins un statut source à partir duquel une exécution peut commencer. |
-| Statuts de début, de réussite et d'échec | Statut appliqué à la source au démarrage, à la réussite ou à une fin sans succès. |
-| Ensemble d'examens | Plan d'examen publié facultatif exécuté en premier. |
-| Ensemble de recommandations | Plan ordonné et publié de recommandations facultatif. |
-| Modèle d'approbation de la source | Approbation finale facultative après les examens et les recommandations. |
-| Actif | Rend une configuration publiée admissible à la résolution. |
-| Permettre la nouvelle tentative | Autorise la reprise d'une tentative échouée avec sa propre configuration. |
+| Identité anglaise et française | Nom et description administratifs. |
+| Type d’entité | Cible d’exécution. |
+| Point d’entrée | `completion` démarre par une action d’achèvement; `recommendation` démarre explicitement. |
+| Objet | `standard` ou `approval_submission`. |
+| États de départ permis | États sources à partir desquels le flux peut commencer. |
+| État de début/réussite/échec | État appliqué à la cible pour chaque résultat. |
+| Ensemble d’examens | Plan d’examen publié facultatif exécuté en premier. |
+| Ensemble de recommandations | Plan ordonné facultatif; requis pour le point d’entrée Recommandation et la soumission d’approbation. |
+| Approbation source | Approbation finale facultative après les autres étapes. |
+| Permettre la reprise | Autorise la dernière tentative échouée à reprendre sa configuration figée. |
 
-Une configuration appartient au volet exact indiqué dans l'URL et la portée stockée. La lecture, la création, la mise à jour, la publication et la suppression imposent la relation programme-volet et la permission sur les paiements de transfert. Les écritures résolvent de nouveau l'autorisation et verrouillent le chemin de propriété dans la transaction; un identifiant connexe n'élargit pas l'accès.
+Une configuration appartient au volet exact de l’URL. La lecture et les mutations exigent le plafond de rôle et la portée `transfer_payment` correspondants; les affectations exactes aux dossiers métier n’accordent pas l’accès à la configuration.
+
+L’objet Soumission d’approbation est permis seulement à la portée d’un volet pour `fundingcaseagreement` ou `fundingcaseamendment`. La publication exige un ensemble de recommandations publié et au moins une étape d’approbation : approbation d’un membre, approbation finale du plan ou approbation source.
 
 ## Activer et publier
 
-Une nouvelle configuration est un brouillon. **Activer** est offert uniquement pour un brouillon et crée la version 1 de la configuration publiée. L'enregistrement d'une configuration active modifie la copie de travail et affiche un état en attente de publication; **Publier** est offert seulement lorsque ces valeurs diffèrent de la configuration publiée et incrémente la version.
+Les nouvelles configurations sont des brouillons. Activer crée la version publiée 1. L’enregistrement d’une configuration active change sa copie de travail; Publier valide les dépendances, stocke le prochain instantané immuable et augmente la version.
 
-L'activation ou la publication échoue si une configuration d'examen, une configuration de recommandation ou un modèle d'approbation lié est inactif ou ne possède pas de version publiée. La publication enregistre un instantané complet du flux et incorpore le plan d'examen publié, le plan de recommandation, les approbations de chaque recommandation et l'approbation finale. Les exécutions existantes ne changent donc pas lorsqu'une personne administratrice modifie ou republie les configurations plus tard.
+La publication échoue lorsqu’un ensemble d’examens ou de recommandations, ou un modèle d’approbation lié, est inactif ou non publié. Une configuration publiée incorpore le plan d’examen, le plan de recommandation, les approbations des membres et l’approbation finale exacts des prochaines exécutions. Les exécutions existantes demeurent figées lorsque les administrateurs modifient ou republient la configuration.
 
-La suppression est logique et désactive la configuration. Elle n'est plus résolue pour les nouvelles exécutions, tandis que les exécutions historiques conservent leur configuration et leur filiation figées.
+La suppression logique d’une configuration la désactive pour les nouvelles exécutions. Les exécutions historiques conservent leur configuration et leur filiation.
 
-## Séquence d'exécution
+## Séquence d’exécution standard
 
-L'exécution résout une configuration active et publiée selon le type d'entité source, la portée du volet propriétaire, le point d'entrée et le statut courant de la source. Si plusieurs enregistrements correspondent, le code courant choisit le plus petit identifiant de configuration; évitez les configurations actives qui se chevauchent, car l'interface n'offre aucun ordre de priorité.
+Le moteur résout une configuration active et publiée selon le type cible, le volet, l’objet, le point d’entrée et l’état courant. L’unicité de portée exacte empêche deux configurations actives de partager la même portée, le même type d’entité et le même objet, mais des portées correspondantes plus larges et plus étroites peuvent encore se chevaucher. Si plusieurs correspondent, la résolution actuelle choisit le plus grand identifiant de base de données; elle ne privilégie pas la portée la plus précise et n’échoue pas pour ambiguïté. Évitez les configurations qui se chevauchent.
 
-Les étapes configurées s'exécutent dans cet ordre :
+Les étapes s’exécutent dans cet ordre :
 
-1. L'ensemble d'examens, s'il est configuré. Un ensemble échoué fait échouer le flux; un ensemble réussi le fait avancer. Un autre ensemble bloquant à l'état brouillon, en cours ou en attente d'approbation empêche un démarrage en double.
-2. Les membres de recommandation, dans l'ordre configuré. Une réponse brouillon peut être enregistrée. La soumission valide toutes les réponses obligatoires et dérive le résultat de la question décisive. Le circuit d'approbation d'un membre doit se terminer avant la progression. Un résultat final `not_recommended` fait échouer l'exécution; un résultat recommandé passe au membre suivant.
-3. Le modèle d'approbation de la source, s'il est configuré, s'exécute après les étapes précédentes. L'approbation termine l'exécution; le refus la fait échouer.
-4. Sans autre étape, l'exécution se termine immédiatement.
+1. Un ensemble d’examens configuré s’exécute. Son échec fait échouer le flux; sa réussite le fait progresser.
+2. Les membres de recommandation s’exécutent un à la fois dans l’ordre configuré. L’initiateur devient la personne principale affectée à chaque recommandation matérialisée.
+3. Une approbation facultative du membre bloque son résultat.
+4. Une approbation finale ou source facultative bloque le plan achevé.
+5. Sans autre étape, l’exécution se termine.
 
-Le démarrage applique à la source le statut de début configuré. Une exécution terminée applique le statut de réussite. Les exécutions échouées et annulées ont `success = false` et appliquent le statut d'échec. Les statuts présentés par l'interface comprennent le traitement, l'examen en attente, la recommandation en attente, l'approbation de recommandation en attente, l'approbation de la source en attente, terminé, échoué et annulé.
+Un résultat Non recommandé fait échouer l’ensemble seulement lorsque l’option publiée **Faire échouer l’ensemble si Non recommandé** de ce membre est vraie. Sinon, le moteur passe au membre suivant ou à l’étape finale. Cette politique est figée avec le plan.
 
-## Traiter une exécution
+Le début, la réussite, l’échec et l’annulation appliquent les états cibles configurés. Les états d’exécution comprennent traitement, examen en attente, recommandation en attente, approbation de recommandation en attente, approbation source en attente, terminé, échoué et annulé.
 
-La section Flux de travail de l'enregistrement source affiche l'action de démarrage applicable, la séquence figée, les statuts courants, les questions de recommandation, les approbations et les tentatives antérieures sans succès. Une configuration au point d'entrée d'achèvement n'affiche pas de bouton de démarrage manuel : terminez l'action source qui possède ce point d'entrée. Une configuration au point d'entrée de recommandation affiche **Démarrer la recommandation** lorsque la modification est permise. Si une approbation a déjà été matérialisée hors d'une exécution active, la section d'approbation demeure accessible.
+## Soumission d’approbation d’une entente
 
-Sélectionnez un examen pour ouvrir sa liste de vérification ou son évaluation et revenir à la source. Sélectionnez une recommandation pour répondre aux questions bilingues de la version publiée. L'enregistrement conserve le brouillon; la soumission vérifie le schéma publié, puis ouvre son approbation, passe à la recommandation suivante ou met fin à l'exécution. Les approbations finales et de recommandation utilisent les actions ordinaires des feuilles de route et les règles d'attribution.
+Les pages de détail d’entente et de modification montent une section de flux Soumission d’approbation sous Recommandation. Son démarrage exécute une transaction qui verrouille la source courante, crée l’exécution et écrit un dossier immuable `Funding_Case_Agreement_Approval_Submission` avec version de schéma 1, heure de soumission et hachage canonique SHA-256 en minuscules.
 
-La lecture de l'exécution exige l'accès ordinaire de lecture des évaluations dans le contexte propriétaire. Le démarrage, l'enregistrement ou la soumission d'une recommandation, l'annulation et la nouvelle tentative exigent l'accès d'enregistrement des évaluations et un utilisateur Common inscrit. L'attribution d'un examen ou d'une approbation détermine qui peut agir; elle ne donne pas accès à l'enregistrement propriétaire.
+Le dossier d’une entente comprend son profil avec les libellés de référence bilingues résolus, les promoteurs liés et leurs registres, le budget courant et les activités courantes. Le dossier d’une modification comprend les types et sous-types choisis et seulement les domaines modifiés : budget pour une modification budgétaire, activités pour une modification d’activités et dates proposées pour une modification de durée. Le profil d’entente et les données de promoteurs inchangés sont omis du dossier d’une modification.
 
-## Annuler, reprendre et rétablir
+Les identifiants de version source du budget et des activités sont conservés pour la filiation. Les libellés des clés étrangères modifiables sont résolus dans le dossier afin qu’un renommage ultérieur des données de référence ne change pas ce que les approbateurs ont vu. L’interface présente le dossier enregistré dans des sections groupées et repliables sans le reconstruire à partir des valeurs courantes.
 
-L'annulation est permise uniquement pendant une exécution active. Dans une transaction dont l'autorisation est réévaluée, elle annule les recommandations, examens, ensembles d'examens, feuilles de route et éléments de flux actifs, puis marque l'exécution comme annulée et applique le statut d'échec configuré.
+Pendant une soumission active, les opérations protégées sur le profil, le budget, les activités, la suppression et le cycle de vie de l’entente ou de la modification rejettent les écritures concurrentes. Une exécution annulée ou échouée applique l’état d’échec configuré et ne promeut aucune donnée.
 
-**Nouvelle tentative** est offert seulement pour une exécution sans succès dont la configuration figée est toujours active, publiée, dans la même portée valide et autorise les nouvelles tentatives. La reprise utilise la configuration et le point d'entrée de cette exécution échouée; elle ne passe pas silencieusement à une configuration active plus récente. Seule la tentative sans succès la plus récente peut lancer une reprise, et une exécution active est retournée plutôt que d'en créer une en double.
+## Fin de l’approbation et révisions
 
-Si le démarrage n'est pas offert, confirmez que la configuration est active et publiée, que le type d'entité et le point d'entrée correspondent, que le statut source est permis, que tous les plans liés sont publiés et qu'aucune exécution ni aucun ensemble d'examens bloquant n'est actif. Corrigez la copie de travail et publiez-la pour les exécutions futures. Une tentative historique ne peut pas être réécrite; consultez-la sous Précédentes et utilisez seulement l'action prise en charge pour démarrer ou reprendre.
+Avant une fin réussie, le moteur verrouille l’entente et recalcule le hachage du dossier. Une différence fait échouer la promotion. Il effectue ensuite :
 
-Consultez [Schémas et configurations de recommandation](../programs/recommendations.md), [Modèles d'approbation](../programs/approval-templates.md) et [Approbations et achèvements](approvals-completions.md).
+1. la promotion des seuls domaines de modification approuvés dans le dossier;
+2. la fermeture de la modification et l’attribution de son numéro, s’il y a lieu;
+3. l’écriture d’une seule `Funding_Case_Agreement_Revision` liée à la soumission;
+4. l’application de l’état de réussite configuré et l’achèvement de l’exécution.
+
+L’approbation initiale de l’entente écrit la révision 0. Les modifications approuvées utilisent le numéro suivant la dernière révision. Le lien unique de soumission rend l’achèvement idempotent si la progression est reprise.
+
+::: warning La capacité demeure une vérification opérationnelle
+Les dossiers d’approbation figent le budget de modification proposé, mais la promotion n’ajoute toujours pas la vérification de capacité interententes du budget courant du volet. Confirmez la capacité avant l’approbation finale; l’intégrité du dossier prouve ce qui a été approuvé, non que la proposition respecte le plafond du volet.
+:::
+
+## Travailler avec une exécution
+
+La section Flux de la source montre les actions démarrer/reprendre/annuler, la séquence figée, les états, les questions de recommandation, les étapes d’approbation, les tentatives précédentes échouées et tout dossier d’approbation immuable. L’enregistrement d’une recommandation la conserve à l’état `draft`; sa soumission valide les réponses requises et dérive le résultat de la question décisive publiée.
+
+La page de recommandation de premier niveau accepte les liens directs de Travail affecté. Les mises à jour exigent une affectation active à la recommandation, un plafond Contributeur courant pour son propriétaire résolu et l’état `draft`. Un utilisateur affecté à une approbation peut lire le dossier de soumission nécessaire à cette approbation même si la lecture ordinaire de l’entente n’est pas disponible.
+
+Les affectations exactes aux recommandations, examens et approbations sont distinctes. Elles n’accordent ni le parent ni les dossiers frères. Consultez [Permissions de rôle et affectations exactes](./rbac.md).
+
+## Annuler, reprendre et récupérer
+
+L’annulation est disponible seulement pour une exécution active. Elle annule les enfants et éléments de flux actifs, marque l’exécution annulée et applique l’état d’échec configuré dans une transaction.
+
+La reprise est disponible seulement pour la dernière exécution échouée lorsque sa configuration figée est encore active, publiée, valide dans sa portée et autorise la reprise. Elle réutilise la configuration et le point d’entrée de cette tentative; elle ne choisit pas silencieusement une configuration plus récente. Une exécution active est retournée plutôt que dupliquée.
+
+Si le démarrage est indisponible, vérifiez l’état cible, l’objet, la portée du volet, les dépendances publiées, l’affectation et le plafond Contributeur ainsi que l’absence d’une exécution ou d’un ensemble d’examens bloquant. Les dossiers et tentatives historiques ne peuvent être modifiés; corrigez la source ou la configuration pour une prochaine exécution, ou utilisez la reprise prise en charge.
+
+Consultez [Schémas et configurations de recommandation](../programs/recommendations.md), [Modèles d’approbation](../programs/approval-templates.md), [Modifications d’entente](../agreements/amendments.md) et [Approbations et achèvements](approvals-completions.md).

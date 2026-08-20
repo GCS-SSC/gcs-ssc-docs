@@ -13,11 +13,11 @@ Agreement read access lists active links to active proponent profiles. The table
 | `update` | Replace the profile on an existing link. |
 | `delete` | Remove a link by soft deletion. |
 
-Exact Agreement Team access supplies these actions according to its level. The selected proponent is a separate authorization boundary: adding or replacing a link also requires effective read access to that active proponent. An Agreement Team does not grant Proponent access.
+Reading links requires Agreement Viewer. Adding/replacing requires Contributor plus the exact Agreement assignment; removal requires Manager plus that assignment. The selected Proponent is a separate boundary and must be readable through `applicant_recipient` Viewer. An Agreement assignment does not grant Proponent access.
 
 ## Create-time selection
 
-The new-agreement form requires at least one proponent and rejects duplicate IDs within that submitted array. Its searchable selector exposes only active profiles the user can read through global Proponent privileges or exact Proponent Team access. Selected IDs are hydrated separately so labels survive paging and searching; the form marks a selected profile unavailable if it can no longer be resolved.
+The new-Agreement form requires at least one Proponent and rejects duplicate IDs. Its selector exposes only active profiles readable through the caller's global or lead-agency Proponent Viewer scope. Selected IDs are hydrated separately so labels survive paging/search; an unresolved saved profile is marked unavailable.
 
 Creation locks every selected profile and rechecks read access in the same transaction that inserts the agreement and links. If any profile becomes inactive or inaccessible, the entire creation fails.
 

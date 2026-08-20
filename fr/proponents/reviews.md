@@ -4,7 +4,7 @@ L’onglet **Examens** regroupe les évaluations et listes de contrôle d’exé
 
 ## Accès et comportement de la page
 
-L’accès en lecture au promoteur permet d’énumérer ses ensembles d’examens actifs et leurs examens enfants. L’accès de modification ajoute les commandes permettant de créer un ensemble, d’annuler un ensemble non terminal et de cloner un examen refusé ou annulé admissible. Une affectation exacte à l’équipe du promoteur peut accorder ces autorisations sur l’entité propriétaire. L’affectation à une approbation est une exigence supplémentaire pour prendre une décision et n’accorde jamais à elle seule l’accès au promoteur.
+L’accès Lecteur au promoteur énumère ses ensembles d’examens actifs et leurs enfants. La création d’un ensemble exige le plafond Contributeur et l’affectation exacte au promoteur; le créateur devient principal des examens d’exécution affectés indépendamment. L’annulation ou le clonage du travail suivant exige l’affectation exacte pertinente et Contributeur. L’affectation à une approbation est une exigence décisionnelle supplémentaire qui n’accorde jamais l’accès au promoteur.
 
 Le tableau regroupe les examens par ensemble et développe initialement chaque groupe. Un groupe présente le nom épinglé de la configuration, l’agence, le nombre d’examens, l’état de l’ensemble, le résultat de réussite lorsqu’il est connu et les indicateurs **À l’achèvement** ou **Séquentiel** saisis lors de la création. Chaque enfant présente son nom bilingue épinglé, son type et son état. La recherche de ce point d’accès porte sur l’identifiant de l’ensemble et son nom épinglé anglais ou français.
 

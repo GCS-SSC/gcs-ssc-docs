@@ -20,7 +20,7 @@ La consultation de l’onglet exige un accès en lecture au promoteur courant. C
 | Accès de modification à tous les promoteurs liés | Modifier les détails externes et l’ensemble des bénéficiaires. |
 | Accès de suppression au promoteur courant | Dissocier l’enregistrement externe de ce promoteur. |
 
-Les autorisations globales relatives aux promoteurs et les affectations exactes aux équipes des promoteurs sont évaluées pour chaque profil touché. Le sélecteur de bénéficiaires ne présente que les profils actifs accessibles pour l’action de création ou de modification demandée. Chaque écriture visant plusieurs bénéficiaires verrouille les profils actifs dans un ordre stable et revérifie l’autorisation dans la transaction.
+Chaque profil touché est évalué séparément. La lecture emploie sa portée Lecteur Promoteur. Les mutations exigent le plafond de rôle correspondant à l’opération demandée — Contributeur pour créer ou modifier et Gestionnaire pour supprimer — ainsi que l’affectation exacte à chaque parent touché par cette opération. Le sélecteur présente seulement les profils actifs admissibles à l’action demandée, et l’écriture les verrouille dans un ordre stable avant de revérifier l’autorisation.
 
 ## Ajouter un financement externe
 
@@ -69,4 +69,4 @@ Cet onglet n’offre aucune commande de restauration. Si le mauvais lien a été
 
 - [Profils des promoteurs](./index.md)
 - [Ententes](./agreements.md)
-- [Équipes des promoteurs](./team.md)
+- [Utilisateurs affectés aux promoteurs](./team.md)

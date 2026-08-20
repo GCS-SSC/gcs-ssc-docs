@@ -1,18 +1,18 @@
 # Funding Agreements
 
-Funding Agreements are execution records owned by a transfer-payment stream. An agreement connects its stream configuration to proponents, addresses, budgets, activities, amendments, commitments, forecasts, payments, claims, monitoring, documents, reviews, approvals, workflows, and an exact Agreement Team.
+Funding Agreements are execution records owned by a transfer-payment stream. An Agreement connects stream configuration to Proponents, addresses, budgets, activities, amendments, commitments, forecasts, payments, claims, monitoring, documents, reviews, approval submissions, workflows, and exact work assignments.
 
 ## Access model
 
-The Agreements list returns only active records the user can read through a global, agency, transfer-payment, or exact Agreement Team grant. Search matches agreement number; English or French title; agency, program, or stream name; and agreement-type name. An optional agency filter further narrows the list. Each row carries its own update, delete, Team level, and Team-management ceiling; edit and delete controls are disabled independently.
+The Agreements list returns active records covered by the user's Viewer-or-higher `agreement` permission at global, agency, or program scope. Reads do not require an exact assignment. Search matches agreement number; English/French title; agency, program, or stream name; and agreement-type name. An optional agency filter narrows the list. Each row reports its own update/delete capabilities; controls are disabled independently.
 
-| Exact Team level | Agreement actions |
+| Required combination | Agreement actions |
 | --- | --- |
-| `read_only` | Read this agreement and supported children. |
-| `contributor` | Read and update this agreement; read, create, and update supported children. |
-| `full_access` | Contributor actions plus soft deletion. |
+| Viewer role ceiling | Read the Agreement and ordinary children. |
+| Contributor role ceiling + exact assignment | Update the Agreement and create/update ordinary children. |
+| Manager role ceiling + exact assignment | Contributor actions plus soft deletion. |
 
-Team access never grants creation of a new agreement. The **New agreement** button requires `agreement:create` in some static scope, and the server verifies the selected stream’s exact agency/program scope.
+The **New agreement** action requires a Contributor ceiling for `agreement`; the server verifies the selected stream's exact agency/program scope. Because no assignment exists yet, creation atomically registers the Agreement and assigns the creator as primary. Assignment administration later requires the separate `manage_assignments` capability.
 
 ## Configuration prerequisites
 
@@ -45,7 +45,7 @@ The create form starts **Further distribution** as false and **Holdback** at 10%
 | Risk score | Optional non-negative score; when supplied it must match an active rating on the stream. |
 | Proponents | At least one unique active profile, and the creator must be able to read every selection. See [Agreement Proponents](./applicant-recipients.md). |
 
-Changing the stream in the form clears subtype, holdback basis, and risk score because each is stream-owned. Creation locks extension scopes and the selected stream, rebuilds authorization, locks every selected proponent, validates all cross-stream references, inserts the agreement and recipient links atomically, and registers the agreement’s typed common entity.
+Changing the stream in the form clears subtype, holdback basis, and risk score because each is stream-owned. Creation locks extension scopes and the selected stream, rebuilds authorization, locks every selected Proponent, validates cross-stream references, inserts the Agreement and recipient links, registers the typed entity, and creates the creator-primary assignment atomically.
 
 ## Agreement-number matching
 
@@ -69,12 +69,12 @@ The detail route first resolves the agreement’s agency, program, and stream sc
 | Payments | [Payments](./payments.md) |
 | Forecasts | [Forecasts](./forecasts.md) |
 | Claims | [Claims and Reconciliation](./claims.md) |
-| Claims | [Claims](./claims.md) |
 | Monitors | [Monitoring](./monitors.md) |
 | Documents | [Documents](./documents.md) |
 | Activities | [Activities](./activities.md) |
-| Amendments | Amendment creation, snapshots, approvals, cancellation, and application. |
-| Team | Exact Agreement Team membership and management ceilings. |
+| Recommendation | Published approval-submission workflow, immutable packet, recommendations, and approvals. |
+| Amendments | Amendment creation, snapshots, approval submission, cancellation, and promotion. |
+| Assigned users | Exact Agreement roster; roster mutations require `manage_assignments`. |
 
 Enabled extensions may append additional tabs and profile fields. Child detail routes replace the parent tab workspace while retaining agreement context.
 
@@ -88,7 +88,7 @@ Shortening or moving the assistance period is refused when an active agreement b
 
 ## Delete and recovery
 
-Delete requires effective `agreement:delete`, asks for confirmation on the list, then locks and reauthorizes the agreement. Every enabled extension agreement-delete guard runs before the profile is soft-deleted. A guard or database dependency can refuse the operation; no partial deletion is committed.
+Delete requires a Manager ceiling and the exact Agreement assignment, asks for confirmation on the list, then locks and reauthorizes the Agreement. An active approval-submission workflow blocks deletion. Every enabled extension delete guard runs before soft deletion; a guard or dependency can refuse the operation and no partial deletion commits.
 
 Soft-deleted agreements disappear from active lists and relationship projections. The application has no agreement restore control. Correct dependent state or extension configuration before retrying a refused delete; after an accidental successful deletion, recovery requires database-level operational intervention rather than recreating child history manually.
 

@@ -7,7 +7,7 @@ Forecasts distribute expected agreement spending across current budget lines, fi
 | Requirement | Verified behaviour |
 | --- | --- |
 | Current agreement budget | A forecast header must reference a stable fiscal-year identity present in the current budget version. Its editable grid uses current-version budget lines with that same stable fiscal-year identity. |
-| Agreement access | `read` loads the overview. `create` creates headers and missing monthly lines; `update` changes headers and existing lines and completes a forecast; `delete` soft-deletes headers or lines. Exact Agreement Team access can grant these child-record actions. |
+| Authorization | Agreement Viewer reads. Creating a forecast requires Contributor plus the exact Agreement assignment and makes the creator primary. Later header/line updates or completion require Contributor plus the exact forecast assignment; deletion requires Manager plus that assignment. |
 | Common user record | Completion requires the signed-in account to resolve to an active `Common_User`. |
 | Optional completion workflow | A published workflow setup for `fundingcaseforecast` can start after completion and may later set its configured success or failure status. |
 
@@ -59,7 +59,7 @@ The header PATCH validates the new fiscal year but does not validate, move, or d
 
 The header statuses `complete`, `pendingapproval`, `approved`, and `denied` are locked. A completion record or an active `draft`, `pendingapproval`, or `approved` routing slip also blocks header and line mutation even if the header status appears editable.
 
-Completion requires Agreement `update`, an editable header, no previous completion, and at least one active line across any version. Comments are optional. In one fresh-authorized transaction it creates the common completion, sets the header to `complete`, and starts any published `fundingcaseforecast` completion workflow; the completion hook is emitted after commit.
+Completion requires a Contributor Agreement role ceiling and the exact forecast assignment, an editable header, no previous completion, and at least one active line across any version. Comments are optional. In one fresh-authorized transaction it creates the common completion, sets the header to `complete`, and starts any published `fundingcaseforecast` completion workflow; the completion hook is emitted after commit.
 
 Completion applies to the entire forecast header, not only the version selected in the URL. It does not set `egcs_fc_active`, clone a version, or validate that every visible budget coordinate has a line. A completed forecast therefore remains inactive unless a separate approval runtime later approves it.
 

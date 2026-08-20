@@ -10,7 +10,7 @@ L'onglet **Documents** génère des fichiers à partir des modèles du volet de 
 | Type de modèle | `docx` ou `html`. La liste de sorties configurée peut comprendre le type natif et `pdf`; les formats natifs incompatibles sont rejetés. |
 | Outils de conversion | DOCX vers PDF exige LibreOffice. HTML vers PDF exige le navigateur de Puppeteer. Consultez [Génération de documents](../developer/document-generation.md). |
 | Stockage persistant | La racine des pièces jointes locales doit être durable et sauvegardée avec la base de données. Consultez [Configuration de l'exploitation](../operator/configuration.md). |
-| Permissions d'entente | `read` énumère les modèles et fichiers et permet le téléchargement; `create` génère; `delete` supprime un artefact généré. Le serveur applique les portées et les équipes. |
+| Autorisation de l’entente | Lecteur énumère les modèles et fichiers et permet le téléchargement; Contributeur et l’affectation exacte génèrent; Gestionnaire et cette affectation suppriment un artefact. |
 
 Si aucun modèle admissible n'existe, la fenêtre ne propose aucun modèle et la génération demeure désactivée. La disponibilité n'est pas mise en cache de façon permanente : l'onglet charge les modèles à son montage, puis chaque requête de génération revalide le modèle par rapport au volet de l'entente.
 
