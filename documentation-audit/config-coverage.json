@@ -72,7 +72,7 @@
       "server/utils/file-storage.ts; server/utils/local-file-storage.ts; server/utils/document-generation.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified local-only private storage, converter/browser variables, coupled backup requirements, permissions, and dependency failure boundaries."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Verified local-only private storage, converter/browser variables, coupled backup requirements, permissions, and dependency failure boundaries."
   },
   {
     "id": "config:docker-railway",
@@ -132,7 +132,7 @@
       "package.json; scripts/agent; vitest*.ts; playwright.config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified root and extension-owned test boundaries plus supported lint, typecheck, coverage, PostgreSQL, managed E2E, artifact, PR, and whole-quality commands. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Verified root and extension-owned test boundaries plus supported lint, typecheck, coverage, PostgreSQL, managed E2E, artifact, PR, and whole-quality commands."
   },
   {
     "id": "config:extension-packaging",

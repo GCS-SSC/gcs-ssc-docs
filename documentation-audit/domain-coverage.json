@@ -139,10 +139,17 @@
     "en": "en/concepts/approvals-completions.md",
     "fr": "fr/concepts/approvals-completions.md",
     "evidence": [
-      "server/api/approvals; server/api/completions; server/api/workflows"
+      "server/api/approvals; server/api/completions; server/api/workflows",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "domain:common-administration",
@@ -210,7 +217,7 @@
       "server/utils/file-storage.ts; server/utils/document-generation.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Verified against the terminal page, API, data, extension, configuration, and audit-impact inventories and the paired destination documentation."
   },
   {
     "id": "domain:extensions",

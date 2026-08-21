@@ -35,6 +35,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         claims: 'Réclamations',
         documents: 'Documents',
         monitors: 'Surveillances',
+        closeouts: 'Clôtures',
         proponents: 'Promoteurs',
         proponentOverview: 'Vue d’ensemble',
         proponentFinancialIds: 'Identifiants financiers',
@@ -111,6 +112,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         claims: 'Claims',
         documents: 'Documents',
         monitors: 'Monitors',
+        closeouts: 'Closeouts',
         proponents: 'Proponents',
         proponentOverview: 'Overview',
         proponentFinancialIds: 'Agency Financial IDs',
@@ -203,7 +205,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.forecasts, link: `${p}agreements/forecasts` },
         { text: labels.claims, link: `${p}agreements/claims` },
         { text: labels.documents, link: `${p}agreements/documents` },
-        { text: labels.monitors, link: `${p}agreements/monitors` }
+        { text: labels.monitors, link: `${p}agreements/monitors` },
+        { text: labels.closeouts, link: `${p}agreements/closeouts` }
       ]
     },
     {

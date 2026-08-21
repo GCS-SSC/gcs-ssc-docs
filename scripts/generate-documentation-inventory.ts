@@ -85,6 +85,7 @@ const pageDestination = (source: string): string => {
   if (normalized.includes('/recommendations/')) return 'concepts/workflows.md'
   if (normalized.includes('/recommendationsetupschemacreatemodal')) return 'programs/recommendations.md'
   if (normalized.includes('/homestats')) return 'getting-started/navigation.md'
+  if (normalized.includes('/agreementcloseout') || normalized.includes('/closeouts/')) return 'agreements/closeouts.md'
   if (normalized.includes('/agreement/fields/')) return 'agreements/index.md'
   if (normalized.includes('/agreement') || normalized.includes('/agreements/')) return 'agreements/index.md'
   if (normalized.includes('/applicantrecipient') || normalized.includes('/proponents/')) return 'proponents/index.md'

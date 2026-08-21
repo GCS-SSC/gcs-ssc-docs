@@ -70,6 +70,7 @@ La route de détail résout d’abord la portée d’agence, de programme et de 
 | Prévisions | [Prévisions](./forecasts.md) |
 | Réclamations | [Réclamations et rapprochement](./claims.md) |
 | Surveillances | [Surveillance](./monitors.md) |
+| Clôtures | [Clôture d’une entente](./closeouts.md) : préparation, rapprochement financier, preuve du flux, documents et fermeture. |
 | Documents | [Documents](./documents.md) |
 | Activités | [Activités](./activities.md) |
 | Recommandation | Flux de soumission publié, dossier immuable, recommandations et approbations. |

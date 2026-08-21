@@ -151,7 +151,7 @@
       "server/api/admin/common/users/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced generic resource resolution, global/scoped list authorization, schema validation, read-only enforcement, fresh global authorization, target/dependency locking, search/filter/pagination, lookup shapes, soft deletion/restoration, and errors against source, paired Common Administration guidance, and the focused 153-test suite."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced generic resource resolution, global/scoped list authorization, schema validation, read-only enforcement, fresh global authorization, target/dependency locking, search/filter/pagination, lookup shapes, soft deletion/restoration, and errors against source, paired Common Administration guidance, and the focused 153-test suite."
   },
   {
     "id": "api:server/api/admin/dump.get.ts",
@@ -2805,6 +2805,259 @@
     "notes": "Authorization, localized validation, stable budget ownership, aggregate locking, lifecycle transitions, soft deletion, financial rules, and response/failure contracts were traced and documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "api:server/api/agreements/[id]/closeout-readiness.get.ts",
+    "source": "server/api/agreements/[id]/closeout-readiness.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeout-readiness.get.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId].delete.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId].delete.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId].get.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId].get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId].get.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId]/cancel.post.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId]/cancel.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId]/cancel.post.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId]/document-templates.get.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId]/document-templates.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId]/document-templates.get.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId]/documents/[documentId]/download.get.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId]/documents/[documentId]/download.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId]/documents/[documentId]/download.get.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId]/documents/generate.post.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId]/documents/generate.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId]/documents/generate.post.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId]/documents/index.get.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId]/documents/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId]/documents/index.get.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/[closeoutId]/documents/preview.post.ts",
+    "source": "server/api/agreements/[id]/closeouts/[closeoutId]/documents/preview.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/[closeoutId]/documents/preview.post.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/index.get.ts",
+    "source": "server/api/agreements/[id]/closeouts/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/index.get.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/closeouts/index.post.ts",
+    "source": "server/api/agreements/[id]/closeouts/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/closeouts/index.post.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
     "id": "api:server/api/agreements/[id]/commitment-lines/[lineId].delete.ts",
     "source": "server/api/agreements/[id]/commitment-lines/[lineId].delete.ts",
     "audience": [
@@ -3927,7 +4180,7 @@
       "fr/agreements/payments.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Authorization, localized validation, ownership, locking, financial rules, soft deletion, response/UI behavior, and failure contracts were traced and documented bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Authorization, localized validation, ownership, locking, financial rules, soft deletion, response/UI behavior, and failure contracts were traced and documented bilingually."
   },
   {
     "id": "api:server/api/agreements/[id]/payments/lookups/commitments.get.ts",
@@ -4940,7 +5193,7 @@
       "app/pages/index.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Traced the active-user, Viewer-ceiling, exact-open-assignment query; eleven entity projections; primary-first sorting; search/filter/pagination; localized labels; detail routes; empty/error states; and the paired Assigned Work guidance."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the active-user, Viewer-ceiling, exact-open-assignment query; eleven entity projections; primary-first sorting; search/filter/pagination; localized labels; detail routes; empty/error states; and the paired Assigned Work guidance."
   },
   {
     "id": "api:server/api/assignment-management/index.get.ts",
@@ -4960,7 +5213,7 @@
       "tests/e2e/assignment-management.spec.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Traced independent manage_assignments scope resolution, minimized target projection, eleven entity types, search/filter/pagination, assignee eligibility, terminal roster locks, and paired Assignment Management guidance."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced independent manage_assignments scope resolution, minimized target projection, eleven entity types, search/filter/pagination, assignee eligibility, terminal roster locks, and paired Assignment Management guidance."
   },
   {
     "id": "api:server/api/auth/[...auth].ts",
@@ -5229,7 +5482,7 @@
       "tests/unit/entity-assignment-authorization.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Traced exact roster read/context/candidate/add/remove/primary operations, owner-scoped management grants, eligibility, fresh authorization and locking, workable statuses, one-primary/non-empty integrity, localized failures, and paired guidance."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced exact roster read/context/candidate/add/remove/primary operations, owner-scoped management grants, eligibility, fresh authorization and locking, workable statuses, one-primary/non-empty integrity, localized failures, and paired guidance."
   },
   {
     "id": "api:server/api/entity-assignments/[entityType]/[entityId]/index.post.ts",
@@ -8620,7 +8873,7 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/activate.post.ts",
@@ -9073,10 +9326,17 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.get.ts"
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.get.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.patch.ts",
@@ -9088,10 +9348,105 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.patch.ts"
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.patch.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/index.delete.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/index.delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/index.delete.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/index.patch.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/index.patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/index.patch.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/owners.put.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/owners.put.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/[memberId]/owners.put.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/index.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/members/index.post.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/publish.post.ts",
@@ -9103,10 +9458,17 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/publish.post.ts"
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/publish.post.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/index.get.ts",
@@ -9574,10 +9936,39 @@
     "en": "en/developer/api/workflows.md",
     "fr": "fr/developer/api/workflows.md",
     "evidence": [
-      "server/api/workflows/cancel.post.ts"
+      "server/api/workflows/cancel.post.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "api:server/api/workflows/owner-candidates.get.ts",
+    "source": "server/api/workflows/owner-candidates.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/workflows.md",
+    "fr": "fr/developer/api/workflows.md",
+    "evidence": [
+      "server/api/workflows/owner-candidates.get.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "api:server/api/workflows/recommendation.put.ts",
@@ -9610,6 +10001,28 @@
     "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "api:server/api/workflows/resume.post.ts",
+    "source": "server/api/workflows/resume.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/workflows.md",
+    "fr": "fr/developer/api/workflows.md",
+    "evidence": [
+      "server/api/workflows/resume.post.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
     "id": "api:server/api/workflows/retry.post.ts",
     "source": "server/api/workflows/retry.post.ts",
     "audience": [
@@ -9634,10 +10047,17 @@
     "en": "en/developer/api/workflows.md",
     "fr": "fr/developer/api/workflows.md",
     "evidence": [
-      "server/api/workflows/runtime.get.ts"
+      "server/api/workflows/runtime.get.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "api:server/api/workflows/start.post.ts",
@@ -9649,9 +10069,16 @@
     "en": "en/developer/api/workflows.md",
     "fr": "fr/developer/api/workflows.md",
     "evidence": [
-      "server/api/workflows/start.post.ts"
+      "server/api/workflows/start.post.ts",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   }
 ]

@@ -70,6 +70,7 @@ The detail route first resolves the agreement’s agency, program, and stream sc
 | Forecasts | [Forecasts](./forecasts.md) |
 | Claims | [Claims and Reconciliation](./claims.md) |
 | Monitors | [Monitoring](./monitors.md) |
+| Closeouts | [Agreement Closeout](./closeouts.md): readiness, financial reconciliation, workflow evidence, documents, and closure. |
 | Documents | [Documents](./documents.md) |
 | Activities | [Activities](./activities.md) |
 | Recommendation | Published approval-submission workflow, immutable packet, recommendations, and approvals. |

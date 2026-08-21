@@ -69,7 +69,7 @@
       "app/pages/agreements/[id].vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced against scoped list/detail/create/update/delete paths, localized schemas and stream-owned lookups, exact Team capabilities, similarity behavior, ordered fresh locks, stream-move/budget/extension guards, mounted list/form/detail shell and profile slots, database constraints, and 131 passing focused tests."
   },
   {
     "id": "page:app/pages/agreements/[id]/amendments/[amendmentId].vue",
@@ -105,7 +105,7 @@
       "tests/e2e/agreement-amendments.spec.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced across exact Agreement authorization, draft/type/subtype validation, budget/activity snapshots and stable identities, duration rules, approval promotion/cancellation, aggregate soft deletion, mounted list/detail UI, schema/migration constraints, 117 focused unit tests, and 3 managed E2E tests. The remaining amendment budget-capacity limitation is recorded as DOC-009; DOC-008 and DOC-010 are resolved at the target and the paired guidance reflects the current approval and revision paths. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced across exact Agreement authorization, draft/type/subtype validation, budget/activity snapshots and stable identities, duration rules, approval promotion/cancellation, aggregate soft deletion, mounted list/detail UI, schema/migration constraints, 117 focused unit tests, and 3 managed E2E tests. The remaining amendment budget-capacity limitation is recorded as DOC-009; DOC-008 and DOC-010 are resolved at the target and the paired guidance reflects the current approval and revision paths."
   },
   {
     "id": "page:app/pages/agreements/[id]/claims/[claimId].vue",
@@ -128,6 +128,29 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Mounted Claims tab/detail behavior, permissions, submission/reconciliation grids, transitions, completion/workflow boundary, GC Forms effect, failures, and recovery are verified bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+  },
+  {
+    "id": "page:app/pages/agreements/[id]/closeouts/[closeoutId].vue",
+    "source": "app/pages/agreements/[id]/closeouts/[closeoutId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/closeouts.md",
+    "fr": "fr/agreements/closeouts.md",
+    "evidence": [
+      "app/pages/agreements/[id]/closeouts/[closeoutId].vue",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
   },
   {
     "id": "page:app/pages/agreements/[id]/commitments/[commitmentId].vue",
@@ -353,7 +376,7 @@
       "tests/unit/use-resource-crud-state.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Page/shell route and user-visible flows require direct bilingual verification. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Page/shell route and user-visible flows require direct bilingual verification. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42."
   },
   {
     "id": "page:app/pages/login.vue",
@@ -1278,6 +1301,75 @@
     "notes": "Mounted Claims tab/detail behavior, permissions, submission/reconciliation grids, transitions, completion/workflow boundary, GC Forms effect, failures, and recovery are verified bilingually. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "component:app/components/Agreement/AgreementCloseoutDocuments.vue",
+    "source": "app/components/Agreement/AgreementCloseoutDocuments.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/closeouts.md",
+    "fr": "fr/agreements/closeouts.md",
+    "evidence": [
+      "app/components/Agreement/AgreementCloseoutDocuments.vue",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "component:app/components/Agreement/AgreementCloseoutSnapshot.vue",
+    "source": "app/components/Agreement/AgreementCloseoutSnapshot.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/closeouts.md",
+    "fr": "fr/agreements/closeouts.md",
+    "evidence": [
+      "app/components/Agreement/AgreementCloseoutSnapshot.vue",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
+    "id": "component:app/components/Agreement/AgreementCloseoutsTab.vue",
+    "source": "app/components/Agreement/AgreementCloseoutsTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/closeouts.md",
+    "fr": "fr/agreements/closeouts.md",
+    "evidence": [
+      "app/components/Agreement/AgreementCloseoutsTab.vue",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-write-transaction.ts",
+      "shared/types/agreement-closeout.ts",
+      "shared/types/schemas/workflow.ts",
+      "architecture/closeout.md",
+      "tests/unit/agreement-closeout.test.ts",
+      "tests/unit/agreement-closeout-routes.test.ts",
+      "tests/e2e/agreement-closeout.spec.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final Closeout UI/API/data path, readiness and financial gates, independent assignment/RBAC, lifecycle and aggregate locks, immutable snapshot/hash, document behavior, failure recovery, and focused tests; documented in the paired Closeout and developer guidance."
+  },
+  {
     "id": "component:app/components/Agreement/AgreementCommitmentsTab.vue",
     "source": "app/components/Agreement/AgreementCommitmentsTab.vue",
     "audience": [
@@ -1392,7 +1484,7 @@
       "fr/agreements/payments.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Mounted Payment tab/detail behavior, permissions, fields, lifecycle locks, completion/workflow boundary, extension effects, failures, and recovery are verified in both locale guides. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Mounted Payment tab/detail behavior, permissions, fields, lifecycle locks, completion/workflow boundary, extension effects, failures, and recovery are verified in both locale guides."
   },
   {
     "id": "component:app/components/Agreement/AgreementProfileFormPage.vue",
@@ -3030,7 +3122,7 @@
       "app/components/Common/Approvals/ActionModal.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the mounted completion state/action UI and approval routing-slip table, decision, certification, reassignment, inserted-step, history/detail, disabled, error, and recovery states against source, paired guidance, and the focused 84-test suite."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced the mounted completion state/action UI and approval routing-slip table, decision, certification, reassignment, inserted-step, history/detail, disabled, error, and recovery states against source, paired guidance, and the focused 84-test suite."
   },
   {
     "id": "component:app/components/Common/Approvals/AddStepModal.vue",
@@ -3421,6 +3513,28 @@
     "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition. Direct shell/shared-component trace completed; paired navigation guide now covers exact visibility, Team hints, locale switching, non-functional notification control, logout, dump action, responsive hero state, tables, modals, lookup hydration, errors, and direct tab URLs. Focused shell/shared tests passed 42/42."
   },
   {
+    "id": "component:app/components/Common/NumberedSection.vue",
+    "source": "app/components/Common/NumberedSection.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/NumberedSection.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
     "id": "component:app/components/Common/PageSectionHeader.vue",
     "source": "app/components/Common/PageSectionHeader.vue",
     "audience": [
@@ -3434,6 +3548,28 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
+  },
+  {
+    "id": "component:app/components/Common/PreActionReport.vue",
+    "source": "app/components/Common/PreActionReport.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/PreActionReport.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "component:app/components/Common/PublicationDetailHero.vue",
@@ -3754,10 +3890,38 @@
       "server/utils/workflow-runtime.ts",
       "server/database/migrations/0009_funding_case_agreement.ts",
       "tests/unit/agreement-approval-packet-ui.test.ts",
-      "tests/unit/agreement-approval-submission.test.ts"
+      "tests/unit/agreement-approval-submission.test.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Traced bilingual immutable approval-packet rendering, domain sections, SHA-256 verification, workflow lock state, successful revision promotion, failure presentation, and paired approval guidance."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "component:app/components/Common/Workflow/Packet.vue",
+    "source": "app/components/Common/Workflow/Packet.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "app/components/Common/Workflow/Packet.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "component:app/components/Common/Workflow/Section.vue",
@@ -3769,10 +3933,17 @@
     "en": "en/concepts/workflows.md",
     "fr": "fr/concepts/workflows.md",
     "evidence": [
-      "app/components/Common/Workflow/Section.vue"
+      "app/components/Common/Workflow/Section.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the workflow setup list/modal/detail/publication UI and runtime current/history, start, recommendation, approval, cancellation, and retry states against source, paired guidance, and the focused 52-test workflow suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "component:app/components/Extension/AgencyExtensionsTab.vue",
@@ -5269,7 +5440,7 @@
       "fr/programs/recommendations.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced recommendation setup grouped/detail UI, member modals, schema editor, bilingual questions, deciding outcome, lifecycle controls, disabled/error states, and navigation against source and 43 focused tests. Runtime RecommendationForm remains a separate workflow row."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupItemModal.vue",
@@ -5831,10 +6002,17 @@
     "en": "en/concepts/workflows.md",
     "fr": "fr/concepts/workflows.md",
     "evidence": [
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailPage.vue"
+      "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailPage.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the workflow setup list/modal/detail/publication UI and runtime current/history, start, recommendation, approval, cancellation, and retry states against source, paired guidance, and the focused 52-test workflow suite."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupModal.vue",
@@ -5846,10 +6024,17 @@
     "en": "en/concepts/workflows.md",
     "fr": "fr/concepts/workflows.md",
     "evidence": [
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupModal.vue"
+      "app/components/TransferPayment/TransferPaymentWorkflowSetupModal.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the workflow setup list/modal/detail/publication UI and runtime current/history, start, recommendation, approval, cancellation, and retry states against source, paired guidance, and the focused 52-test workflow suite."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue",
@@ -5861,10 +6046,17 @@
     "en": "en/concepts/workflows.md",
     "fr": "fr/concepts/workflows.md",
     "evidence": [
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue"
+      "app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue",
+      "server/utils/workflow-runtime.ts",
+      "server/utils/workflow-setup-members.ts",
+      "shared/types/schemas/workflow.ts",
+      "server/database/migrations/0007_polymorphic_common_tp.ts",
+      "tests/unit/workflow-runtime-planning.test.ts",
+      "tests/unit/workflow-owner-recovery-routes.test.ts",
+      "tests/unit/workflow-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the workflow setup list/modal/detail/publication UI and runtime current/history, start, recommendation, approval, cancellation, and retry states against source, paired guidance, and the focused 52-test workflow suite."
+    "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
     "id": "component:app/components/User/UserActivationModal.vue",

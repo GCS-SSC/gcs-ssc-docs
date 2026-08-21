@@ -4,7 +4,7 @@ Profils d’entente, ressources enfants, finances, cycle de vie, affectations ex
 
 Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
 
-## Gestionnaires (136)
+## Gestionnaires (147)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -74,6 +74,17 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | POST | `/api/agreements/[id]/claims/[claimId]/ready-for-review` | — | — | `server/api/agreements/[id]/claims/[claimId]/ready-for-review.post.ts` |
 | POST | `/api/agreements/[id]/claims/[claimId]/withdraw` | — | — | `server/api/agreements/[id]/claims/[claimId]/withdraw.post.ts` |
 | POST | `/api/agreements/[id]/claims` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementClaimCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/claims/index.post.ts` |
+| GET | `/api/agreements/[id]/closeout-readiness` | — | — | `server/api/agreements/[id]/closeout-readiness.get.ts` |
+| DELETE | `/api/agreements/[id]/closeouts/[closeoutId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/[closeoutId].delete.ts` |
+| GET | `/api/agreements/[id]/closeouts/[closeoutId]` | — | — | `server/api/agreements/[id]/closeouts/[closeoutId].get.ts` |
+| POST | `/api/agreements/[id]/closeouts/[closeoutId]/cancel` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/[closeoutId]/cancel.post.ts` |
+| GET | `/api/agreements/[id]/closeouts/[closeoutId]/document-templates` | — | — | `server/api/agreements/[id]/closeouts/[closeoutId]/document-templates.get.ts` |
+| GET | `/api/agreements/[id]/closeouts/[closeoutId]/documents/[documentId]/download` | — | — | `server/api/agreements/[id]/closeouts/[closeoutId]/documents/[documentId]/download.get.ts` |
+| POST | `/api/agreements/[id]/closeouts/[closeoutId]/documents/generate` | executeFreshAuthorizedAgreementWrite | AgreementDocumentGenerateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/closeouts/[closeoutId]/documents/generate.post.ts` |
+| GET | `/api/agreements/[id]/closeouts/[closeoutId]/documents` | — | — | `server/api/agreements/[id]/closeouts/[closeoutId]/documents/index.get.ts` |
+| POST | `/api/agreements/[id]/closeouts/[closeoutId]/documents/preview` | — | AgreementDocumentGenerateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/closeouts/[closeoutId]/documents/preview.post.ts` |
+| GET | `/api/agreements/[id]/closeouts` | — | — | `server/api/agreements/[id]/closeouts/index.get.ts` |
+| POST | `/api/agreements/[id]/closeouts` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/index.post.ts` |
 | DELETE | `/api/agreements/[id]/commitment-lines/[lineId]` | — | — | `server/api/agreements/[id]/commitment-lines/[lineId].delete.ts` |
 | PATCH | `/api/agreements/[id]/commitment-lines/[lineId]` | — | — | `server/api/agreements/[id]/commitment-lines/[lineId].patch.ts` |
 | POST | `/api/agreements/[id]/commitment-lines` | — | FundingCaseAgreementCommitmentLineCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitment-lines/index.post.ts` |

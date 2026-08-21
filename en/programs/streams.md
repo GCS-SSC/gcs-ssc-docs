@@ -254,7 +254,7 @@ See [Approval Templates](./approval-templates.md) for the full template and runt
 
 ## Workflow Setups Tab
 
-Workflow setups define stream-scoped orchestration triggered by completion or recommendation. A setup stores the runtime entity type, bilingual name and description, allowed starting statuses, start/success/failure statuses, optional source approval template, optional review and recommendation setups, active state, and whether retry is allowed. Linked resources must match the same stream/entity context. Publishing or activating a setup governs future workflow materialization; existing workflow runs retain their own lineage and state.
+Workflow setups define stream-scoped orchestration triggered by completion or recommendation. The header stores target, purpose, entry point, allowed starting statuses, cancellation/execution-failure fallbacks, active state, and retry policy. The detail page builds a unique positive sequence of review sets, recommendation sets, and root approval templates. Each member can apply target status on materialization, success, or failure. Review/recommendation members require exactly one default active user for each nested setup member; **Allow owner redirect** permits authorized recovery if that user is no longer eligible at runtime. Linked resources, owners, target, and scope are validated again at publication. Published runs retain the complete immutable sequence, transitions, owner mappings, and lineage. See [Workflows](../concepts/workflows.md).
 
 ## Document Templates Tab
 

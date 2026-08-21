@@ -1,6 +1,6 @@
 # Flux de travail
 
-Les flux relient la configuration publiée des examens, recommandations et approbations d’un volet aux dossiers d’exécution. Un flux `standard` gère la progression ordinaire des examens et achèvements. Un flux `approval_submission` crée le dossier de preuve immuable servant à approuver une entente ou une modification.
+Les flux relient la configuration publiée des examens, recommandations et approbations d’un volet aux dossiers d’exécution. Un flux `standard` gère la progression ordinaire des examens et achèvements. Un flux `approval_submission` crée le dossier de preuve immuable servant à approuver une entente ou une modification. Un flux `close_out` contrôle la [clôture d’une entente](../agreements/closeouts.md).
 
 ## Configurer un flux
 
@@ -11,17 +11,16 @@ Ouvrez un programme et un volet, puis choisissez **Configurations de flux**. L�
 | Identité anglaise et française | Nom et description administratifs. |
 | Type d’entité | Cible d’exécution. |
 | Point d’entrée | `completion` démarre par une action d’achèvement; `recommendation` démarre explicitement. |
-| Objet | `standard` ou `approval_submission`. |
+| Objet | `standard`, `approval_submission` ou `close_out` propre à la clôture. |
 | États de départ permis | États sources à partir desquels le flux peut commencer. |
-| État de début/réussite/échec | État appliqué à la cible pour chaque résultat. |
-| Ensemble d’examens | Plan d’examen publié facultatif exécuté en premier. |
-| Ensemble de recommandations | Plan ordonné facultatif; requis pour le point d’entrée Recommandation et la soumission d’approbation. |
-| Approbation source | Approbation finale facultative après les autres étapes. |
+| État d’annulation/d’échec d’exécution | Transition de repli globale en cas d’annulation ou d’échec déterministe du moteur. |
+| Membres ordonnés | Toute séquence linéaire d’ensembles d’examens, d’ensembles de recommandations et de modèles d’approbation racine. Chacun a ses transitions de matérialisation, réussite et échec. |
+| Propriétaires par défaut | Une correspondance par membre d’examen/recommandation imbriqué, avec réacheminement facultatif. |
 | Permettre la reprise | Autorise la dernière tentative échouée à reprendre sa configuration figée. |
 
 Une configuration appartient au volet exact de l’URL. La lecture et les mutations exigent le plafond de rôle et la portée `transfer_payment` correspondants; les affectations exactes aux dossiers métier n’accordent pas l’accès à la configuration.
 
-L’objet Soumission d’approbation est permis seulement à la portée d’un volet pour `fundingcaseagreement` ou `fundingcaseamendment`. La publication exige un ensemble de recommandations publié et au moins une étape d’approbation : approbation d’un membre, approbation finale du plan ou approbation source.
+La soumission d’approbation est permise seulement à la portée d’un volet pour `fundingcaseagreement` ou `fundingcaseamendment`. La clôture est permise seulement pour `fundingcaseagreementcloseout` et impose des règles plus strictes : départ `draft`/`denied`, première matérialisation `inreview`, dernière réussite `complete` et replis/échecs `denied`. Les séquences et correspondances de propriétaires doivent être complètes et uniques.
 
 ## Activer et publier
 
@@ -31,21 +30,20 @@ La publication échoue lorsqu’un ensemble d’examens ou de recommandations, o
 
 La suppression logique d’une configuration la désactive pour les nouvelles exécutions. Les exécutions historiques conservent leur configuration et leur filiation.
 
-## Séquence d’exécution standard
+## Séquence d’exécution composable
 
 Le moteur résout une configuration active et publiée selon le type cible, le volet, l’objet, le point d’entrée et l’état courant. L’unicité de portée exacte empêche deux configurations actives de partager la même portée, le même type d’entité et le même objet, mais des portées correspondantes plus larges et plus étroites peuvent encore se chevaucher. Si plusieurs correspondent, la résolution actuelle choisit le plus grand identifiant de base de données; elle ne privilégie pas la portée la plus précise et n’échoue pas pour ambiguïté. Évitez les configurations qui se chevauchent.
 
-Les étapes s’exécutent dans cet ordre :
+Les membres s’exécutent strictement selon leur séquence positive unique :
 
-1. Un ensemble d’examens configuré s’exécute. Son échec fait échouer le flux; sa réussite le fait progresser.
-2. Les membres de recommandation s’exécutent un à la fois dans l’ordre configuré. L’initiateur devient la personne principale affectée à chaque recommandation matérialisée.
-3. Une approbation facultative du membre bloque son résultat.
-4. Une approbation finale ou source facultative bloque le plan achevé.
-5. Sans autre étape, l’exécution se termine.
+1. Le moteur matérialise le prochain ensemble d’examens, ensemble de recommandations ou modèle d’approbation racine et applique sa transition de matérialisation facultative.
+2. Les ensembles conservent leurs règles internes séquentielles ou parallèles et leurs approbations. Leur travail imbriqué utilise le propriétaire publié seulement si cet utilisateur conserve l’admissibilité Contributeur au propriétaire d’exécution.
+3. La réussite racine applique la transition facultative du membre et matérialise atomiquement le suivant. L’échec racine applique sa transition d’échec et fait échouer l’exécution.
+4. Sans autre membre, l’exécution se termine. L’annulation et l’échec déterministe utilisent les replis globaux.
 
 Un résultat Non recommandé fait échouer l’ensemble seulement lorsque l’option publiée **Faire échouer l’ensemble si Non recommandé** de ce membre est vraie. Sinon, le moteur passe au membre suivant ou à l’étape finale. Cette politique est figée avec le plan.
 
-Le début, la réussite, l’échec et l’annulation appliquent les états cibles configurés. Les états d’exécution comprennent traitement, examen en attente, recommandation en attente, approbation de recommandation en attente, approbation source en attente, terminé, échoué et annulé.
+Les états d’exécution sont `running`, `paused`, `complete`, `failed` et `cancelled`. Les éléments et l’historique immuable des transitions montrent le membre figé courant et chaque changement d’état de la cible.
 
 ## Soumission d’approbation d’une entente
 
@@ -85,6 +83,10 @@ Les affectations exactes aux recommandations, examens et approbations sont disti
 L’annulation est disponible seulement pour une exécution active. Elle annule les enfants et éléments de flux actifs, marque l’exécution annulée et applique l’état d’échec configuré dans une transaction.
 
 La reprise est disponible seulement pour la dernière exécution échouée lorsque sa configuration figée est encore active, publiée, valide dans sa portée et autorise la reprise. Elle réutilise la configuration et le point d’entrée de cette tentative; elle ne choisit pas silencieusement une configuration plus récente. Une exécution active est retournée plutôt que dupliquée.
+
+Si un propriétaire publié est absent, supprimé, inactif ou sans admissibilité Contributeur courante lors de la matérialisation du travail imbriqué, le moteur consigne un obstacle et met l’exécution à `paused`; il ne crée pas de travail partiellement affecté. Lorsque le réacheminement est permis, l’initiateur ou l’acteur ayant déclenché la matérialisation peut choisir un remplaçant admissible. Un gestionnaire d’affectations autorisé indépendamment peut aussi la rétablir. Les candidats sont des utilisateurs actifs avec accès Contributeur effectif au propriétaire d’exécution exact. La reprise réautorise et verrouille le dossier, vérifie chaque obstacle et remplaçant, consigne les choix et continue sans recréer un ensemble racine déjà matérialisé.
+
+Chaque obstacle non résolu doit être fourni exactement une fois. Un utilisateur sans lien ne peut ni inspecter les candidats ni reprendre. Si aucun candidat n’est admissible, corrigez le rôle ou la portée, ou la propriété de la future configuration; l’annulation demeure la façon prise en charge de terminer une exécution active lorsque le rétablissement ne convient pas.
 
 Si le démarrage est indisponible, vérifiez l’état cible, l’objet, la portée du volet, les dépendances publiées, l’affectation et le plafond Contributeur ainsi que l’absence d’une exécution ou d’un ensemble d’examens bloquant. Les dossiers et tentatives historiques ne peuvent être modifiés; corrigez la source ou la configuration pour une prochaine exécution, ou utilisez la reprise prise en charge.
 

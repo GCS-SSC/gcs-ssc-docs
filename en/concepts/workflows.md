@@ -1,6 +1,6 @@
 # Workflows
 
-Workflows connect a stream's published review, recommendation, and approval configuration to runtime records. A `standard` workflow handles ordinary review/completion progression. An `approval_submission` workflow creates the immutable evidence packet used to approve an Agreement or amendment.
+Workflows connect a stream's published review, recommendation, and approval configuration to runtime records. A `standard` workflow handles ordinary review/completion progression. An `approval_submission` workflow creates the immutable evidence packet used to approve an Agreement or amendment. A `close_out` workflow controls [Agreement Closeout](../agreements/closeouts.md).
 
 ## Configure a workflow setup
 
@@ -11,17 +11,16 @@ Open a program and stream, then choose **Workflow Setups**. The detail editor gr
 | English/French identity | Administrative name and description. |
 | Entity type | Runtime target. |
 | Entry point | `completion` starts through a completion action; `recommendation` starts explicitly. |
-| Purpose | `standard` or `approval_submission`. |
+| Purpose | `standard`, `approval_submission`, or Closeout-specific `close_out`. |
 | Allowed start statuses | Source statuses from which the workflow may start. |
-| Start/success/failure status | Status applied to the target at each outcome. |
-| Review set | Optional published review plan that runs first. |
-| Recommendation set | Optional ordered recommendation plan; required for recommendation entry and approval submission. |
-| Source approval | Optional final approval after other stages. |
+| Cancellation/execution-failure status | Workflow-level fallback transition for cancellation or deterministic engine failure. |
+| Ordered members | Any linear sequence of published review sets, recommendation sets, and root approval templates. Each has materialization, success, and failure target transitions. |
+| Default owners | One mapping per nested review/recommendation member, with optional owner redirection. |
 | Allow retry | Allows the latest failed attempt to retry its pinned setup. |
 
 A setup belongs to the exact stream in the URL. Read and mutation operations require the matching `transfer_payment` role ceiling and scope; exact business assignments do not grant configuration access.
 
-Approval-submission purpose is allowed only at stream scope for `fundingcaseagreement` or `fundingcaseamendment`. Publication requires a published recommendation set and at least one approval stage: a member approval, recommendation-plan final approval, or source approval.
+Approval submission is allowed only at stream scope for `fundingcaseagreement` or `fundingcaseamendment`. Closeout is allowed only for `fundingcaseagreementcloseout` and has stricter `draft`/`denied` start, `inreview` first-materialization, `complete` final-success, and `denied` failure/fallback rules. Sequences and nested owner mappings must be complete and unique.
 
 ## Activate and publish
 
@@ -31,21 +30,20 @@ Publication fails when a linked review setup, recommendation setup, or approval 
 
 Deleting a setup soft-deletes and deactivates it for new runs. Historical runs keep their configuration and lineage.
 
-## Standard runtime sequence
+## Composable runtime sequence
 
 The runtime resolves an active published setup by target type, stream, purpose, entry point, and current status. Exact-scope uniqueness prevents two active setups with the same scope, entity type, and purpose, but broader and narrower matching scopes can still overlap. If several match, current resolution selects the highest database setup ID; it does not prefer the most specific scope or fail on ambiguity. Avoid overlapping setups.
 
-Stages execute in this order:
+Members execute strictly by their unique positive sequence:
 
-1. A configured review set runs. Failure fails the workflow; success advances it.
-2. Recommendation members run one at a time in configured order. The run initiator becomes primary assignee of each newly materialized recommendation.
-3. An optional member approval gates that member's result.
-4. An optional final/source approval gates the completed plan.
-5. With no remaining stage, the run completes.
+1. The engine materializes the next root review set, recommendation set, or approval template and applies its optional materialization transition.
+2. Review/recommendation sets retain their internal sequential or parallel rules and member approvals. Nested work uses its published default owner only when that user still has effective Contributor eligibility at the runtime owner.
+3. Root success applies the member's optional success transition and materializes the next member atomically. Root failure applies its failure transition and fails the run.
+4. With no remaining member, the run completes. Cancellation and deterministic engine failure use workflow-level fallback transitions.
 
 A Not Recommended result fails the recommendation set only when that member's **Fail set on Not Recommended** option was published as true. Otherwise the runtime advances to the next member or final stage. This policy is snapshotted with the plan.
 
-Start, success, failure, and cancellation apply the setup's configured target statuses. Runtime states include processing, pending review, pending recommendation, pending recommendation approval, pending source approval, complete, failed, and cancelled.
+Runtime states are `running`, `paused`, `complete`, `failed`, and `cancelled`. Items and immutable transition history identify the pinned current member and every applied target-status change.
 
 ## Agreement approval submission
 
@@ -85,6 +83,10 @@ Exact recommendation, review, and approval assignments are separate. They do not
 Cancellation is available only for an active run. It cancels active runtime children and workflow items, marks the run cancelled, and applies the configured failure status in one transaction.
 
 Retry is available only for the latest unsuccessful run when its pinned setup is still active, published, scope-valid, and permits retry. It reuses that attempt's setup and entry point; it does not silently select a newer setup. An active run is returned rather than duplicated.
+
+If a published default owner is absent, deleted, inactive, or lacks current Contributor eligibility when nested work materializes, the engine records an owner blocker and changes the run to `paused`; it does not create partially assigned work. When owner redirection is enabled, the initiator or actor who triggered materialization can select an eligible replacement. An independently authorized assignment manager can also recover it. Candidates are active users with effective Contributor access at the exact runtime owner. Resume reauthorizes and locks the casework, verifies every unresolved blocker and replacement, records the choices, and continues without recreating an already-materialized root set.
+
+Every unresolved blocker must be supplied exactly once. Unrelated users cannot inspect candidates or resume. If no candidate is eligible, correct role/scope access or future setup ownership; cancellation remains the supported way to end an active run when recovery is inappropriate.
 
 If start is unavailable, verify target status, purpose, stream scope, published dependencies, assignment and Contributor ceiling, and the absence of an active run or blocking review set. Historical packets and attempts cannot be edited; correct source/configuration for a future run or use the supported retry path.
 

@@ -3,14 +3,14 @@
 - Captured: 2026-08-20 (America/Toronto)
 - Application reference clone: `.reference-repos/gcs-ssc`
 - Application branch: `main`
-- Application HEAD: `45222e26c5a98dccb8b4a574571206bbf1f91397`
-- Application committer datetime: `2026-08-19T14:12:34-04:00`
+- Application HEAD: `bfbbf18dd3218e7669d45c42cc4f26431a1325aa`
+- Application committer datetime: `2026-08-20T15:52:41-04:00`
 - Application dirty state: clean
-- Previous synchronized application HEAD: `debd15e3600e9c140b23756d849dc40964a27910`
-- Incremental range reviewed: 21 commits, previous HEAD exclusive and target HEAD inclusive
+- Previous synchronized application HEAD: `45222e26c5a98dccb8b4a574571206bbf1f91397`
+- Incremental range reviewed: 2 commits, previous HEAD exclusive and target HEAD inclusive
 - Documentation repository: `/home/omar/Code/gcs-ssc-docs`
 - Documentation branch: `main`
-- Documentation starting HEAD: `ba66e802f1df5f9d08ea4541b5eca3248732d7da`
+- Documentation starting HEAD: `e3bffeaac519ebe2410fa4799149a98c2004b251`
 - Documentation state at final capture: synchronization changes intentionally uncommitted pending publication
 
 The ignored reference clone was fetched and fast-forwarded without reading from or changing the sibling `../gcs-ssc` working repository. Application `origin/main` was fetched again at final drift verification and still resolved to the recorded target.
@@ -30,9 +30,9 @@ No gitlink changed in the incremental application range. All submodule worktrees
 
 ## Final drift disposition
 
-- Application `HEAD` and `origin/main`: `45222e26c5a98dccb8b4a574571206bbf1f91397`
+- Application `HEAD` and `origin/main`: `bfbbf18dd3218e7669d45c42cc4f26431a1325aa`
 - Reference-clone worktree: clean
 - Gitlinks: unchanged from the table above
 - Source drift: none
-- Reopened inventory rows: 62 page/component, 242 API, 229 data, 106 extension, 12 domain, 9 configuration, and 31 audit-impact rows were reverified and returned to terminal status; eight new page/component rows, 17 new API rows, 44 new data rows, and one new domain row were added and verified.
+- Reopened inventory rows: every directly or transitively affected stable row was reverified and returned to terminal status; seven new page/component rows, 17 new API rows, and 14 new data rows were added and verified.
 - Final discovery result: every current application page/component, API handler, registered migration/material mechanism, installed extension entry, domain, configuration item, and historical audit-impact item is reconciled.
