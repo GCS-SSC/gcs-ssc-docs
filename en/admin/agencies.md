@@ -34,7 +34,7 @@ The General tab displays those values. Agency profile edits replace only submitt
 
 ## Detail navigation
 
-The detail page has ten linkable tabs:
+The detail page has eleven linkable tabs:
 
 1. General
 2. Programs
@@ -45,7 +45,8 @@ The detail page has ten linkable tabs:
 7. Applicant/Recipient Subtypes
 8. Approval Behalf
 9. Agreement Types
-10. Extensions
+10. Statuses
+11. Extensions
 
 Each reference-data tab supports literal search, status filtering, pagination, and agency-wide summary counts. Search and status filters change the displayed rows and paginated total, while the summary remains an agency-wide total.
 
@@ -69,6 +70,14 @@ Programs contain streams. Configure the agency's fiscal years, cost categories, 
 | Agreement Types | Agreement-type enum plus required English and French names; names are unique for the active agency/type combination | List, create, soft-delete | Classification of agreements created for the agency |
 
 These lists do not offer a general rename/edit action. Create a corrected value and retire the obsolete value when a resource supports only create and delete. Holdback Bases is the exception and has an edit action.
+
+## Business statuses
+
+Each Agency owns its configurable business-status catalogue. A new Agency receives one protected Draft status. The Statuses tab shows active and deleted definitions with their localized badge, colour, Lucide icon, and lifecycle class: normal, read-only, or terminal.
+
+Agency update access can create a normal status and change bilingual presentation. Setting read-only or terminal flags, deleting, or restoring requires Agency delete access. Draft cannot be edited, deleted, or restored. Once a status becomes terminal it cannot be changed back to normal or read-only. Names are required in both languages, colours must be six-digit hexadecimal values, icons must be permitted Lucide identifiers, and active names are case-insensitively unique within the Agency.
+
+Deletion is blocked when current business records, workflow configuration/publications, or a registered host integration still reference the status. Restore only after resolving an active-name conflict. Read-only and terminal definitions freeze the applicable business record mutations; they do not replace the separate stable publication/runtime state engines.
 
 ## Lifecycle, concurrency, and deletion
 

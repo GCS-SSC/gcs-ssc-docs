@@ -4,7 +4,7 @@ Agency profiles and agency-owned bilingual reference data.
 
 This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
 
-## Handlers (36)
+## Handlers (41)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
@@ -29,6 +29,8 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/agency/[id]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[id]/line-items.get.ts` |
 | GET | `/api/agency/[id]/programs` | — | TransferPaymentListQuerySchema, getValidatedQueryI18n | `server/api/agency/[id]/programs.get.ts` |
 | GET | `/api/agency/[id]/review-schemas` | — | AgencyReviewSchemaListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[id]/review-schemas.get.ts` |
+| GET | `/api/agency/[id]/statuses` | — | — | `server/api/agency/[id]/statuses.get.ts` |
+| POST | `/api/agency/[id]/statuses` | — | StatusDefinitionCreateSchema, readValidatedBodyI18n | `server/api/agency/[id]/statuses.post.ts` |
 | DELETE | `/api/agency/address-types/[id]` | — | — | `server/api/agency/address-types/[id].delete.ts` |
 | DELETE | `/api/agency/agreement-types/[id]` | — | — | `server/api/agency/agreement-types/[id].delete.ts` |
 | DELETE | `/api/agency/applicant-recipient-subtypes/[id]` | — | — | `server/api/agency/applicant-recipient-subtypes/[id].delete.ts` |
@@ -44,3 +46,6 @@ This generated route index is an exhaustive navigation table, not independent pr
 | DELETE | `/api/agency/line-items/[id]` | — | — | `server/api/agency/line-items/[id].delete.ts` |
 | GET | `/api/agency/lookups/gwcoa/[number]` | — | AgencyGwcoaDetailQuerySchema, AgencyGwcoaNumberSchema, getValidatedQueryI18n, parseI18n | `server/api/agency/lookups/gwcoa/[number].get.ts` |
 | GET | `/api/agency/lookups/gwcoa` | — | AgencyGwcoaLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/lookups/gwcoa/index.get.ts` |
+| PATCH | `/api/agency/statuses/[statusId]` | — | StatusDefinitionPatchSchema, readValidatedBodyI18n | `server/api/agency/statuses/[statusId].patch.ts` |
+| POST | `/api/agency/statuses/[statusId]/delete` | — | — | `server/api/agency/statuses/[statusId]/delete.post.ts` |
+| POST | `/api/agency/statuses/[statusId]/restore` | — | — | `server/api/agency/statuses/[statusId]/restore.post.ts` |

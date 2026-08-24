@@ -9,7 +9,7 @@ These records are historical navigation evidence, not instructions to reproduce 
 - Use final executable source, migrations, runtime wiring, and regression tests as authority.
 - A historical item is terminal only when its applicable current contract appears in both locales or a source-backed not-applicable reason is recorded.
 
-## Impact register (102)
+## Impact register (94)
 
 | Item | Current documentation area | Current impact disposition | Source |
 | --- | --- | --- | --- |
@@ -38,7 +38,6 @@ These records are historical navigation evidence, not instructions to reproduce 
 | `AUTH-009` | Identity and security | Current RBAC, fresh-authorization, masking, audit-trail, or safe-error contract is documented; obsolete behaviour is excluded. | `audit/findings/AUTH-009-transfer-payment-resource-existence-oracle.md` |
 | `AUTH-010` | Identity and security | Current RBAC, fresh-authorization, masking, audit-trail, or safe-error contract is documented; obsolete behaviour is excluded. | `audit/findings/AUTH-010-outcome-indicator-writes-used-stale-authorization.md` |
 | `AUTH-011` | Identity and security | Current RBAC, fresh-authorization, masking, audit-trail, or safe-error contract is documented; obsolete behaviour is excluded. | `audit/findings/AUTH-011-failed-signout-navigated-with-live-session.md` |
-| `AUTOMATED-PAYMENTS-001` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year.md` |
 | `BACKGROUND-001` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/BACKGROUND-001-browser-worker-failures-left-features-loading.md` |
 | `CONCURRENCY-002` | Data integrity and concurrency | Current constraint, precision, state, transaction, or lock-order guarantee is reflected in the data reference. | `audit/findings/CONCURRENCY-002-stream-create-inverted-profile-parent-locks.md` |
 | `CONCURRENCY-INV-001` | Data integrity and concurrency | Current constraint, precision, state, transaction, or lock-order guarantee is reflected in the data reference. | `audit/findings/CONCURRENCY-INV-001-workflow-advance-lock-order.md` |
@@ -51,11 +50,6 @@ These records are historical navigation evidence, not instructions to reproduce 
 | `DOCUMENT-003` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/DOCUMENT-003-template-delete-orphaned-bilingual-attachments.md` |
 | `EXT-001` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/EXT-001-disabled-runtime-resolvers-executed-before-enablement.md` |
 | `EXT-002` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/EXT-002-public-asset-mounts-were-not-namespaced.md` |
-| `EXT-NARRATIVE-001` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots.md` |
-| `GCFORMS-001` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract.md` |
-| `GCFORMS-002` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/GCFORMS-002-stream-list-exposed-decrypted-submission-records.md` |
-| `GCFORMS-003` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets.md` |
-| `GCFORMS-004` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics.md` |
 | `I18N-001` | Bilingual user experience | Current bilingual, accessible, permission-aware, non-fabricated UI behaviour is documented; provider/raw diagnostic text is not exposed. | `audit/findings/I18N-001-transfer-payment-french-parity.md` |
 | `I18N-002` | Bilingual user experience | Current bilingual, accessible, permission-aware, non-fabricated UI behaviour is documented; provider/raw diagnostic text is not exposed. | `audit/findings/I18N-002-missing-runtime-translation-contract-keys.md` |
 | `I18N-003` | Bilingual user experience | Current bilingual, accessible, permission-aware, non-fabricated UI behaviour is documented; provider/raw diagnostic text is not exposed. | `audit/findings/I18N-003-extension-credential-validation-leaked-zod-prose.md` |
@@ -64,8 +58,6 @@ These records are historical navigation evidence, not instructions to reproduce 
 | `OPERATIONS-001` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/OPERATIONS-001-docker-submodule-fallback-drifted-from-gitlinks.md` |
 | `OPERATIONS-002` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/OPERATIONS-002-pages-uploaded-an-unverified-stale-demo-directory.md` |
 | `OPERATIONS-003` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/OPERATIONS-003-deployment-health-check-did-not-test-database-readiness.md` |
-| `OUTCOME-ALLOCATION-001` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities.md` |
-| `OUTCOME-ALLOCATION-002` | Extensions and integrations | Current enablement, capability, authorization, secret/data, lifecycle, or failure-isolation boundary is documented. | `audit/findings/OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced.md` |
 | `PLATFORM-001` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/PLATFORM-001-startup-continued-after-migration-failure.md` |
 | `PLATFORM-002` | Operations and platform | Current startup, health, packaging, worker, storage, upload, rendering, or cleanup contract is documented safely. | `audit/findings/PLATFORM-002-locale-detector-ignored-language-quality.md` |
 | `PRIVACY-001` | Identity and security | Current RBAC, fresh-authorization, masking, audit-trail, or safe-error contract is documented; obsolete behaviour is excluded. | `audit/findings/PRIVACY-001-admin-dump-leaked-worker-diagnostics.md` |

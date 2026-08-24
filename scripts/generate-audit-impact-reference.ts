@@ -19,6 +19,8 @@ const files = [
   ...await walk(join(appRoot, 'audit/investigations')),
   ...await walk(join(appRoot, 'audit/browser-personas'))
 ].filter(path => basename(path) !== '.gitkeep')
+  .filter(path => !['AUTOMATED-PAYMENTS-', 'EXT-NARRATIVE-', 'GCFORMS-', 'OUTCOME-ALLOCATION-']
+    .some(prefix => basename(path).startsWith(prefix)))
 
 interface Impact {
   id: string

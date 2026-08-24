@@ -82,14 +82,6 @@ Si l’achèvement signale un écart de total, comparez le montant de l’en-tê
 
 La surface de création accepte des actions ajoutées ou de remplacement et un seul calculateur de montant. Des actions de remplacement concurrentes ou plusieurs calculateurs désactivent la création principale et affichent un avertissement de conflit.
 
-### Paiements automatisés
-
-Lorsqu’elle est activée pour le volet, l’extension [Paiements automatisés](../extensions/automated-payments.md) calcule un montant suggéré et un plafond en dollars canadiens à partir des réclamations, des prévisions, des paiements antérieurs non refusés, des lignes d’engagement approuvées restantes et des règles de retenue configurées. Le calculateur apparaît seulement à la création, se recalcule lorsque les champs changent et peut recueillir une libération de retenue. L’interface copie la suggestion dans le montant et bloque les valeurs supérieures au plafond; le serveur recalcule et impose ce plafond dans la transaction de création, puis conserve les métadonnées normalisées de retenue. L’extension ne crée pas de lignes et ne fait pas progresser les états du paiement.
-
-### Répartition des coûts par résultat
-
-Lorsque [Répartition des coûts par résultat](../extensions/outcome-cost-allocation.md) gère l’engagement sélectionné, son hook postérieur à la création calcule des lignes de paiement dérivées de la répartition dans la même transaction et fait passer le nouveau paiement de `draft` à `inprogress`. Les lignes générées doivent correspondre exactement aux coordonnées de l’engagement géré et à la couverture restante. L’extension interdit ensuite la modification ou la suppression de ces lignes et protège les champs sensibles de l’en-tête, tout en permettant les modifications ordinaires non sensibles et les changements d’état valides. Elle peut aussi empêcher la réactivation d’un paiement généré refusé lorsque la couverture courante est insuffisante. Gardez l’extension activée tant qu’une provenance générée existe.
-
 ## Contrat de développement
 
 La famille Paiements comporte 11 gestionnaires limités à l’entente : aperçu; création, détails, modification et suppression de l’en-tête; création, modification et suppression des lignes; recherches d’engagements, d’exercices et de lignes d’engagement. Les corps utilisent les schémas Zod localisés partagés et la réponse normalisée d’échec de validation. Les identifiants `bigint` acceptent les formes externes partagées et sont retournés comme chaînes selon le contrat PostgreSQL/Kysely.

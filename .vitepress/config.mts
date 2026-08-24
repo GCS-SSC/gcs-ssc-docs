@@ -52,13 +52,6 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
-        installedExtensions: 'Extensions installées',
-        installedOverview: 'Vue d’ensemble',
-        automatedPayments: 'Paiements automatisés',
-        gcForms: 'Intégration GC Forms',
-        narrativeQuality: 'Qualité narrative',
-        narrativeTags: 'Étiquettes narratives',
-        outcomeAllocation: 'Répartition des coûts par résultat',
         approvals: 'Approbations et achèvements',
         workflows: 'Flux de travail',
         runtimeReviews: 'Examens en cours d’exécution',
@@ -129,13 +122,6 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         concepts: 'Concepts',
         rbac: 'RBAC',
         extensions: 'Extensions',
-        installedExtensions: 'Installed Extensions',
-        installedOverview: 'Overview',
-        automatedPayments: 'Automated Payments',
-        gcForms: 'GC Forms Integration',
-        narrativeQuality: 'Narrative Quality',
-        narrativeTags: 'Narrative Tags',
-        outcomeAllocation: 'Outcome Cost Allocation',
         approvals: 'Approvals and Completions',
         workflows: 'Workflows',
         runtimeReviews: 'Runtime Reviews',
@@ -272,17 +258,6 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.programs, link: `${p}developer/api/transfer-payments` },
         { text: labels.approvals, link: `${p}developer/api/workflows` }
       ]
-    },
-    {
-      text: labels.installedExtensions,
-      items: [
-        { text: labels.installedOverview, link: `${p}extensions/` },
-        { text: labels.automatedPayments, link: `${p}extensions/automated-payments` },
-        { text: labels.gcForms, link: `${p}extensions/gc-forms` },
-        { text: labels.narrativeQuality, link: `${p}extensions/narrative-quality` },
-        { text: labels.narrativeTags, link: `${p}extensions/narrative-tags` },
-        { text: labels.outcomeAllocation, link: `${p}extensions/outcome-cost-allocation` }
-      ]
     }
   ]
 }
@@ -312,7 +287,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
-          { text: 'Extensions', link: '/en/extensions/' },
+          { text: 'Extensions', link: '/en/concepts/extensions' },
           { text: 'Français', link: '/fr/' }
         ],
         sidebar: sharedSidebar('en')
@@ -326,7 +301,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/fr/' },
-          { text: 'Extensions', link: '/fr/extensions/' },
+          { text: 'Extensions', link: '/fr/concepts/extensions' },
           { text: 'English', link: '/en/' }
         ],
         sidebar: sharedSidebar('fr')

@@ -153,20 +153,13 @@ Les sous-types d entente associent les types d entente de l agence au volet. Cha
 
 Cette configuration classe les ententes du volet et limite les types d entente valides dans la creation d ententes. Les types d entente de l agence doivent exister avant de remplir cet onglet.
 
-## Onglet Engagements
+## Plan comptable et types d’engagement
 
-Les engagements definissent les lignes de codage financier utilisees par les engagements d entente. Chaque ligne contient:
+L’onglet **Plan comptable** définit le codage financier que les lignes d’engagement d’une entente peuvent sélectionner. Créez d’abord les budgets du volet : chaque entrée du plan appartient à un budget actif de ce volet exact et, par conséquent, à un exercice. Chaque entrée contient une ou plusieurs dimensions ordonnées; chaque dimension exige un libellé anglais, un libellé français et une valeur. Les libellés anglais doivent être uniques dans l’entrée, tout comme les libellés français. Un même budget d’exercice ne peut pas contenir deux entrées actives dont le JSON ordonné des dimensions est identique.
 
-- Exercice financier / budget de volet.
-- Fonds.
-- GL.
-- Description GL.
-- Centre de fonds.
-- Ordre interne.
-- Domaine fonctionnel.
-- Centre de couts.
+La recherche correspond à l’exercice affiché ou au texte de toute dimension conservée. La création et la modification exigent l’accès de création ou de modification au programme de paiements de transfert dans la portée résolue; la suppression exige l’accès de suppression de niveau Gestionnaire. Les écritures répètent l’autorisation après avoir verrouillé le programme, le volet et l’organisme actifs. La suppression est logique et est refusée tant qu’une ligne d’engagement d’entente active référence l’entrée.
 
-Creez les budgets de volet avant les engagements afin que les lignes puissent pointer vers le bon budget d exercice financier.
+L’onglet **Types d’engagement** définit les types bilingues proposés lors de la création d’un engagement d’entente. Les deux noms sont obligatoires et la paire active de noms anglais et français doit être unique dans le volet. Un type peut être modifié, mais ne peut plus être retiré dès qu’un engagement d’entente l’a référencé. L’assistant de volet peut créer les budgets, les entrées du plan comptable et les types d’engagement ensemble; toute entrée temporaire du plan doit pointer vers un budget temporaire de la même charge utile.
 
 ## Onglet Types De Surveillance
 
@@ -227,7 +220,7 @@ Regles metier:
 
 Implication d execution: lorsque la configuration est activee pour des entites supportees, elle peut generer du travail d examen commun. Les configurations sequentielles controlent si les membres s executent en sequence ou en parallele.
 
-Une nouvelle configuration commence à l'état d'ébauche. L'activation d'une ébauche valide publie l'instantané courant de la configuration et de ses membres comme version 1. Modifier une configuration active crée du contenu en attente; l'action Publier est offerte seulement lorsqu'un changement valide existe. Les examens d'exécution demeurent épinglés à l'instantané publié de la configuration et du schéma qui les a générés; une modification ultérieure ne réécrit donc pas silencieusement le travail existant. L'éditeur détaillé peut associer un schéma existant de la même agence ou créer un schéma d'évaluation ou de liste de vérification, puis ouvrir son éditeur.
+Une nouvelle configuration commence à l’état d’ébauche. La publication d’une ébauche valide crée la version immuable 1. Modifier une configuration publiée crée du contenu de travail en attente; Publier est offert seulement si ce contenu est valide et différent. Une configuration publiée peut être retirée définitivement. Les examens d’exécution demeurent liés aux versions de publication exactes de la configuration et du schéma qui les ont générés; une modification ultérieure ne réécrit donc pas le travail existant. L’éditeur détaillé peut associer un schéma existant de la même agence ou créer un schéma d’évaluation ou de liste de vérification, puis ouvrir son éditeur.
 
 Le code source conserve aussi les contrats d'API d'ensembles d'évaluation propres au volet et un composant Ensembles d'évaluation non monté. Celui-ci n'est inscrit dans aucune page ni dans la carte d'onglets courante et n'a donc aucun chemin de navigation utilisateur pris en charge. Les intégrations qui utilisent ces API doivent quand même respecter la propriété du volet, les membres d'évaluation seulement, l'autorisation actualisée, l'unicité et la suppression logique; les administrateurs doivent utiliser Configurations d'examen dans l'interface courante.
 

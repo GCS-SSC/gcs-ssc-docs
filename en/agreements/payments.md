@@ -82,14 +82,6 @@ If completion reports a total mismatch, compare the header amount with the full 
 
 The create surface supports append or replacement actions and one payment-amount calculator. Conflicting replacement actions or multiple calculators disable core creation and show a conflict warning.
 
-### Automated Payments
-
-When enabled for the stream, [Automated Payments](../extensions/automated-payments.md) calculates a CAD suggested amount and ceiling from claims, forecasts, earlier non-denied payments, remaining approved commitment lines, and configured holdback rules. The calculator appears only during creation, recalculates as fields change, and may collect a holdback release. The UI copies the suggestion into the amount and blocks values above the ceiling; the server recalculates and enforces the ceiling in the creation transaction, then stores normalized holdback metadata. It does not create lines or advance payment statuses.
-
-### Outcome Cost Allocation
-
-When [Outcome Cost Allocation](../extensions/outcome-cost-allocation.md) manages the selected commitment, its post-create hook calculates allocation-derived payment lines in the same transaction and moves the new payment from `draft` to `inprogress`. Generated lines must exactly fit the managed commitment coordinates and remaining coverage. The extension then prevents changing or deleting those lines and protects sensitive header fields, while still allowing ordinary non-sensitive edits and valid status changes. It can also prevent resurrecting a denied generated payment when current allocation coverage is insufficient. Keep the extension enabled while generated provenance exists.
-
 ## Developer contract
 
 The payment family contains 11 Agreement-scoped handlers: overview; header create, detail, patch, and delete; line create, patch, and delete; and commitment, fiscal-year, and commitment-line lookups. Bodies use the shared localized Zod schemas and standard localized validation response. Bigint identities accept the shared external ID forms and are returned as strings by the PostgreSQL/Kysely contract.

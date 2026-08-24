@@ -47,8 +47,6 @@ Aucune contrainte d’unicité active n’existe pour `(réclamation, ligne budg
 
 ### Lignes importées non attribuées
 
-L’extension [Intégration de GC Forms](../extensions/gc-forms.md) peut matérialiser atomiquement une réclamation et zéro ou plusieurs lignes. Elle crée directement la réclamation à l’état `submitted`, consigne un UUID unique de la soumission source et des liens de destination, puis empêche une seconde matérialisation. Une ligne source qui ne peut correspondre à une ligne budgétaire courante peut rester non attribuée avec ses libellés soumis.
-
 La page principale affiche ces lignes et permet à un utilisateur ayant le plafond de rôle Entente Contributeur et l’affectation exacte à la réclamation d’attribuer chacune à une ligne budgétaire courante compatible pendant que la réclamation est `draft` ou `submitted`. Pour une réclamation soumise, cette attribution unique de la valeur nulle vers une ligne budgétaire est la seule modification permise. Le rapprochement ne peut commencer tant que toutes les lignes actives ne sont pas attribuées.
 
 ## Soumettre, retirer ou annuler

@@ -2,7 +2,7 @@
 
 Les extensions sont des progiciels installés avec GCS-SSC. Elles peuvent ajouter des écrans de configuration, des emplacements et onglets, des actions spécialisées d'engagement ou de paiement, des calculateurs de paiement, des routes serveur authentifiées, des objets de base de données, des ressources publiques et des gardes de cycle de vie. Une personne administratrice peut activer un progiciel installé, mais ne peut pas l'installer dans l'interface.
 
-Consultez les [extensions installées](../extensions/index.md) pour les cinq progiciels livrés dans cette version. Les personnes qui développent une extension devraient aussi lire [Création d'extensions](../developer/extensions-authoring.md) et la [référence de l'API hôte](../developer/api/extensions.md).
+Ce site documente le cadre d’extensions de l’hôte et le SDK public, mais pas les extensions installées individuellement. Chaque extension est responsable de sa propre documentation de produit, d’exploitation et d’implémentation. Les personnes qui développent une extension devraient aussi lire [Création d'extensions](../developer/extensions-authoring.md) et la [référence de l'API hôte](../developer/api/extensions.md).
 
 ## Les trois commutateurs opérationnels
 
@@ -38,7 +38,7 @@ La configuration emploie l'une des trois surfaces suivantes :
 
 La page dédiée exige la valeur de requête `streamId` et reçoit normalement `transferPaymentId` et `agencyId` pour le fil d'Ariane et le contexte du composant. Elle charge le registre de volet faisant autorité, refuse une extension absente de ce registre, affiche une alerte d'erreur générique et expurgée lors d'un échec de chargement, puis délègue l'enregistrement au composant fourni. Si aucun composant de page ou de fenêtre enregistré n'est résolu, elle affiche un avertissement d'indisponibilité plutôt qu'un formulaire hôte.
 
-Les écritures refusent un volet absent ou supprimé, une extension inconnue, un commutateur d'organisme désactivé, du JSON invalide, une dérive d'autorisation et l'échec d'une garde. L'hôte prend les verrous d'état d'autorisation et de cycle de vie, résout de nouveau la propriété active du volet, répète `transfer_payment:update`, vérifie l'activation de l'organisme, exécute la garde, puis seulement après insère ou met à jour la ligne. L'activation de Narrative Quality avec une configuration autrement vide ajoute sa cible au niveau de l'entente afin qu'une jauge puisse s'afficher.
+Les écritures refusent un volet absent ou supprimé, une extension inconnue, un commutateur d'organisme désactivé, du JSON invalide, une dérive d'autorisation et l'échec d'une garde. L'hôte prend les verrous d'état d'autorisation et de cycle de vie, résout de nouveau la propriété active du volet, répète `transfer_payment:update`, vérifie l'activation de l'organisme, exécute la garde, puis seulement après insère ou met à jour la ligne.
 
 ## Contributions à l'exécution
 

@@ -742,6 +742,81 @@
     "notes": "Verified agency root and all agency-owned bilingual reference tables, restricted ownership, active uniqueness, fiscal-year/profile checks, and soft deletion; documented in both locales."
   },
   {
+    "id": "data:0004_agency:common_status",
+    "source": "server/database/migrations/0004_agency.ts#Common_Status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0004_agency.ts#Common_Status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0004_agency:create_default_agency_statuses",
+    "source": "server/database/migrations/0004_agency.ts#create_default_agency_statuses",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0004_agency.ts#create_default_agency_statuses"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0004_agency:protect_agency_draft_status",
+    "source": "server/database/migrations/0004_agency.ts#protect_agency_draft_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0004_agency.ts#protect_agency_draft_status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0004_agency:trg_create_default_agency_statuses",
+    "source": "server/database/migrations/0004_agency.ts#trg_create_default_agency_statuses",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0004_agency.ts#trg_create_default_agency_statuses"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0004_agency:trg_protect_agency_draft_status",
+    "source": "server/database/migrations/0004_agency.ts#trg_protect_agency_draft_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0004_agency.ts#trg_protect_agency_draft_status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "migration:0005_common_agency",
     "source": "server/database/migrations/0005_common_agency.ts",
     "audience": [
@@ -1092,8 +1167,8 @@
     "notes": "Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0006_transfer_payment:transfer_payment_stream_commitment",
-    "source": "server/database/migrations/0006_transfer_payment.ts#Transfer_Payment_Stream_Commitment",
+    "id": "data:0006_transfer_payment:transfer_payment_stream_chart_of_account",
+    "source": "server/database/migrations/0006_transfer_payment.ts#Transfer_Payment_Stream_Chart_of_Account",
     "audience": [
       "developer",
       "operator"
@@ -1101,17 +1176,25 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0006_transfer_payment.ts#Transfer_Payment_Stream_Commitment",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0006_transfer_payment.ts#Transfer_Payment_Stream_Chart_of_Account"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0006_transfer_payment:transfer_payment_stream_commitment_type",
+    "source": "server/database/migrations/0006_transfer_payment.ts#Transfer_Payment_Stream_Commitment_Type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0006_transfer_payment.ts#Transfer_Payment_Stream_Commitment_Type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0006_transfer_payment:transfer_payment_stream_cost_category_line_item",
@@ -1309,6 +1392,51 @@
     "notes": "Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0006_transfer_payment:trg_fn_protect_transfer_payment_ownership",
+    "source": "server/database/migrations/0006_transfer_payment.ts#trg_fn_protect_transfer_payment_ownership",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0006_transfer_payment.ts#trg_fn_protect_transfer_payment_ownership"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0006_transfer_payment:trg_protect_transfer_payment_profile_ownership",
+    "source": "server/database/migrations/0006_transfer_payment.ts#trg_protect_transfer_payment_profile_ownership",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0006_transfer_payment.ts#trg_protect_transfer_payment_profile_ownership"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0006_transfer_payment:trg_protect_transfer_payment_stream_ownership",
+    "source": "server/database/migrations/0006_transfer_payment.ts#trg_protect_transfer_payment_stream_ownership",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0006_transfer_payment.ts#trg_protect_transfer_payment_stream_ownership"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0006_transfer_payment:trg_role_permission_scope_permission",
     "source": "server/database/migrations/0006_transfer_payment.ts#trg_role_permission_scope_permission",
     "audience": [
@@ -1475,8 +1603,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:cn_chk_approvaltemplateentitytype",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_chk_approvaltemplateentitytype",
+    "id": "data:0007_polymorphic_common_tp:cn_chk_approvaltemplatepublicationkind",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_chk_approvaltemplatepublicationkind",
     "audience": [
       "developer",
       "operator"
@@ -1484,17 +1612,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_chk_approvaltemplateentitytype",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_chk_approvaltemplatepublicationkind"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:cn_chk_approvaltemplatescopetype",
@@ -1519,8 +1640,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:cn_chk_reviewschemaentitytype",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_chk_reviewschemaentitytype",
+    "id": "data:0007_polymorphic_common_tp:cn_ref_approvaltemplatepublication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_approvaltemplatepublication",
     "audience": [
       "developer",
       "operator"
@@ -1528,17 +1649,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_chk_reviewschemaentitytype",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_approvaltemplatepublication"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:cn_ref_approvaltemplatescopeidscopetype",
@@ -1563,6 +1677,21 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:cn_ref_publicationcurrentversion",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_publicationcurrentversion",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_publicationcurrentversion"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:cn_ref_reviewid",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_reviewid",
     "audience": [
@@ -1583,6 +1712,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:cn_ref_reviewschemaentitytype",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_reviewschemaentitytype",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_reviewschemaentitytype"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:cn_ref_reviewsetsetupscopeidscopetype",
@@ -1651,6 +1795,21 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:cn_ref_workflowruncompletiontarget",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_workflowruncompletiontarget",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#cn_ref_workflowruncompletiontarget"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:copy_legacy_rows",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#copy_legacy_rows",
     "audience": [
@@ -1717,6 +1876,36 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_apply_publication_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_apply_publication_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_apply_publication_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_apply_runtime_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_apply_runtime_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_apply_runtime_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_autopopulate_self_approval",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_autopopulate_self_approval",
     "audience": [
@@ -1739,8 +1928,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_cascade_routingslip_status",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_cascade_routingslip_status",
+    "id": "data:0007_polymorphic_common_tp:trg_enforce_approval_runtime_state",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_approval_runtime_state",
     "audience": [
       "developer",
       "operator"
@@ -1748,17 +1937,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_cascade_routingslip_status",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_approval_runtime_state"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_enforce_approval_sequence",
@@ -1931,8 +2113,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_enforce_completion_audit_fields",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_completion_audit_fields",
+    "id": "data:0007_polymorphic_common_tp:trg_enforce_completion_resolution_from_completion",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_completion_resolution_from_completion",
     "audience": [
       "developer",
       "operator"
@@ -1940,17 +2122,25 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_completion_audit_fields",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_completion_resolution_from_completion"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_enforce_completion_resolution_from_workflow",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_completion_resolution_from_workflow",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_completion_resolution_from_workflow"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_enforce_entity_assignment_roster",
@@ -1970,6 +2160,51 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_enforce_workflow_transition_mode",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_workflow_transition_mode",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_enforce_workflow_transition_mode"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_apply_publication_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_apply_publication_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_apply_publication_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_apply_runtime_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_apply_runtime_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_apply_runtime_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_autopopulate_self_approval",
@@ -1994,8 +2229,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_cascade_routingslip_status",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_cascade_routingslip_status",
+    "id": "data:0007_polymorphic_common_tp:trg_fn_enforce_approval_runtime_state",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_approval_runtime_state",
     "audience": [
       "developer",
       "operator"
@@ -2003,17 +2238,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_cascade_routingslip_status",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_approval_runtime_state"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_enforce_approval_sequence",
@@ -2079,8 +2307,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_enforce_completion_audit_fields",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_completion_audit_fields",
+    "id": "data:0007_polymorphic_common_tp:trg_fn_enforce_completion_resolution",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_completion_resolution",
     "audience": [
       "developer",
       "operator"
@@ -2088,17 +2316,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_completion_audit_fields",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_completion_resolution"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_enforce_entity_assignment_roster",
@@ -2142,6 +2363,36 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_enforce_workflow_transition_mode",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_workflow_transition_mode",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_enforce_workflow_transition_mode"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_guard_publication_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_guard_publication_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_guard_publication_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_fn_lock_actioned_approval",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_actioned_approval",
     "audience": [
@@ -2164,8 +2415,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_approval_on_terminal_slip",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_approval_on_terminal_slip",
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_approval_certification_evidence",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_approval_certification_evidence",
     "audience": [
       "developer",
       "operator"
@@ -2173,21 +2424,14 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_approval_on_terminal_slip",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_approval_certification_evidence"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_recommendation_schema_version",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_recommendation_schema_version",
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_approval_runtime_evidence",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_approval_runtime_evidence",
     "audience": [
       "developer",
       "operator"
@@ -2195,17 +2439,55 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_recommendation_schema_version",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_approval_runtime_evidence"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_completion",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_completion",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_completion"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_publication_evidence",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_publication_evidence",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_publication_evidence"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_lock_recommendation_setup_identity",
@@ -2227,8 +2509,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_review_schema_version",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_review_schema_version",
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_runtime_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_runtime_transition",
     "audience": [
       "developer",
       "operator"
@@ -2236,17 +2518,25 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_review_schema_version",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_runtime_transition"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_lock_terminal_runtime_evidence",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_terminal_runtime_evidence",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_lock_terminal_runtime_evidence"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_lock_workflow_status_transition",
@@ -2271,6 +2561,21 @@
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_preserve_retryable_workflow_status",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_preserve_retryable_workflow_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_preserve_retryable_workflow_status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_fn_prevent_entity_assignment_identity_update",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_prevent_entity_assignment_identity_update",
     "audience": [
@@ -2288,6 +2593,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_register_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_register_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_register_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_require_actual_delegation_detail",
@@ -2334,6 +2654,66 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_require_publication_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_publication_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_publication_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_require_runtime_root_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_runtime_root_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_runtime_root_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_require_runtime_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_runtime_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_runtime_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_require_unsealed_publication_version",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_unsealed_publication_version",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_require_unsealed_publication_version"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_fn_reset_additional_reviewer_completion",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_reset_additional_reviewer_completion",
     "audience": [
@@ -2344,72 +2724,6 @@
     "fr": "fr/developer/data-model.md",
     "evidence": [
       "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_reset_additional_reviewer_completion",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
-  },
-  {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_routingslip_forward_status",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_routingslip_forward_status",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_routingslip_forward_status",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
-  },
-  {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_snapshot_routingslip_additional_approval_certifications",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_snapshot_routingslip_additional_approval_certifications",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_snapshot_routingslip_additional_approval_certifications",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
-  },
-  {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_snapshot_routingslip_additional_approval_policy",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_snapshot_routingslip_additional_approval_policy",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_snapshot_routingslip_additional_approval_policy",
       "server/database/production-core-migrations.ts",
       "server/database/canonical-schema-manifest.ts",
       "shared/types/database.d.ts",
@@ -2441,8 +2755,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_added_step_sequence",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_added_step_sequence",
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_added_approval_runtime_step",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_added_approval_runtime_step",
     "audience": [
       "developer",
       "operator"
@@ -2450,17 +2764,145 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_added_step_sequence",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_added_approval_runtime_step"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_approval_runtime_item",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_approval_runtime_item",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_approval_runtime_item"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_completion_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_completion_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_completion_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_direct_review_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_direct_review_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_direct_review_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_domain_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_domain_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_domain_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_entity_assignment_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_entity_assignment_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_entity_assignment_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_publication_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_publication_update",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_update",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_update"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_publication_version_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_version_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_version_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_publication_version_reference",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_version_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_publication_version_reference"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_validate_recommendation_runtime_member",
@@ -2480,6 +2922,96 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_routing_slip_runtime",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_routing_slip_runtime",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_routing_slip_runtime"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_runtime_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_runtime_item_hierarchy",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_item_hierarchy",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_item_hierarchy"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_runtime_item_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_item_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_item_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_runtime_state_update",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_state_update",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_runtime_state_update"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_completion_target",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_completion_target",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_completion_target"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_member_owner",
@@ -2504,6 +3036,36 @@
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_setup_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_setup_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_setup_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_setup_member",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_setup_member",
     "audience": [
@@ -2524,6 +3086,186 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_status_agency",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_fn_validate_workflow_transition_status_agency",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_transition_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_fn_validate_workflow_transition_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_approval_step_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_approval_step_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_approval_step_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_assessment_schema_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_assessment_schema_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_assessment_schema_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_certification_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_certification_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_certification_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_checklist_schema_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_checklist_schema_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_checklist_schema_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_publication_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_publication_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_publication_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_recommendation_setup_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_recommendation_setup_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_recommendation_setup_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_review_setup_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_review_setup_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_review_setup_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_workflow_member_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_workflow_member_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_workflow_member_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_workflow_owner_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_workflow_owner_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_workflow_owner_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_guard_workflow_status_authoring",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_workflow_status_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_guard_workflow_status_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_lock_actioned_approval",
@@ -2548,8 +3290,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_lock_approval_on_terminal_slip",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_approval_on_terminal_slip",
+    "id": "data:0007_polymorphic_common_tp:trg_lock_approval_certification_evidence",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_approval_certification_evidence",
     "audience": [
       "developer",
       "operator"
@@ -2557,21 +3299,14 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_approval_on_terminal_slip",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_approval_certification_evidence"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_lock_recommendation_schema_version",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_recommendation_schema_version",
+    "id": "data:0007_polymorphic_common_tp:trg_lock_approval_runtime_evidence",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_approval_runtime_evidence",
     "audience": [
       "developer",
       "operator"
@@ -2579,17 +3314,85 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_recommendation_schema_version",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_approval_runtime_evidence"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_completion",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_completion",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_completion"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_publication_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_publication_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_publication_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_publication_version",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_publication_version",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_publication_version"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_publication_version_reference",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_publication_version_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_publication_version_reference"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_lock_recommendation_setup_identity",
@@ -2611,8 +3414,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_lock_review_schema_version",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_review_schema_version",
+    "id": "data:0007_polymorphic_common_tp:trg_lock_runtime_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_runtime_transition",
     "audience": [
       "developer",
       "operator"
@@ -2620,17 +3423,175 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_review_schema_version",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_runtime_transition"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_assessment",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_assessment",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_assessment"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_assessment_custom_outcome",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_assessment_custom_outcome",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_assessment_custom_outcome"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_assessment_outcome",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_assessment_outcome",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_assessment_outcome"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_checklist",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_checklist",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_checklist"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_checklist_response",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_checklist_response",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_checklist_response"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_recommendation",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_recommendation",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_recommendation"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_review",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_review",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_review"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_review_response",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_review_response",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_review_response"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_routing_certification",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_routing_certification",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_routing_certification"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_terminal_routing_slip",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_routing_slip",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_terminal_routing_slip"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_lock_workflow_publication_status",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_workflow_publication_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_lock_workflow_publication_status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_lock_workflow_status_transition",
@@ -2655,6 +3616,21 @@
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_preserve_retryable_workflow_status",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_preserve_retryable_workflow_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_preserve_retryable_workflow_status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_prevent_entity_assignment_identity_update",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_prevent_entity_assignment_identity_update",
     "audience": [
@@ -2672,6 +3648,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_register_approvaltemplate_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_approvaltemplate_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_approvaltemplate_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_register_commonrecommendation",
@@ -2718,6 +3709,81 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_register_formschema_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_formschema_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_formschema_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_register_recommendationschema_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_recommendationschema_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_recommendationschema_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_register_recommendationsetsetup_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_recommendationsetsetup_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_recommendationsetsetup_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_register_reviewschema_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_reviewschema_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_reviewschema_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_register_reviewsetsetup_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_reviewsetsetup_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_reviewsetsetup_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_register_transferpaymentstream",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_transferpaymentstream",
     "audience": [
@@ -2738,6 +3804,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_register_workflowsetup_publication",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_workflowsetup_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_register_workflowsetup_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_require_actual_delegation_detail",
@@ -2784,6 +3865,81 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_require_publication_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_publication_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_publication_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_require_runtime_root_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_runtime_root_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_runtime_root_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_require_runtime_transition",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_runtime_transition",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_runtime_transition"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_require_unsealed_publication_reference",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_unsealed_publication_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_unsealed_publication_reference"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_require_unsealed_workflow_publication_status",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_unsealed_workflow_publication_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_require_unsealed_workflow_publication_status"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_reset_additional_reviewer_completion",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_reset_additional_reviewer_completion",
     "audience": [
@@ -2794,72 +3950,6 @@
     "fr": "fr/developer/data-model.md",
     "evidence": [
       "server/database/migrations/0007_polymorphic_common_tp.ts#trg_reset_additional_reviewer_completion",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
-  },
-  {
-    "id": "data:0007_polymorphic_common_tp:trg_routingslip_forward_status",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_routingslip_forward_status",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_routingslip_forward_status",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
-  },
-  {
-    "id": "data:0007_polymorphic_common_tp:trg_snapshot_routingslip_additional_approval_certifications",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_snapshot_routingslip_additional_approval_certifications",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_snapshot_routingslip_additional_approval_certifications",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
-  },
-  {
-    "id": "data:0007_polymorphic_common_tp:trg_snapshot_routingslip_additional_approval_policy",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_snapshot_routingslip_additional_approval_policy",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_snapshot_routingslip_additional_approval_policy",
       "server/database/production-core-migrations.ts",
       "server/database/canonical-schema-manifest.ts",
       "shared/types/database.d.ts",
@@ -2910,8 +4000,8 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
-    "id": "data:0007_polymorphic_common_tp:trg_validate_added_step_sequence",
-    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_added_step_sequence",
+    "id": "data:0007_polymorphic_common_tp:trg_validate_added_approval_runtime_step",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_added_approval_runtime_step",
     "audience": [
       "developer",
       "operator"
@@ -2919,17 +4009,130 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_added_step_sequence",
-      "server/database/production-core-migrations.ts",
-      "server/database/canonical-schema-manifest.ts",
-      "shared/types/database.d.ts",
-      "architecture/data-model.md",
-      "architecture/polymorphic-integrity.md",
-      "tests/unit/canonical-schema-manifest.test.ts",
-      "tests/unit/migrations-regression.test.ts"
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_added_approval_runtime_step"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_approval_runtime_item",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_approval_runtime_item",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_approval_runtime_item"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_completion_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_completion_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_completion_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_entity_assignment_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_entity_assignment_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_entity_assignment_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_publication_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_publication_update",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_update",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_update"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_publication_version_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_version_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_version_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_publication_version_reference",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_version_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_publication_version_reference"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_recommendation_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_recommendation_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_recommendation_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_validate_recommendation_runtime_member",
@@ -2949,6 +4152,201 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_recommendationset_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_recommendationset_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_recommendationset_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_review_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_review_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_review_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_review_schema_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_review_schema_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_review_schema_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_review_set_setup_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_review_set_setup_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_review_set_setup_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_reviewset_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_reviewset_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_reviewset_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_routing_slip_runtime",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_routing_slip_runtime",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_routing_slip_runtime"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_runtime_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_runtime_item_hierarchy",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_item_hierarchy",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_item_hierarchy"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_runtime_item_insert",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_item_insert",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_item_insert"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_runtime_item_update",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_item_update",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_item_update"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_runtime_update",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_update",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_runtime_update"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_allowed_status_agency",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_allowed_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_allowed_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_completion_target",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_completion_target",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_completion_target"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_member_owner",
@@ -2973,6 +4371,51 @@
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
   },
   {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_member_status_agency",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_member_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_member_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_runtime_extension",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_runtime_extension",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_runtime_extension"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_setup_entity_type",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_setup_entity_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_setup_entity_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_setup_member",
     "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_setup_member",
     "audience": [
@@ -2993,6 +4436,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_setup_status_agency",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_setup_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_setup_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "data:0007_polymorphic_common_tp:trg_validate_workflow_transition_status_agency",
+    "source": "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_transition_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0007_polymorphic_common_tp.ts#trg_validate_workflow_transition_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "migration:0008_applicant_recipient",
@@ -4720,6 +6193,21 @@
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
   },
   {
+    "id": "data:0009_funding_case_agreement:trg_fn_resolve_commitment_stream",
+    "source": "server/database/migrations/0009_funding_case_agreement.ts#trg_fn_resolve_commitment_stream",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0009_funding_case_agreement.ts#trg_fn_resolve_commitment_stream"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
+  },
+  {
     "id": "data:0009_funding_case_agreement:trg_fn_resolve_current_activity_version",
     "source": "server/database/migrations/0009_funding_case_agreement.ts#trg_fn_resolve_current_activity_version",
     "audience": [
@@ -4914,6 +6402,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0009_funding_case_agreement:trg_fn_validate_funding_status_agency",
+    "source": "server/database/migrations/0009_funding_case_agreement.ts#trg_fn_validate_funding_status_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0009_funding_case_agreement.ts#trg_fn_validate_funding_status_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0009_funding_case_agreement:trg_immutable_agreement_approval_submission",
@@ -5218,6 +6721,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Traced the target migration mechanism, generated database contract, runtime writer/reader where applicable, integrity and soft-deletion behavior, PGlite/PostgreSQL coverage, and paired data-model guidance."
+  },
+  {
+    "id": "data:0009_funding_case_agreement:trg_resolve_commitment_stream",
+    "source": "server/database/migrations/0009_funding_case_agreement.ts#trg_resolve_commitment_stream",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0009_funding_case_agreement.ts#trg_resolve_commitment_stream"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the registered target migration and the bilingual data-model lifecycle, ownership, or financial-integrity contract during the 2026-08-24 synchronization."
   },
   {
     "id": "data:0009_funding_case_agreement:trg_resolve_current_activity_version",

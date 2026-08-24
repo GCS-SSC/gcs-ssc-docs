@@ -106,6 +106,17 @@ Declare every capability the extension depends on. At startup, the host infers c
 | `extension-secrets` | Encrypted extension secret helpers. |
 | `extension-create-operation-hooks` | Create-operation Nitro hooks. |
 | `extension-lifecycle-hooks` | Lifecycle/create hooks exposed through extension integration. |
+| `lifecycle-entities` | Extension business entities participating in host Completion, Workflow, direct-Review, assignment, and typed-identity infrastructure. |
+
+## Lifecycle entity declarations
+
+Use the SDK lifecycle contracts only when an extension-owned business entity must participate in host orchestration. Add `lifecycle-entities` to `requiredHostCapabilities` and declare each local type with non-empty bilingual labels, `transitionMode` (`workflow_only` or `completion_workflow`), `workflowRequired`, `workflowPurpose`, direct-Review support, `ownerKind` (`agreement` or `proponent`), `assignmentMode` (`independent` or `inherited`), and a package-contained server adapter path. The host qualifies the identity as `<extension-key>:<local-type>`.
+
+The adapter resolves and locks the concrete entity, owner, scope, and business status and implements completion validation and any deterministic positive-terminus effect. It does not authorize requests, select lock order, weaken the declared ownership/assignment model, or create lifecycle evidence itself. Installation synchronizes the immutable declaration into `Common_Entity_Type`; an extension migration then uses `attachGcsLifecycleEntityIdentity(...)` to attach its concrete table to `Common_Entity`. Renaming or changing an installed declaration is rejected while identities or lifecycle history exist.
+
+Host reads require Viewer at the resolved owner. Create requires Contributor plus the declared creation-parent assignment. Update, Completion, Workflow start/retry/cancel, and transition require Contributor plus the exact declared assignment root; delete requires Manager plus that assignment. Independent entities create their creator-primary roster atomically; inherited entities resolve their parent roster every time. Extension enablement remains an additional gate, never an authorization substitute.
+
+Completion records `not_applicable`, `no_workflow`, or `workflow_started` at creation time. A required missing Workflow is a conflict and rolls back; a `no_workflow` completion cannot gain a Workflow later. Retry creates a successor attempt with the same publication pins. Positive-terminus hooks run inside the host transaction after `no_workflow`, `succeeded`, or `approved`; they must be deterministic, retry-safe, and free of external side effects that cannot roll back.
 
 ## Stream Configuration
 

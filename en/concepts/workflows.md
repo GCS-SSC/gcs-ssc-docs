@@ -22,17 +22,17 @@ A setup belongs to the exact stream in the URL. Read and mutation operations req
 
 Approval submission is allowed only at stream scope for `fundingcaseagreement` or `fundingcaseamendment`. Closeout is allowed only for `fundingcaseagreementcloseout` and has stricter `draft`/`denied` start, `inreview` first-materialization, `complete` final-success, and `denied` failure/fallback rules. Sequences and nested owner mappings must be complete and unique.
 
-## Activate and publish
+## Publish and retire
 
-New setups are drafts. Activate creates published version 1. Saving an active setup changes its working copy; Publish validates dependencies, stores the next immutable configuration snapshot, and advances the version.
+New setups are drafts. Publish validates dependencies and creates immutable version 1. Saving a published setup changes only its working copy; publishing a real change stores the next immutable snapshot, while publishing unchanged content is a no-op.
 
-Publication fails when a linked review setup, recommendation setup, or approval template is inactive or unpublished. A published configuration embeds the exact review plan, recommendation plan, member approvals, and final approval used by future runs. Existing runs remain pinned when administrators edit or republish the setup.
+Publication fails when a linked review setup, recommendation setup, or approval template is not published or has been retired. A published configuration pins the exact review plan, recommendation plan, member approvals, and final approval used by future attempts. Existing attempts remain pinned when administrators edit or republish the setup.
 
-Deleting a setup soft-deletes and deactivates it for new runs. Historical runs keep their configuration and lineage.
+Retiring a published setup is permanent and prevents new selection. Historical attempts keep their configuration and lineage. Only an unreferenced draft can be soft-deleted.
 
 ## Composable runtime sequence
 
-The runtime resolves an active published setup by target type, stream, purpose, entry point, and current status. Exact-scope uniqueness prevents two active setups with the same scope, entity type, and purpose, but broader and narrower matching scopes can still overlap. If several match, current resolution selects the highest database setup ID; it does not prefer the most specific scope or fail on ambiguity. Avoid overlapping setups.
+The runtime resolves a published, non-retired setup by target type, scope, purpose, entry point, and current Agency business status. Exact-scope uniqueness prevents duplicate eligible publications for the same selection key. Runtime state remains separate from those configurable business statuses.
 
 Members execute strictly by their unique positive sequence:
 

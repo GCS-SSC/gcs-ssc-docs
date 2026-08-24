@@ -106,6 +106,17 @@ Déclarez chaque capacité dont dépend l’extension. Au démarrage, l’hôte 
 | `extension-secrets` | Aides de secrets chiffrés de l’extension. |
 | `extension-create-operation-hooks` | Hooks Nitro d’opération de création. |
 | `extension-lifecycle-hooks` | Hooks de cycle de vie et de création exposés par l’intégration des extensions. |
+| `lifecycle-entities` | Entités opérationnelles d’extension qui participent aux mécanismes hôtes d’achèvement, de flux, d’examen direct, d’affectation et d’identité typée. |
+
+## Déclarations d’entités de cycle de vie
+
+Utilisez les contrats de cycle de vie du SDK seulement lorsqu’une entité opérationnelle appartenant à l’extension doit participer à l’orchestration de l’hôte. Ajoutez `lifecycle-entities` à `requiredHostCapabilities` et déclarez chaque type local avec des libellés bilingues non vides, `transitionMode` (`workflow_only` ou `completion_workflow`), `workflowRequired`, `workflowPurpose`, la prise en charge des examens directs, `ownerKind` (`agreement` ou `proponent`), `assignmentMode` (`independent` ou `inherited`) et le chemin d’un adaptateur serveur contenu dans le progiciel. L’hôte qualifie l’identité comme `<extension-key>:<local-type>`.
+
+L’adaptateur résout et verrouille l’entité concrète, son propriétaire, sa portée et son état opérationnel, puis implémente la validation d’achèvement et tout effet déterministe de terminaison positive. Il n’autorise pas les requêtes, ne choisit pas l’ordre des verrous, n’affaiblit pas le modèle déclaré de propriété ou d’affectation et ne crée pas lui-même les preuves de cycle de vie. L’installation synchronise la déclaration immuable dans `Common_Entity_Type`; une migration de l’extension utilise ensuite `attachGcsLifecycleEntityIdentity(...)` pour rattacher sa table concrète à `Common_Entity`. Renommer ou modifier une déclaration installée est refusé tant que des identités ou un historique existent.
+
+La lecture hôte exige Lecteur auprès du propriétaire résolu. La création exige Contributeur et l’affectation au parent de création déclaré. La modification, l’achèvement, le démarrage, la reprise ou l’annulation d’un flux et la transition exigent Contributeur et la racine d’affectation exacte déclarée; la suppression exige Gestionnaire et cette affectation. Une entité indépendante crée atomiquement son registre où le créateur est principal; une entité héritée résout chaque fois le registre du parent. L’activation de l’extension demeure une barrière supplémentaire, jamais un remplacement de l’autorisation.
+
+L’achèvement consigne `not_applicable`, `no_workflow` ou `workflow_started` au moment de sa création. L’absence d’un flux obligatoire produit un conflit et annule la transaction; un achèvement `no_workflow` ne peut recevoir un flux plus tard. Une reprise crée une tentative successeure avec les mêmes versions épinglées. Les hooks de terminaison positive s’exécutent dans la transaction hôte après `no_workflow`, `succeeded` ou `approved`; ils doivent être déterministes, sûrs à réessayer et exempts d’effets externes impossibles à annuler.
 
 ## Configuration du volet
 

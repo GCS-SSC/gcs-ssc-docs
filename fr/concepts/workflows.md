@@ -22,17 +22,17 @@ Une configuration appartient au volet exact de l’URL. La lecture et les mutati
 
 La soumission d’approbation est permise seulement à la portée d’un volet pour `fundingcaseagreement` ou `fundingcaseamendment`. La clôture est permise seulement pour `fundingcaseagreementcloseout` et impose des règles plus strictes : départ `draft`/`denied`, première matérialisation `inreview`, dernière réussite `complete` et replis/échecs `denied`. Les séquences et correspondances de propriétaires doivent être complètes et uniques.
 
-## Activer et publier
+## Publier et retirer
 
-Les nouvelles configurations sont des brouillons. Activer crée la version publiée 1. L’enregistrement d’une configuration active change sa copie de travail; Publier valide les dépendances, stocke le prochain instantané immuable et augmente la version.
+Les nouvelles configurations sont des brouillons. Publier valide les dépendances et crée la version immuable 1. L’enregistrement d’une configuration publiée change seulement sa copie de travail; publier un véritable changement conserve le prochain instantané immuable, tandis que publier un contenu inchangé ne produit aucune opération.
 
-La publication échoue lorsqu’un ensemble d’examens ou de recommandations, ou un modèle d’approbation lié, est inactif ou non publié. Une configuration publiée incorpore le plan d’examen, le plan de recommandation, les approbations des membres et l’approbation finale exacts des prochaines exécutions. Les exécutions existantes demeurent figées lorsque les administrateurs modifient ou republient la configuration.
+La publication échoue lorsqu’un ensemble d’examens ou de recommandations, ou un modèle d’approbation lié, n’est pas publié ou a été retiré. Une configuration publiée épingle le plan d’examen, le plan de recommandation, les approbations des membres et l’approbation finale exacts des prochaines tentatives. Les tentatives existantes demeurent figées lorsque les administrateurs modifient ou republient la configuration.
 
-La suppression logique d’une configuration la désactive pour les nouvelles exécutions. Les exécutions historiques conservent leur configuration et leur filiation.
+Le retrait d’une configuration publiée est permanent et empêche toute nouvelle sélection. Les tentatives historiques conservent leur configuration et leur filiation. Seul un brouillon non référencé peut être supprimé logiquement.
 
 ## Séquence d’exécution composable
 
-Le moteur résout une configuration active et publiée selon le type cible, le volet, l’objet, le point d’entrée et l’état courant. L’unicité de portée exacte empêche deux configurations actives de partager la même portée, le même type d’entité et le même objet, mais des portées correspondantes plus larges et plus étroites peuvent encore se chevaucher. Si plusieurs correspondent, la résolution actuelle choisit le plus grand identifiant de base de données; elle ne privilégie pas la portée la plus précise et n’échoue pas pour ambiguïté. Évitez les configurations qui se chevauchent.
+Le moteur résout une configuration publiée et non retirée selon le type cible, la portée, l’objet, le point d’entrée et l’état opérationnel courant de l’agence. L’unicité de la portée exacte empêche les publications admissibles en double pour une même clé de sélection. L’état stable d’exécution demeure distinct de ces états opérationnels configurables.
 
 Les membres s’exécutent strictement selon leur séquence positive unique :
 

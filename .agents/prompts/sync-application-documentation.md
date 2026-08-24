@@ -21,6 +21,7 @@ Do not report completion until all of the following are true:
 - Every commit reachable from the baseline-exclusive/target-inclusive range has been inventoried, including commits merged through a non-first-parent branch.
 - The final executable application state has been traced across every affected layer, not inferred from commit subjects or the aggregate diff.
 - Every affected current business rule, field constraint, permission boundary, lifecycle transition, side effect, limitation, failure mode, and recovery path is accurately documented for its applicable audiences.
+- Concrete optional extensions under application `extensions/*` are not documented by this site and are excluded from its generated coverage ledgers; each extension owns its own product, operator, and implementation documentation. Continue to document the host extension framework and the public `packages/gcs-ssc-extensions` SDK because they define how extensions are developed and integrated.
 - Added, changed, renamed, and removed behavior has been reconciled. Superseded behavior and fixed limitations are no longer described as current.
 - English and French pages are semantically equivalent and structurally aligned.
 - Generated references and all seven coverage ledgers match the target application tree.
@@ -106,13 +107,15 @@ Do not start writing from the commit subject alone. Complete enough of this matr
 
 ### Submodule changes
 
-For every changed application gitlink, compare the old and new submodule SHAs. Inspect every submodule commit in that exact range plus its final source, migrations, manifests, tests, and user/admin/operator/developer consequences. An unchanged gitlink is pinned evidence; do not update it merely because the submodule's remote branch moved.
+For every changed application gitlink, compare the old and new submodule SHAs. For `packages/gcs-ssc-extensions`, inspect every submodule commit in that exact range plus its final source, manifests, tests, and developer/integrator consequences. For concrete extensions under `extensions/*`, inspect only enough to verify the host application's discovery, compatibility, enablement, dispatch, RBAC, lifecycle/transaction handoff, packaging, and public SDK contract; do not inventory or document the extension's own features, routes, UI, migrations, operations, or internal tests. An unchanged gitlink is pinned evidence; do not update it merely because the submodule's remote branch moved.
 
-If a new extension or SDK workspace appears, verify host discovery, required capabilities, enablement scopes, dispatch authorization, lifecycle hooks, migration ownership, packaging, storage/secrets, failure isolation, and its owning tests. Never treat an extension README as stronger evidence than the mounted host path.
+If a new concrete extension appears, verify only the host integration contract and keep it out of documentation navigation and coverage. If a new SDK workspace or host extension capability appears, verify discovery, required capabilities, enablement scopes, dispatch authorization, lifecycle hooks, migration ownership, packaging, storage/secrets, failure isolation, and owning host/SDK tests. Never treat an extension README as stronger evidence than the mounted host path.
 
 ## Phase 3: Regenerate discovery artifacts and reopen affected coverage
 
 Read `package.json`, all scripts under `scripts/`, `.vitepress/config.mts`, `documentation-audit/status.md`, `documentation-audit/source-baseline.md`, `documentation-audit/documentation-findings.md`, and the schemas/content of all seven `documentation-audit/*-coverage.json` ledgers before changing them.
+
+The inventory must exclude concrete extension implementation surfaces under application `extensions/*`. Keep host extension-framework surfaces and the public `packages/gcs-ssc-extensions` SDK in coverage. If the generator currently emits concrete-extension rows, update its durable discovery logic and remove those rows through regeneration rather than deleting generated rows by hand.
 
 Run the inventory once against the target early in the task to discover added and removed source surfaces:
 
@@ -222,6 +225,8 @@ Integrate behavior into the durable task, concept, operator, and developer pages
 - **Support/audit readers:** observable symptoms, decision points, current limitations, safe diagnostics, recovery, and retained/historical effects without exposing sensitive internals.
 
 Keep deep implementation detail in developer/operator pages when it would distract an end user, and cross-link from the task page. Do not omit a user-visible consequence simply because its enforcement is implemented in a migration or helper.
+
+Do not author product, administration, operations, API, or implementation documentation for any concrete extension under `extensions/*`, and remove existing concrete-extension documentation from both locales, navigation, cross-links, generated references, findings, and coverage. Each extension repository owns that material. Retain documentation for the core host extension framework and `packages/gcs-ssc-extensions` SDK, including the contracts extension developers need to build and integrate an extension without relying on any one bundled extension's behavior.
 
 ### Page quality standard
 

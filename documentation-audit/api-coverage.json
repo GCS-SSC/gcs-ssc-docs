@@ -124,6 +124,126 @@
     "notes": "Directly traced generic resource resolution, global/scoped list authorization, schema validation, read-only enforcement, fresh global authorization, target/dependency locking, search/filter/pagination, lookup shapes, soft deletion/restoration, and errors against source, paired Common Administration guidance, and the focused 153-test suite."
   },
   {
+    "id": "api:server/api/admin/common/form-schemas/[id].delete.ts",
+    "source": "server/api/admin/common/form-schemas/[id].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/[id].delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/[id].get.ts",
+    "source": "server/api/admin/common/form-schemas/[id].get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/[id].get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/[id].patch.ts",
+    "source": "server/api/admin/common/form-schemas/[id].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/[id].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/[id]/publish.post.ts",
+    "source": "server/api/admin/common/form-schemas/[id]/publish.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/[id]/publish.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/[id]/retire.post.ts",
+    "source": "server/api/admin/common/form-schemas/[id]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/[id]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/agencies.get.ts",
+    "source": "server/api/admin/common/form-schemas/agencies.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/agencies.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/index.get.ts",
+    "source": "server/api/admin/common/form-schemas/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/admin/common/form-schemas/index.post.ts",
+    "source": "server/api/admin/common/form-schemas/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/admin/common/form-schemas/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/admin/common/review-sets/index.get.ts",
     "source": "server/api/admin/common/review-sets/index.get.ts",
     "audience": [
@@ -653,6 +773,36 @@
     "notes": "Directly traced against the handler, authorization and transaction helpers, validation schemas, agency migrations, manual server-route ledger, paired agency guide, and the focused 188-test agency suite."
   },
   {
+    "id": "api:server/api/agency/[id]/statuses.get.ts",
+    "source": "server/api/agency/[id]/statuses.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/[id]/statuses.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/agency/[id]/statuses.post.ts",
+    "source": "server/api/agency/[id]/statuses.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/[id]/statuses.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/agency/address-types/[id].delete.ts",
     "source": "server/api/agency/address-types/[id].delete.ts",
     "audience": [
@@ -1011,6 +1161,51 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced against the handler, authorization and transaction helpers, validation schemas, agency migrations, manual server-route ledger, paired agency guide, and the focused 188-test agency suite."
+  },
+  {
+    "id": "api:server/api/agency/statuses/[statusId].patch.ts",
+    "source": "server/api/agency/statuses/[statusId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/statuses/[statusId].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/agency/statuses/[statusId]/delete.post.ts",
+    "source": "server/api/agency/statuses/[statusId]/delete.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/statuses/[statusId]/delete.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/agency/statuses/[statusId]/restore.post.ts",
+    "source": "server/api/agency/statuses/[statusId]/restore.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/statuses/[statusId]/restore.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/agreements/[id].delete.ts",
@@ -3124,26 +3319,19 @@
     "notes": "Directly traced Agreement commitment overview/root/line CRUD and stream-commitment lookup through localized schemas, exact child ownership, fresh authorization and aggregate locks, completion/approval/workflow helpers, current-budget capacity and paid-amount guards, PostgreSQL constraints, paired guide, and 198 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
-    "id": "api:server/api/agreements/[id]/commitment-lines/lookups/stream-commitments.get.ts",
-    "source": "server/api/agreements/[id]/commitment-lines/lookups/stream-commitments.get.ts",
+    "id": "api:server/api/agreements/[id]/commitment-lines/lookups/chart-of-accounts.get.ts",
+    "source": "server/api/agreements/[id]/commitment-lines/lookups/chart-of-accounts.get.ts",
     "audience": [
       "developer",
       "operator"
     ],
-    "en": "en/agreements/commitments.md",
-    "fr": "fr/agreements/commitments.md",
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
     "evidence": [
-      "server/api/agreements/[id]/commitment-lines/lookups/stream-commitments.get.ts",
-      "server/utils/agreement-commitment.ts",
-      "server/utils/agreement-commitment-completion.ts",
-      "server/utils/agreement-commitment-approval-runtime.ts",
-      "shared/types/schemas/funding-case-agreement.ts",
-      "server/database/migrations/0009_funding_case_agreement.ts",
-      "app/components/Agreement/AgreementCommitmentsTab.vue",
-      "app/pages/agreements/[id]/commitments/[commitmentId].vue"
+      "server/api/agreements/[id]/commitment-lines/lookups/chart-of-accounts.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced Agreement commitment overview/root/line CRUD and stream-commitment lookup through localized schemas, exact child ownership, fresh authorization and aggregate locks, completion/approval/workflow helpers, current-budget capacity and paid-amount guards, PostgreSQL constraints, paired guide, and 198 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/agreements/[id]/commitments-overview.get.ts",
@@ -3254,6 +3442,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced Agreement commitment overview/root/line CRUD and stream-commitment lookup through localized schemas, exact child ownership, fresh authorization and aggregate locks, completion/approval/workflow helpers, current-budget capacity and paid-amount guards, PostgreSQL constraints, paired guide, and 198 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/commitments/lookups/types.get.ts",
+    "source": "server/api/agreements/[id]/commitments/lookups/types.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agreements.md",
+    "fr": "fr/developer/api/agreements.md",
+    "evidence": [
+      "server/api/agreements/[id]/commitments/lookups/types.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/agreements/[id]/document-templates/index.get.ts",
@@ -4902,28 +5105,6 @@
     "notes": "Directly traced list visibility, exact Team/global CRUD access, search/status/agency filtering, row capabilities, create/update bilingual and agency-subtype validation, fresh transaction authorization, extension update hook, soft deletion, and lookup scope against source, paired Proponent guidance, and the focused 56-test core-profile suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
-    "id": "api:server/api/approval-templates/[templateId]/activate.post.ts",
-    "source": "server/api/approval-templates/[templateId]/activate.post.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/programs/approval-templates.md",
-    "fr": "fr/programs/approval-templates.md",
-    "evidence": [
-      "server/api/approval-templates/[templateId]/activate.post.ts",
-      "server/utils/approval-template-scope.ts",
-      "server/utils/approval-template-versioning.ts",
-      "shared/types/schemas/approval-template-common.ts",
-      "tests/unit/approval-template-route.test.ts",
-      "tests/unit/approval-template-scope.test.ts",
-      "en/programs/approval-templates.md",
-      "fr/programs/approval-templates.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced template list/detail/create/update/delete/activate/publish through stored-scope authorization, fresh transaction helpers, publication snapshots, validation, paired guide, and 47 focused tests."
-  },
-  {
     "id": "api:server/api/approval-templates/[templateId]/index.delete.ts",
     "source": "server/api/approval-templates/[templateId]/index.delete.ts",
     "audience": [
@@ -5012,6 +5193,21 @@
     "notes": "Directly traced template list/detail/create/update/delete/activate/publish through stored-scope authorization, fresh transaction helpers, publication snapshots, validation, paired guide, and 47 focused tests."
   },
   {
+    "id": "api:server/api/approval-templates/[templateId]/retire.post.ts",
+    "source": "server/api/approval-templates/[templateId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/approvals.md",
+    "fr": "fr/developer/api/approvals.md",
+    "evidence": [
+      "server/api/approval-templates/[templateId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/approval-templates/index.get.ts",
     "source": "server/api/approval-templates/index.get.ts",
     "audience": [
@@ -5081,21 +5277,6 @@
     "fr": "fr/concepts/approvals-completions.md",
     "evidence": [
       "server/api/approvals/approve.post.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced generalized completion and approval routing-slip validation, exact-owner authorization, fresh transaction/locking, materialization, action, reassignment, inserted-step, lookup, terminal synchronization, and failure paths against source, paired guidance, and the focused 84-test suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
-  },
-  {
-    "id": "api:server/api/approvals/create-routing-slip.post.ts",
-    "source": "server/api/approvals/create-routing-slip.post.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/concepts/approvals-completions.md",
-    "fr": "fr/concepts/approvals-completions.md",
-    "evidence": [
-      "server/api/approvals/create-routing-slip.post.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced generalized completion and approval routing-slip validation, exact-owner authorization, fresh transaction/locking, materialization, action, reassignment, inserted-step, lookup, terminal synchronization, and failure paths against source, paired guidance, and the focused 84-test suite. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
@@ -6309,6 +6490,21 @@
     "notes": "GET /api/roles/lookups/transfer-payments/[id]; Authorization, validation, domain path, response, and failure contracts require direct verification. Direct route/helper/source trace completed; bilingual identity/RBAC/user task guides and exhaustive API table verified; focused identity suite passed 64/64 on 2026-08-16. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "api:server/api/statuses/index.get.ts",
+    "source": "server/api/statuses/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/statuses/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/transfer-payments/[id].delete.ts",
     "source": "server/api/transfer-payments/[id].delete.ts",
     "audience": [
@@ -7261,32 +7457,6 @@
     "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/activate.post.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/activate.post.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/api/transfer-payments.md",
-    "fr": "fr/developer/api/transfer-payments.md",
-    "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/activate.post.ts",
-      "audit/server-route-ledger.csv",
-      "server/utils/review-setup-versioning.ts",
-      "shared/types/schemas/transfer-payment.ts",
-      "tests/unit/review-setup-versioning.test.ts",
-      "tests/unit/transfer-payment-assessment-schema-publish-route.test.ts",
-      "tests/unit/transfer-payment-review-setups-patch-route.test.ts",
-      "tests/unit/transfer-payment-assessment-sets-fresh-auth-route.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md",
-      "en/programs/assessment-schemas.md",
-      "fr/programs/assessment-schemas.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced review-setup/member, assessment-set/item, and assessment-schema read/edit/activate/publish contracts through fresh authorization, version/snapshot helpers, schemas, manual route ledger, paired guides, and 135 focused tests. Assessment-set APIs remain supported contracts although their dedicated UI component is unmounted."
-  },
-  {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/index.get.ts",
     "source": "server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/index.get.ts",
     "audience": [
@@ -7363,6 +7533,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced review-setup/member, assessment-set/item, and assessment-schema read/edit/activate/publish contracts through fresh authorization, version/snapshot helpers, schemas, manual route ledger, paired guides, and 135 focused tests. Assessment-set APIs remain supported contracts although their dedicated UI component is unmounted."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/retire.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/assessment-sets/[assessmentSetId]/index.delete.ts",
@@ -7673,8 +7858,8 @@
     "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/activate.post.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/activate.post.ts",
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].delete.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].delete.ts",
     "audience": [
       "developer",
       "operator"
@@ -7682,15 +7867,55 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/activate.post.ts",
-      "shared/types/schemas/checklist/checklist.ts",
-      "server/utils/transfer-payment-checklist-schemas.ts",
-      "tests/unit/review-schema-versioning.test.ts",
-      "en/programs/checklist-schemas.md",
-      "fr/programs/checklist-schemas.md"
+      "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].delete.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced checklist schema detail/save/activate/publish through exact stream authorization, fresh transaction boundaries, definition validation, immutable versions, paired guide, and 41 focused schema/editor/versioning tests."
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].patch.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.get.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/index.get.ts",
@@ -7753,8 +7978,8 @@
     "notes": "Directly traced checklist schema detail/save/activate/publish through exact stream authorization, fresh transaction boundaries, definition validation, immutable versions, paired guide, and 41 focused schema/editor/versioning tests."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitments/[commitmentId].delete.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitments/[commitmentId].delete.ts",
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/retire.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/retire.post.ts",
     "audience": [
       "developer",
       "operator"
@@ -7762,24 +7987,14 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/commitments/[commitmentId].delete.ts",
-      "audit/server-route-ledger.csv",
-      "shared/types/schemas/transfer-payment.ts",
-      "server/utils/transfer-payment-write-transaction.ts",
-      "server/utils/transfer-payment-route-authorization.ts",
-      "tests/unit/transfer-payment-stream-wizard-route.test.ts",
-      "tests/unit/transfer-payment-stream-child-patch-routes.test.ts",
-      "tests/unit/transfer-payment-stream-budgets-route.test.ts",
-      "tests/unit/amendment-subtype-lifecycle-routes.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "server/api/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/retire.post.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitments/[commitmentId].patch.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitments/[commitmentId].patch.ts",
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].delete.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].delete.ts",
     "audience": [
       "developer",
       "operator"
@@ -7787,24 +8002,14 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/commitments/[commitmentId].patch.ts",
-      "audit/server-route-ledger.csv",
-      "shared/types/schemas/transfer-payment.ts",
-      "server/utils/transfer-payment-write-transaction.ts",
-      "server/utils/transfer-payment-route-authorization.ts",
-      "tests/unit/transfer-payment-stream-wizard-route.test.ts",
-      "tests/unit/transfer-payment-stream-child-patch-routes.test.ts",
-      "tests/unit/transfer-payment-stream-budgets-route.test.ts",
-      "tests/unit/amendment-subtype-lifecycle-routes.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].delete.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitments/index.get.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitments/index.get.ts",
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].patch.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].patch.ts",
     "audience": [
       "developer",
       "operator"
@@ -7812,24 +8017,14 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/commitments/index.get.ts",
-      "audit/server-route-ledger.csv",
-      "shared/types/schemas/transfer-payment.ts",
-      "server/utils/transfer-payment-write-transaction.ts",
-      "server/utils/transfer-payment-route-authorization.ts",
-      "tests/unit/transfer-payment-stream-wizard-route.test.ts",
-      "tests/unit/transfer-payment-stream-child-patch-routes.test.ts",
-      "tests/unit/transfer-payment-stream-budgets-route.test.ts",
-      "tests/unit/amendment-subtype-lifecycle-routes.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].patch.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitments/index.post.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitments/index.post.ts",
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.get.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.get.ts",
     "audience": [
       "developer",
       "operator"
@@ -7837,20 +8032,25 @@
     "en": "en/developer/api/transfer-payments.md",
     "fr": "fr/developer/api/transfer-payments.md",
     "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/commitments/index.post.ts",
-      "audit/server-route-ledger.csv",
-      "shared/types/schemas/transfer-payment.ts",
-      "server/utils/transfer-payment-write-transaction.ts",
-      "server/utils/transfer-payment-route-authorization.ts",
-      "tests/unit/transfer-payment-stream-wizard-route.test.ts",
-      "tests/unit/transfer-payment-stream-child-patch-routes.test.ts",
-      "tests/unit/transfer-payment-stream-budgets-route.test.ts",
-      "tests/unit/amendment-subtype-lifecycle-routes.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/cost-category-line-items/[lineItemId]/index.delete.ts",
@@ -8614,6 +8814,21 @@
     "notes": "Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests."
   },
   {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/[schemaId]/retire.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/[schemaId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/[schemaId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/index.post.ts",
     "source": "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/index.post.ts",
     "audience": [
@@ -8634,28 +8849,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests."
-  },
-  {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/activate.post.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/activate.post.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/activate.post.ts",
-      "shared/types/schemas/recommendation/recommendation.ts",
-      "server/utils/recommendation-setup-versioning.ts",
-      "server/utils/transfer-payment-recommendation-setup-routes.ts",
-      "tests/unit/recommendation-approval-publication.test.ts",
-      "tests/unit/transfer-payment-recommendation-setups-route.test.ts",
-      "en/programs/recommendations.md",
-      "fr/programs/recommendations.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/index.delete.ts",
@@ -8832,6 +9025,21 @@
     "notes": "Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/retire.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/index.get.ts",
     "source": "server/api/transfer-payments/[id]/streams/[streamId]/recommendation-setups/index.get.ts",
     "audience": [
@@ -8874,32 +9082,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Directly traced recommendation schema and setup/member CRUD/publication through definition validation, exact stream ownership, fresh writes, immutable schema versions, published setup plans, approval dependencies, paired guide, and 43 focused tests."
-  },
-  {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/activate.post.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/activate.post.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/api/transfer-payments.md",
-    "fr": "fr/developer/api/transfer-payments.md",
-    "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/activate.post.ts",
-      "audit/server-route-ledger.csv",
-      "server/utils/review-setup-versioning.ts",
-      "shared/types/schemas/transfer-payment.ts",
-      "tests/unit/review-setup-versioning.test.ts",
-      "tests/unit/transfer-payment-assessment-schema-publish-route.test.ts",
-      "tests/unit/transfer-payment-review-setups-patch-route.test.ts",
-      "tests/unit/transfer-payment-assessment-sets-fresh-auth-route.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md",
-      "en/programs/assessment-schemas.md",
-      "fr/programs/assessment-schemas.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced review-setup/member, assessment-set/item, and assessment-schema read/edit/activate/publish contracts through fresh authorization, version/snapshot helpers, schemas, manual route ledger, paired guides, and 135 focused tests. Assessment-set APIs remain supported contracts although their dedicated UI component is unmounted. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/index.delete.ts",
@@ -9109,6 +9291,21 @@
     "notes": "Directly traced review-setup/member, assessment-set/item, and assessment-schema read/edit/activate/publish contracts through fresh authorization, version/snapshot helpers, schemas, manual route ledger, paired guides, and 135 focused tests. Assessment-set APIs remain supported contracts although their dedicated UI component is unmounted. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/retire.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
+  },
+  {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/review-setups/index.get.ts",
     "source": "server/api/transfer-payments/[id]/streams/[streamId]/review-setups/index.get.ts",
     "audience": [
@@ -9287,21 +9484,6 @@
     "notes": "Directly traced stream identity, wizard, budgets, recipients, cost lines, holdback bases, agreement/amendment configuration, commitments, monitoring, risk, expertise, and financial-limit handlers through schemas, fresh-write/authorization helpers, manual route ledger, paired guide, and focused 144-test core-stream suites."
   },
   {
-    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/activate.post.ts",
-    "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/activate.post.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/api/transfer-payments.md",
-    "fr": "fr/developer/api/transfer-payments.md",
-    "evidence": [
-      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/activate.post.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced workflow setup/runtime authorization, validation, publication snapshots, stage transitions, cancellation, retry lineage, and mounted UI against source, the paired workflow guide, and the focused 52-test workflow suite."
-  },
-  {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.delete.ts",
     "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/index.delete.ts",
     "audience": [
@@ -9469,6 +9651,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Traced the final ordered-member authoring/runtime path, publication snapshot, member transitions, nested default-owner validation, paused owner-blocker recovery, authorization, persistence, and focused tests; documented bilingually in Workflow, stream-design, and data-model guidance."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/retire.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/transfer-payments.md",
+    "fr": "fr/developer/api/transfer-payments.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target handler, delegated authorization/validation path, generated bilingual route reference, and applicable task guidance during the 2026-08-24 synchronization."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/workflow-setups/index.get.ts",

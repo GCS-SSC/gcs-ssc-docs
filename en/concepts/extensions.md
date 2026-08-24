@@ -2,7 +2,7 @@
 
 Extensions are code packages installed with GCS-SSC. They can add configuration screens, page slots and tabs, specialized commitment or payment actions, payment calculators, authenticated server routes, database objects, public assets, and lifecycle guards. An administrator can enable an installed package, but cannot install one from the UI.
 
-See [Installed Extensions](../extensions/index.md) for the five packages shipped in this checkout. Extension developers should also read [Authoring Extensions](../developer/extensions-authoring.md) and the [host API reference](../developer/api/extensions.md).
+This site documents the host extension framework and public SDK, not individual installed extensions. Each extension owns its own product, operations, and implementation documentation. Extension developers should read [Authoring Extensions](../developer/extensions-authoring.md) and the [host API reference](../developer/api/extensions.md).
 
 ## The three operating switches
 
@@ -38,7 +38,7 @@ Configuration uses one of three surfaces:
 
 The dedicated page requires a `streamId` query value and normally receives `transferPaymentId` and `agencyId` for breadcrumbs and component context. It loads the authoritative stream registry, refuses an extension absent from that registry, shows a generic redacted error alert on loading failures, and delegates saving to the contributed component. If no registered page/modal component resolves, it shows an unavailable warning rather than a host save form.
 
-Stream writes reject a missing/deleted stream, an unknown extension, a disabled agency switch, invalid JSON, authorization drift, and extension guard failures. The host takes the authorization-state and extension lifecycle locks, re-resolves the active stream ownership, repeats `transfer_payment:update`, checks agency enablement, runs the guard, and only then upserts the stream row. Enabling Narrative Quality with an otherwise empty configuration adds its agreement-level target so a meter can render.
+Stream writes reject a missing/deleted stream, an unknown extension, a disabled agency switch, invalid JSON, authorization drift, and extension guard failures. The host takes the authorization-state and extension lifecycle locks, re-resolves the active stream ownership, repeats `transfer_payment:update`, checks agency enablement, runs the guard, and only then upserts the stream row.
 
 ## Runtime contributions
 

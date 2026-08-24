@@ -4,7 +4,7 @@ Profils d’entente, ressources enfants, finances, cycle de vie, affectations ex
 
 Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
 
-## Gestionnaires (147)
+## Gestionnaires (148)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -88,12 +88,13 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | DELETE | `/api/agreements/[id]/commitment-lines/[lineId]` | — | — | `server/api/agreements/[id]/commitment-lines/[lineId].delete.ts` |
 | PATCH | `/api/agreements/[id]/commitment-lines/[lineId]` | — | — | `server/api/agreements/[id]/commitment-lines/[lineId].patch.ts` |
 | POST | `/api/agreements/[id]/commitment-lines` | — | FundingCaseAgreementCommitmentLineCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitment-lines/index.post.ts` |
-| GET | `/api/agreements/[id]/commitment-lines/lookups/stream-commitments` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/commitment-lines/lookups/stream-commitments.get.ts` |
+| GET | `/api/agreements/[id]/commitment-lines/lookups/chart-of-accounts` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/commitment-lines/lookups/chart-of-accounts.get.ts` |
 | GET | `/api/agreements/[id]/commitments-overview` | — | — | `server/api/agreements/[id]/commitments-overview.get.ts` |
 | DELETE | `/api/agreements/[id]/commitments/[childId]` | — | — | `server/api/agreements/[id]/commitments/[childId].delete.ts` |
 | GET | `/api/agreements/[id]/commitments/[childId]` | — | — | `server/api/agreements/[id]/commitments/[childId].get.ts` |
 | PATCH | `/api/agreements/[id]/commitments/[childId]` | — | FundingCaseAgreementCommitmentPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitments/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/commitments` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementCommitmentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitments/index.post.ts` |
+| GET | `/api/agreements/[id]/commitments/lookups/types` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/commitments/lookups/types.get.ts` |
 | GET | `/api/agreements/[id]/document-templates` | — | — | `server/api/agreements/[id]/document-templates/index.get.ts` |
 | GET | `/api/agreements/[id]/documents/[documentId]/download` | — | — | `server/api/agreements/[id]/documents/[documentId]/download.get.ts` |
 | DELETE | `/api/agreements/[id]/documents/[documentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/documents/[documentId]/index.delete.ts` |

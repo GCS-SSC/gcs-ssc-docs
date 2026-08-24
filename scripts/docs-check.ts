@@ -133,10 +133,8 @@ for (const match of migrationRegistry.matchAll(/'(?<name>\d{4}_[^']+)':/g)) {
 }
 
 const extensionRows = new Set((coverage.get('extension-coverage.json') ?? []).map(row => row.id))
-for (const path of await walk(join(appRoot, 'extensions'), path => path.endsWith('/extension.config.ts'))) {
-  const text = await readFile(path, 'utf8')
-  const key = text.match(/key:\s*'([^']+)'/)?.[1]
-  if (!key || !extensionRows.has(`extension:${key}`)) errors.push(`Installed extension missing from inventory: ${relative(appRoot, path)}`)
+if (!extensionRows.has('extension:host-platform')) {
+  errors.push('Host extension framework and public SDK missing from inventory')
 }
 
 const resolveMarkdownTarget = (sourceFile: string, href: string): { path: string, anchor: string } | null => {

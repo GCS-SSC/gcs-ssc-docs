@@ -38,16 +38,14 @@ bun run quality:webcontainer
 
 ### Manual PostgreSQL aggregate
 
-The concurrency suites require real PostgreSQL semantics and are intentionally excluded from automatic pull-request CI. Configure three explicit URLs whose database names end in `_test`, then run the aggregate:
+The concurrency suite requires real PostgreSQL semantics and is intentionally excluded from automatic pull-request CI. Configure an explicit URL whose database name ends in `_test`, then run the aggregate:
 
 ```bash
 AGREEMENT_CONCURRENCY_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
-GCFORMS_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
-OUTCOME_ALLOCATION_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
 bun run test:integration:postgres
 ```
 
-The root agreement, GC Forms lifecycle, and outcome allocation suites run sequentially and may share one dedicated disposable `*_test` database. `test:all:manual` invokes this aggregate, so the same three variables must be set before running the full manual gate.
+The root Agreement concurrency suite uses the dedicated disposable `*_test` database. Extension repositories own their PostgreSQL suites and prerequisites. `test:all:manual` invokes the root aggregate, so the variable must be set before running the full manual gate.
 
 ## Areas covered by tests
 

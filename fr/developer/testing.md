@@ -38,16 +38,14 @@ bun run quality:webcontainer
 
 ### Agrégat PostgreSQL manuel
 
-Les suites de concurrence nécessitent la sémantique réelle de PostgreSQL et sont volontairement exclues de l’intégration continue automatique des demandes de tirage. Configurez trois URL explicites dont le nom de base de données se termine par `_test`, puis exécutez l’agrégat :
+La suite de concurrence nécessite la sémantique réelle de PostgreSQL et est volontairement exclue de l’intégration continue automatique des demandes de tirage. Configurez une URL explicite dont le nom de base de données se termine par `_test`, puis exécutez l’agrégat :
 
 ```bash
 AGREEMENT_CONCURRENCY_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
-GCFORMS_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
-OUTCOME_ALLOCATION_POSTGRES_TEST_URL=postgresql://localhost/gcs_ssc_test \
 bun run test:integration:postgres
 ```
 
-Les suites de concurrence des ententes principales, du cycle de vie de GC Forms et de la répartition par résultat s’exécutent l’une après l’autre et peuvent partager une même base de données jetable réservée aux tests dont le nom se termine par `_test`. Puisque `test:all:manual` appelle cet agrégat, les trois mêmes variables doivent être définies avant l’exécution de la vérification manuelle complète.
+La suite principale de concurrence des ententes utilise la base de données jetable réservée `*_test`. Les dépôts d’extension possèdent leurs suites PostgreSQL et leurs préalables. Puisque `test:all:manual` appelle l’agrégat principal, la variable doit être définie avant l’exécution de la vérification manuelle complète.
 
 ## Zones couvertes par les tests
 

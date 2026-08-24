@@ -47,8 +47,6 @@ There is no active uniqueness constraint for `(claim, budget line)`. Direct API 
 
 ### Imported unallocated lines
 
-[GC Forms Integration](../extensions/gc-forms.md) can materialize a claim and zero or more lines atomically. It creates the claim directly as `submitted`, records a unique source-submission UUID and destination links, and prevents duplicate materialization. A source line that cannot be mapped to a current budget line can remain unallocated with its submitted labels.
-
 The core page displays unallocated lines and lets a user with a Contributor Agreement role ceiling and the exact claim assignment map each one to a compatible current budget line while the claim is `draft` or `submitted`. For a submitted claim, this one-time null-to-budget allocation is the only permitted line edit. Reconciliation cannot start until every active line is allocated.
 
 ## Submit, withdraw, or cancel

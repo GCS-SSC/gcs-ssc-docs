@@ -221,7 +221,7 @@
   },
   {
     "id": "domain:extensions",
-    "source": "modules/gcs-extensions.ts; extensions; packages/gcs-ssc-extensions",
+    "source": "modules/gcs-extensions.ts; packages/gcs-ssc-extensions",
     "audience": [
       "end-user",
       "administrator",
@@ -238,7 +238,7 @@
   },
   {
     "id": "domain:workers-background-processing",
-    "source": "server/workers; extensions/*/client",
+    "source": "server/workers",
     "audience": [
       "end-user",
       "administrator",

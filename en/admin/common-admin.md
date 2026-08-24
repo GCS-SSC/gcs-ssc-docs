@@ -38,6 +38,12 @@ For Canadian addresses, subdivision uses the jurisdiction list; another country 
 
 Existing mutable rows expose **Deleted**. Turning it on soft-deletes the row; turning it off attempts restoration. Nothing in this page physically deletes a Common row.
 
+### Form Schema publication lifecycle
+
+Form Schemas are Agency-owned publication resources rather than ordinary soft-delete toggles. A user with update access to the selected Agency can create and edit its working definition, publish a draft or a changed published definition, and permanently retire a published definition. Manager-level Agency delete access may delete only an unreferenced draft. The agency lookup lists only Agencies the caller may update.
+
+Publishing creates version 1 or, after a real content change, the next immutable positive version. Publishing unchanged content creates no version. A published row reports whether its working copy has unpublished changes; historical runtime consumers remain pinned to the exact version they selected. Retired schemas remain available to historical records but cannot be selected for new work, edited, republished, restored, or deleted.
+
 ## Read-only resources
 
 The following tabs are deliberately read-only in this generic manager:

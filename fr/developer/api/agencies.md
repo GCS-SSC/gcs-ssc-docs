@@ -4,7 +4,7 @@ Profils d’agence et données de référence bilingues appartenant à l’agenc
 
 Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
 
-## Gestionnaires (36)
+## Gestionnaires (41)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -29,6 +29,8 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | GET | `/api/agency/[id]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[id]/line-items.get.ts` |
 | GET | `/api/agency/[id]/programs` | — | TransferPaymentListQuerySchema, getValidatedQueryI18n | `server/api/agency/[id]/programs.get.ts` |
 | GET | `/api/agency/[id]/review-schemas` | — | AgencyReviewSchemaListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[id]/review-schemas.get.ts` |
+| GET | `/api/agency/[id]/statuses` | — | — | `server/api/agency/[id]/statuses.get.ts` |
+| POST | `/api/agency/[id]/statuses` | — | StatusDefinitionCreateSchema, readValidatedBodyI18n | `server/api/agency/[id]/statuses.post.ts` |
 | DELETE | `/api/agency/address-types/[id]` | — | — | `server/api/agency/address-types/[id].delete.ts` |
 | DELETE | `/api/agency/agreement-types/[id]` | — | — | `server/api/agency/agreement-types/[id].delete.ts` |
 | DELETE | `/api/agency/applicant-recipient-subtypes/[id]` | — | — | `server/api/agency/applicant-recipient-subtypes/[id].delete.ts` |
@@ -44,3 +46,6 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | DELETE | `/api/agency/line-items/[id]` | — | — | `server/api/agency/line-items/[id].delete.ts` |
 | GET | `/api/agency/lookups/gwcoa/[number]` | — | AgencyGwcoaDetailQuerySchema, AgencyGwcoaNumberSchema, getValidatedQueryI18n, parseI18n | `server/api/agency/lookups/gwcoa/[number].get.ts` |
 | GET | `/api/agency/lookups/gwcoa` | — | AgencyGwcoaLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/lookups/gwcoa/index.get.ts` |
+| PATCH | `/api/agency/statuses/[statusId]` | — | StatusDefinitionPatchSchema, readValidatedBodyI18n | `server/api/agency/statuses/[statusId].patch.ts` |
+| POST | `/api/agency/statuses/[statusId]/delete` | — | — | `server/api/agency/statuses/[statusId]/delete.post.ts` |
+| POST | `/api/agency/statuses/[statusId]/restore` | — | — | `server/api/agency/statuses/[statusId]/restore.post.ts` |

@@ -153,20 +153,13 @@ Agreement subtypes map agency agreement types to the stream. Each row selects on
 
 This configuration classifies agreements for the stream and limits which agency agreement types are valid in downstream agreement creation. Agency agreement types must exist before this tab can be populated.
 
-## Commitments Tab
+## Chart of Accounts and Commitment Types
 
-Commitments define financial coding rows used by agreement commitments. Each row contains:
+The **Chart of Accounts** tab defines the financial coding that Agreement commitment lines can select. Create stream budgets first: every chart entry belongs to one active budget for this exact stream and therefore one fiscal year. Each entry contains one or more ordered dimensions; every dimension requires an English label, French label, and value. English labels must be unique within the entry, as must French labels. The same fiscal-year budget cannot contain two active entries with the same ordered dimension JSON.
 
-- Fiscal year / stream budget reference.
-- Fund.
-- GL.
-- GL description.
-- Fund centre.
-- Internal order.
-- Functional area.
-- Cost centre.
+Search matches the fiscal-year display or any stored dimension text. Create and update require transfer-payment create/update access at the resolved scope; deletion requires Manager-level delete access. Writes repeat authorization after locking the active program, stream, and Agency. Deletion is logical and is blocked while an active Agreement commitment line references the chart entry.
 
-Create stream budgets before commitments so commitment rows can point to the appropriate fiscal-year budget.
+The **Commitment Types** tab defines the bilingual types offered when an Agreement commitment is created. Both names are required and the active English/French name pair must be unique within the stream. A type can be edited, but cannot be retired after any Agreement commitment has referenced it. The stream wizard can create budgets, chart entries, and commitment types together; temporary chart entries must point to a temporary budget in the same wizard payload.
 
 ## Monitor Types Tab
 
@@ -227,7 +220,7 @@ Business rules:
 
 Runtime implication: when enabled for supported runtime entities, the setup can generate common review work. Sequential setups control whether members are executed in sequence or in parallel.
 
-New setups begin as drafts. Activating a valid draft publishes its current setup/member snapshot as version 1. Editing an active setup creates pending publication content; Publish is available only when the active setup has a valid change. Runtime reviews remain pinned to the published setup and schema snapshot that generated them, so later edits do not silently rewrite existing work. The detail editor can associate an existing same-agency schema or create a new assessment/checklist schema and then open its editor.
+New setups begin as drafts. Publishing a valid draft creates immutable version 1. Editing a published setup creates pending working content; Publish is available only when that content is valid and changed. A published setup can be permanently retired. Runtime reviews remain pinned to the exact setup and schema publication versions that generated them, so later edits do not rewrite existing work. The detail editor can associate an existing same-agency schema or create a new assessment/checklist schema and then open its editor.
 
 The source also retains stream-scoped Assessment Set API contracts and an unmounted Assessment Sets component. They are not registered in the current stream tab map and therefore have no supported end-user navigation path. Integrations using those APIs must still obey the same stream ownership, assessment-only member, fresh-authorization, uniqueness, and soft-delete rules; administrators should use Review Setups in the current UI.
 

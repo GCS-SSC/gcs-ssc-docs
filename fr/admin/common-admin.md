@@ -38,6 +38,12 @@ Pour une adresse canadienne, la subdivision utilise la liste des provinces et te
 
 Une ligne modifiable existante offre **Supprimé**. L'activation effectue une suppression logique; la désactivation tente une restauration. Cette page ne supprime physiquement aucun enregistrement Common.
 
+### Cycle de publication des schémas de formulaire
+
+Les schémas de formulaire sont des ressources de publication appartenant à une agence, et non de simples interrupteurs de suppression logique. Une personne ayant l’accès de modification à l’agence sélectionnée peut créer et modifier sa définition de travail, publier un brouillon ou une définition publiée modifiée, puis retirer définitivement une définition publiée. L’accès de suppression de niveau Gestionnaire à l’agence permet de supprimer uniquement un brouillon non référencé. La recherche d’agence ne liste que les agences que l’appelant peut modifier.
+
+La publication crée la version 1 ou, après une véritable modification du contenu, la prochaine version positive immuable. Publier un contenu inchangé ne crée aucune version. Une ligne publiée indique si sa copie de travail contient des modifications non publiées; les consommateurs d’exécution historiques demeurent liés à la version exacte sélectionnée. Les schémas retirés restent disponibles aux dossiers historiques, mais ne peuvent plus être sélectionnés pour un nouveau travail, modifiés, republiés, restaurés ni supprimés.
+
 ## Ressources en lecture seule
 
 Les onglets suivants sont volontairement en lecture seule dans ce gestionnaire générique :

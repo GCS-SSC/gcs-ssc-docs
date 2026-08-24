@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs'
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
-import { basename, dirname, join, relative, resolve } from 'node:path'
+import { basename, join, relative, resolve } from 'node:path'
 
 const docsRoot = resolve(import.meta.dir, '..')
 const appRoot = resolve(process.env.GCS_SSC_SOURCE ?? join(docsRoot, '..', 'gcs-ssc'))
@@ -189,35 +189,11 @@ for (const name of migrationNames) {
 }
 await writeCoverage('data-coverage.json', dataRows)
 
-const extensionConfigs = await walk(join(appRoot, 'extensions'), path => path.endsWith('/extension.config.ts'))
-const extensionRows: CoverageRow[] = []
-for (const path of extensionConfigs) {
-  const source = relative(appRoot, path)
-  const text = await readFile(path, 'utf8')
-  const key = text.match(/key:\s*'([^']+)'/)?.[1] ?? basename(dirname(path))
-  extensionRows.push(row(`extension:${key}`, source, ['end-user', 'administrator', 'operator', 'developer'], `extensions/${key === 'gcs-gcforms-integration' ? 'gc-forms' : key.replace(/^gcs-/, '')}.md`, 'Manifest, capabilities, contributions, enablement, RBAC, storage, failure, and deployment boundaries require direct verification.'))
-  const destination = `extensions/${key === 'gcs-gcforms-integration' ? 'gc-forms' : key.replace(/^gcs-/, '')}.md`
-  const capabilitiesBlock = text.match(/requiredHostCapabilities:\s*\[([\s\S]*?)\]/)?.[1] ?? ''
-  for (const capability of [...capabilitiesBlock.matchAll(/'([^']+)'/g)].map(match => match[1])) {
-    extensionRows.push(row(`extension:${key}:capability:${capability}`, `${source}#requiredHostCapabilities`, ['administrator', 'operator', 'developer'], destination, `Declared host capability: ${capability}.`))
-  }
-  const contributionPatterns: Array<[string, RegExp]> = [
-    ['handler', /route:\s*'([^']+)'/g],
-    ['migration', /migrations:\s*\[([\s\S]*?)\]/g],
-    ['slot', /slot:\s*'([^']+)'/g],
-    ['tab', /target:\s*'([^']+)'/g],
-    ['operation', /operation:\s*'([^']+)'/g],
-    ['asset', /baseURL:\s*'([^']+)'/g]
-  ]
-  for (const [kind, pattern] of contributionPatterns) {
-    let index = 0
-    for (const match of text.matchAll(pattern)) {
-      const value = match[1].replace(/\s+/g, ' ').trim()
-      extensionRows.push(row(`extension:${key}:${kind}:${index++}`, `${source}#${kind}:${value}`, ['end-user', 'administrator', 'operator', 'developer'], destination, `${kind} contribution: ${value}.`))
-    }
-  }
-}
-extensionRows.unshift(row('extension:host-platform', 'modules/gcs-extensions.ts; packages/gcs-ssc-extensions', ['administrator', 'operator', 'developer'], 'developer/extensions-authoring.md', 'Host scanner, SDK entry points, enablement, dispatch, capability, hook, migration, KV, secret, asset, and packaging boundaries.'))
+// Concrete extensions own their product and implementation documentation. This
+// repository inventories only the host framework and public authoring SDK.
+const extensionRows: CoverageRow[] = [
+  row('extension:host-platform', 'modules/gcs-extensions.ts; packages/gcs-ssc-extensions', ['administrator', 'operator', 'developer'], 'developer/extensions-authoring.md', 'Host scanner, SDK entry points, enablement, dispatch, capability, hook, migration, KV, secret, asset, and packaging boundaries.')
+]
 await writeCoverage('extension-coverage.json', extensionRows)
 
 const domains = [
@@ -233,8 +209,8 @@ const domains = [
   ['database-integrity-concurrency', 'server/database/migrations; server/utils/*transaction*', 'developer/data-model.md'],
   ['i18n-validation-errors', 'i18n; shared/types/schemas; server/utils/api-validate.ts', 'developer/validation-i18n.md'],
   ['files-documents', 'server/utils/file-storage.ts; server/utils/document-generation.ts', 'developer/document-generation.md'],
-  ['extensions', 'modules/gcs-extensions.ts; extensions; packages/gcs-ssc-extensions', 'concepts/extensions.md'],
-  ['workers-background-processing', 'server/workers; extensions/*/client', 'operator/background-work.md'],
+  ['extensions', 'modules/gcs-extensions.ts; packages/gcs-ssc-extensions', 'concepts/extensions.md'],
+  ['workers-background-processing', 'server/workers', 'operator/background-work.md'],
   ['build-deployment-operations', 'package.json; nuxt.config.ts; Dockerfile; railway.json; .github/workflows', 'operator/deployment.md'],
   ['accessibility-ui-states', 'app/components; app/pages', 'getting-started/navigation.md']
 ] as const
@@ -258,11 +234,12 @@ await writeCoverage('config-coverage.json', configItems.map(([id, source]) =>
   row(`config:${id}`, source, ['operator', 'developer'], 'operator/configuration.md', 'Runtime/deployment surface requires verified variables, modes, commands, failure states, and operational guidance.')
 ))
 
+const concreteExtensionAuditPrefixes = ['AUTOMATED-PAYMENTS-', 'EXT-NARRATIVE-', 'GCFORMS-', 'OUTCOME-ALLOCATION-']
 const auditEvidencePaths = [
   ...(await walk(join(sourceAuditRoot, 'findings'), path => path.endsWith('.md'))),
   ...(await walk(join(sourceAuditRoot, 'investigations'), path => path.endsWith('.md') || path.endsWith('.json'))),
   ...(await walk(join(sourceAuditRoot, 'browser-personas'), path => path.endsWith('.md')))
-]
+].filter(path => !concreteExtensionAuditPrefixes.some(prefix => basename(path).startsWith(prefix)))
 await writeCoverage('audit-impact-coverage.json', auditEvidencePaths.map(path => {
   const source = relative(appRoot, path)
   const id = relative(sourceAuditRoot, path).replace(/\.[^.]+$/, '').replaceAll('/', ':')

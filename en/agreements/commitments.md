@@ -8,7 +8,7 @@ Commitments group financial-coding lines that payments can consume. Open an agre
 | --- | --- |
 | Authorization | Agreement Viewer reads. Creating a commitment requires Contributor plus the exact Agreement assignment and makes the creator primary. Later commitment/line mutations require Contributor or Manager plus the exact commitment assignment. |
 | Current agreement budget | Each individual commitment's active line total is capped by total program funding across the agreement's current budget version. |
-| Stream commitments | The agreement's stream must have fiscal-year stream commitments with financial coding. The picker searches GL description or fiscal-year display and cannot select another stream's configuration. |
+| Chart of accounts | The Agreement's stream must have chart-of-account entries attached to stream budgets. The picker searches the fiscal-year display and stored accounting dimensions and cannot select another stream's configuration. |
 | Common user record | Completion requires the signed-in account to resolve to an active `Common_User`. |
 | Optional completion workflow | A published workflow setup for `fundingcaseagreementcommitment` can start after completion. Its configured terminal result may subsequently change the commitment status. |
 
@@ -16,11 +16,11 @@ Writes run in a transaction that locks the agreement and affected commitment agg
 
 ## Create and find commitments
 
-Choose **Add commitment**, select a type, and save. Supported types are `commitment`, `paye`, `paye2`, and `pyp`. A core-created commitment starts as `draft`, inactive, with no financial-system number. The core UI only edits the type; the financial-system number is displayed by APIs but is not editable here.
+Choose **Add commitment**, select one of the bilingual commitment types configured for the Agreement's stream, and save. A core-created commitment starts as `draft`, inactive, with no financial-system number. The core UI only edits the type; the financial-system number is displayed by APIs but is not editable here.
 
 Search on the tab matches the localized type or status label, line count, or displayed total. Results are filtered and paginated in the browser after the complete overview is loaded.
 
-An enabled extension may append a creation action or replace the core action. Conflicting replacement actions disable creation and show a warning. In particular, [Outcome Cost Allocation](../extensions/outcome-cost-allocation.md) can replace creation, produce an `inprogress` commitment, generate lines from the active allocation and stream mappings, and retain provenance. If its configuration does not apply, its server hook lets core creation continue.
+An enabled extension may append a creation action or replace the core action. Conflicting replacement actions disable creation and show a warning. Consult the owning extension's documentation for any contributed creation workflow and retained provenance.
 
 ## Manage commitment lines
 
@@ -28,8 +28,8 @@ The detail page displays the agreement breadcrumb and status, then the commitmen
 
 | Field | Rule |
 | --- | --- |
-| Commitment line number | Required integer from 1 through 32,767. Within one commitment, the active combination of line number and stream commitment must be unique. |
-| Stream commitment | Required. It must be active and belong to the agreement's exact stream. Its fiscal year, fund, GL and description, fund centre, internal order, functional area, and cost centre appear in the table. |
+| Commitment line number | Required integer from 1 through 32,767. Within one commitment, the active combination of line number and chart-of-account entry must be unique. |
+| Chart-of-account entry | Required. It must be active and belong to the Agreement's exact stream. Its fiscal year and ordered localized accounting dimensions appear in the picker and table. |
 | Amount | Required `numeric(19,2)` money value, at most two decimal places and no more than 90 trillion in absolute value. The current validator does not require a positive or non-negative amount. |
 
 The detail search matches the line number, fiscal year, every displayed coding component, or amount. The total card sums all unfiltered lines and formats the result as CAD; no currency conversion occurs.
@@ -42,7 +42,7 @@ Creating, editing, moving, or deleting a line changes every affected editable co
 | --- | --- |
 | Current program-funding ceiling | For the target commitment, existing active lines plus the new or replacement amount cannot exceed the sum of `program funding` in the agreement's current budget version. This is a per-commitment ceiling, not a shared ceiling across all commitment types or versions. |
 | Database enforcement | PostgreSQL repeats that rule with deferred constraint triggers after commitment-line writes, current-budget line changes, and current-version changes. The transaction therefore cannot commit with any active commitment over the current program-funding total. |
-| Paid-amount floor | On line create or patch, the submitted amount must be at least the sum of all non-denied active payment lines in this agreement whose commitment lines use the same stream commitment. The comparison is aggregated by stream commitment, not limited to the edited line. |
+| Paid-amount floor | On line create or patch, the submitted amount must be at least the sum of all non-denied active payment lines in this Agreement whose commitment lines use the same chart-of-account entry. The comparison is aggregated by chart entry, not limited to the edited line. |
 | Locked lifecycle | `complete`, `pendingapproval`, `approved`, and `denied` commitments cannot be edited or deleted and their lines cannot be changed. |
 
 If a budget reduction would put a commitment over the new current program-funding total, PostgreSQL rejects the transaction. Restore sufficient current program funding or reduce editable commitment lines first. Validation and constraint failures leave the transaction unchanged.
@@ -75,5 +75,5 @@ However, core commitment completion does **not** inspect that template or create
 
 - A completion cannot be repeated or undone from the commitment page. Use a new commitment record when a replacement is required.
 - Locked commitments and their lines cannot be deleted through these routes. Editable commitment deletion is logical rather than physical and removes its lines from normal lists.
-- If a stream commitment is missing from the picker, verify that its stream budget, transfer-payment fiscal-year budget, agency fiscal year, and stream commitment are all active and belong to the agreement's stream.
+- If a chart entry is missing from the picker, verify that its chart row, stream budget, transfer-payment fiscal-year budget, and Agency fiscal year are active and belong to the Agreement's stream.
 - If completion reports an invalid status, verify that the record is still editable, has at least one active line, and has not already been completed.

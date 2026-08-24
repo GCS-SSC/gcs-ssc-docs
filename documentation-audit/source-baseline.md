@@ -1,38 +1,37 @@
 # Source baseline
 
-- Captured: 2026-08-20 (America/Toronto)
+- Captured and finally verified: `2026-08-24T09:55:38-04:00` (America/Toronto)
 - Application reference clone: `.reference-repos/gcs-ssc`
 - Application branch: `main`
-- Application HEAD: `bfbbf18dd3218e7669d45c42cc4f26431a1325aa`
-- Application committer datetime: `2026-08-20T15:52:41-04:00`
+- Application HEAD: `ea20230fe4d61bbb3214879b7b881f5317773d02`
+- Application committer datetime: `2026-08-24T09:49:52-04:00`
 - Application dirty state: clean
-- Previous synchronized application HEAD: `45222e26c5a98dccb8b4a574571206bbf1f91397`
-- Incremental range reviewed: 2 commits, previous HEAD exclusive and target HEAD inclusive
+- Previous synchronized application HEAD: `bfbbf18dd3218e7669d45c42cc4f26431a1325aa`
+- Incremental range reviewed: 9 commits, previous HEAD exclusive and target HEAD inclusive
 - Documentation repository: `/home/omar/Code/gcs-ssc-docs`
 - Documentation branch: `main`
-- Documentation starting HEAD: `e3bffeaac519ebe2410fa4799149a98c2004b251`
+- Documentation starting HEAD: `c407eb23b5d66aaacad3c08f0567c471b407f5fa`
 - Documentation state at final capture: synchronization changes intentionally uncommitted pending publication
 
-The ignored reference clone was fetched and fast-forwarded without reading from or changing the sibling `../gcs-ssc` working repository. Application `origin/main` was fetched again at final drift verification and still resolved to the recorded target.
+The ignored reference clone was cloned from application `main`, fetched, fast-forwarded, and recursively initialized without reading from or changing the sibling `../gcs-ssc` working repository. A final fetch found two additional commits after the first captured target; those commits were included, the clone was fast-forwarded again, and the final fetch remained stable at the target above.
 
 ## Application gitlinks
 
 | Workspace | SHA |
 | --- | --- |
-| `extensions/gcs-automated-payments` | `5a2cd3990f1019f178c74d546b471e503b4cf770` |
-| `extensions/gcs-gcforms-integration` | `ff90c12ec3ecce6f6ef706f868a1d70cfcc1fe7b` |
-| `extensions/gcs-narrative-quality` | `bf2f3f670dfdd60f4093fd51f4e6b881772eea50` |
+| `extensions/gcs-automated-payments` | `75018b05b3200f9b1099e4fc1a726d2144d484e8` |
+| `extensions/gcs-gcforms-integration` | `5d9221d264fbd013cb15eb0cad60ef586fa91cfb` |
+| `extensions/gcs-narrative-quality` | `f6752a94dfd07ad545b103bc9d4e2e25714aafa4` |
 | `extensions/gcs-narrative-tags` | `6d657f8ad17062cd408e0ee274230233b325d054` |
-| `extensions/gcs-outcome-cost-allocation` | `27ec25ef56bcc8d952a73b0b9e2e004e7d202b38` |
-| `packages/gcs-ssc-extensions` | `afe5549fcdb324a46b93026f8a186d023fed9988` |
+| `extensions/gcs-outcome-cost-allocation` | `999703186c84ae290aa78d9d70f4ffdc5c632b89` |
+| `packages/gcs-ssc-extensions` | `9b29f1ddc14333fb62aee60464f1c95799f39e74` |
 
-No gitlink changed in the incremental application range. All submodule worktrees in the reference clone were clean at final verification.
+Concrete extension gitlinks are recorded only to make the application source baseline reproducible; their product and implementation behavior is intentionally outside this documentation repository. The public SDK gitlink remains documentation evidence. All submodule worktrees were clean at final verification.
 
 ## Final drift disposition
 
-- Application `HEAD` and `origin/main`: `bfbbf18dd3218e7669d45c42cc4f26431a1325aa`
-- Reference-clone worktree: clean
-- Gitlinks: unchanged from the table above
+- Application `HEAD` and `origin/main`: `ea20230fe4d61bbb3214879b7b881f5317773d02`
+- Reference-clone worktree and initialized submodules: clean
 - Source drift: none
-- Reopened inventory rows: every directly or transitively affected stable row was reverified and returned to terminal status; seven new page/component rows, 17 new API rows, and 14 new data rows were added and verified.
-- Final discovery result: every current application page/component, API handler, registered migration/material mechanism, installed extension entry, domain, configuration item, and historical audit-impact item is reconciled.
+- Coverage: every current core page/component, API handler, registered migration/material mechanism, host/SDK extension surface, domain, configuration item, and in-scope historical audit-impact item is terminal
+- Concrete extension inventory: excluded by repository policy; each extension owns its documentation

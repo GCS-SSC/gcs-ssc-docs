@@ -34,7 +34,7 @@ L'onglet Général affiche ces valeurs. Une modification du profil remplace uniq
 
 ## Navigation de la fiche
 
-La fiche comporte dix onglets pouvant être liés directement :
+La fiche comporte onze onglets pouvant être liés directement :
 
 1. Général
 2. Programmes
@@ -45,7 +45,8 @@ La fiche comporte dix onglets pouvant être liés directement :
 7. Sous-types de demandeur ou bénéficiaire
 8. Approbation au nom d'autrui
 9. Types d'entente
-10. Extensions
+10. États
+11. Extensions
 
 Chaque onglet de données de référence offre la recherche littérale, le filtre de statut, la pagination et les totaux de l'agence. La recherche et le statut modifient les lignes affichées et le total paginé, tandis que le sommaire demeure celui de toute l'agence.
 
@@ -69,6 +70,14 @@ Les programmes contiennent des volets. Configurez les exercices financiers, les 
 | Types d'entente | Valeur d'énumération du type d'entente et noms français et anglais obligatoires; les noms sont uniques pour la combinaison agence/type active | Lister, créer, supprimer logiquement | Classement des ententes créées pour l'agence |
 
 Ces listes n'offrent pas toutes une action générale de renommage ou de modification. Lorsqu'une ressource permet seulement la création et la suppression, créez une valeur corrigée puis retirez la valeur désuète. Bases de retenue constitue l'exception et offre une action de modification.
+
+## États opérationnels
+
+Chaque agence possède son catalogue configurable d’états opérationnels. Une nouvelle agence reçoit un état Ébauche protégé. L’onglet États affiche les définitions actives et supprimées avec leur badge localisé, leur couleur, leur icône Lucide et leur classe de cycle de vie : normale, lecture seule ou terminale.
+
+L’accès de modification de l’agence permet de créer un état normal et de changer sa présentation bilingue. Définir les indicateurs lecture seule ou terminal, supprimer ou restaurer exige l’accès de suppression de l’agence. L’état Ébauche ne peut être modifié, supprimé ni restauré. Un état devenu terminal ne peut plus redevenir normal ou en lecture seule. Les noms sont obligatoires dans les deux langues, la couleur doit être une valeur hexadécimale de six chiffres, l’icône doit être un identifiant Lucide autorisé et les noms actifs sont uniques sans égard à la casse dans l’agence.
+
+La suppression est refusée tant que des dossiers opérationnels, une configuration ou publication de flux de travaux, ou une intégration hôte enregistrée référence l’état. Ne restaurez qu’après avoir résolu tout conflit de nom actif. Les définitions en lecture seule et terminales figent les mutations applicables du dossier opérationnel; elles ne remplacent pas les moteurs distincts d’état stable de publication et d’exécution.
 
 ## Cycle de vie, concurrence et suppression
 

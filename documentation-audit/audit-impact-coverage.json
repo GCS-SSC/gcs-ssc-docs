@@ -425,23 +425,6 @@
     "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
-    "id": "audit-impact:findings:AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year",
-    "source": "audit/findings/AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/AUTOMATED-PAYMENTS-001-preview-accepted-unowned-fiscal-year.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
     "id": "audit-impact:findings:BACKGROUND-001-browser-worker-failures-left-features-loading",
     "source": "audit/findings/BACKGROUND-001-browser-worker-failures-left-features-loading.md",
     "audience": [
@@ -646,91 +629,6 @@
     "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
   },
   {
-    "id": "audit-impact:findings:EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots",
-    "source": "audit/findings/EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/EXT-NARRATIVE-001-runtime-diagnostics-rendered-in-slots.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
-    "id": "audit-impact:findings:GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract",
-    "source": "audit/findings/GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/GCFORMS-001-decrypted-payloads-and-path-identifiers-bypassed-contract.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
-    "id": "audit-impact:findings:GCFORMS-002-stream-list-exposed-decrypted-submission-records",
-    "source": "audit/findings/GCFORMS-002-stream-list-exposed-decrypted-submission-records.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/GCFORMS-002-stream-list-exposed-decrypted-submission-records.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
-    "id": "audit-impact:findings:GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets",
-    "source": "audit/findings/GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/GCFORMS-003-configured-endpoints-could-receive-credentials-on-unsafe-targets.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
-    "id": "audit-impact:findings:GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics",
-    "source": "audit/findings/GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/GCFORMS-004-raw-exceptions-were-persisted-as-user-visible-diagnostics.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
-  },
-  {
     "id": "audit-impact:findings:I18N-001-transfer-payment-french-parity",
     "source": "audit/findings/I18N-001-transfer-payment-french-parity.md",
     "audience": [
@@ -862,40 +760,6 @@
     "fr": "fr/developer/audit-impact.md",
     "evidence": [
       "audit/findings/OPERATIONS-003-deployment-health-check-did-not-test-database-readiness.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
-    "id": "audit-impact:findings:OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities",
-    "source": "audit/findings/OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/OUTCOME-ALLOCATION-001-runtime-used-historical-budget-copy-identities.md"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."
-  },
-  {
-    "id": "audit-impact:findings:OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced",
-    "source": "audit/findings/OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced.md",
-    "audience": [
-      "end-user",
-      "administrator",
-      "operator",
-      "developer"
-    ],
-    "en": "en/developer/audit-impact.md",
-    "fr": "fr/developer/audit-impact.md",
-    "evidence": [
-      "audit/findings/OUTCOME-ALLOCATION-002-allocation-numeric-ranges-were-not-database-enforced.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Historical record reconciled against its terminal disposition, cited current source/regression evidence, and the paired current-contract documentation; obsolete unsafe behaviour is not presented as supported."

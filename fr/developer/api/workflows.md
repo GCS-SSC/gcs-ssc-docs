@@ -10,9 +10,9 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | --- | --- | --- | --- | --- |
 | POST | `/api/completions/complete` | — | CompletionExecuteSchema, readValidatedBodyI18n | `server/api/completions/complete.post.ts` |
 | GET | `/api/completions/runtime` | — | CompletionRuntimeQuerySchema, getValidatedQueryI18n | `server/api/completions/runtime.get.ts` |
-| GET | `/api/recommendations/[recommendationId]` | resolveAgreementScopeContext | Common_Recommendation_Schema | `server/api/recommendations/[recommendationId].get.ts` |
-| PUT | `/api/recommendations/[recommendationId]` | requireFreshAuthContext, unauthorized | WorkflowRecommendationSaveSchema, readValidatedBodyI18n | `server/api/recommendations/[recommendationId].put.ts` |
-| POST | `/api/workflows/cancel` | executeFreshAuthorizedReviewRuntimeWrite | WorkflowCancelSchema, readValidatedBodyI18n | `server/api/workflows/cancel.post.ts` |
+| GET | `/api/recommendations/[recommendationId]` | resolveAgreementScopeContext | — | `server/api/recommendations/[recommendationId].get.ts` |
+| PUT | `/api/recommendations/[recommendationId]` | executeFreshAuthorizedReviewRuntimeWrite, unauthorized | WorkflowRecommendationSaveSchema, readValidatedBodyI18n | `server/api/recommendations/[recommendationId].put.ts` |
+| POST | `/api/workflows/cancel` | executeFreshAuthorizedReviewRuntimeWrite, unauthorized | WorkflowCancelSchema, readValidatedBodyI18n | `server/api/workflows/cancel.post.ts` |
 | GET | `/api/workflows/owner-candidates` | canAuthorizeReviewRuntimeAction | WorkflowOwnerCandidatesQuerySchema, getValidatedQueryI18n | `server/api/workflows/owner-candidates.get.ts` |
 | PUT | `/api/workflows/recommendation` | executeFreshAuthorizedCurrentRecommendationWrite, unauthorized | WorkflowRecommendationSaveSchema, WorkflowRuntimeQuerySchema, getValidatedQueryI18n, readValidatedBodyI18n | `server/api/workflows/recommendation.put.ts` |
 | POST | `/api/workflows/recommendation/submit` | executeFreshAuthorizedCurrentRecommendationWrite, unauthorized | WorkflowRecommendationSaveSchema, WorkflowRuntimeQuerySchema, getValidatedQueryI18n, readValidatedBodyI18n | `server/api/workflows/recommendation/submit.post.ts` |

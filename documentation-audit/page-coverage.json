@@ -1131,6 +1131,21 @@
     "notes": "Directly traced against the page/component implementation, paired agency guide, request/state tests, and agency resource-component coverage within the focused 188-test agency suite."
   },
   {
+    "id": "component:app/components/Agency/AgencyStatuses.vue",
+    "source": "app/components/Agency/AgencyStatuses.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "app/components/Agency/AgencyStatuses.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
+  },
+  {
     "id": "component:app/components/Agency/AgencyTransferPayments.vue",
     "source": "app/components/Agency/AgencyTransferPayments.vue",
     "audience": [
@@ -3211,6 +3226,21 @@
     "notes": "Directly traced across the reusable Assigned users table and modal, exact roster list/add/remove/primary routes, eligible-user lookup, lifecycle and authorization helpers, request schemas, unit coverage, and the managed assignment E2E path. The paired guide documents the two-key authorization model, eligible-user boundary, exactly-one-primary invariant, lifecycle locks, and both embedded and central management surfaces. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
   },
   {
+    "id": "component:app/components/Common/AssignedWorkStatusBadge.vue",
+    "source": "app/components/Common/AssignedWorkStatusBadge.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/AssignedWorkStatusBadge.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
+  },
+  {
     "id": "component:app/components/Common/AsyncCommandPaletteLookup.vue",
     "source": "app/components/Common/AsyncCommandPaletteLookup.vue",
     "audience": [
@@ -3296,6 +3326,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced the mounted completion state/action UI and approval routing-slip table, decision, certification, reassignment, inserted-step, history/detail, disabled, error, and recovery states against source, paired guidance, and the focused 84-test suite."
+  },
+  {
+    "id": "component:app/components/Common/Completions/WorkflowStartButton.vue",
+    "source": "app/components/Common/Completions/WorkflowStartButton.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "app/components/Common/Completions/WorkflowStartButton.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
   },
   {
     "id": "component:app/components/Common/ConfirmDialog.vue",
@@ -3486,6 +3531,36 @@
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
   },
   {
+    "id": "component:app/components/Common/LifecycleBadge.vue",
+    "source": "app/components/Common/LifecycleBadge.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/LifecycleBadge.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
+  },
+  {
+    "id": "component:app/components/Common/LucideIconPicker.vue",
+    "source": "app/components/Common/LucideIconPicker.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/LucideIconPicker.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
+  },
+  {
     "id": "component:app/components/Common/NavbarSide.vue",
     "source": "app/components/Common/NavbarSide.vue",
     "audience": [
@@ -3585,6 +3660,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
+  },
+  {
+    "id": "component:app/components/Common/RecordState.vue",
+    "source": "app/components/Common/RecordState.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/RecordState.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
   },
   {
     "id": "component:app/components/Common/ResourceCrud.vue",
@@ -3799,6 +3889,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Directly traced the component contract and current consumers against source. Its user-visible behaviour is covered in the paired destination guide; authorization, persistence, and lifecycle remain owned by the documented parent feature."
+  },
+  {
+    "id": "component:app/components/Common/StatusSelect.vue",
+    "source": "app/components/Common/StatusSelect.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/StatusSelect.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
   },
   {
     "id": "component:app/components/Common/TableToolbar.vue",
@@ -4683,8 +4788,8 @@
     "notes": "Directly traced the 19-tab stream shell and core stream forms, tables, modals, wizard, permissions, loading and mutation paths against source, paired stream guide, and focused 144-test core-stream suites. Specialized review/approval/recommendation/workflow/document designers remain separate rows."
   },
   {
-    "id": "component:app/components/TransferPayment/Fields/TransferPaymentStreamCommitmentFields.vue",
-    "source": "app/components/TransferPayment/Fields/TransferPaymentStreamCommitmentFields.vue",
+    "id": "component:app/components/TransferPayment/Fields/TransferPaymentStreamChartOfAccountFields.vue",
+    "source": "app/components/TransferPayment/Fields/TransferPaymentStreamChartOfAccountFields.vue",
     "audience": [
       "end-user",
       "administrator"
@@ -4692,17 +4797,10 @@
     "en": "en/programs/streams.md",
     "fr": "fr/programs/streams.md",
     "evidence": [
-      "app/components/TransferPayment/Fields/TransferPaymentStreamCommitmentFields.vue",
-      "app/composables/useTransferPaymentStreamDetailState.ts",
-      "tests/unit/use-transfer-payment-stream-detail-state.test.ts",
-      "tests/unit/components/transfer-payment-stream-wizard-modal.test.ts",
-      "tests/unit/components/transfer-payment-tabs-coverage.test.ts",
-      "tests/unit/components/transfer-payment-more-tabs-coverage.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "app/components/TransferPayment/Fields/TransferPaymentStreamChartOfAccountFields.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the 19-tab stream shell and core stream forms, tables, modals, wizard, permissions, loading and mutation paths against source, paired stream guide, and focused 144-test core-stream suites. Specialized review/approval/recommendation/workflow/document designers remain separate rows."
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
   },
   {
     "id": "component:app/components/TransferPayment/Fields/TransferPaymentStreamFields.vue",
@@ -5715,8 +5813,8 @@
     "notes": "Directly traced the 19-tab stream shell and core stream forms, tables, modals, wizard, permissions, loading and mutation paths against source, paired stream guide, and focused 144-test core-stream suites. Specialized review/approval/recommendation/workflow/document designers remain separate rows."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentStreamCommitmentModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentStreamCommitmentModal.vue",
+    "id": "component:app/components/TransferPayment/TransferPaymentStreamChartOfAccountModal.vue",
+    "source": "app/components/TransferPayment/TransferPaymentStreamChartOfAccountModal.vue",
     "audience": [
       "end-user",
       "administrator"
@@ -5724,21 +5822,14 @@
     "en": "en/programs/streams.md",
     "fr": "fr/programs/streams.md",
     "evidence": [
-      "app/components/TransferPayment/TransferPaymentStreamCommitmentModal.vue",
-      "app/composables/useTransferPaymentStreamDetailState.ts",
-      "tests/unit/use-transfer-payment-stream-detail-state.test.ts",
-      "tests/unit/components/transfer-payment-stream-wizard-modal.test.ts",
-      "tests/unit/components/transfer-payment-tabs-coverage.test.ts",
-      "tests/unit/components/transfer-payment-more-tabs-coverage.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "app/components/TransferPayment/TransferPaymentStreamChartOfAccountModal.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the 19-tab stream shell and core stream forms, tables, modals, wizard, permissions, loading and mutation paths against source, paired stream guide, and focused 144-test core-stream suites. Specialized review/approval/recommendation/workflow/document designers remain separate rows."
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentStreamCommitmentsTab.vue",
-    "source": "app/components/TransferPayment/TransferPaymentStreamCommitmentsTab.vue",
+    "id": "component:app/components/TransferPayment/TransferPaymentStreamChartOfAccountsTab.vue",
+    "source": "app/components/TransferPayment/TransferPaymentStreamChartOfAccountsTab.vue",
     "audience": [
       "end-user",
       "administrator"
@@ -5746,17 +5837,40 @@
     "en": "en/programs/streams.md",
     "fr": "fr/programs/streams.md",
     "evidence": [
-      "app/components/TransferPayment/TransferPaymentStreamCommitmentsTab.vue",
-      "app/composables/useTransferPaymentStreamDetailState.ts",
-      "tests/unit/use-transfer-payment-stream-detail-state.test.ts",
-      "tests/unit/components/transfer-payment-stream-wizard-modal.test.ts",
-      "tests/unit/components/transfer-payment-tabs-coverage.test.ts",
-      "tests/unit/components/transfer-payment-more-tabs-coverage.test.ts",
-      "en/programs/streams.md",
-      "fr/programs/streams.md"
+      "app/components/TransferPayment/TransferPaymentStreamChartOfAccountsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Directly traced the 19-tab stream shell and core stream forms, tables, modals, wizard, permissions, loading and mutation paths against source, paired stream guide, and focused 144-test core-stream suites. Specialized review/approval/recommendation/workflow/document designers remain separate rows."
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
+  },
+  {
+    "id": "component:app/components/TransferPayment/TransferPaymentStreamCommitmentTypeModal.vue",
+    "source": "app/components/TransferPayment/TransferPaymentStreamCommitmentTypeModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "app/components/TransferPayment/TransferPaymentStreamCommitmentTypeModal.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
+  },
+  {
+    "id": "component:app/components/TransferPayment/TransferPaymentStreamCommitmentTypesTab.vue",
+    "source": "app/components/TransferPayment/TransferPaymentStreamCommitmentTypesTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "app/components/TransferPayment/TransferPaymentStreamCommitmentTypesTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Verified against the target component and its bilingual task/concept destination during the 2026-08-24 application synchronization."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentStreamCostLineItemsTab.vue",
