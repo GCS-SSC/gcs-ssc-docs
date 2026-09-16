@@ -9,13 +9,13 @@ Les prévisions répartissent les dépenses attendues de l’entente entre les l
 | Budget courant de l’entente | Un en-tête de prévision doit faire référence à l’identité stable d’un exercice présente dans la version budgétaire courante. Sa grille modifiable utilise les lignes de la version courante ayant la même identité stable d’exercice. |
 | Autorisation | Lecteur Entente consulte. La création d’une prévision exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. Les modifications ou l’achèvement exigent Contributeur et l’affectation exacte à la prévision; la suppression exige Gestionnaire et cette affectation. |
 | Dossier d’utilisateur commun | L’achèvement exige que le compte connecté corresponde à un `Common_User` actif. |
-| Flux de travaux d’achèvement facultatif | Un flux de travaux publié pour `fundingcaseforecast` peut démarrer après l’achèvement et appliquer plus tard son état de réussite ou d’échec configuré. |
+| Soumission d’approbation facultative | L’achèvement démarre atomiquement le flux publié `approval_submission` configuré avec le déclencheur `on_completion` pour `fundingcaseforecast`, ou consigne `no_workflow`. Les transitions du flux appliquent les statuts d’organisme configurés. |
 
 Les écritures répètent l’autorisation sur l’entente dans une transaction après avoir verrouillé l’entente et chaque agrégat de prévision touché. Les identités d’une autre entente, supprimées ou absentes du budget courant sont refusées.
 
 ## Créer et parcourir les prévisions
 
-Choisissez **Ajouter une prévision** et sélectionnez un exercice dérivé des lignes du budget courant. Le serveur crée un en-tête `draft` inactif. La base de données n’exige pas qu’une prévision contienne des lignes et n’impose pas un seul en-tête inactif par entente et par exercice.
+Choisissez **Ajouter une prévision** et sélectionnez un exercice dérivé des lignes du budget courant. Le serveur crée un en-tête inactif avec le statut Brouillon de l’organisme. La base de données n’exige pas qu’une prévision contienne des lignes et n’impose pas un seul en-tête inactif par entente et par exercice.
 
 L’onglet calcule ses rangées plutôt que de stocker des dossiers de version distincts :
 
@@ -43,31 +43,31 @@ La route de détails accepte une valeur `version` dans la requête; en son absen
 | Prévision | En-tête modifiable obligatoire de cette entente. Une requête PATCH directe peut déplacer une ligne vers une autre prévision modifiable de la même entente. |
 | Ligne budgétaire | Identité stable obligatoire d’une ligne de la version budgétaire courante, de la même entente et du même exercice que la prévision cible. |
 | Mois | Entier de `0` à `11`, soit d’avril à mars. |
-| Montant | Valeur `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas 90 billions. L’interface fixe un minimum de zéro, mais la validation du serveur et la base de données n’imposent pas une valeur non négative. |
+| Montant | Valeur `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas `99999999999999999.99`, transmis en texte décimal exact. L’interface fixe un minimum de zéro, mais la validation du serveur et la base de données n’imposent pas une valeur non négative. |
 | Devise | Valeur d’énumération de devise obligatoire. La grille actuelle crée toujours `cad`; elle n’offre ni choix ni conversion de devise. |
 | Version | Entier non négatif obligatoire, normalisé en texte décimal pour l’API et stocké comme bigint. |
 
 L’action **Enregistrer la ventilation** traite les cellules séquentiellement. Elle applique PATCH à une ligne existante modifiée lorsque l’utilisateur possède `update`, et POST à une ligne manquante non nulle lorsqu’il possède `create`. Une cellule manquante à zéro ne crée rien; le passage d’une cellule existante à zéro conserve une ligne de valeur nulle. Aucune transaction globale ne couvre toute la grille : une erreur survenant après des requêtes réussies peut laisser les premières cellules enregistrées. Actualisez, corrigez la cellule signalée et enregistrez de nouveau.
 
-La première ligne créée fait passer une prévision `draft` à `inprogress`; les modifications ultérieures de lignes ne changent pas autrement l’état de l’en-tête. L’API peut supprimer logiquement des lignes individuelles, mais la grille actuelle n’offre aucune action de suppression de ligne. La suppression d’un en-tête modifiable supprime logiquement celui-ci et toutes ses lignes actives de façon atomique.
+Les écritures ordinaires de lignes conservent le statut métier de l’organisme. L’API peut supprimer logiquement des lignes individuelles, mais la grille actuelle n’offre aucune action de suppression de ligne. La suppression d’un en-tête modifiable supprime logiquement celui-ci et toutes ses lignes actives de façon atomique.
 
-::: warning Changement d’exercice après la saisie de lignes
-La requête PATCH de l’en-tête valide le nouvel exercice, mais elle ne valide, ne déplace et ne supprime aucune ligne existante. Les lignes liées aux coordonnées budgétaires de l’ancien exercice peuvent disparaître de la nouvelle grille tout en continuant de compter comme lignes de prévision et comme preuve exigée pour l’achèvement. Ne changez pas l’exercice d’une prévision après avoir saisi sa ventilation. Si cela s’est produit, arrêtez l’achèvement et utilisez une intervention autorisée par API ou sur les données afin de supprimer ou de réattribuer correctement les lignes périmées.
-:::
+L’exercice de l’en-tête ne peut pas changer tant qu’une ligne active existe. Le serveur vérifie l’exercice courant cible et refuse le déplacement; il ne masque pas silencieusement les anciennes lignes. Choisissez le bon exercice avant la saisie.
 
 ## Cycle de vie et achèvement
 
-Les états d’en-tête `complete`, `pendingapproval`, `approved` et `denied` sont verrouillés. Un dossier d’achèvement ou une feuille d’acheminement active à l’état `draft`, `pendingapproval` ou `approved` bloque aussi toute modification de l’en-tête et des lignes, même si l’état de l’en-tête semble modifiable.
+Le statut en lecture seule ou terminal, la preuve d’achèvement et le travail d’exécution protégé déterminent la possibilité de modifier une prévision. Le statut métier n’est pas déduit de noms fixes tels que `inprogress` ou `approved`.
 
-L’achèvement exige un plafond de rôle Entente Contributeur et l’affectation exacte à la prévision, un en-tête modifiable, aucun achèvement antérieur et au moins une ligne active, peu importe sa version. Les commentaires sont facultatifs. Dans une transaction avec autorisation actualisée, il crée l’achèvement commun, fait passer l’en-tête à `complete` et lance tout flux de travaux d’achèvement `fundingcaseforecast` publié; le point d’extension d’achèvement est émis après la validation de la transaction.
+Achèvement exige Contributeur et l’affectation exacte, un en-tête modifiable, aucun achèvement antérieur et au moins une ligne active, toutes versions confondues. Un flux actif le bloque. L’action consigne l’utilisateur et le commentaire facultatif puis démarre atomiquement la soumission d’approbation configurée, ou consigne `no_workflow`. Le crochet s’exécute après validation.
 
-L’achèvement s’applique à tout l’en-tête de prévision, et non à la seule version sélectionnée dans l’URL. Il ne règle pas `egcs_fc_active`, ne copie aucune version et ne vérifie pas que chaque coordonnée budgétaire visible comporte une ligne. Une prévision achevée demeure donc inactive à moins qu’un moteur d’approbation distinct ne l’approuve plus tard.
+L’action couvre tout l’en-tête, non seulement la version dans l’URL. Elle ne copie pas de version et n’exige pas une ligne pour chaque coordonnée mensuelle visible. À sa terminaison positive, cette prévision devient active et les autres prévisions actives de la même entente et identité d’exercice sont désactivées. Sans flux, c’est immédiat; avec un flux, cela attend sa réussite.
 
-## Limite du moteur d’approbation
+## Approbation et exemple de remplacement
 
-Le serveur offre un moteur générique d’approbation des prévisions. Un appelant explicite peut utiliser un modèle `fundingcaseforecast` valide associé au volet pour créer une feuille d’acheminement visant une prévision `complete` ou `denied` qui comporte des lignes. L’approbation séquentielle, le refus, la réattribution et les règles d’approbation supplémentaire utilisent ensuite le moteur commun. L’approbation finale fait passer l’en-tête à `approved`, l’active et désactive les autres en-têtes de la même entente et de la même identité d’exercice; le refus le fait passer à `denied` et le rend inactif.
+Publiez un flux de soumission pour `fundingcaseforecast` afin d’exiger examen ou approbation à l’achèvement. Incluez le modèle ou plan publié; un modèle seul ne relie pas le parcours. Suivez les étapes dans la section Flux. Les flux standard sont choisis explicitement et ne remplacent pas Achèvement.
 
-L’achèvement principal ne consulte **pas** le modèle et ne crée pas cette feuille d’acheminement. La page de détails monte les sections d’achèvement et de flux de travaux, mais aucun composant d’approbation. La seule configuration du modèle n’ajoute donc pas l’approbation à cet écran. Considérez l’approbation comme une capacité d’API ou d’intégration jusqu’à ce qu’un flux hôte ou d’extension pris en charge l’appelle. Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travaux](../concepts/workflows.md).
+Par exemple, conservez la prévision active pendant la préparation d’un nouvel en-tête. Saisissez et enregistrez ses lignes mensuelles, achevez-le puis terminez son approbation. La réussite remplace l’en-tête actif de cette entente/exercice; un échec ou une annulation ne l’active pas. Puisque plusieurs en-têtes inactifs sont permis, identifiez soigneusement le dossier voulu plutôt que traiter chaque version affichée comme une prévision approuvée indépendante.
+
+Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).
 
 ## Rétablissement
 

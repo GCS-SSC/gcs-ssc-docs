@@ -8,7 +8,7 @@ Operational records often become references in agreements, reviews, approvals, p
 
 ## User experience
 
-In most list pages, deleted rows are hidden. In Common Admin, root users can filter all, active, and deleted rows and can toggle `_deleted` when editing an existing record. Some specialized pages expose only active records because deleted records should not be reused in new workflow configuration.
+Most lists hide deleted rows. The dedicated GWCOA catalogue offers all, active and deleted filters and a deletion flag when editing. This is not a general restore interface for operational records. Some references use a separate availability flag; retiring a reference prevents new selections while preserving historical links. Follow the owning page’s rules before deleting or replacing a reference.
 
 ## Data Behaviour
 

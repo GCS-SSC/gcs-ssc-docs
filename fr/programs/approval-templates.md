@@ -1,6 +1,6 @@
 # Modeles D Approbation
 
-Les modeles d approbation definissent des routes d approbation ordonnees. Un modele stocke le type d entite d execution, les metadonnees bilingues, les etapes d approbation ordonnees, les approbateurs par defaut, les titres d approbateur, les certifications d etape et la politique des etapes ajoutees par les utilisateurs. En execution, les modeles sont materialises en feuilles de route que les utilisateurs peuvent approuver, refuser, reattribuer ou prolonger lorsque le modele le permet.
+Les modeles d approbation definissent des routes d approbation ordonnees. Un modele stocke sa portée de volet, les métadonnées bilingues, les etapes d approbation ordonnees, les approbateurs par defaut, les titres d approbateur, les certifications d etape et la politique des etapes ajoutees par les utilisateurs. En execution, les modeles sont materialises en feuilles de route que les utilisateurs peuvent approuver, refuser, reattribuer ou prolonger lorsque le modele le permet.
 
 Dans la configuration des paiements de transfert, les modeles sont souvent configures au niveau du volet puis references par les configurations d examen, configurations de recommandation, membres d evaluation ou flux d execution pour ententes, reclamations, previsions, paiements, surveillance, demandeurs/destinataires et travaux connexes.
 
@@ -15,43 +15,26 @@ Avant de creer des modeles operationnels, configurez:
 
 Un modele peut etre sauvegarde sans etapes, mais un modele sans etapes produit une feuille de route vide et ne peut pas recueillir d approbations utiles.
 
-## Emplacement Des Modeles
+## Emplacement des modèles
 
-Les modeles d approbation peuvent etre geres dans les surfaces communes et dans l onglet Modeles d approbation du volet. Les modeles de volet utilisent:
+Gérez les modèles dans l’onglet **Modèles d’approbation** du volet. La portée prise en charge est `transferpaymentstream`, avec l’identifiant exact du volet. Chaque ligne affiche le nom bilingue et les nombres d’étapes et d’attestations.
 
-- Type de portee `transferpaymentstream`.
-- Identifiant de portee egal a l identifiant du volet.
-- Type d entite choisi parmi les types supportes par les modeles d approbation.
+## Cibles d’exécution
 
-L onglet de volet groupe les modeles par type d entite. Chaque ligne affiche le nom bilingue du modele, le nombre d etapes et le nombre de certifications.
+Un modèle est une conception d’approbation réutilisable du volet; son en-tête ne choisit pas de type d’entité d’exécution. La configuration publiée du flux, de l’examen ou de la recommandation détermine sa cible et son usage. L’exécution matérialise cette cible dans le bordereau et contrôle la portée propriétaire du modèle. La présence d’un modèle n’active pas une capacité de cycle de vie non prise en charge par la cible.
 
-## Types D Entite Supportes
-
-Les modeles d approbation de volet supportent ces types d entite:
-
-- Demandeur/destinataire.
-- Entente de dossier de financement.
-- Examen commun.
-- Recommandation commune.
-- Admission de dossier de financement.
-- Rapprochement de reclamation de financement.
-- Prevision de dossier de financement.
-- Paiement de dossier de financement.
-
-Le schema commun de modele d approbation reconnait aussi la surveillance de dossier de financement comme type valide. Utilisez seulement les types exposes par la surface de volet lorsque vous configurez des modeles portes par un volet.
+Par exemple, le volet peut réutiliser « Signature du gestionnaire » dans un flux de réclamation et dans l’approbation d’un membre de recommandation. Chaque bordereau possède ses étapes, preuves et cycle propres; modifier le modèle ne réécrit aucun des deux.
 
 ## Liste Des Modeles
 
 La liste des modeles prend en charge:
 
 - Recherche et pagination.
-- Regroupement par type d entite.
 - Actions ajouter, modifier, ouvrir et supprimer selon les permissions enfant.
 - Pastilles de nombre d etapes et de certifications.
 
 La modale ajouter/modifier capture seulement les champs d en-tete du modele:
 
-- Type d entite.
 - Nom anglais et nom francais.
 - Description anglaise et description francaise.
 
@@ -62,13 +45,12 @@ Les etapes et certifications sont gerees depuis la page de detail du modele.
 L ouverture d un modele affiche un espace de detail avec:
 
 - Fil d Ariane vers le programme et le volet.
-- Sommaire repliable avec nom, description, type d entite, nombre d etapes et nombre de certifications.
+- Sommaire repliable avec nom, description, état/version de publication, nombre d etapes et nombre de certifications.
 - Barre laterale avec sections General et Etapes d approbation.
 - Action de sauvegarde pour tout le modele.
 
 La section General contient:
 
-- Type d entite. Il est affiche dans un controle enum desactive dans le detail parce que changer le type d entite apres creation changerait l utilisation du modele.
 - Nom anglais et nom francais.
 - Description anglaise et description francaise.
 
@@ -84,7 +66,7 @@ Lorsque les approbations additionnelles sont permises, les noms d etape bilingue
 
 ## Cycle De Vie Et Publication Du Modèle
 
-Un nouveau modèle est une ébauche. L'enregistrement modifie son en-tête, ses étapes, ses certifications et sa politique d'approbations additionnelles de travail, mais ne rend pas cette configuration disponible à la matérialisation d'exécution. Activer est offert seulement pour une ébauche et publie le premier instantané complet comme version 1. Modifier un modèle actif crée des changements en attente; Publier est offert seulement lorsque la configuration de travail diffère de l'instantané publié et avance la version.
+Un nouveau modèle est un brouillon. Enregistrer prépare son en-tête, ses étapes, ses attestations et sa politique d’approbations additionnelles. **Publier** crée la version immuable `1`; chaque publication modifiée incrémente la version entière. Enregistrer un modèle publié prépare la prochaine définition sans modifier l’instantané existant. Une publication canonique identique garde sa version. **Retirer** empêche définitivement les nouvelles sélections et modifications tout en préservant l’historique.
 
 L'instantané publié contient l'identité du modèle, la politique et les certifications par défaut des approbations additionnelles, les identités, séquences et utilisateurs par défaut des étapes ordonnées ainsi que la politique de certification de chaque étape. Les feuilles de route d'exécution copient cet instantané. Une feuille existante conserve donc sa route d'origine après une publication ultérieure.
 
@@ -152,7 +134,7 @@ Les modeles deviennent operationnels seulement lorsqu ils sont references par un
 - Configuration d examen: un modele optionnel peut etre attache a tout l ensemble d examen.
 - Membre de configuration d examen: un modele optionnel peut etre attache a un membre specifique de schema d evaluation/examen.
 - Configuration de recommandation: un modele optionnel peut etre attache aux recommandations generees.
-- Flux d entite d execution qui selectionnent les modeles selon le volet, le type d entite ou la relation de configuration.
+- Membres de flux publiés et configurations d’examen ou de recommandation qui référencent un modèle de leur volet.
 
 Lorsqu une configuration reference un modele, changer le modele affecte les futures feuilles de route materialisees. Les approbations deja materialisees sont representees par des feuilles de route et lignes d approbation, pas par un pointeur vivant qui reecrit l historique complete.
 
@@ -200,20 +182,11 @@ L assignation seule ne donne jamais acces au dossier proprietaire. Au moment de 
 
 Une approbation peut etre ajoutee avant une etape non resolue, mais jamais avant une etape deja traitee. Une etape peut etre ajoutee apres le prefixe deja traite tant que la feuille demeure active. Aucune etape ne peut etre ajoutee a une feuille approuvee ou refusee. Une etape ajoutee par un utilisateur ne peut plus etre modifiee ni retiree apres sa creation; un gestionnaire peut toutefois la reattribuer par l action habituelle.
 
-## Creation De Feuilles De Route De Remplacement
+## Reprendre après un refus
 
-La creation d une feuille de remplacement apres un refus est distincte de l ajout d une etape a la feuille courante. La feuille de remplacement est materialisee depuis le modele configure et recoit un nouvel instantane de la politique des approbations additionnelles.
+Les bordereaux refusés constituent un historique d’exécution immuable. La section d’approbation n’offre pas d’opération générale pour rouvrir un ensemble terminal ou remplacer en place un bordereau refusé. Utilisez la reprise du flux propriétaire ou l’opération de tentative suivante d’un ensemble autonome, lorsque l’accès et le cycle de vie le permettent. La nouvelle tentative conserve la filiation publiée figée; modifier le modèle de travail ne réécrit pas la preuve refusée.
 
-La section d approbation permet d ajouter une feuille de route de remplacement seulement lorsque:
-
-- Le mode d approbation d execution est actif.
-- L utilisateur peut gerer les approbations d examen pour l entite d execution.
-- Au moins une feuille de route existe deja.
-- Toutes les feuilles existantes sont refusees.
-
-Cela permet un nouveau routage apres refus sans ecraser l historique de la feuille refusee.
-
-Le refus est un resultat de flux reutilisable a cette fin. Un examen et un ensemble d examens refuses peuvent etre geres uniquement pour creer la feuille de remplacement. Sa creation remet l examen a `pendingapproval` et l ensemble d examens dans un statut actif. Les autres resultats terminaux de l ensemble d examens, soit `complete`, `approved`, `withdrawn` et `cancelled`, demeurent verrouilles et ne permettent pas une autre feuille de route.
+Ajouter une étape à un bordereau courant inachevé est différent : seule cette route active change dans les limites de sa politique figée. Cela ne peut pas renverser un refus. Voir [Examens en cours d’exécution](../concepts/runtime-reviews.md) et [Flux de travail](../concepts/workflows.md).
 
 ## Actions Approuver Et Refuser
 
@@ -265,11 +238,11 @@ Les administrateurs doivent configurer a la fois la route du modele et la config
 
 ## Conseils Operationnels
 
-Les routes de modèle résolvent l'autorisation depuis leur portée conservée. Un modèle de volet exige l'action précise sur le programme et le volet propriétaires; une portée globale ou commune utilise sa limite d'autorisation configurée. Les écritures revérifient la portée et l'autorisation courantes dans une transaction. Un modèle absent et un modèle inaccessible utilisent la même limite de type « introuvable ». L'activation ou la publication échoue pour un état de cycle de vie invalide, des étapes ou certifications incomplètes ou en double, un utilisateur par défaut inactif ou invalide, ou l'absence de changement en attente. Rechargez après des modifications simultanées, corrigez la dépendance indiquée, enregistrez tout le modèle et réessayez.
+Les routes résolvent le programme et le volet propriétaires exacts et revérifient l’autorisation dans la transaction. Un modèle absent et un modèle inaccessible utilisent la même réponse introuvable. Des étapes, attestations, utilisateurs par défaut ou états de publication invalides peuvent bloquer l’enregistrement ou la publication. Un modèle retiré ne peut être republié. Rechargez après un changement concurrent, corrigez la dépendance indiquée, enregistrez le modèle complet et réessayez.
 
 Utilisez ces pratiques:
 
-- Creez des modeles par type d entite et par volet lorsque les routes d approbation different selon le volet du programme.
+- Créez des modèles distincts lorsque les étapes ou politiques d’attestation diffèrent.
 - Gardez les numeros de sequence simples et uniques.
 - Activez les approbations additionnelles seulement lorsque le processus exige de prolonger une route active et fournissez des valeurs bilingues claires.
 - Considerez l instantane de la feuille comme la politique effective de la route en cours; modifiez le modele seulement pour changer les routes futures.

@@ -37,7 +37,7 @@ Shared RBAC logic lives in `shared/utils/abilities.ts`, `shared/utils/scopes.ts`
 
 ## Admin architecture
 
-Common Admin is driven by app config plus server config. App config defines UI fields and tabs. Server config maps resource names to tables, schemas, transforms, search columns, and filters. Agency admin tabs are normal Vue components backed by agency-scoped API routes.
+GWCOA has a dedicated global catalogue UI and `/api/admin/gwcoa` routes. Its read boundary is global `system:read`; the audit browser has a separate global `audit:read` boundary. Agency reference tabs use Agency-scoped routes, and stream configuration owns reusable workflow designs. Runtime records are created through their domain actions rather than generic administrative CRUD.
 
 ## Extension architecture
 
@@ -56,3 +56,9 @@ Extension packages should use the public `@gcs-ssc/extensions` package instead o
 ## Bilingual architecture
 
 Nuxt i18n uses prefixed locale routes and locale JSON files. Data models often store explicit English and French columns. Validation and API errors use message keys that are translated at the edge where the user sees them.
+
+## Storage and evidence boundaries
+
+The database stores business metadata, provider identities and locators; registered file-storage extensions own bytes. Shared attachment mutations recheck exact target authorization and lifecycle state, while durable cleanup jobs compensate for external operations that cannot participate in the database transaction. Generated documents also use the provider facade. See [Attachments](../concepts/attachments.md) and [Background Work](../operator/background-work.md).
+
+Transactional audit triggers capture committed data changes. HTTP access events use a separate bounded in-memory queue, so they have different durability guarantees. Startup completes core migrations, enabled extension migrations, provider checks and audit setup before ordinary API traffic is accepted.

@@ -14,16 +14,16 @@ The app uses the signed-in user's session and role assignments to decide which p
 
 ## GitHub entry
 
-The source app still contains a GitHub/social sign-in entry in the login experience, but tests treat it as unavailable unless deployment configuration enables it. Do not describe GitHub sign-in as an operational login path for a default installation.
+GitHub sign-in is available only when the deployment configures both its client ID and secret. If the option does not appear, use the credentials supplied by your administrator; it is not enabled by default.
 
 ## After login
 
 The sidebar is permission-driven:
 
-- Home, Agencies, Programs, Roles, and Users are part of the primary navigation shell.
+- Home, Programs, and Roles are listed; their data still requires permission. Agencies and Users require the corresponding Viewer ceiling.
 - Agreements appears with an active scoped Agreement Viewer ceiling.
 - Proponents appears with an active global or agency-scoped Proponent Viewer ceiling.
 - Assignment Management appears with any active Agreement/Proponent `manage_assignments` capability.
-- Common Admin and SQL dump download require global System Viewer; Logout is always present.
+- GWCOA and SQL dump download require global System Viewer; Audit requires its explicit global permission. Logout remains available.
 
 If a user signs in successfully but sees fewer pages than expected, check active user-role assignments, cumulative subject levels, scope, and the independent assignment-management capability. Exact work assignments affect record mutations and Assigned Work, not the role ceiling used to show these destinations.

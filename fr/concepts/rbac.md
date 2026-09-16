@@ -66,7 +66,7 @@ Le registre d’affectation exacte s’applique aux éléments suivants :
 
 Une entité active pouvant être affectée doit compter au moins un utilisateur affecté actif et exactement un utilisateur principal. Le marqueur principal désigne le responsable; il ne confère pas de permissions métier supplémentaires. Tous les utilisateurs affectés actifs partagent la même frontière d’entité et demeurent limités par leur propre plafond de rôle.
 
-Seuls les états permettant le travail acceptent les changements de registre. Par exemple, les affectations de promoteur sont modifiables aux états `draft` et `active`; celles d’entente aux états `draft`, `pendingapproval` et `active`; les examens et la plupart des dossiers financiers suivent leurs propres politiques d’état ouvert; les recommandations et modifications n’acceptent les changements qu’à l’état `draft`. Les dossiers terminaux peuvent demeurer visibles dans Gestion des affectations, mais leur registre est verrouillé.
+La modification du registre exige une cible exacte modifiable : promoteur actif; état métier normal sans achèvement pour le travail d’entente; ou examen/recommandation actif ou en pause sans achèvement. Les cibles en lecture seule, terminales, achevées ou supprimées sont protégées. Voir [Gestion des affectations](../admin/assignments.md).
 
 La suppression d’une entité pouvant être affectée supprime logiquement ses affectations actives. Les changements du registre sont sérialisés et des déclencheurs de base de données imposent l’invariant non vide avec un seul principal à la validation de la transaction.
 

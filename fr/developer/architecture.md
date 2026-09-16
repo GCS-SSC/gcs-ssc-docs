@@ -37,7 +37,7 @@ La logique RBAC partagee se trouve dans `shared/utils/abilities.ts`, `shared/uti
 
 ## Architecture admin
 
-Commun est pilote par la configuration d app et la configuration serveur. La configuration d app definit champs et onglets UI. La configuration serveur mappe les ressources vers tables, schemas, transformations, colonnes de recherche et filtres. Les onglets d administration d agence sont des composants Vue normaux appuyes par des routes API portees par agence.
+GWCOA possède une interface globale dédiée et les routes `/api/admin/gwcoa`. La lecture exige `system:read` global; le navigateur d’audit exige séparément `audit:read` global. Les onglets de référence utilisent les routes de l’organisme, et les modèles de flux réutilisables appartiennent au volet. Les actions métier créent les enregistrements d’exécution, sans CRUD administratif générique.
 
 ## Architecture extensions
 
@@ -56,3 +56,9 @@ Les paquets d extension devraient utiliser le paquet public `@gcs-ssc/extensions
 ## Architecture bilingue
 
 Nuxt i18n utilise des routes prefixees et des fichiers JSON de langue. Les modeles stockent souvent des colonnes anglaises et francaises explicites. Les validations et erreurs API utilisent des cles traduites la ou l utilisateur les voit.
+
+## Frontières du stockage et des preuves
+
+La base conserve les métadonnées métier, identités de fournisseur et localisateurs; les extensions de stockage enregistrées possèdent les octets. Les mutations de pièces jointes revérifient l’autorisation exacte et le cycle de vie; des tâches durables compensent les opérations externes qui ne peuvent participer à la transaction. Les documents générés utilisent aussi la façade de fournisseurs. Consultez [Pièces jointes](../concepts/attachments.md) et [Travaux en arrière-plan](../operator/background-work.md).
+
+Les déclencheurs d’audit transactionnels capturent les modifications validées. Les accès HTTP utilisent une file distincte en mémoire et bornée, avec des garanties de durabilité différentes. Le démarrage termine les migrations centrales et des extensions activées, les contrôles de fournisseurs et la configuration d’audit avant d’accepter le trafic API ordinaire.

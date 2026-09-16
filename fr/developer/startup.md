@@ -1,6 +1,6 @@
 # Demarrage
 
-Le depot de documentation et le depot source de l application sont des espaces de travail separes. La documentation vit dans `gcs-ssc-docs`; la source de l application est `../gcs-ssc`.
+Le depot de documentation et le depot source de l application sont des espaces de travail separes. La documentation vit dans `gcs-ssc-docs`; la source de l application est `gcs-ssc`.
 
 ## Prerequis de l application
 
@@ -15,20 +15,20 @@ L application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou 
 - `BETTER_AUTH_TRUSTED_ORIGINS`
 - `BETTER_AUTH_COOKIE_VERSION`
 - `GCS_EXTENSION_SECRETS_KEY`
-- `GCS_LOCAL_FILE_STORAGE_DIR`
 
 Si `DATABASE_URL` est absent, le developpement local peut utiliser le repertoire PGlite configure.
 
 `GCS_EXTENSION_SECRETS_KEY` est requis en production lorsque les extensions stockent des identifiants chiffrés. La valeur doit être une clé de 32 octets encodée en base64. Les données d’amorçage du développement peuvent fournir une clé fixe de démonstration pour des identifiants locaux non réels uniquement.
 
-Pour le stockage local de fichiers en production, définissez `GCS_LOCAL_FILE_STORAGE_DIR` sur un répertoire réservé appartenant à l’identité du service. Sous POSIX, utilisez un chemin canonique dont les ancêtres ne contiennent aucun lien symbolique; l’identité du service doit posséder toute l’arborescence de stockage et aucun accès ne doit être accordé au groupe ni aux autres utilisateurs. Sous Windows, appliquez des listes de contrôle d’accès équivalentes au répertoire et à ses ancêtres, y compris une protection contre le remplacement au moyen des droits de suppression d’un enfant ou de renommage.
+Les fichiers exigent un fournisseur enregistré et sélectionné pour l’organisme. L’hôte ne possède aucun repli automatique vers un répertoire local. Configurez le fournisseur choisi et son stockage durable selon sa documentation; consultez [Configuration](../operator/configuration.md).
+
+Utilisez Bun **1.3.13** et initialisez les sous-modules figés du SDK, des extensions et de l’outillage privé. `bun run setup` initialise les espaces, prépare les liens d’outillage, installe les dépendances et construit le SDK. L’accès à `GCS-SSC/gcs-ssc-tooling` est nécessaire pour les ressources privées de tests et d’architecture.
 
 ## Configuration de l application
 
-Depuis `../gcs-ssc` :
+Depuis `gcs-ssc` :
 
 ```bash
-bun install
 bun run setup
 bun run dev
 ```
@@ -45,7 +45,7 @@ Le systeme d extension genere des metadonnees sous `.nuxt/gcs-extensions`. Les u
 
 ## Outils de generation de documents
 
-La generation de documents d entente peut fonctionner localement sous Linux ou WSL sans installations globales de LibreOffice ou Chrome. Depuis `../gcs-ssc`, executez :
+La generation de documents d entente peut fonctionner localement sous Linux ou WSL sans installations globales de LibreOffice ou Chrome. Depuis `gcs-ssc`, executez :
 
 ```bash
 bun run bun:docgen:install
@@ -76,4 +76,4 @@ bun run docs:build
 
 ## Verification rapide
 
-Pour l application, connectez-vous, verifiez `/en/` et `/fr/`, ouvrez Agences, Roles, Utilisateurs et Commun comme racine, puis confirmez qu un utilisateur porte voit une barre laterale reduite. Pour les docs, ouvrez `/en/` et `/fr/` et confirmez que les barres laterales anglaise et francaise exposent les memes sections possedees.
+Pour l application, connectez-vous, verifiez `/en/` et `/fr/`, ouvrez Agences, Roles, Utilisateurs et GWCOA avec les permissions globales appropriées, puis Audit avec une permission explicite Lecteur Audit, puis confirmez qu un utilisateur porte voit une barre laterale reduite. Pour les docs, ouvrez `/en/` et `/fr/` et confirmez que les barres laterales anglaise et francaise exposent les memes sections possedees.

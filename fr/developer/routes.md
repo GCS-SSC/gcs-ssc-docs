@@ -18,7 +18,8 @@ Les routes sont generees par les pages Nuxt et localisees par Nuxt i18n. Utilise
 - Detail de role : `/en/roles/[id]`, `/fr/roles/[id]`
 - Utilisateurs : `/en/users`, `/fr/utilisateurs`
 - Detail utilisateur : `/en/users/[id]`, `/fr/utilisateurs/[id]`
-- Commun : `/en/admin/common`, `/fr/admin/commun`
+- GWCOA : `/en/admin/gwcoa`, `/fr/admin/gwcoa`
+- Audit : `/en/admin/audit`, `/fr/admin/audit`
 
 Des routes d entente et d enfants de programme existent aussi pour engagements, paiements, previsions, reclamations, surveillances, documents generes, schemas d evaluation, modeles d approbation, modeles de documents et evaluations.
 
@@ -35,7 +36,9 @@ await navigateTo(localePath(appRouteLocations.proponentEdit(id)))
 
 ## Middleware
 
-`auth.global.ts` protège les routes authentifiées et redirige les utilisateurs connectés hors de la page de connexion. `admin-common.ts` protège Commun en exigeant la permission globale explicite `system:read`. L’utilisateur racine initial respecte cette règle grâce à un rôle global ordinaire ; il n’existe aucun contournement réservé au compte racine.
+`auth.global.ts` protège les routes authentifiées et redirige les utilisateurs connectés hors de la page de connexion. `admin-gwcoa.ts` protège GWCOA en exigeant la permission globale explicite `system:read`. L’utilisateur racine initial respecte cette règle grâce à un rôle global ordinaire ; il n’existe aucun contournement réservé au compte racine.
+
+`admin-audit.ts` exige séparément `audit:read` global; l’accès Système ne donne pas l’accès Audit.
 
 ## Style des routes API
 

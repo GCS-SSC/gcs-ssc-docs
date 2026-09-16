@@ -19,6 +19,8 @@ The detail page contains:
 
 The hero shows the name, email, avatar, and verified/unverified state. Editing identity fields is separate from assigning roles. The profile payload contains no Proponent-specific authorization flags.
 
+Email addresses are validated and normalized to lowercase on create and update. For example, `Analyst@Example.org` is stored as `analyst@example.org`; changing letter case does not create a second identity. A duplicate active address is rejected.
+
 ## Assigning roles
 
 Open Assignments and select **Assign role**. The picker loads active roles that the administrator may assign to this target. Labels include global, agency, or program context to distinguish duplicate role names.
@@ -47,7 +49,7 @@ The password is hashed before the credential account and verified state are writ
 
 ## Security audit trail
 
-Role and user security mutations append a `security_audit_event` in the same transaction. Current events cover role creation, profile changes, deletion and permission replacement; user creation, profile changes, deletion and activation; and user-role assignment creation or removal.
+Role and user security mutations append a `audit.security_audit_event` in the same transaction. Current events cover role creation, profile changes, deletion and permission replacement; user creation, profile changes, deletion and activation; and user-role assignment creation or removal.
 
 Records identify the authenticated actor, constrained event category, target type and identifier, timestamp, and non-sensitive structural metadata. They exclude names, email addresses, images, credentials, tokens, and password hashes. Database triggers reject audit-event updates and deletes. Exact entity roster changes are governed by their own assignment transaction and lifecycle evidence.
 

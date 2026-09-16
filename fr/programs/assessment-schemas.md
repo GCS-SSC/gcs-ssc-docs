@@ -27,43 +27,29 @@ Un schema est ouvert dans un contexte de volet, habituellement depuis les config
 
 L editeur a un sommaire repliable et une barre laterale avec controles de sauvegarde et navigation par section.
 
-## Etats Du Cycle De Vie
+## États de publication
 
-Les schemas d evaluation utilisent ces etats:
+Les schémas utilisent le cycle partagé de publication :
 
-- Brouillon: etat modifiable avant activation. Un brouillon peut etre active.
-- Actif: etat courant utilisable. Les schemas actifs peuvent recevoir des modifications de copie de travail et etre publies lorsqu il y a un changement en attente.
-- Inactif: conserve mais non courant pour modification/utilisation.
+- **Brouillon** (`draft`) : contenu de conception modifiable, sans version publiée.
+- **Publié** (`published`) : instantané publié immuable disponible; les enregistrements suivants préparent une publication ultérieure.
+- **Retiré** (`retired`) : configuration historique conservée, indisponible pour de nouvelles sélections et non modifiable ni publiable.
 
-Le sommaire affiche le nom du schema, le type d entite, la version, le statut et la presence de contenu en attente de publication.
+Le sommaire affiche l’état de publication, la version et la présence de changements non publiés. Ce ne sont pas des statuts métier d’organisme.
 
-## Activation
+## Première publication
 
-L activation est permise seulement pour un schema brouillon. Activer un brouillon:
+Enregistrez un schéma valide, puis choisissez **Publier**. La première publication crée la version immuable `1`, avec empreinte canonique et acteur consignés par le moteur commun. Elle comprend les métadonnées bilingues, la matrice, la définition et les indicateurs. Une API Activer distincte ne fait pas partie du contrat actuel.
 
-- Met le statut a actif.
-- Met la version a `1`.
-- Copie la matrice de pointage et la definition effectives dans les champs publies.
-- Efface la matrice et la definition de copie de travail.
+La configuration d’examen doit ensuite être publiée contre cette version avant de générer le travail figé. Publier le schéma ne démarre pas une évaluation.
 
-Apres activation, les nouveaux travaux d evaluation peuvent utiliser la version publiee du schema.
+## Modifications publiées et retrait
 
-## Publication
+Enregistrez les modifications, consultez l’indicateur de changements, puis publiez la définition prête. Chaque publication modifiée incrémente la version entière : corriger un libellé ou modifier la structure fait passer `1` à `2`. Une définition canonique identique conserve sa version. Aucun calcul décimal majeur/mineur ne s’applique.
 
-La publication est permise seulement pour un schema actif avec une copie de travail differente de la copie publiee. Publier:
+Par exemple, changer le texte d’une question et publier la version `2` laisse un examen version `1` avec son texte original. Modifiez et publiez la configuration d’examen consommatrice pour que les travaux futurs utilisent le nouveau schéma. Renommer une clé exige aussi de corriger toutes les dépendances qui la nomment.
 
-- Calcule si le changement est majeur, mineur ou nul.
-- Met a jour la matrice de pointage publiee et la definition publiee.
-- Efface la copie de travail.
-- Met a jour la version lorsque le contenu a change.
-
-Comportement de version:
-
-- Les changements structurels sont majeurs. Ajouter, supprimer ou renommer des sections, sous-sections, questions, resultats ou cibles de facteurs d impact change la signature structurelle.
-- Les changements non structurels sont mineurs. Exemples: libelles, descriptions, pointages, seuils, aide, poids et options lorsque les noms et nombres structurels restent les memes.
-- Une publication sans changement garde la meme version, mais les utilisateurs ne peuvent normalement pas publier lorsqu il n y a rien a publier.
-
-Implication d execution: les evaluations d execution devraient utiliser le contenu publie. Modifier un schema actif cree ou met a jour une copie de travail jusqu a sa publication.
+Retirez un schéma publié pour empêcher les nouvelles sélections. Le retrait est permanent; les versions historiques restent disponibles aux tentatives qui les épinglent. Modifier le schéma courant ne doit pas modifier les réponses historiques.
 
 ## Comportement De Sauvegarde
 
@@ -118,7 +104,7 @@ Les sections sont les groupes de premier niveau de l evaluation. Chaque section 
 - Poids.
 - Une ou plusieurs sous-sections.
 
-Le code independant de la langue est important parce que les dependances et calculs referencent les codes de section, sous-section et question. Renommer des codes sur un schema actif est un changement structurel et peut briser les references si les elements dependants ne sont pas mis a jour.
+Le code independant de la langue est important parce que les dependances et calculs referencent les codes de section, sous-section et question. Renommer des codes sur un schéma publié est un changement structurel et peut briser les references si les elements dependants ne sont pas mis a jour.
 
 ## Sous-Sections
 
@@ -238,7 +224,7 @@ Les facteurs d impact ajustent ou classent les resultats selon des valeurs d aid
 - Cible de dependance.
 - Lignes de matrice de pointage.
 
-Chaque ligne de pointage contient un seuil maximal et une valeur numerique. Les cibles des facteurs d impact font partie de la signature structurelle utilisee pour determiner si une publication est majeure ou mineure.
+Chaque ligne de pointage contient un seuil maximal et une valeur numerique. Changer une cible modifie la définition publiée et exige une nouvelle version entière.
 
 ## Flux D Evaluation En Execution
 
@@ -275,12 +261,11 @@ Soumettre la completion enregistre les commentaires et, pour une completion d ex
 
 ## Comportement D Approbation
 
-Lorsqu une evaluation ou un examen a un modele d approbation, la section commune d approbation peut materialiser et gerer des feuilles de route. Les approbations sont groupees par feuille de route et par etape.
+Lorsqu une evaluation ou un examen a un modele d approbation, son parcours figé d’achèvement ou de flux matérialise le bordereau; la section d’approbation gère ensuite les décisions. Les approbations sont groupees par feuille de route et par etape.
 
 Les approbateurs peuvent:
 
 - Voir les feuilles de route courantes et precedentes.
-- Creer une nouvelle feuille de route seulement lorsque permis et lorsque toutes les feuilles existantes sont refusees.
 - Reattribuer une etape courante avec la permission de gestion d approbation.
 - Approuver ou refuser une etape courante actionable.
 - Completer les certifications requises pendant l approbation.
@@ -291,12 +276,12 @@ Si un type "au nom de" exige les details reels, l approbateur doit saisir le tit
 
 ## Conseils Operationnels
 
-Les opérations d'enregistrement, d'activation et de publication revérifient la chaîne active volet-programme-agence et l'accès précis `transfer_payment:update` dans une transaction actualisée. Un schéma inaccessible est masqué comme un schéma absent. L'activation échoue si le schéma n'est pas une ébauche valide; la publication échoue s'il n'est pas actif ou ne possède aucun contenu valide en attente. Lorsqu'une validation signale une dépendance brisée, un champ d'aide inconnu, un code en double, un cycle de calcul ou un état de publication invalide, gardez l'éditeur ouvert, corrigez la section ou l'élément référencé, enregistrez de nouveau, puis activez ou publiez.
+Les opérations d’enregistrement, de publication et de retrait revérifient la chaîne active volet-programme-agence et l'accès précis `transfer_payment:update` dans une transaction actualisée. Un schéma inaccessible est masqué comme un schéma absent. La publication exige un contenu valide; le retrait empêche toute nouvelle modification et publication. Lorsqu'une validation signale une dépendance brisée, un champ d'aide inconnu, un code en double, un cycle de calcul ou un état de publication invalide, gardez l'éditeur ouvert, corrigez la section ou l'élément référencé, enregistrez de nouveau, puis publiez.
 
 Utilisez ces pratiques pour des schemas stables:
 
 - Traitez les codes independants de la langue comme des identifiants durables.
-- Publiez les changements de schema actif avant d attendre que les nouveaux travaux d execution les utilisent.
+- Publiez les changements de schéma avant d attendre que les nouveaux travaux d execution les utilisent.
 - Evitez de supprimer ou renommer des codes que des reponses d execution existantes pourraient referencer.
 - Gardez les valeurs d option, seuils de matrice, cotes de risque et seuils de resultat coherents.
 - Configurez les dependances d aide seulement avec des champs disponibles pour le type d entite du schema.

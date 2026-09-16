@@ -1,6 +1,6 @@
 # Approval Templates
 
-Approval templates define ordered approval routes. A template stores the runtime entity type, bilingual template metadata, ordered approval steps, default approvers, approver titles, step certifications, and the policy for user-added approval steps. At runtime, templates are materialized into routing slips that users can approve, deny, reassign, or extend when the template permits it.
+Approval templates define ordered approval routes. A template stores its stream scope, bilingual template metadata, ordered approval steps, default approvers, approver titles, step certifications, and the policy for user-added approval steps. At runtime, templates are materialized into routing slips that users can approve, deny, reassign, or extend when the template permits it.
 
 In transfer payment setup, templates are commonly configured at the stream level and then referenced by review setups, recommendation setups, assessment members, or runtime workflows for agreements, claims, forecasts, payments, monitoring, applicant recipients, and related work.
 
@@ -15,43 +15,26 @@ Before creating operational approval templates, configure:
 
 Templates can be saved without steps, but a template with no steps produces an empty routing slip and cannot collect meaningful approvals.
 
-## Where Templates Live
+## Where templates live
 
-Approval templates can be managed through common setup surfaces and through the stream Approval Templates tab. Stream templates use:
+Manage templates on a stream’s **Approval Templates** tab. The supported scope is `transferpaymentstream`, with the exact stream ID. Each row shows the bilingual name, step count and certification count.
 
-- Scope type `transferpaymentstream`.
-- Scope ID equal to the stream ID.
-- Entity type selected from the supported approval-template entity types.
+## Runtime targets
 
-The stream tab groups templates by entity type. Each row shows the bilingual template name, step count, and certification count.
+A template is a reusable stream-scoped approval design; its header does not select a runtime entity type. The consuming published workflow, review or recommendation configuration determines its use and target. The runtime materializes that target into the routing slip and checks the template’s owning scope. A template’s presence does not enable a lifecycle capability that the target does not support.
 
-## Supported Entity Types
-
-Transfer payment stream approval templates support these entity types:
-
-- Applicant recipient.
-- Funding case agreement.
-- Common review.
-- Common recommendation.
-- Funding case intake.
-- Funding claim reconcile.
-- Funding case forecast.
-- Funding case payment.
-
-The common approval template schema also recognizes funding case monitor as a valid approval-template entity type. Use only the entity types exposed by the stream surface when configuring stream-scoped templates.
+For example, a stream can reuse its “Manager sign-off” template in a Claim approval workflow and a recommendation member’s approval. Each generated routing slip has independent steps, evidence and lifecycle; editing the template does not rewrite either slip.
 
 ## Template List
 
 The template list supports:
 
 - Search and pagination.
-- Grouping by entity type.
 - Add, edit, open, and delete actions according to child update/delete permissions.
 - Step and certification count badges.
 
 The add/edit modal captures the template header fields only:
 
-- Entity type.
 - English and French name.
 - English and French description.
 
@@ -62,13 +45,12 @@ Steps and certifications are managed from the template detail page.
 Opening a template displays a detail workspace with:
 
 - Breadcrumb back to the program and stream context.
-- Collapsible hero with template name, description, entity type, step count, and certification count.
+- Collapsible hero with template name, description, publication state/version, step count, and certification count.
 - Sidebar with General and Approval Steps sections.
 - Save action for the full template.
 
 The General section contains:
 
-- Entity type. This is displayed in a disabled enum control on detail because changing the runtime entity type after creation would change how the template is used.
 - English and French name.
 - English and French description.
 
@@ -84,7 +66,7 @@ When additional approvals are enabled, the bilingual default step names are requ
 
 ## Template Lifecycle And Publication
 
-A new template is a draft. Saving changes its working header, steps, certifications, and additional-approval policy but does not make that configuration available to runtime materialization. Activate is available only for a draft and publishes the first complete configuration snapshot as version 1. Editing an active template creates pending changes; Publish is available only when the working configuration differs from its published snapshot and advances the version.
+A new template is a draft. Save prepares its header, steps, certifications and additional-approval policy. **Publish** creates immutable version `1`; each changed publication increments the integer version. Saving a published template prepares the next definition without changing its existing snapshot. An identical canonical publication keeps its version. **Retire** permanently prevents future selection and authoring changes while preserving history.
 
 The published snapshot contains the template identity, additional-approval policy/default certifications, ordered step identities/sequences/default users, and each step's certification policy. Runtime routing slips copy this snapshot. Existing slips therefore retain their original route even after a later publication.
 
@@ -152,7 +134,7 @@ Templates become operational only when referenced by another setup record or run
 - Review setup: an optional approval template can be attached to the whole review set.
 - Review setup member: an optional approval template can be attached to a specific assessment/review schema member.
 - Recommendation setup: an optional approval template can be attached to generated recommendations.
-- Runtime entity workflows that select approval templates by stream, entity type, or setup relation.
+- Published workflow members and review/recommendation configurations that reference a template from their stream.
 
 When a setup references a template, changing the template affects future materialized routing slips. Already materialized runtime approvals are represented by routing slips and approval rows, not by a live pointer that rewrites completed approval history.
 
@@ -200,20 +182,11 @@ Assignment alone never grants access to the owning record. The server checks the
 
 An approval may be added before an unresolved step, but never before a step that has already been actioned. A step may be added after the already-actioned prefix while the routing slip is still active. No step can be added to an approved or denied routing slip. User-added steps cannot be edited or removed after creation; a manager can still reassign one through the normal reassignment action.
 
-## Creating Replacement Routing Slips
+## Recover after denial
 
-Creating a replacement routing slip after denial is separate from adding a step to the current routing slip. A replacement is materialized from the configured template and receives a fresh snapshot of the template's additional-approval policy.
+Denied routing slips are immutable runtime history. The approval section does not provide a general operation to reopen a terminal review set or replace a denied slip in place. Use the owning workflow’s supported retry, or the successor-attempt operation for a standalone review set, when current access and lifecycle allow it. The new attempt retains pinned publication lineage; changing the working template does not rewrite the denied evidence.
 
-The runtime approval section allows adding a replacement routing slip only when:
-
-- Approval runtime mode is active.
-- The user can manage review approvals for the runtime entity.
-- At least one routing slip already exists.
-- Every existing routing slip is denied.
-
-This supports re-routing after denial without overwriting the denied routing slip history.
-
-Denial is a retryable workflow outcome for this purpose. A denied review and review set may be managed only to create the replacement routing slip. Creating it moves the review back to `pendingapproval` and the review set back to an active status. Other terminal review-set outcomes—`complete`, `approved`, `withdrawn`, and `cancelled`—remain locked and cannot create another routing slip.
+Adding a step to a current, unfinished slip is different: it changes only that active route within its snapshotted policy. It cannot reverse a denial. See [Runtime Reviews](../concepts/runtime-reviews.md) and [Workflows](../concepts/workflows.md) for the applicable recovery path.
 
 ## Approve And Deny Actions
 
@@ -265,11 +238,11 @@ Administrators should configure both the template route and the runtime setup th
 
 ## Operational Guidance
 
-Template routes resolve authorization from their stored scope. Stream-scoped templates require the exact owning program/stream action; global/common scope uses its configured authorization boundary. Writes recheck the current scope and authorization inside a transaction. Missing and inaccessible templates use the same not-found-style boundary. Activation or publication fails for an invalid lifecycle state, incomplete/duplicate steps or certifications, inactive or invalid default users, or no pending change. Reload after concurrent edits, correct the highlighted dependency, save the complete template, and retry.
+Template routes resolve the exact owning program and stream and recheck current authorization inside the write transaction. Missing and inaccessible templates use the same not-found boundary. Invalid steps, certification policy, default users or publication state can prevent saving or publication. A retired template cannot be republished. Reload after a concurrent change, correct the indicated dependency, save the full template and retry.
 
 Use these practices:
 
-- Create templates per entity type and stream when approval routes differ by program stream.
+- Create separate stream templates when the actual approval steps or certification policies differ.
 - Keep step sequence numbers simple and unique.
 - Enable additional approvals only where the business process needs users to extend a live route, and provide clear bilingual defaults.
 - Treat the routing-slip snapshot as the effective policy for an in-progress route; edit the template only to change future routes.

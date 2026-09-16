@@ -24,9 +24,7 @@ Le tableau conserve un groupe d'exercice même lorsqu'il ne contient aucune lign
 
 La suppression est logique et est refusée si l'exercice est utilisé par des lignes budgétaires, des réclamations, des paiements ou des lignes de réclamation actifs. L'onglet principal n'affiche donc l'action de suppression que pour un groupe vide. Il n'offre aucun rétablissement.
 
-::: warning Limitation actuelle de la modification d'un exercice
-Le sélecteur de modification ordinaire offre uniquement des exercices budgétaires du volet qui chevauchent la période de l'entente, mais l'API PATCH vérifie elle-même l'appartenance au volet sans répéter la vérification du chevauchement. Elle n'empêche pas non plus de changer un exercice rempli et ne recalcule pas ses lignes existantes selon la capacité de l'exercice de destination. Utilisez uniquement le sélecteur fourni et ne changez pas un groupe d'exercice après la création de réclamations ou de paiements. Après un changement erroné, interrompez les opérations en aval et demandez à une personne autorisée de rapprocher le budget et les fiches financières touchées.
-:::
+Changer le groupe d’exercice répète côté serveur la vérification du chevauchement avec l’aide autorisée. Un groupe contenant des lignes budgétaires actives ne peut pas être réaffecté. Un exercice enregistré inchangé peut être conservé après le retrait de sa référence; cela ne le rend pas disponible pour de nouvelles allocations. Examinez les réclamations et paiements avant toute réaffectation : la protection actuelle vérifie les lignes budgétaires actives, tandis que la suppression possède ses propres contrôles d’utilisation en aval.
 
 ## Lignes budgétaires
 
@@ -39,13 +37,54 @@ Le formulaire plein écran d'une ligne contient :
 | Sous-section de coûts | Texte non vide obligatoire d'au plus 255 caractères. |
 | Description | Texte non vide obligatoire; cette description propre à l'entente n'est pas bilingue. |
 | Montant total | Montant fini obligatoire comportant au plus deux décimales. |
-| Financement du programme | Montant fini obligatoire comportant au plus deux décimales. |
+| Financement du programme | Saisissez un montant exact pour une ligne manuelle. Le serveur calcule celui des lignes en pourcentage; ne transmettez pas de montant de remplacement. |
 | Autre financement fédéral, autre financement gouvernemental, autre financement | Montants finis facultatifs comportant au plus deux décimales; une valeur vide devient une valeur absente. |
 | Devise | Valeur configurée obligatoire de `currency_codes`; un nouveau formulaire utilise `cad` par défaut. |
 
-La valeur absolue maximale prise en charge dans une requête est de 90 billions. Les montants sont enregistrés sous forme `numeric(19,2)`. Le schéma courant n'exige pas que les montants budgétaires soient positifs ou nuls; un budget opérationnel devrait néanmoins utiliser des valeurs financières valides et non négatives.
+Les montants d’entente sont transportés en texte décimal exact, par exemple `"1250.00"`, et stockés en `numeric(19,2)`. Le maximum absolu par ligne est `99999999999999999.99`. Les chaînes décimales font autorité; la compatibilité accepte les nombres JSON uniquement si leurs cents sérialisés sont des entiers sûrs. La notation exponentielle, les espaces autour du montant, les zéros initiaux, les décimales excédentaires et les dépassements sont refusés. Les montants signés restent permis lorsque le schéma du domaine l’autorise; un contrôle affiché ne prouve pas une règle de positivité.
 
-Le montant total doit être au moins égal au financement du programme plus les trois montants de financement facultatifs. Lors d'une mise à jour partielle, cette règle entre champs s'exécute seulement si la requête contient à la fois le montant total et le financement du programme; la contrainte de la base de données évalue tout de même la ligne enregistrée complète.
+Le total doit couvrir le financement du programme et les trois autres financements. Le recalcul des pourcentages vérifie les lignes touchées complètes et annule le changement initial si une ligne devient insuffisante. Le montant total et les autres financements restent saisis manuellement, même pour une ligne calculée.
+
+## Lignes calculées en pourcentage
+
+Les définitions de coûts de l’organisme choisissent l’un des trois modes. Le volet présente les définitions admissibles aux ententes. Une nouvelle ligne capture le mode, la catégorie source, le pourcentage initial et la permission de le remplacer. Modifier ensuite les valeurs par défaut de l’organisme ne réécrit pas les lignes enregistrées; les copies de modification conservent leurs paramètres de calcul.
+
+| Mode | Base du financement du programme | Valeurs modifiables |
+| --- | --- | --- |
+| Manuel | Aucun calcul; saisie directe du financement. | Financement du programme, total et autres financements. |
+| Pourcentage d’une catégorie (`category`) | Financement du programme des lignes manuelles de la catégorie source. | Total et autres financements; pourcentage seulement si le remplacement était permis à la création de cette ligne. |
+| Pourcentage de tous les autres éléments (`all_other`) | Financement du programme de toutes les autres lignes du groupe, y compris les charges de catégorie calculées. | Total et autres financements; pourcentage seulement si la définition enregistrée le permet. |
+
+Le calcul regroupe les lignes par version budgétaire, exercice de l’organisme et devise, toutes sous-sections confondues. Les autres financements fédéraux, gouvernementaux et autres n’entrent jamais dans la base. Les charges de catégorie précèdent celles de tous les autres éléments. Une seule charge active de tous les autres éléments est permise par version/exercice/devise. Les pourcentages vont de 0 à 100 avec au plus deux décimales.
+
+Le résultat est arrondi une seule fois au **dollar entier** le plus proche; une moitié exacte est arrondie en s’éloignant de zéro. Il est ensuite stocké avec deux décimales. Ainsi, 10 % de `"1005.00"` donne `"101.00"`, non `"100.50"`. L’aperçu utilise la même arithmétique exacte, mais le serveur recharge les paramètres et valide la transaction finale.
+
+### Exemple budgétaire chiffré
+
+Supposons que toutes ces lignes soient en CAD pour le même exercice et la même version :
+
+| Ligne | Configuration | Financement du programme |
+| --- | --- | ---: |
+| Salaires | Manuel, catégorie source Personnel | 10 000,00 |
+| Avantages sociaux | 10 % du Personnel | 1 000,00 |
+| Administration | 5 % de tous les autres éléments | 550,00 |
+| Total | 10 000 + 1 000 + 550 | 11 550,00 |
+
+La base d’Administration est 11 000. Ajouter 2 000 d’autre financement aux Salaires ne modifie aucune charge. Porter les salaires à 12 000 fait passer les Avantages sociaux à 1 200 et l’Administration à 660. Avant d’enregistrer, assurez-vous que les totaux saisis manuellement des deux charges couvrent leur nouveau financement et leurs propres autres financements. Sinon, tout l’enregistrement échoue, y compris le changement des salaires.
+
+### Créer et modifier une ligne calculée
+
+1. Sélectionnez l’exercice budgétaire et la ligne de coûts configurée.
+2. Consultez le mode et la catégorie source capturés. Pour une charge de catégorie, vérifiez les lignes sources manuelles de cet exercice et de cette devise.
+3. Acceptez le pourcentage initial ou modifiez-le si le formulaire l’autorise.
+4. Saisissez le total, la description, la sous-section, la devise et les autres financements. Laissez l’aperçu et le serveur calculer le financement du programme.
+5. Enregistrez et examinez les totaux de l’ensemble du budget actualisé; une source peut modifier d’autres lignes.
+
+La création, modification, réaffectation ou suppression d’une ligne recalcule la version touchée dans la même transaction autorisée. Une dépendance invalide, une charge de tous les autres éléments en double, un total insuffisant, un dépassement numérique ou une capacité de volet insuffisante pour la version courante annule le changement initial et les changements dérivés. Changer de devise ou d’exercice change aussi le groupe de calcul. Les versions de modification restent isolées de la version courante jusqu’à leur processus d’application.
+
+## Définitions de coûts retirées
+
+Les catégories de l’organisme, leurs lignes et les associations de volet possèdent chacune un indicateur de disponibilité distinct de la suppression. Désactiver un maillon empêche une nouvelle sélection par cette chaîne. Les références et paramètres enregistrés restent lisibles; la modification d’une ligne peut conserver sa sélection inactive initiale. Un remplacement doit être actuellement admissible. La configuration du volet affiche séparément la disponibilité de l’association, de la catégorie et de la ligne de l’organisme : une association active ne prouve pas à elle seule la disponibilité de la source.
 
 ## Capacité du financement de programme
 

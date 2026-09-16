@@ -9,7 +9,7 @@ L'onglet **Documents** génère des fichiers à partir des modèles du volet de 
 | Modèle du volet | Il doit être actif, non supprimé, viser `fundingcaseagreement`, appartenir au volet actuel de l'entente et posséder des pièces jointes sources anglaise et française actives. |
 | Type de modèle | `docx` ou `html`. La liste de sorties configurée peut comprendre le type natif et `pdf`; les formats natifs incompatibles sont rejetés. |
 | Outils de conversion | DOCX vers PDF exige LibreOffice. HTML vers PDF exige le navigateur de Puppeteer. Consultez [Génération de documents](../developer/document-generation.md). |
-| Stockage persistant | La racine des pièces jointes locales doit être durable et sauvegardée avec la base de données. Consultez [Configuration de l'exploitation](../operator/configuration.md). |
+| Stockage persistant | L’organisme doit sélectionner un fournisseur enregistré. Sauvegardez ses objets et les métadonnées de base nécessaires pour les localiser. Consultez [Configuration de l'exploitation](../operator/configuration.md). |
 | Autorisation de l’entente | Lecteur énumère les modèles et fichiers et permet le téléchargement; Contributeur et l’affectation exacte génèrent; Gestionnaire et cette affectation suppriment un artefact. |
 
 Si aucun modèle admissible n'existe, la fenêtre ne propose aucun modèle et la génération demeure désactivée. La disponibilité n'est pas mise en cache de façon permanente : l'onglet charge les modèles à son montage, puis chaque requête de génération revalide le modèle par rapport au volet de l'entente.
@@ -24,7 +24,9 @@ Sélectionnez **Générer**, puis choisissez :
 | Langue | `eng` ou `fra`; la valeur par défaut suit la langue de l'interface et sélectionne la pièce jointe source correspondante. |
 | Format de sortie | Revient au premier format permis par le modèle si le choix précédent est incompatible. Un modèle DOCX peut produire `docx` ou `pdf`; un modèle HTML peut produire `html` ou `pdf` lorsque ces sorties sont configurées. |
 
-Le serveur renouvelle l'autorisation `create` dans une transaction. Il lit le fichier source choisi, construit le contexte actuel de l'entente, effectue le rendu, stocke une nouvelle pièce jointe commune et insère un dossier de document généré. Le nom du fichier combine le numéro d'entente, le nom localisé du modèle, le code de langue et l'extension; les caractères dangereux sont remplacés.
+Le serveur capture les données de l’entente et du modèle, puis lit les octets du fournisseur et effectue le rendu hors de la transaction finale. Avant d’enregistrer, il renouvelle l’autorisation et compare les données centrales actuelles à l’instantané. Une modification concurrente rejette le résultat périmé avec `DOCUMENT_RENDER_INPUT_CHANGED` (409); rechargez l’entente et générez de nouveau. La pièce jointe du fournisseur et le document généré ne sont conservés qu’après ces contrôles. Le nom combine numéro d’entente, nom localisé du modèle, langue et extension, en remplaçant les caractères dangereux.
+
+Un processus serveur accepte au plus deux rendus simultanés par organisme et utilisateur. Si `DOCUMENT_RENDER_BUSY` (429) apparaît, attendez qu’une requête se termine avant de réessayer. Les conversions ont aussi une durée maximale; un délai dépassé ne signifie pas qu’un document utilisable a été enregistré. Actualisez la liste avant de répéter une requête incertaine.
 
 La génération ne constitue pas une vérification de l'état de préparation juridique ni de l'exhaustivité des données. Les valeurs absentes ou vides deviennent `To be confirmed` en anglais et `A confirmer` en français. Révisez chaque artefact avant de l'utiliser.
 
@@ -44,14 +46,14 @@ Les sources DOCX acceptent les balises pointées et les sections de tableau de D
 
 Le document le plus récent apparaît en premier. Le tableau affiche le nom localisé du modèle enregistré, la langue demandée, le format de sortie, l'horodatage de génération et les actions. Il s'agit d'une liste filtrée côté client, et non d'une requête serveur paginée.
 
-Le téléchargement revérifie l'accès `read` à l'entente et exige que le dossier généré et sa pièce jointe soient actifs et appartiennent à l'entente demandée. La réponse utilise le type MIME, la taille et le nom de fichier stockés dans un en-tête `Content-Disposition` sûr. Le fournisseur local rejette les chemins absolus ou traversants, les liens symboliques, la mauvaise propriété et les permissions POSIX non sécuritaires avant de lire les octets.
+Le téléchargement revérifie l'accès `read` à l'entente et exige que le dossier généré et sa pièce jointe soient actifs et appartiennent à l'entente demandée. La réponse utilise le type MIME, la taille et le nom de fichier stockés dans un en-tête `Content-Disposition` sûr. Le fichier est lu avec son identité de fournisseur et son localisateur enregistrés. Changer le fournisseur des nouveaux fichiers de l’organisme ne déplace pas les documents antérieurs.
 
 ## Supprimer et récupérer
 
 La suppression renouvelle l'autorisation `delete` de l'entente, puis active `_deleted = true` sur le document généré et sa pièce jointe commune dans une seule transaction. Elle ne supprime jamais le modèle du volet. Après la validation de la transaction, le serveur tente de supprimer l'objet sous-jacent. L'absence de l'objet est tolérée; tout autre échec est journalisé sous `storage_cleanup_failed`, mais l'API retourne tout de même un succès puisque les métadonnées sont déjà supprimées.
 
 ::: warning Le nettoyage du fichier est au mieux
-Une suppression réussie peut donc laisser des octets orphelins dans l'arborescence privée. Les routes de documents ne peuvent plus les énumérer ni les télécharger. Les exploitants doivent surveiller les erreurs de nettoyage et rapprocher le stockage des métadonnées actives au moyen d'une procédure administrative approuvée; ne rétablissez pas l'accès en effaçant manuellement les indicateurs `_deleted`.
+Une suppression réussie peut donc laisser des octets orphelins dans le stockage du fournisseur. Les routes de documents ne peuvent plus les énumérer ni les télécharger. Les exploitants doivent surveiller les erreurs de nettoyage et rapprocher le stockage des métadonnées actives au moyen d'une procédure administrative approuvée; ne rétablissez pas l'accès en effaçant manuellement les indicateurs `_deleted`.
 :::
 
 L'interface principale n'offre aucune restauration. Après un résultat de génération incertain, actualisez la liste avant de réessayer afin d'éviter un deuxième instantané. Après un résultat de suppression incertain, actualisez avant de répéter l'action.

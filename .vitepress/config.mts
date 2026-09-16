@@ -11,7 +11,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         setup: 'Configuration d’un système vide',
         admin: 'Administration',
         agencies: 'Agences',
-        common: 'Commun',
+        common: 'GWCOA',
         assignments: 'Gestion des affectations',
         roles: 'Rôles',
         users: 'Utilisateurs',
@@ -81,7 +81,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         setup: 'Empty System Setup',
         admin: 'Administration',
         agencies: 'Agencies',
-        common: 'Common Admin',
+        common: 'GWCOA',
         assignments: 'Assignment Management',
         roles: 'Roles',
         users: 'Users',
@@ -161,7 +161,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.common, link: `${p}admin/common-admin` },
         { text: labels.assignments, link: `${p}admin/assignments` },
         { text: labels.roles, link: `${p}admin/roles` },
-        { text: labels.users, link: `${p}admin/users` }
+        { text: labels.users, link: `${p}admin/users` },
+        { text: locale === 'fr' ? 'Journaux d’audit et d’accès' : 'Audit and access logs', link: `${p}admin/audit` }
       ]
     },
     {
@@ -169,6 +170,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       items: [
         { text: labels.programOverview, link: `${p}programs/` },
         { text: labels.streams, link: `${p}programs/streams` },
+        { text: locale === 'fr' ? 'Champs personnalisés' : 'Custom fields', link: `${p}programs/custom-fields` },
         { text: labels.schemas, link: `${p}programs/assessment-schemas` },
         { text: labels.checklistSchemas, link: `${p}programs/checklist-schemas` },
         { text: labels.recommendationSchemas, link: `${p}programs/recommendations` },
@@ -215,6 +217,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       items: [
         { text: labels.rbac, link: `${p}concepts/rbac` },
         { text: labels.extensions, link: `${p}concepts/extensions` },
+        { text: locale === 'en' ? 'Attachments' : 'Pièces jointes', link: `${p}concepts/attachments` },
         { text: labels.approvals, link: `${p}concepts/approvals-completions` },
         { text: labels.workflows, link: `${p}concepts/workflows` },
         { text: labels.runtimeReviews, link: `${p}concepts/runtime-reviews` },
@@ -253,7 +256,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.templates, link: `${p}developer/api/approvals` },
         { text: labels.extensions, link: `${p}developer/api/extensions` },
         { text: labels.users, link: `${p}developer/api/identity` },
-        { text: labels.common, link: `${p}developer/api/platform` },
+        { text: locale === 'fr' ? 'Plateforme' : 'Platform', link: `${p}developer/api/platform` },
         { text: labels.schemas, link: `${p}developer/api/reviews` },
         { text: labels.programs, link: `${p}developer/api/transfer-payments` },
         { text: labels.approvals, link: `${p}developer/api/workflows` }

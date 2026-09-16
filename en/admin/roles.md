@@ -40,11 +40,12 @@ The Permissions tab shows one row per supported subject. Select `None`, `Viewer`
 | Contributor | Read, create, update |
 | Manager | Read, create, update, delete |
 
-The subjects are `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
+The subjects are `system`, `audit`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
 
 | Role subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
 | `system` | Yes | No | No |
+| `audit` | Yes | No | No |
 | `agency` | Yes | Yes | No |
 | `transfer_payment` | Yes | Yes | Yes |
 | `role` | Yes | Yes | No |
@@ -74,7 +75,7 @@ The detail page contains:
 
 General and Permissions save independently. A per-subject permission update atomically replaces that row and takes effect on subsequent server authorization. Profile edits cannot overwrite permission changes, and a permission change cannot save an invalid role scope.
 
-Role creation, profile updates, deletion, and permission replacements append non-sensitive `security_audit_event` records in the same transaction. A failed change produces no audit row.
+Role creation, profile updates, deletion, and permission replacements append non-sensitive `audit.security_audit_event` records in the same transaction. A failed change produces no audit row.
 
 ## Recommended role design
 
@@ -87,3 +88,5 @@ Role creation, profile updates, deletion, and permission replacements append non
 - Read-only Analyst: Viewer levels without assignment-management capability.
 
 Prefer a small set of durable job-function roles. Use scope and user-role assignments to vary coverage, then exact entity assignments to allocate saved work.
+
+Audit access must be granted explicitly on a global role. A System Manager does not automatically gain access to the [audit browser](./audit.md). For an analyst who only needs evidence, grant Audit Viewer without broader operational or assignment-management permissions.

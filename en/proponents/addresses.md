@@ -47,3 +47,9 @@ Validation errors are returned in the request language. Correct missing required
 - [Proponent profiles](./index.md)
 - [Contacts](./contacts.md)
 - [Agreements](./agreements.md)
+
+## Exact values and partial updates
+
+Street, city, subdivision and postal fields accept at most 255 Unicode characters and reject NUL. Main phone and optional GC address ID preserve signed PostgreSQL bigint values as decimal strings; do not round a long identifier through a spreadsheet or JavaScript number. The phone extension is a signed small integer and the riding ID a signed 32-bit integer. Coordinates, when supplied through the API, must fit `numeric(10,7)`.
+
+A partial update validates the resulting country/subdivision pair, not just the submitted field. For example, changing the country to Canada while retaining an invalid subdivision fails until a valid province or territory is supplied. Sending unchanged physical values does not count as modifying a shared address.

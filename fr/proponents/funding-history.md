@@ -22,6 +22,12 @@ La consultation de l’onglet exige un accès en lecture au promoteur courant. C
 
 Chaque profil touché est évalué séparément. La lecture emploie sa portée Lecteur Promoteur. Les mutations exigent le plafond de rôle correspondant à l’opération demandée — Contributeur pour créer ou modifier et Gestionnaire pour supprimer — ainsi que l’affectation exacte à chaque parent touché par cette opération. Le sélecteur présente seulement les profils actifs admissibles à l’action demandée, et l’écriture les verrouille dans un ordre stable avant de revérifier l’autorisation.
 
+**Tous** combine les deux sources et conserve les indicateurs de relations restreintes. **Les miens** inclut seulement les ententes système lisibles avec votre affectation exacte à l’entente. Une vue **Agence** inclut les ententes système lisibles appartenant à l’agence du programme. Les enregistrements externes apparaissent seulement dans Tous, car leurs noms d’agence et de programme sont du texte libre, non des liens de propriété. Les autres vues retirent aussi les indicateurs restreints.
+
+Par exemple, utilisez Tous pour comparer un financement externe à une entente existante avant de créer un doublon. Utilisez Les miens pour travailler sur vos ententes affectées; un financement externe absent de cette vue n’a pas été supprimé.
+
+La lecture combinée utilise un même instantané à lecture répétable pour les lignes et les permissions. Chaque source est limitée à 5 000 candidats avant la recherche et la pagination; un dépassement retourne `FUNDING_HISTORY_TOO_LARGE` (413), non un historique incomplet. Une vue système plus étroite peut aider, mais changer la taille de page ou le texte de recherche ne contourne pas cette limite.
+
 ## Ajouter un financement externe
 
 Sélectionnez **Ajouter un financement externe**. L’assistant plein écran comporte cinq étapes : bénéficiaires, agence, programme, entente et révision.
@@ -36,7 +42,7 @@ Le profil depuis lequel l’assistant a été ouvert est le bénéficiaire princ
 | Titre | Fournissez au moins une langue; chaque valeur est limitée à 255 caractères. |
 | Description | Fournissez au moins une langue. |
 | Dates de début et de fin | Toutes deux obligatoires; la fin ne peut pas précéder le début. |
-| Montant du financement | Obligatoire, non négatif, limité à deux décimales et à 90 billions au maximum. Il est enregistré sous la forme `numeric(19,2)`. |
+| Montant du financement | Texte décimal exact obligatoire, non négatif, limité à deux décimales et à `99999999999999999.99`. Il est enregistré sous la forme `numeric(19,2)`; les clients API doivent conserver la chaîne plutôt que la convertir en nombre à virgule flottante. |
 | Devise | Code de devise pris en charge obligatoire; l’assistant utilise CAD par défaut pour un nouvel enregistrement. |
 
 L’étape de révision résume la saisie avant l’enregistrement. Les erreurs de validation et d’API destinées à l’utilisateur suivent la langue de la demande.

@@ -24,7 +24,9 @@ const walk = async (root: string, predicate: (path: string) => boolean): Promise
   const visit = async (directory: string): Promise<void> => {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
       const path = join(directory, entry.name)
-      if (entry.isDirectory()) await visit(path)
+      if (entry.isDirectory()) {
+        if (!['.git', '.reference-repos', '.vitepress', 'node_modules'].includes(entry.name)) await visit(path)
+      }
       else if (predicate(path)) paths.push(path)
     }
   }

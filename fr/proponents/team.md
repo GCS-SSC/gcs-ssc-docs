@@ -35,7 +35,7 @@ Un utilisateur non principal peut être retiré lorsqu’il reste au moins une a
 
 ## Changements d’état et de portée
 
-Le registre ne peut changer que lorsque le promoteur est `draft` ou `active`. Un profil terminal ou supprimé est verrouillé. Chaque écriture recharge l’agence principale, le graphe des rôles, l’admissibilité, l’état et le registre courant dans une transaction; une page périmée ne peut donc pas conserver l’accès après un changement concurrent.
+Le registre ne peut changer que lorsque l’indicateur actif du promoteur est vrai et que le profil n’est pas supprimé. Les profils inactifs conservent leur registre lisible, sans pouvoir le modifier. Chaque écriture recharge l’agence principale, le graphe des rôles, l’admissibilité, l’état et le registre courant dans une transaction; une page périmée ne peut donc pas conserver l’accès après un changement concurrent.
 
 Le changement d’agence principale modifie la portée utilisée par les autorisations et les vérifications d’admissibilité suivantes. Révisez le registre et les permissions dans le cadre de ce changement; une affectation existante peut demeurer visible même si son utilisateur n’est plus admissible dans la nouvelle agence.
 

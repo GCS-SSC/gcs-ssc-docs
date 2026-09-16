@@ -23,19 +23,12 @@ Tous les enfants résolvent la portée de l’entente courante. Lecteur consulte
 
 La plupart des suppressions sont logiques. Les enfants supprimes disparaissent des listes et selecteurs normaux mais restent disponibles pour l integrite historique.
 
-## Modele de statut
+## État métier, achèvement et flux
 
-Les dossiers d execution complexes utilisent ces regles communes :
+Les enfants d’entente utilisent les états métier configurables de l’organisme. Les enregistrements ordinaires préservent l’état. Les indicateurs lecture seule et terminal, la preuve d’achèvement, les verrous de flux actif et la protection de l’entente parente déterminent la possibilité de modifier le travail. Un libellé comme « Approuvé » ne constitue pas à lui seul une preuve d’approbation.
 
-| Dossier | Etats editables | Etats verrouilles |
-| --- | --- | --- |
-| Engagement | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
-| Paiement | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, `paid` |
-| Lignes de prevision | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
-| Soumission de reclamation | `draft` | `submitted`, `inreview`, `reviewed`, `withdrawn`, `cancelled` |
-| Rapprochement de reclamation | `draft`, `inprogress`, `complete` lorsque la reclamation est prete et sans rapprochement final approuve | `pendingapproval`, `approved`, `denied` |
-| Surveillance | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
+Achever valide le dossier et démarre son flux publié de soumission d’approbation si configuré. Les modifications et clôtures exigent ce flux; les autres enfants pris en charge peuvent être achevés sans flux. Les effets positifs, comme l’activation d’une prévision ou d’un engagement de remplacement, attendent la réussite du flux lorsqu’une exécution existe. Un achèvement enregistré ne prouve pas à lui seul la réussite de l’approbation.
 
-L’achèvement écrit un enregistrement `Common_Completion`. L’achèvement principal des engagements, paiements, prévisions, surveillances et rapprochements écrit directement `complete` et peut démarrer un flux d’achèvement publié. Il ne consulte pas un modèle d’approbation autonome et ne matérialise pas sa feuille; ces moteurs d’approbation génériques exigent un appelant explicite d’API ou d’intégration, tandis qu’un flux d’achèvement peut atteindre indépendamment une étape d’approbation source configurée. Consultez le guide de l’entité pour sa frontière exacte.
+L’onglet **Flux de travail** démarre explicitement un flux standard sélectionné. Une seule exécution peut être active sur une cible exacte, tous objets confondus. Achèvement, soumission d’approbation racine, flux standard et examen direct sont des actions distinctes; consultez le guide de l’entité et [Approbations et achèvements](../concepts/approvals-completions.md) pour leurs préalables.
 
-Les sections d approbation utilisent les actions communes de feuille de route. Si toutes les etapes courantes sont approuvees, la cible passe a `approved`; si une etape est refusee, elle passe a `denied`; sinon elle demeure `pendingapproval`. Les dossiers refuses peuvent permettre une nouvelle feuille de route selon la configuration du workflow.
+Les justificatifs appartiennent à l’onglet [Pièces jointes](../concepts/attachments.md) de l’enfant exact. Les [Modifications](./amendments.md) et [Clôtures](./closeouts.md) ont leurs propres règles d’achèvement, d’instantané et de verrouillage d’agrégat.

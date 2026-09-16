@@ -29,7 +29,7 @@ The tab opens a full-screen form. Every field below is required.
 | English expected results | Non-empty text. |
 | French expected results | Non-empty text. |
 | Related outcomes | At least one unique, active outcome belonging to the agreement's program. |
-| Responsible parties | At least one unique, active agreement-proponent link whose proponent is also active. |
+| Responsible parties | At least one unique, non-deleted Agreement–Proponent link whose Proponent has not been deleted. This reference check does not require the profile’s Active flag to remain on. |
 
 The outcome and responsible-party pickers support server-side search and multiple selection. If there is exactly one available responsible party when a new form loads, the interface selects it automatically; you can still change the selection. An empty lookup disables its selection button and indicates that no choice is available.
 
@@ -39,7 +39,7 @@ Changing the locale changes displayed names, not the stored English and French v
 
 The table shows the localized activity name and description, start and end dates, localized expected results, outcome badges, and responsible-party badges. It is paginated. Search matches the activity ID; English or French name, description, or expected results; outcome names; and proponent legal or operating names. It does **not** search the displayed dates.
 
-Inactive outcome links, inactive agreement-proponent links, and deleted proponents are omitted from list results and badges.
+Deleted outcome links, deleted Agreement–Proponent links, and deleted Proponents are omitted from list results and badges.
 
 ## Validation, concurrency, and recovery
 
@@ -47,7 +47,7 @@ The server rechecks the exact agreement scope inside the write transaction after
 
 Selection changes are synchronized transactionally. Removed links are soft-deleted; selecting the same outcome or responsible party later restores its existing link when possible. Partial failures roll back the activity and its selections together. The database also enforces the date range, agreement/version ownership, and one active link per activity/outcome and activity/responsible-party pair.
 
-If another writer changes access or related configuration before save, reload the agreement and reopen the form. An empty patch leaves the activity unchanged and returns its current values.
+If another writer changes access or related configuration before save, reload the agreement and reopen the form. An empty patch leaves the activity unchanged and returns its current values. A partial date edit is validated against the other saved date: changing only the start date cannot move it after the existing end date. Activity reads keep the header and relationship labels in one consistent snapshot.
 
 ## Delete and version behaviour
 

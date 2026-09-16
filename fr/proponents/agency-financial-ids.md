@@ -7,9 +7,11 @@ L'onglet **Identifiants financiers d'agence** associe un promoteur existant à l
 | Champ | Règle |
 | --- | --- |
 | Agence | Facultative. Lorsqu'elle est fournie, elle doit référencer une agence active. La recherche liste les agences actives après avoir autorisé l'action de création ou de modification sur le promoteur parent. |
-| Identifiant du système financier | Entier sûr obligatoire. Il est stocké dans un `bigint` PostgreSQL; l'interface actuelle utilise un champ numérique. |
+| Identifiant du système financier | Texte entier canonique obligatoire dans la plage `bigint` PostgreSQL, de `-9223372036854775808` à `9223372036854775807`. L’interface utilise un champ texte pour préserver la précision; les clients API devraient transmettre une chaîne. Une valeur JSON numérique n’est acceptée que si elle est un entier sûr. |
 
 Puisque l'agence est facultative dans le contrat source actuel, un identifiant sans portée peut être enregistré. Sélectionnez de préférence une agence lorsque l'identifiant lui appartient afin de préserver clairement sa provenance.
+
+Par exemple, transmettez exactement `"9007199254740993"`; le convertir en nombre JavaScript perd de la précision. Ce champ identifie un dossier externe et n’hérite pas de la règle de positivité des identifiants d’entités de l’application. Une référence inchangée à une agence non supprimée peut être conservée après sa désactivation; choisir une autre agence exige qu’elle soit active.
 
 ## Unicité et cycle de vie
 

@@ -35,7 +35,7 @@ A non-primary user can be removed while at least one active assignment remains. 
 
 ## Status and scope changes
 
-The roster can change only while the Proponent is `draft` or `active`. A terminal or deleted profile is locked. Every write reloads the lead agency, role graph, user eligibility, status, and current roster inside one transaction, so a stale page cannot preserve access after a concurrent change.
+The roster can change only while the Proponent’s active flag is true and the profile is not deleted. Inactive profiles retain their readable roster but cannot change it. Every write reloads the lead agency, role graph, user eligibility, status, and current roster inside one transaction, so a stale page cannot preserve access after a concurrent change.
 
 Changing the Proponent's lead agency changes the scope used by later authorization and eligibility checks. Review the roster and permissions as part of that change; an existing assignment can remain visible even when its user no longer qualifies at the new agency.
 

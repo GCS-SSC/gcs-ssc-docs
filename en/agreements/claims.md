@@ -20,9 +20,9 @@ Agreement Viewer reads claims. Creating a claim requires Contributor plus the ex
 
 ## Browse and create claims
 
-The Claims tab groups rows by current fiscal-year display. It shows each claim ID, April-to-March period, status, submitted total, and the sum of every active reconciliation line associated with that claim. Search matches the fiscal year, claim ID, localized period and status, or either displayed total.
+The Claims tab groups rows by current fiscal-year display. It shows each claim ID, April-to-March period, status, submitted total, and successful reconciled amounts. Draft or unsuccessful reconciliation work is not treated as completed reconciliation. Search matches the fiscal year, claim ID, localized period and status, or either displayed total.
 
-The group-level edit and delete buttons currently operate on the first claim in that fiscal-year group. Open an individual claim from its row for unambiguous work. When several claims share a fiscal year, do not assume a group action targets the row you were viewing.
+Edit and delete actions identify the individual claim row. Expand the fiscal-year group and confirm the claim identifier before acting; several claims can belong to one year.
 
 | Claim field | Rule |
 | --- | --- |
@@ -31,9 +31,9 @@ The group-level edit and delete buttons currently operate on the first claim in 
 | Period start and end | Required indexes from `0` (April) through `11` (March); end cannot precede start. |
 | Final for year | Required boolean marker. It is descriptive: the database does not restrict a fiscal year to one claim with this marker. |
 
-A core-created claim begins as `draft`. The header may be edited or soft-deleted only while editable. Deleting it soft-deletes its claim lines, reconciliations, and reconciliation lines in the same transaction; the historical rows remain in the database.
+A core-created claim receives the Agency’s protected Draft business status. Ordinary edits preserve that status; they do not invent a fixed `inprogress` transition. The header may be edited or soft-deleted only while editable. Deleting it soft-deletes its claim lines, reconciliations, and reconciliation lines in the same transaction; the historical rows remain in the database.
 
-Changing the fiscal year validates the destination current fiscal year but does not migrate or revalidate existing claim lines. Old-year allocated lines can disappear from the Submission grid while remaining attached to the claim and eligible for reconciliation. Do not change the fiscal year after line entry. If it has changed, stop and reconcile the hidden lines through an authorized data review before submitting.
+A fiscal-year change is refused when active allocated claim lines still reference another fiscal year. The server validates the destination against the current Agreement budget and validates the merged period start/end on partial updates. Correct the allocation or prepare the intended claim before completing it; a header change does not migrate lines.
 
 ## Build the submission
 
@@ -47,60 +47,54 @@ There is no active uniqueness constraint for `(claim, budget line)`. Direct API 
 
 ### Imported unallocated lines
 
-The core page displays unallocated lines and lets a user with a Contributor Agreement role ceiling and the exact claim assignment map each one to a compatible current budget line while the claim is `draft` or `submitted`. For a submitted claim, this one-time null-to-budget allocation is the only permitted line edit. Reconciliation cannot start until every active line is allocated.
+An assigned claim Contributor can allocate an imported unallocated line to a compatible current budget line while the claim remains editable. Allocation does not bypass Completion or read-only business-status locks. Complete allocation before completing the claim: the server requires at least one line and rejects any remaining unallocated line.
 
 ## Submit, withdraw, or cancel
 
-Select **Ready for review** to change a draft claim to `submitted`. The server requires at least one active claim line and no unallocated line. It does not enforce a maximum against the budget, require a positive total, or require one line per budget coordinate.
+Use the claim's Completion controls after saving and checking its lines. Completion requires the exact claim assignment, Contributor access, an editable business status, no prior completion, at least one active line, and no unallocated lines. An active workflow also blocks completion.
 
-A `submitted` claim may be withdrawn only before any active reconciliation exists. Withdrawal writes `withdrawn`; it does not return the claim to draft. A non-draft claim other than one already `withdrawn` or `cancelled` may be cancelled, even after reconciliation has started. Cancellation writes `cancelled`. Both are locked terminal states in the core page.
+Completion records either `no_workflow` or `workflow_started`. If an approval-submission workflow is configured, follow its review and approval steps. The claim becomes ready for reconciliation only at a **positive completion terminus**: immediately when no approval workflow applies, or after that workflow succeeds. A status label alone is not proof of readiness. Standard workflows are explicitly selected and do not replace Completion.
 
-The claim lifecycle recognized by this feature is:
-
-`draft` → `submitted` → `inreview` → `reviewed`
-
-`submitted` may instead become `withdrawn`; most non-draft states may become `cancelled`. Creating or editing a reconciliation changes eligible parent states to `inreview`. Approval of a final reconciliation changes the claim to `reviewed`; approval of a non-final reconciliation and denial leave it `inreview`.
+Withdrawal and cancellation act on the active claim workflow; they do not assign fixed `withdrawn` or `cancelled` business-status codes. Withdrawal is refused after reconciliation history exists. With no active workflow there is no workflow to cancel through these actions. The workflow's published cancellation status determines the business transition. Completion remains historical evidence and cannot be undone by resubmitting the form.
 
 ## Create and compare reconciliations
 
-The **Reconciliation** tab becomes available for claims in `submitted`, `inreview`, `reviewed`, or `complete`, or whenever reconciliation history already exists. Creating one requires every claim line to be allocated and no approved final reconciliation. The server records the current Common User as reviewer, creates a `draft` reconciliation, and changes the claim to `inreview`.
+A claim must have reached a positive completion terminus, all active lines must be allocated, and no successfully completed final reconciliation may exist. Creating a reconciliation requires Contributor access and the exact claim assignment; it makes the creator primary on the new independent reconciliation roster.
 
-Multiple active reconciliations may exist and the page lists newest first with reviewer, status, final marker, reconciled total, sampled total, and submitted-minus-reconciled balance. Select a row to view and edit it. Only one active reconciliation per claim may have `isfinal = true`; both application validation and a partial unique database index enforce this. If a final reconciliation is denied, the approval runtime clears its final marker so another can be designated.
-
-For every claim line, a reconciliation line contains:
+Only one reconciliation may be open for the claim at a time. Completed and cancelled history remains available for comparison. A new reconciliation receives the Agency Draft status. If configured, starting reconciliation applies the Agency's reconciliation-start status to the claim. The final marker identifies the reconciliation intended to finish the claim; open-final uniqueness is protected in the database.
 
 | Field | Contract |
 | --- | --- |
-| Reconciled amount | Required `numeric(19,2)`. |
-| Sampled amount | Optional `numeric(19,2)`; the grid sends zero when left at its default. |
-| Rationale | Optional free text. |
+| Reconciled amount | Required exact `numeric(19,2)` money; persisted and transported as decimal text. |
+| Sampled amount | Optional exact money. |
+| Rationale | Optional free text recording the assessment of the line. |
 
-Only one active reconciliation line may reference a particular claim line within the same reconciliation. Composite foreign keys ensure that both belong to the same claim. The grid creates or patches every claim line sequentially when **Save reconciliation** is selected. A late failure can leave a partial reconciliation, so refresh and compare all rows before completion.
+The reconciliation editor saves the complete line set through one bulk transaction, optionally with the final marker. Every current claim line must appear exactly once and saved reconciliation-line IDs must still match. A stale line set rejects the entire save; reload and compare the draft with the current data. Individual row editing uses this same complete-set persistence contract, not a separate partial grid commit.
 
-The UI inputs have a minimum of zero, but the shared API schemas use signed money validators and the database has no non-negative check for submitted, reconciled, or sampled amounts. The server also does not require the reconciled total to equal the submitted total, limit sampled to reconciled, require a rationale, or cap a claim against the budget. Treat the displayed balance as information, not an enforced completion rule.
+The shared money schemas accept signed values. Saving or completing does not establish that sampled amounts are bounded by reconciled amounts, that reconciled totals equal the submission, or that the claim fits the Agreement budget. Apply the Agency's review policy and explain differences. The UI displays submitted, successful prior reconciliation, current reconciliation, and balance information to support that judgment; calculations use exact money.
 
-Header/line edits move an unlocked reconciliation to `inprogress` and eligible parent claims to `inreview`. The API can move a reconciliation line to another editable reconciliation and can soft-delete reconciliation records and lines; the current detail page exposes neither delete operation.
+For example, a claim line submitted at `"1000.00"` with `"600.00"` successfully reconciled earlier has `"400.00"` remaining before the current reconciliation. A draft amount is not a successful historical reconciliation. Check the displayed scope before treating totals as cumulative, and document why the current decision differs from the remaining amount.
+
+Cancellation closes the current reconciliation, clears its final marker, and cancels its active workflow when present. Without an active workflow, a configured approval-submission cancellation status is applied when available; without such configuration, the draft can still be closed. It does not delete evidence and releases the open slot for a new reconciliation.
 
 ## Completion, approval, and workflow
 
-The selected reconciliation has Completion and Workflow controls. Completion requires a Contributor Agreement role ceiling and the exact reconciliation assignment, an editable reconciliation, no already approved final reconciliation for the claim, no existing completion, and at least one active reconciliation line. It does not validate totals or the final marker.
+Save the reconciliation before selecting Complete. Completion requires its own exact assignment and Contributor ceiling, a writable open record, no prior completion, no successfully completed final reconciliation for the claim, and at least one active reconciliation line. Comments are optional. These checks do not imply financial equality or a mandatory rationale.
 
-On success the transaction records the common completion comment and user, writes the reconciliation directly to `complete`, starts any applicable `fundingclaimreconcile` workflow, commits, and emits the completion hook. The parent claim remains `inreview`. Completion does not inspect an approval template or create a routing slip.
+The common Completion transaction starts the selected `fundingclaimreconcile` approval-submission workflow when configured; otherwise it records `no_workflow`. Approval templates take effect through that published workflow. The shared Workflow section exposes its review, recommendation, approval, cancellation, and recovery actions. Configuring a template without wiring it into the workflow is insufficient.
 
-A separate generic approval API exists for authorized integrations. An explicit caller can materialize the stream's valid `fundingclaimreconcile` approval template and move a completed or otherwise editable reconciliation to `pendingapproval`. Assigned approvers need ordinary access to the exact Agreement. Approval produces `approved`; denial produces `denied`, clears `isfinal`, and leaves the claim `inreview`. Approving a final reconciliation changes the claim to `reviewed` and blocks further reconciliation creation, editing, completion, or final designation.
-
-The current claim detail page mounts no approval section and completion does not call that API. Configuring a claim-reconciliation approval template alone therefore does not submit core-UI reconciliations for approval.
+At a positive completion terminus, the reconciliation closes. If it is final, the claim can receive the Agency's configured final-reconciliation business status, and later reconciliation creation or editing is blocked. The status is not hard-coded to `reviewed`. A failed or cancelled attempt does not confer successful finality. Inspect the attempt and its available retry/cancel actions rather than completing the same record again.
 
 ## Locked states and recovery
 
-Claim header and ordinary line edits are locked at `submitted`, `inreview`, `reviewed`, `withdrawn`, and `cancelled`, except for the one-time allocation of an unallocated line while `submitted`. Reconciliations are locked at `complete`, `pendingapproval`, `approved`, and `denied`, and a stored completion also prevents edits.
+Agency read-only or terminal statuses, completion evidence, closed reconciliation state, and successful final reconciliation govern editing. The server also checks the owning Agreement and active workflow boundaries; a visible button is not authority to bypass a later state change.
 
-If a save fails, refresh before retrying because grid writes are not atomic. If submission is refused, ensure at least one line exists and every imported line is allocated. If final designation is refused, inspect the other reconciliation carrying the final marker. If an approved final reconciliation exists, treat the claim as closed; there is no core reopening action.
+For a submission-grid failure, reload because earlier per-line writes may have committed. For a bulk reconciliation failure, the transaction rolls back; correct validation errors or reload a stale line set before retrying. If a read refresh fails after a successful write, retry that read before resubmitting. When completion is unavailable, check allocation, saved lines, the independent assignment, business status, and active workflows. Cancel an unwanted open reconciliation through its supported action instead of creating competing open records.
 
 ## Developer contract
 
-The core family has 16 Agreement-scoped handlers: overview; claim create, patch, delete, ready-for-review, withdraw, and cancel; claim-line create, patch, and delete; reconciliation create, patch, and delete; and reconciliation-line create, patch, and delete. Detail data is supplied by the overview endpoint rather than a separate claim GET route. Bodies use the shared localized Zod schemas and standard `VALIDATION_FAILED` response.
+Agreement-scoped routes own claim and financial mutations. `/api/claim-reconciliations/{id}` provides the independently assigned detail projection; `/api/claim-reconciliations/{id}/lines/bulk` provides atomic complete-set editing. Completion and Workflow use the shared typed-entity APIs. The removed ready-for-review transition is not the current submission contract.
 
-Claim IDs and child IDs are PostgreSQL bigint values returned as strings; stable budget references are UUIDs. Claim-reconciliation IDs are registered polymorphic `Common_Entity` identities of type `fundingclaimreconcile`, allowing common completion, approval, workflow, and extension-tab dispatch. Soft deletion is used throughout. Aggregate locks are ordered by Agreement, claim, and reconciliation identity to serialize mutations and final-marker checks.
+All public claim, reconciliation, and stable budget identifiers are decimal bigint strings. Reconciliation identities use `fundingclaimreconcile`; claims use `fundingcaseagreementclaim`. Parent/child ownership is enforced by typed identities and composite foreign keys, and fresh-authorized aggregate locks serialize writes. Bodies use localized Zod validation and exact-money strings; failures use the standard API error envelope.
 
 See [Agreement Budget](./budget.md), [Forecasts](./forecasts.md), [Payments](./payments.md), [Approvals and Completions](../concepts/approvals-completions.md), and [Workflows](../concepts/workflows.md).

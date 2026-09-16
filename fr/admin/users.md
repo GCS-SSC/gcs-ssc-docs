@@ -19,6 +19,8 @@ La page de détail contient :
 
 L’en-tête présente le nom, le courriel, l’avatar et l’état vérifié ou non vérifié. La modification des champs d’identité est distincte de l’attribution des rôles. La charge utile du profil ne contient aucun indicateur d’autorisation propre aux promoteurs.
 
+Les adresses courriel sont validées et converties en minuscules à la création et à la modification. Par exemple, `Analyst@Example.org` est conservée sous `analyst@example.org`; changer la casse ne crée pas une seconde identité. Une adresse active en double est refusée.
+
 ## Attribuer des rôles
 
 Ouvrez Attributions et sélectionnez **Attribuer un rôle**. Le sélecteur charge les rôles actifs que l’administrateur peut attribuer à cette cible. Les libellés indiquent le contexte global, d’agence ou de programme afin de distinguer les rôles qui portent le même nom.
@@ -47,7 +49,7 @@ Le mot de passe est haché avant l’écriture atomique du compte avec identifia
 
 ## Piste d’audit de sécurité
 
-Les mutations de sécurité des rôles et des utilisateurs ajoutent un `security_audit_event` dans la même transaction. Les événements actuels couvrent la création, la modification du profil, la suppression et le remplacement des permissions d’un rôle; la création, la modification du profil, la suppression et l’activation d’un utilisateur; ainsi que la création ou le retrait d’une attribution utilisateur-rôle.
+Les mutations de sécurité des rôles et des utilisateurs ajoutent un `audit.security_audit_event` dans la même transaction. Les événements actuels couvrent la création, la modification du profil, la suppression et le remplacement des permissions d’un rôle; la création, la modification du profil, la suppression et l’activation d’un utilisateur; ainsi que la création ou le retrait d’une attribution utilisateur-rôle.
 
 Les enregistrements indiquent l’acteur authentifié, une catégorie d’événement contrainte, le type et l’identifiant de la cible, l’horodatage et des métadonnées structurelles non sensibles. Ils excluent les noms, courriels, images, identifiants de connexion, jetons et hachages de mot de passe. Des déclencheurs refusent les modifications et suppressions d’événements d’audit. Les changements du registre d’une entité exacte sont régis par leur propre transaction d’affectation et leurs preuves de cycle de vie.
 

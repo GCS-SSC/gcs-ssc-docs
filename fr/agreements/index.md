@@ -4,7 +4,7 @@ Les ententes de financement sont des dossiers d’exécution appartenant à un v
 
 ## Modèle d’accès
 
-La liste retourne les dossiers actifs couverts par la permission de rôle `agreement` au moins Lecteur de l’utilisateur à portée globale, d’agence ou de programme. La lecture n’exige pas d’affectation exacte. La recherche porte sur le numéro; le titre anglais ou français; le nom de l’agence, du programme ou du volet; et le type d’entente. Un filtre d’agence restreint la liste. Chaque ligne indique ses capacités de modification et de suppression; les commandes sont activées séparément.
+La liste retourne les dossiers actifs couverts par la permission de rôle `agreement` au moins Lecteur de l’utilisateur à portée globale, d’agence ou de programme. La lecture n’exige pas d’affectation exacte. La recherche porte sur le numéro; le titre anglais ou français; le nom de l’agence, du programme ou du volet; et le type d’entente. Le sélecteur propose toutes les ententes accessibles, **Mes ententes** (vos affectations exactes) et des vues par organisme. Ces filtres restreignent la portée de lecture existante; une affectation ne l’élargit pas. Un filtre d’agence peut encore restreindre la liste. Chaque ligne indique ses capacités de modification et de suppression; les commandes sont activées séparément.
 
 | Combinaison requise | Actions sur l’entente |
 | --- | --- |
@@ -28,13 +28,13 @@ Les onglets ultérieurs exigent les exercices, catégories de coûts, résultats
 
 ## Créer une entente
 
-Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %. Il contient trois sections principales ainsi que les emplacements fournis par les extensions activées.
+Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %. Il contient trois sections principales, les sections personnalisées du volet et les emplacements des extensions activées. Choisissez le programme avant le volet; changer de programme efface les sélections dépendantes. Les promoteurs se sélectionnent indépendamment parmi les profils actifs lisibles.
 
 | Champ | Règle |
 | --- | --- |
-| Volet | Volet actif obligatoire dans la portée de création. |
+| Programme et volet | Choisissez le programme, puis un volet disponible dans la portée de création. Le volet est immuable après la création. |
 | Sous-type d’entente | Sous-type actif obligatoire appartenant exactement au volet. Le type d’entente est dérivé du sous-type et n’est pas modifiable séparément. |
-| Numéro d’entente | Obligatoire, élagué, limité à 15 caractères et unique parmi les ententes actives du volet. |
+| Numéro d’entente | En mode manuel, numéro élagué obligatoire d’au plus 15 caractères. Avec un fournisseur activé, la création génère le numéro et refuse un numéro fourni manuellement. |
 | Numéro du système financier | Identifiant de type entier non négatif obligatoire; les grands identifiants de base de données sont transmis sous forme de chaînes. |
 | Dates d’aide autorisée | Toutes deux obligatoires; la fin ne peut pas précéder le début. |
 | Redistribution | Valeur oui-non obligatoire. |
@@ -42,7 +42,7 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %. Il co
 | Descriptions anglaise et française | Toutes deux obligatoires. |
 | Retenue | Pourcentage obligatoire de 0 à 100 inclusivement, enregistré à deux décimales. |
 | Base de retenue | Base active obligatoire configurée pour le volet. Elle n’est pas limitée à deux libellés codés en dur. |
-| Cote de risque | Valeur non négative facultative; si elle est fournie, elle doit correspondre à une cote active du volet. |
+| Cote de risque | Sélection manuelle facultative sans flux publié d’Évaluation du risque; sinon, gestion par flux et modification interdite dans le profil. |
 | Promoteurs | Au moins un profil actif unique; la personne responsable de la création doit pouvoir lire chaque sélection. Consultez [Promoteurs de l’entente](./applicant-recipients.md). |
 
 Le changement de volet dans le formulaire efface le sous-type, la base de retenue et la cote de risque, puisque ces valeurs appartiennent au volet. La création verrouille les portées d’extension et le volet sélectionné, reconstruit l’autorisation, verrouille chaque promoteur choisi, valide les références entre volets, insère l’entente et ses liens, enregistre l’entité typée et crée atomiquement l’affectation principale du créateur.
@@ -51,9 +51,11 @@ Le changement de volet dans le formulaire efface le sous-type, la base de retenu
 
 La règle d’unicité active de la base de données interdit le même numéro d’entente dans un volet. De plus, la création et les modifications d’identité comparent le numéro système proposé aux enregistrements externes lisibles de l’Historique du financement dans la même portée de noms d’agence et de programme. Une correspondance proche exige une empreinte de confirmation au serveur.
 
-::: warning Limite actuelle de confirmation
-Le formulaire principal d’entente n’affiche actuellement ni la boîte de dialogue d’examen des similarités ni les empreintes de confirmation. Si une correspondance proche dans l’historique externe déclenche `FUNDING_HISTORY_SIMILARITY_CONFIRMATION_REQUIRED`, l’enregistrement échoue et l’erreur d’API standard s’affiche; ce formulaire n’offre aucune action de confirmation prise en charge. Vérifiez s’il s’agit d’un doublon et corrigez le numéro au besoin. Il s’agit d’une limite actuelle de l’application, et non d’un chemin d’enregistrement réussi.
-:::
+Les formulaires de création et de modification présentent maintenant une boîte de confirmation des similarités. Examinez la correspondance possible : annulez pour corriger le brouillon, ou confirmez les avertissements puis soumettez de nouveau. Les correspondances restreintes ne dévoilent pas leurs libellés protégés. La confirmation vise le couple volet/numéro proposé; le modifier invalide la confirmation précédente. Une nouvelle correspondance apparue avant la fin de la transaction rouvre la boîte avec les avertissements actuels. Confirmer ne contourne pas un conflit d’unicité exacte.
+
+Par exemple, un numéro ressemblant à une entrée externe d’Historique du financement peut représenter un doublon ou une entente distincte. Vérifiez le contexte accessible et confirmez explicitement seulement si le nouveau dossier est voulu. Annuler laisse l’entente non enregistrée.
+
+Lorsque la numérotation est gérée par fournisseur, l’hôte résout exactement un fournisseur activé pour l’organisme et le volet et génère le numéro dans la transaction de création. Des fournisseurs concurrents ou un résultat invalide bloquent la création. N’inventez pas de numéro temporaire et ne réessayez pas avec une valeur manuelle; demandez à l’administrateur de corriger la configuration. Le format et les compteurs propres au fournisseur relèvent de la documentation de son extension.
 
 ## Espace de détail
 
@@ -83,9 +85,17 @@ Les extensions activées peuvent ajouter des onglets et des champs au profil. Le
 
 Une modification du profil relit et valide la charge utile partielle localisée, puis verrouille les portées d’extension, les volets touchés, l’état du cycle de vie des extensions et l’entente dans une transaction ordonnée. L’autorisation et la portée sont reconstruites après le verrouillage. Si la propriété change pendant l’acquisition des verrous, le serveur fait jusqu’à trois tentatives, puis signale un conflit de portée.
 
-Le déplacement est limité à un autre volet du même programme de paiements de transfert. Il exige aussi l’accès de modification au volet cible, un sous-type, une base de retenue et une cote de risque valides dans la cible ainsi que l’accord de chaque garde de changement de volet fournie par une extension activée. Les champs appartenant au volet doivent être sélectionnés de nouveau. Les relations enfants typées existantes et les données d’extension peuvent empêcher le déplacement.
+Le volet ne peut pas changer après la création, y compris par l’API. Renvoyer son identifiant inchangé est accepté; un remplacement produit `AGREEMENT_STREAM_IMMUTABLE`. Choisissez le bon programme et volet avant d’enregistrer une nouvelle entente. Des références historiques de sous-type, retenue et risque peuvent être conservées lors d’autres modifications; un remplacement doit respecter la propriété et l’admissibilité actuelles.
 
-La réduction ou le déplacement de la période d’aide est refusé lorsqu’un exercice budgétaire actif de l’entente ne chevaucherait plus les dates proposées. Le changement du numéro d’entente ou du volet relance la vérification de similarité avec l’Historique du financement. Une modification réussie appelle le crochet hôte de mise à jour du profil dans la transaction.
+La réduction ou le déplacement de la période d’aide est refusé lorsqu’un exercice budgétaire actif de l’entente ne chevaucherait plus les dates proposées. Le changement du numéro d’entente relance la vérification de similarité avec l’Historique du financement. Une modification réussie appelle le crochet hôte de mise à jour du profil dans la transaction.
+
+## Champs personnalisés et cote de risque
+
+L’onglet Général ajoute les sections configurées par le volet. Remplissez les champs actifs obligatoires, conservez ou effacez explicitement les valeurs inactives et enregistrez avec le formulaire habituel. Consultez les [champs personnalisés des ententes](../programs/custom-fields.md) pour les types, un exemple de configuration, les mises à jour partielles et l’acheminement conditionnel.
+
+Quand le volet sélectionne un flux publié d’**Évaluation du risque**, la cote est gérée par flux. Utilisez les commandes correspondantes de l’entente pour lancer l’évaluation et suivre ses étapes d’examen et d’approbation. La dernière évaluation réussie est associée à une cote du volet selon les intervalles de la publication. Une tentative en attente, échouée, refusée ou annulée ne remplace pas à elle seule la cote enregistrée. Un résultat terminé conserve le flux, la note d’évaluation, la cote associée et la preuve de terminaison. Si le mode de gestion ne peut pas être chargé, réessayez avant de modifier le risque.
+
+Sans flux publié d’Évaluation du risque, la sélection manuelle reste possible selon les permissions du profil. Les cotes conservées s’affichent dans la langue courante. Les notes et identités référencées par des publications courantes ou tentatives actives ne peuvent pas être modifiées ou supprimées avant la résolution de ces dépendances.
 
 ## Suppression et rétablissement
 

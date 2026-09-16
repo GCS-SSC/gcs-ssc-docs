@@ -1,6 +1,6 @@
 # Startup
 
-The documentation repository and the source app repository are separate workspaces. The docs live in `gcs-ssc-docs`; the app source is `../gcs-ssc`.
+The documentation repository and the source app repository are separate workspaces. The docs live in `gcs-ssc-docs`; the app source is `gcs-ssc`.
 
 ## App prerequisites
 
@@ -15,20 +15,20 @@ The app uses Bun scripts, Nuxt 4, Better Auth, Kysely, and either PGlite or Post
 - `BETTER_AUTH_TRUSTED_ORIGINS`
 - `BETTER_AUTH_COOKIE_VERSION`
 - `GCS_EXTENSION_SECRETS_KEY`
-- `GCS_LOCAL_FILE_STORAGE_DIR`
 
 If `DATABASE_URL` is absent, local development can use the configured PGlite data directory.
 
 `GCS_EXTENSION_SECRETS_KEY` is required in production when extensions store encrypted credentials. It must be a base64-encoded 32-byte key. Development seed data may provide a fixed demo key for non-real local credentials only.
 
-For production local-file storage, set `GCS_LOCAL_FILE_STORAGE_DIR` to a dedicated service-owned directory. On POSIX, use a canonical path with no symbolic links in its ancestor spelling; the service identity must own the storage tree and group/other access must be disabled. On Windows, apply equivalent ACLs to the directory and its ancestors, including protection against replacement through delete-child or rename permissions.
+Files require a registered storage provider selected for the Agency. The host has no automatic local-directory fallback. Configure the chosen provider and its durable storage according to its own documentation; see [Configuration](../operator/configuration.md).
+
+Use Bun **1.3.13** and initialize the pinned SDK, extension and private tooling submodules. `bun run setup` initializes the workspaces, prepares tooling links, installs dependencies and builds the SDK. Access to `GCS-SSC/gcs-ssc-tooling` is required for the private test and architecture resources.
 
 ## App setup
 
-From `../gcs-ssc`:
+From `gcs-ssc`:
 
 ```bash
-bun install
 bun run setup
 bun run dev
 ```
@@ -45,7 +45,7 @@ The extension system generates metadata under `.nuxt/gcs-extensions`. Server uti
 
 ## Document generation tools
 
-Agreement document generation can run locally on Linux or WSL without global LibreOffice or Chrome installs. From `../gcs-ssc`, run:
+Agreement document generation can run locally on Linux or WSL without global LibreOffice or Chrome installs. From `gcs-ssc`, run:
 
 ```bash
 bun run bun:docgen:install
@@ -76,4 +76,4 @@ bun run docs:build
 
 ## Smoke check
 
-For the app, sign in, check `/en/` and `/fr/`, open Agencies, Roles, Users, Common Admin as root, and verify a scoped user sees a reduced sidebar. For docs, open `/en/` and `/fr/` and confirm the English and French sidebars expose the same owned sections.
+For the app, sign in, check `/en/` and `/fr/`, open Agencies, Roles, Users and GWCOA with the appropriate global permissions, and Audit with an explicit Audit Viewer grant, and verify a scoped user sees a reduced sidebar. For docs, open `/en/` and `/fr/` and confirm the English and French sidebars expose the same owned sections.

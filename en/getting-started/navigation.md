@@ -14,7 +14,8 @@ GCS-SSC uses a responsive dashboard shell with a collapsible/resizable sidebar, 
 | Assignment Management | When any active Agreement or Proponent permission has `manage_assignments`. |
 | Roles | Always listed; APIs still enforce `role` scope. |
 | Users | When an active role can read `user`. |
-| Common Admin | Only with global Viewer or higher for `system`. |
+| GWCOA | Only with global Viewer or higher for `system`. |
+| Audit | Only with explicit global Viewer or higher for `audit`. |
 
 Exact entity assignments do not make the Agreements or Proponents destination appear because an assignment never supplies its missing role ceiling. Conversely, a visible destination does not assign every record or guarantee a non-empty list. Sidebar visibility is only a usability hint; every API enforces current authorization independently.
 

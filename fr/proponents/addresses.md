@@ -47,3 +47,9 @@ Les erreurs de validation sont retournées dans la langue de la demande. Corrige
 - [Profils des promoteurs](./index.md)
 - [Contacts](./contacts.md)
 - [Ententes](./agreements.md)
+
+## Valeurs exactes et modifications partielles
+
+Rue, ville, subdivision et code postal acceptent au plus 255 caractères Unicode et refusent NUL. Le téléphone principal et l’identifiant d’adresse GC facultatif conservent les bigint PostgreSQL signés sous forme de chaînes décimales; n’arrondissez pas un long identifiant dans un tableur ou un nombre JavaScript. Le poste est un petit entier signé et l’identifiant de circonscription un entier signé de 32 bits. Les coordonnées fournies par API doivent tenir dans `numeric(10,7)`.
+
+Une modification partielle valide la paire pays/subdivision résultante, pas seulement le champ transmis. Par exemple, changer le pays pour le Canada en conservant une subdivision invalide échoue jusqu’à la saisie d’une province ou d’un territoire valide. Renvoyer les mêmes valeurs physiques ne constitue pas une modification d’adresse partagée.

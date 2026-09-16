@@ -8,7 +8,7 @@ Les dossiers operationnels deviennent souvent des references dans les ententes, 
 
 ## Experience utilisateur
 
-Dans la plupart des listes, les lignes supprimees sont masquees. Dans Commun, les utilisateurs racine peuvent filtrer tous, actifs et supprimes, et basculer `_deleted` lors de la modification d un dossier existant. Certaines pages specialisees exposent seulement les dossiers actifs parce que les dossiers supprimes ne devraient pas etre reutilises dans une nouvelle configuration.
+La plupart des listes masquent les lignes supprimées. Le catalogue GWCOA dédié offre les filtres tous, actifs et supprimés et un indicateur de suppression à la modification. Ce n’est pas une interface générale de restauration des dossiers opérationnels. Certaines références possèdent un indicateur distinct de disponibilité; leur retrait empêche les nouvelles sélections tout en préservant les liens historiques. Suivez les règles de la page propriétaire avant de supprimer ou remplacer une référence.
 
 ## Comportement des donnees
 

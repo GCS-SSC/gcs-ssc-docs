@@ -31,9 +31,9 @@ Pour les réponses, le calcul des résultats, les examinateurs supplémentaires,
 
 ## Annuler et reprendre
 
-Une personne autorisée à modifier peut annuler un ensemble sauf si son état est `complete`, `approved`, `denied`, `withdrawn` ou `cancelled`. L’annulation est un résultat historique terminal, et non une suppression.
+Une personne autorisée peut annuler un ensemble non terminal. Les états terminaux sont `succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled` et `failed`. L’annulation préserve l’historique.
 
-Dans un ensemble non terminal, un examen enfant refusé ou annulé peut être cloné pour reprise. Le clone commence comme nouveau brouillon dans le même ensemble et conserve la version de schéma, la configuration d’approbation, le mode liste de contrôle ou évaluation et les indicateurs de comportement épinglés de l’examen source. L’original demeure dans l’historique. La commande de reprise est masquée dès que l’ensemble devient terminal.
+Pour un ensemble autonome terminal, reprendre un examen refusé, annulé, échoué ou sans succès crée une exécution suivante et un nouvel ensemble depuis le plan figé. Les nouveaux examens ont de nouveaux conteneurs de réponses; l’ensemble et les décisions d’origine restent immuables. Aucun brouillon n’est ajouté à l’ancien ensemble et ses lignes terminales ne sont pas rouvertes. Les permissions, l’affectation et l’état actif du promoteur restent applicables. Voir [Examens en cours d’exécution](../concepts/runtime-reviews.md) pour la filiation et les reprises concurrentes.
 
 Si une action échoue parce que la cible ou l’autorisation a changé simultanément, actualisez l’onglet et réévaluez l’état courant. Ne créez pas un ensemble distinct uniquement pour contourner une transition bloquée ou terminale.
 

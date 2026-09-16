@@ -22,6 +22,12 @@ Reading the tab requires read access to the current proponent. A linked system a
 
 Each affected profile is evaluated separately. Reads use its Proponent Viewer scope. Mutations require the role ceiling for the requested operation—Contributor for create or update and Manager for delete—plus the exact assignment to every parent affected by that operation. The selector lists only active profiles eligible for the requested action, and the write locks them in stable order before rechecking authorization.
 
+**All** combines both sources and preserves restricted relationship placeholders. **Mine** includes only readable system Agreements with your exact Agreement assignment. An **Agency** view includes readable system Agreements owned by that program Agency. External records appear only in All because their agency/program names are free text, not ownership links. Switching to Mine or an Agency view also removes restricted placeholders.
+
+For example, use All to compare an external award with an existing Agreement before adding a duplicate. Use Mine to focus on Agreements assigned to you; an external award disappearing from that view has not been deleted.
+
+The combined read uses one repeatable-read snapshot for rows and permissions. Each source is bounded at 5,000 candidate rows before search and pagination; exceeding the bound returns `FUNDING_HISTORY_TOO_LARGE` (413), not an incomplete history. A narrower system view can help, but changing the page size or search text cannot bypass this candidate limit.
+
 ## Add external funding
 
 Select **Add external funding**. The full-screen wizard has five steps: recipients, agency, program, agreement, and review.
@@ -36,7 +42,7 @@ The profile from which you opened the wizard is the primary recipient and cannot
 | Title | Provide at least one language; each value is limited to 255 characters. |
 | Description | Provide at least one language. |
 | Start and end dates | Both required; the end cannot precede the start. |
-| Funding amount | Required, non-negative, at most two decimal places, and no greater than 90 trillion. It is stored as `numeric(19,2)`. |
+| Funding amount | Required, non-negative exact decimal text, at most two decimal places, and no greater than `99999999999999999.99`. It is stored as `numeric(19,2)`; preserve the string in API clients instead of converting it to a floating-point number. |
 | Currency | Required supported currency code; new records default to CAD in the wizard. |
 
 The review step summarizes the entry before save. User-facing validation and API errors follow the request language.

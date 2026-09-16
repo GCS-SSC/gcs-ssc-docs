@@ -80,6 +80,11 @@ const row = (
 
 const pageDestination = (source: string): string => {
   const normalized = source.toLowerCase()
+  if (normalized.includes('/customfield') || normalized.includes('/custom-field')) return 'programs/custom-fields.md'
+  if (normalized.includes('/admin/audit') || normalized.includes('/admin-audit')) return 'admin/audit.md'
+  if (normalized.includes('/attachment')) return 'concepts/attachments.md'
+  if (normalized.includes('/gwcoa') || normalized.includes('/admin/gwcoa')) return 'admin/common-admin.md'
+  if (normalized.includes('/form') || normalized.includes('/required')) return 'developer/validation-i18n.md'
   if (normalized.includes('/assignment-management') || normalized.includes('/assignedusers')) return 'admin/assignments.md'
   if (normalized.includes('/claim-reconciliations/')) return 'agreements/claims.md'
   if (normalized.includes('/recommendations/')) return 'concepts/workflows.md'
@@ -172,6 +177,11 @@ for (const name of migrationNames) {
   ]) {
     for (const match of text.matchAll(pattern)) mechanisms.add(match[1])
   }
+  // Shared publication/runtime and custom-field tables are also authored as raw
+  // SQL. Inventory these alongside Kysely createTable/createType declarations.
+  for (const match of text.matchAll(/CREATE\s+(?:TABLE|TYPE)\s+(?:IF\s+NOT\s+EXISTS\s+)?((?:"?[\w]+"?\.)?"?[\w]+"?)/gi)) {
+    mechanisms.add(match[1].replaceAll('"', ''))
+  }
   if (text.includes('createAssignmentLifecycleTriggers')) {
     for (const match of text.matchAll(/createAssignmentLifecycleTriggers\(\s*db,\s*'[^']+',\s*'[^']+',\s*'([^']+)'\s*\)/g)) {
       mechanisms.add(`trg_enforce_${match[1]}_assignment_roster`)
@@ -205,7 +215,8 @@ const domains = [
   ['agreements-financial-lifecycle', 'server/api/agreements; app/pages/agreements', 'agreements/index.md'],
   ['reviews-assessments-checklists', 'server/api/reviews; server/api/review-sets', 'programs/assessment-schemas.md'],
   ['approvals-recommendations-completions-workflows', 'server/api/approvals; server/api/completions; server/api/workflows', 'concepts/approvals-completions.md'],
-  ['common-administration', 'server/api/admin/common', 'admin/common-admin.md'],
+  ['common-administration', 'server/api/admin/gwcoa', 'admin/common-admin.md'],
+  ['audit-evidence', 'server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0013_audit.ts', 'admin/audit.md'],
   ['database-integrity-concurrency', 'server/database/migrations; server/utils/*transaction*', 'developer/data-model.md'],
   ['i18n-validation-errors', 'i18n; shared/types/schemas; server/utils/api-validate.ts', 'developer/validation-i18n.md'],
   ['files-documents', 'server/utils/file-storage.ts; server/utils/document-generation.ts', 'developer/document-generation.md'],
@@ -223,11 +234,11 @@ const configItems = [
   ['local-setup-commands', 'package.json; scripts/setup-workspaces.ts; scripts/dev.ts'],
   ['database-modes', 'server/utils/db.ts; server/plugins/migrations.ts'],
   ['authentication-providers', 'server/utils/auth.ts; nuxt.config.ts'],
-  ['storage-document-generation', 'server/utils/file-storage.ts; server/utils/local-file-storage.ts; server/utils/document-generation.ts'],
+  ['storage-document-generation', 'server/utils/file-storage.ts; server/utils/file-storage-provider.ts; server/utils/document-generation.ts'],
   ['docker-railway', 'Dockerfile; docker-compose.yml; railway.json'],
   ['ci-demo-webcontainer', '.github/workflows; scripts/webcontainer.ts'],
   ['health-readiness', 'server/api/health.get.ts'],
-  ['quality-testing', 'package.json; scripts/agent; vitest*.ts; playwright.config.ts'],
+  ['quality-testing', 'package.json; tooling/gcs-ssc; vitest*.ts; playwright.config.ts'],
   ['extension-packaging', 'modules/gcs-extensions.ts; Dockerfile; package.json']
 ] as const
 await writeCoverage('config-coverage.json', configItems.map(([id, source]) =>
@@ -235,10 +246,12 @@ await writeCoverage('config-coverage.json', configItems.map(([id, source]) =>
 ))
 
 const concreteExtensionAuditPrefixes = ['AUTOMATED-PAYMENTS-', 'EXT-NARRATIVE-', 'GCFORMS-', 'OUTCOME-ALLOCATION-']
+// Historical audit dossiers are optional source artifacts; current runtime audit
+// routes and migration 0013 are inventoried independently above.
 const auditEvidencePaths = [
-  ...(await walk(join(sourceAuditRoot, 'findings'), path => path.endsWith('.md'))),
-  ...(await walk(join(sourceAuditRoot, 'investigations'), path => path.endsWith('.md') || path.endsWith('.json'))),
-  ...(await walk(join(sourceAuditRoot, 'browser-personas'), path => path.endsWith('.md')))
+  ...(existsSync(join(sourceAuditRoot, 'findings')) ? await walk(join(sourceAuditRoot, 'findings'), path => path.endsWith('.md')) : []),
+  ...(existsSync(join(sourceAuditRoot, 'investigations')) ? await walk(join(sourceAuditRoot, 'investigations'), path => path.endsWith('.md') || path.endsWith('.json')) : []),
+  ...(existsSync(join(sourceAuditRoot, 'browser-personas')) ? await walk(join(sourceAuditRoot, 'browser-personas'), path => path.endsWith('.md')) : [])
 ].filter(path => !concreteExtensionAuditPrefixes.some(prefix => basename(path).startsWith(prefix)))
 await writeCoverage('audit-impact-coverage.json', auditEvidencePaths.map(path => {
   const source = relative(appRoot, path)

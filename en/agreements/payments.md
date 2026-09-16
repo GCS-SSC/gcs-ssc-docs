@@ -9,10 +9,10 @@ Open an Agreement and select **Payments**. The following setup must already exis
 | Dependency | Verified requirement |
 | --- | --- |
 | Agreement budget | The payment uses a stable fiscal-year identity from the current Agreement budget version. |
-| Commitment | Creation ultimately requires an active, non-deleted commitment of the selected type whose status is `complete` or `approved`. |
+| Commitment | Creation ultimately requires an active, non-deleted commitment of the selected type with completion evidence or an approved approval runtime. |
 | Commitment lines | Coding lines must belong to that exact commitment and map to the payment's current Agreement fiscal year. |
-| Optional workflow setup | Completion can start an applicable workflow for `fundingcasepayment`. |
-| Optional approval template | The server has a separate payment-approval runtime, but core completion and the current detail page do not invoke it. See [Completion, approval, and workflow](#completion-approval-and-workflow). |
+| Optional workflow setup | Completion starts the selected approval-submission workflow for `fundingcasepayment` when configured. |
+| Optional approval template | Include the published approval template in the approval-submission workflow; a template alone does not create a route. See [Completion, approval, and workflow](#completion-approval-and-workflow). |
 
 Agreement Viewer reads the tab/detail. Creating a payment requires Contributor plus the exact Agreement assignment and makes the creator primary. Later payment/line updates and completion require Contributor plus the exact payment assignment; deletion requires Manager plus that assignment. A related stream, commitment, or Agreement does not broaden the boundary. Missing/inaccessible records do not disclose cross-scope data.
 
@@ -33,9 +33,9 @@ Select the payment type to open its detail page. The header there shows the amou
 | Payment amount | Required, finite, positive money value within the shared request limit; persisted as `numeric(19,2)`. |
 | Comment | Optional; blank input is stored as `null`. |
 
-A core-created payment starts as `draft`. Editing its header or changing its lines moves a draft to `inprogress`. The API response also presents a draft header as `inprogress` after an edit.
+A new payment receives the Agency Draft business status. Header and line edits preserve that status; only the configured lifecycle engine applies status transitions.
 
-The commitment picker currently includes all `complete` commitments, even inactive ones, and active `approved` commitments. Saving is stricter: it resolves only an active `complete` or `approved` commitment by type. A displayed inactive completed option can therefore fail at save, or resolve another active commitment of the same type. Do not treat picker presence as proof of eligibility; verify the active commitment on the Commitments tab.
+The commitment picker can include inactive commitments carrying completion evidence. Saving requires an active eligible commitment and resolves it by type. A historical displayed option can therefore fail at save or resolve the current active commitment of the same type. Verify the active commitment on its tab before creating the payment.
 
 Changing the commitment or fiscal year is refused once the payment has any active line. Remove or reconcile the lines first. Other header edits remain subject to the lifecycle lock below. The server rechecks authorization and Agreement scope inside the write transaction before mutation.
 
@@ -43,7 +43,7 @@ The tab shows edit and delete controls from the caller's broad permissions, even
 
 ## Allocate payment lines
 
-The detail page lists the commitment line number, fiscal year, fund, optional GL and description, fund centre, internal order, functional area, cost centre, and allocated amount. Search matches those displayed coding values. The total below the table compares all active lines with the payment header amount.
+The detail page lists the commitment line number, fiscal year, localized ordered accounting dimensions and allocated amount. Search matches the displayed coding values. The total below the table compares all active allocations with the payment header amount.
 
 | Rule | Behaviour |
 | --- | --- |
@@ -53,30 +53,29 @@ The detail page lists the commitment line number, fiscal year, fund, optional GL
 | One coding line per payment | Only one active line may reference a particular commitment line within the same payment. |
 | Remaining balance | Across all active, non-denied payments, the sum assigned to a commitment line plus the proposed amount cannot exceed that commitment line's amount. A patch excludes the line being changed. |
 
+Here, “non-denied” means the payment’s latest exact target approval runtime is not `denied`. A draft or a payment without approval evidence still consumes the balance. A configurable business-status name such as “Denied” does not itself release money.
+
 The balance check locks the commitment line, serializing competing host writes to the same balance. Parent payments are locked in deterministic ID order before a moved child line is locked; a detected scope change is retried up to three times. A line PATCH API can move a line to another editable payment in the same Agreement, although the mounted detail modal keeps the current payment selected. The destination commitment, fiscal year, uniqueness, and balance are all revalidated.
 
 Deleting a line soft-deletes it. Deleting a payment locks its active lines and soft-deletes the lines and header together. Deleted records no longer appear or count toward balances; database history remains. Deletion and edits are refused once the payment is locked.
 
 ## Completion, approval, and workflow
 
-The core detail page has **Completion** and **Workflow** sections; it has no payment approval section.
+The detail page presents Completion and the shared Workflow section. Complete only after saving all coding allocations. The server locks the payment and active lines, refreshes Contributor access and the exact payment assignment, and requires no earlier completion, at least one active line, a positive line total, and exact equality between that total and the header amount.
 
-Completion is transactional. It locks the payment and its active lines, rechecks the Contributor Agreement role ceiling and exact payment assignment, refuses a second completion, and requires:
+Completion atomically records its comment/user and either starts the selected `fundingcasepayment` approval-submission workflow or records `no_workflow`. The hook is emitted after commit. The workflow can contain published reviews, recommendations, and approvals; its controls appear in the shared section. A configured template by itself does not create this sequence. An active workflow blocks Completion, and completion evidence locks ordinary editing.
 
-- at least one active line and a positive line total; and
-- an exact PostgreSQL numeric sum equal to the payment header amount.
+For example, a payment of `"1250.00"` allocated as `"1000.00"` and `"250.00"` can satisfy the equality check. An allocation total of `"1249.99"` cannot. Correct the amounts before completing; later approval is not a way to waive the financial check.
 
-On success it records the common completion comment and user, changes the payment directly to `complete`, starts any applicable `fundingcasepayment` workflow, commits, and then emits the completion hook. It does not inspect a payment approval template or create a routing slip.
-
-A generic payment approval API does exist for authorized integrations. An explicit caller can materialize the stream's `fundingcasepayment` template, move the payment to `pendingapproval`, and process assigned approvals to `approved` or `denied`. Assigned approvers still need ordinary access to the exact Agreement. That API is not called by the core completion button and its controls are not mounted on the payment page. Consequently, configuring a payment approval template alone does not put a core-UI payment into approval.
-
-The schema also defines `pay`, `wait`, `processed`, and `paid`. They are locked if encountered, but no current core route or installed extension advances a payment into those four operational states. Do not describe them as an automated processing pipeline.
+Completing or approving a payment is not proof that an external financial system disbursed it. The core host does not implement an automatic banking/payment-processing pipeline. Business status labels are Agency-configured; interpret them with the configured workflow and the owning integration's evidence.
 
 ## Lifecycle and recovery
 
-`draft` and `inprogress` are editable. `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, and `paid` are locked against header and line mutation.
+Agency read-only/terminal status, completion evidence, and protected runtime work lock header and line changes. The server repeats those checks inside the authorized transaction, including when a previously opened modal still offers Save.
 
-If completion reports a total mismatch, compare the header amount with the full unfiltered line total, then correct the editable header or lines. If a balance error occurs, inspect other non-denied payments against the same commitment line. A denied payment no longer consumes that balance. If an extension refuses a mutation, preserve its generated provenance and follow the extension-specific recovery guidance rather than bypassing the host route.
+For a total mismatch, compare the header with the full unfiltered line total. For a balance failure, inspect other payments consuming the same commitment line and their current runtime evidence. A display label alone is not the balance policy. Correct editable allocations before retrying. If a save succeeded but refresh failed, reload the current record before issuing another mutation. Follow workflow recovery for a failed approval attempt; Completion cannot be repeated or undone.
+
+If an extension refuses a mutation, retain its provenance and follow the owning extension's recovery guidance without bypassing the host route.
 
 ## Extension effects
 

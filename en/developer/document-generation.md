@@ -1,26 +1,20 @@
 # Document generation
 
-Agreement document generation joins stream-scoped bilingual templates, live agreement data, local attachment storage, and a generated-document snapshot row. The user workflow and five route contracts are documented in [Agreement documents](../agreements/documents.md).
+Agreement document generation joins stream-scoped bilingual templates, live agreement data, provider-backed attachment storage, and a generated-document snapshot row. The user workflow and five route contracts are documented in [Agreement documents](../agreements/documents.md).
 
 ## Runtime pipeline
 
-`generateAgreementDocument` in `server/utils/document-generation.ts` performs this sequence inside the caller's freshly authorized agreement-create transaction:
+The generate route captures an authorized database snapshot, resolves the exact active template and requested format, and loads its language-specific source through the attachment’s recorded storage provider. It hydrates the localized context and performs rendering outside the Agreement write transaction.
 
-1. resolve an active `fundingcaseagreement` template on the agreement's current stream;
-2. confirm that the requested output occurs in `egcs_tp_outputformats`;
-3. read the English or French source attachment through the local provider;
-4. build the localized context from current agreement relationships;
-5. render native DOCX/HTML or convert it to PDF;
-6. write a private common attachment; and
-7. insert `Funding_Case_Agreement_Generated_Document`.
+A process-local admission limit permits two concurrent renders per Agency/user pair; further requests return `429 DOCUMENT_RENDER_BUSY`. After rendering, a short fresh-authorized Agreement write rechecks scope, assignment, lifecycle, and a SHA-256 hash of the current core context. Changed input returns `409 DOCUMENT_RENDER_INPUT_CHANGED` instead of saving output made from stale core data. Refresh and generate again after the source work settles.
 
-An attachment-metadata insert failure removes the newly written object. A generated-row insert failure soft-deletes the attachment and removes its object. Because filesystem bytes are not transactional with PostgreSQL/PGlite, operators must still detect storage/database drift around process or commit failures.
+Persistence writes a provider object, a common attachment, and a generated-document record. A metadata failure attempts object cleanup; a generated-record failure retires and cleans up its attachment. External storage and database commit are not one atomic transaction. Generated-document/template cleanup uses best-effort compensation and logs failures; do not assume every such failure has a job in the shared-upload cleanup outbox.
 
 ## Rendering and trust boundary
 
 DOCX processing normalizes double-brace tags in `word/*.xml`, then uses Docxtemplater with paragraph loops, line breaks, parent-scope lookup, and localized null fallback. HTML processing supports dotted substitutions and one collection-loop form and escapes every substituted value.
 
-HTML-to-PDF starts a shared headless Puppeteer browser, disables page JavaScript, and aborts requests except `data:` and `about:`. DOCX-to-PDF uses `libreoffice-convert`; `LIBREOFFICE_SOFFICE_PATH` overrides the repository `scripts/soffice-flatpak` wrapper. Conversion failure becomes localized `LIBREOFFICE_UNAVAILABLE`.
+HTML-to-PDF starts a shared headless Puppeteer browser, disables page JavaScript, and aborts requests except `data:` and `about:`. DOCX-to-PDF uses `libreoffice-convert`; `LIBREOFFICE_SOFFICE_PATH` overrides the repository `scripts/soffice-flatpak` wrapper. Conversion failure becomes localized `LIBREOFFICE_UNAVAILABLE`. LibreOffice conversion has a 30-second deadline. Chromium uses one 30-second render budget across its stages and a separate two-second cleanup bound, rather than granting every stage a fresh full timeout.
 
 Template authors are privileged content authors. Native HTML retains template markup, and Puppeteer launches with `--no-sandbox`; deploy the service in the documented non-root/container boundary and permit only trusted administrators to manage templates.
 
@@ -30,15 +24,15 @@ Stable top-level keys currently include `agreement`, `agency`, `department`, `pr
 
 The built-in `department` object is hard-coded Health Canada data, not agency configuration. `recipient.primary` is the first linked recipient by ID, with the first active address found for it. Template authors must account for both boundaries.
 
-The helper sequentially deep-merges functions found in `event.context.documentGenerationContextProviders`. No current host plugin, module, or installed extension registers that property. Treat it as an event-local internal integration seam, not as a declared extension SDK capability. If an authorized host integration supplies providers, later providers replace scalar/array values and recursively merge object values; providers execute inside the generation transaction and may fail the request.
+The helper sequentially deep-merges functions found in `event.context.documentGenerationContextProviders`. No current host plugin, module, or installed extension registers that property. Treat it as an event-local internal integration seam, not as a declared extension SDK capability. If an authorized host integration supplies providers, later providers replace scalar/array values and recursively merge object values; providers hydrate the render input outside the final Agreement write transaction and may fail the request.
 
 ## Storage and records
 
-`writeStoredFile` sanitizes filename/folder segments, creates or reuses the agency attachment type, writes under bucket `local-document-templates`, and stores provider, object key, MIME type, size, names, descriptions, and creation time. `Funding_Case_Agreement_Generated_Document` references the agreement, template, and generated attachment and checks output format against `docx`, `html`, and `pdf`.
+`writeStoredFile` sanitizes proposed object-name segments, creates or reuses an Agency attachment type, and delegates bytes to the Agency’s selected provider. The attachment stores the provider ID, opaque object identity, server-only JSON locator, MIME type, size, original filename, bilingual metadata, and creation time. `Funding_Case_Agreement_Generated_Document` links the Agreement, template, generated attachment, language, and output format.
 
-The local storage implementation rejects absolute and traversal paths, symlinks, non-regular objects, wrong POSIX ownership, group/other access, and unsafe ancestor namespaces. It writes an exclusive mode-0600 temporary file and renames it atomically. Configure `GCS_LOCAL_FILE_STORAGE_DIR` as a service-owned durable path and back it up with the database.
+Reads and deletion use the saved provider, not the Agency’s current selection for new files. No local-provider fallback exists. Provider credentials, object durability, and infrastructure belong to the provider’s configuration. Preserve all referenced provider implementations and objects with the database backup.
 
-Deletion soft-deletes the generated row and attachment transactionally, then deletes bytes after commit. Non-ENOENT cleanup failure is logged but does not reverse metadata deletion. Downloads require agreement ownership plus active row and attachment, then return stored MIME/name/length headers.
+Generated-document deletion retires its row and attachment, then attempts external cleanup. Cleanup failure is logged and does not restore metadata. Downloads require the exact accessible active relationship and return stored MIME/name/length headers. These generated records are separate from the manually uploaded [Attachments](../concepts/attachments.md) list.
 
 ## Local tools
 

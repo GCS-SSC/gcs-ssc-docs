@@ -6,7 +6,7 @@ Checklist schemas define bilingual pass/fail questions and deterministic result 
 
 Create the agency, program, stream, and Review Setup first. In the Review Setup detail editor, either associate an existing same-agency checklist schema or create a checklist member. Selecting the member opens the checklist editor; its breadcrumb returns to the stream's Review Setups tab.
 
-Users need `transfer_payment:read` for the exact program to view the schema and `transfer_payment:update` to save, activate, or publish it. Client controls mirror those permissions, while every server request independently resolves the active agency/program/stream/schema chain.
+Users need `transfer_payment:read` for the exact program to view the schema and `transfer_payment:update` to save, publish, or retire it. Client controls mirror those permissions, while every server request independently resolves the active agency/program/stream/schema chain.
 
 ## Editor Sections
 
@@ -16,7 +16,7 @@ The editor has three anchored sections:
 2. Sections: ordered sections, subsections, and questions.
 3. Result Rules: the default failure policy and nested conditional result groups.
 
-The hero shows entity type, draft/active/inactive status, version, and whether unpublished changes exist. Save validates the whole definition. The publish action first saves, then activates a draft or publishes pending changes to an active schema.
+The hero shows entity type, draft/published/retired publication state, version, and whether unpublished changes exist. Save validates the whole definition. The publish action first saves, then publishes the first draft or pending changes to an already published schema.
 
 ## Sections And Questions
 
@@ -50,11 +50,11 @@ A group has a unique key, bilingual label, result, one or more conditions, and a
 
 Conditions can target a failed question or contain another group. Group keys are unique, a question cannot be repeated directly within one group, every referenced question must exist, and groups can be at most three levels deep (a root plus two nested levels).
 
-## Activation, Publication, And Snapshots
+## Publication and snapshots
 
-A draft uses version 0. Activating a valid draft copies the effective definition to the published field, clears the working copy, marks the schema active, records version 1, and inserts an immutable version record. Editing an active schema writes a working copy without changing its published runtime content. Publishing valid pending content increments the version and records a new immutable version.
+A draft has no published version. Publishing a valid definition creates immutable version `1`; each changed publication increments the integer version by one. Saving after publication changes authoring content only. Identical canonical content keeps the current published version. Retiring a published schema is permanent and prevents new selection, edits and publication.
 
-Runtime reviews are materialized from published setup/schema snapshots. Existing reviews continue to use their pinned checklist definition and setup lineage after an administrator publishes a newer version.
+Runtime reviews retain the exact schema and setup publication versions that generated them. For example, publishing a new required question does not insert that question into an already generated checklist. Publish the consuming Review Setup before expecting future work to use the new schema. Historical attempts retain their own answers and rules.
 
 ## Runtime Checklist Behaviour
 
@@ -67,7 +67,7 @@ Review access, assigned-reviewer rules, completion, approvals, cancellation, and
 ## Failure And Recovery
 
 - Duplicate or missing keys, empty sections/subsections, missing answer options, unknown rule targets, invalid thresholds, or excessive nesting produce localized validation errors.
-- Activation fails unless the schema is a valid draft. Publication fails unless it is active and has valid pending content.
+- Publication requires valid authoring content and a non-retired publication.
 - A missing or inaccessible schema is masked consistently; verify the identifier and exact program scope.
 - Save and publication recheck fresh authorization and ownership in a transaction. Reload after a concurrent lifecycle change, correct the definition, save, and retry.
 - Do not remove or rename questions from published schemas without considering pinned historical responses and future rule behaviour.

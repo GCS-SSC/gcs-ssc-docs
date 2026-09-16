@@ -1,10 +1,10 @@
 # Clôture d’une entente
 
-La clôture consigne la preuve qu’une entente est administrativement et financièrement achevée avant qu’elle devienne en lecture seule. Ouvrez une entente et choisissez **Clôtures**. Une clôture peut être préparée malgré des obstacles; l’état de préparation devient une condition imposée au démarrage de son flux `close_out`.
+La clôture consigne la preuve qu’une entente est administrativement et financièrement achevée avant qu’elle devienne en lecture seule. Ouvrez une entente et choisissez **Clôtures**. Une clôture peut être préparée malgré des obstacles; l’état de préparation devient une condition imposée lorsque son achèvement démarre le flux obligatoire `approval_submission`.
 
 ## Accès et préalables
 
-Seule une entente `active` ou `expired` peut avoir une clôture. L’application ne fait pas automatiquement passer une entente à `expired` à sa date de fin. Avant le démarrage, le volet doit avoir une configuration active et publiée visant `fundingcaseagreementcloseout`, d’objet `close_out`, et l’entente doit satisfaire au rapport de préparation.
+L’entente doit rester modifiable et non terminale. Sa date de fin ne change pas automatiquement son état métier. Le volet doit fournir un flux `approval_submission` actif et publié pour `fundingcaseagreementcloseout`. L’achèvement de la clôture démarre ce flux; un flux standard ne peut pas le remplacer. L’issue positive configurée doit utiliser un état terminal de l’organisme.
 
 | Opération | Accès effectif |
 | --- | --- |
@@ -18,7 +18,7 @@ L’affectation à la clôture est indépendante : elle n’accorde ni l’enten
 
 ## Créer et préparer
 
-La liste conserve l’historique numéroté achevé et annulé et ne permet qu’une clôture ouverte non supprimée par entente. La création choisit le prochain numéro positif. Une nouvelle clôture commence à `draft`, même si la préparation comporte des obstacles.
+La liste conserve l’historique numéroté achevé et annulé et ne permet qu’une clôture ouverte non supprimée par entente. La création choisit le prochain numéro positif. Une nouvelle clôture commence à l’état Brouillon de l’organisme, même si la préparation comporte des obstacles.
 
 Utilisez le rapport préalable pour examiner les lignes financières, les suivis de surveillance en suspens et chaque dossier bloquant. Chaque obstacle offre une route pour corriger le travail source. Produisez ou prévisualisez les documents propres à la clôture au besoin. Les listes de vérification, évaluations, recommandations et approbations propres au programme appartiennent au flux et ne constituent pas des règles universelles de préparation.
 
@@ -28,31 +28,34 @@ Le serveur recalcule la préparation dans la transaction protégée de démarrag
 
 La préparation exige toutes les conditions suivantes :
 
-1. L’état de l’entente est `active` ou `expired`.
-2. Les paiements payés et les rapprochements finaux approuvés s’équilibrent à zéro pour chaque devise au total de l’entente.
+1. L’état métier de l’entente n’est pas terminal.
+2. Les paiements dont l’état métier est terminal et les rapprochements finaux approuvés s’équilibrent à zéro pour chaque devise au total de l’entente.
 3. Aucun suivi de surveillance n’est `open` ou `onhold`, peu importe le responsable.
 4. Chaque enfant direct est terminal sur le plan opérationnel.
 5. Ni l’entente ni ses enfants n’ont un flux, ensemble d’examens, ensemble de recommandations ou bordereau actif.
 
-Seuls les paiements `paid` comptent. Seules les lignes rapprochées d’un rapprochement final `approved` comptent. Les valeurs sont arrondies à deux décimales, regroupées par exercice et devise, puis totalisées séparément par devise. Une variance négative (`paiements - réclamations approuvées`) signifie un paiement en suspens; une variance positive, une avance en suspens. Les différences d’exercice peuvent se compenser dans la même devise, jamais entre devises. Une entente sans ligne comptée est financièrement prête.
+Le rapport financier compte les paiements dont l’état de l’organisme porte l’indicateur **terminal**. Il compte les lignes de rapprochement final seulement si leur rapprochement possède une preuve d’approbation. Un achèvement sans flux d’approbation peut terminer le travail de rapprochement avec succès, mais ne fournit **pas**, à lui seul, la preuve d’approbation exigée pour la clôture.
 
-Pour les enfants, terminal signifie le contrat opérationnel exact. Par exemple, une réclamation exige normalement `reviewed` et un rapprochement final approuvé; une modification doit être fermée en plus d’être approuvée, refusée ou annulée; tout travail d’exécution actif bloque encore. Suivez le lien, terminez ou annulez le travail depuis sa page prise en charge, actualisez et relancez le rapport.
+Les montants sont calculés en arithmétique décimale exacte, regroupés par exercice et devise, puis totalisés séparément pour chaque devise. Une variance négative (`paiements − réclamations approuvées`) signifie un paiement en suspens; une variance positive, une avance en suspens. Les différences entre exercices peuvent se compenser dans une même devise, jamais entre devises. Une entente sans montant compté est financièrement prête, mais doit encore satisfaire aux autres contrôles.
 
-## Cycle de vie et verrouillage de l’agrégat
+Par exemple, des paiements comptés de 12 000,00 CAD contre des rapprochements finaux approuvés de 11 500,00 CAD produisent une avance en suspens de 500,00 CAD. Un manque de 500,00 USD ne compense pas cette avance. Suivez les liens du rapport pour corriger les dossiers sources, puis actualisez.
 
-| État | Signification et action prise en charge |
+Les réclamations, rapprochements, paiements, prévisions, surveillances et engagements doivent chacun avoir un état terminal de l’organisme. Les modifications doivent également être fermées (`isopen = false`). Chaque rapprochement final doit posséder une preuve d’approbation. Il s’agit d’indicateurs de configuration et de contrôles de preuve, et non de comparaisons avec des libellés comme « Révisé » ou « Payé ». Le travail d’exécution actif et les suivis de surveillance ouverts ou en attente restent bloquants même si le libellé du dossier semble définitif.
+
+## Achèvement, annulation et verrouillage de l’agrégat
+
+| Situation | Comportement pris en charge |
 | --- | --- |
-| `draft` | Préparer la preuve, gérer l’équipe, produire des documents, supprimer, annuler ou démarrer lorsque tout est prêt. |
-| `inreview` | Le flux est actif et verrouille l’agrégat de l’entente; seuls le travail de flux et les documents de clôture permis restent modifiables. |
-| `denied` | Ouvert et reprenable. Corriger les obstacles, préparer les documents, reprendre si permis ou annuler. |
-| `complete` | La réussite du flux a fermé l’entente. Historique, instantanés, aperçus et téléchargements restent lisibles; aucune mutation persistée. |
-| `cancelled` | Terminal sans fermer l’entente. Une nouvelle clôture numérotée peut être créée si l’entente demeure admissible. |
+| Clôture brouillon | Préparer la preuve, gérer l’équipe, produire des documents ou supprimer si la protection Brouillon le permet. Des obstacles peuvent subsister. |
+| Prête à achever | Achever une seule fois. Dans la transaction protégée, le serveur vérifie la préparation, consigne l’achèvement, démarre le flux obligatoire et capture un instantané immuable. Une configuration absente ou des obstacles font rejeter l’opération. |
+| Flux d’approbation actif | L’agrégat de l’entente bloque les mutations ordinaires de l’entente et de ses enfants. Effectuez le travail de clôture affecté et les opérations documentaires permises. |
+| Exécution sans succès | Examinez l’issue et l’état configuré. Réessayez seulement si le flux figé et l’autorisation courante le permettent; ne créez pas un autre achèvement. |
+| Issue terminale positive | Le serveur revérifie la préparation et le hachage canonique, ferme la clôture et applique le même état terminal configuré à l’entente. L’historique reste lisible. |
+| Annuler une exécution active | L’annulation exige un flux actif de clôture. Elle annule l’exécution et ferme la clôture sans appliquer la transition positive qui ferme l’entente. |
 
-La suppression logique est offerte seulement à `draft`. L’annulation est offerte seulement à `draft` ou `denied`, jamais pendant une exécution active. Le démarrage saisit un instantané immuable et fait passer la clôture à `inreview`. Pendant le flux, les mutations ordinaires de l’entente et de ses enfants sont bloquées. La réussite finale verrouille l’entente, recalcule la préparation et exige que le hachage canonique corresponde à l’instantané initial. Elle marque ensuite atomiquement la clôture `complete` et l’entente `closed`. Une différence ou un nouvel obstacle empêche la fermeture.
+La suppression logique est limitée à l’état Brouillon de l’organisme. L’annulation est une action de flux : aucune opération générique « annuler le brouillon » n’est offerte sans exécution active. Après annulation, une autre clôture numérotée peut être créée seulement si l’entente reste modifiable et qu’aucune clôture ouverte ne subsiste.
 
-::: warning Expiration et application terminale complète
-La clôture ne planifie pas la transition `expired`. De plus, la prévention interagrégats de toutes les routes de reprise et d’exécution d’enfants demeure suivie dans le ticket applicatif no 77. Traitez une entente `closed` comme en lecture seule et n’essayez pas d’actions d’exécution d’enfants par des routes API directes.
-:::
+À l’issue positive, un dossier de préparation modifié ou un nouvel obstacle empêche la fermeture et produit une exécution en échec avec le motif `closeout_packet_changed`. Actualisez le rapport et examinez les sources modifiées avant la reprise. Une entente terminale protège les écritures et les actions d’exécution de ses enfants par les contrôles d’état de l’agrégat; modifier un libellé ne la déverrouille pas.
 
 ## Documents et reprise
 

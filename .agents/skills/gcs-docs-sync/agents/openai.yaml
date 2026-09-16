@@ -1,0 +1,4 @@
+interface:
+  display_name: "GCS-SSC Documentation Sync"
+  short_description: "Update bilingual docs from the recorded app commit"
+  default_prompt: "Use $gcs-docs-sync to synchronize the bilingual documentation with application main, verify it, and advance the recorded commit marker."

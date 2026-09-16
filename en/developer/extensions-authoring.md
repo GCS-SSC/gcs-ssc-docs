@@ -49,7 +49,7 @@ import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
-  sdkVersion: '^0.1.0',
+  sdkVersion: '^0.3.1',
   requiredHostCapabilities: [
     'stream-config-modal',
     'server-handlers',
@@ -67,13 +67,13 @@ export default defineGcsExtension({
 | Field | Rule |
 | --- | --- |
 | `key` | Stable extension key. Use lowercase kebab-case and never change it after data exists. |
-| `sdkVersion` | Required compatible SDK version range, such as `^0.1.0`. The host rejects unsupported versions. |
+| `sdkVersion` | Required compatible SDK version range, such as `^0.3.1`. The host rejects unsupported versions. |
 | `requiredHostCapabilities` | Required list of host capabilities used by the manifest or implementation. Use an empty list only when none are needed. See the startup-inference limits below. |
 | `name` | Required bilingual display name. |
 | `description` | Optional bilingual description for admin screens. |
 | `admin` | Agency config, stream config modal, or stream config page components. |
 | `client` | Runtime slots, entity tabs, create actions, and payment calculators. |
-| `css`, `i18n`, `assets` | Optional client styling, localized messages, and static assets. |
+| `css`, `assets` | Optional client styling and static assets. Messages belong to an extension-owned SDK catalogue, not a manifest `i18n` contribution. |
 | `serverHandlers` | Authenticated extension routes exposed through the host dispatcher. |
 | `migrations` | Kysely migrations run when the extension is enabled or migrations are requested. |
 | `runtime` | Optional resolver for slot enablement and config resolution. |
@@ -87,6 +87,10 @@ Declare every capability the extension depends on. At startup, the host infers c
 
 | Capability | Use |
 | --- | --- |
+| `configuration-access` | Declare the Contributor/Manager configuration ceiling. |
+| `agency-only-configuration` | Configure once at Agency scope, without stream editors. |
+| `file-storage-provider` | Register the host file-storage adapter and metadata contract. |
+| `agreement-number-provider` | Generate a number inside the host Agreement creation transaction. |
 | `agency-config` | Agency admin configuration component. |
 | `stream-config-modal` | Stream configuration rendered in the stream Extensions modal. |
 | `stream-config-page` | Full-page stream configuration route through `admin.streamConfigPage`. |
@@ -110,13 +114,54 @@ Declare every capability the extension depends on. At startup, the host infers c
 
 ## Lifecycle entity declarations
 
-Use the SDK lifecycle contracts only when an extension-owned business entity must participate in host orchestration. Add `lifecycle-entities` to `requiredHostCapabilities` and declare each local type with non-empty bilingual labels, `transitionMode` (`workflow_only` or `completion_workflow`), `workflowRequired`, `workflowPurpose`, direct-Review support, `ownerKind` (`agreement` or `proponent`), `assignmentMode` (`independent` or `inherited`), and a package-contained server adapter path. The host qualifies the identity as `<extension-key>:<local-type>`.
+Use the SDK lifecycle contracts only when an extension-owned business entity must participate in host orchestration. Add `lifecycle-entities` to `requiredHostCapabilities` and declare each local type with non-empty bilingual labels, `completion` (`supported` or `none`), `approvalSubmission` (`on_completion` or `none`), `standardWorkflow: 'explicit'`, direct-Review support, `ownerKind` (`agreement` or `proponent`), `assignmentMode` (`independent` or `inherited`), and a package-contained server adapter path. The host qualifies the identity as `<extension-key>:<local-type>`.
 
 The adapter resolves and locks the concrete entity, owner, scope, and business status and implements completion validation and any deterministic positive-terminus effect. It does not authorize requests, select lock order, weaken the declared ownership/assignment model, or create lifecycle evidence itself. Installation synchronizes the immutable declaration into `Common_Entity_Type`; an extension migration then uses `attachGcsLifecycleEntityIdentity(...)` to attach its concrete table to `Common_Entity`. Renaming or changing an installed declaration is rejected while identities or lifecycle history exist.
 
 Host reads require Viewer at the resolved owner. Create requires Contributor plus the declared creation-parent assignment. Update, Completion, Workflow start/retry/cancel, and transition require Contributor plus the exact declared assignment root; delete requires Manager plus that assignment. Independent entities create their creator-primary roster atomically; inherited entities resolve their parent roster every time. Extension enablement remains an additional gate, never an authorization substitute.
 
 Completion records `not_applicable`, `no_workflow`, or `workflow_started` at creation time. A required missing Workflow is a conflict and rolls back; a `no_workflow` completion cannot gain a Workflow later. Retry creates a successor attempt with the same publication pins. Positive-terminus hooks run inside the host transaction after `no_workflow`, `succeeded`, or `approved`; they must be deterministic, retry-safe, and free of external side effects that cannot roll back.
+
+## Configuration scope and access
+
+The pinned public SDK is 0.3.1. Declare `configuration-access` when setting `configurationAccess` to `contributor` or `manager`; Contributor is the default. This controls the minimum role ceiling for enablement and JSON configuration, not runtime work or exact assignments.
+
+An extension with `configurationScope: 'agency'` declares `agency-only-configuration`. It has Agency enablement/configuration only and cannot declare stream configuration editors. This is useful for one Agency numbering service shared across streams. An extension without that declaration retains the Agency-plus-stream enablement model.
+
+## File-storage provider contract
+
+Declare `file-storage-provider` and one `fileStorageProvider` contribution. The containing extension key is the permanent provider identity; do not rename it after storing objects.
+
+```ts
+// Fragment within defineGcsExtension(...)
+fileStorageProvider: {
+  adapter: { path: './server/storage.ts' }
+}
+```
+
+The default export from that module uses `defineGcsFileStorageProviderAdapter` from the server SDK. Implement `writeObject`, `readObject`, and `deleteObject`; optionally normalize Agency configuration with `validateAgencyConfig`.
+
+| Operation | Contract |
+| --- | --- |
+| Write | Receive host-generated object name, bytes, content type, Agency, purpose, optional typed target, configuration, scoped secret reader, and optional provider metadata. Return `{ objectId, locator }`. |
+| Read | Resolve the recorded object ID and opaque locator and return `{ bytes, contentType? }`. Never depend on the currently selected provider for a different object. |
+| Delete | Succeed when the object is already absent. Cleanup can repeat after a crash or expired lease. |
+
+Object IDs are stable nonempty strings limited to 512 UTF-8 bytes, not temporary access URLs. The host bounds the server-only locator JSON object to 32 KiB and provider metadata to 15 KiB. Do not put credentials in browser metadata or assume an object name is a filesystem path. Purposes are `attachment`, `document-template`, and `generated-document`.
+
+The host owns attachment metadata, typed target links, authorization, assignment, and business-status protection. The provider owns only its storage operations and declared metadata behavior. There is no local fallback if the selected or recorded provider is unavailable. One Agency selects one provider for new writes; old objects remain pinned. Host guards prevent disabling selected or referenced providers, and startup rejects missing referenced implementations.
+
+Optional `metadata` declares a client component, server validator path, `persistence` (`host` or `provider`), `mutability` (`upload-only` or `editable`), and a positive integer `contractVersion`. Host-persisted values are namespaced by provider. Provider-persisted values require `readProviderMetadata` and `updateProviderMetadata`. Updates require a compatible stored contract and cannot combine provider-owned metadata with host fields in one PATCH. The host reserves restoration work before an external update so database failure can compensate it. See [Attachments](../concepts/attachments.md) and [Background work](../operator/background-work.md) for user-visible partial saves and worker recovery.
+
+## Agreement-number provider contract
+
+Declare `agreement-number-provider` and `agreementNumberProvider: { path: './server/number.ts' }`. Its default export implements `GcsAgreementNumberProvider` and returns only the Agreement number. The host still authorizes creation, validates profile data, resolves the program/stream and selected proponents, creates the Agreement, and assigns its creator.
+
+The provider receives the active host transaction, `agencyId`, `programId`, `streamId`, stream configuration, Agency configuration, and stable creation-time `sources`. Source names include `agreement.title_en`, `agreement.title_fr`, assistance dates, financial-system number, and bilingual Agency/program/stream names and abbreviations. They are explicitly language-qualified, not selected from the request locale.
+
+A valid result is already trimmed, nonempty, at most 15 Unicode characters, and contains no NUL. Multiple enabled providers for the same creation scope produce `AGREEMENT_NUMBER_PROVIDER_CONFLICT`; an invalid result produces `INVALID_GENERATED_AGREEMENT_NUMBER`. With no provider the host keeps manual numbering. The mode lookup is advisory; creation resolves and validates the provider again inside the protected operation.
+
+For example, a provider can allocate an Agency-wide sequence inside the supplied transaction and format `ABC-0000123`. It must implement its own concurrency-safe allocation; a client-side count of existing Agreements is not an allocator. A `configurationScope: 'agency'` provider applies across that Agency’s streams without separate stream activation. Counter design and configuration UI belong to the extension’s own documentation.
 
 ## Stream Configuration
 
@@ -251,7 +296,7 @@ Use `useExtensionApi(extensionKey)` for extension routes and `useHostApi()` for 
 | `useExtensionConfirmDialog` | Typed asynchronous confirmation options and boolean result. |
 | `useExtensionFetch<T>` | Reactive data, status, pending, error, and refresh refs. |
 | `useExtensionGroupedTableExpansion<Row>` | Shared grouping, expansion, row, and visibility state. |
-| `useExtensionI18n` / `useExtensionToast` | Stable host localization and notification boundaries. |
+| `useExtensionI18n(messages)` / `useExtensionToast` | Extension-owned messages with host locale/number formatting, and notifications. |
 
 The host installs the concrete UI runtime. Standalone tests can install SDK test stubs instead of mounting host internals.
 
@@ -295,7 +340,7 @@ The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `s
 | Declare RBAC for entity data | The host resolves the entity from the route param, checks extension enablement, passes config/context, and enforces the declared subject/action. |
 | Keep route params explicit | The `entity.param`, `stream.param`, or `agency.param` value must match a route param name. |
 | Use `auth: "manual"` only deliberately | Manual handlers must perform their own domain authorization; they cannot combine `auth: "manual"` with `rbac`. |
-| Throw `GcsExtensionUserError` for user-facing failures | Use localized extension messages so the UI can translate them. |
+| Throw `GcsExtensionUserError` for user-facing failures | Supply bilingual extension-owned messages; the server selects the request language before returning the error. |
 | Validate all input | Extension handlers are responsible for request validation. |
 | Do not bypass host ownership | Always resolve agreement, proponent, claim, monitor, stream, and agency ownership before writing when the host has not already done so. |
 
@@ -450,8 +495,30 @@ Guards should throw localized extension user errors for correctable business con
 | --- | --- | --- |
 | Static extension assets | `assets` | Mount only files needed at runtime; choose a unique `baseURL`. |
 | Package assets | `assets.package` and `packagePath` | Useful for model files or bundled third-party assets. |
-| Bilingual messages | `i18n` | Provide English and French message files for UI labels and errors. |
+| Bilingual messages | Package-owned catalogue | Define matching English/French keys with `defineGcsExtensionMessages`; import the catalogue into the extension. |
 | CSS | `css` | Keep styles scoped and avoid overriding host design tokens globally. |
+
+### Extension-owned messages
+
+```ts
+import { defineGcsExtensionMessages } from '@gcs-ssc/extensions'
+import { useExtensionI18n } from '@gcs-ssc/extensions/ui'
+
+const messages = defineGcsExtensionMessages({
+  en: { 'files.count': '{count} files' },
+  fr: { 'files.count': '{count} fichiers' }
+})
+const { t, locale, n } = useExtensionI18n(messages)
+const label = t('files.count', { count: 3 })
+```
+
+The SDK checks exact locale-key and placeholder parity, freezes a detached catalogue, and resolves only its own keys. Missing keys or interpolation values throw; there is no fallback to host translation keys, linked messages, or host-wide message registration. Use the reactive locale for localized display and `n` for number formatting. Server `createGcsExtensionUserError` messages and detail messages should supply `{ en, fr }`; plain strings are already resolved text, not host i18n keys.
+
+## Bounded external operations
+
+The host bounds selected extension operations, including Proponent profile-update hooks, storage configuration validation, provider-metadata updates, and metadata restoration. `GCS_EXTENSION_OPERATION_TIMEOUT_MS` defaults to 10,000 ms with a minimum of 100 ms. The callback receives an `AbortSignal`; pass it to cancellable downstream work and stop when aborted. The deadline rejects the host wait, but cannot forcibly undo an external side effect from a callback that ignores the signal.
+
+Keep transactional guards on the supplied transaction, make remote work idempotent, and distinguish a failed database write from a provider operation whose result is uncertain. A Proponent update timeout returns `EXTENSION_OPERATION_TIMEOUT` (503). Reload the record and reconcile any external effect before retrying; a timeout alone is not proof that a remote service did nothing. Storage metadata recovery uses the compensation path described in [Attachments](../concepts/attachments.md). This limit does not apply universally to every extension handler or document-rendering operation.
 
 ## Testing Checklist
 

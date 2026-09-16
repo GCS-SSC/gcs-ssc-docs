@@ -24,9 +24,7 @@ The table preserves a fiscal-year group even when it has no lines. From that gro
 
 Deletion is soft and is refused when the fiscal year has active budget lines, claims, payments, or claim-line use. The main tab therefore shows its fiscal-year delete action only for an empty group. There is no restore control.
 
-::: warning Current fiscal-year update limitation
-The normal edit picker offers only overlapping stream-budget years, but the PATCH API itself verifies stream membership without repeating the authorized-duration overlap check. It also does not block a populated year from being changed or recalculate its existing lines against the destination year's stream capacity. Use only the supplied picker, and do not change a fiscal-year group after claims or payments exist. If an incorrect change occurs, stop downstream work and have an authorized administrator reconcile the budget and affected financial records.
-:::
+Changing a fiscal-year group repeats the authorized-assistance overlap check on the server. A group with active budget lines cannot be reassigned. An unchanged saved year can still be retained when its reference is retired; that does not make the retired year available for new allocations. Review claims and payments before any reassignment: the current reassignment guard checks active budget lines, while deletion has its own downstream-use checks.
 
 ## Budget lines
 
@@ -39,13 +37,54 @@ The full-screen line form contains:
 | Cost subsection | Required non-empty text, maximum 255 characters. |
 | Description | Required non-empty text; this agreement-specific description is not bilingual. |
 | Total amount | Required finite amount with at most two decimals. |
-| Program funding | Required finite amount with at most two decimals. |
+| Program funding | Enter an exact amount for manual lines. For percentage lines, the server calculates it; do not submit a replacement amount. |
 | Other federal, other government, other funding | Optional finite amounts with at most two decimals; blank values become absent values. |
 | Currency | Required configured `currency_codes` value; new forms default to `cad`. |
 
-Supported request amounts have an absolute maximum of 90 trillion. Amounts are persisted as `numeric(19,2)`. The current schema does not require budget amounts to be non-negative; operational budgets should nevertheless use valid non-negative financial values.
+Agreement money is transported as exact decimal text, such as `"1250.00"`, and persisted as `numeric(19,2)`. The absolute per-row maximum is `99999999999999999.99`. Decimal strings are authoritative; the compatibility path accepts JSON numbers only when their serialized cents are safe integers. Exponent notation, surrounding whitespace, leading zeroes, excess decimal places, and out-of-range amounts are rejected. Signed amounts remain supported where the domain schema permits them; do not assume a positive-only business rule from the display control.
 
-The total amount must be at least program funding plus the three optional funding amounts. On a partial update, that cross-field rule runs only when the request contains both total amount and program funding; the database constraint still evaluates the complete stored row.
+The total must cover program funding plus all three other-funding amounts. Percentage recalculation checks the complete affected rows and rolls back the initiating change if any line becomes underfunded. Total amount and other funding remain manually entered even on calculated lines.
+
+## Percentage-based lines
+
+Agency cost-line definitions select one of three calculation modes. The stream exposes eligible definitions to Agreements. A new budget line captures the definition's mode, source category, default percentage, and override permission. Later Agency default changes do not rewrite saved lines; amendment copies retain their saved calculation settings.
+
+| Mode | Program-funding base | Editable values |
+| --- | --- | --- |
+| Manual | No calculation; enter program funding directly. | Program funding, total, and other funding. |
+| Percentage of a category (`category`) | Program funding of manual lines in the configured source category. | Total and other funding; percentage only if overrides were allowed when this line was created. |
+| Percentage of all other items (`all_other`) | Program funding of every other line in the same calculation group, including calculated category charges. | Total and other funding; percentage only if the saved definition allows it. |
+
+Calculations group by budget version, Agency fiscal year, and currency, across subsections. Other federal, other government, and other funding never enter the percentage base. Category charges are calculated before all-other charges. Only one active all-other charge is allowed per version/year/currency. Percentage values range from 0 through 100 with at most two decimal places.
+
+The result is rounded once to the nearest **whole dollar**, with an exact half rounded away from zero, then stored as two-decimal money. For example, 10% of `"1005.00"` is `"101.00"`, not `"100.50"`. Browser previews use the same exact arithmetic, but the server reloads saved settings and validates the final transaction.
+
+### Worked budget example
+
+Suppose all these lines use CAD and the same fiscal year and budget version:
+
+| Line | Configuration | Program funding |
+| --- | --- | ---: |
+| Salaries | Manual, source category Personnel | 10,000.00 |
+| Benefits | 10% of Personnel | 1,000.00 |
+| Administration | 5% of all other items | 550.00 |
+| Total | 10,000 + 1,000 + 550 | 11,550.00 |
+
+The Administration base is 11,000. Adding 2,000 of other funding to Salaries does not change either percentage charge. A salary increase to 12,000 changes Benefits to 1,200 and Administration to 660. Before saving that increase, ensure the manually entered totals of Benefits and Administration can cover their new program funding plus their own other funding. Otherwise the entire save fails, including the salary change.
+
+### Create and edit a calculated line
+
+1. Select the budget fiscal year and configured cost line.
+2. Read the captured mode and source category. For a category charge, verify that the intended manual source rows exist in this year and currency.
+3. Accept the default percentage or change it if the form permits an override.
+4. Enter total amount, description, subsection, currency, and any other funding. Leave calculated program funding to the preview and server.
+5. Save, then review the refreshed whole-budget totals; changes to a source can affect other lines.
+
+Creating, editing, moving, or deleting a line recalculates the affected version inside the same authorized Agreement transaction. An invalid dependency, duplicate all-other charge, insufficient line total, numeric overflow, or current-version stream-capacity failure rolls back both the initiating mutation and its derived changes. Changing currency or fiscal year also changes the calculation group. Amendment versions remain isolated from the current version until their application workflow.
+
+## Retired cost definitions
+
+Agency categories, Agency line items, and stream mappings each have an availability flag separate from deletion. Disabling any part of that chain prevents a new selection through it. Existing budget references and their saved calculation settings remain readable; editing an existing line can retain its original inactive selection. A replacement must be currently eligible. Stream setup shows mapping, category, and Agency line-item availability separately, so an active mapping alone does not prove that its source is available.
 
 ## Program-funding capacity
 

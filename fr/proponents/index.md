@@ -19,9 +19,13 @@ La page Promoteurs prend en charge la recherche, le filtre d’état, la paginat
 
 Créer apparaît avec un plafond Contributeur dans une portée disponible. Modifier exige Contributeur et l’affectation exacte; Supprimer exige Gestionnaire et l’affectation. La suppression logique retire le promoteur des listes actives ordinaires sans effacer les références historiques.
 
+Utilisez les vues **Tous**, **Mes dossiers** ou d’organisme pour restreindre les mêmes dossiers autorisés. Mes dossiers exige l’affectation exacte au promoteur. Une vue d’organisme inclut les profils ayant un identifiant financier non supprimé pour cet organisme et exige la portée d’organisme correspondante de l’utilisateur; ce n’est pas un simple filtre sur l’organisme principal. Ces vues n’accordent aucun droit de lecture supplémentaire.
+
+Par exemple, un profil dirigé par A peut apparaître dans une vue B autorisée après l’ajout d’un identifiant financier B. Il doit toujours être lisible selon les permissions Promoteur de l’utilisateur. Un lien avec une entente B ne remplit pas à lui seul ce critère financier.
+
 ## Creer un profil
 
-La page de création commence un profil brouillon. Les utilisateurs choisissent l'agence principale et le sous-type, puis saisissent les noms légaux, commerciaux et d'organisme de recherche ainsi que les descriptions bilingues. Les identifiants de registre et le SCIAN se trouvent dans l'onglet Registres après la création.
+La page de création commence avec **Actif** désactivé. Les utilisateurs choisissent l'agence principale et le sous-type, puis saisissent les noms légaux, commerciaux et d'organisme de recherche ainsi que les descriptions bilingues. Les identifiants de registre et le SCIAN se trouvent dans l'onglet Registres après la création.
 
 | Regle | Comportement |
 | --- | --- |
@@ -29,7 +33,7 @@ La page de création commence un profil brouillon. Les utilisateurs choisissent 
 | Le sous-type est obligatoire | Le sous-type classifie le promoteur et doit appartenir a l agence principale. |
 | Chaque valeur bilingue principale exige au moins une langue | Le nom légal, le nom commercial et la description exigent chacun une valeur anglaise ou française; les deux langues assurent un affichage bilingue complet. |
 | L'agence et le sous-type doivent correspondre | Le sous-type doit être actif et appartenir à l'agence principale choisie; le formulaire l'efface lorsque l'agence change. |
-| Les nouveaux profils commencent en brouillon | Les utilisateurs peuvent completer les onglets de soutien avant l utilisation operationnelle. |
+| Indicateur Actif | Faux par défaut. Activer le profil lorsqu’il est prêt pour les sélections opérationnelles; la disponibilité est distincte de la suppression. |
 | Les champs bilingues doivent etre maintenus ensemble | Les noms et descriptions sont affiches dans la langue active. |
 
 ## Espace detail
@@ -47,6 +51,7 @@ La page detail contient un sommaire repliable et des onglets:
 | [Examens](./reviews.md) | Ensembles d examen et evaluations d execution. |
 | [Ententes](./agreements.md) | Ententes liees au promoteur. |
 | [Historique du financement](./funding-history.md) | Ententes du systeme et dossiers de financement externes legers associes au promoteur. |
+| [Pièces jointes](../concepts/attachments.md) | Justificatifs appartenant à ce promoteur exact. |
 | [Utilisateurs affectés](./team.md) | Registre exact du travail; les changements exigent `manage_assignments`. |
 
 Des onglets d extension peuvent aussi apparaitre lorsqu une extension activee contribue un onglet de promoteur.
@@ -61,14 +66,14 @@ L onglet General affiche ou modifie:
 | Noms bilingues | Noms legaux, commerciaux et d organisme de recherche en anglais et francais. |
 | Descriptions bilingues | Descriptions anglaise et francaise du profil. |
 
-Lorsque l utilisateur peut modifier le promoteur, General devient un formulaire en ligne. Sinon, il affiche les valeurs en lecture seule.
+Lorsque l utilisateur peut modifier le promoteur, General devient un formulaire en ligne. Sinon, il affiche les valeurs en lecture seule. Une référence de sous-type retirée peut être conservée lors de modifications sans rapport; une nouvelle classification exige des valeurs admissibles de l’organisme. Les libellés sont rechargés par identifiant exact indépendamment de la page de recherche. Réessayez une recherche échouée avant de conclure qu’un dossier sans libellé est absent.
 
 ## Flux operationnel
 
 | Etape | Action |
 | --- | --- |
 | 1 | Configurer l agence principale et les sous-types. |
-| 2 | Creer le profil en brouillon. |
+| 2 | Créer le profil et choisir explicitement son indicateur Actif. |
 | 3 | Ajouter les identifiants de registre, les autres noms, les adresses et les contacts. |
 | 4 | Utiliser Utilisateurs affectés ou Gestion des affectations pour répartir le profil entre les utilisateurs admissibles. |
 | 5 | Executer les examens lorsque le processus l exige. |

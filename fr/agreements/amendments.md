@@ -4,12 +4,11 @@ Utilisez l'onglet **Modifications** de l'entente pour préparer un changement co
 
 ## Configuration et accès
 
-Le volet de l’entente doit comporter des types de modification actifs. Chaque type indique la partie modifiée — `budget`, `duration` ou `activities` — et si un sous-type associé est obligatoire. Pour soumettre dans l’interface principale, le volet doit aussi avoir un flux `approval_submission` publié pour `fundingcaseamendment`, un ensemble de recommandations publié et au moins une étape d’approbation publiée.
+Le volet de l’entente doit comporter des types de modification actifs. Chaque type indique la partie modifiée — `budget`, `duration` ou `activities` — et si un sous-type associé est obligatoire. Pour soumettre dans l’interface principale, le volet doit aussi avoir un flux `approval_submission` publié pour `fundingcaseamendment`, au moins une étape d’approbation et un parcours de réussite terminale configuré.
 
 Les plafonds de rôle Entente Lecteur, Contributeur et Gestionnaire régissent la lecture, la création ou modification et la suppression. L’utilisateur doit aussi posséder l’affectation exacte à l’entente pour créer l’enfant, puis l’affectation propre à la modification pour les actions suivantes; la création rend le créateur principal. Chaque écriture résout et verrouille de nouveau la portée et l’affectation dans une transaction à autorisation actualisée. L’identifiant doit appartenir à l’entente de l’URL.
 
-Une entente ne peut avoir qu'une seule modification active à l'état `draft` ou `pendingapproval`. Une modification approuvée, refusée, annulée ou supprimée logiquement n'empêche pas la création d'un nouveau brouillon.
-
+Une entente ne peut avoir qu’une modification ouverte non supprimée. Cette règle utilise l’indicateur explicite `isopen`, et non une liste de libellés d’état. Une exécution refusée ne ferme pas nécessairement sa modification; résolvez ou annulez le travail ouvert avant d’en créer une autre.
 ## Liste et création
 
 La liste est paginée côté serveur et triée par numéro de modification, puis par identifiant, du plus récent au plus ancien. L'interface recherche localement dans la page chargée selon le numéro, le nom anglais ou français, l'état et les noms de types. Elle affiche les pastilles de types et la présence d'instantanés de budget ou d'activités.
@@ -20,11 +19,11 @@ La création exige :
 - au moins un type de modification actif et unique du volet courant de l'entente;
 - pour chaque type sélectionné qui exige un sous-type, au moins un sous-type actif sélectionné et lié à ce même type et volet.
 
-Un sous-type extérieur aux types sélectionnés, une fiche inactive, un doublon ou une fiche d'un autre volet est rejeté. Un type de durée initialise les dates proposées à partir des dates courantes d'aide autorisée de l'entente. La nouvelle modification commence à l'état `draft`, sans numéro.
+Un sous-type extérieur aux types sélectionnés, une fiche inactive, un doublon ou une fiche d'un autre volet est rejeté. Un type de durée initialise les dates proposées à partir des dates courantes d'aide autorisée de l'entente. La nouvelle modification commence à l’état Brouillon de l’organisme, avec le prochain numéro de modification. Cet identifiant est distinct de la révision d’entente écrite après approbation.
 
 ## Espace de détail et portée
 
-La page de détail comporte les onglets **Général**, **Budget**, **Activités**, **Recommandation** et **Utilisateurs affectés**. Général n’est modifiable qu’à l’état `draft`; les dossiers terminaux conservent leurs badges de type et de sous-type et leur registre d’affectation comme historique.
+La page de détail comporte les onglets **Général**, **Budget**, **Activités**, **Recommandation**, **Flux de travail**, **Pièces jointes** et **Utilisateurs affectés**. Général n’est modifiable qu’à l’état Brouillon de l’organisme, lorsque les protections d’achèvement et d’agrégat le permettent; les dossiers terminaux conservent leurs badges de type et de sous-type et leur registre d’affectation comme historique.
 
 Dans Général, vous pouvez changer le nom bilingue, les types, les sous-types et—lorsqu'un type de durée est sélectionné—les deux dates proposées d'aide autorisée. Au moins une langue et un type demeurent obligatoires. Les deux dates de durée sont exigées ensemble et la fin doit être égale ou postérieure au début.
 
@@ -56,19 +55,21 @@ Les routes d'activités exigent l'existence de l'instantané brouillon. La créa
 
 ## Approbation, promotion et révision
 
-L’onglet **Recommandation** affiche maintenant le flux de soumission d’approbation. Son démarrage pendant que la modification est `draft` crée atomiquement l’exécution et un dossier immuable de schéma version 1 avec heure de soumission et hachage canonique SHA-256. Le dossier comprend l’identité bilingue, les types et sous-types choisis et seulement les domaines modifiés : version budgétaire proposée, version d’activités et/ou dates de durée. Le profil d’entente et les promoteurs inchangés ne sont pas dupliqués.
+L’onglet **Recommandation** présente le panneau d’achèvement et le flux de soumission d’approbation qui en résulte. Achevez une seule fois la modification préparée. L’action exige un flux `approval_submission` publié et consigne atomiquement l’achèvement, démarre ce flux et crée un dossier immuable de schéma version 1 avec heure de soumission et hachage SHA-256. L’absence du flux obligatoire fait rejeter l’opération. Le dossier comprend l’identité bilingue, les types et sous-types choisis et seulement les domaines modifiés : budget proposé, activités et/ou dates de durée. Le profil et les promoteurs inchangés ne sont pas dupliqués.
+
+Par exemple, une modification de durée seulement peut proposer une nouvelle fin d’aide sans remplacer les activités courantes. Vérifiez que les exercices de l’entente chevauchent les dates proposées, puis achevez. Incluez le type budgétaire et son instantané si le changement approuvé doit aussi remplacer le budget. Les dates de l’entente restent inchangées pendant l’approbation et changent seulement à la promotion réussie. Les flux standards de l’onglet distinct **Flux de travail** ne soumettent pas ce dossier.
 
 Les membres de recommandation s’exécutent depuis leurs schémas publiés figés et peuvent employer des approbations de membre ou finale. Le dossier est présenté depuis le JSON enregistré dans des sections groupées et repliables; les libellés de référence modifiables sont résolus à la soumission afin qu’un renommage ultérieur ne change pas la preuve.
 
-Pendant l’exécution, les mutations concurrentes sur l’entente, la modification, les instantanés, le cycle de vie et la suppression sont verrouillées. L’annulation du flux lui-même constitue l’exception : la section Flux de travail peut terminer l’exécution active et ses enfants sans changer les données sources du dossier. En cas d’échec ou de refus, l’état d’échec configuré s’applique et aucun instantané n’est promu. En cas de réussite, le moteur recalcule le hachage, promeut seulement les domaines présents dans le dossier approuvé, applique les dates, ferme et numérote la modification, écrit une `Funding_Case_Agreement_Revision` liée de façon unique à la soumission et applique l’état de réussite. La promotion et la révision sont dans la même transaction.
+Pendant l’exécution, les mutations concurrentes sur l’entente, la modification, les instantanés, le cycle de vie et la suppression sont verrouillées. L’annulation du flux lui-même constitue l’exception : la section Flux de travail peut terminer l’exécution active et ses enfants sans changer les données sources du dossier. En cas d’échec ou de refus, l’état d’échec configuré s’applique et aucun instantané n’est promu. En cas de réussite, le moteur recalcule le hachage, promeut seulement les domaines présents dans le dossier approuvé, applique les dates, ferme la modification et conserve son numéro, écrit une `Funding_Case_Agreement_Revision` liée de façon unique à la soumission et applique l’état de réussite. La promotion et la révision sont dans la même transaction.
 
 Un approbateur affecté peut lire le dossier exact requis pour sa décision. La modification de l’amendement ou de la recommandation exige toujours l’affectation exacte correspondante et le plafond Contributeur; l’affectation à l’approbation n’accorde pas l’accès général à l’entente.
 
 ## Annulation, suppression et reprise
 
-La commande **Annuler** de la modification est affichée tant que celle-ci demeure ouverte, mais le serveur refuse cette demande de cycle de vie pendant une soumission active. Annulez d’abord l’exécution active dans la section Flux de travail; cette action annule ses enfants actifs. Utilisez ensuite **Annuler** sur la modification pour annuler tout bordereau brouillon ou en attente restant, passer la modification à `cancelled` et la fermer sans supprimer le dossier ni les instantanés. L’annulation de la modification est terminale et permet un nouveau brouillon.
+**Annuler** ferme une modification ouverte. Si un flux de soumission d’approbation est actif, l’action annule l’exécution et ses enfants actifs. Sinon, elle résout la configuration publiée et applique son état d’annulation configuré. Sans exécution active ni changement d’état applicable, l’annulation est rejetée; aucun état métier `cancelled` n’est imposé par le code. Le dossier et ses instantanés restent conservés; un remplacement est possible lorsqu’aucune modification ouverte ne subsiste.
 
-La suppression exige un plafond de rôle Entente Gestionnaire et l'affectation exacte à la modification et est permise uniquement à l'état `draft`. Elle supprime logiquement, dans une transaction, les lignes et exercices budgétaires copiés, les activités et leurs liens de sélection, les deux versions d'instantané, les liens de types et de sous-types ainsi que la modification. Une modification approuvée, refusée, annulée ou en attente d'approbation ne peut pas être supprimée par cette route.
+La suppression exige l’accès Gestionnaire et l’affectation exacte à la modification. Elle est limitée à l’état Brouillon de l’organisme, selon les protections courantes d’agrégat et d’achèvement. Elle supprime logiquement, dans une transaction, les lignes et exercices copiés, les activités et leurs liens, les deux versions d’instantané, les liens de types et sous-types et la modification. Le libellé d’une issue ne détermine pas à lui seul cette admissibilité.
 
 Il n'existe aucune commande de rétablissement. Après une annulation ou une suppression accidentelle, conservez la piste d'audit et demandez à une personne autorisée d'évaluer la reprise plutôt que de recréer l'historique sous la même identité.
 

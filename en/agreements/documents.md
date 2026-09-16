@@ -9,7 +9,7 @@ The **Documents** tab generates files from the agreement stream's templates, lis
 | Stream template | It must be active, non-deleted, target `fundingcaseagreement`, belong to the agreement's current stream, and have active English and French source attachments. |
 | Template kind | `docx` or `html`. The configured output list can include the native kind and `pdf`; incompatible native formats are rejected. |
 | Conversion tools | DOCX-to-PDF requires LibreOffice. HTML-to-PDF requires Puppeteer's browser. See [Document generation](../developer/document-generation.md). |
-| Persistent storage | The local attachment root must be durable and backed up with the database. See [Operator configuration](../operator/configuration.md). |
+| Persistent storage | The Agency must select a registered storage provider. Back up its objects and the database metadata needed to locate them. See [Operator configuration](../operator/configuration.md). |
 | Agreement authorization | Viewer lists templates/files and downloads; Contributor plus the exact Agreement assignment generates; Manager plus that assignment removes an artifact. |
 
 If no eligible template exists, the modal has no template to select and generation remains disabled. Template availability is not cached permanently: the tab loads it when mounted, while every generation request revalidates the template against the agreement stream.
@@ -24,7 +24,9 @@ Select **Generate**, then choose:
 | Language | `eng` or `fra`; defaults from the current interface locale and selects the matching source attachment. |
 | Output format | Resets to the first format allowed by the selected template if the previous choice is incompatible. DOCX can produce `docx` or `pdf`; HTML can produce `html` or `pdf` when configured. |
 
-The server refreshes `create` authorization inside a transaction. It reads the selected source file, builds a current agreement context, renders the requested format, stores a new common attachment, and inserts a generated-document row. The saved filename combines the agreement number, localized template name, language code, and extension; unsafe filename characters are replaced.
+The server captures the Agreement and template inputs, then reads provider bytes and renders outside the final write transaction. Before saving, it refreshes authorization and compares the current core inputs with the captured snapshot. A concurrent change rejects the stale result with `DOCUMENT_RENDER_INPUT_CHANGED` (409); reload the Agreement and generate again. It stores a new provider-backed attachment and generated-document row only after these checks. The filename combines the Agreement number, localized template name, language and extension, with unsafe characters replaced.
+
+At most two renders per Agency/user can run concurrently in one server process. If generation returns `DOCUMENT_RENDER_BUSY` (429), wait for an existing request to finish before retrying. Browser and office conversions also have time limits; a timeout does not mean a usable document was saved. Refresh the list before repeating an uncertain request.
 
 Generation is not a legal-readiness or data-completeness check. Missing and empty values render as `To be confirmed` in English and `A confirmer` in French. Review every artifact before use.
 
@@ -44,14 +46,14 @@ DOCX sources support dotted Docxtemplater tags and array sections. HTML sources 
 
 The newest generated document appears first. The table displays the localized saved template name, requested language, output format, generation timestamp, and actions. It is a client-filtered list rather than a paginated server query.
 
-Download rechecks agreement `read` access and requires the generated row and attachment to be active and belong to the requested agreement. The response uses the stored MIME type, byte length, and attachment filename in a safe `Content-Disposition` header. The local provider rejects absolute/traversal paths, symbolic links, wrong ownership, and unsafe POSIX permissions before reading bytes.
+Download rechecks agreement `read` access and requires the generated row and attachment to be active and belong to the requested agreement. The response uses the stored MIME type, byte length, and attachment filename in a safe `Content-Disposition` header. The file is read through its saved provider identity and locator. Changing the Agency’s provider for new files does not move earlier documents.
 
 ## Delete and recovery
 
 Deletion refreshes agreement `delete` authorization, then atomically marks both the generated-document row and its common attachment `_deleted = true`. It never deletes the stream template. After the database transaction commits, the server attempts to delete the backing object. A missing object is tolerated; another cleanup failure is logged as `storage_cleanup_failed`, while the API still returns success because the metadata is already deleted.
 
 ::: warning Backing-file cleanup is best effort
-A successful delete can therefore leave orphaned bytes in the private storage tree. They are no longer listable or downloadable through the document routes. Operators should monitor cleanup errors and reconcile storage against active attachment metadata using an approved administrative procedure; do not restore access by manually clearing `_deleted` flags.
+A successful delete can therefore leave orphaned bytes in the provider’s storage. They are no longer listable or downloadable through the document routes. Operators should monitor cleanup errors and reconcile storage against active attachment metadata using an approved administrative procedure; do not restore access by manually clearing `_deleted` flags.
 :::
 
 There is no restore action in the core interface. After an uncertain generation result, refresh the list before retrying to avoid creating another snapshot. After an uncertain deletion result, refresh before repeating the action.

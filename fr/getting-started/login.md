@@ -1,29 +1,29 @@
 # Connexion
 
-La page localisee de connexion est `/fr/login`. Les utilisateurs anonymes sont rediriges vers la page de connexion localisee lorsqu ils demandent une page authentifiee. Si un utilisateur authentifie ouvre `/fr/login`, il est redirige vers Accueil.
+La page de connexion est `/fr/connexion`. Les utilisateurs anonymes y sont redirigés lorsqu’ils demandent une page authentifiée. Un utilisateur déjà connecté qui ouvre cette page est redirigé vers Accueil.
 
 ## Connexion par identifiants
 
-L application prend en charge la connexion par courriel et mot de passe avec Better Auth. Dans les donnees de developpement et de test, `root@example.com` avec `password123` peut exister, mais un deploiement de production doit traiter cela uniquement comme une information de donnees semees. Une installation de production propre a besoin d un compte racine provisionne par le deploiement ou l amorcage.
+L’application prend en charge la connexion par courriel et mot de passe avec Better Auth. Dans les données de développement et de test, `root@example.com` avec `password123` peut exister. Ces identifiants servent seulement aux exemples de données initiales; une installation de production propre exige un compte administrateur provisionné par le déploiement ou l’amorçage.
 
-Le formulaire collecte le courriel et le mot de passe, puis soumet l action Connexion. Des identifiants invalides gardent l utilisateur sur la page et affichent une erreur localisee. Apres la connexion, l application actualise la session et route l utilisateur vers Accueil.
+Saisissez votre courriel et votre mot de passe, puis choisissez Connexion. Des identifiants invalides vous laissent sur la page avec une erreur localisée. Après la connexion, l’application actualise votre session et ouvre Accueil.
 
 ## Comportement de session
 
-L application utilise la session de l utilisateur connecte et ses attributions de roles pour determiner les pages et actions visibles. Une session absente ou expiree redirige les pages authentifiees vers la connexion.
+L’application utilise votre session et vos attributions de rôles pour déterminer les pages et actions visibles. Une session absente ou expirée entraîne une redirection vers la connexion.
 
-## Entree GitHub
+## Entrée GitHub
 
-Le code source contient encore une entree de connexion GitHub/sociale dans l experience de connexion, mais les tests la traitent comme indisponible sauf si la configuration de deploiement l active. Ne la decrivez pas comme un chemin de connexion operationnel dans une installation par defaut.
+La connexion GitHub est disponible seulement si le déploiement configure à la fois son identifiant client et son secret. Si cette option n’apparaît pas, utilisez les identifiants fournis par votre administrateur; elle n’est pas activée par défaut.
 
-## Apres connexion
+## Après connexion
 
-La barre laterale depend des permissions :
+La barre latérale dépend des permissions :
 
-- Accueil, Agences, Programmes, Roles et Utilisateurs font partie de la navigation principale.
-- Ententes apparaît avec un plafond Lecteur Entente actif à portée définie.
+- Accueil, Programmes et Rôles sont affichés; leurs données restent soumises aux permissions. Agences et Utilisateurs exigent le plafond Lecteur correspondant.
+- Ententes apparaît avec un plafond Lecteur Entente actif dans une portée autorisée.
 - Promoteurs apparaît avec un plafond Lecteur Promoteur global ou d’agence actif.
 - Gestion des affectations apparaît avec une capacité `manage_assignments` Entente ou Promoteur active.
-- Commun et le téléchargement SQL exigent Lecteur Système global; Déconnexion est toujours présent.
+- GWCOA et le téléchargement SQL exigent Lecteur Système global; Audit exige sa permission globale explicite. Déconnexion reste disponible.
 
-Si un utilisateur se connecte mais voit moins de pages que prévu, vérifiez les attributions utilisateur-rôle actives, les niveaux cumulatifs, la portée et la capacité indépendante de gestion. Les affectations exactes influent sur les mutations et Travail affecté, non sur le plafond servant à afficher ces destinations.
+Si vous voyez moins de pages que prévu, vérifiez avec votre administrateur vos attributions de rôles actives, leurs niveaux d’accès et leurs portées. Les affectations exactes déterminent les modifications permises et le Travail affecté; elles ne remplacent pas les permissions qui rendent une destination accessible.

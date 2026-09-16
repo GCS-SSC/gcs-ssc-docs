@@ -25,15 +25,15 @@ The lookup description shows the owning agency and, for a stream-scoped setup, t
 
 Selecting a setup creates the set and its assessment/checklist children transactionally from the published configuration. The server locks the proponent and applicable ownership graph, rebuilds authorization, and revalidates scope and agency ownership before materialization. A second set from the same setup is refused while an earlier one remains in a blocking in-progress state.
 
-Sequential sets advance in configured member order. On-completion sets interact with the owning workflow/completion path defined by their setup. Runtime rows retain pinned schema versions and configuration, so later administrator edits affect future sets rather than rewriting existing work.
+Sequential sets advance in configured member order. Proponents have no root Complete action; create their direct review sets explicitly. Runtime rows retain pinned schema versions and configuration, so later administrator edits affect future sets rather than rewriting existing work.
 
 For answering, result calculation, additional reviewers, strict completion, approval handoff, and locked states, see [Runtime Reviews](../concepts/runtime-reviews.md). For approval decisions, see [Approvals and Completions](../concepts/approvals-completions.md).
 
 ## Cancel and retry
 
-An authorized updater can cancel a set unless its status is `complete`, `approved`, `denied`, `withdrawn`, or `cancelled`. Cancellation is a terminal historical outcome, not deletion.
+An authorized updater can cancel a nonterminal set. Terminal runtime states are `succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled`, and `failed`. Cancellation preserves history.
 
-Within a non-terminal set, a denied or cancelled child review can be cloned for rework. The clone starts as a new draft in the same set and retains the source review’s pinned schema version, approval configuration, checklist/assessment mode, and behavioural flags. The original remains in history. The retry control is hidden once the set itself is terminal.
+For a terminal standalone set, retrying a denied, cancelled, failed, or unsuccessful review creates a successor runtime and new review set from the pinned plan. Fresh reviews start with new response containers; the original set and decisions remain immutable. This does not add a draft to the old set or reopen its terminal rows. Current permissions, assignment, and the Proponent’s active state still apply. See [Runtime Reviews](../concepts/runtime-reviews.md) for successor lineage and concurrent retry behavior.
 
 If an action fails because the target or permission changed concurrently, refresh the tab and reassess the current state. Do not create a separate set merely to bypass a blocked or terminal transition.
 

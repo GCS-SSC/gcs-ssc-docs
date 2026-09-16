@@ -27,43 +27,29 @@ A schema is opened from a stream context, usually from Review Setups or an asses
 
 The editor has a collapsible hero and a left sidebar with save controls and section navigation.
 
-## Lifecycle States
+## Publication states
 
-Assessment schemas use these states:
+Assessment schemas use the shared publication lifecycle:
 
-- Draft: editable pre-activation state. A draft can be activated.
-- Active: current usable schema state. Active schemas can receive working-copy edits and can be published when there is a pending change.
-- Inactive: retained but not the current editable/usable state.
+- **Draft** (`draft`): editable authoring content with no published version yet.
+- **Published** (`published`): an immutable published snapshot is available; further saves change authoring content for a later publication.
+- **Retired** (`retired`): retained historical configuration, unavailable for new selection and no longer editable or publishable.
 
-The detail hero shows schema name, entity type, version, status, and whether pending publish content exists.
+The detail hero shows publication state, version and whether unpublished changes exist. These are not Agency business statuses.
 
-## Activation
+## First publication
 
-Activation is allowed only for a draft schema. Activating a draft:
+Save a valid schema, then choose **Publish**. The first publication creates immutable version `1`, with a canonical hash and actor recorded by the common publication engine. It includes the bilingual metadata, scoring matrix, assessment definition and flags. A separate Activate API is not part of the current contract.
 
-- Sets the schema status to active.
-- Sets version to `1`.
-- Copies the effective scoring matrix and assessment definition into the published content fields.
-- Clears the working-copy scoring matrix and assessment definition.
+A Review Setup must itself be published against the schema version before it can generate pinned runtime work. Publishing a schema alone does not start an assessment.
 
-After activation, new runtime assessment work can use the published version of the schema.
+## Publishing changes and retirement
 
-## Publishing
+Save edits to the authoring schema, inspect the pending-change indicator, then publish when the new definition is ready. Each changed publication increments the integer version by one: a label correction and a structural change both move version `1` to `2`. An identical canonical definition keeps the current version. There is no major/minor decimal version calculation.
 
-Publishing is allowed only for an active schema with a working copy that differs from the published copy. Publishing:
+For example, changing a question’s wording and publishing version `2` leaves an existing version-`1` review with its original wording. Update and publish the consuming Review Setup when future work should use the new schema. Renaming a question key also requires repairing every dependency that names it.
 
-- Computes whether the change is major, minor, or none.
-- Updates the published scoring matrix and published assessment definition.
-- Clears the working copy.
-- Updates the version when content changed.
-
-Version behavior:
-
-- Structural changes are major. Adding, removing, or renaming sections, subsections, questions, outcomes, or impactor targets changes the structural signature.
-- Non-structural content changes are minor. Examples include label, description, score, threshold, help text, weight, and option changes when the structural names/counts remain the same.
-- A no-op publish keeps the same version, but users normally cannot publish when there is nothing to publish.
-
-Runtime implication: runtime assessments should use the published content. Editing an active schema creates or updates working-copy content until the administrator publishes it.
+Retire a published schema when it must not be selected for new configuration. Retirement is permanent; historical versions remain available to their pinned runtime attempts. Do not edit historical responses by changing the current schema.
 
 ## Save Behavior
 
@@ -118,7 +104,7 @@ Sections are top-level groups in the assessment. Each section has:
 - Weight.
 - One or more subsections.
 
-The language-independent code is important because dependencies and calculations refer to section, subsection, and question codes. Renaming codes on an active schema is a structural change and can break references if dependent items are not updated.
+The language-independent code is important because dependencies and calculations refer to section, subsection, and question codes. Renaming codes on a published schema is a structural change and can break references if dependent items are not updated.
 
 ## Subsections
 
@@ -238,7 +224,7 @@ Impactors adjust or classify assessment results based on helper or answer values
 - Dependency target.
 - Scoring matrix rows.
 
-Each impactor scoring row has a max threshold and numeric value. Impactor targets are part of the structural signature used to decide whether a publish is major or minor.
+Each impactor scoring row has a max threshold and numeric value. Changing a target changes the published definition and requires a new integer publication version.
 
 ## Runtime Assessment Flow
 
@@ -275,12 +261,11 @@ Submitting completion saves comments and, for common review completion, can incl
 
 ## Approval Behavior
 
-When an assessment or review has an approval template, the common approvals section can materialize and manage routing slips. Approvals are grouped by routing slip and step.
+When an assessment or review has an approval template, its pinned review-completion or workflow path materializes the routing slip, and the approvals section manages decisions. Approvals are grouped by routing slip and step.
 
 Approvers can:
 
 - View current and previous routing slips.
-- Create a new routing slip only when allowed and all existing routing slips are denied.
 - Reassign a current step when they have manage approval permission.
 - Approve or deny a current actionable step.
 - Complete required certifications during approval.
@@ -291,12 +276,12 @@ If an on-behalf type requires actual approval details, the approver must enter a
 
 ## Operational Guidance
 
-Save, activate, and publish operations recheck the active stream/program/agency chain and exact `transfer_payment:update` access inside a fresh transaction. An inaccessible schema is masked like a missing one. Activation fails unless the schema is a valid draft; publication fails unless it is active and has valid pending content. When validation identifies a broken dependency, unknown helper field, duplicate code, calculation cycle, or invalid publication state, keep the editor open, correct the referenced section/item, save again, and only then activate or publish.
+Save, publish, and retire operations recheck the active stream/program/agency chain and exact `transfer_payment:update` access inside a fresh transaction. An inaccessible schema is masked like a missing one. Publication requires valid authoring content; retirement prevents further edits and publications. When validation identifies a broken dependency, unknown helper field, duplicate code, calculation cycle, or invalid publication state, keep the editor open, correct the referenced section/item, save again, and only then publish.
 
 Use these practices for stable schemas:
 
 - Treat language-independent codes as durable identifiers.
-- Publish active schema changes before expecting new runtime work to use them.
+- Publish schema changes before expecting new runtime work to use them.
 - Avoid deleting or renaming codes that existing runtime responses may reference.
 - Keep option values, matrix thresholds, risk ratings, and outcome thresholds aligned.
 - Configure helper dependencies only for helper fields available to the schema entity type.

@@ -9,10 +9,10 @@ Ouvrez une entente, puis sélectionnez **Paiements**. La configuration suivante 
 | Dépendance | Exigence vérifiée |
 | --- | --- |
 | Budget de l’entente | Le paiement utilise l’identité stable d’un exercice de la version courante du budget de l’entente. |
-| Engagement | La création exige finalement un engagement actif et non supprimé du type sélectionné, à l’état `complete` ou `approved`. |
+| Engagement | Engagement actif non supprimé du type sélectionné, avec preuve d’achèvement ou exécution d’approbation approuvée. |
 | Lignes d’engagement | Les lignes de codage doivent appartenir à cet engagement précis et correspondre à l’exercice courant du paiement dans l’entente. |
-| Configuration de flux de travail facultative | L’achèvement peut démarrer un flux applicable à `fundingcasepayment`. |
-| Modèle d’approbation facultatif | Le serveur possède un moteur d’approbation distinct pour les paiements, mais l’achèvement principal et la page de détails actuelle ne l’appellent pas. Consultez [Achèvement, approbation et flux de travail](#achèvement-approbation-et-flux-de-travail). |
+| Flux de travail facultatif | Achèvement démarre la soumission d’approbation sélectionnée pour `fundingcasepayment`, si configurée. |
+| Modèle d’approbation facultatif | Incluez le modèle publié dans le flux de soumission; un modèle seul ne crée pas de parcours. |
 
 Lecteur Entente consulte l’onglet et le détail. La création d’un paiement exige Contributeur et l’affectation exacte à l’entente, puis rend le créateur principal. Les modifications et l’achèvement suivants exigent Contributeur et l’affectation exacte au paiement; la suppression exige Gestionnaire et cette affectation. Un volet, engagement ou une autre entente n’élargit pas la frontière. Les dossiers absents ou inaccessibles ne divulguent aucune donnée hors portée.
 
@@ -33,9 +33,9 @@ Sélectionnez le type du paiement pour ouvrir sa page de détails. L’en-tête 
 | Montant du paiement | Valeur monétaire finie, positive et obligatoire, dans la limite commune des requêtes; conservée comme `numeric(19,2)`. |
 | Commentaire | Facultatif; une saisie vide est conservée comme `null`. |
 
-Un paiement créé par le noyau commence à l’état `draft`. La modification de son en-tête ou de ses lignes fait passer un brouillon à `inprogress`. Après une modification, la réponse de l’API présente aussi un en-tête encore en brouillon comme `inprogress`.
+Un nouveau paiement reçoit le statut Brouillon de l’organisme. Les modifications d’en-tête et de lignes conservent ce statut; seul le moteur configuré applique les transitions.
 
-Le sélecteur d’engagement affiche actuellement tous les engagements `complete`, même inactifs, ainsi que les engagements `approved` actifs. L’enregistrement est plus strict : le serveur résout seulement un engagement actif `complete` ou `approved` selon son type. Une option achevée mais inactive peut donc échouer à l’enregistrement ou résoudre un autre engagement actif du même type. La présence dans le sélecteur ne prouve pas l’admissibilité; vérifiez l’engagement actif dans l’onglet Engagements.
+Le sélecteur peut inclure des engagements inactifs avec preuve d’achèvement. L’enregistrement exige un engagement actif admissible et le résout par type. Une option historique peut donc échouer ou résoudre l’engagement actif courant du même type. Vérifiez celui-ci dans son onglet avant de créer le paiement.
 
 Il est interdit de changer l’engagement ou l’exercice dès que le paiement possède une ligne active. Supprimez ou rapprochez d’abord les lignes. Les autres modifications de l’en-tête demeurent assujetties au verrou d’état ci-dessous. Le serveur revérifie l’autorisation et la portée de l’entente dans la transaction d’écriture avant toute mutation.
 
@@ -43,7 +43,7 @@ L’onglet affiche les commandes de modification et de suppression selon les per
 
 ## Répartir les lignes de paiement
 
-La page de détails présente le numéro de ligne d’engagement, l’exercice, le fonds, le grand livre et sa description facultatifs, le centre financier, l’ordre interne, le domaine fonctionnel, le centre de coûts et le montant réparti. La recherche porte sur ces valeurs de codage affichées. Le total sous le tableau compare toutes les lignes actives au montant de l’en-tête.
+La page de détail présente le numéro de ligne d’engagement, l’exercice, les dimensions comptables ordonnées et localisées et le montant réparti. La recherche porte sur les valeurs de codage affichées. Le total sous le tableau compare toutes les allocations actives au montant de l’en-tête.
 
 | Règle | Comportement |
 | --- | --- |
@@ -53,30 +53,29 @@ La page de détails présente le numéro de ligne d’engagement, l’exercice, 
 | Une ligne de codage par paiement | Une seule ligne active peut viser une ligne d’engagement donnée dans le même paiement. |
 | Solde restant | Pour tous les paiements actifs qui ne sont pas refusés, la somme affectée à une ligne d’engagement, plus le montant proposé, ne peut dépasser le montant de cette ligne. Une modification exclut la ligne en cours. |
 
+Ici, « non refusé » signifie que la dernière exécution d’approbation de cette cible exacte n’est pas `denied`. Un brouillon ou un paiement sans preuve d’approbation consomme encore le solde. Un nom de statut métier configurable comme « Refusé » ne libère pas lui-même le montant.
+
 La vérification du solde verrouille la ligne d’engagement et sérialise ainsi les écritures concurrentes du noyau sur le même solde. Les paiements parents sont verrouillés selon l’ordre déterministe de leurs identifiants avant la ligne enfant déplacée; un changement de portée détecté est réessayé jusqu’à trois fois. L’API PATCH d’une ligne peut la déplacer vers un autre paiement modifiable de la même entente, même si la fenêtre de détails montée conserve le paiement courant. L’engagement de destination, l’exercice, l’unicité et le solde sont tous revérifiés.
 
 La suppression d’une ligne est logique. La suppression d’un paiement verrouille ses lignes actives, puis supprime logiquement les lignes et l’en-tête dans la même transaction. Les enregistrements supprimés ne sont plus affichés et ne comptent plus dans les soldes; l’historique demeure dans la base. Les modifications et suppressions sont refusées dès que le paiement est verrouillé.
 
 ## Achèvement, approbation et flux de travail
 
-La page de détails principale contient les sections **Achèvement** et **Flux de travail**; elle ne contient aucune section d’approbation du paiement.
+La page présente Achèvement et la section Flux partagée. Achevez seulement après avoir enregistré toutes les allocations. Le serveur verrouille le paiement et les lignes, actualise le niveau Contributeur et l’affectation exacte, et exige aucun achèvement antérieur, au moins une ligne active, un total positif et l’égalité exacte entre ce total et le montant de l’en-tête.
 
-L’achèvement est transactionnel. Il verrouille le paiement et ses lignes actives, revérifie le plafond de rôle Entente Contributeur et l’affectation exacte au paiement, refuse un second achèvement et exige :
+Achèvement consigne atomiquement commentaire/utilisateur et démarre la soumission `fundingcasepayment` sélectionnée, ou consigne `no_workflow`. Le crochet est émis après validation. Le flux peut contenir examens, recommandations et approbations publiés; ses commandes apparaissent dans la section partagée. Un modèle seul ne crée pas cette séquence. Un flux actif bloque Achèvement et sa preuve verrouille l’édition ordinaire.
 
-- au moins une ligne active et un total de lignes positif;
-- une somme numérique PostgreSQL exactement égale au montant de l’en-tête.
+Par exemple, un paiement de `"1250.00"` réparti en `"1000.00"` et `"250.00"` peut satisfaire l’égalité. Un total de `"1249.99"` ne le peut pas. Corrigez avant d’achever; une approbation ultérieure ne dispense pas du contrôle financier.
 
-En cas de réussite, il consigne le commentaire et l’utilisateur communs d’achèvement, fait passer directement le paiement à `complete`, démarre tout flux `fundingcasepayment` applicable, valide la transaction, puis émet le hook d’achèvement. Il ne consulte aucun modèle d’approbation des paiements et ne crée aucune feuille d’acheminement.
-
-Une API générique d’approbation des paiements existe pour les intégrations autorisées. Un appelant explicite peut matérialiser le modèle `fundingcasepayment` du volet, faire passer le paiement à `pendingapproval`, puis traiter les approbations affectées jusqu’à `approved` ou `denied`. Les approbateurs affectés doivent quand même avoir l’accès ordinaire à l’entente exacte. Cette API n’est pas appelée par le bouton d’achèvement principal et ses commandes ne sont pas montées dans la page du paiement. La simple configuration d’un modèle d’approbation ne place donc pas un paiement de l’interface principale en approbation.
-
-Le schéma définit aussi `pay`, `wait`, `processed` et `paid`. Ces états sont verrouillés lorsqu’ils sont rencontrés, mais aucune route principale ni extension installée ne fait actuellement progresser un paiement vers ces quatre états opérationnels. Ne les présentez pas comme une chaîne de traitement automatisée.
+Achever ou approuver ne prouve pas qu’un système financier externe a versé les fonds. L’hôte ne met pas en œuvre de chaîne automatique de traitement bancaire. Les libellés métier sont configurés par l’organisme; interprétez-les avec le flux et les preuves de l’intégration propriétaire.
 
 ## Cycle de vie et reprise
 
-Les états `draft` et `inprogress` sont modifiables. Les états `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed` et `paid` verrouillent l’en-tête et les lignes.
+Le statut en lecture seule ou terminal, la preuve d’achèvement et le travail protégé verrouillent l’en-tête et les lignes. Le serveur revérifie ces limites dans la transaction, même si un formulaire déjà ouvert propose encore Enregistrer.
 
-Si l’achèvement signale un écart de total, comparez le montant de l’en-tête au total complet et non filtré des lignes, puis corrigez l’en-tête ou les lignes encore modifiables. En cas d’erreur de solde, vérifiez les autres paiements non refusés associés à la même ligne d’engagement. Un paiement refusé ne consomme plus ce solde. Si une extension refuse une mutation, préservez sa provenance générée et suivez sa procédure de reprise au lieu de contourner la route hôte.
+En cas d’écart, comparez l’en-tête au total complet non filtré. En cas de solde insuffisant, examinez les autres paiements sur la même ligne d’engagement et leurs preuves d’exécution. Un libellé seul ne définit pas la politique de solde. Corrigez les allocations modifiables avant de réessayer. Après une écriture réussie suivie d’une lecture échouée, rechargez avant une nouvelle mutation. Utilisez la reprise du flux après un échec d’approbation; Achèvement ne se répète ni ne s’annule.
+
+Si une extension refuse une mutation, conservez sa provenance et suivez sa procédure sans contourner les routes de l’hôte.
 
 ## Effets des extensions
 

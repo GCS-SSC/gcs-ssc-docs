@@ -4,7 +4,7 @@ GCS-SSC est bilingue au niveau des routes, libelles, validations et donnees. Le 
 
 ## Routes
 
-Nuxt i18n utilise des routes prefixees. La langue par defaut est l anglais, mais les URL utilisent quand meme `/en`. Les pages francaises utilisent `/fr` et plusieurs segments traduits, comme `/fr/agences`, `/fr/utilisateurs`, `/fr/promoteurs` et `/fr/admin/commun`.
+Nuxt i18n utilise des routes prefixees. La langue par defaut est l anglais, mais les URL utilisent quand meme `/en`. Les pages francaises utilisent `/fr` et plusieurs segments traduits, comme `/fr/agences`, `/fr/utilisateurs`, `/fr/promoteurs` et `/fr/admin/gwcoa`.
 
 Les operateurs devraient partager l URL localisee qu ils veulent que les utilisateurs ouvrent.
 
@@ -35,3 +35,5 @@ Les schemas d examen, schemas de recommandation, libelles d evaluation, libelles
 ## Parite documentaire
 
 Les pages anglaises et francaises de documentation devraient avoir la meme structure. Un utilisateur qui change de langue doit arriver dans la meme section conceptuelle, pas dans un resume plus court.
+
+Les modalités de programme possèdent des URL anglaise et française distinctes et obligatoires. Les extensions possèdent leurs catalogues et les résolvent par le SDK selon la langue courante de l’hôte; un message d’extension n’est pas une clé de l’hôte. Consultez [Validation et localisation](../developer/validation-i18n.md).

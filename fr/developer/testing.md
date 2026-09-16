@@ -2,16 +2,18 @@
 
 L application source utilise Vitest pour les tests unitaires et Playwright pour les tests de bout en bout. Le site de documentation devrait quand meme etre construit apres les modifications pour detecter les erreurs de markdown, liens ou structure.
 
+Les tests et ressources d’architecture proviennent du sous-module privé figé `tooling/gcs-ssc`. `bun run tooling:setup` l’initialise et crée les liens ignorés `tests`, `architecture` et de compétence; ne recopiez pas les suites privées dans le dépôt hôte.
+
 ## Commandes de l application
 
-Depuis `../gcs-ssc` :
+Depuis `gcs-ssc` :
 
 ```bash
 bun run lint
 bun run typecheck
 bun run test:unit
 bun run test:coverage
-# Nécessite les trois variables *_POSTGRES_TEST_URL décrites ci-dessous.
+# Nécessite la variable AGREEMENT_CONCURRENCY_POSTGRES_TEST_URL décrites ci-dessous.
 bun run test:integration:postgres
 bun run test:e2e
 bun run test:e2e:light
@@ -21,7 +23,9 @@ bun run quality:pr
 
 `bun run test` exécute les suites unitaires et de bout en bout. `test:all:manual` exécute aussi l’analyse statique, la vérification des types, la couverture, l’agrégat PostgreSQL facultatif et les tests de bout en bout.
 
-L’intégration continue automatique des demandes de tirage n’est pas configurée. Les contributeurs exécutent `quality:pr` comme vérification locale de référence : elle consigne le diff de la branche, exécute l’analyse statique et la vérification des types, compile le SDK d’extensions, vérifie l’artefact de production sur les hôtes POSIX non racines pris en charge et exécute les suites unitaires et de couverture de l’application et des extensions. Elle n’exécute pas les suites PostgreSQL facultatives ni les tests Playwright de bout en bout ; exécutez-les séparément lorsque le changement dépend du verrouillage réel de la base de données ou d’une interaction dans le navigateur.
+L’intégration continue automatique des demandes de tirage n’est pas configurée. Les contributeurs exécutent `quality:pr` comme vérification locale de référence : elle consigne le diff de la branche, exécute l’analyse statique et la vérification des types, compile le SDK d’extensions, vérifie l’artefact de production sur les hôtes POSIX non racines pris en charge et exécute les suites unitaires et de couverture de l’hôte, la vérification des types des extensions et les suites unitaires/couverture des fournisseurs de stockage local et S3. Elle n’exécute pas les suites PostgreSQL facultatives ni les tests Playwright de bout en bout ; exécutez-les séparément lorsque le changement dépend du verrouillage réel de la base de données ou d’une interaction dans le navigateur.
+
+`test:unit` et `test:coverage` exécutent d’abord `forms:check`, qui vérifie les contrats des champs requis. `test:e2e:fast` et `test:e2e:light` sont des alias PGlite à un seul processus. Les suites ciblées couvrent les pièces jointes, statuts d’organisme, actualisations et modifications d’entente, clôtures, recommandations, configurations de flux retirées et réinitialisations. Utilisez le script `:spec` correspondant pour choisir un fichier; `test:all:manual` comprend la séquence configurée.
 
 ### Vérification des artefacts de production
 
@@ -58,7 +62,7 @@ La couverture pertinente inclut :
 - Cycle de vie des permissions cumulatives de rôle.
 - RBAC des rôles structurels et des affectations exactes d’entité.
 - Gestion d agence et RBAC par portee d agence.
-- Configuration, schemas, routes, recherches et i18n de Commun.
+- Catalogue GWCOA, accès Audit, références d’organisme, formulaires et validation localisée.
 - Routes demandeur/beneficiaire, onglets enfants, routes d’affectation exacte, execution d examens et RBAC.
 - Activation d extension par agence, configuration de volet, emplacements d execution, onglets d entite, repartition serveur, migrations et SDK.
 - Ordre de l’autorisation des écritures protégées et des verrous du cycle de vie sous concurrence PostgreSQL.
@@ -72,7 +76,7 @@ Pour les changements d agence, executez les tests de route d agence, schema d ag
 
 Pour les promoteurs, executez les tests d auth demandeur/beneficiaire, routes, routes d’affectation, routes enfants, routes d examen et e2e demandeur/beneficiaire.
 
-Pour Commun, executez les tests de schema, route, recherche, colonnes, app-config, validation de modale et page.
+Pour GWCOA et Audit, choisissez les tests dédiés des routes, schémas, accès et pages touchés. Pour les pièces jointes partagées, incluez les compensations de fournisseur, le nettoyage et la récupération des métadonnées.
 
 ## Commandes docs
 

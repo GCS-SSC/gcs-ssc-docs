@@ -14,7 +14,8 @@ GCS-SSC utilise une interface de tableau de bord adaptative avec une barre laté
 | Gestion des affectations | Lorsqu’une permission Entente ou Promoteur active comporte `manage_assignments`. |
 | Rôles | Toujours affiché; les API imposent tout de même la portée `role`. |
 | Utilisateurs | Lorsqu’un rôle actif peut lire `user`. |
-| Administration commune | Seulement avec Lecteur ou un niveau supérieur global pour `system`. |
+| GWCOA | Seulement avec Lecteur ou un niveau supérieur global pour `system`. |
+| Audit | Seulement avec Lecteur ou un niveau supérieur explicite et global pour `audit`. |
 
 Les affectations à une entité exacte ne font pas apparaître Ententes ou Promoteurs puisqu’une affectation ne fournit jamais le plafond de rôle manquant. Inversement, une destination visible n’affecte pas tous les dossiers et ne garantit pas une liste non vide. La visibilité de la barre latérale est seulement un repère d’utilisation; chaque API impose indépendamment l’autorisation courante.
 

@@ -1,93 +1,49 @@
-# Common Administration
+# GWCOA administration
 
-Common Administration is the global, configuration-driven resource manager at `/en/admin/common`. It requires an explicit global `system:read` grant. The client middleware redirects to Home when that grant is absent or the permission check fails, but every API route independently enforces authorization.
+Open **Administration → GWCOA** at `/en/admin/gwcoa` to maintain the organization catalogue used by Agency profiles. The current application has a dedicated GWCOA manager. The former Common Administration resource tabs and generic Common CRUD routes are no longer the operational interface; manage Agency references, stream designs, and runtime work in their owning workspaces.
 
-## Resource order and ownership
+## Permissions
 
-The route-addressable tabs appear in this exact order:
+GWCOA is global configuration. Reading requires global `system:read`; creating requires global `system:create`; editing, soft deletion, and restoration use global `system:update`. Agency access alone does not authorize this catalogue. Each server request checks permission, and writes rebuild authorization within their transaction before applying changes.
 
-1. GWCOA
-2. Entities
-3. Contacts
-4. Addresses
-5. Form Schemas
-6. Attachment Types
-7. Review Schemas
-8. Review Set Setups
-9. Review Setups
-10. Completions
-11. Review Sets
-12. Reviews
-13. Approval Templates
-14. Approval Steps
-15. Certifications
-16. Routing Slips
-17. Recommendation Schemas
-18. Recommendation Setups
-19. Recommendations
+## Search and inspect
 
-These records are global Common tables, although some carry an agency or stream scope. The standard page still requires global system access. Agency-filtered attachment types and review/recommendation schemas can also be read through their authorized scoped lookup uses; that does not grant access to the Common Administration page.
+The table supports pagination, literal-text search, and active/deleted filtering. Search covers row ID, organization number, and English/French names; `%` and `_` are ordinary characters. The filtered total describes the current result set, while the hero's total and active counts describe the whole catalogue. Collapsing the hero hides its summary statistics.
 
-## Use the shared manager
+Open a row to inspect or edit it. Database IDs identify catalogue rows; the GWCOA number is the organization number that Agency profiles reference. Do not confuse those two identifiers.
 
-Choose a tab in the left navigation or use its `section` query value. The default tab is Contacts. The hero reports total and active counts for the selected resource. Each table supports pagination, search across the resource's configured columns plus its id, and a deleted filter for all, active, or deleted rows.
+## Create or update an organization
 
-Select **Add** to open a generated form, or open an existing row to edit it. Fields can be text, number, date, multiline text, JSON, boolean, enum, or a server-backed lookup. Bilingual name and description columns render in the current locale with fallback. Lookup controls fetch labels and hydrate the selected value in edit mode, including a deleted referenced value when the field contract permits it.
-
-For Canadian addresses, subdivision uses the jurisdiction list; another country changes it to free text and clears the incompatible Canadian value. Recommendation Schema content uses the structured editor when present. Other JSON fields use a JSON text area and must remain valid for the selected schema.
-
-Existing mutable rows expose **Deleted**. Turning it on soft-deletes the row; turning it off attempts restoration. Nothing in this page physically deletes a Common row.
-
-### Form Schema publication lifecycle
-
-Form Schemas are Agency-owned publication resources rather than ordinary soft-delete toggles. A user with update access to the selected Agency can create and edit its working definition, publish a draft or a changed published definition, and permanently retire a published definition. Manager-level Agency delete access may delete only an unreferenced draft. The agency lookup lists only Agencies the caller may update.
-
-Publishing creates version 1 or, after a real content change, the next immutable positive version. Publishing unchanged content creates no version. A published row reports whether its working copy has unpublished changes; historical runtime consumers remain pinned to the exact version they selected. Retired schemas remain available to historical records but cannot be selected for new work, edited, republished, restored, or deleted.
-
-## Read-only resources
-
-The following tabs are deliberately read-only in this generic manager:
-
-- Entities, which is the polymorphic identity registry populated by domain records.
-- Approval Templates, Approval Steps, and Certifications, which are managed through the stream approval-template editor.
-- Routing Slips, which are runtime approval records managed through approval actions.
-
-The server rejects create or patch requests for these resources even if a client attempts them directly.
-
-## Mutable resource groups
-
-| Group | Resources | Important contract |
-| --- | --- | --- |
-| Reference | GWCOA, Contacts, Addresses, Form Schemas, Attachment Types | Create these before records that look them up. Agency-linked resources must reference a valid owner. Names/descriptions that have EN/FR columns require both values. |
-| Review design | Review Schemas, Review Set Setups, Review Setups | Schemas are created as version-0 drafts. Setups establish exact scope/entity type, member order, optional approval, sequential behaviour, completion trigger, and active state. Prefer the dedicated stream editors for published production configuration. |
-| Review runtime | Review Sets, Reviews | Runtime records point to exact source entities and setup/schema rows. A new review snapshots the active schema's custom-outcome, alignment, and reviewer flags. Changing schema refreshes those flags; restoring requires an active referenced schema, while restoring with the same schema preserves the existing snapshot. |
-| Completion | Completions | Stores typed entity identity, value, comments, Common user, and completion date. Normal business completion should use the source record's runtime action. |
-| Recommendation design | Recommendation Schemas, Recommendation Setups | Schemas carry bilingual identity, entity type, status, result, and structured definition. Setups bind a schema and optional approval template to an exact scope/entity type. |
-| Recommendation runtime | Recommendations | Stores setup, typed entity identity, recommendation value, and response data. Normal work should use the source workflow. |
-
-## Authorization and validation
-
-Listing and reading normally require global `system:read`; creating requires `system:create`; patching, soft deletion, and restoration require `system:update`. Create and patch operations validate with the resource's Zod schema, then rebuild global authorization inside a transaction before mutation. Patch locks the target row or uses the resource's stronger lock path. Unknown resource names, missing ids, read-only mutation, invalid references, invalid JSON, and localized validation failures return the standard API error envelope.
-
-Search escapes SQL wildcard characters. Bigint ids enter contracts as strings or numbers where supported and are returned as strings by PostgreSQL/Kysely-facing APIs. Updates are partial but the merged record must remain valid.
-
-Two shared lookup routes sit beside the generic manager:
-
-| Route | Access and shape |
+| Field | Rule |
 | --- | --- |
-| `GET /api/admin/agency/approval-behalf-types` | Requires global `system:read`. Returns a paginated cross-agency list with bilingual behalf-type and agency names, `egcs_ay_require_actual`, deletion state, filtered `total`, and unfiltered global `stats.total`/`stats.active`. Search treats `%`, `_`, and escape characters literally and also matches the numeric ID. An explicit `deleted` query takes precedence over `status=active|deleted`. |
-| `GET /api/metadata/enums?name=...` | Intentionally public so sign-in and shared controls can load allow-listed option values. Returns a plain ordered string array; it never accepts an arbitrary PostgreSQL type name. `ability` returns the static ability catalogue, several application enums come from static constants, and the remaining allow-listed enums are read in PostgreSQL sort order. Invalid names return localized `ENUM_INVALID`. |
+| Number | Required integer from 0 through 32,767; unique across the catalogue. |
+| English name | Required trimmed nonblank text, at most 255 Unicode characters. |
+| French name | Required trimmed nonblank text, at most 255 Unicode characters. |
+| Deleted | Available on update for logical retirement/restoration; does not physically remove the row. |
 
-The approval-behalf route is an administrative inventory, not the scoped agency picker. Its statistics describe the whole table even when the item list is searched or filtered. Enum labels shown in controls are translated client-side from these stable codes; this endpoint does not return localized display text.
+1. Search first to avoid creating an organization already present under another language label.
+2. Select Add and enter the number and both names.
+3. Save and verify the resulting row.
+4. Use the Agency profile's GWCOA lookup to associate the organization with the Agency.
 
-## Dependency and recovery guidance
+For example, correcting the French spelling of an existing organization is a name edit, not a reason to allocate a new organization number. If an Agency references that number, attempting to change it returns `GWCOA_NUMBER_IN_USE`; correct the label while preserving the referenced number. A duplicate number returns `GWCOA_DUPLICATE_NUMBER`, including conflicts with retained catalogue records.
 
-Build reference data before setup data, and setup data before runtime records. In particular, create active users and agency/stream scope records before approval or review setups; publish production schemas/templates in their dedicated editors before materializing runtime work.
+An unchanged retired GWCOA reference can remain on an existing Agency during unrelated profile edits. Retirement does not make it eligible for new Agency selections. Review the existing Agency reference before replacing it, and use a current eligible organization for a genuine replacement.
 
-If a lookup is empty, verify the referenced resource exists, is not soft-deleted, matches the required agency/entity filters, and that you have its scoped read permission. If restoration fails, restore or replace required active dependencies first. If a save reports a concurrent permission or ownership change, reload instead of resubmitting stale form state.
+## Where other administration belongs
 
-Common Administration is an expert repair/configuration surface, not a substitute for normal runtime pages. Direct changes to active setup or runtime records can produce different behaviour for new and historical work. Preserve pinned history and use a new published version when a business process changes.
+| Task | Workspace |
+| --- | --- |
+| Fiscal years, cost definitions, address/attachment types, recipient subtypes, agreement types, statuses | [Agency](./agencies.md) reference tabs |
+| Approval, review, recommendation, workflow, document, and custom-field configuration | [Stream](../programs/streams.md) and its dedicated editors |
+| Contacts and addresses | The owning Proponent or Agreement workspace |
+| Runtime reviews, recommendations, approvals, and completion | The relevant casework record and workflow |
+| Cross-Agency change/query evidence | [Audit](./audit.md), requiring an explicit global Audit grant |
 
-![Common Administration resources](/screenshots/en/common-admin.png)
+Do not attempt to repair runtime history by recreating the removed generic editor. Published definitions and runtime evidence have dedicated lifecycle and authorization rules.
 
-_The screenshot uses seeded development data. A fresh installation does not contain those example rows._
+## Failure and recovery
+
+A failed list or detail request is an error state, not proof that the catalogue is empty. Retry loading before editing. If a save fails, keep the draft, correct field errors or the conflicting number, and save again. After a permissions change, reload to obtain current capabilities. If the write succeeded but refreshing the table fails, retry the read rather than submitting a duplicate create.
+
+Shared enum controls use `GET /api/metadata/enums?name=...`, an intentionally public endpoint with an allow-listed name and ordered string-array response. It supplies stable codes, while the client translates labels. It is separate from GWCOA and cannot query arbitrary database types. Public metadata still waits for completed application startup and audit readiness.

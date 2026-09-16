@@ -12,7 +12,7 @@ The server returns not found when the id is missing, deleted, of the wrong revie
 
 ## Create and manage review sets
 
-The generic `/api/review-sets` collection currently accepts direct targets only for `applicantrecipient`, `fundingcaseamendment`, `fundingcaseagreementcommitment`, `fundingcaseforecast`, `fundingcasemonitor`, `fundingcasepayment`, and `fundingclaimreconcile`. Other values may exist in the shared enum but return `UNSUPPORTED_REVIEW_ENTITY_TYPE` on this route surface.
+Direct review support is declared by the entity registry and resolved through the exact owner. The generic `/api/review-sets` routes cover supported Proponents, Agreements, and Agreement children, including Claims and Closeouts. Registered qualified extension entities can participate when their host lifecycle capability declares direct reviews. A declared capability does not bypass the required owner resolver, permission, or lifecycle checks; unsupported targets return `UNSUPPORTED_REVIEW_ENTITY_TYPE`.
 
 The source record's review-set table uses `GET /api/review-sets` with `entityType`, `entityId`, pagination, and optional literal-safe search across set ID and the pinned English/French setup name. Each row is reconstructed from the runtime snapshot and includes its non-deleted review children; the displayed agency comes from the first materialized review.
 
@@ -25,9 +25,9 @@ Before creation, `GET /api/review-sets/lookups/setups` returns only active, publ
 
 For an Applicant-Recipient, applicable scopes are its exact profile plus streams reached through active agreements in its lead agency. For an Agreement-owned child, scopes are its exact parent agreement and that agreement's current active stream. The lookup is searchable by bilingual setup, agency, and stream names.
 
-`POST /api/review-sets` requires source update access, then refreshes authorization and locks the current ownership/scope graph and setup snapshot. It rejects an ineligible or unpublished setup and permits only one non-deleted set for the same setup and target while a prior set is in a blocking non-terminal status. Creation atomically stores a `draft` set with its published configuration/version and pinned schema versions. A sequential setup materializes only its first member; a parallel setup materializes every member. Each member creates a draft assessment or checklist runtime row.
+`POST /api/review-sets` requires source update access, then refreshes authorization and locks the current ownership/scope graph and setup snapshot. It rejects an ineligible or unpublished setup and permits only one non-deleted set for the same setup and target while a prior set is in a blocking non-terminal status. Creation atomically records the published configuration and schema versions in the canonical runtime and its items. Sequential plans activate the next eligible member; parallel plans activate their eligible members together. Waiting members and active work have distinct runtime states.
 
-An authorized update user can cancel a non-terminal set through `POST /api/review-sets/{reviewSetId}/cancel`. The route resolves the target from the set, refreshes ownership authorization in the protected transaction, sets the set to `cancelled` with success `false`, and sets every active child review to `cancelled`. It does not delete the historical rows. Sets already `complete`, `approved`, `denied`, `withdrawn`, or `cancelled` reject cancellation as terminal.
+An authorized update user can cancel a non-terminal set through `POST /api/review-sets/{reviewSetId}/cancel`. The route resolves the target from the set, refreshes ownership authorization in the protected transaction, cancels the runtime and its unfinished children. It does not delete the historical rows. Terminal runtime states (`succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled`, `failed`) reject cancellation.
 
 ## Complete an assessment
 
@@ -64,7 +64,13 @@ Use the Completion section only when responses are ready. Completion revalidates
 
 The review set advances according to its published member order and policy. Successful review/approval work advances to the next member. A denied member can end or deny the set according to its runtime rules; when the set belongs to a workflow, a successful terminal set advances the workflow and an unsuccessful set fails it. Historical runtime records continue to use their pinned versions.
 
-For an Applicant-Recipient review shown as denied, **Retry review** clones the denied review within the same non-terminal review set. The action requires clone-review permission and fresh ownership authorization. It does not clone a non-denied review and cannot reopen a terminal set.
+Retry creates a successor attempt; it does not reopen historical runtime rows. The direct review clone route requires a terminal standalone `review_set` runtime and a requested review whose outcome is `denied`, `cancelled`, `failed`, or `unsuccessful`. It copies the pinned runtime plan into a new set, creates fresh review records and response containers, and preserves predecessor lineage. A repeated concurrent request resolves to the same successor rather than creating duplicate attempts. Reviews owned by a workflow use that workflow’s retry path instead.
+
+For example, after a standalone checklist set fails, an authorized user can retry the unsuccessful review into a new attempt. The original answers and decisions remain historical; complete the fresh successor rather than attempting to edit the failed record. Current ownership, assignment, and parent business-status guards still apply.
+
+## Invalid historical definitions
+
+A runtime uses its pinned assessment definition. The server accepts a genuinely unauthored definition as empty and supplies empty optional section/outcome matrices for older compatible definitions. Malformed authored content is not silently replaced with an empty assessment: loading returns `ASSESSMENT_DEFINITION_INVALID` (500). Record the review ID and report the problem to the application maintainer. Do not complete an apparently empty replacement or change the current schema expecting it to repair the historical pin.
 
 ## Recovery
 

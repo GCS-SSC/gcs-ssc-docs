@@ -41,10 +41,10 @@ The profile fields are:
 - Start date and end date: required. The end date must be on or after the start date.
 - English and French name.
 - English and French abbreviation.
-- Terms and conditions link: required and must be a valid URL.
+- English and French terms-and-conditions links: both required and each must be a valid URL.
 - English and French description.
 - English and French purpose.
-- Status: defaults to draft on create.
+- Active flag: defaults to false on create.
 
 All bilingual fields are required. A program with missing French or English text will not validate.
 
@@ -54,7 +54,7 @@ The wizard creates the profile and selected child records together. If any requi
 
 The wizard steps are:
 
-- General: agency, dates, bilingual names, abbreviations, terms link, descriptions, purposes, and status.
+- General: agency, dates, bilingual names, abbreviations, English/French terms links, descriptions, purposes, and active flag.
 - Outcomes: zero or more bilingual outcomes.
 - Objectives: zero or more bilingual objective statements.
 - Budgets: zero or more program fiscal-year budgets. Each row chooses one agency fiscal year, total budget, and overcommit threshold.
@@ -134,6 +134,8 @@ Each program budget can later be referenced by stream budget rows. Configure pro
 
 A program budget cannot be reduced below the sum of its active stream-budget allocations, and it cannot be deleted while active stream allocations still reference it. Reload before retrying if another administrator changed allocations concurrently.
 
+A saved fiscal year can be retained when that Agency reference is retired; this permits an amount-only correction without silently changing the year. Choosing a different year requires an active same-Agency reference and is blocked when existing Agreement funding-year dependencies would be reassigned. Exact-ID hydration preserves the saved label outside the current lookup page. Changing Agency in a new-program wizard clears incompatible fiscal-year budgets; reload failed choices rather than submitting stale IDs.
+
 The fiscal-year selector searches the fiscal years available from the program's agency. When editing a budget, the saved fiscal year is resolved to its display label even when it is not on the current results page; records outside the program's agency scope cannot be selected.
 
 ## Performance Indicators Tab
@@ -148,7 +150,7 @@ The indicator create form preselects an available outcome when possible. If ther
 
 ## Status and Lifecycle
 
-Program status uses the base status enum and defaults to draft. Active status is counted by the list page and is the expected state for program configurations that are ready for operational use. The application does not automatically activate streams or runtime setup when a program is activated; administrators must configure each stream and dependent setup record deliberately.
+Program availability uses the Boolean **Active** flag and starts inactive. It is separate from the Agency business statuses used by Agreements. Activating a program does not automatically activate its streams or publish runtime configuration; complete each dependency deliberately.
 
 ## Permission and Scope Behavior
 
@@ -177,5 +179,5 @@ A practical empty-system setup order is:
 3. Add program budgets for every fiscal year that streams will use.
 4. Create one or more streams.
 5. Configure stream budget, recipient, cost line, agreement subtype, commitment, risk, review, recommendation, approval, document template, and extension settings.
-6. Activate or publish assessment schemas and approval templates used by runtime workflows.
+6. Publish assessment schemas and approval templates used by runtime workflows.
 7. Create production agreements only after the target stream is complete enough for the agreement workflow being used.

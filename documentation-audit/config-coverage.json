@@ -9,10 +9,19 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "nuxt.config.ts; server/utils/db.ts; server/utils/auth.ts"
+      "nuxt.config.ts",
+      "server/utils/db.ts",
+      "server/utils/audit-driver.ts",
+      "server/utils/audit-context.ts",
+      "server/utils/audit-runtime.ts",
+      "shared/utils/decimal.ts",
+      "server/utils/database-config.ts",
+      "server/utils/database-health.ts",
+      "server/utils/migration-readiness.ts",
+      "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified against the named runtime sources; paired operator configuration documents precedence, safe values, failure boundaries, and recovery guidance. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:local-setup-commands",
@@ -24,10 +33,12 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "package.json; scripts/setup-workspaces.ts; scripts/dev.ts"
+      "package.json",
+      "scripts/setup-workspaces.ts",
+      "scripts/dev.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified setup, development cleanup semantics, forwarded host/port behaviour, build, test, artifact, and quality commands in both locales. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:database-modes",
@@ -39,10 +50,23 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "server/utils/db.ts; server/plugins/migrations.ts"
+      "server/utils/db.ts",
+      "server/utils/audit-driver.ts",
+      "server/utils/audit-context.ts",
+      "server/utils/audit-runtime.ts",
+      "shared/utils/decimal.ts",
+      "server/utils/database-config.ts",
+      "server/utils/database-health.ts",
+      "server/utils/migration-readiness.ts",
+      "server/plugins/migrations.ts",
+      "server/plugins/../utils/audit-runtime.ts",
+      "server/plugins/../utils/extensions.ts",
+      "server/plugins/../utils/migration-readiness.ts",
+      "server/plugins/../utils/db.ts",
+      "server/plugins/../utils/startup-recovery.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified PostgreSQL precedence/pool configuration, PGlite fallback, ordered fail-fast core migrations, and enabled-extension migrations. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:authentication-providers",
@@ -54,14 +78,16 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "server/utils/auth.ts; nuxt.config.ts"
+      "server/utils/auth.ts",
+      "server/utils/db.ts",
+      "nuxt.config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified Better Auth secret, URL/origin precedence, cookie versioning, email/password, conditional GitHub provider, and local-origin restrictions. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:storage-document-generation",
-    "source": "server/utils/file-storage.ts; server/utils/local-file-storage.ts; server/utils/document-generation.ts",
+    "source": "server/utils/file-storage.ts; server/utils/file-storage-provider.ts; server/utils/document-generation.ts",
     "audience": [
       "operator",
       "developer"
@@ -69,10 +95,19 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "server/utils/file-storage.ts; server/utils/local-file-storage.ts; server/utils/document-generation.ts"
+      "server/utils/file-storage.ts",
+      "server/utils/file-storage-provider.ts",
+      "server/utils/extensions.ts",
+      "server/utils/document-generation.ts",
+      "server/utils/api-errors.ts",
+      "server/utils/sql-like.ts",
+      "server/utils/agreement-closeout.ts",
+      "shared/utils/database-id.ts",
+      "server/utils/database-money.ts",
+      "shared/utils/money.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Verified local-only private storage, converter/browser variables, coupled backup requirements, permissions, and dependency failure boundaries."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:docker-railway",
@@ -84,10 +119,12 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "Dockerfile; docker-compose.yml; railway.json"
+      "Dockerfile",
+      "docker-compose.yml",
+      "railway.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified build/runtime images, non-root identity, persistent topology, validated build mode, Compose health/persistence, and Railway probe/restart wiring. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:ci-demo-webcontainer",
@@ -99,10 +136,12 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      ".github/workflows; scripts/webcontainer.ts"
+      ".github/workflows",
+      "scripts/webcontainer.ts",
+      "scripts/webcontainer-archive.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified manual Pages workflow, frozen recursive-submodule build, staged-and-tested WebContainer artifact, demo-only boundary, and inactive review example. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:health-readiness",
@@ -114,14 +153,17 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "server/api/health.get.ts"
+      "server/api/health.get.ts",
+      "server/api/../utils/api-errors.ts",
+      "server/api/../utils/migration-readiness.ts",
+      "server/api/../utils/startup-unavailable.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified public SELECT 1 readiness response, safe 503 response, and explicit limits of storage/converter/remote-service coverage. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:quality-testing",
-    "source": "package.json; scripts/agent; vitest*.ts; playwright.config.ts",
+    "source": "package.json; tooling/gcs-ssc; vitest*.ts; playwright.config.ts",
     "audience": [
       "operator",
       "developer"
@@ -129,10 +171,12 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "package.json; scripts/agent; vitest*.ts; playwright.config.ts"
+      "package.json",
+      "tooling/gcs-ssc",
+      "playwright.config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Incrementally reverified for application target bfbbf18dd3218e7669d45c42cc4f26431a1325aa against final source, paired destinations, generated discovery, and applicable focused tests. Verified root and extension-owned test boundaries plus supported lint, typecheck, coverage, PostgreSQL, managed E2E, artifact, PR, and whole-quality commands."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "config:extension-packaging",
@@ -144,9 +188,14 @@
     "en": "en/operator/configuration.md",
     "fr": "fr/operator/configuration.md",
     "evidence": [
-      "modules/gcs-extensions.ts; Dockerfile; package.json"
+      "modules/gcs-extensions.ts",
+      "modules/../shared/utils/extensions.ts",
+      "modules/../shared/utils/abilities.ts",
+      "modules/../shared/utils/extension-sdk-aliases.ts",
+      "Dockerfile",
+      "package.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Verified SDK-first build, five installed extension workspaces, exact Docker fallback pins, local overlay, generated registry boundary, and pin-alignment requirement. Incrementally reverified for application target 45222e26c5a98dccb8b4a574571206bbf1f91397 against the final source, paired destination, generated discovery, and applicable focused tests."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   }
 ]

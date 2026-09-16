@@ -9,10 +9,20 @@ This site documents the host extension framework and public SDK, not individual 
 Do not treat “installed,” “enabled,” and “configured” as synonyms.
 
 1. The Nuxt build scans directories under `extensions/`. It validates each package and generates client and server registries. Invalid SDK ranges, capabilities, paths, RBAC declarations, duplicate identities, or asset namespaces stop the build. An incomplete directory missing `package.json` or `extension.config.ts` is skipped with a warning.
-2. A user with `agency:update` enables the registered extension for an agency. Enabling runs its pending migrations in the same transaction before the enablement row is saved. A migration failure rolls back and leaves the extension disabled.
-3. A user with `transfer_payment:update` enables and configures it for a stream. The agency switch must still be on. Runtime agreement, claim, monitor, action, and calculator contributions require both switches; Proponent contributions use the lead agency because a Proponent is not stream-owned.
+2. A user meeting the extension’s Agency configuration-access policy enables the registered extension for an agency. Enabling runs its pending migrations in the same transaction before the enablement row is saved. A migration failure rolls back and leaves the extension disabled.
+3. For an extension with stream configuration, a user meeting its transfer-payment configuration-access policy enables and configures it for a stream. The agency switch must still be on. Runtime agreement, claim, monitor, action, and calculator contributions require both switches; Proponent contributions use the lead agency because a Proponent is not stream-owned.
 
 Disabling an agency extension runs registered disable guards, then turns off all active stream rows for that extension in the agency. Re-enabling the agency does **not** restore those stream switches. Stream enable and disable guards can also refuse a change with a localized business error.
+
+## Configuration policy and provider selection
+
+The default model uses both Agency and stream switches. An extension can instead declare Agency-only configuration: it is configured once for the Agency, has no stream configuration editor and applies to the Agency’s streams through that Agency switch. Do not create a stream row to work around an Agency-only declaration.
+
+Each extension declares its configuration access ceiling. Contributor is the default; a package may require Manager for enablement and configuration. In that case, an ordinary Contributor cannot save its configuration even when other extensions in the same table are editable. Runtime permissions and exact work assignments remain separate. The Manager check uses the cumulative delete permission internally; it does not itself delete the extension.
+
+File storage additionally has an Agency **selected provider**. Enabling a storage extension alone does not select it. New files use the selected provider; old objects retain their original provider identity and locator. A referenced provider cannot simply be disabled or removed. See [Attachments](./attachments.md) and [Configuration](../operator/configuration.md).
+
+Agreement-number providers are another host-selected contribution. Exactly one enabled provider can supply a generated number for the chosen stream; with none, enter a number manually. Multiple eligible providers produce a configuration conflict. The host creates the Agreement after validating the provider result; the provider is not a second Agreement-creation route.
 
 ## Agency administration
 
@@ -24,7 +34,7 @@ Open an agency and select **Extensions**. The table lists every package register
 
 Agency configuration is ordinary browser-visible JSON, not a secret store. Closing a changed full-screen modal asks whether to discard the draft. Invalid fallback JSON prevents saving. The list does not report whether migrations are pending or current: a successful manual run reports success, while a failed enable or run returns a localized API error.
 
-Agency reads require `agency:read`; enablement, configuration, and migration actions require `agency:update`. Writes lock authorization state, the extension/agency lifecycle scope, and the active agency, then repeat authorization before changing data.
+Agency reads require `agency:read`; configuration writes enforce the extension’s Contributor or Manager policy, and migration actions require `agency:update`. Writes lock authorization state, the extension/agency lifecycle scope, and the active agency, then repeat authorization before changing data.
 
 ## Stream administration
 
@@ -38,7 +48,7 @@ Configuration uses one of three surfaces:
 
 The dedicated page requires a `streamId` query value and normally receives `transferPaymentId` and `agencyId` for breadcrumbs and component context. It loads the authoritative stream registry, refuses an extension absent from that registry, shows a generic redacted error alert on loading failures, and delegates saving to the contributed component. If no registered page/modal component resolves, it shows an unavailable warning rather than a host save form.
 
-Stream writes reject a missing/deleted stream, an unknown extension, a disabled agency switch, invalid JSON, authorization drift, and extension guard failures. The host takes the authorization-state and extension lifecycle locks, re-resolves the active stream ownership, repeats `transfer_payment:update`, checks agency enablement, runs the guard, and only then upserts the stream row.
+Stream writes reject a missing/deleted stream, an unknown extension, a disabled agency switch, invalid JSON, authorization drift, and extension guard failures. The host takes the authorization-state and extension lifecycle locks, re-resolves the active stream ownership, repeats the configured Contributor/Manager permission check, checks agency enablement, runs the guard, and only then upserts the stream row.
 
 ## Runtime contributions
 
@@ -53,9 +63,9 @@ The host discovers contributions through authenticated, authorization-filtered e
 
 Host components resolve only names present in the generated component registry. A missing component therefore renders nothing. Successful create actions call the host callback to refresh the owning table. Calculator components emit a result and an extension-keyed payload; the host form applies the result, but server-side business validation remains authoritative.
 
-### Runtime resolver limitation
+### Runtime resolver behaviour
 
-The current executable path consults an extension runtime resolver only while loading agency/Proponent slots. Its returned configuration is used only when the resolver says it is enabled; however, a false or absent result does not suppress the slot—it falls back to `{}`. Stream slots use persisted stream configuration and do not call the runtime resolver. Operators and authors must not depend on the resolver alone to hide current slots; use agency/stream enablement and host RBAC. This discrepancy is tracked as `DOC-030`.
+Agency and Proponent slots consult the declared runtime resolver. If an extension declares a resolver, it must return `enabled: true` for the slot to appear; false or absent results suppress the contribution. An enabled result supplies the effective slot configuration. Stream slots use persisted stream configuration. Agency/stream enablement and host authorization still apply before contributions are exposed.
 
 ## Dynamic server routes and trust boundary
 
@@ -75,7 +85,7 @@ Use extension KV for simple non-secret JSON. KV deletion is soft deletion. Use e
 
 - Confirm the extension is packaged in the deployed build and appears in the agency registry.
 - Enable it at agency level and resolve any migration or disable-guard error.
-- Configure and enable each intended stream; re-enable streams explicitly after an agency-level disable.
+- For extensions with stream configuration, configure and enable each intended stream; re-enable streams explicitly after an agency-level disable.
 - Store secrets through the encrypted server helpers, not the JSON editors.
 - Test every contributed tab, slot, action, calculator, and server workflow with both permitted and denied users.
 - After an upgrade, run pending migrations and verify the affected host lifecycle guards before processing production records.

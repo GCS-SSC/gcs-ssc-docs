@@ -1,0 +1,2672 @@
+[
+  {
+    "commit": "14570ded8014057b4049231b7b9a0b880e68ff69",
+    "committer_datetime": "2026-08-24T10:17:55-04:00",
+    "subject": "fix: enlarge workflow member modal",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/workflows.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "8636ca568a43cef5f558402997f0ad3503b91fe6",
+    "committer_datetime": "2026-08-24T12:15:56-04:00",
+    "subject": "feat: add agreement risk rating workflows",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "agreements/index.md",
+      "concepts/workflows.md",
+      "developer/api/agreements.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fe62820a01ad18b426e230fe822b47c0924553f7",
+    "committer_datetime": "2026-08-24T12:18:03-04:00",
+    "subject": "docs: strengthen adversarial UI convention review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "0c1953c9400ab6a77733e1af5a8e203eeff248c1",
+    "committer_datetime": "2026-08-24T12:28:43-04:00",
+    "subject": "feat: seed agreement risk rating workflows",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/data-model.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "69b48bbe4a96de6fc51de72da159a5279b2ec046",
+    "committer_datetime": "2026-08-24T12:37:07-04:00",
+    "subject": "chore: guard spreadsheet moves to empty rows",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "ee6650019e20f8b4cdee3ffd596cb06b87ae2fdc",
+    "committer_datetime": "2026-08-24T12:41:54-04:00",
+    "subject": "docs: define data model workbook exclusions",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "f6191e71bcf339f8e9b56176aa45af7fd35ec967",
+    "committer_datetime": "2026-08-24T14:04:47-04:00",
+    "subject": "Consolidate table layouts and overflow handling",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "agreements/index.md",
+      "concepts/runtime-reviews.md",
+      "concepts/workflows.md",
+      "getting-started/navigation.md",
+      "programs/approval-templates.md",
+      "programs/assessment-schemas.md",
+      "programs/checklist-schemas.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "9244dac9c3c283afe3beb5219d1e053de8bd8e2e",
+    "committer_datetime": "2026-08-24T14:09:37-04:00",
+    "subject": "Hide hero statistics when collapsed",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "001337e240f6e5eb57267c21ff95200e9066f709",
+    "committer_datetime": "2026-08-24T14:23:55-04:00",
+    "subject": "Move attachment types to agency management",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "developer/api/agencies.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "931fee4010decf0923dfd1a52c0085dcb727c09a",
+    "committer_datetime": "2026-08-24T17:36:48-04:00",
+    "subject": "refactor common administration to GWCOA",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "admin/common-admin.md",
+      "admin/users.md",
+      "concepts/workflows.md",
+      "developer/api/identity.md",
+      "developer/api/platform.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "developer/validation-i18n.md",
+      "getting-started/navigation.md",
+      "programs/approval-templates.md",
+      "programs/recommendations.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "2219645045ae917c2aee73093e5824893e40fe26",
+    "committer_datetime": "2026-08-26T21:27:38-04:00",
+    "subject": "feat standardize workflow lifecycle and storage",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/assignments.md",
+      "admin/audit.md",
+      "agreements/activities.md",
+      "agreements/amendments.md",
+      "agreements/budget.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "agreements/commitments.md",
+      "agreements/forecasts.md",
+      "agreements/index.md",
+      "agreements/monitors.md",
+      "agreements/payments.md",
+      "concepts/approvals-completions.md",
+      "concepts/attachments.md",
+      "concepts/extensions.md",
+      "concepts/rbac.md",
+      "concepts/runtime-reviews.md",
+      "concepts/workflows.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "developer/api/extensions.md",
+      "developer/api/identity.md",
+      "developer/api/platform.md",
+      "developer/api/transfer-payments.md",
+      "developer/api/workflows.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/background-work.md",
+      "operator/deployment.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "proponents/index.md",
+      "proponents/reviews.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "11afe64307eddad2e18012e030d7df051097f189",
+    "committer_datetime": "2026-08-26T22:23:46-04:00",
+    "subject": "docs: expand whole-codebase review protocol",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "0acf8946869e495e51898e01b748623e9d1ac74c",
+    "committer_datetime": "2026-08-29T11:30:08-04:00",
+    "subject": "docs(review): add resumable checkpoint protocol",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "81e21ec156c4bf0a838a4db6d9bed74e89616ecd",
+    "committer_datetime": "2026-08-29T11:38:02-04:00",
+    "subject": "chore(review): checkpoint paused whole-codebase audit",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/assignments.md",
+      "admin/common-admin.md",
+      "admin/roles.md",
+      "admin/users.md",
+      "agreements/activities.md",
+      "agreements/amendments.md",
+      "agreements/applicant-recipients.md",
+      "agreements/budget.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "agreements/commitments.md",
+      "agreements/forecasts.md",
+      "agreements/index.md",
+      "agreements/monitors.md",
+      "agreements/payments.md",
+      "concepts/approvals-completions.md",
+      "concepts/attachments.md",
+      "concepts/extensions.md",
+      "concepts/rbac.md",
+      "concepts/runtime-reviews.md",
+      "concepts/workflows.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "developer/api/applicant-recipients.md",
+      "developer/api/approvals.md",
+      "developer/api/extensions.md",
+      "developer/api/identity.md",
+      "developer/api/platform.md",
+      "developer/api/reviews.md",
+      "developer/api/transfer-payments.md",
+      "developer/api/workflows.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "developer/validation-i18n.md",
+      "getting-started/login.md",
+      "getting-started/navigation.md",
+      "operator/background-work.md",
+      "operator/deployment.md",
+      "programs/approval-templates.md",
+      "programs/assessment-schemas.md",
+      "programs/checklist-schemas.md",
+      "programs/index.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "proponents/agency-financial-ids.md",
+      "proponents/funding-history.md",
+      "proponents/index.md",
+      "proponents/reviews.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "9d9706080e9a417ad30febd0c8bb7fbf768c1881",
+    "committer_datetime": "2026-08-29T11:38:44-04:00",
+    "subject": "docs(review): finalize paused resume snapshot",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "282d168977ae8e4d76e1946273e69be777350abb",
+    "committer_datetime": "2026-08-29T14:44:47-04:00",
+    "subject": "feat: add resumable repository review skill",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/audit.md",
+      "admin/roles.md",
+      "admin/users.md",
+      "agreements/index.md",
+      "concepts/approvals-completions.md",
+      "concepts/attachments.md",
+      "concepts/extensions.md",
+      "concepts/rbac.md",
+      "concepts/workflows.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "developer/validation-i18n.md",
+      "operator/background-work.md",
+      "operator/deployment.md",
+      "programs/assessment-schemas.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "7f57cddf4ad5a659ffe9ecf8a2634ce49681158f",
+    "committer_datetime": "2026-08-29T18:09:33-04:00",
+    "subject": "fix: enforce extension test ownership boundary",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "69526a9121087e4f72fc230e21ac7841255766cd",
+    "committer_datetime": "2026-08-29T22:08:30-04:00",
+    "subject": "chore: move internal tooling to private submodule",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/rbac.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "operator/background-work.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "05f1d99fa6dec25d19e57ac20556ca8d6aaf1cd9",
+    "committer_datetime": "2026-08-30T22:10:57-04:00",
+    "subject": "wip(review): publish whole-review migration handoff",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "agreements/amendments.md",
+      "agreements/budget.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "agreements/commitments.md",
+      "agreements/forecasts.md",
+      "agreements/index.md",
+      "agreements/payments.md",
+      "concepts/approvals-completions.md",
+      "concepts/extensions.md",
+      "concepts/workflows.md",
+      "developer/api/agreements.md",
+      "developer/api/applicant-recipients.md",
+      "developer/api/approvals.md",
+      "developer/api/extensions.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md",
+      "programs/assessment-schemas.md",
+      "programs/checklist-schemas.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "proponents/funding-history.md",
+      "proponents/index.md",
+      "proponents/reviews.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "a81861823d6c93d0e2e394ea5144c5a10069fc60",
+    "committer_datetime": "2026-08-30T22:15:42-04:00",
+    "subject": "chore(review): finalize portable main handoff",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "ba01ede0d4ccd84d6d4201410cc807e1b7078f01",
+    "committer_datetime": "2026-08-31T12:30:23-04:00",
+    "subject": "chore(review): pin mapped incremental tooling",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "agreements/index.md",
+      "concepts/approvals-completions.md",
+      "concepts/workflows.md",
+      "developer/extensions-authoring.md",
+      "developer/validation-i18n.md",
+      "operator/background-work.md",
+      "programs/assessment-schemas.md",
+      "programs/recommendations.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "12c4903bd11daa248378d3353b937b4a48ea0e66",
+    "committer_datetime": "2026-08-31T13:57:23-04:00",
+    "subject": "fix: harden reviewed UI and agency routes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "developer/api/agencies.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c30873a0dbeefd78132cfa34224d00b2d037a8f1",
+    "committer_datetime": "2026-08-31T14:59:28-04:00",
+    "subject": "chore(review): checkpoint baseline artifact",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "2f0aa1f62a3f456bd506b9e4c59e991d801385fd",
+    "committer_datetime": "2026-08-31T15:30:52-04:00",
+    "subject": "chore(tooling): require browser route review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "2584def55e7b6129e775039026fd63366c04d4be",
+    "committer_datetime": "2026-09-01T06:55:26-04:00",
+    "subject": "fix: resolve comprehensive security and correctness review",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/assignments.md",
+      "admin/common-admin.md",
+      "admin/roles.md",
+      "admin/users.md",
+      "agreements/activities.md",
+      "agreements/addresses.md",
+      "agreements/amendments.md",
+      "agreements/applicant-recipients.md",
+      "agreements/budget.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "agreements/commitments.md",
+      "agreements/documents.md",
+      "agreements/forecasts.md",
+      "agreements/index.md",
+      "agreements/monitors.md",
+      "agreements/payments.md",
+      "concepts/approvals-completions.md",
+      "concepts/attachments.md",
+      "concepts/extensions.md",
+      "concepts/rbac.md",
+      "concepts/runtime-reviews.md",
+      "concepts/workflows.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "developer/api/applicant-recipients.md",
+      "developer/api/approvals.md",
+      "developer/api/extensions.md",
+      "developer/api/identity.md",
+      "developer/api/platform.md",
+      "developer/api/reviews.md",
+      "developer/api/transfer-payments.md",
+      "developer/api/workflows.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "getting-started/login.md",
+      "getting-started/navigation.md",
+      "operator/background-work.md",
+      "operator/deployment.md",
+      "programs/approval-templates.md",
+      "programs/assessment-schemas.md",
+      "programs/checklist-schemas.md",
+      "programs/index.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "proponents/agreements.md",
+      "proponents/funding-history.md",
+      "proponents/index.md",
+      "proponents/reviews.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "34ae035323e616a7d00e32311f81f4d35f28a160",
+    "committer_datetime": "2026-09-01T23:11:47-04:00",
+    "subject": "fix: restore assessment runtime compatibility",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/reviews.md",
+      "getting-started/navigation.md",
+      "programs/assessment-schemas.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "2c84f14e17cb037941cf6901cb2d97a163b63c6f",
+    "committer_datetime": "2026-09-01T23:13:17-04:00",
+    "subject": "fix: complete recommendation revision contract",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/workflows.md",
+      "developer/api/workflows.md",
+      "programs/recommendations.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "f162f31740a29bc5240528781758aa9ca9e1339d",
+    "committer_datetime": "2026-09-01T23:13:30-04:00",
+    "subject": "fix: remove disruptive global route loader",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "490e6eb459a9d6983800c8835e4aabc6ac651e73",
+    "committer_datetime": "2026-09-01T23:17:46-04:00",
+    "subject": "fix: make exact money compatible with build target",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/amendments.md",
+      "agreements/budget.md",
+      "agreements/index.md",
+      "concepts/extensions.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d053a87494b49b486e9c142f661b11e2933baf2a",
+    "committer_datetime": "2026-09-01T23:21:11-04:00",
+    "subject": "test: cover workflow concurrency and storage rollback",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "655c5f159406adffae83ea2b4d608853dcee6fe3",
+    "committer_datetime": "2026-09-01T23:23:40-04:00",
+    "subject": "docs: define validation compatibility boundaries",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "9696b57c2574814b67c9253382f85ec67d67d004",
+    "committer_datetime": "2026-09-01T23:24:57-04:00",
+    "subject": "chore: document stabilization helpers",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md",
+      "programs/assessment-schemas.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "4011aff7c9d9e64d34d81e30bb8eacff2ca4b2d1",
+    "committer_datetime": "2026-09-01T23:27:52-04:00",
+    "subject": "fix: align deployment extension pins",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "65126482e8c3f9fda48e80dfc612af5f43dd1b68",
+    "committer_datetime": "2026-09-01T23:53:24-04:00",
+    "subject": "fix: make seed assessments runtime compatible",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/data-model.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "4af4d8a3f250f0e115672f6f4f64d435c649c944",
+    "committer_datetime": "2026-09-02T01:51:13-04:00",
+    "subject": "fix: restore scoped API boundary behavior",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/extensions.md",
+      "developer/api/identity.md",
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "51c798237c7331f7d5880c287e4315f9cb2bbc28",
+    "committer_datetime": "2026-09-02T01:51:21-04:00",
+    "subject": "fix: preserve authoring and mobile navigation state",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/workflows.md",
+      "getting-started/navigation.md",
+      "programs/assessment-schemas.md",
+      "programs/checklist-schemas.md",
+      "programs/recommendations.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "cdd7053c45aa30d79c37e77012f9d5c6dd9bbea1",
+    "committer_datetime": "2026-09-02T01:51:21-04:00",
+    "subject": "test: pin stabilized journey coverage",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c8f199042f260873dea9ad0854f7b4c8294b79cd",
+    "committer_datetime": "2026-09-02T02:19:00-04:00",
+    "subject": "fix: unlock program wizard and expose recovery regions",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md",
+      "programs/checklist-schemas.md",
+      "programs/recommendations.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "cbfddec45c8e57c9cef1f5e17da0c574aa34d695",
+    "committer_datetime": "2026-09-02T02:19:00-04:00",
+    "subject": "test: pin final stabilization regressions",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "afb1d013ea87bf3b4bdc2cc624902cff1e02c225",
+    "committer_datetime": "2026-09-03T15:46:55-04:00",
+    "subject": "refactor: replace agreement budget UUIDs with bigint IDs",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/claims.md",
+      "agreements/forecasts.md",
+      "agreements/index.md",
+      "concepts/extensions.md",
+      "developer/api/agreements.md",
+      "developer/api/platform.md",
+      "developer/data-model.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/background-work.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d0c224c6b57156a9a1612698d3630881b5df88d7",
+    "committer_datetime": "2026-09-03T22:10:54-04:00",
+    "subject": "fix: correct amendment workflow lifecycle",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/assignments.md",
+      "agreements/amendments.md",
+      "agreements/index.md",
+      "concepts/approvals-completions.md",
+      "concepts/workflows.md",
+      "developer/api/agreements.md",
+      "developer/data-model.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "8b83a52ca0af29f5570bf121dcbd70a2a8a5966e",
+    "committer_datetime": "2026-09-03T22:21:20-04:00",
+    "subject": "chore: update private tooling guidance",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "662cf0f923fc5b3bc58dcebfa58f3c85add99b02",
+    "committer_datetime": "2026-09-03T23:07:22-04:00",
+    "subject": "chore: sync staged updates and submodule pointers",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md",
+      "developer/testing.md",
+      "getting-started/login.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "af326e8728fa9aa66f02ed1b778f08efb6b4ae64",
+    "committer_datetime": "2026-09-03T23:34:36-04:00",
+    "subject": "fix docker extension workspace pins",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "9d4d07d8a0a1e1c2a793fe48e3ed90b5a2ef7f98",
+    "committer_datetime": "2026-09-05T01:31:11-04:00",
+    "subject": "feat: implement agreement custom fields and conditional workflow routing",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "concepts/approvals-completions.md",
+      "concepts/workflows.md",
+      "developer/api/agreements.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "getting-started/navigation.md",
+      "programs/custom-fields.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "2b6a3d5d411cddc03a26f85ae0e612d7b8241ce4",
+    "committer_datetime": "2026-09-05T01:32:51-04:00",
+    "subject": "chore: update tooling gcs-ssc gitlink to feat/extra-agreement-fields docs/tests commit",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "d8de2f1aa4d3fa725db531950dc7df5bdd7b0f04",
+    "committer_datetime": "2026-09-05T20:08:55-04:00",
+    "subject": "feat: complete extra agreement fields",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/approvals-completions.md",
+      "concepts/extensions.md",
+      "concepts/workflows.md",
+      "developer/data-model.md",
+      "getting-started/navigation.md",
+      "programs/custom-fields.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "7aa6c6109439358017ae20e11e9584abbbb6e1db",
+    "committer_datetime": "2026-09-05T20:24:05-04:00",
+    "subject": "chore: continue extra agreement fields updates",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "programs/custom-fields.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "0fb9338e8d092053d69a96289093d55a9a81ee42",
+    "committer_datetime": "2026-09-05T22:33:02-04:00",
+    "subject": "feat: update agreement custom fields and workflow",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "concepts/approvals-completions.md",
+      "concepts/extensions.md",
+      "programs/custom-fields.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "11aaf8a22c43d5c4dafb791297b1778b57acd4de",
+    "committer_datetime": "2026-09-05T22:37:35-04:00",
+    "subject": "chore: update tooling submodule with remote agreement field coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "72497a121ecce8bfe966e56efdab1a33dd763ca2",
+    "committer_datetime": "2026-09-07T15:10:48-04:00",
+    "subject": "feat: add extra agreement custom fields",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md",
+      "programs/custom-fields.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "e9c094112d5bec5bf76a9f96a2c212e7a091530e",
+    "committer_datetime": "2026-09-07T15:11:02-04:00",
+    "subject": "chore: update tooling gcs-ssc pointer",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "e6badacb9415fb65d5c72d27a383f682569efabb",
+    "committer_datetime": "2026-09-08T00:49:04-04:00",
+    "subject": "fix: preserve custom field precision and align submodules with main",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md",
+      "developer/extensions-authoring.md",
+      "programs/custom-fields.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "f8d70f01e66d58ff76d4bf3bfa88feb6b9400732",
+    "committer_datetime": "2026-09-08T00:49:45-04:00",
+    "subject": "docs: complete custom field formatter JSDoc",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "programs/custom-fields.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "4ebeaece599b0f53a74b1844e7528d30746079de",
+    "committer_datetime": "2026-09-08T15:25:53-04:00",
+    "subject": "fix: resolve workflow and agreement review findings",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/applicant-recipients.md",
+      "agreements/budget.md",
+      "agreements/index.md",
+      "concepts/workflows.md",
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md",
+      "programs/assessment-schemas.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b31cb5894896059193233492cffa8f41e74bf843",
+    "committer_datetime": "2026-09-08T15:30:04-04:00",
+    "subject": "chore: update tooling after documentation cleanup",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "ff35f6949b9772f8461a7115b4de2e52980ca888",
+    "committer_datetime": "2026-09-08T15:39:32-04:00",
+    "subject": "docs: pin route audit coverage checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "5338ee83f9a417434be4f2b9dcc1d39330e318ca",
+    "committer_datetime": "2026-09-08T15:46:14-04:00",
+    "subject": "test: pin repaired fixtures and stronger route assertions",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "f7aa1816d2bc3112f244d12881e94b4a3a87d66c",
+    "committer_datetime": "2026-09-08T15:46:34-04:00",
+    "subject": "fix: align Docker workspace fetches with pinned gitlinks",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "63e3ae8c5c4cdc5eb3cbfe5e7f3eade67119690e",
+    "committer_datetime": "2026-09-08T15:50:35-04:00",
+    "subject": "test: pin cold seed verification budget",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "e61619550392cbd774e42ab78b47a78bf59d5c00",
+    "committer_datetime": "2026-09-08T15:52:13-04:00",
+    "subject": "fix: settle health query failure before releasing its connection",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3640f96fa1349f7ad9c707016e149b5698bdfd68",
+    "committer_datetime": "2026-09-08T15:52:38-04:00",
+    "subject": "docs: pin expanded route and test audit evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "b9af29674a5053a21276596d19d6d1cc53ebdf38",
+    "committer_datetime": "2026-09-08T16:03:01-04:00",
+    "subject": "fix: hydrate saved user selections by exact identifier",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/workflows.md",
+      "developer/api/identity.md",
+      "programs/approval-templates.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "9d67f026b6a3a9833fe8e9918c1c88917ed15ecd",
+    "committer_datetime": "2026-09-08T16:03:37-04:00",
+    "subject": "docs: pin verified hydration and audit follow-up evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "5eb5ec741bed192be73799e064f07d728610cb75",
+    "committer_datetime": "2026-09-08T16:09:25-04:00",
+    "subject": "test: pin strict query mocks and callback regressions",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "fa88a9f325f123e1bfad4d6e7999e5f7cd85a7ff",
+    "committer_datetime": "2026-09-08T16:17:43-04:00",
+    "subject": "fix: preserve typed ownership in assigned work queues",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b8c78eb3495d0210c3e9cd19d55cad93146e367c",
+    "committer_datetime": "2026-09-08T16:26:44-04:00",
+    "subject": "fix: search assignment management with literal text",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d0de0e9bc713f25d4bf6ecaa1dd31d958db708bb",
+    "committer_datetime": "2026-09-08T16:26:44-04:00",
+    "subject": "fix: allow program-only and unchanged role profile saves",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fbf606b196d6d1ca6ceb5742309c79a366a6fb73",
+    "committer_datetime": "2026-09-08T16:27:09-04:00",
+    "subject": "docs: pin expanded role and user audit evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "e4b133495848c1e8229bed0fe49fb9ee433cc5c8",
+    "committer_datetime": "2026-09-08T16:43:20-04:00",
+    "subject": "fix: avoid role detail links outside readable scope",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/roles.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "206ae2b1a70277de682a64061f9268436f618609",
+    "committer_datetime": "2026-09-08T16:43:20-04:00",
+    "subject": "fix: align user email identity with case insensitive authentication",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/users.md",
+      "developer/data-model.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c7093fb933c72e49108e63e1bb7471d23969a864",
+    "committer_datetime": "2026-09-08T16:44:00-04:00",
+    "subject": "fix: inherit qualified runtime ownership and lock roster writes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md",
+      "developer/extensions-authoring.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "033eaf8ce99509bcfe4bdc31e0b271646ab49421",
+    "committer_datetime": "2026-09-08T16:45:22-04:00",
+    "subject": "docs: pin identity and ownership audit checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "f450010091ca025e4dc090b905ecaa28e251dafb",
+    "committer_datetime": "2026-09-08T16:59:22-04:00",
+    "subject": "test: pin SQL role catalog regression coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "8e134ab9e79b87e4553e12b7f5bd7b85164bcace",
+    "committer_datetime": "2026-09-08T16:59:30-04:00",
+    "subject": "test: pin recommendation roster concurrency coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "da8d172ed92a56af22c13c8a18653b8f6eb6f1fc",
+    "committer_datetime": "2026-09-08T17:00:25-04:00",
+    "subject": "test: pin deterministic Chromium cleanup regression",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "c0a79cb762dde4738f211f50ff9288b39a4c2416",
+    "committer_datetime": "2026-09-08T17:04:43-04:00",
+    "subject": "refactor: remove superseded role patch schema",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/roles.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "0eb783eeea1e125ca0b81d0f24dde848d093b40f",
+    "committer_datetime": "2026-09-08T17:05:10-04:00",
+    "subject": "fix: reject deleted credentials with native unauthorized response",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/rbac.md",
+      "developer/data-model.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "e5c2becd8663dcdc312d1255824495364ee80eeb",
+    "committer_datetime": "2026-09-08T17:05:28-04:00",
+    "subject": "docs: pin verified authentication and test audit checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "940609a951066e8c158dfce695badd2a2374c9c5",
+    "committer_datetime": "2026-09-08T17:17:58-04:00",
+    "subject": "test: pin activation transaction regression coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "9c40c2e912b159baffe65dc9f49124adbb4d189b",
+    "committer_datetime": "2026-09-08T17:18:11-04:00",
+    "subject": "test: pin user scope SQL and browser regression coverage",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/rbac.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "e429e6f23f30ed6b555528efb9acde27dd029533",
+    "committer_datetime": "2026-09-08T17:18:28-04:00",
+    "subject": "docs: pin user administration audit checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "b741e05aebb0a9c06edda45c4c6518c7efd7c5c8",
+    "committer_datetime": "2026-09-08T17:34:36-04:00",
+    "subject": "test(auth): pin fresh activation authorization regressions",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "e09ae68bb03164130a55a52bef96569fe0edea17",
+    "committer_datetime": "2026-09-08T17:35:42-04:00",
+    "subject": "fix(reviews): use canonical transaction for qualified reviewer actions",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "70ab798921bbe03d1169cc20fb8e08c7e51a3795",
+    "committer_datetime": "2026-09-08T17:36:57-04:00",
+    "subject": "docs(audit): pin route and test review checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "2f0bfc5742b9c15facbbf8baae430503313afda1",
+    "committer_datetime": "2026-09-08T17:45:31-04:00",
+    "subject": "test(reviews): pin list SQL and creation authorization coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "34d805438043dae3875d0b165140d1f6cd052d3f",
+    "committer_datetime": "2026-09-08T17:56:37-04:00",
+    "subject": "fix(gwcoa): validate names and explain referenced-number conflicts",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3557c3672f1b5b63222723a87b5e6c9e914b0dd7",
+    "committer_datetime": "2026-09-08T17:57:00-04:00",
+    "subject": "docs(audit): pin GWCOA and reviewer verification checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "f33c0751d8d709bac73057e02debcb319bcc1f1b",
+    "committer_datetime": "2026-09-08T18:14:07-04:00",
+    "subject": "fix(admin): set SQL download headers only after success",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/platform.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "5d4c5d79b008f4585b55238acef9a8af8b9779f4",
+    "committer_datetime": "2026-09-08T18:15:21-04:00",
+    "subject": "fix(agency): reject out-of-range GWCOA lookup numbers",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "a8011f071d2db896c51ebfc89bbfed51335312cf",
+    "committer_datetime": "2026-09-08T18:20:30-04:00",
+    "subject": "chore(tooling): pin route and test audit checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "e58f955974987844bc5aa20da55b0aa5819ccfb6",
+    "committer_datetime": "2026-09-08T18:32:24-04:00",
+    "subject": "test(agency): pin stronger read and lifecycle coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "5add269d3fb86e97a8789b60db0dd737b5c0565a",
+    "committer_datetime": "2026-09-08T18:38:01-04:00",
+    "subject": "fix(agency): align profile validation with database boundaries",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "84a3d50e4bf52eb46dcfcb4c6e03ab63a0f7ac59",
+    "committer_datetime": "2026-09-08T18:38:39-04:00",
+    "subject": "chore(tooling): pin Agency audit checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "9b7c7f5584784863dd843c8a658ec0c145c7f2cb",
+    "committer_datetime": "2026-09-08T18:51:41-04:00",
+    "subject": "fix(agency): preserve retired GWCOA references during editing",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "bf0c3c34d4a48702e57313c3f5636844332dc65a",
+    "committer_datetime": "2026-09-08T19:06:24-04:00",
+    "subject": "fix(agency): preserve editor sessions and bigint identifiers",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "475403bb74cb7811686dadd13b01dde1c8283002",
+    "committer_datetime": "2026-09-08T19:18:45-04:00",
+    "subject": "test(agency): pin deletion authorization and extension guard coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "6ccd7ee7b90d4564d5041e1a88738e492e239449",
+    "committer_datetime": "2026-09-08T19:22:45-04:00",
+    "subject": "fix(agency): keep detail refreshes current and recoverable",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "2e196f4d47576c1ce8b172a6870624f1986ad2a0",
+    "committer_datetime": "2026-09-08T19:23:01-04:00",
+    "subject": "docs(audit): record Agency deletion closure and read caller gaps",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "b3411ad6e43f29ba4ffd81127652add90b2d68c4",
+    "committer_datetime": "2026-09-08T19:58:13-04:00",
+    "subject": "fix(lookup): recover selected labels and stop disposed retries",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "6f41005ebdd845f6d50be629269c182547b5220e",
+    "committer_datetime": "2026-09-08T19:58:34-04:00",
+    "subject": "fix(program): authorize and recover remote Agency choices",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "a324b46b4d42577f536ac34c6676729b2dc81e80",
+    "committer_datetime": "2026-09-08T19:58:48-04:00",
+    "subject": "docs(audit): checkpoint Agency lookup closure and test review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "2eb47c6005bae4570835f0180985630f99d497d5",
+    "committer_datetime": "2026-09-08T20:22:38-04:00",
+    "subject": "test(documents): pin deterministic Chromium deadline coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "2e911d793267be928b9e08ce6bbaa8860d874ae7",
+    "committer_datetime": "2026-09-08T20:22:57-04:00",
+    "subject": "fix(program): authorize fiscal-year choices and clear stale budgets",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "7317c6ac5c59bc8f617b26f9bbe218f743921a07",
+    "committer_datetime": "2026-09-08T20:23:18-04:00",
+    "subject": "docs(audit): checkpoint fiscal-year fixes and test inventory",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "6d4c2916b5b31145d5425e22ee279d09f7c0e835",
+    "committer_datetime": "2026-09-08T20:50:16-04:00",
+    "subject": "Pin audited budget lookup tests with explicit coverage limits",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "031cc69004b7f8499b71db2b5e7a2472f34dcdea",
+    "committer_datetime": "2026-09-08T20:50:36-04:00",
+    "subject": "Keep Program profile and fiscal-year reads at exact Program scope",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "4d24e6fa8dcda085b922648c36b04257b423b617",
+    "committer_datetime": "2026-09-08T20:51:13-04:00",
+    "subject": "Record verified Program reads and remaining Budget audit work",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "514ea8ac833c470f27f0b09c24f81a3418cf4bfe",
+    "committer_datetime": "2026-09-08T21:10:08-04:00",
+    "subject": "Pin clarified Budget test evidence and isolated harnesses",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "304e8a7fd04f4f7d38408687175e2d0bf43c4888",
+    "committer_datetime": "2026-09-08T21:10:35-04:00",
+    "subject": "Validate Budget fiscal years and refresh committed changes consistently",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c0788465e737456e1a9af2e35b46628edaf97dba",
+    "committer_datetime": "2026-09-08T21:23:46-04:00",
+    "subject": "Pin isolated Program write concurrency tests and valid allocation fixtures",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "ebf3e9468d2b2f3d8aa572181d2b886c341fc99b",
+    "committer_datetime": "2026-09-08T21:30:48-04:00",
+    "subject": "Hold Agency ownership through Program and Stream writes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "20536807212a2a5d80e9f3ae80c3bd1b36ced922",
+    "committer_datetime": "2026-09-08T21:31:44-04:00",
+    "subject": "Record verified Budget fixes and parent write lifecycle evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "49cc30df934e08469615646874dfdb2af33cdde5",
+    "committer_datetime": "2026-09-08T21:54:27-04:00",
+    "subject": "test: expand Program Budget cross-layer audit coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "655af21cd413205f5f6cb3801fa5ed041c7e3e91",
+    "committer_datetime": "2026-09-08T22:14:40-04:00",
+    "subject": "fix: serialize manual Program and Stream writes with Agency deletion",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "42e54c951303bb8566c436e7e882600810d8429a",
+    "committer_datetime": "2026-09-08T22:15:00-04:00",
+    "subject": "fix: preserve referenced fiscal years during financial writes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "agreements/index.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "4842c34a7dcf0fd9e7ca7ee9784afe8dd8c17c06",
+    "committer_datetime": "2026-09-08T22:15:09-04:00",
+    "subject": "fix: keep grouped Agreement Budget labels readable",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/budget.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b17c5d99ae77465a288032274f66fb79014cca2d",
+    "committer_datetime": "2026-09-08T22:15:56-04:00",
+    "subject": "docs: record route and test audit verification checkpoint",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "9ebcbc4c8cab6d9edf2098928a182e5afdd27682",
+    "committer_datetime": "2026-09-08T22:42:16-04:00",
+    "subject": "fix: preserve existing budgets linked to retired fiscal years",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "developer/testing.md",
+      "operator/deployment.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "ac9091789ce3a71f542afdf282618d67eb71d2f6",
+    "committer_datetime": "2026-09-08T22:42:41-04:00",
+    "subject": "chore: pin resumable route review tooling",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "fe4349219951cd98dc58321fe852b7c7c1aabe5e",
+    "committer_datetime": "2026-09-08T22:46:57-04:00",
+    "subject": "chore: pin verified Budget read and deletion review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "8026288bb8b17a748552ee949a88361a9899bf06",
+    "committer_datetime": "2026-09-08T22:48:23-04:00",
+    "subject": "chore: pin completed Budget create and delete review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "3b8436d74d33ef1890239fbed3ddb71205bbcbca",
+    "committer_datetime": "2026-09-08T22:54:20-04:00",
+    "subject": "chore: preserve Budget reassignment regression evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "537d9713c65f4db4a8785ee5a54fc29bebb82812",
+    "committer_datetime": "2026-09-08T23:06:25-04:00",
+    "subject": "fix: preserve Agreement funding years during Program budget changes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "developer/api/agreements.md",
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3f3fd71f9860953c6f3d1e96cb2e0c25b09ff0ee",
+    "committer_datetime": "2026-09-08T23:10:44-04:00",
+    "subject": "chore: pin Program detail review receipt",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "6cf15e178d717b694733b28845543c3fb8ff72c8",
+    "committer_datetime": "2026-09-08T23:16:41-04:00",
+    "subject": "chore: pin completed GWCOA admin review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "3cfe224ccfd79bf45c1ac770a5224c8c2061ed80",
+    "committer_datetime": "2026-09-08T23:27:52-04:00",
+    "subject": "Checkpoint completed Agency fiscal-year route reviews",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "748ad62eed9699f543925950f262f5ff766b264d",
+    "committer_datetime": "2026-09-08T23:41:53-04:00",
+    "subject": "Keep user list and detail projections in fresh read snapshots",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "bd3e6bbeb7410870f96df4791fd3254311819351",
+    "committer_datetime": "2026-09-08T23:56:12-04:00",
+    "subject": "Read role lookup collections from fresh consistent snapshots",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3b3ac841e1e258d6b4eeb768156021d449d91096",
+    "committer_datetime": "2026-09-09T00:12:11-04:00",
+    "subject": "fix: keep role catalog reads in a fresh consistent snapshot",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "a06f7137f1bd1e343ef2b4115b495f86066be2ab",
+    "committer_datetime": "2026-09-09T00:17:59-04:00",
+    "subject": "chore: checkpoint role deletion review evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "9c3ee5dbaa229c5d0798fca99ec9357c863bc5ee",
+    "committer_datetime": "2026-09-09T00:24:21-04:00",
+    "subject": "chore: checkpoint role permission review evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "8de4f5ca5bb2b0f049eb781324fcdff3fa0b2e31",
+    "committer_datetime": "2026-09-09T00:29:22-04:00",
+    "subject": "chore: checkpoint role profile review evidence",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "4c1f29e43d99cb194490ca269a5bdc6a6dc88640",
+    "committer_datetime": "2026-09-09T00:34:32-04:00",
+    "subject": "chore: checkpoint completed role route review group",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "4e6659e4b9f6663585f6f7f5f8bbab2dadd3706d",
+    "committer_datetime": "2026-09-09T00:47:33-04:00",
+    "subject": "fix: keep assignable roles consistent and recover failed lookups",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/roles.md",
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b5d6521d90236ca190689c9e713ac9b93a29d55d",
+    "committer_datetime": "2026-09-09T00:53:28-04:00",
+    "subject": "chore: checkpoint user role assignment creation review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "91ea4ee4e9c2935363f92a9dbd67ae11706a3758",
+    "committer_datetime": "2026-09-09T01:00:31-04:00",
+    "subject": "chore: checkpoint assignment deletion route review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "5a0f263b087d8e1070bdf880b6a7ecc70146d4d8",
+    "committer_datetime": "2026-09-09T01:05:50-04:00",
+    "subject": "chore: checkpoint user deletion review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "1433523667248a665db5b2b12db8c3bd577efc3b",
+    "committer_datetime": "2026-09-09T01:11:48-04:00",
+    "subject": "chore: checkpoint user profile route review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "94bd291272440f8960c14a5c40e04284877e652d",
+    "committer_datetime": "2026-09-09T01:16:01-04:00",
+    "subject": "chore: checkpoint user creation route review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "d2034a02338e5d523f70e19c6e42c24bb5cd30bb",
+    "committer_datetime": "2026-09-09T01:30:32-04:00",
+    "subject": "fix: keep user lookup options and totals in one snapshot",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/identity.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fd97d3920b10e3e72bface70b1a5d0834dd45f32",
+    "committer_datetime": "2026-09-09T01:45:35-04:00",
+    "subject": "fix: preserve reviewer lookup totals and selected labels",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/runtime-reviews.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b8af37420d5e822b875e1822c003052f14a74e10",
+    "committer_datetime": "2026-09-09T01:54:29-04:00",
+    "subject": "Checkpoint additional reviewer update review tooling",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "6a3fd8f4a72a95339bcf173ba4899d45fe10a104",
+    "committer_datetime": "2026-09-09T02:12:21-04:00",
+    "subject": "Align reviewer deletion UI and qualified artifact authorization",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/runtime-reviews.md",
+      "developer/api/reviews.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "73a6732dcf847bdc33294c873d0489e82215d60c",
+    "committer_datetime": "2026-09-09T02:27:11-04:00",
+    "subject": "Keep reviewer actions scoped to current permissions and requests",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/runtime-reviews.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "ea839759625e787cb1021948e5ba299cdb01709e",
+    "committer_datetime": "2026-09-09T02:38:09-04:00",
+    "subject": "Respect current reviewer creation permissions for open drafts",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/runtime-reviews.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "78d9d263e12ddb3688653380aa8f4679ae6f2126",
+    "committer_datetime": "2026-09-09T03:03:06-04:00",
+    "subject": "Fix Agreement fiscal-year authorization, duration and retained-reference editing",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/budget.md",
+      "agreements/index.md",
+      "developer/api/agreements.md",
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "9aec4c1bd0da06e940523e8c688791a627b42bb7",
+    "committer_datetime": "2026-09-09T06:40:17-04:00",
+    "subject": "fix: serialize Program deletion and recover Stream editing",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "ccd2b3a363801ef4cb5792669494fd0e1982e3e5",
+    "committer_datetime": "2026-09-09T07:04:59-04:00",
+    "subject": "fix: preserve roster target context and recover candidate loading",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/assignments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "864dcc4f57b81d077b73f8d313c9ba0f8345674c",
+    "committer_datetime": "2026-09-09T07:27:00-04:00",
+    "subject": "Guard roster actions and unavailable qualified identities",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/assignments.md",
+      "developer/api/identity.md",
+      "developer/extensions-authoring.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "178a6f1260ef98ff812df2c7cd650874b5c5a630",
+    "committer_datetime": "2026-09-09T07:49:16-04:00",
+    "subject": "Protect referenced address types and stale CRUD actions",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/users.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "67c11f129704e737f03422ecefab53ddc6973605",
+    "committer_datetime": "2026-09-09T08:20:43-04:00",
+    "subject": "Preserve historical Agreement addresses and exact bigint edits",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/addresses.md",
+      "agreements/index.md",
+      "developer/api/agreements.md",
+      "developer/data-model.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md",
+      "proponents/addresses.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "99dd07f200b2a14756e328918cac7e04b147e7d4",
+    "committer_datetime": "2026-09-09T08:49:12-04:00",
+    "subject": "Serialize Agreement writes with Agency deletion and refresh committed saves",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/users.md",
+      "agreements/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b04872af0374afb3e41d75f7302131dab7886a02",
+    "committer_datetime": "2026-09-09T09:10:38-04:00",
+    "subject": "Serialize Proponent address cleanup and owner lifetime",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/applicant-recipients.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "edd357a8aa8e0b544005702bb1c4053801ab17ab",
+    "committer_datetime": "2026-09-09T09:23:54-04:00",
+    "subject": "Respect current Proponent address form capabilities",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "proponents/addresses.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "0b9ccdda4644ec3871f56caac2ac207323f20be5",
+    "committer_datetime": "2026-09-09T09:38:41-04:00",
+    "subject": "Stabilize Proponent address reads and physical updates",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/applicant-recipients.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d56bc3f0a5e52a1655ad36ec8ee83e7533e94ed5",
+    "committer_datetime": "2026-09-09T10:00:42-04:00",
+    "subject": "Protect Agreement Proponent creation across owner changes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/applicant-recipients.md",
+      "developer/api/agreements.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "0498fd4349eecc21c0d7377067f3d48ace6fcf75",
+    "committer_datetime": "2026-09-09T10:21:21-04:00",
+    "subject": "Preserve retained Proponent selections and protect replacements",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/applicant-recipients.md",
+      "agreements/index.md",
+      "developer/api/agreements.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "7c311c3d611991e8bf4de3c526954773e2ce5f11",
+    "committer_datetime": "2026-09-09T10:33:02-04:00",
+    "subject": "Retain Agreement Proponent context after foreign Agency deletion",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agreements.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "0dd687aec82781b25cd878c3aba234c4f2d18a9d",
+    "committer_datetime": "2026-09-09T10:46:08-04:00",
+    "subject": "Record completed Agreement Proponent deletion review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "60535418e1fae5c8cb42f26e903b9a23abc82535",
+    "committer_datetime": "2026-09-09T11:08:40-04:00",
+    "subject": "fix: keep Agreement Proponent candidates eligible and consistent",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agreements.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "60598b2821f480aad71cfe10e23feba59afd2b0e",
+    "committer_datetime": "2026-09-09T11:33:16-04:00",
+    "subject": "fix: protect Agreement creation eligibility and calendar dates",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "developer/api/agreements.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "0ee3d6db47e89da3309975dc9c1ec4499ecfc139",
+    "committer_datetime": "2026-09-09T12:07:06-04:00",
+    "subject": "Preserve Agreement profile integrity and calendar dates on update",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "35eaad2fa88f79d23e450001538668b4b767e5af",
+    "committer_datetime": "2026-09-09T12:20:10-04:00",
+    "subject": "Checkpoint verified Agreement deletion review",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "665a3704e606193f7c09e753e2bef64e7cb894f7",
+    "committer_datetime": "2026-09-09T12:38:28-04:00",
+    "subject": "Localize retained risk scores in Agreement detail",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "74055353fe11ef41be4c20034e17cbab2e4e376f",
+    "committer_datetime": "2026-09-09T12:54:53-04:00",
+    "subject": "Keep Agreement collection reads coherent and batch row permissions",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agreements.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "589988d5000ca6b13f7c05e5e15a6f9f34648f3a",
+    "committer_datetime": "2026-09-09T13:09:51-04:00",
+    "subject": "Validate Agency type search and recover failed subtype options",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agencies.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fa10692462c9f6f8d79b0e864303b36832bafe8f",
+    "committer_datetime": "2026-09-09T13:20:07-04:00",
+    "subject": "Validate Agreement type names and localize normalized duplicates",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "23898b0f5a2c0443ab079e5b042b7bb09ce6592c",
+    "committer_datetime": "2026-09-09T13:35:43-04:00",
+    "subject": "Clarify Agreement type deletion blocked by retained references",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3c41a49714554293bccac8330018568ecbda6b71",
+    "committer_datetime": "2026-09-09T13:48:01-04:00",
+    "subject": "Validate recipient subtype search and recover reference loading",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agencies.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "5ce5ff4175e53ff1549f1ed24a9b5869fdf57756",
+    "committer_datetime": "2026-09-09T13:58:17-04:00",
+    "subject": "Validate recipient subtype text and translate normalized conflicts",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "beb8bdc3e2035e71b5aca15f3a900f759f1bab40",
+    "committer_datetime": "2026-09-09T14:11:14-04:00",
+    "subject": "Prevent retiring referenced recipient subtypes across concurrent writes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "developer/api/agencies.md",
+      "getting-started/navigation.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "a58b8ae7edf4f6b6fbc6a33c4c341ab5a8e6b52c",
+    "committer_datetime": "2026-09-09T14:25:53-04:00",
+    "subject": "Preserve historical eligibility labels in fresh consistent reads",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "5cb71c8ff835dbc2b4a1f142e05b82bee43d38c1",
+    "committer_datetime": "2026-09-09T14:43:41-04:00",
+    "subject": "Preserve historical eligible-recipient edits and safe save settlement",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "developer/testing.md",
+      "operator/deployment.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c93a2dee8e0654568a5bb467316d44337178d8ec",
+    "committer_datetime": "2026-09-09T14:54:33-04:00",
+    "subject": "Validate eligible-recipient creation IDs before database queries",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "a3a7e8b942d2e13c5f5855f7a4422297a07ba75b",
+    "committer_datetime": "2026-09-09T15:12:59-04:00",
+    "subject": "Preserve historical Proponent edits and validate effective references",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fa489cc2c10f43a5d4cda698b08475b1d5381f80",
+    "committer_datetime": "2026-09-09T15:22:57-04:00",
+    "subject": "Keep historical subtype labels and consistent Proponent list snapshots",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/applicant-recipients.md",
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "1a1e3f6c24ba9bfa807091d63a7dda4f6f79e765",
+    "committer_datetime": "2026-09-09T15:44:47-04:00",
+    "subject": "Validate Proponent creation and enable scoped creator navigation",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c2b6a59cd00e8a4d9eed1aa730fa431f9e39218a",
+    "committer_datetime": "2026-09-09T16:24:48-04:00",
+    "subject": "Validate Stream wizard aggregates and correct accessible progress",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "6e484e7ce7e0a62007fca472a98dea697605b278",
+    "committer_datetime": "2026-09-09T16:36:19-04:00",
+    "subject": "Validate manual Stream text against PostgreSQL storage limits",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d94c9d2f03d119b74ce2c81cf1d70837df04ca71",
+    "committer_datetime": "2026-09-09T16:58:19-04:00",
+    "subject": "Preserve partial Stream updates and retained parent selections",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "bfd76fa71765b4aba4242995b04441aaa95c8b73",
+    "committer_datetime": "2026-09-09T17:16:43-04:00",
+    "subject": "Keep Stream collection reads in one fresh authorized snapshot",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "6788531f5f93ab97c752fb589c00ddcefebcf7a6",
+    "committer_datetime": "2026-09-09T17:42:08-04:00",
+    "subject": "Enforce Stream detail lifetime and restore load-error recovery",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "99a522a08fd08c2c2087e4fccd158e5e453078f0",
+    "committer_datetime": "2026-09-09T17:59:25-04:00",
+    "subject": "Read Stream agreement subtypes from a fresh coherent snapshot",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "9188a7c0fe738344b1c32c42f0e44ad19e69c0a2",
+    "committer_datetime": "2026-09-09T18:20:27-04:00",
+    "subject": "Fix subtype creation validation, scoped choices and save recovery",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "573053e36f04fb2a7974827efe058cf90c692371",
+    "committer_datetime": "2026-09-09T18:43:29-04:00",
+    "subject": "Protect Agreement classification during subtype and profile updates",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d5e2207bc779699e233bf540008d06acc126aa87",
+    "committer_datetime": "2026-09-09T18:56:46-04:00",
+    "subject": "Keep subtype deletion tied to its current context and readback",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "f220ef1afd81b3e0e82ca9243d086f194d43ed70",
+    "committer_datetime": "2026-09-09T19:08:49-04:00",
+    "subject": "Return freshly authorized holdback lists with Agency labels",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "586067f37375172b0b3cab1b5fc98ad92c035010",
+    "committer_datetime": "2026-09-09T19:26:59-04:00",
+    "subject": "Validate holdback creation and support scoped reference selection",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "5a3ceb3d63cd6290a7b8556fe327257bd212cba7",
+    "committer_datetime": "2026-09-09T19:41:14-04:00",
+    "subject": "Validate holdback edits and protect referenced basis changes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "e446a1f677940319d72898967ec81d00b210644b",
+    "committer_datetime": "2026-09-09T19:53:03-04:00",
+    "subject": "Contain holdback deletion and isolate confirmation settlement",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "e4e8607884da29eed80d2e3e8f838a5c32f2e939",
+    "committer_datetime": "2026-09-09T20:09:53-04:00",
+    "subject": "Validate Agency holdback updates and protect referenced codes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "developer/api/agencies.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "03482ce4015a488cb4635d6fabf28c463518b9d0",
+    "committer_datetime": "2026-09-09T20:20:10-04:00",
+    "subject": "Validate Agency holdback creation against storage bounds",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "4bc0617f4b002f11586943d418ab6f7524e02dbd",
+    "committer_datetime": "2026-09-09T20:49:32-04:00",
+    "subject": "Fix scoped wizard catalogue loading and reference retry",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/agencies.md",
+      "developer/api/transfer-payments.md",
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fab2f16e525203ffb3cc61bd08fbfec42d0ece51",
+    "committer_datetime": "2026-09-09T21:04:51-04:00",
+    "subject": "Preserve wizard budget labels and reject retired-year allocations",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "66cd2cfd3f6009ab5a3a1abe3efbda16846c55ae",
+    "committer_datetime": "2026-09-09T21:22:29-04:00",
+    "subject": "fix: validate stream budget creation and refresh committed saves",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "31607a1b546ac731a25a364a531cb8052a69fb67",
+    "committer_datetime": "2026-09-09T21:35:29-04:00",
+    "subject": "fix: validate budget updates and lock stream lifetime",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "5a56661e0e4dfb5f6ded7e7438bfd2ed01e0b88b",
+    "committer_datetime": "2026-09-09T22:38:03-04:00",
+    "subject": "fix: stabilize budget list snapshots and deletion context",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "bda69ddc8b6db3e99d871a22a16e866d703e82f1",
+    "committer_datetime": "2026-09-10T12:44:27-04:00",
+    "subject": "fix: accept review setup lookup filters",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/api/transfer-payments.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c6f73f167f8866e00685c0889590fbed37072502",
+    "committer_datetime": "2026-09-11T08:49:26-04:00",
+    "subject": "feat: railway deployment",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "e9305fc4c13bdc8280c02f873e7e574f05e8ed61",
+    "committer_datetime": "2026-09-11T16:28:52-04:00",
+    "subject": "feat: add audit and access logging with administrative browser",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "admin/roles.md",
+      "concepts/rbac.md",
+      "developer/api/platform.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d5a58c65e0251688e767dc73e2bb76cecc307f79",
+    "committer_datetime": "2026-09-11T16:30:39-04:00",
+    "subject": "feat: add bounded blank-row worksheet fills and refine assignment action",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/assignments.md",
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "7f8554e3b494ea9e9b52af52e33e1280b5f69bb3",
+    "committer_datetime": "2026-09-12T15:29:37-04:00",
+    "subject": "fix: enable editing agency reference records",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "developer/api/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3291560b77b835744ba8ba54b05482a9f0404f46",
+    "committer_datetime": "2026-09-12T15:29:37-04:00",
+    "subject": "fix: place claim reconciliation settings below agency statuses",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "2f23ce25c136aad42b6e2235b6c1555081abde4e",
+    "committer_datetime": "2026-09-12T15:29:37-04:00",
+    "subject": "fix: display icon picker options in a single scrolling column",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "2797da0f1cab898cff561af83ea6829d913abf93",
+    "committer_datetime": "2026-09-12T15:29:37-04:00",
+    "subject": "fix: use a large two-column program modal",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "d39618c37a2966607a493e527ba74da4501efee2",
+    "committer_datetime": "2026-09-12T17:08:46-04:00",
+    "subject": "feat: add percentage-based agreement budget line items",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "agreements/budget.md",
+      "agreements/index.md",
+      "concepts/approvals-completions.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "8f17b9694a6022b270b74cdb0243bc4b26cfd835",
+    "committer_datetime": "2026-09-13T01:27:28-04:00",
+    "subject": "test: pin full percentage budget browser coverage",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "528ddb3d0e5bb181c50e29d7df521d0098ede6a3",
+    "committer_datetime": "2026-09-13T02:06:03-04:00",
+    "subject": "fix: accept pasted Google Sheets OAuth callbacks",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "762b7a7d4aa3d8a7b367f6b1dd93ecc225fd6d6e",
+    "committer_datetime": "2026-09-13T22:50:53-04:00",
+    "subject": "feat: automate Railway demo database and attachment reset",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "e19ac2056e9c63a64e666f63a2bacd072fc89f2d",
+    "committer_datetime": "2026-09-13T22:58:18-04:00",
+    "subject": "fix: allow sleeping Railway demo releases at reset preflight",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "c501c35f8fa61d7acd1df4fcb97e88809b621f05",
+    "committer_datetime": "2026-09-13T23:03:37-04:00",
+    "subject": "fix: diagnose Railway SSH setup and wake sleeping demo",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "46e50e945473a35149d62894ba16aa42ee97504d",
+    "committer_datetime": "2026-09-13T23:15:06-04:00",
+    "subject": "fix: preserve human terminal for Railway file deletion",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "6f2ba8352b904b05cf7f2a8fe97a9b87e592c6be",
+    "committer_datetime": "2026-09-13T23:25:19-04:00",
+    "subject": "fix: wake Railway Postgres before reset SSH checks",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "3c7b349859a7618b5e9f36b4a21a9d54dca37607",
+    "committer_datetime": "2026-09-14T14:08:44-04:00",
+    "subject": "fix: block API requests until audit startup completes",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/rbac.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "99516fdb6aed8d5189534e27f1239adde5b75693",
+    "committer_datetime": "2026-09-14T14:40:53-04:00",
+    "subject": "Select agreement programs before streams and allow independent proponents",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/applicant-recipients.md",
+      "agreements/index.md",
+      "developer/api/agreements.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "fcfd368eeb9401feb5abc466afa7b000ef558b19",
+    "committer_datetime": "2026-09-14T15:18:09-04:00",
+    "subject": "fix: recover audit startup after database wake-up",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/rbac.md",
+      "developer/api/platform.md",
+      "getting-started/login.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "cf5b7d52f60ba555fca0e86a0410bb739df9c9a4",
+    "committer_datetime": "2026-09-14T15:53:29-04:00",
+    "subject": "Add personal and agency views for agreements and proponents",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "concepts/rbac.md",
+      "developer/api/agreements.md",
+      "developer/api/applicant-recipients.md",
+      "developer/api/platform.md",
+      "getting-started/navigation.md",
+      "proponents/agreements.md",
+      "proponents/funding-history.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "92406d9060182e273881ac3a4fff94878b368067",
+    "committer_datetime": "2026-09-14T16:23:31-04:00",
+    "subject": "Buffer access logs and support environment disablement",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "21415fb57148097ba2ad71a329f0ff1dfbc5bc1c",
+    "committer_datetime": "2026-09-14T16:27:12-04:00",
+    "subject": "feat: standardize required field validation and accessibility",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/assignments.md",
+      "admin/common-admin.md",
+      "agreements/amendments.md",
+      "agreements/applicant-recipients.md",
+      "agreements/budget.md",
+      "agreements/claims.md",
+      "agreements/closeouts.md",
+      "agreements/documents.md",
+      "agreements/forecasts.md",
+      "agreements/index.md",
+      "agreements/monitors.md",
+      "concepts/approvals-completions.md",
+      "concepts/attachments.md",
+      "concepts/extensions.md",
+      "concepts/runtime-reviews.md",
+      "concepts/workflows.md",
+      "developer/testing.md",
+      "developer/validation-i18n.md",
+      "getting-started/login.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md",
+      "programs/approval-templates.md",
+      "programs/assessment-schemas.md",
+      "programs/checklist-schemas.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "proponents/funding-history.md",
+      "proponents/index.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "de4bf33aff66415225bf6a0b2f7c0f02ebef9bc7",
+    "committer_datetime": "2026-09-14T16:39:57-04:00",
+    "subject": "fix: review new main fields and enforce required-field standards",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/applicant-recipients.md",
+      "agreements/index.md",
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "f93ac9de2d33022c7c3bf36500ab29bb4fbc9900",
+    "committer_datetime": "2026-09-14T19:51:55-04:00",
+    "subject": "Generate agreement numbers through configurable extension providers",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "concepts/extensions.md",
+      "developer/api/agreements.md",
+      "developer/api/extensions.md",
+      "developer/extensions-authoring.md",
+      "getting-started/navigation.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "bfcf5088387eacb1b89ae11fd529260a28c2da47",
+    "committer_datetime": "2026-09-14T20:15:53-04:00",
+    "subject": "Align agreement numbering Docker workspaces with committed submodules",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "05997e0c90b48229773d08385909cd64792b9265",
+    "committer_datetime": "2026-09-14T20:31:42-04:00",
+    "subject": "Enforce extension-owned translations with SDK 0.3.0",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b619be4c24736c62ec1eaae36d0d0bc98fbb2c98",
+    "committer_datetime": "2026-09-14T22:08:29-04:00",
+    "subject": "Apply agency numbering across streams with configurable counter scope",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "agreements/index.md",
+      "concepts/extensions.md",
+      "developer/api/extensions.md",
+      "developer/extensions-authoring.md",
+      "developer/testing.md",
+      "operator/deployment.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "7a60b2de7bb85e26a4bb390b06490c87a54efdde",
+    "committer_datetime": "2026-09-14T22:11:41-04:00",
+    "subject": "Pin the corrected agreement creation PostgreSQL fixture",
+    "disposition": "NO_ADDITIONAL_USER_CONTRACT",
+    "documentation_pairs": [],
+    "basis": "Review/tooling/test/documentation checkpoint; no independent application workflow added to the host guides."
+  },
+  {
+    "commit": "490ee003f76b0101275b7674c85538f90ab9168d",
+    "committer_datetime": "2026-09-15T10:01:59-04:00",
+    "subject": "Update agreement numbering extension and SDK lockfile",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "b167d7e631f54f9f093238c08470a310723a9d94",
+    "committer_datetime": "2026-09-15T16:05:55-04:00",
+    "subject": "feat: require bilingual program terms with incremental migration",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "concepts/extensions.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "53cbcaceedfe16d3cc4697651481f1a3fbd16b7c",
+    "committer_datetime": "2026-09-15T16:29:26-04:00",
+    "subject": "feat: disable cost categories while retaining existing budgets",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "agreements/budget.md",
+      "agreements/index.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "developer/testing.md",
+      "getting-started/navigation.md",
+      "operator/deployment.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "6210c34812094a56af5a874a8fef81365215b89a",
+    "committer_datetime": "2026-09-15T16:52:58-04:00",
+    "subject": "feat: add agency line-item toggles and availability status columns",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "developer/api/agencies.md",
+      "developer/api/agreements.md",
+      "developer/api/transfer-payments.md",
+      "developer/data-model.md",
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  },
+  {
+    "commit": "395a5c7e62f982ce71b4390fe33fa1dd04480d6b",
+    "committer_datetime": "2026-09-15T20:19:52-04:00",
+    "subject": "Show inactive sources for stream budget line items",
+    "disposition": "FINAL_CONTRACT_DOCUMENTED",
+    "documentation_pairs": [
+      "getting-started/navigation.md",
+      "programs/streams.md"
+    ],
+    "basis": "Reconciled through final target source and the owning contract group; superseded intermediate behavior is not prescribed."
+  }
+]

@@ -20,7 +20,7 @@ The standard stream modal creates or edits the stream record only. It captures:
 - English and French objective.
 - Allows further distribution flag.
 - English and French description.
-- Status, defaulting to draft.
+- Active flag, initially false.
 
 The parent stream must belong to the same program. Use parent streams only to model program structure; runtime setup records are still configured on the stream where agreements and reviews will be created.
 
@@ -30,7 +30,7 @@ The stream wizard creates the stream and several child setup collections togethe
 
 The wizard steps are:
 
-- General: stream identity, parent stream, descriptions, objectives, further-distribution flag, and status.
+- General: stream identity, parent stream, descriptions, objectives, further-distribution flag, and active flag.
 - Holdback bases: agency holdback basis plus a bilingual stream label.
 - Budgets: stream budget rows linked to program fiscal-year budget rows.
 - Recipients: eligible applicant recipient subtypes.
@@ -38,7 +38,8 @@ The wizard steps are:
 - Amendment types: amended entity category plus bilingual type name.
 - Amendment subtypes: subtype name and description linked to one wizard amendment type.
 - Agreement subtypes: agency agreement types allowed for the stream.
-- Commitments: financial coding rows tied to a program fiscal-year budget.
+- Chart of Accounts: ordered bilingual financial dimensions tied to a temporary stream budget.
+- Commitment Types: bilingual commitment classifications.
 - Monitor types: bilingual monitoring record types.
 - Areas: bilingual areas of expertise for review/assessment assignment.
 - Financial limits: optional max-per-recipient, support percentage, retroactive-cost percentage, stacking limit, and status.
@@ -77,9 +78,11 @@ The stream detail page exposes these tabs:
 - Amendment Types.
 - Amendment Subtypes.
 - Agreement Subtypes.
-- Commitments.
+- Chart of Accounts.
+- Commitment Types.
 - Monitor Types.
 - Risk Ratings.
+- Custom Fields.
 - Areas of Expertise.
 - Financial Limits.
 - Review Setups.
@@ -88,6 +91,8 @@ The stream detail page exposes these tabs:
 - Recommendation Setups.
 - Workflow Setups.
 - Extensions.
+
+Configure [Custom Fields](./custom-fields.md) for additional Agreement data and conditional workflow routing.
 
 Each setup tab uses the same add/edit/delete pattern: a resource table, a modal or editor, validation, and soft-delete where delete is supported.
 
@@ -101,13 +106,15 @@ The General tab shows the stream identity and descriptive fields:
 - English and French objective.
 - Allows further distribution.
 - English and French description.
-- Status.
+- Active flag.
 
 Edit these fields from the stream page action or from the parent program's Streams tab.
 
 ## Holdback Bases Tab
 
 Holdback Bases maps the agency's active holdback bases into the stream and gives each mapping an English and French name. The selected agency basis must belong to the program's agency, and it can appear only once in an active stream mapping. Configure these mappings before agreement holdback rules need them.
+
+A holdback mapping’s bilingual label can be corrected, but its underlying Agency basis cannot be changed while a non-deleted Agreement references it. Agency basis codes likewise cannot be changed while referenced. New selections must belong to the current Agency. Resolve the dependency instead of repurposing a used identifier.
 
 ## Budgets Tab
 
@@ -121,11 +128,15 @@ Configure program budgets before stream budgets. Agreement funding and commitmen
 
 The program-budget selector searches budgets from the current program and displays their fiscal-year labels. When editing an existing stream budget, its saved program budget is resolved by id so the label remains visible even when it is outside the current results page.
 
+New allocations require an eligible program budget with a non-retired fiscal year. An existing stream budget can retain its original retired-year reference while other values are corrected; changing the reference requires a currently eligible destination. Total allocations across the program’s streams for the target fiscal year cannot exceed the selected program budget. For example, with a program budget of `"100000.00"` and other stream allocations of `"70000.00"`, the remaining allocation is `"30000.00"`; a larger save is rejected. Money uses exact decimal strings. A failed refresh after a committed save is a read problem: retry loading before submitting another allocation.
+
 ## Eligible Recipients Tab
 
 Eligible recipients define which agency applicant recipient subtypes can be used for the stream. Each row selects one agency applicant recipient subtype.
 
-This tab is a runtime gate: it limits the proponent/recipient types that should be available when downstream agreement or intake flows are configured for the stream.
+These mappings record the stream’s intended recipient categories. Agreement Proponent selection has its own current active-profile and read-authorization checks and permits a Proponent from an independent lead Agency. Do not treat this configuration alone as proof that a particular Agreement recipient has passed a program eligibility assessment.
+
+Historical eligibility mappings retain the saved subtype label even after retirement. Keeping the same reference is permitted; a replacement must be a currently eligible subtype from the Agency. Removing or retiring an Agency subtype is blocked when retained profile or eligibility references depend on it.
 
 ## Cost Category Line Items Tab
 
@@ -134,7 +145,7 @@ Cost category line items expose agency cost line items to the stream. Each row c
 - Agency organization cost category line item.
 - Cost-sharing ratio.
 
-The selected line item must belong to a cost category for the program's agency. These rows control which cost items can be used by stream-specific agreement budgets and claims.
+The selected line item must belong to a cost category for the program's agency. These rows control which cost items can be used by stream-specific agreement budgets and claims. The mapping, source line item, and source category have separate Active flags. The table exposes inactive sources so administrators can diagnose availability; an existing mapping does not override a disabled source. Saved Agreement lines retain their references and calculation settings. Activate the necessary source levels before adding new budget lines.
 
 ## Amendment Types And Subtypes
 
@@ -152,6 +163,8 @@ Subtypes cannot be meaningfully configured before their parent amendment type ex
 Agreement subtypes map agency agreement types to the stream. Each row selects one agency agreement type.
 
 This configuration classifies agreements for the stream and limits which agency agreement types are valid in downstream agreement creation. Agency agreement types must exist before this tab can be populated.
+
+Changing a subtype’s underlying Agency agreement type must preserve the classification of existing Agreements. The server rejects a replacement that would conflict with an Agreement’s stored agreement type. Correct labels or create a separate configuration rather than silently reclassifying saved Agreements.
 
 ## Chart of Accounts and Commitment Types
 
@@ -172,7 +185,7 @@ Risk ratings define the available risk labels and scores for the stream. Each ro
 - Numeric risk score. The score must be finite and non-negative.
 - English and French name.
 
-Risk ratings can be selected or derived by agreement and assessment workflows, so keep their score scale consistent with assessment scoring and operational reporting.
+Risk ratings supply the bands for an explicit Agreement `risk_rating` workflow. Its publication maps the assessment outcome maxima to the active stream ratings; successful runtime completion applies the resulting score. Ordinary Agreement profile editing does not manually set the risk score. See [Workflows](../concepts/workflows.md) for ordered bands, stale configuration, and recovery.
 
 ## Areas Of Expertise Tab
 
@@ -191,7 +204,7 @@ Financial limits define stream-level thresholds:
 - Maximum percent of support available per recipient.
 - Maximum percent of retroactive costs allowable.
 - Stacking limit.
-- Status.
+- Active flag.
 
 The wizard treats financial limits as optional. If the stream has no financial limit row, downstream processes that rely on limit checks will not have stream-specific values to use.
 
@@ -239,7 +252,7 @@ Active recommendation setups must not duplicate entity type plus bilingual name.
 
 ## Approval Templates Tab
 
-Stream approval templates define approval routes scoped to the stream. Templates are grouped by runtime entity type and can contain ordered steps and certifications.
+Stream approval templates define approval routes scoped to the stream. Templates are reusable within the stream and contain ordered steps and certifications; the consuming configuration supplies the runtime target.
 
 Use this tab when approval routes must vary by stream. Common/global templates can exist elsewhere, but stream templates are the ones usually referenced by stream review, recommendation, agreement, claim, forecast, payment, monitor, and applicant recipient workflows.
 
@@ -247,7 +260,7 @@ See [Approval Templates](./approval-templates.md) for the full template and runt
 
 ## Workflow Setups Tab
 
-Workflow setups define stream-scoped orchestration triggered by completion or recommendation. The header stores target, purpose, entry point, allowed starting statuses, cancellation/execution-failure fallbacks, active state, and retry policy. The detail page builds a unique positive sequence of review sets, recommendation sets, and root approval templates. Each member can apply target status on materialization, success, or failure. Review/recommendation members require exactly one default active user for each nested setup member; **Allow owner redirect** permits authorized recovery if that user is no longer eligible at runtime. Linked resources, owners, target, and scope are validated again at publication. Published runs retain the complete immutable sequence, transitions, owner mappings, and lineage. See [Workflows](../concepts/workflows.md).
+Workflow setups define stream-scoped orchestration. A standard workflow starts explicitly from the target’s catalogue; approval submission starts explicitly for an Agreement and through completion for supported children. Risk-rating workflows start explicitly on an Agreement. The header stores target, purpose, allowed starting statuses, cancellation/execution-failure fallbacks, active state, and retry policy. The detail page builds a unique positive sequence of review sets, recommendation sets, and root approval templates. Each member can apply target status on materialization, success, or failure. Review/recommendation members require exactly one default active user for each nested setup member; **Allow owner redirect** permits authorized recovery if that user is no longer eligible at runtime. Linked resources, owners, target, and scope are validated again at publication. Published runs retain the complete immutable sequence, transitions, owner mappings, and lineage. See [Workflows](../concepts/workflows.md).
 
 ## Document Templates Tab
 
@@ -257,7 +270,7 @@ Each template stores:
 
 | Field | Rule |
 | --- | --- |
-| Entity type | Currently used by agreement generation as `fundingcaseagreement`. |
+| Entity type | `fundingcaseagreement` or the supported Closeout target `fundingcaseagreementcloseout`. |
 | English/French name | Required bilingual display name. |
 | English/French description | Required bilingual description shown when users choose a template on an agreement. |
 | Template kind | `docx` or `html`. |

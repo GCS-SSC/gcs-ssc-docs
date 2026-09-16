@@ -20,7 +20,7 @@ La modale standard cree ou modifie seulement l enregistrement de volet. Elle cap
 - Objectif anglais et objectif francais.
 - Indicateur "permet la redistribution".
 - Description anglaise et description francaise.
-- Statut, brouillon par defaut.
+- Indicateur Actif, faux initialement.
 
 Le volet parent doit appartenir au meme programme. Utilisez les volets parents pour modeliser la structure du programme; les configurations d execution restent configurees sur le volet ou les ententes et examens seront crees.
 
@@ -30,7 +30,7 @@ L assistant de volet cree le volet et plusieurs collections de configuration enf
 
 Les etapes de l assistant sont:
 
-- General: identite du volet, volet parent, descriptions, objectifs, indicateur de redistribution et statut.
+- General: identite du volet, volet parent, descriptions, objectifs, indicateur de redistribution et indicateur actif.
 - Bases de retenue : base de retenue de l'agence et libellé bilingue propre au volet.
 - Budgets: budgets de volet lies aux budgets d exercice financier du programme.
 - Destinataires: sous-types de destinataires demandeurs admissibles.
@@ -38,7 +38,8 @@ Les etapes de l assistant sont:
 - Types de modification: categorie modifiee et nom bilingue du type.
 - Sous-types de modification: nom et description lies a un type de modification de l assistant.
 - Sous-types d entente: types d entente de l agence permis pour le volet.
-- Engagements: lignes de codage financier liees a un budget d exercice financier du programme.
+- Plan comptable : dimensions financières bilingues ordonnées liées à un budget temporaire de volet.
+- Types d’engagement : classifications bilingues des engagements.
 - Types de surveillance: types de dossiers de surveillance bilingues.
 - Domaines: domaines d expertise bilingues pour l affectation d examens/evaluations.
 - Limites financieres: montant maximal par destinataire, pourcentage de soutien, pourcentage de couts retroactifs, limite de cumul et statut.
@@ -77,9 +78,11 @@ La page de detail du volet expose ces onglets:
 - Types de modification.
 - Sous-types de modification.
 - Sous-types d entente.
-- Engagements.
+- Plan comptable.
+- Types d’engagement.
 - Types de surveillance.
 - Cotes de risque.
+- Champs personnalisés.
 - Domaines d expertise.
 - Limites financieres.
 - Configurations d examen.
@@ -88,6 +91,8 @@ La page de detail du volet expose ces onglets:
 - Configurations de recommandation.
 - Configurations de flux de travail.
 - Extensions.
+
+Configurez les [Champs personnalisés](./custom-fields.md) pour les données additionnelles d’entente et le routage conditionnel.
 
 Chaque onglet utilise le meme patron: tableau de ressources, modale ou editeur, validation et suppression logique lorsque la suppression est permise.
 
@@ -101,13 +106,15 @@ L onglet General affiche l identite et les champs descriptifs du volet:
 - Objectif anglais et objectif francais.
 - Permet la redistribution.
 - Description anglaise et description francaise.
-- Statut.
+- Indicateur Actif.
 
 Modifiez ces champs depuis l action de la page de volet ou depuis l onglet Volets du programme parent.
 
 ## Onglet Bases De Retenue
 
 Bases de retenue associe au volet les bases de retenue actives de l'agence et donne à chaque association un nom français et anglais. La base choisie doit appartenir à l'agence du programme et ne peut apparaître qu'une fois dans une association active du volet. Configurez ces associations avant que les règles de retenue d'une entente en aient besoin.
+
+Le libellé bilingue d’une base de retenue peut être corrigé, mais sa base d’organisme ne peut changer tant qu’une entente non supprimée la référence. Un code de base d’organisme référencé ne peut pas non plus être changé. Les nouveaux choix doivent appartenir à l’organisme courant. Réglez la dépendance plutôt que de réutiliser un identifiant employé.
 
 ## Onglet Budgets
 
@@ -121,11 +128,15 @@ Configurez les budgets du programme avant les budgets de volet. Le financement d
 
 Le selecteur de budget de programme recherche les budgets du programme courant et affiche leur libelle d’exercice financier. Lors de la modification d’un budget de volet, son budget de programme enregistre est resolu par identifiant afin que le libelle reste visible meme s’il ne figure pas sur la page de resultats courante.
 
+Une nouvelle allocation exige un budget de programme admissible dont l’exercice n’est pas retiré. Un budget de volet existant peut conserver sa référence originale à un exercice retiré tout en corrigeant d’autres valeurs; un changement de référence exige une destination actuellement admissible. Les allocations des volets pour l’exercice cible ne peuvent dépasser le budget de programme sélectionné. Par exemple, pour `"100000.00"` au programme et `"70000.00"` déjà alloués aux autres volets, il reste `"30000.00"`; un montant supérieur est refusé. Les montants sont des chaînes décimales exactes. Un échec de lecture après un enregistrement validé exige de recharger avant de soumettre une autre allocation.
+
 ## Onglet Destinataires Admissibles
 
 Les destinataires admissibles definissent quels sous-types de destinataires demandeurs de l agence peuvent etre utilises pour le volet. Chaque ligne selectionne un sous-type de destinataire demandeur.
 
-Cet onglet agit comme barriere d execution: il limite les types de promoteurs/destinataires qui devraient etre disponibles dans les flux d entente ou d admission du volet.
+Ces correspondances décrivent les catégories prévues par le volet. La sélection des promoteurs d’une entente vérifie séparément le profil actif et la portée de lecture et permet un organisme principal distinct. La configuration seule ne prouve pas l’admissibilité d’un destinataire au programme.
+
+Les correspondances historiques conservent le libellé du sous-type après son retrait. La même référence peut être gardée; son remplacement doit être un sous-type actuellement admissible de l’organisme. Les références conservées de profil ou d’admissibilité peuvent bloquer la suppression ou le retrait d’un sous-type d’organisme.
 
 ## Onglet Elements De Ligne De Categorie De Couts
 
@@ -135,6 +146,8 @@ Les elements de ligne de categorie de couts exposent les lignes de couts de l ag
 - Ratio de partage des couts.
 
 L element selectionne doit appartenir a une categorie de couts de l agence du programme. Ces lignes controlent les elements de couts utilisables dans les budgets d entente et les reclamations du volet.
+
+La correspondance du volet, la ligne source et sa catégorie possèdent des indicateurs Actif distincts. Le tableau expose les sources inactives pour diagnostiquer la disponibilité; une correspondance existante ne contourne pas une source désactivée. Les lignes d’entente enregistrées conservent leurs références et leurs paramètres de calcul. Activez les niveaux sources nécessaires avant d’ajouter des lignes budgétaires.
 
 ## Types Et Sous-Types De Modification
 
@@ -152,6 +165,8 @@ Les sous-types ne peuvent pas etre configures utilement avant leur type parent. 
 Les sous-types d entente associent les types d entente de l agence au volet. Chaque ligne selectionne un type d entente de l agence.
 
 Cette configuration classe les ententes du volet et limite les types d entente valides dans la creation d ententes. Les types d entente de l agence doivent exister avant de remplir cet onglet.
+
+Changer le type d’entente d’organisme derrière un sous-type doit préserver la classification des ententes existantes. Le serveur refuse un remplacement incompatible avec leur type enregistré. Corrigez les libellés ou créez une configuration distincte au lieu de reclasser silencieusement les ententes.
 
 ## Plan comptable et types d’engagement
 
@@ -172,7 +187,7 @@ Les cotes de risque definissent les libelles et pointages disponibles pour le vo
 - Pointage de risque numerique. Le pointage doit etre fini et non negatif.
 - Nom anglais et nom francais.
 
-Les cotes de risque peuvent etre selectionnees ou derivees par les flux d entente et d evaluation; gardez donc leur echelle coherente avec le pointage d evaluation et les rapports operationnels.
+Les cotes fournissent les bandes du flux explicite `risk_rating` de l’entente. Sa publication associe les maxima des résultats d’évaluation aux cotes actives du volet; la réussite applique le score obtenu. La modification ordinaire du profil ne définit pas manuellement ce score. Voir [Flux de travail](../concepts/workflows.md) pour les bandes ordonnées, la configuration périmée et la reprise.
 
 ## Onglet Domaines D Expertise
 
@@ -191,7 +206,7 @@ Les limites financieres definissent les seuils du volet:
 - Pourcentage maximal de soutien disponible par destinataire.
 - Pourcentage maximal de couts retroactifs admissibles.
 - Limite de cumul.
-- Statut.
+- Indicateur Actif.
 
 L assistant traite les limites financieres comme optionnelles. Si le volet n a aucune ligne de limites financieres, les processus qui dependent de ces controles n auront pas de valeurs propres au volet.
 
@@ -239,7 +254,7 @@ Les configurations actives ne doivent pas dupliquer type d entite plus nom bilin
 
 ## Onglet Modeles D Approbation
 
-Les modeles d approbation de volet definissent les routes d approbation portees par le volet. Les modeles sont groupes par type d entite d execution et peuvent contenir des etapes ordonnees et des certifications.
+Les modeles d approbation de volet definissent les routes d approbation portees par le volet. Les modèles sont réutilisables dans le volet et contiennent des étapes et attestations; la configuration consommatrice fournit la cible d’exécution.
 
 Utilisez cet onglet lorsque les routes d approbation doivent varier selon le volet. Des modeles communs/globaux peuvent exister ailleurs, mais les modeles de volet sont ceux qui sont generalement references par les flux d examen, recommandation, entente, reclamation, prevision, paiement, surveillance et demandeur/destinataire.
 
@@ -247,7 +262,7 @@ Voir [Modeles d approbation](./approval-templates.md) pour le comportement compl
 
 ## Onglet Configurations De Flux De Travail
 
-Les configurations de flux définissent l'orchestration propre au volet déclenchée par un achèvement ou une recommandation. L'en-tête conserve la cible, l'objet, le point d'entrée, les états de départ permis, les replis d'annulation/échec d'exécution, l'état actif et la politique de reprise. La page de détail construit une séquence positive unique d'ensembles d'examens, d'ensembles de recommandations et de modèles d'approbation racine. Chaque membre peut appliquer un état cible à la matérialisation, à la réussite ou à l'échec. Les membres d'examen/recommandation exigent exactement un utilisateur actif par défaut pour chaque membre imbriqué; **Permettre le réacheminement du propriétaire** autorise le rétablissement si cet utilisateur n'est plus admissible à l'exécution. La publication revalide ressources, propriétaires, cible et portée. Les exécutions publiées conservent la séquence, les transitions, les correspondances et la filiation immuables. Consultez [Flux de travail](../concepts/workflows.md).
+Les configurations définissent l’orchestration du volet. Un flux standard démarre explicitement depuis le catalogue de la cible; la soumission d’approbation démarre explicitement pour l’entente et par achèvement pour les enfants pris en charge. La cotation du risque démarre explicitement sur l’entente. L’en-tête conserve la cible, l’objet, les états de départ permis, les replis d'annulation/échec d'exécution, l'état actif et la politique de reprise. La page de détail construit une séquence positive unique d'ensembles d'examens, d'ensembles de recommandations et de modèles d'approbation racine. Chaque membre peut appliquer un état cible à la matérialisation, à la réussite ou à l'échec. Les membres d'examen/recommandation exigent exactement un utilisateur actif par défaut pour chaque membre imbriqué; **Permettre le réacheminement du propriétaire** autorise le rétablissement si cet utilisateur n'est plus admissible à l'exécution. La publication revalide ressources, propriétaires, cible et portée. Les exécutions publiées conservent la séquence, les transitions, les correspondances et la filiation immuables. Consultez [Flux de travail](../concepts/workflows.md).
 
 ## Onglet Modeles De Documents
 

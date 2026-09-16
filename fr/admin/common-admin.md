@@ -1,93 +1,49 @@
-# Administration commune
+# Administration du GWCOA
 
-L'Administration commune est le gestionnaire global de ressources piloté par configuration à `/fr/admin/commun`. Elle exige une capacité globale explicite `system:read`. Le middleware client redirige vers l'accueil si cette capacité manque ou si sa vérification échoue, mais chaque route d'API applique aussi sa propre autorisation.
+Ouvrez **Administration → GWCOA** à `/fr/admin/gwcoa` pour gérer le catalogue d’organisations utilisé par les profils d’organisme. L’application possède maintenant un gestionnaire GWCOA dédié. Les anciens onglets d’administration commune et routes CRUD génériques ne constituent plus l’interface opérationnelle; gérez les références, configurations et travaux dans leurs espaces propriétaires.
 
-## Ordre des ressources et propriété
+## Permissions
 
-Les onglets adressables par route apparaissent dans cet ordre exact :
+Le GWCOA est une configuration globale. La lecture exige `system:read` global; la création exige `system:create` global; la modification, suppression logique et restauration utilisent `system:update` global. L’accès à un organisme ne suffit pas. Chaque requête serveur vérifie la permission, et les écritures reconstruisent l’autorisation dans leur transaction avant d’appliquer les changements.
 
-1. GWCOA
-2. Entités
-3. Contacts
-4. Adresses
-5. Schémas de formulaire
-6. Types de pièce jointe
-7. Schémas d'examen
-8. Configurations d'ensembles d'examens
-9. Configurations d'examen
-10. Achèvements
-11. Ensembles d'examens
-12. Examens
-13. Modèles d'approbation
-14. Étapes d'approbation
-15. Certifications
-16. Feuilles de route
-17. Schémas de recommandation
-18. Configurations de recommandation
-19. Recommandations
+## Rechercher et consulter
 
-Ces enregistrements appartiennent aux tables communes globales, même si certains portent une portée d'agence ou de volet. La page standard exige toujours l'accès global au système. Les types de pièce jointe et les schémas d'examen ou de recommandation filtrés par agence peuvent aussi être lus par leurs recherches à portée autorisée; cela ne donne pas accès à la page Administration commune.
+Le tableau propose pagination, recherche littérale et filtre actif/supprimé. La recherche couvre l’identifiant de ligne, le numéro d’organisation et les noms anglais/français; `%` et `_` sont ordinaires. Le total filtré décrit les résultats courants, tandis que les comptes total et actif de l’en-tête couvrent tout le catalogue. Réduire l’en-tête masque ses statistiques.
 
-## Utiliser le gestionnaire partagé
+Ouvrez une ligne pour la consulter ou modifier. L’identifiant de base désigne la ligne; le numéro GWCOA est le numéro d’organisation référencé par les profils d’organisme. Ne confondez pas ces identifiants.
 
-Choisissez un onglet dans la navigation de gauche ou utilisez sa valeur de requête `section`. L'onglet par défaut est Contacts. L'en-tête affiche le total et le nombre actif de la ressource choisie. Chaque tableau permet la pagination, la recherche dans les colonnes configurées et l'identifiant, ainsi qu'un filtre pour toutes les lignes, les lignes actives ou les lignes supprimées.
+## Créer ou modifier une organisation
 
-Sélectionnez **Ajouter** pour ouvrir un formulaire généré, ou ouvrez une ligne pour la modifier. Les champs peuvent être du texte, un nombre, une date, du texte multiligne, du JSON, un booléen, une énumération ou une recherche serveur. Les colonnes bilingues de nom et de description s'affichent dans la langue courante avec repli. Les recherches chargent les libellés et hydratent la valeur choisie en modification, y compris une référence supprimée lorsque le contrat du champ le permet.
-
-Pour une adresse canadienne, la subdivision utilise la liste des provinces et territoires; un autre pays la transforme en texte libre et efface la valeur canadienne incompatible. Le contenu d'un schéma de recommandation utilise l'éditeur structuré lorsqu'il existe. Les autres champs JSON utilisent une zone de texte JSON et doivent respecter le schéma choisi.
-
-Une ligne modifiable existante offre **Supprimé**. L'activation effectue une suppression logique; la désactivation tente une restauration. Cette page ne supprime physiquement aucun enregistrement Common.
-
-### Cycle de publication des schémas de formulaire
-
-Les schémas de formulaire sont des ressources de publication appartenant à une agence, et non de simples interrupteurs de suppression logique. Une personne ayant l’accès de modification à l’agence sélectionnée peut créer et modifier sa définition de travail, publier un brouillon ou une définition publiée modifiée, puis retirer définitivement une définition publiée. L’accès de suppression de niveau Gestionnaire à l’agence permet de supprimer uniquement un brouillon non référencé. La recherche d’agence ne liste que les agences que l’appelant peut modifier.
-
-La publication crée la version 1 ou, après une véritable modification du contenu, la prochaine version positive immuable. Publier un contenu inchangé ne crée aucune version. Une ligne publiée indique si sa copie de travail contient des modifications non publiées; les consommateurs d’exécution historiques demeurent liés à la version exacte sélectionnée. Les schémas retirés restent disponibles aux dossiers historiques, mais ne peuvent plus être sélectionnés pour un nouveau travail, modifiés, republiés, restaurés ni supprimés.
-
-## Ressources en lecture seule
-
-Les onglets suivants sont volontairement en lecture seule dans ce gestionnaire générique :
-
-- Entités, le registre d'identités polymorphes alimenté par les enregistrements métier.
-- Modèles d'approbation, Étapes d'approbation et Certifications, gérés dans l'éditeur de modèles du volet.
-- Feuilles de route, qui sont des enregistrements d'exécution gérés par les actions d'approbation.
-
-Le serveur refuse la création ou la modification de ces ressources même si un client tente l'appel directement.
-
-## Groupes de ressources modifiables
-
-| Groupe | Ressources | Contrat important |
-| --- | --- | --- |
-| Référence | GWCOA, Contacts, Adresses, Schémas de formulaire, Types de pièce jointe | Créez-les avant les enregistrements qui les recherchent. Une ressource liée à une agence doit référencer un propriétaire valide. Les noms et descriptions avec colonnes EN/FR exigent les deux valeurs. |
-| Conception des examens | Schémas d'examen, Configurations d'ensembles, Configurations d'examen | Un schéma est créé comme brouillon de version 0. Les configurations fixent la portée et le type d'entité exacts, l'ordre des membres, l'approbation facultative, le mode séquentiel, le déclencheur d'achèvement et l'état actif. Utilisez de préférence les éditeurs de volet pour publier la configuration de production. |
-| Exécution des examens | Ensembles d'examens, Examens | Les enregistrements pointent vers des entités sources et des configurations précises. Un nouvel examen copie les indicateurs de résultats personnalisés, d'alignement et d'examinateurs du schéma actif. Un changement de schéma actualise ces indicateurs; une restauration exige un schéma actif, tandis qu'une restauration avec le même schéma conserve l'instantané existant. |
-| Achèvement | Achèvements | Stocke l'identité typée de l'entité, la valeur, les commentaires, l'utilisateur Common et la date. Le travail métier normal doit utiliser l'action d'exécution de l'enregistrement source. |
-| Conception des recommandations | Schémas de recommandation, Configurations de recommandation | Les schémas portent l'identité bilingue, le type d'entité, le statut, le résultat et la définition structurée. Les configurations lient un schéma et un modèle d'approbation facultatif à une portée et un type exacts. |
-| Exécution des recommandations | Recommandations | Stocke la configuration, l'identité typée de l'entité, la valeur de recommandation et les réponses. Le travail normal doit utiliser le flux de la source. |
-
-## Autorisation et validation
-
-La liste et la lecture exigent normalement `system:read` à portée globale; la création exige `system:create`; la modification, la suppression logique et la restauration exigent `system:update`. La création et la modification valident avec le schéma Zod de la ressource, puis reconstruisent l'autorisation globale dans une transaction avant la mutation. La modification verrouille la ligne cible ou utilise le chemin de verrouillage plus strict de la ressource. Un nom de ressource inconnu, un identifiant manquant, une mutation en lecture seule, une référence ou un JSON invalide et une validation localisée produisent l'enveloppe d'erreur API standard.
-
-La recherche neutralise les caractères génériques SQL. Les identifiants bigint sont acceptés comme chaînes ou nombres lorsque le contrat le prévoit et les API exposées par PostgreSQL/Kysely les retournent sous forme de chaînes. Une modification est partielle, mais l'enregistrement fusionné doit demeurer valide.
-
-Deux routes de recherche partagées accompagnent le gestionnaire générique :
-
-| Route | Accès et forme |
+| Champ | Règle |
 | --- | --- |
-| `GET /api/admin/agency/approval-behalf-types` | Exige `system:read` global. Retourne une liste interagences paginée avec les noms bilingues du type de représentation et de l'agence, `egcs_ay_require_actual`, l'état de suppression, le `total` filtré et les statistiques globales non filtrées `stats.total` et `stats.active`. La recherche traite `%`, `_` et les caractères d'échappement comme du texte littéral et porte aussi sur l'identifiant numérique. Une requête `deleted` explicite l'emporte sur `status=active|deleted`. |
-| `GET /api/metadata/enums?name=...` | Route volontairement publique afin que la connexion et les contrôles partagés puissent charger les valeurs autorisées. Retourne un simple tableau ordonné de chaînes; elle n'accepte jamais un nom arbitraire de type PostgreSQL. `ability` retourne le catalogue statique des capacités, plusieurs énumérations applicatives proviennent de constantes statiques et les autres énumérations autorisées suivent l'ordre PostgreSQL. Un nom invalide produit l'erreur localisée `ENUM_INVALID`. |
+| Numéro | Entier obligatoire de 0 à 32 767; unique dans le catalogue. |
+| Nom anglais | Texte élagué non vide obligatoire, au plus 255 caractères Unicode. |
+| Nom français | Texte élagué non vide obligatoire, au plus 255 caractères Unicode. |
+| Supprimé | Disponible en modification pour retrait ou restauration logiques; ne supprime pas physiquement la ligne. |
 
-La route des types de représentation est un inventaire administratif, et non le sélecteur d'agence à portée limitée. Ses statistiques décrivent la table entière même lorsque la liste d'éléments est recherchée ou filtrée. Les libellés d'énumération affichés dans les contrôles sont traduits côté client à partir de ces codes stables; cette route ne retourne pas de texte d'affichage localisé.
+1. Recherchez d’abord l’organisation pour éviter un doublon sous un autre libellé linguistique.
+2. Choisissez Ajouter et saisissez le numéro et les deux noms.
+3. Enregistrez et vérifiez la ligne.
+4. Utilisez le sélecteur GWCOA du profil d’organisme pour l’y associer.
 
-## Dépendances et rétablissement
+Par exemple, corriger l’orthographe française est une modification du nom, non une raison d’attribuer un nouveau numéro. Si un organisme référence le numéro, le changer produit `GWCOA_NUMBER_IN_USE`; corrigez le libellé en conservant ce numéro. Un doublon produit `GWCOA_DUPLICATE_NUMBER`, y compris avec des entrées conservées.
 
-Créez les références avant les configurations, puis les configurations avant les enregistrements d'exécution. Créez notamment les utilisateurs actifs et les portées d'agence ou de volet avant les configurations d'approbation ou d'examen; publiez les schémas et modèles de production dans leurs éditeurs spécialisés avant de matérialiser le travail.
+Une référence GWCOA retirée inchangée peut rester sur un organisme existant lors d’autres modifications. Son retrait ne la rend pas admissible pour de nouvelles sélections. Examinez la référence avant de la remplacer et choisissez une organisation actuellement admissible pour un remplacement réel.
 
-Si une recherche est vide, vérifiez que la ressource existe, n'est pas supprimée, respecte les filtres d'agence et de type d'entité et que vous avez la permission de lecture à sa portée. Si une restauration échoue, restaurez ou remplacez d'abord les dépendances actives exigées. Si l'enregistrement signale un changement concurrent de permission ou de propriété, rechargez la page au lieu de soumettre de nouveau un état périmé.
+## Où effectuer les autres tâches
 
-L'Administration commune est une surface experte de configuration et de réparation, pas un remplacement des pages d'exécution normales. Une modification directe d'une configuration active ou d'un enregistrement d'exécution peut différencier le travail nouveau et historique. Préservez l'historique figé et publiez une nouvelle version lorsque le processus métier change.
+| Tâche | Espace |
+| --- | --- |
+| Exercices, coûts, types d’adresse et de pièce jointe, sous-types de destinataire, types d’entente et statuts | Onglets de référence de l’[organisme](./agencies.md) |
+| Approbations, examens, recommandations, flux, documents et champs personnalisés | [Volet](../programs/streams.md) et éditeurs dédiés |
+| Contacts et adresses | Espace du promoteur ou de l’entente propriétaire |
+| Examens, recommandations, approbations et achèvement à l’exécution | Dossier métier et flux correspondants |
+| Preuves de changements et de requêtes entre organismes | [Audit](./audit.md), avec permission Audit globale explicite |
 
-![Ressources de l'Administration commune](/screenshots/fr/common-admin.png)
+Ne tentez pas de réparer l’historique en recréant l’éditeur générique retiré. Les définitions publiées et preuves d’exécution ont leurs propres règles de cycle de vie et d’autorisation.
 
-_La capture utilise des données de développement préchargées. Une installation neuve ne contient pas ces exemples._
+## Échecs et reprise
+
+Un chargement échoué est une erreur, non la preuve d’un catalogue vide. Réessayez avant de modifier. Après un échec d’enregistrement, conservez le brouillon, corrigez les champs ou le numéro conflictuel, puis réessayez. Après un changement de permissions, rechargez les capacités. Si l’écriture a réussi mais l’actualisation échoue, reprenez la lecture plutôt que créer un doublon.
+
+Les contrôles d’énumération utilisent `GET /api/metadata/enums?name=...`, une route publique volontaire avec noms autorisés et réponse en tableau ordonné de chaînes. Elle fournit des codes stables que le client traduit. Distincte du GWCOA, elle ne consulte pas des types arbitraires de base. Même ces métadonnées publiques attendent la fin du démarrage et la disponibilité de l’audit.

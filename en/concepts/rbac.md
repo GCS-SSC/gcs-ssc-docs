@@ -66,7 +66,7 @@ The exact assignment roster applies to:
 
 An active assignable entity must have at least one active assigned user and exactly one primary user. The primary marker identifies the lead; it does not give extra business permissions. All active assigned users have the same entity boundary and remain limited by their own role ceilings.
 
-Only workable statuses accept roster changes. For example, Proponent assignments are editable in `draft` and `active`; Agreement assignments in `draft`, `pendingapproval`, and `active`; review and most financial casework use their own open-status policies; recommendations and amendments accept changes only in `draft`. Terminal records can remain visible in Assignment Management while their roster is locked.
+Roster changes require a workable exact target: active Proponent; normal Agency business status without completion for Agreement work; or an active/paused review or recommendation without completion. Read-only, terminal, completed, and deleted targets are protected. See [Assignment Management](../admin/assignments.md) for the full policy.
 
 Deleting an assignable entity soft-deletes its active assignments. Roster changes are serialized and database triggers enforce the non-empty, one-primary invariant at transaction commit.
 

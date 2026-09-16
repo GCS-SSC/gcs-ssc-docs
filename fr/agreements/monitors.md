@@ -26,15 +26,13 @@ La liste affiche le type, l'exercice, le trimestre provisoire, l'indicateur sur 
 | Trimestre provisoire | Petit entier obligatoire de 1 à 4; la validation et PostgreSQL appliquent tous deux cette plage. |
 | Sur place | Valeur vrai/faux obligatoire. |
 
-Une nouvelle surveillance commence à `draft`. Son ouverture affiche Planification, Éléments, Constatations, Suivis, Pratiques prometteuses et Flux de travail, puis les onglets d'extension activés qui ciblent `monitor`. Tant que la surveillance est modifiable, les quatre champs d'en-tête peuvent être changés.
+Une nouvelle surveillance reçoit le statut Brouillon de l’organisme. Son ouverture affiche Planification, Éléments, Constatations, Suivis, Pratiques prometteuses et Flux de travail, puis les onglets d'extension activés qui ciblent `monitor`. Tant que la surveillance est modifiable, les quatre champs d'en-tête peuvent être changés.
 
-::: warning Le statut n'avance pas lors d'une modification
-Même si le code source contient l'utilitaire `syncAgreementMonitorEditingStatus`, aucune route actuelle ne l'appelle. La création ou la modification de sous-dossiers ne fait donc **pas** automatiquement passer `draft` à `inprogress`. Considérez le statut affiché comme la valeur enregistrée, et non comme une preuve de la quantité de travail saisie.
-:::
+Les modifications ordinaires de l’en-tête et des enfants conservent le statut métier. Son libellé ne mesure pas la quantité de travail de planification ou de surveillance saisie.
 
 ## Consigner le travail de surveillance
 
-Toute création, modification ou suppression d'un sous-dossier exige la permission correspondant à l'opération, renouvelle l'autorisation dans une transaction, verrouille l'agrégat de surveillance et rejette une surveillance à l'état `complete`, `pendingapproval`, `approved` ou `denied`. Le lien parent-enfant est revérifié avant la mutation.
+Toute création, modification ou suppression d'un sous-dossier exige la permission correspondant à l'opération, renouvelle l'autorisation dans une transaction, verrouille l'agrégat de surveillance et rejette une surveillance à l'état un état protégé par le statut métier, Achèvement ou le flux. Le lien parent-enfant est revérifié avant la mutation.
 
 | Espace | Contenu obligatoire et comportement |
 | --- | --- |
@@ -53,36 +51,23 @@ Après la création, la modification ou la suppression logique d'une mise à jou
 
 ## Achever une surveillance
 
-Utilisez **Flux de travail > Achever** pendant que la surveillance est modifiable. L'achèvement exige au moins un élément de surveillance non supprimé. Il n'exige pas d'objectif de planification, que tous les éléments soient marqués surveillés, des dates réelles pour les éléments non surveillés, des constatations, des suivis résolus, des pratiques prometteuses ni la réussite d'une approbation distincte.
+Utilisez Flux/Achèvement tant que la surveillance est modifiable. L’action exige Contributeur, l’affectation exacte, aucun achèvement antérieur, aucun flux actif et au moins un élément non supprimé. Elle n’exige pas d’objectifs, que tous les éléments soient surveillés, de dates réelles pour les éléments non surveillés, de constats, de suivis résolus ou de pratiques prometteuses.
 
-La requête d'achèvement :
+La transaction revérifie ces conditions, consigne l’utilisateur Common et les commentaires facultatifs, puis démarre la soumission d’approbation sélectionnée ou consigne `no_workflow`. L’échec du démarrage du flux sélectionné requis annule Achèvement. Le crochet est émis après validation. L’action fige l’édition ordinaire sans attribuer un statut fixe `complete`.
 
-1. renouvelle le plafond de rôle Entente Contributeur et l'affectation exacte à la surveillance, puis verrouille la surveillance;
-2. revérifie qu'aucun achèvement n'existe et qu'au moins un élément demeure;
-3. fait passer la surveillance à `complete`;
-4. crée un seul dossier d'achèvement commun avec l'utilisateur commun actuel et les commentaires facultatifs;
-5. lance le flux d'achèvement configuré, s'il y a lieu;
-6. émet le crochet d'achèvement après la validation de la transaction.
-
-L'achèvement est à sens unique dans l'espace principal actuel. Une surveillance achevée et tous ses sous-dossiers sont en lecture seule.
-
-::: warning L'achèvement ne lance pas l'approbation de la surveillance
-L'achèvement direct écrit toujours `complete`. Il ne consulte pas un modèle d'approbation `fundingcasemonitor` et ne crée pas de feuille d'acheminement, même lorsqu'un modèle valide existe.
-:::
+Par exemple, un élément non surveillé avec des dates prévues valides satisfait la présence requise, mais l’achèvement ne prouve pas que la visite a eu lieu. Appliquez les exigences d’examen avant cette action irréversible. Des suivis ouverts peuvent encore bloquer la clôture de l’entente même si Achèvement n’exigeait pas leur résolution.
 
 ## Limite entre approbation et flux de travail
 
-Le moteur d'approbation générique prend en charge `fundingcasemonitor` : une API explicite ou une intégration de flux autorisée peut créer une feuille d'acheminement à partir du modèle actuel du volet, attribuer des étapes séquentielles, permettre des étapes supplémentaires configurées, réattribuer une étape en attente et consigner les décisions d'approbation ou de refus. La création de cette feuille fait passer la surveillance à `pendingapproval`; la décision finale fait passer la feuille et la surveillance à `approved` ou `denied`. L'approbateur actuellement affecté traite la prochaine étape en attente, tandis que les opérations de gestion exigent une nouvelle autorisation de mise à jour de l'entente.
+Pour exiger l’approbation, configurez un flux publié de soumission `fundingcasemonitor` avec ses membres d’examen, recommandation ou approbation. Achèvement le démarre et les étapes matérialisées apparaissent dans la section Flux partagée. Un modèle seul ne suffit pas.
 
-La page principale de surveillance n'offre aucune commande pour créer la première feuille d'acheminement autonome. Sa section Flux de travail affiche les approbations seulement lorsqu'une feuille a déjà été matérialisée ou qu'un flux configuré atteint son étape d'approbation de la source. N'indiquez pas aux utilisateurs que la sélection d'**Achever** mène conditionnellement à l'approbation.
-
-Les flux d'achèvement sont aussi distincts de l'approbation autonome. Un flux configuré peut lancer une séquence d'examen, de recommandation et d'approbation finale. La section Flux de travail affiche les tentatives actuelle et antérieures, et les utilisateurs autorisés peuvent reprendre une exécution échouée admissible. Consultez [Flux de travail](../concepts/workflows.md) et [Approbations, achèvements et intégration des flux de travail](../concepts/approvals-completions.md).
+Les flux standard se choisissent explicitement lorsque l’état le permet; Achèvement n’en démarre jamais automatiquement. Les statuts suivent les transitions publiées. Utilisez la résolution de propriétaire ou les commandes de reprise/annulation autorisées. Consultez [Flux de travail](../concepts/workflows.md) et [Approbations et achèvements](../concepts/approvals-completions.md).
 
 ## Supprimer et récupérer prudemment
 
 La suppression d'un sous-dossier active son indicateur `_deleted`. La suppression d'un suivi supprime aussi logiquement ses mises à jour. La suppression d'une surveillance modifiable supprime logiquement, dans une seule transaction, la surveillance, ses objectifs, ses éléments, ses constatations, ses pratiques prometteuses, ses suivis et leurs mises à jour. Les clés étrangères interdisent la suppression physique; les routes prises en charge utilisent plutôt la suppression logique.
 
-La suppression n'est plus offerte après `complete`, `pendingapproval`, `approved` ou `denied`. Confirmez la surveillance exacte avant de la supprimer; l'interface principale n'offre aucune restauration. En cas d'échec, aucun message de réussite n'est affiché et la fenêtre demeure ouverte pour correction. Après un résultat réseau incertain, actualisez avant de réessayer, car le serveur pourrait déjà avoir validé l'écriture.
+La suppression n'est plus offerte après un état protégé par le statut métier, Achèvement ou le flux. Confirmez la surveillance exacte avant de la supprimer; l'interface principale n'offre aucune restauration. En cas d'échec, aucun message de réussite n'est affiché et la fenêtre demeure ouverte pour correction. Après un résultat réseau incertain, actualisez avant de réessayer, car le serveur pourrait déjà avoir validé l'écriture.
 
 ## Résumé du contrat d'API
 

@@ -41,10 +41,10 @@ Les champs du profil sont:
 - Date de debut et date de fin: obligatoires. La date de fin doit etre egale ou posterieure a la date de debut.
 - Nom anglais et nom francais.
 - Abreviation anglaise et abreviation francaise.
-- Lien des modalites: obligatoire et doit etre une URL valide.
+- Liens français et anglais des modalités : les deux sont obligatoires et doivent être des URL valides.
 - Description anglaise et description francaise.
 - Objectif anglais et objectif francais.
-- Statut: brouillon par defaut a la creation.
+- Indicateur Actif : faux par défaut à la création.
 
 Tous les champs bilingues sont obligatoires. Un programme sans texte anglais ou francais ne valide pas.
 
@@ -54,7 +54,7 @@ L assistant cree le profil et les enregistrements enfants selectionnes ensemble.
 
 Les etapes de l assistant sont:
 
-- General: agence, dates, noms bilingues, abreviations, lien des modalites, descriptions, objectifs et statut.
+- General: agence, dates, noms bilingues, abreviations, liens français et anglais des modalités, descriptions, objectifs et indicateur actif.
 - Resultats: zero ou plusieurs resultats bilingues.
 - Objectifs: zero ou plusieurs enonces d objectif bilingues.
 - Budgets: zero ou plusieurs budgets d exercice financier. Chaque ligne choisit un exercice financier de l agence, un budget total et un seuil de surengagement.
@@ -134,6 +134,8 @@ Chaque budget de programme peut ensuite etre reference par des budgets de volet.
 
 Un budget de programme ne peut pas être réduit sous la somme de ses affectations actives aux budgets de volet, ni être supprimé tant que de telles affectations le référencent. Rechargez la page avant de réessayer si un autre administrateur a modifié les affectations simultanément.
 
+Un exercice enregistré peut être conservé lorsque sa référence est retirée, afin de corriger un montant sans changer l’année. Choisir un autre exercice exige une référence active du même organisme et est bloqué si les dépendances d’années de financement des ententes seraient réaffectées. Le rechargement par identifiant exact conserve le libellé hors de la page de recherche. Changer l’organisme dans l’assistant d’un nouveau programme efface les budgets incompatibles; rechargez les choix échoués plutôt que de soumettre des identifiants périmés.
+
 Le selecteur d’exercice financier recherche les exercices disponibles de l’agence du programme. Lors de la modification d’un budget, l’exercice enregistre est resolu vers son libelle d’affichage meme s’il ne figure pas sur la page de resultats courante; les dossiers hors de la portee de l’agence du programme ne peuvent pas etre selectionnes.
 
 ## Onglet Indicateurs De Rendement
@@ -148,7 +150,7 @@ Le formulaire de creation preselectionne un resultat disponible lorsque possible
 
 ## Statut Et Cycle De Vie
 
-Le statut du programme utilise l enum de statut de base et vaut brouillon par defaut. Le statut actif est compte par la page de liste et correspond a l etat attendu pour une configuration prete a l utilisation operationnelle. L application n active pas automatiquement les volets ou les configurations d execution lorsqu un programme devient actif; chaque volet et chaque dependance doivent etre configures volontairement.
+La disponibilité du programme utilise l’indicateur booléen **Actif**, désactivé initialement. Il est distinct des états métier de l’organisme utilisés par les ententes. Activer le programme n’active pas automatiquement ses volets et ne publie pas leur configuration; terminez chaque dépendance explicitement.
 
 ## Permissions Et Portee
 
@@ -177,5 +179,5 @@ Un ordre pratique dans une installation vide est:
 3. Ajouter les budgets du programme pour chaque exercice financier utilise par les volets.
 4. Creer un ou plusieurs volets.
 5. Configurer les budgets de volet, destinataires, lignes de couts, sous-types d entente, engagements, risques, examens, recommandations, approbations, modeles de documents et extensions.
-6. Activer ou publier les schemas d evaluation et modeles d approbation utilises par les flux d execution.
+6. Publier les schémas d’évaluation et modèles d’approbation utilises par les flux d execution.
 7. Creer des ententes de production seulement lorsque le volet cible est assez complet pour le flux d entente utilise.

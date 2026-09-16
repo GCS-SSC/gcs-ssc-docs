@@ -53,15 +53,15 @@ All mutations require a current management grant and a roster-mutable status. Th
 
 If the primary becomes ineligible, add or choose another eligible user and make that user primary before removing the old assignment. A locked terminal record has no UI or API override; preserve its historical roster.
 
-## Workable status policy
+## Workable roster policy
 
-| Entity | Roster can change while status is |
+| Entity | Conditions for roster changes |
 | --- | --- |
-| Proponent | `draft`, `active` |
-| Agreement | `draft`, `pendingapproval`, `active` |
-| Recommendation or amendment | `draft` |
-| Claim | `draft`, `inprogress`, `inreview`, `submitted`, `reviewed`, `active`, `complete` |
-| Review, claim reconciliation, payment, forecast, monitor, commitment | `draft`, `inprogress`, `inreview`, `submitted`, `reviewed`, `active` |
+| Proponent | Active, non-deleted profile. |
+| Agreement and business children, including amendment and Closeout | An active Agency status definition that is neither read-only nor terminal, and no completion evidence on the exact target. |
+| Review or recommendation | Runtime item is `active` or `paused`, with no completion evidence. |
+
+These conditions supplement current permissions, ownership, exact assignment, and parent lifecycle guards. They do not grant editing rights by themselves. The display label is not the rule: a custom “In review” business status can be normal or read-only depending on its configuration.
 
 ## Entity-level access
 

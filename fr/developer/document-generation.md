@@ -1,26 +1,20 @@
 # Génération de documents
 
-La génération de documents d'entente réunit les modèles bilingues du volet, les données actuelles de l'entente, le stockage local de pièces jointes et un dossier d'instantané généré. Le parcours utilisateur et les cinq contrats de route sont décrits dans [Documents d'entente](../agreements/documents.md).
+La génération de documents d'entente réunit les modèles bilingues du volet, les données actuelles de l'entente, le stockage de pièces jointes par fournisseur et un dossier d'instantané généré. Le parcours utilisateur et les cinq contrats de route sont décrits dans [Documents d'entente](../agreements/documents.md).
 
 ## Pipeline d'exécution
 
-`generateAgreementDocument` dans `server/utils/document-generation.ts` exécute la séquence suivante dans la transaction de création d'entente dont l'autorisation vient d'être renouvelée :
+La route de génération capture un instantané autorisé de la base, résout le modèle actif exact et le format demandé, puis charge la source linguistique auprès du fournisseur enregistré sur la pièce. Elle hydrate le contexte localisé et effectue le rendu hors de la transaction d’écriture de l’entente.
 
-1. résoudre un modèle `fundingcaseagreement` actif du volet actuel de l'entente;
-2. confirmer que la sortie demandée figure dans `egcs_tp_outputformats`;
-3. lire la pièce jointe source anglaise ou française au moyen du fournisseur local;
-4. construire le contexte localisé à partir des relations actuelles de l'entente;
-5. effectuer le rendu DOCX ou HTML natif, ou le convertir en PDF;
-6. écrire une pièce jointe commune privée;
-7. insérer `Funding_Case_Agreement_Generated_Document`.
+Une limite locale au processus autorise deux rendus concurrents par paire organisme/utilisateur; les requêtes supplémentaires reçoivent `429 DOCUMENT_RENDER_BUSY`. Après le rendu, une courte transaction à autorisation actualisée revérifie portée, affectation, cycle de vie et empreinte SHA-256 du contexte principal courant. Des données modifiées produisent `409 DOCUMENT_RENDER_INPUT_CHANGED` au lieu d’enregistrer une sortie périmée. Actualisez et recommencez après stabilisation des sources.
 
-L'échec de l'insertion des métadonnées de pièce jointe supprime le nouvel objet. L'échec de l'insertion du dossier généré supprime logiquement la pièce jointe et retire son objet. Puisque les octets du système de fichiers ne participent pas à la transaction PostgreSQL/PGlite, les exploitants doivent tout de même détecter les écarts entre stockage et base de données lors d'une interruption de processus ou d'un échec de validation.
+La persistance écrit un objet chez le fournisseur, une pièce commune et un document généré. Un échec de métadonnées tente le nettoyage de l’objet; un échec du dossier généré retire et nettoie sa pièce. Le stockage externe et la base ne forment pas une transaction atomique. Le nettoyage des documents et modèles utilise une compensation au mieux et journalise les échecs; ne supposez pas que chacun possède un travail dans la file des téléversements partagés.
 
 ## Rendu et frontière de confiance
 
 Le traitement DOCX normalise les balises à doubles accolades dans `word/*.xml`, puis utilise Docxtemplater avec boucles de paragraphes, sauts de ligne, recherche dans les portées parentes et valeur de remplacement localisée. Le traitement HTML accepte les substitutions pointées et une forme de boucle de collection, et échappe toute valeur substituée.
 
-La conversion HTML vers PDF démarre un navigateur Puppeteer sans interface, désactive JavaScript dans la page et interrompt les requêtes sauf `data:` et `about:`. DOCX vers PDF utilise `libreoffice-convert`; `LIBREOFFICE_SOFFICE_PATH` remplace l'enveloppe `scripts/soffice-flatpak` du dépôt. Un échec de conversion devient l'erreur localisée `LIBREOFFICE_UNAVAILABLE`.
+La conversion HTML vers PDF démarre un navigateur Puppeteer sans interface, désactive JavaScript dans la page et interrompt les requêtes sauf `data:` et `about:`. DOCX vers PDF utilise `libreoffice-convert`; `LIBREOFFICE_SOFFICE_PATH` remplace l'enveloppe `scripts/soffice-flatpak` du dépôt. Un échec de conversion devient l’erreur localisée `LIBREOFFICE_UNAVAILABLE`. LibreOffice dispose de 30 secondes. Chromium partage un budget de rendu de 30 secondes entre ses étapes, avec une limite distincte de deux secondes pour le nettoyage, plutôt qu’un délai complet renouvelé à chaque étape.
 
 Les auteurs de modèles sont des auteurs de contenu privilégiés. Le HTML natif conserve le balisage du modèle, et Puppeteer démarre avec `--no-sandbox`; déployez le service dans la frontière non privilégiée et conteneurisée documentée et réservez la gestion des modèles aux administrateurs de confiance.
 
@@ -30,15 +24,15 @@ Les clés de premier niveau stables comprennent actuellement `agreement`, `agenc
 
 L'objet intégré `department` contient des données fixes de Santé Canada plutôt que la configuration d'agence. `recipient.primary` est le premier bénéficiaire lié selon son identifiant, avec la première adresse active trouvée pour lui. Les auteurs de modèles doivent tenir compte de ces deux limites.
 
-L'utilitaire fusionne profondément, de façon séquentielle, les fonctions présentes dans `event.context.documentGenerationContextProviders`. Aucun module, plugiciel hôte ni extension installée actuelle n'enregistre cette propriété. Il s'agit donc d'un point d'intégration interne propre à l'événement, et non d'une capacité déclarée du SDK d'extension. Si une intégration hôte autorisée fournit des fonctions, les dernières remplacent les valeurs scalaires et les tableaux et fusionnent récursivement les objets; elles s'exécutent dans la transaction de génération et peuvent faire échouer la requête.
+L'utilitaire fusionne profondément, de façon séquentielle, les fonctions présentes dans `event.context.documentGenerationContextProviders`. Aucun module, plugiciel hôte ni extension installée actuelle n'enregistre cette propriété. Il s'agit donc d'un point d'intégration interne propre à l'événement, et non d'une capacité déclarée du SDK d'extension. Si une intégration hôte autorisée fournit des fonctions, les dernières remplacent les valeurs scalaires et les tableaux et fusionnent récursivement les objets; elles hydratent les données de rendu hors de la transaction finale d’écriture et peuvent faire échouer la requête.
 
 ## Stockage et dossiers
 
-`writeStoredFile` assainit les segments de nom et de dossier, crée ou réutilise le type de pièce jointe de l'agence, écrit dans le compartiment `local-document-templates`, puis conserve le fournisseur, la clé d'objet, le type MIME, la taille, les noms, les descriptions et l'heure de création. `Funding_Case_Agreement_Generated_Document` référence l'entente, le modèle et la pièce jointe générée et limite le format à `docx`, `html` ou `pdf`.
+`writeStoredFile` assainit les segments du nom d’objet proposé, crée ou réutilise un type de pièce de l’organisme et délègue les octets au fournisseur sélectionné. La pièce conserve l’identifiant du fournisseur, l’identité opaque de l’objet, le localisateur JSON réservé au serveur, le type MIME, la taille, le nom original, les métadonnées bilingues et la date. `Funding_Case_Agreement_Generated_Document` lie l’entente, le modèle, la pièce produite, la langue et le format.
 
-Le stockage local rejette les chemins absolus ou traversants, les liens symboliques, les objets non réguliers, la mauvaise propriété POSIX, l'accès du groupe ou des autres et les espaces de noms ancêtres non sécuritaires. Il écrit un fichier temporaire exclusif de mode 0600, puis le renomme atomiquement. Configurez `GCS_LOCAL_FILE_STORAGE_DIR` comme chemin durable appartenant au service et sauvegardez-le avec la base de données.
+Lecture et suppression utilisent le fournisseur enregistré, pas la sélection courante pour les nouveaux fichiers. Aucun repli local n’existe. Les identifiants, la durabilité des objets et l’infrastructure relèvent de la configuration du fournisseur. Conservez toutes les implémentations et tous les objets référencés avec la sauvegarde de base.
 
-La suppression active logiquement le document généré et la pièce jointe dans une transaction, puis supprime les octets après la validation. Un échec de nettoyage autre que ENOENT est journalisé sans annuler la suppression des métadonnées. Le téléchargement exige l'appartenance à l'entente et des dossiers actifs, puis retourne les en-têtes de type MIME, de nom et de longueur enregistrés.
+La suppression retire le dossier généré et sa pièce, puis tente le nettoyage externe. Un échec est journalisé sans restaurer les métadonnées. Le téléchargement exige la relation active exacte accessible et renvoie les en-têtes de type MIME, nom et taille enregistrés. Ces documents sont distincts de la liste des [Pièces jointes](../concepts/attachments.md) téléversées manuellement.
 
 ## Outils locaux
 

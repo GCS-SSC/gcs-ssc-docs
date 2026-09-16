@@ -53,15 +53,15 @@ Toutes les mutations exigent une permission de gestion courante et un état perm
 
 Si le principal devient inadmissible, ajoutez ou choisissez une autre personne admissible et rendez-la principale avant de retirer l’ancienne affectation. Un dossier terminal verrouillé ne comporte aucun contournement dans l’interface ou l’API; conservez son registre historique.
 
-## Politique des états modifiables
+## Politique des registres modifiables
 
-| Entité | Le registre peut changer lorsque l’état est |
+| Entité | Conditions de modification du registre |
 | --- | --- |
-| Promoteur | `draft`, `active` |
-| Entente | `draft`, `pendingapproval`, `active` |
-| Recommandation ou modification | `draft` |
-| Réclamation | `draft`, `inprogress`, `inreview`, `submitted`, `reviewed`, `active`, `complete` |
-| Examen, rapprochement, paiement, prévision, surveillance, engagement | `draft`, `inprogress`, `inreview`, `submitted`, `reviewed`, `active` |
+| Promoteur | Profil actif non supprimé. |
+| Entente et enfants métier, y compris modification et clôture | Définition d’état active de l’organisme, ni en lecture seule ni terminale, et aucune preuve d’achèvement sur la cible exacte. |
+| Examen ou recommandation | Élément d’exécution `active` ou `paused`, sans preuve d’achèvement. |
+
+Ces conditions s’ajoutent aux permissions, à la propriété, à l’affectation exacte et aux protections du parent. Elles n’accordent pas à elles seules le droit de modifier. Le libellé n’est pas la règle : un état métier personnalisé « En examen » peut être normal ou en lecture seule selon sa configuration.
 
 ## Accès au niveau de l’entité
 

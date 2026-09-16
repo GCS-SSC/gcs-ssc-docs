@@ -10,13 +10,13 @@ Les engagements regroupent les lignes de codage financier que les paiements peuv
 | Budget courant de l’entente | Le total des lignes actives de chaque engagement est plafonné par le financement de programme total de la version budgétaire courante de l’entente. |
 | Plan comptable | Le volet de l’entente doit comporter des entrées de plan comptable liées à ses budgets. Le sélecteur recherche l’exercice affiché et les dimensions comptables conservées, et ne permet pas de choisir la configuration d’un autre volet. |
 | Dossier d’utilisateur commun | L’achèvement exige que le compte connecté corresponde à un `Common_User` actif. |
-| Flux de travaux d’achèvement facultatif | Un flux de travaux publié pour `fundingcaseagreementcommitment` peut démarrer après l’achèvement. Son résultat terminal configuré peut ensuite modifier l’état de l’engagement. |
+| Flux de travaux d’achèvement facultatif | Le flux publié de soumission d’approbation sélectionné démarre à l’achèvement, s’il existe; sinon les effets positifs sont immédiats. |
 
 Les écritures s’exécutent dans une transaction qui verrouille l’entente et l’agrégat d’engagement touché, recharge la portée de l’entente et répète l’autorisation avant la modification. Un dossier absent, supprimé, rattaché à une autre entente ou non autorisé n’est pas révélé comme une ressource enfant utilisable.
 
 ## Créer et trouver des engagements
 
-Choisissez **Ajouter un engagement**, sélectionnez un des types bilingues configurés pour le volet de l’entente, puis enregistrez. Un engagement créé par le noyau commence à l’état `draft`, est inactif et n’a aucun numéro de système financier. L’interface principale modifie uniquement le type; le numéro de système financier est exposé par les API, mais n’est pas modifiable ici.
+Choisissez **Ajouter un engagement**, sélectionnez un des types bilingues configurés pour le volet de l’entente, puis enregistrez. Un engagement créé par le noyau reçoit le statut Brouillon de l’organisme, est inactif et n’a aucun numéro de système financier. L’interface principale modifie uniquement le type; le numéro de système financier est exposé par les API, mais n’est pas modifiable ici.
 
 La recherche de l’onglet correspond au libellé localisé du type ou de l’état, au nombre de lignes ou au total affiché. Les résultats sont filtrés et paginés dans le navigateur après le chargement du résumé complet.
 
@@ -30,11 +30,11 @@ La page de détails affiche le fil d’Ariane de l’entente et l’état, puis 
 | --- | --- |
 | Numéro de ligne d’engagement | Nombre entier obligatoire de 1 à 32 767. Dans un engagement, la combinaison active du numéro de ligne et de l’entrée du plan comptable doit être unique. |
 | Entrée du plan comptable | Obligatoire. Elle doit être active et appartenir au volet exact de l’entente. Son exercice et ses dimensions comptables ordonnées et localisées figurent dans le sélecteur et le tableau. |
-| Montant | Valeur monétaire `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas 90 billions. Le validateur actuel n’exige pas un montant positif ou non négatif. |
+| Montant | Valeur monétaire `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas `99999999999999999.99`, transmis en texte décimal exact. Le validateur actuel n’exige pas un montant positif ou non négatif. |
 
 La recherche de la page de détails correspond au numéro de ligne, à l’exercice, à chaque composante de codage affichée ou au montant. La carte de total additionne toutes les lignes non filtrées et présente le résultat en dollars canadiens; aucune conversion de devise n’est effectuée.
 
-La création, la modification, le déplacement ou la suppression d’une ligne fait passer chaque engagement modifiable touché à l’état `inprogress`. Une requête PATCH peut déplacer une ligne vers un autre engagement modifiable de la même entente, même si le formulaire actuel la conserve dans l’engagement affiché. La suppression logique masque une ligne; la suppression d’un engagement modifiable supprime logiquement celui-ci et toutes ses lignes actives dans la même transaction.
+Les changements ordinaires de lignes conservent le statut métier de l’organisme. Une requête PATCH peut déplacer une ligne vers un autre engagement modifiable de la même entente, même si le formulaire actuel la conserve dans l’engagement affiché. La suppression logique masque une ligne; la suppression d’un engagement modifiable supprime logiquement celui-ci et toutes ses lignes actives dans la même transaction.
 
 ## Mesures de protection financière
 
@@ -42,8 +42,8 @@ La création, la modification, le déplacement ou la suppression d’une ligne f
 | --- | --- |
 | Plafond du financement de programme courant | Pour l’engagement visé, les lignes actives existantes plus le montant nouveau ou de remplacement ne peuvent pas dépasser la somme du `financement de programme` de la version budgétaire courante de l’entente. Il s’agit d’un plafond par engagement, et non d’un plafond partagé entre tous les types ou toutes les versions d’engagement. |
 | Contrôle par la base de données | PostgreSQL répète cette règle au moyen de déclencheurs de contrainte différés après les écritures de lignes d’engagement, les changements aux lignes du budget courant et les changements de version courante. La transaction ne peut donc pas être validée si un engagement actif dépasse le financement de programme courant total. |
-| Plancher du montant payé | Lors de la création ou de la modification d’une ligne, le montant soumis doit être au moins égal à la somme de toutes les lignes de paiement actives et non refusées de cette entente dont les lignes d’engagement utilisent la même entrée du plan comptable. La comparaison est agrégée par entrée du plan; elle ne se limite pas à la ligne modifiée. |
-| Cycle de vie verrouillé | Les engagements `complete`, `pendingapproval`, `approved` et `denied` ne peuvent être ni modifiés ni supprimés, et leurs lignes ne peuvent pas être changées. |
+| Plancher du montant payé | Une modification ne peut réduire le montant sous les allocations de paiement rattachées à cette ligne exacte. Les paiements non supprimés comptent sauf si leur dernière preuve d’approbation cible est `denied`; un libellé métier ne définit pas le refus. Toute référence active de ligne de paiement empêche aussi de changer l’engagement ou l’entrée comptable de la ligne, même après un refus d’approbation. |
+| Cycle de vie verrouillé | La preuve d’achèvement, un flux protégé et les statuts en lecture seule ou terminaux verrouillent les mutations ordinaires de l’engagement et de ses lignes. |
 
 Si une réduction budgétaire place un engagement au-dessus du nouveau financement de programme courant, PostgreSQL refuse la transaction. Rétablissez un financement courant suffisant ou réduisez d’abord les lignes d’un engagement encore modifiable. Les échecs de validation ou de contrainte ne laissent aucune modification partielle.
 
@@ -53,23 +53,19 @@ L’application accepte actuellement les montants nuls et négatifs dans les lig
 
 ## Achever un engagement
 
-L’achèvement est offert uniquement avec un plafond de rôle Entente Contributeur et l’affectation exacte à l’engagement, si l’engagement demeure modifiable, si aucun achèvement antérieur n’existe et si au moins une ligne active demeure. Les commentaires sont facultatifs.
+Achèvement exige Contributeur et l’affectation exacte à l’engagement, un dossier modifiable, aucun achèvement antérieur et au moins une ligne active. Les commentaires sont facultatifs. Le serveur verrouille et revérifie l’agrégat, l’utilisateur et les permissions; un flux actif bloque l’action.
 
-L’achèvement est atomique et effectue les actions suivantes :
+La transaction consigne Achèvement et démarre la soumission d’approbation sélectionnée si elle existe; sinon elle consigne `no_workflow`. Le crochet d’achèvement est émis après validation. L’action verrouille l’édition ordinaire sans attribuer un statut métier codé en dur `complete`.
 
-1. il verrouille et revalide l’engagement, les lignes, l’utilisateur, la portée et l’autorisation;
-2. il désactive tout autre engagement actif de la même entente et du même type;
-3. il fait passer cet engagement à l’état `complete` et l’active;
-4. il crée son unique dossier d’achèvement commun et émet le point d’extension d’achèvement après la validation de la transaction;
-5. il lance tout flux de travaux d’achèvement publié configuré pour `fundingcaseagreementcommitment`.
+À la terminaison positive — immédiate sans flux, sinon après sa réussite — l’engagement devient actif et les autres engagements actifs de la même entente et du même type sont désactivés. La base impose aussi un seul engagement actif non supprimé par entente/type. Un échec ou une annulation n’active pas le remplacement.
 
-La base de données n’autorise aussi qu’un seul engagement actif et non supprimé par entente et par type. Un engagement achevé peut être choisi pour un paiement; un engagement approuvé peut l’être uniquement s’il est actif. Consultez [Paiements](payments.md) pour les règles de solde en aval et [Flux de travaux](../concepts/workflows.md) pour les effets des états du flux de travaux.
+Par exemple, conservez l’engagement actif pendant la préparation de son remplacement. Achevez le remplacement et terminez son approbation. Seule la réussite l’active. Vérifiez l’engagement actif avant un paiement; le sélecteur peut afficher un historique avec preuve d’achèvement qui n’est plus actif.
 
-## Limite du moteur d’approbation
+## Configuration de l’approbation
 
-Le serveur contient un moteur générique d’approbation d’engagement pour un modèle `fundingcaseagreementcommitment` associé au volet : création d’une feuille d’acheminement, décisions séquentielles, réattribution, approbations supplémentaires et état final `approved` ou `denied`. Une approbation finale active l’engagement choisi et désactive tous les autres engagements de la même entente et du même type.
+Pour exiger une approbation, publiez un flux `approval_submission` pour `fundingcaseagreementcommitment` et incluez le modèle, plan d’examen ou de recommandation publié approprié. Un modèle seul est une configuration, non la garantie d’un parcours. Achèvement démarre maintenant ce flux par le moteur partagé; suivez ses approbations dans la section Flux.
 
-Cependant, l’achèvement principal d’un engagement ne consulte **pas** ce modèle et ne crée aucune feuille d’acheminement : il achève et active toujours l’engagement directement. La page de détails actuelle ne monte non plus aucun composant d’approbation. La seule configuration d’un modèle d’approbation d’engagement ne fait donc pas soumettre l’écran principal des engagements à l’approbation. Considérez ce moteur comme une capacité d’API ou d’intégration jusqu’à ce qu’un flux hôte ou d’extension l’appelle explicitement; ne promettez pas une étape d’approbation aux utilisateurs de cet écran. Le contrat générique est décrit dans [Approbations et achèvements](../concepts/approvals-completions.md).
+Un flux standard reste un choix explicite facultatif et ne démarre jamais du seul fait de l’achèvement. Pour une tentative refusée, échouée, suspendue ou annulée, utilisez les actions de reprise et la politique figée. Consultez [Flux de travail](../concepts/workflows.md) et [Approbations et achèvements](../concepts/approvals-completions.md).
 
 ## Rétablissement et suppression
 

@@ -11,7 +11,7 @@ Le serveur applique chaque autorisation. La visibilité de la navigation et les 
 | Lister ou consulter les agences et leurs données de référence | Une attribution `agency:read` applicable |
 | Créer une agence | Permission globale `agency:create` |
 | Modifier ou supprimer une agence | `agency:update` ou `agency:delete` pour cette agence précise |
-| Créer ou supprimer des données de référence de l'agence | Permission correspondante pour cette agence précise |
+| Créer, modifier ou supprimer des données de référence de l'agence | Permission correspondante pour cette agence précise |
 | Créer un programme depuis l'onglet Programmes | `transfer_payment:create` pour cette agence précise |
 
 Un dossier enfant absent et un dossier inaccessible produisent normalement la même réponse « introuvable ». Un identifiant ne peut donc pas révéler des données d'une autre agence.
@@ -25,28 +25,29 @@ Le formulaire d'agence contient :
 | Champ | Règle |
 | --- | --- |
 | Organisation du plan comptable pangouvernemental (PCPG) | Recherche serveur obligatoire; la création exige l'accès global de création et la modification exige l'accès à l'agence précise |
-| Identifiant du système financier | Identifiant numérique obligatoire |
-| Noms français et anglais | Obligatoires, maximum de 100 caractères chacun |
-| Abréviations française et anglaise | Obligatoires, maximum de 10 caractères chacune |
-| Statut | Ébauche, actif ou inactif |
+| Identifiant du système financier | Identifiant PostgreSQL bigint positif obligatoire; le conserver sous forme de chaîne décimale |
+| Noms français et anglais | Obligatoires, espaces périphériques retirés, maximum de 255 caractères Unicode chacun |
+| Abréviations française et anglaise | Obligatoires, espaces périphériques retirés, maximum de 255 caractères Unicode chacune |
+| Actif | Indicateur booléen de disponibilité; initialement inactif |
 
-L'onglet Général affiche ces valeurs. Une modification du profil remplace uniquement les champs soumis. La combinaison active de l'identifiant du système financier, des deux noms et du statut doit être unique.
+L'onglet Général affiche ces valeurs. Une modification du profil remplace uniquement les champs soumis. La combinaison active de l'identifiant du système financier, des deux noms et de l’indicateur actif doit être unique.
 
 ## Navigation de la fiche
 
-La fiche comporte onze onglets pouvant être liés directement :
+La fiche comporte douze onglets pouvant être liés directement :
 
 1. Général
-2. Programmes
-3. Catégories de coûts
-4. Exercices financiers
-5. Bases de retenue
-6. Types d'adresse
-7. Sous-types de demandeur ou bénéficiaire
-8. Approbation au nom d'autrui
-9. Types d'entente
-10. États
-11. Extensions
+2. États
+3. Programmes
+4. Catégories de coûts
+5. Exercices financiers
+6. Bases de retenue
+7. Types d’adresse
+8. Types de pièces jointes
+9. Sous-types de demandeur ou bénéficiaire
+10. Approbation au nom d’autrui
+11. Types d’entente
+12. Extensions
 
 Chaque onglet de données de référence offre la recherche littérale, le filtre de statut, la pagination et les totaux de l'agence. La recherche et le statut modifient les lignes affichées et le total paginé, tandis que le sommaire demeure celui de toute l'agence.
 
@@ -60,16 +61,36 @@ Les programmes contiennent des volets. Configurez les exercices financiers, les 
 
 | Onglet | Valeurs conservées et contraintes | Actions prises en charge | Utilisation principale |
 | --- | --- | --- | --- |
-| Catégories de coûts | Noms français et anglais obligatoires, chacun unique parmi les catégories actives de l'agence | Lister, créer, supprimer logiquement | Regroupement financier des programmes, ententes, réclamations, paiements et répartitions |
-| Éléments de catégorie de coûts | Noms français et anglais obligatoires, chacun unique parmi les éléments actifs de sa catégorie | Lister, créer, supprimer logiquement | Classement détaillé des budgets et des dépenses |
-| Exercices financiers | Libellé d'au plus 9 caractères, année de 1900 à 2100, dates de début et de fin, la fin ne précédant pas le début | Lister, créer, supprimer logiquement | Budgets, prévisions, engagements, paiements, réclamations et périodes de surveillance |
+| Catégories de coûts | Noms français et anglais obligatoires, chacun unique parmi les catégories actives de l'agence | Lister, créer, modifier, supprimer logiquement | Regroupement financier des programmes, ententes, réclamations, paiements et répartitions |
+| Éléments de catégorie de coûts | Noms français et anglais obligatoires, chacun unique parmi les éléments actifs de sa catégorie | Lister, créer, modifier, supprimer logiquement | Classement détaillé des budgets et des dépenses |
+| Exercices financiers | Libellé d'au plus 9 caractères, année de 1900 à 2100, dates de début et de fin, la fin ne précédant pas le début | Lister, créer, modifier, supprimer logiquement | Budgets, prévisions, engagements, paiements, réclamations et périodes de surveillance |
 | Bases de retenue | Code obligatoire et noms français et anglais; le code actif est unique dans l'agence | Lister, créer, modifier, supprimer logiquement | Configuration des retenues d'une entente |
-| Types d'adresse | Noms français et anglais obligatoires, chacun unique parmi les valeurs actives de l'agence | Lister, créer, supprimer logiquement | Classement des adresses des promoteurs et des ententes |
-| Sous-types de demandeur ou bénéficiaire | Type de demandeur ou bénéficiaire, nom et description bilingues obligatoires; les noms sont uniques pour la combinaison agence/type active | Lister, créer, supprimer logiquement | Classement offert aux promoteurs dont l'agence responsable possède le sous-type |
-| Approbation au nom d'autrui | Noms français et anglais obligatoires et indicateur `require actual`; les noms sont uniques parmi les valeurs actives de l'agence | Lister, créer, supprimer logiquement | Règles d'approbation déléguée et exigence des renseignements sur l'approbateur réel |
-| Types d'entente | Valeur d'énumération du type d'entente et noms français et anglais obligatoires; les noms sont uniques pour la combinaison agence/type active | Lister, créer, supprimer logiquement | Classement des ententes créées pour l'agence |
+| Types d'adresse | Noms français et anglais obligatoires, chacun unique parmi les valeurs actives de l'agence | Lister, créer, modifier, supprimer logiquement | Classement des adresses des promoteurs et des ententes |
+| Sous-types de demandeur ou bénéficiaire | Type de demandeur ou bénéficiaire, nom et description bilingues obligatoires; les noms sont uniques pour la combinaison agence/type active | Lister, créer, modifier, supprimer logiquement | Classement offert aux promoteurs dont l'agence responsable possède le sous-type |
+| Approbation au nom d'autrui | Noms français et anglais obligatoires et indicateur `require actual`; les noms sont uniques parmi les valeurs actives de l'agence | Lister, créer, modifier, supprimer logiquement | Règles d'approbation déléguée et exigence des renseignements sur l'approbateur réel |
+| Types d'entente | Valeur d'énumération du type d'entente et noms français et anglais obligatoires; les noms sont uniques pour la combinaison agence/type active | Lister, créer, modifier, supprimer logiquement | Classement des ententes créées pour l'agence |
 
-Ces listes n'offrent pas toutes une action générale de renommage ou de modification. Lorsqu'une ressource permet seulement la création et la suppression, créez une valeur corrigée puis retirez la valeur désuète. Bases de retenue constitue l'exception et offre une action de modification.
+Les références peuvent être modifiées en place. Utilisez **Modifier** pour corriger un libellé tout en conservant l’identifiant des dossiers existants; supprimez seulement pour retirer une valeur. La modification d’un exercice valide les dates de début et de fin fusionnées, même si une requête PATCH ne change qu’une date. Un doublon ou une sélection périmée laisse le formulaire disponible pour correction.
+
+### Disponibilité et calculs par défaut
+
+Les catégories de coûts et leurs éléments possèdent un indicateur **Actif** distinct de la suppression. Les correspondances de lignes de coûts du volet possèdent aussi leur propre disponibilité. Tous les niveaux requis doivent être disponibles pour une nouvelle sélection au budget d’une entente. Les références déjà enregistrées peuvent rester visibles sans être proposées pour du nouveau travail; ne les remplacez pas simplement parce qu’une recherche les omet.
+
+Une ligne de coûts peut définir un calcul par défaut pour le budget d’entente :
+
+| Mode | Configuration |
+| --- | --- |
+| Manuel | Saisir directement le montant soutenu. Aucune catégorie source, aucun pourcentage ni remplacement de pourcentage n’est permis. |
+| Catégorie | Choisir une autre catégorie du même organisme contenant seulement des lignes manuelles; saisir un pourcentage de 0 à 100 avec au plus deux décimales. |
+| Toutes les autres | Calculer un pourcentage des autres lignes admissibles; laisser la catégorie source vide. |
+
+Une catégorie utilisée comme source ne peut pas recevoir de lignes calculées. Une ligne ne peut dépendre de sa propre catégorie ni d’une catégorie d’un autre organisme. **Autoriser le remplacement du pourcentage** permet à l’utilisateur de l’entente de modifier le pourcentage par défaut capturé. Modifier la valeur de l’organisme ne réécrit pas les lignes d’entente existantes.
+
+Par exemple, configurez « Avantages sociaux » à 10 % de la catégorie manuelle « Salaires », puis rendez la ligne disponible dans les éléments de catégorie de coûts du volet. Un salaire soutenu de 10 000,00 produit 1 000,00 d’avantages. Consultez [Budget](../agreements/budget.md) pour le regroupement, l’arrondissement au dollar, le calcul sur toutes les autres lignes et les contrôles transactionnels de capacité.
+
+### Types de pièces jointes
+
+Créez les classifications bilingues sélectionnées lors du téléversement de [pièces jointes](../concepts/attachments.md). Elles appartiennent à l’organisme, et non à un catalogue global d’administration commune. Créer, modifier ou supprimer exige la permission correspondante pour cet organisme précis. Les types retirés sont exclus des nouveaux choix; les métadonnées historiques restent liées au type enregistré.
 
 ## États opérationnels
 
@@ -78,6 +99,12 @@ Chaque agence possède son catalogue configurable d’états opérationnels. Une
 L’accès de modification de l’agence permet de créer un état normal et de changer sa présentation bilingue. Définir les indicateurs lecture seule ou terminal, supprimer ou restaurer exige l’accès de suppression de l’agence. L’état Ébauche ne peut être modifié, supprimé ni restauré. Un état devenu terminal ne peut plus redevenir normal ou en lecture seule. Les noms sont obligatoires dans les deux langues, la couleur doit être une valeur hexadécimale de six chiffres, l’icône doit être un identifiant Lucide autorisé et les noms actifs sont uniques sans égard à la casse dans l’agence.
 
 La suppression est refusée tant que des dossiers opérationnels, une configuration ou publication de flux de travaux, ou une intégration hôte enregistrée référence l’état. Ne restaurez qu’après avoir résolu tout conflit de nom actif. Les définitions en lecture seule et terminales figent les mutations applicables du dossier opérationnel; elles ne remplacent pas les moteurs distincts d’état stable de publication et d’exécution.
+
+### Transitions de rapprochement des réclamations
+
+L’onglet États configure aussi deux transitions facultatives de la réclamation. L’état de **début** est appliqué lorsque le rapprochement commence; il doit être normal, sans lecture seule et non terminal, dans cet organisme. L’état **final** est appliqué lorsqu’un rapprochement final atteint une issue positive d’achèvement; il doit être terminal et appartenir au même organisme. Une sélection vide désactive la transition correspondante.
+
+Par exemple, choisissez « En rapprochement » au début et « Réclamation fermée » à la fin. Un rapprochement final inachevé ou refusé ne ferme pas la réclamation simplement parce que son indicateur final est coché. Enregistrer cette configuration exige l’accès de modification de l’organisme. Cela n’accorde aucun droit sur une réclamation et ne réécrit pas le travail déjà achevé.
 
 ## Cycle de vie, concurrence et suppression
 

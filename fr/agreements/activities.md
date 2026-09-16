@@ -29,7 +29,7 @@ L'onglet ouvre un formulaire plein écran. Tous les champs ci-dessous sont oblig
 | Résultats attendus en anglais | Texte non vide. |
 | Résultats attendus en français | Texte non vide. |
 | Résultats connexes | Au moins un résultat actif et unique appartenant au programme de l'entente. |
-| Responsables | Au moins un lien actif et unique entre l'entente et un bénéficiaire lui-même actif. |
+| Responsables | Au moins un lien unique et non supprimé entre l’entente et un promoteur non supprimé. Cette vérification n’exige pas que l’indicateur Actif du profil soit encore activé. |
 
 Les sélecteurs de résultats et de responsables offrent une recherche côté serveur et la sélection multiple. Si un seul responsable est disponible au chargement d'un nouveau formulaire, l'interface le sélectionne automatiquement; vous pouvez tout de même modifier ce choix. Lorsqu'une recherche est vide, son bouton de sélection est désactivé et l'interface indique qu'aucun choix n'est disponible.
 
@@ -39,7 +39,7 @@ Changer la langue de l'interface change les noms affichés, et non les valeurs a
 
 Le tableau présente le nom et la description dans la langue active, les dates de début et de fin, les résultats attendus dans la langue active ainsi que les pastilles de résultats et de responsables. Il est paginé. La recherche porte sur l'identifiant de l'activité; le nom, la description ou les résultats attendus en anglais ou en français; les noms des résultats; ainsi que les dénominations sociales ou noms commerciaux des bénéficiaires. Elle ne porte **pas** sur les dates affichées.
 
-Les liens de résultat inactifs, les liens inactifs entre l'entente et un bénéficiaire et les bénéficiaires supprimés sont omis des résultats et des pastilles.
+Les liens de résultat supprimés, les liens entente–promoteur supprimés et les promoteurs supprimés sont omis des résultats et des pastilles.
 
 ## Validation, concurrence et reprise
 
@@ -47,7 +47,7 @@ Dans la transaction d'écriture, le serveur verrouille les lignes établies de p
 
 Les changements de sélection sont synchronisés dans la même transaction. Les liens retirés sont supprimés logiquement; sélectionner de nouveau le même résultat ou responsable restaure le lien existant lorsque c'est possible. Une défaillance partielle annule ensemble l'activité et ses sélections. La base de données impose aussi la plage de dates, l'appartenance à l'entente et à la version ainsi qu'un seul lien actif pour chaque paire activité-résultat et activité-responsable.
 
-Si un autre auteur modifie l'accès ou la configuration connexe avant l'enregistrement, rechargez l'entente et rouvrez le formulaire. Une mise à jour vide ne change pas l'activité et renvoie ses valeurs courantes.
+Si un autre auteur modifie l'accès ou la configuration connexe avant l'enregistrement, rechargez l'entente et rouvrez le formulaire. Une mise à jour vide ne change pas l'activité et renvoie ses valeurs courantes. Une modification partielle de date est validée avec l’autre date enregistrée : changer seulement la date de début ne permet pas de la déplacer après la date de fin existante. La lecture conserve l’en-tête et les libellés des relations dans un même instantané cohérent.
 
 ## Suppression et versions
 

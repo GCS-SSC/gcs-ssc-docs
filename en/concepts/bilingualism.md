@@ -4,7 +4,7 @@ GCS-SSC is bilingual at the route, label, validation, and data levels. English c
 
 ## Routes
 
-Nuxt i18n uses prefix routing. The default locale is English, but URLs still use `/en`. French pages use `/fr` and several translated path segments, such as `/fr/agences`, `/fr/utilisateurs`, `/fr/promoteurs`, and `/fr/admin/commun`.
+Nuxt i18n uses prefix routing. The default locale is English, but URLs still use `/en`. French pages use `/fr` and several translated path segments, such as `/fr/agences`, `/fr/utilisateurs`, `/fr/promoteurs`, and `/fr/admin/gwcoa`.
 
 Operators should share the localized URL they expect users to open.
 
@@ -35,3 +35,5 @@ Review schemas, recommendation schemas, assessment labels, outcome labels, appro
 ## Documentation parity
 
 The English and French documentation pages should mirror structure. A user switching language should land in the same conceptual section, not a shorter summary.
+
+Program terms and conditions have separate required English and French URLs. Extensions own their message catalogues and resolve them through the SDK using the current host locale; an extension message is not a host translation key. See [Validation and localization](../developer/validation-i18n.md).

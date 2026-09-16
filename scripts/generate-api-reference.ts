@@ -79,7 +79,7 @@ const names: Record<string, { en: string, fr: string, enSummary: string, frSumma
   extensions: { en: 'Extension host API', fr: 'API hôte des extensions', enSummary: 'Discovery metadata, enablement/configuration, dynamic dispatch, runtime contributions, and extension storage.', frSummary: 'Métadonnées de découverte, activation/configuration, répartition dynamique, contributions d’exécution et stockage d’extension.' },
   agencies: { en: 'Agency API', fr: 'API des agences', enSummary: 'Agency profiles and agency-owned bilingual reference data.', frSummary: 'Profils d’agence et données de référence bilingues appartenant à l’agence.' },
   identity: { en: 'Identity and RBAC API', fr: 'API d’identité et de contrôle d’accès', enSummary: 'Better Auth delegation, role permissions, exact entity assignments, assigned work, and assignment management.', frSummary: 'Délégation Better Auth, permissions de rôle, affectations exactes, travail affecté et gestion des affectations.' },
-  platform: { en: 'Platform and administration API', fr: 'API de plateforme et d’administration', enSummary: 'Common administration, metadata, health, and remaining platform endpoints.', frSummary: 'Administration commune, métadonnées, état de santé et autres points d’entrée de plateforme.' }
+  platform: { en: 'Platform and administration API', fr: 'API de plateforme et d’administration', enSummary: 'GWCOA, audit evidence, shared attachments, metadata, health, and platform endpoints.', frSummary: 'GWCOA, preuves d’audit, pièces jointes partagées, métadonnées, état de santé et points d’entrée de plateforme.' }
 }
 
 const escapeCell = (value: string): string => value.replaceAll('|', '\\|').replaceAll('\n', ' ')

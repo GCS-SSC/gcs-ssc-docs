@@ -23,19 +23,12 @@ All child records resolve the current Agreement scope. Viewer reads. Ordinary ch
 
 Most destructive actions are soft deletes. Deleted child records disappear from normal lists and selectors but remain available for historical integrity.
 
-## Status and workflow pattern
+## Business status, completion, and workflow
 
-The complex execution records use common status rules:
+Agreement children use the Agency’s configurable business statuses. Ordinary saves preserve status. Read-only and terminal flags, completion evidence, active workflow locks, and the parent Agreement’s protection determine whether work can be edited. Labels such as “Approved” do not independently establish approval evidence.
 
-| Record | Draft/edit statuses | Locked statuses |
-| --- | --- | --- |
-| Commitment | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
-| Payment | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied`, `pay`, `wait`, `processed`, `paid` |
-| Forecast lines | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
-| Claim submission | `draft` | `submitted`, `inreview`, `reviewed`, `withdrawn`, `cancelled` |
-| Claim reconcile | `draft`, `inprogress`, `complete` while the claim is ready and no approved final reconcile exists | `pendingapproval`, `approved`, `denied` |
-| Monitor | `draft`, `inprogress` | `complete`, `pendingapproval`, `approved`, `denied` |
+Complete validates the record and starts its published approval-submission workflow when configured. Amendments and Closeouts require that workflow; the other supported children can complete without one. Positive completion effects—such as activating a replacement Forecast or Commitment—wait for successful workflow termination when a run exists. A saved completion alone does not prove that approval succeeded.
 
-Completion writes a `Common_Completion` record. Core completion for commitments, payments, forecasts, monitors, and claim reconciliations writes `complete` directly and can start a published completion workflow. It does not inspect a standalone approval template or materialize its routing slip; those generic approval runtimes require an explicit API/integration caller, while a completion workflow can independently reach a configured source-approval stage. Consult the entity guide for its exact boundary.
+The **Workflows** tab starts a selected standard workflow explicitly. At most one workflow is active on an exact target across all purposes. Completion, root approval submission, standard workflow, and direct review are distinct actions; use the entity guide and [Approvals and completions](../concepts/approvals-completions.md) for their prerequisites.
 
-Approval sections use the common routing-slip actions. Approving every current step moves the target to `approved`; any denial moves it to `denied`; otherwise it stays `pendingapproval`. Denied records may allow a new routing slip depending on workflow configuration.
+Supporting files belong to the exact child’s [Attachments](../concepts/attachments.md) tab. [Amendments](./amendments.md) and [Closeouts](./closeouts.md) have their own completion, snapshot, and aggregate-lock rules.

@@ -4,7 +4,7 @@ L’onglet **Promoteurs** lie des profils de demandeur-bénéficiaire enregistr�
 
 ## Accès et comportement de la liste
 
-L’accès en lecture à l’entente permet d’énumérer les liens actifs vers des profils de promoteur actifs. Le tableau présente le nom légal bilingue du profil, avec repli sur son nom d’exploitation, ainsi que son agence responsable active lorsqu’elle existe. La recherche porte sur l’identifiant du lien, le nom légal ou d’exploitation dans l’une ou l’autre langue et le nom de l’agence responsable.
+L’accès en lecture à l’entente permet d’énumérer les liens non supprimés vers des profils de promoteur non supprimés, y compris ceux devenus inactifs. Le tableau présente le nom légal bilingue du profil, avec repli sur son nom d’exploitation, ainsi que le nom conservé de son agence responsable lorsqu’il existe. La recherche porte sur l’identifiant du lien, le nom légal ou d’exploitation dans l’une ou l’autre langue et le nom de l’agence responsable.
 
 | Accès à l’entente | Actions disponibles |
 | --- | --- |
@@ -27,9 +27,16 @@ Dans une entente enregistrée, **Ajouter** utilise une recherche filtrée selon 
 
 Le retrait supprime logiquement la relation; il ne supprime ni l’entente ni le promoteur. Cet onglet n’offre aucune commande de restauration. Ajoutez un nouveau lien après un retrait accidentel.
 
-::: warning Cardinalité après la création
-L’assistant de création exige au moins un identifiant de promoteur unique, mais les routes enfants ultérieures ne maintiennent pas cette règle. Le code actuel ne comporte ni protection du dernier lien ni contrainte d’unicité active sur la paire entente-promoteur. Une personne autorisée peut retirer le dernier lien ou ajouter le même promoteur plus d’une fois. Vérifiez le tableau avant l’ajout et ne retirez pas le dernier promoteur utile, sauf si une entente sans promoteur est voulue.
-:::
+## Références conservées et protection des activités
+
+Un lien conserve le libellé enregistré du promoteur même si son organisme principal est ensuite supprimé. Enregistrer la même référence ne la modifie pas et n’oblige pas à remplacer le contexte historique par un choix actuellement admissible. Choisir un autre promoteur revérifie le nouveau profil, son propriétaire et votre portée de lecture.
+
+L’organisme principal du promoteur peut différer de l’organisme de l’entente. Par exemple, un programme peut financer un promoteur lisible dirigé par un autre organisme; chaque dossier garde sa propre frontière d’autorisation.
+
+Un lien actif de partie responsable d’activité protège la relation entente–promoteur. La remplacer ou la supprimer retourne `AGREEMENT_APPLICANT_RECIPIENT_IN_USE` (409); réglez d’abord la référence de l’activité dans l’espace courant ou de modification approprié. Une contrainte d’unicité refuse les paires actives entente–promoteur en double.
+
+Il n’existe pas de garde du dernier lien après création. Bien que l’assistant exige au moins un promoteur, une suppression autorisée peut ne laisser aucun lien si aucun n’est utilisé. Ne retirez pas le dernier promoteur utile sauf si une entente sans lien est intentionnelle.
+
 
 ## Effets en aval
 

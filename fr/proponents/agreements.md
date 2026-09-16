@@ -10,6 +10,8 @@ Le tableau présente le numéro d’entente, le titre bilingue, le programme, le
 
 Sélectionnez le titre bilingue ou la flèche pour ouvrir l’entente. L’API de destination vérifie de nouveau l’accès; la visibilité dans cet onglet n’accorde aucun droit plus large sur l’entente.
 
+La liste offre les vues **Tous**, **Mes dossiers** et par organisme. Mes dossiers filtre vos affectations exactes d’entente; la vue organisme suit l’organisme propriétaire du programme de l’entente. Aucune vue n’élargit la lecture des ententes. Cela diffère de la vue organisme des promoteurs, fondée sur les liens d’identifiant financier d’organisme.
+
 ## Créer une entente depuis l’onglet
 
 Le bouton **Nouvelle entente** apparaît lorsque le client indique une autorisation de création d’entente dans au moins une portée. Il ouvre l’assistant habituel en fournissant le promoteur courant comme valeur présélectionnée dans la requête. Il s’agit d’un raccourci, et non d’un contournement de l’autorisation : l’agence, le programme et le volet choisis doivent toujours appartenir à votre portée de création, et chaque étape au serveur valide le contrat de l’entente.

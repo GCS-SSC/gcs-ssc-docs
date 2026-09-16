@@ -35,7 +35,7 @@ Un utilisateur non principal peut être retiré lorsqu’il reste au moins une a
 
 ## Changements d’état et de portée
 
-Le registre peut changer lorsque l’entente est `draft`, `pendingapproval` ou `active`. Une entente terminale ou supprimée est verrouillée. Chaque écriture recharge le volet, le programme, l’agence, le graphe des rôles, l’admissibilité, l’état et le registre courant dans une transaction.
+Le registre peut changer lorsque l’entente a un état normal de l’organisme, ni en lecture seule ni terminal, et que les protections de l’agrégat le permettent. Chaque écriture revérifie la chaîne propriétaire, les rôles, l’admissibilité et le registre dans la transaction.
 
 Le déplacement du propriétaire ou de la portée de programme modifie les vérifications d’autorisation et d’admissibilité suivantes. Révisez le registre lors d’un changement de portée; une affectation existante demeure visible même si l’utilisateur n’est plus admissible dans la nouvelle portée.
 

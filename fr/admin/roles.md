@@ -40,11 +40,12 @@ L’onglet Permissions affiche une ligne par sujet pris en charge. Sélectionnez
 | Contributeur | Lecture, création, modification |
 | Gestionnaire | Lecture, création, modification, suppression |
 
-Les sujets sont `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
+Les sujets sont `system`, `audit`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
 
 | Sujet du rôle | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
+| `audit` | Oui | Non | Non |
 | `agency` | Oui | Oui | Non |
 | `transfer_payment` | Oui | Oui | Oui |
 | `role` | Oui | Oui | Non |
@@ -74,7 +75,7 @@ La page de détail contient :
 
 Général et Permissions sont enregistrés indépendamment. Une mise à jour par sujet remplace atomiquement cette ligne et prend effet lors des autorisations serveur suivantes. Les modifications du profil ne peuvent écraser les permissions, et un changement de permission ne peut enregistrer une portée de rôle invalide.
 
-La création, les mises à jour de profil, la suppression et le remplacement de permissions d’un rôle ajoutent des enregistrements `security_audit_event` non sensibles dans la même transaction. Un changement échoué ne produit aucune ligne d’audit.
+La création, les mises à jour de profil, la suppression et le remplacement de permissions d’un rôle ajoutent des enregistrements `audit.security_audit_event` non sensibles dans la même transaction. Un changement échoué ne produit aucune ligne d’audit.
 
 ## Conception recommandée des rôles
 
@@ -87,3 +88,5 @@ La création, les mises à jour de profil, la suppression et le remplacement de 
 - Analyste en lecture seule : niveaux Lecteur sans capacité de gestion des affectations.
 
 Privilégiez un petit ensemble de rôles durables fondés sur les fonctions. Utilisez la portée et les attributions utilisateur-rôle pour varier la couverture, puis les affectations exactes pour répartir le travail enregistré.
+
+Accordez explicitement l’accès Audit sur un rôle global. Gestionnaire Système ne donne pas automatiquement accès au [navigateur d’audit](./audit.md). Pour une personne qui consulte seulement les preuves, accordez Lecteur Audit sans permissions opérationnelles ni gestion des affectations supplémentaires.

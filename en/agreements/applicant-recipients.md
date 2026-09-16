@@ -4,7 +4,7 @@ The **Proponents** tab links saved applicant-recipient profiles to one agreement
 
 ## Access and list behaviour
 
-Agreement read access lists active links to active proponent profiles. The table shows the profile’s bilingual legal name, falling back to operating name, and its active lead agency when available. Search matches the link ID, legal or operating name in either language, and lead-agency name.
+Agreement read access lists non-deleted links to non-deleted Proponent profiles, including profiles that have since become inactive. The table shows the profile’s bilingual legal name, falling back to operating name, and its retained lead-agency name when available. Search matches the link ID, legal or operating name in either language, and lead-agency name.
 
 | Agreement access | Available actions |
 | --- | --- |
@@ -27,9 +27,16 @@ On a saved agreement, **Add** uses a lookup filtered by both the requested agree
 
 Removing a link soft-deletes the relationship; it does not delete the agreement or proponent. The tab has no restore action. Add a new link after an accidental removal.
 
-::: warning Post-creation cardinality
-The create wizard requires one or more unique proponent IDs, but later child routes do not preserve that invariant. The current source has no last-link guard and no active unique constraint on agreement-plus-proponent. An authorized user can remove the final link or add the same proponent more than once. Check the table before adding, and do not remove the last meaningful proponent unless an unlinked agreement is intentional.
-:::
+## Retained references and activity protection
+
+An existing link retains its saved Proponent label even when the Proponent’s lead Agency is later deleted. Saving the same reference is a no-op; it does not require replacing historical context with a currently eligible candidate. Choosing a different Proponent rechecks the new profile, its owner and your read scope.
+
+The Proponent’s lead Agency does not need to match the Agreement’s owning Agency. For example, a program can fund a readable Proponent led by another Agency; each record keeps its own authorization boundary.
+
+An active activity responsible-party link protects the Agreement–Proponent relationship. Replacing or deleting that relationship returns `AGREEMENT_APPLICANT_RECIPIENT_IN_USE` (409); first resolve the activity’s responsible-party reference through the appropriate current or Amendment workspace. Duplicate active Agreement–Proponent pairs are rejected by database uniqueness.
+
+There is no last-link guard after creation. Although the wizard requires at least one Proponent, an authorized deletion can leave no links when none are in use. Do not remove the last meaningful Proponent unless an unlinked Agreement is intentional.
+
 
 ## Downstream effects
 

@@ -12,7 +12,7 @@ Le serveur répond introuvable lorsque l'identifiant manque, est supprimé, corr
 
 ## Créer et gérer les ensembles d'examens
 
-La collection générique `/api/review-sets` accepte actuellement comme cibles directes seulement `applicantrecipient`, `fundingcaseamendment`, `fundingcaseagreementcommitment`, `fundingcaseforecast`, `fundingcasemonitor`, `fundingcasepayment` et `fundingclaimreconcile`. D'autres valeurs peuvent exister dans l'énumération partagée, mais cette surface de routes retourne alors `UNSUPPORTED_REVIEW_ENTITY_TYPE`.
+Le registre des entités déclare la prise en charge des examens directs, résolue depuis le propriétaire exact. Les routes `/api/review-sets` couvrent les promoteurs, ententes et enfants pris en charge, dont les réclamations et clôtures. Les entités qualifiées d’extensions enregistrées peuvent participer si leur capacité de cycle de vie déclare les examens directs. La capacité ne contourne ni la résolution du propriétaire ni les permissions ou protections; une cible non prise en charge produit `UNSUPPORTED_REVIEW_ENTITY_TYPE`.
 
 Le tableau des ensembles de l'enregistrement source utilise `GET /api/review-sets` avec `entityType`, `entityId`, la pagination et une recherche facultative protégée comme texte littéral dans l'identifiant et le nom anglais ou français figé de la configuration. Chaque ligne est reconstruite à partir de l'instantané d'exécution et comprend ses examens enfants non supprimés; l'agence affichée provient du premier examen matérialisé.
 
@@ -25,9 +25,9 @@ Avant la création, `GET /api/review-sets/lookups/setups` retourne seulement les
 
 Pour un promoteur, les portées applicables sont son profil exact et les volets atteints par des ententes actives de son agence responsable. Pour un enfant d'entente, elles sont l'entente parente exacte et le volet actif actuel de cette entente. La recherche porte sur les noms bilingues de configuration, d'agence et de volet.
 
-`POST /api/review-sets` exige l'accès de mise à jour de la source, puis renouvelle l'autorisation et verrouille le graphe actuel de propriété et de portée ainsi que l'instantané de configuration. Il rejette une configuration inadmissible ou non publiée et n'autorise qu'un ensemble non supprimé pour la même configuration et la même cible tant qu'un ensemble antérieur possède un statut non terminal bloquant. La création enregistre atomiquement un ensemble `draft`, sa configuration et sa version publiées ainsi que les versions de schéma figées. Une configuration séquentielle matérialise seulement son premier membre; une configuration parallèle matérialise tous ses membres. Chaque membre crée un dossier d'évaluation ou de liste de vérification à l'état brouillon.
+`POST /api/review-sets` exige l'accès de mise à jour de la source, puis renouvelle l'autorisation et verrouille le graphe actuel de propriété et de portée ainsi que l'instantané de configuration. Il rejette une configuration inadmissible ou non publiée et n'autorise qu'un ensemble non supprimé pour la même configuration et la même cible tant qu'un ensemble antérieur possède un statut non terminal bloquant. La création consigne atomiquement la configuration et les versions de schéma publiées dans le moteur canonique et ses éléments. Un plan séquentiel active le prochain membre admissible; un plan parallèle active ses membres admissibles ensemble. Les membres en attente et le travail actif ont des états distincts.
 
-Un utilisateur autorisé à mettre à jour peut annuler un ensemble non terminal au moyen de `POST /api/review-sets/{reviewSetId}/cancel`. La route résout la cible à partir de l'ensemble, renouvelle l'autorisation de propriété dans la transaction protégée, fait passer l'ensemble à `cancelled` avec le résultat `false`, puis fait passer chaque examen enfant actif à `cancelled`. Elle ne supprime pas les dossiers historiques. Un ensemble déjà `complete`, `approved`, `denied`, `withdrawn` ou `cancelled` refuse l'annulation parce qu'il est terminal.
+Un utilisateur autorisé à mettre à jour peut annuler un ensemble non terminal au moyen de `POST /api/review-sets/{reviewSetId}/cancel`. La route résout la cible à partir de l'ensemble, renouvelle l'autorisation de propriété dans la transaction protégée, annule l’exécution et ses enfants inachevés. Elle ne supprime pas les dossiers historiques. Les états d’exécution terminaux (`succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled`, `failed`) refusent l’annulation.
 
 ## Remplir une évaluation
 
@@ -64,7 +64,13 @@ Utilisez la section Achèvement seulement lorsque les réponses sont prêtes. L'
 
 L'ensemble d'examens avance selon l'ordre et la politique de ses membres publiés. La réussite de l'examen et de son approbation passe au membre suivant. Un membre refusé peut terminer ou refuser l'ensemble selon ses règles d'exécution; lorsque l'ensemble appartient à un flux, une réussite terminale fait avancer le flux et un échec le fait échouer. Les enregistrements historiques continuent d'utiliser leurs versions figées.
 
-Pour un examen de promoteur affiché comme refusé, **Réessayer l'examen** clone l'examen refusé dans le même ensemble non terminal. L'action exige la permission de cloner et une nouvelle autorisation sur le propriétaire. Elle ne clone pas un examen qui n'est pas refusé et ne rouvre pas un ensemble terminal.
+La reprise crée une tentative suivante sans rouvrir les lignes historiques. La route de clonage direct exige une exécution autonome `review_set` terminale et un examen demandé à l’état `denied`, `cancelled`, `failed` ou `unsuccessful`. Elle copie le plan figé dans un nouvel ensemble, crée des examens et conteneurs de réponses neufs, et conserve la filiation. Une demande concurrente répétée retrouve le même successeur sans multiplier les tentatives. Un examen appartenant à un flux utilise plutôt la reprise de ce flux.
+
+Par exemple, après l’échec d’un ensemble autonome de listes, une personne autorisée peut reprendre l’examen sans succès dans une nouvelle tentative. Les réponses et décisions originales restent historiques; remplissez le successeur au lieu de modifier le dossier échoué. La propriété, l’affectation et les protections d’état du parent restent applicables.
+
+## Définitions historiques invalides
+
+Une exécution utilise sa définition d’évaluation figée. Le serveur accepte une définition réellement non rédigée comme vide et fournit des matrices facultatives vides pour les anciennes définitions compatibles. Il ne remplace pas silencieusement un contenu rédigé mal formé par une évaluation vide : le chargement retourne `ASSESSMENT_DEFINITION_INVALID` (500). Notez l’identifiant de l’examen et signalez le problème au responsable de l’application. N’achevez pas un remplacement apparemment vide et ne modifiez pas le schéma courant en pensant réparer la version historique figée.
 
 ## Rétablissement
 

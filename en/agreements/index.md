@@ -4,7 +4,7 @@ Funding Agreements are execution records owned by a transfer-payment stream. An 
 
 ## Access model
 
-The Agreements list returns active records covered by the user's Viewer-or-higher `agreement` permission at global, agency, or program scope. Reads do not require an exact assignment. Search matches agreement number; English/French title; agency, program, or stream name; and agreement-type name. An optional agency filter narrows the list. Each row reports its own update/delete capabilities; controls are disabled independently.
+The Agreements list returns active records covered by the user's Viewer-or-higher `agreement` permission at global, agency, or program scope. Reads do not require an exact assignment. Search matches agreement number; English/French title; agency, program, or stream name; and agreement-type name. The list selector offers all accessible Agreements, **My Agreements** (your exact assignments), and Agency views. These filters narrow your existing read scope; an assignment does not grant additional scope. An optional agency filter further narrows the list. Each row reports its own update/delete capabilities; controls are disabled independently.
 
 | Required combination | Agreement actions |
 | --- | --- |
@@ -28,13 +28,13 @@ Later tabs require their corresponding stream fiscal years, cost categories, out
 
 ## Create an agreement
 
-The create form starts **Further distribution** as false and **Holdback** at 10%. It contains three core sections plus any enabled extension slots.
+The create form starts **Further distribution** as false and **Holdback** at 10%. It contains three core sections, the stream’s configured custom-field sections, and any enabled extension slots. Choose the program before the stream; changing the program clears dependent stream selections. Proponents are selected independently from the readable active profiles.
 
 | Field | Rule |
 | --- | --- |
-| Stream | Required active stream within create scope. |
+| Program and stream | Choose the program first, then an available stream within create scope. The stream is immutable after creation. |
 | Agreement subtype | Required active subtype belonging to that exact stream. Agreement type is derived from the subtype and is not independently editable. |
-| Agreement number | Required, trimmed, at most 15 characters, and unique among active agreements in the stream. |
+| Agreement number | Manual mode requires a trimmed number of at most 15 characters. When a numbering provider is enabled, creation generates the number and rejects a manually supplied one. |
 | Financial system number | Required non-negative integer-like identifier; large database IDs are sent as strings. |
 | Assistance dates | Both required; end cannot precede start. |
 | Further distribution | Required yes/no value. |
@@ -42,7 +42,7 @@ The create form starts **Further distribution** as false and **Holdback** at 10%
 | English and French description | Both required. |
 | Holdback | Required percentage from 0 through 100, stored to two decimal places. |
 | Holdback basis | Required active basis configured for the stream. It is not limited to two hard-coded labels. |
-| Risk score | Optional non-negative score; when supplied it must match an active rating on the stream. |
+| Risk score | Optional manual selection when no Risk Rating workflow is published; otherwise workflow-managed and not writable through the profile. |
 | Proponents | At least one unique active profile, and the creator must be able to read every selection. See [Agreement Proponents](./applicant-recipients.md). |
 
 Changing the stream in the form clears subtype, holdback basis, and risk score because each is stream-owned. Creation locks extension scopes and the selected stream, rebuilds authorization, locks every selected Proponent, validates cross-stream references, inserts the Agreement and recipient links, registers the typed entity, and creates the creator-primary assignment atomically.
@@ -51,9 +51,11 @@ Changing the stream in the form clears subtype, holdback basis, and risk score b
 
 The active database uniqueness rule blocks the same agreement number in one stream. In addition, agreement create and identity-changing updates compare the proposed system number with accessible external Funding History records in the same agency/program name scope. Near matches require a server confirmation fingerprint.
 
-::: warning Current confirmation limitation
-The core Agreement form does not currently render the similarity-review dialog or submit confirmation fingerprints. If a near external-history match triggers `FUNDING_HISTORY_SIMILARITY_CONFIRMATION_REQUIRED`, the save fails and the standard API error is shown; there is no supported confirmation action in this form. Verify whether the entry is a duplicate and correct the number where appropriate. This is recorded as a current application limitation, not as a successful save path.
-:::
+The create and edit forms now present a similarity-confirmation dialog. Review the possible match before proceeding: cancel to correct the draft or confirm the displayed warnings and resubmit. Restricted matches do not reveal their protected labels. Confirmations apply to the proposed stream/number identity; changing it invalidates the previous confirmation. If another match appears before the transaction completes, the dialog opens again with the current warnings. Confirmation does not bypass an exact uniqueness conflict.
+
+For example, a proposed number resembling an external Funding History entry may represent either a duplicate or a genuinely different Agreement. Check the accessible business context, then explicitly confirm only when the new record is intended. Cancel leaves the Agreement unsaved.
+
+When numbering is provider-managed, the host resolves exactly one enabled provider for the owning Agency and stream and generates the number within the creation transaction. Conflicting providers or an invalid result stop creation. Do not invent a placeholder number or retry with a manually supplied value; ask the Agency administrator to correct the provider configuration. Provider-specific formatting and counter configuration belong to that extension’s documentation.
 
 ## Detail workspace
 
@@ -83,9 +85,17 @@ Enabled extensions may append additional tabs and profile fields. Child detail r
 
 Profile updates re-read and validate the localized partial payload, then lock extension scopes, involved streams, extension lifecycle state, and the agreement in a fixed transaction. Authorization and scope are rebuilt after locking. If ownership changes while locks are acquired, the server retries up to three times and then reports a scope conflict.
 
-A stream move is restricted to another stream under the same transfer-payment program. It also requires update access to the target stream, a valid target subtype, holdback basis, and risk rating, and approval from every enabled extension stream-change guard. Stream-owned fields must be selected again. Existing typed child relationships and extension data may prevent the move.
+The stream cannot be changed after creation, including through the API. An unchanged echoed stream identifier is accepted; a replacement returns `AGREEMENT_STREAM_IMMUTABLE`. Choose the correct program and stream before saving a new Agreement. Historical subtype, holdback, and risk references may be retained during unrelated edits; a replacement must satisfy current ownership and eligibility rules.
 
-Shortening or moving the assistance period is refused when an active agreement budget fiscal year would no longer overlap the proposed dates. Changing agreement number or stream reruns Funding History similarity checks. A successful update invokes the host agreement-profile-updated hook inside the transaction.
+Shortening or moving the assistance period is refused when an active agreement budget fiscal year would no longer overlap the proposed dates. Changing the Agreement number reruns Funding History similarity checks. A successful update invokes the host agreement-profile-updated hook inside the transaction.
+
+## Custom fields and risk rating
+
+The General tab appends the sections configured by the stream. Complete active required fields, preserve or explicitly clear retained inactive values, and save through the ordinary Agreement form. See [Agreement custom fields](../programs/custom-fields.md) for field types, a worked configuration, partial-update examples, and conditional routing.
+
+When the stream selects a published **Risk Rating** workflow, the risk selector becomes workflow-managed. Use the Agreement’s Risk Rating workflow controls to start the assessment and follow its review/approval steps. The latest successful assessment is mapped through the publication’s score bands to a stream risk rating. A pending, failed, denied, or cancelled attempt does not itself replace the stored rating. A completed result retains its workflow, assessment score, mapped rating, and completion evidence. If the management mode cannot be loaded, retry before attempting a risk edit.
+
+Without a published Risk Rating workflow, manual selection remains available subject to normal profile permissions. Retained scores continue to display in the current language. Rating scores and identities referenced by current publications or active attempts cannot be changed or deleted until those dependencies are resolved.
 
 ## Delete and recovery
 

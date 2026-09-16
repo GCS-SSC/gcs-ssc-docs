@@ -4,9 +4,15 @@ Completions record that work on an entity is finished. Approvals route a materia
 
 ## Supported runtime records
 
-The common completion service supports reviews, agreement commitments, forecasts, monitors, payments, and claim reconciliations. The approval service supports those records plus recommendations and amendments. Each adapter applies its own status and business checks while sharing the same authorization, routing-slip, and UI contracts.
+Completion supports runtime reviews and the following Agreement children: Claims, reconciliations, Commitments, Forecasts, Payments, Monitors, amendments, and Closeouts. Agreement approval submission is started explicitly; the Agreement itself has no Complete action. Proponents support direct reviews but have no root completion or standard workflow.
 
-Reading completion or approval state requires the corresponding read permission on the owner. Completing requires assessment-save access. Approval decisions require approval-action access; creating a route, reassigning, and other administrative actions require approval-management access. Every sensitive write re-resolves the owner and permission and locks the relevant records inside the transaction.
+| Target | What completion does |
+| --- | --- |
+| Claim, reconciliation, Commitment, Forecast, Payment, Monitor | Validates the target and records completion. Starts the configured published `approval_submission` workflow if one applies; otherwise records `no_workflow`. |
+| Amendment, Closeout | Requires a published approval-submission workflow. Missing configuration rejects completion; successful approval must end in a configured terminal Agency status. |
+| Runtime review | Validates required responses and additional reviewers, records review completion, and advances its own review/approval runtime. |
+
+Reading completion or approval state requires the corresponding read permission on the owner. Completing a runtime review requires assessment-save access. Completing an Agreement child requires its Contributor permission and exact assignment, together with its business prerequisites. Approval decisions require approval-action access; creating a route, reassigning, and other administrative actions require approval-management access. Every sensitive write re-resolves the owner and permission and locks the relevant records inside the transaction.
 
 ## Complete work
 
@@ -16,15 +22,19 @@ The Completion section displays one of three states:
 - A comment field and **Complete** action when the entity is eligible and the user can act.
 - A locked or unavailable explanation when status, permission, or another business rule prevents completion.
 
-Submitting creates one completion record and applies the entity adapter's side effects. A runtime review is revalidated in strict mode, including required assessment/checklist responses and comments; all additional-reviewer rows must be completed or soft-deleted. The review becomes complete and its configured approval or review-set progression begins. Agreement-child adapters validate and transition their own lifecycle state and may start a completion-entry workflow.
+Submitting creates one immutable completion record tied to the exact entity and Common user. Required business data is validated again inside the transaction. A runtime review is checked in strict mode, including required assessment/checklist answers and comments; additional reviewers must be complete or soft-deleted.
 
-Completion is not an editable note. A repeated completion is rejected and the resulting historical record remains tied to the exact entity and completing Common user.
+For Agreement children, completion and approval success are different events. With no applicable optional workflow, positive completion effects happen immediately. With `workflow_started`, they wait for a positive terminal outcome of that run. For example, a completed replacement Commitment remains inactive while approval is pending; successful termination activates it and deactivates the previous active Commitment of the same type. A denied run does not activate it.
+
+Ordinary data edits preserve the selected Agency business status. Workflow transitions apply configured status IDs; there is no universal rule that completion writes a business status named `complete` or that an approval writes one named `approved`. Completion evidence, runtime state, business status, and active-version selection are separate facts.
+
+An existing active workflow on the target blocks another workflow and completion. Standard workflows are explicitly selected in **Workflows** and are not started by Complete. After completion, data is frozen and a repeat completion is rejected. If approval fails, use the supported workflow recovery path; do not submit a second completion. See [Workflows](workflows.md) and the target’s guide for retry and cancellation limits.
 
 ## Materialize an approval route
 
-An Approval Template is only configuration. Runtime materialization creates a Routing Slip, copies the published template's ordered steps, certifications, additional-step policy, bilingual names, and defaults, and then moves the route through `draft`, `pendingapproval`, `approved`, or `denied`. Later template edits do not rewrite that slip.
+An Approval Template is only configuration. Runtime materialization creates a Routing Slip, copies the published template's ordered steps, certifications, additional-step policy, bilingual names, and defaults, and then advances the route through its shared runtime states, including awaiting action and approved/denied outcomes. Later template edits do not rewrite that slip.
 
-Some workflows materialize the route automatically. Where the UI displays **Add**, a user with approval-management access can create the applicable route manually. Missing, inactive, unpublished, wrong-scope, or wrong-entity templates prevent materialization. The table groups steps by routing slip, preserves prior slips as history where supported, and identifies the current route.
+Workflows and supported review-completion paths materialize the route from their pinned configuration. The approval section manages decisions and permitted additional steps; it does not offer general manual creation of a replacement root route. New configuration must reference eligible published templates in the same stream. An existing runtime uses its pinned template definition; later edits or retirement do not replace that historical definition. The table groups steps by routing slip, preserves prior slips as history where supported, and identifies the current route.
 
 An Agreement or amendment approval-submission workflow also creates an immutable approval packet. An original Agreement packet snapshots the full profile, proponents, current budget, and current activities. An amendment packet records its selected amendment types and subtypes and includes only the selected snapshot domains—budget, activities, or proposed duration dates. The workflow stores the packet's SHA-256 hash, and the approval view verifies it before showing the bilingual packet. Successful approval promotes the packet to an immutable Agreement revision: revision `0` for the original Agreement submission and the next positive revision number for an amendment. Starting another submission while one is active, changing covered data during that run, or rewriting/deleting a stored packet is blocked.
 

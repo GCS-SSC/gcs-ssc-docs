@@ -7,9 +7,11 @@ The **Agency Financial IDs** tab maps an existing Proponent to an integer identi
 | Field | Rule |
 | --- | --- |
 | Agency | Optional. When supplied, it must reference an active agency. The lookup lists active agencies after authorizing the requested create or update action on the parent Proponent. |
-| Financial system ID | Required safe integer. It is stored in a PostgreSQL `bigint`; the current UI uses a numeric input. |
+| Financial system ID | Required canonical integer text in the PostgreSQL `bigint` range, `-9223372036854775808` through `9223372036854775807`. The UI uses text input to preserve precision; API clients should send a string. Numeric JSON input is accepted only when it is a safe integer. |
 
 Because Agency is optional in the current source contract, an unscoped financial ID can be recorded. Prefer selecting an agency whenever the identifier is agency-owned so its provenance remains clear.
+
+For example, send `"9007199254740993"` exactly; converting it to a JavaScript number loses precision. This field identifies an external system record and does not inherit the positive-only rule for application entity IDs. An unchanged, non-deleted Agency reference may be retained after that Agency becomes inactive; selecting a different Agency requires an active one.
 
 ## Uniqueness and lifecycle
 

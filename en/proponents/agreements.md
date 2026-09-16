@@ -10,6 +10,8 @@ The table shows agreement number, bilingual title, program, stream, agreement ty
 
 Select the bilingual title or arrow action to open the agreement. Access is checked again by the destination API; visibility on this tab does not grant broader agreement rights.
 
+The list supports **All**, **Mine** and Agency views. Mine filters by your exact Agreement assignments; an Agency view filters by the Agreement’s program-owning Agency. Neither view widens Agreement read access. This differs from the Proponent list’s Agency view, which follows Agency financial-ID relationships.
+
 ## Create an agreement from the tab
 
 The **New agreement** button appears when the client reports agreement-create permission in at least one scope. It opens the regular agreement wizard with the current proponent supplied as a preselected query value. This is a convenience, not an authorization shortcut: the chosen agency, program, and stream must still be within your create scope, and every server step validates the agreement contract.

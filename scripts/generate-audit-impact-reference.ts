@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { basename, join, relative, resolve } from 'node:path'
 
@@ -6,6 +7,7 @@ const appRoot = resolve(process.env.GCS_SSC_SOURCE ?? join(docsRoot, '..', 'gcs-
 
 const walk = async (directory: string): Promise<string[]> => {
   const result: string[] = []
+  if (!existsSync(directory)) return result
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name)
     if (entry.isDirectory()) result.push(...await walk(path))
@@ -86,8 +88,8 @@ const render = (locale: 'en' | 'fr'): string => {
   return `# ${en ? 'Historical audit documentation impact' : 'Incidence documentaire de l’audit historique'}
 
 ${en
-    ? 'These records are historical navigation evidence, not instructions to reproduce earlier defects. The application audit status reports the remediation pass complete; final documentation verification still checks current source and regression evidence before marking each ledger row terminal. Security-sensitive implementation detail, raw diagnostics, credentials, and obsolete unsafe behaviour are deliberately omitted.'
-    : 'Ces dossiers constituent des repères historiques, non des consignes pour reproduire d’anciennes anomalies. Le registre d’audit de l’application indique que la correction est terminée; la vérification documentaire finale examine néanmoins les sources et les tests de régression actuels avant de rendre chaque ligne terminale. Les détails sensibles de sécurité, les diagnostics bruts, les identifiants et les comportements dangereux désuets sont intentionnellement omis.'}
+    ? 'These records are historical navigation evidence, not instructions to reproduce earlier defects. The current source may omit these historical dossiers; an empty register does not mean the application has no runtime audit logging. See [Audit and access logs](../admin/audit.md). Final documentation verification checks current source and regression evidence before marking coverage terminal. Security-sensitive implementation detail, raw diagnostics, credentials, and obsolete unsafe behaviour are deliberately omitted.'
+    : 'Ces dossiers constituent des repères historiques, non des consignes pour reproduire d’anciennes anomalies. Les sources actuelles peuvent ne plus contenir ces dossiers historiques; un registre vide ne signifie pas que l’application ne possède aucun journal d’audit. Consultez les [journaux d’audit et d’accès](../admin/audit.md). La vérification documentaire examine les sources et les tests actuels avant de rendre la couverture terminale. Les détails sensibles de sécurité, les diagnostics bruts, les identifiants et les comportements dangereux désuets sont intentionnellement omis.'}
 
 ## ${en ? 'Disposition rules' : 'Règles de disposition'}
 
@@ -104,6 +106,6 @@ ${rows}
 `
 }
 
-await writeFile(join(docsRoot, 'en/developer/audit-impact.md'), render('en'))
-await writeFile(join(docsRoot, 'fr/developer/audit-impact.md'), render('fr'))
+await writeFile(join(docsRoot, 'en/developer/audit-impact.md'), `${render('en').trimEnd()}\n`)
+await writeFile(join(docsRoot, 'fr/developer/audit-impact.md'), `${render('fr').trimEnd()}\n`)
 console.log(`Generated ${impacts.length} bilingual historical audit-impact dispositions.`)

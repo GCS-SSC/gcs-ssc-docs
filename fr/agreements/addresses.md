@@ -4,7 +4,7 @@ L’onglet **Adresses** conserve les emplacements utilisés expressément par un
 
 ## Accès et liste
 
-Le plafond Lecteur de l’entente énumère les liens actifs dont l’adresse et le type sont actifs. La création ou modification exige Contributeur et l’affectation exacte à l’entente; la suppression exige Gestionnaire et cette affectation. Les adresses emploient l’entente comme racine d’affectation.
+Le plafond Lecteur de l’entente énumère les liens actifs vers une adresse non supprimée, y compris le libellé enregistré d’un type retiré. La création ou modification exige Contributeur et l’affectation exacte à l’entente; la suppression exige Gestionnaire et cette affectation. Les adresses emploient l’entente comme racine d’affectation.
 
 Le tableau présente le type d’adresse bilingue, la première ligne de rue, la ville et le code postal ou ZIP. La recherche porte aussi sur la subdivision, les trois lignes de rue et le type d’adresse dans l’une ou l’autre langue.
 
@@ -14,7 +14,7 @@ La recherche des types d’adresse contient seulement les types actifs appartena
 
 | Champ | Règle |
 | --- | --- |
-| Type d’adresse | Type actif obligatoire appartenant à l’agence de l’entente. |
+| Type d’adresse | Type obligatoire appartenant à l’agence; les nouveaux choix doivent être actifs. |
 | Première ligne de rue | Obligatoire; les deuxième et troisième lignes sont facultatives. |
 | Ville | Obligatoire. |
 | Pays | Valeur de pays prise en charge obligatoire. |
@@ -45,3 +45,11 @@ L’index actuel de la base de données accélère la recherche par entente et a
 - [Vue d’ensemble des ententes](./index.md)
 - [Adresses des promoteurs](../proponents/addresses.md)
 - [Administration des agences](../admin/agencies.md)
+
+## Valeurs exactes et modifications partielles
+
+Rue, ville, subdivision et code postal acceptent au plus 255 caractères Unicode et refusent NUL. Le téléphone principal et l’identifiant d’adresse GC facultatif conservent les bigint PostgreSQL signés sous forme de chaînes décimales; n’arrondissez pas un long identifiant dans un tableur ou un nombre JavaScript. Le poste est un petit entier signé et l’identifiant de circonscription un entier signé de 32 bits. Les coordonnées fournies par API doivent tenir dans `numeric(10,7)`.
+
+Une modification partielle valide la paire pays/subdivision résultante, pas seulement le champ transmis. Par exemple, changer le pays pour le Canada en conservant une subdivision invalide échoue jusqu’à la saisie d’une province ou d’un territoire valide. Renvoyer les mêmes valeurs physiques ne constitue pas une modification d’adresse partagée.
+
+Un type d’adresse retiré inchangé peut être conservé en corrigeant d’autres champs. Son remplacement doit être actif et appartenir à l’organisme de l’entente. Les références d’adresse conservées bloquent la suppression du type; son libellé historique ne le rend pas disponible pour une nouvelle adresse.

@@ -6,7 +6,7 @@ Les schémas de listes de vérification définissent des questions bilingues ré
 
 Créez d'abord l'agence, le programme, le volet et la configuration d'examen. Dans l'éditeur détaillé de la configuration, associez un schéma existant de la même agence ou créez un membre de type liste de vérification. Sélectionner le membre ouvre l'éditeur; son fil d'Ariane retourne à l'onglet Configurations d'examen du volet.
 
-L'utilisateur doit posséder `transfer_payment:read` pour le programme précis afin de consulter le schéma et `transfer_payment:update` afin de l'enregistrer, l'activer ou le publier. Les contrôles client reflètent ces permissions, mais chaque requête serveur résout indépendamment la chaîne active agence-programme-volet-schéma.
+L'utilisateur doit posséder `transfer_payment:read` pour le programme précis afin de consulter le schéma et `transfer_payment:update` afin de l’enregistrer, le publier ou le retirer. Les contrôles client reflètent ces permissions, mais chaque requête serveur résout indépendamment la chaîne active agence-programme-volet-schéma.
 
 ## Sections De L'Éditeur
 
@@ -16,7 +16,7 @@ L'éditeur comporte trois sections avec ancres :
 2. Sections : sections, sous-sections et questions ordonnées.
 3. Règles de résultat : politique d'échec par défaut et groupes conditionnels imbriqués.
 
-Le sommaire affiche le type d'entité, le statut ébauche-actif-inactif, la version et la présence de changements non publiés. Enregistrer valide toute la définition. L'action de publication enregistre d'abord, puis active une ébauche ou publie les changements en attente d'un schéma actif.
+Le sommaire affiche le type d'entité, l’état de publication brouillon-publié-retiré, la version et la présence de changements non publiés. Enregistrer valide toute la définition. L'action de publication enregistre d'abord, puis publie le premier brouillon ou les changements d’un schéma déjà publié.
 
 ## Sections Et Questions
 
@@ -50,11 +50,11 @@ Un groupe possède une clé unique, un libellé bilingue, un résultat, une ou p
 
 Une condition peut cibler une question en échec ou contenir un autre groupe. Les clés de groupe sont uniques, une question ne peut être répétée directement dans un même groupe, chaque question référencée doit exister et les groupes peuvent compter au plus trois niveaux (une racine et deux niveaux imbriqués).
 
-## Activation, Publication Et Instantanés
+## Publication et instantanés
 
-Une ébauche utilise la version 0. L'activation d'une ébauche valide copie la définition effective dans le champ publié, efface la copie de travail, rend le schéma actif, inscrit la version 1 et crée un enregistrement de version immuable. Modifier un schéma actif écrit une copie de travail sans changer son contenu d'exécution publié. La publication d'un contenu valide en attente incrémente la version et crée une nouvelle version immuable.
+Un brouillon n’a pas de version publiée. Publier une définition valide crée la version immuable `1`; chaque publication modifiée incrémente la version entière. Enregistrer après publication modifie seulement le contenu de conception. Un contenu canonique identique conserve la version publiée. Retirer un schéma publié est permanent et empêche les nouvelles sélections, modifications et publications.
 
-Les examens d'exécution sont matérialisés depuis des instantanés publiés de la configuration et du schéma. Les examens existants continuent d'utiliser leur définition de liste de vérification épinglée et leur filiation après la publication d'une version plus récente.
+Les examens conservent les versions exactes du schéma et de la configuration qui les ont générés. Par exemple, publier une nouvelle question requise ne l’insère pas dans une liste déjà générée. Publiez la configuration d’examen consommatrice pour les futurs travaux. Les tentatives historiques gardent leurs réponses et règles.
 
 ## Comportement De La Liste À L'Exécution
 
@@ -67,7 +67,7 @@ L'accès à l'examen, les règles d'examinateur assigné, la complétion, les ap
 ## Échec Et Reprise
 
 - Les clés absentes ou en double, les sections ou sous-sections vides, les options de réponse manquantes, les cibles de règle inconnues, les seuils invalides ou une imbrication excessive produisent des erreurs de validation localisées.
-- L'activation échoue si le schéma n'est pas une ébauche valide. La publication échoue s'il n'est pas actif ou n'a aucun contenu valide en attente.
+- La publication exige un contenu valide et une publication non retirée.
 - Un schéma absent ou inaccessible est masqué de façon uniforme; vérifiez l'identifiant et la portée précise du programme.
 - L'enregistrement et la publication revérifient l'autorisation et la propriété actualisées dans une transaction. Rechargez après un changement simultané, corrigez la définition, enregistrez et réessayez.
 - Ne retirez ni ne renommez les questions d'un schéma publié sans tenir compte des réponses historiques épinglées et du comportement futur des règles.

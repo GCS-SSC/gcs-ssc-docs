@@ -35,7 +35,7 @@ A non-primary user can be removed while at least one active assignment remains. 
 
 ## Status and scope changes
 
-The roster can change while the Agreement is `draft`, `pendingapproval`, or `active`. A terminal or deleted Agreement is locked. Every write reloads the stream, program, agency, role graph, user eligibility, status, and current roster inside one transaction.
+The roster can change while the Agreement has a normal, non-read-only, nonterminal Agency status and the current aggregate guards permit it. Each write rechecks the ownership chain, role graph, user eligibility, and roster inside the transaction.
 
 Moving ownership or program scope changes later authorization and eligibility checks. Review the roster when the scope changes; an existing assignment remains visible even if the user no longer qualifies at the new scope.
 
