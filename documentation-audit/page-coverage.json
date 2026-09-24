@@ -36,8 +36,23 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: dedicated GWCOA catalogue, bounded bilingual names/numbers and referenced-number conflicts. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "page:app/pages/agencies/[id].vue",
-    "source": "app/pages/agencies/[id].vue",
+    "id": "page:app/pages/agencies/[id]/approval-templates/[templateId].vue",
+    "source": "app/pages/agencies/[id]/approval-templates/[templateId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/pages/agencies/[id]/approval-templates/[templateId].vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/approval-templates/[templateId].vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "page:app/pages/agencies/[id]/index.vue",
+    "source": "app/pages/agencies/[id]/index.vue",
     "audience": [
       "end-user",
       "administrator"
@@ -45,29 +60,85 @@
     "en": "en/admin/agencies.md",
     "fr": "fr/admin/agencies.md",
     "evidence": [
-      "app/pages/agencies/[id].vue",
-      "app/composables/useCrudModal.ts",
-      "app/utils/fetch-error.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/route-locations.ts",
-      "app/composables/useRouteTabMap.ts",
-      "app/components/Agency/AgencyAddressTypes.vue",
-      "app/components/Agency/AgencyAttachmentTypes.vue",
-      "app/components/Agency/AgencyAgreementTypes.vue",
-      "app/components/Agency/AgencyApplicantRecipientSubtypes.vue",
-      "app/components/Agency/AgencyApprovalBehalfTypes.vue",
-      "app/components/Agency/AgencyCostCategories.vue",
-      "app/components/Agency/AgencyDetailGeneralTab.vue",
-      "app/components/Agency/AgencyFiscalYears.vue",
-      "app/components/Agency/AgencyHoldbackBases.vue",
-      "app/components/Agency/AgencyTransferPayments.vue",
-      "app/components/Agency/AgencyStatuses.vue",
-      "app/components/Extension/AgencyExtensionsTab.vue",
-      "app/components/Common/LoadingState.vue",
-      "shared/types/schemas/index.ts"
+      "app/pages/agencies/[id]/index.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/index.vue in the current UI and its paired destination guides. Contract: Agency detail tab navigation, permission hints and catalog entry points. No browser or application test execution is claimed."
+  },
+  {
+    "id": "page:app/pages/agencies/[id]/recommendation-schemas/[schemaId].vue",
+    "source": "app/pages/agencies/[id]/recommendation-schemas/[schemaId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/pages/agencies/[id]/recommendation-schemas/[schemaId].vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/recommendation-schemas/[schemaId].vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "page:app/pages/agencies/[id]/recommendation-sets/[recommendationSetId].vue",
+    "source": "app/pages/agencies/[id]/recommendation-sets/[recommendationSetId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/pages/agencies/[id]/recommendation-sets/[recommendationSetId].vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/recommendation-sets/[recommendationSetId].vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "page:app/pages/agencies/[id]/review-schemas/[schemaId].vue",
+    "source": "app/pages/agencies/[id]/review-schemas/[schemaId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/pages/agencies/[id]/review-schemas/[schemaId].vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/review-schemas/[schemaId].vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "page:app/pages/agencies/[id]/review-sets/[reviewSetId].vue",
+    "source": "app/pages/agencies/[id]/review-sets/[reviewSetId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/pages/agencies/[id]/review-sets/[reviewSetId].vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/review-sets/[reviewSetId].vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "page:app/pages/agencies/[id]/workflows/[workflowSetupId].vue",
+    "source": "app/pages/agencies/[id]/workflows/[workflowSetupId].vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/pages/agencies/[id]/workflows/[workflowSetupId].vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/agencies/[id]/workflows/[workflowSetupId].vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
   },
   {
     "id": "page:app/pages/agencies/index.vue",
@@ -427,6 +498,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: host enablement, configuration access, runtime slots, storage and numbering extension boundaries. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "page:app/pages/groups/index.vue",
+    "source": "app/pages/groups/index.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/groups.md",
+    "fr": "fr/admin/groups.md",
+    "evidence": [
+      "app/pages/groups/index.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/pages/groups/index.vue in the current UI and its paired destination guides. Contract: Group list, member picker, Agency scope and claimable work setup. No browser or application test execution is claimed."
+  },
+  {
     "id": "page:app/pages/index.vue",
     "source": "app/pages/index.vue",
     "audience": [
@@ -607,117 +693,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/approval-templates/[templateId].vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/approval-templates/[templateId].vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/approval-templates.md",
-    "fr": "fr/programs/approval-templates.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/approval-templates/[templateId].vue",
-      "app/components/TransferPayment/TransferPaymentApprovalTemplateDetailPage.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream-scoped reusable templates, published step/certification policies and historical runtime pins. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId].vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId].vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/assessment-schemas.md",
-    "fr": "fr/programs/assessment-schemas.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/assessment-schemas/[schemaId].vue",
-      "app/components/AssessmentSchema/AssessmentSchemaDetailPage.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: assessment authoring, scoring, dependencies, outcome strategy and immutable integer publication versions. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/index.vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/index.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/checklist-schemas.md",
-    "fr": "fr/programs/checklist-schemas.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/checklist-schemas/[schemaId]/index.vue",
-      "app/components/ChecklistSchema/ChecklistSchemaDetailPage.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: checklist authoring, result rules, validation and immutable publication lifecycle. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/[schemaId]/index.vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/[schemaId]/index.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/recommendation-schemas/[schemaId]/index.vue",
-      "app/components/RecommendationSchema/RecommendationSchemaDetailPage.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId].vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId].vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/recommendation-setups/[recommendationSetupId].vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId].vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId].vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/review-setups/[reviewSetupId].vue",
-      "app/components/TransferPayment/TransferPaymentReviewSetupDetailPage.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "page:app/pages/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId].vue",
-    "source": "app/pages/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId].vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
-    "evidence": [
-      "app/pages/transfer-payments/[id]/streams/[streamId]/workflow-setups/[workflowSetupId].vue",
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailPage.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit standard selection, automatic purpose dispatch, published plans, status transitions and historical retry policy. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "page:app/pages/transfer-payments/index.vue",
@@ -957,6 +932,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Agency/AgencyApprovalTemplates.vue",
+    "source": "app/components/Agency/AgencyApprovalTemplates.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyApprovalTemplates.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyApprovalTemplates.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
     "id": "component:app/components/Agency/AgencyAttachmentTypes.vue",
     "source": "app/components/Agency/AgencyAttachmentTypes.vue",
     "audience": [
@@ -988,6 +978,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyChartOfAccounts.vue",
+    "source": "app/components/Agency/AgencyChartOfAccounts.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyChartOfAccounts.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyChartOfAccounts.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyCommitmentTypes.vue",
+    "source": "app/components/Agency/AgencyCommitmentTypes.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyCommitmentTypes.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyCommitmentTypes.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Agency/AgencyCostCategories.vue",
@@ -1029,6 +1049,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Agency/AgencyCustomFields.vue",
+    "source": "app/components/Agency/AgencyCustomFields.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyCustomFields.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyCustomFields.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
     "id": "component:app/components/Agency/AgencyDetailGeneralTab.vue",
     "source": "app/components/Agency/AgencyDetailGeneralTab.vue",
     "audience": [
@@ -1059,6 +1094,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyDocumentTemplates.vue",
+    "source": "app/components/Agency/AgencyDocumentTemplates.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyDocumentTemplates.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyDocumentTemplates.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Agency/AgencyFiscalYears.vue",
@@ -1111,6 +1161,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Agency/AgencyMonitorTypes.vue",
+    "source": "app/components/Agency/AgencyMonitorTypes.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyMonitorTypes.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyMonitorTypes.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
     "id": "component:app/components/Agency/AgencyProfilesTable.vue",
     "source": "app/components/Agency/AgencyProfilesTable.vue",
     "audience": [
@@ -1128,6 +1193,111 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyRecommendationSchemaDetailPage.vue",
+    "source": "app/components/Agency/AgencyRecommendationSchemaDetailPage.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyRecommendationSchemaDetailPage.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyRecommendationSchemaDetailPage.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyRecommendationSetDetailPage.vue",
+    "source": "app/components/Agency/AgencyRecommendationSetDetailPage.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyRecommendationSetDetailPage.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyRecommendationSetDetailPage.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyRecommendationSetItemModal.vue",
+    "source": "app/components/Agency/AgencyRecommendationSetItemModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyRecommendationSetItemModal.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyRecommendationSetItemModal.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyRecommendationSetModal.vue",
+    "source": "app/components/Agency/AgencyRecommendationSetModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyRecommendationSetModal.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyRecommendationSetModal.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyRecommendationSetSchemaCreateModal.vue",
+    "source": "app/components/Agency/AgencyRecommendationSetSchemaCreateModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyRecommendationSetSchemaCreateModal.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyRecommendationSetSchemaCreateModal.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyRecommendationSets.vue",
+    "source": "app/components/Agency/AgencyRecommendationSets.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyRecommendationSets.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyRecommendationSets.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyReviewSets.vue",
+    "source": "app/components/Agency/AgencyReviewSets.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyReviewSets.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyReviewSets.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Agency/AgencyStatuses.vue",
@@ -1170,6 +1340,51 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyWorkflowSetupDetailPage.vue",
+    "source": "app/components/Agency/AgencyWorkflowSetupDetailPage.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyWorkflowSetupDetailPage.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyWorkflowSetupDetailPage.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyWorkflowSetupModal.vue",
+    "source": "app/components/Agency/AgencyWorkflowSetupModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyWorkflowSetupModal.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyWorkflowSetupModal.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyWorkflowSetups.vue",
+    "source": "app/components/Agency/AgencyWorkflowSetups.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyWorkflowSetups.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agency/AgencyWorkflowSetups.vue in the current UI and its paired destination guides. Contract: Agency-owned catalog editor and shared Stream selection flow. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Agreement/AgreementActivitiesTab.vue",
@@ -1516,6 +1731,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: monitor child records, Agency business statuses, exact assignments and optional completion approval. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Agreement/AgreementNotesTab.vue",
+    "source": "app/components/Agreement/AgreementNotesTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "app/components/Agreement/AgreementNotesTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agreement/AgreementNotesTab.vue in the current UI and its paired destination guides. Contract: Agreement-scoped bilingual note list and CRUD actions. No browser or application test execution is claimed."
+  },
+  {
     "id": "component:app/components/Agreement/AgreementPaymentsTab.vue",
     "source": "app/components/Agreement/AgreementPaymentsTab.vue",
     "audience": [
@@ -1610,6 +1840,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: program-first creation, independent eligible Proponents, numbering provider, similarity confirmations, custom values and risk workflows. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Agreement/AgreementProponentTypeField.vue",
+    "source": "app/components/Agreement/AgreementProponentTypeField.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/applicant-recipients.md",
+    "fr": "fr/agreements/applicant-recipients.md",
+    "evidence": [
+      "app/components/Agreement/AgreementProponentTypeField.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agreement/AgreementProponentTypeField.vue in the current UI and its paired destination guides. Contract: Agreement–Proponent relationship subtype selection. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Agreement/Fields/AgreementActivityOutcomesField.vue",
@@ -1816,6 +2061,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: profile availability, scoped creation, exact assignments, reference retention and Agency financial-ID views. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/ApplicantRecipient/ApplicantRecipientNotesTab.vue",
+    "source": "app/components/ApplicantRecipient/ApplicantRecipientNotesTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "app/components/ApplicantRecipient/ApplicantRecipientNotesTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/ApplicantRecipient/ApplicantRecipientNotesTab.vue in the current UI and its paired destination guides. Contract: Agency-scoped Proponent note list and CRUD actions. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/ApplicantRecipient/ApplicantRecipientOtherNamesTab.vue",
@@ -3313,6 +3573,36 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: sidebar permissions, loading/error recovery, table/lookup behavior, Assigned Work and explicit dashboard placeholders. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Common/DesignTimeEditorSections.vue",
+    "source": "app/components/Common/DesignTimeEditorSections.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Common/DesignTimeEditorSections.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Common/DesignTimeEditorSections.vue in the current UI and its paired destination guides. Contract: Shared design editor sections and save/publish layout. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Common/DesignTimeEditorShell.vue",
+    "source": "app/components/Common/DesignTimeEditorShell.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Common/DesignTimeEditorShell.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Common/DesignTimeEditorShell.vue in the current UI and its paired destination guides. Contract: Shared design editor sections and save/publish layout. No browser or application test execution is claimed."
+  },
+  {
     "id": "component:app/components/Common/EntityEditorWorkspace.vue",
     "source": "app/components/Common/EntityEditorWorkspace.vue",
     "audience": [
@@ -3641,6 +3931,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: sidebar permissions, loading/error recovery, table/lookup behavior, Assigned Work and explicit dashboard placeholders. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/Common/ReviewsTab.vue",
+    "source": "app/components/Common/ReviewsTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/runtime-reviews.md",
+    "fr": "fr/concepts/runtime-reviews.md",
+    "evidence": [
+      "app/components/Common/ReviewsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Common/ReviewsTab.vue in the current UI and its paired destination guides. Contract: Direct Reviews tab, published set selection and runtime attempts. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Common/RouteTabs.vue",
@@ -4089,28 +4394,6 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "component:app/components/RecommendationSchema/RecommendationSchemaDetailPage.vue",
-    "source": "app/components/RecommendationSchema/RecommendationSchemaDetailPage.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/RecommendationSchema/RecommendationSchemaDetailPage.vue",
-      "shared/types/schemas/recommendation/recommendation.ts",
-      "app/utils/route-locations.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "shared/constants/system-lifecycle.ts",
-      "shared/utils/scopes.ts",
-      "app/composables/useEditorMutationCoordinator.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/Review/ReviewAssessmentSetItemFields.vue",
     "source": "app/components/Review/ReviewAssessmentSetItemFields.vue",
     "audience": [
@@ -4206,6 +4489,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: assessment authoring, scoring, dependencies, outcome strategy and immutable integer publication versions. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/ReviewSchema/ReviewSchemaImportModal.vue",
+    "source": "app/components/ReviewSchema/ReviewSchemaImportModal.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/programs/assessment-schemas.md",
+    "fr": "fr/programs/assessment-schemas.md",
+    "evidence": [
+      "app/components/ReviewSchema/ReviewSchemaImportModal.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/ReviewSchema/ReviewSchemaImportModal.vue in the current UI and its paired destination guides. Contract: Schema-validated JSON import into draft review editor before save. No browser or application test execution is claimed."
   },
   {
     "id": "component:app/components/Role/RoleAssignmentModal.vue",
@@ -4566,22 +4864,6 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "component:app/components/TransferPayment/Fields/TransferPaymentStreamChartOfAccountFields.vue",
-    "source": "app/components/TransferPayment/Fields/TransferPaymentStreamChartOfAccountFields.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/Fields/TransferPaymentStreamChartOfAccountFields.vue",
-      "shared/types/schemas/transfer-payment.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/Fields/TransferPaymentStreamFields.vue",
     "source": "app/components/TransferPayment/Fields/TransferPaymentStreamFields.vue",
     "audience": [
@@ -4704,42 +4986,6 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentApprovalTemplateDetailPage.vue",
-    "source": "app/components/TransferPayment/TransferPaymentApprovalTemplateDetailPage.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/approval-templates.md",
-    "fr": "fr/programs/approval-templates.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentApprovalTemplateDetailPage.vue",
-      "app/utils/fetch-error.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/route-locations.ts",
-      "shared/utils/scopes.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream-scoped reusable templates, published step/certification policies and historical runtime pins. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentApprovalTemplateModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentApprovalTemplateModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/approval-templates.md",
-    "fr": "fr/programs/approval-templates.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentApprovalTemplateModal.vue",
-      "shared/types/schemas/index.ts",
-      "app/composables/useCrudModal.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream-scoped reusable templates, published step/certification policies and historical runtime pins. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/TransferPaymentApprovalTemplateStepEditor.vue",
     "source": "app/components/TransferPayment/TransferPaymentApprovalTemplateStepEditor.vue",
     "audience": [
@@ -4786,80 +5032,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream-scoped reusable templates, published step/certification policies and historical runtime pins. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentApprovalTemplatesTab.vue",
-    "source": "app/components/TransferPayment/TransferPaymentApprovalTemplatesTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/approval-templates.md",
-    "fr": "fr/programs/approval-templates.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentApprovalTemplatesTab.vue",
-      "app/utils/route-locations.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream-scoped reusable templates, published step/certification policies and historical runtime pins. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentAssessmentSetItemModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentAssessmentSetItemModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentAssessmentSetItemModal.vue",
-      "shared/utils/form-requirements.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/transfer-payment-assessment-modal.ts",
-      "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentAssessmentSetModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentAssessmentSetModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentAssessmentSetModal.vue",
-      "shared/utils/form-requirements.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/transfer-payment-assessment-modal.ts",
-      "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentAssessmentSetsTab.vue",
-    "source": "app/components/TransferPayment/TransferPaymentAssessmentSetsTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentAssessmentSetsTab.vue",
-      "app/utils/route-locations.ts",
-      "app/utils/transfer-payment-assessment-sets-tab.ts",
-      "shared/types/schemas/transfer-payment.ts",
-      "app/composables/useTableColumns.ts",
-      "shared/constants/system-lifecycle.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentBudgetsTab.vue",
@@ -5158,24 +5330,6 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSchemasTab.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSchemasTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSchemasTab.vue",
-      "shared/types/admin-common-ui.ts",
-      "shared/types/schemas/index.ts",
-      "app/utils/admin-common-columns.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupDetailHero.vue",
     "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupDetailHero.vue",
     "audience": [
@@ -5186,107 +5340,6 @@
     "fr": "fr/programs/recommendations.md",
     "evidence": [
       "app/components/TransferPayment/TransferPaymentRecommendationSetupDetailHero.vue",
-      "shared/constants/system-lifecycle.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupDetailPage.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupDetailPage.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSetupDetailPage.vue",
-      "shared/utils/form-requirements.ts",
-      "shared/types/schemas/index.ts",
-      "shared/utils/scopes.ts",
-      "app/utils/route-locations.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "shared/constants/system-lifecycle.ts",
-      "app/composables/useEditorMutationCoordinator.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupItemModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupItemModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSetupItemModal.vue",
-      "shared/utils/form-requirements.ts",
-      "app/utils/fetch-error.ts",
-      "app/utils/client-request-url.ts",
-      "shared/types/schemas/index.ts",
-      "app/composables/useEditorMutationCoordinator.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSetupModal.vue",
-      "app/composables/useTransferPaymentRecommendationSetupModal.ts",
-      "shared/types/schemas/transfer-payment.ts",
-      "app/composables/useCrudModal.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupSchemaCreateModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupSchemaCreateModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSetupSchemaCreateModal.vue",
-      "shared/types/schemas/index.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "app/composables/useEditorMutationCoordinator.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupTab.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupTab.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSetupTab.vue",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "app/utils/route-locations.ts",
-      "shared/types/schemas/transfer-payment.ts",
-      "app/composables/useTableColumns.ts",
       "shared/constants/system-lifecycle.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
@@ -5722,48 +5775,6 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit standard selection, automatic purpose dispatch, published plans, status transitions and historical retry policy. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupDetailPage.vue",
-    "source": "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailPage.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailPage.vue",
-      "shared/utils/scopes.ts",
-      "shared/types/ui.ts",
-      "shared/types/schemas/index.ts",
-      "app/utils/route-locations.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "shared/constants/system-lifecycle.ts",
-      "app/utils/workflow-member-selection.ts",
-      "app/composables/useEditorMutationCoordinator.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit standard selection, automatic purpose dispatch, published plans, status transitions and historical retry policy. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentWorkflowSetupModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupModal.vue",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit standard selection, automatic purpose dispatch, published plans, status transitions and historical retry policy. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue",
     "source": "app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue",
     "audience": [
@@ -5864,6 +5875,36 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: case-insensitive email identity, activation, role assignments and fresh scoped authorization. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/home/HomeAssignedWorkList.vue",
+    "source": "app/components/home/HomeAssignedWorkList.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/home/HomeAssignedWorkList.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/home/HomeAssignedWorkList.vue in the current UI and its paired destination guides. Contract: Live assigned and group work dashboard, pagination, claim and retry. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/home/HomeGroupWorkList.vue",
+    "source": "app/components/home/HomeGroupWorkList.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/home/HomeGroupWorkList.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/home/HomeGroupWorkList.vue in the current UI and its paired destination guides. Contract: Live assigned and group work dashboard, pagination, claim and retry. No browser or application test execution is claimed."
+  },
+  {
     "id": "component:app/components/home/HomeStats.vue",
     "source": "app/components/home/HomeStats.vue",
     "audience": [
@@ -5877,5 +5918,35 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: sidebar permissions, loading/error recovery, table/lookup behavior, Assigned Work and explicit dashboard placeholders. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/home/HomeWorkDashboard.vue",
+    "source": "app/components/home/HomeWorkDashboard.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/home/HomeWorkDashboard.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/home/HomeWorkDashboard.vue in the current UI and its paired destination guides. Contract: Live assigned and group work dashboard, pagination, claim and retry. No browser or application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/home/HomeWorkPager.vue",
+    "source": "app/components/home/HomeWorkPager.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/home/HomeWorkPager.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/home/HomeWorkPager.vue in the current UI and its paired destination guides. Contract: Live assigned and group work dashboard, pagination, claim and retry. No browser or application test execution is claimed."
   }
 ]

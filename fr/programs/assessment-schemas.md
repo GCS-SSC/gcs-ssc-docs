@@ -1,6 +1,6 @@
 # Schemas D Evaluation
 
-Les schemas d evaluation definissent les questions structurees, matrices de pointage, dependances, valeurs calculees, resultats et facteurs d impact utilises par les examens d evaluation en execution. Dans les paiements de transfert, les administrateurs ouvrent l editeur depuis les configurations d examen de volet ou les lignes d ensemble d evaluation qui referencent un schema d evaluation.
+Les schémas d’évaluation définissent les questions, matrices de pointage, dépendances, valeurs calculées, résultats et facteurs d’impact des examens. Les administrateurs ouvrent l’éditeur depuis un membre d’ensemble d’examens de l’agence.
 
 Le schema lui-meme est porte par l agence. Un schema utilise par un volet doit appartenir a l agence du volet et correspondre au type d entite d execution configure.
 
@@ -11,21 +11,24 @@ Avant qu un volet puisse utiliser des schemas d evaluation en operation, configu
 - Agence et programme de paiement de transfert.
 - Volet.
 - Schemas d examen communs pour l agence et le type d entite, avec type d examen evaluation.
-- Configurations d examen de volet ou ensembles d evaluation qui referencent ces schemas.
+- Ensemble d’examens d’agence qui référence ces schémas; liez l’ensemble publié au volet.
 - Modeles d approbation si la completion de l evaluation ou les etapes d examen exigent une route d approbation.
 - Utilisateurs disposant des rôles de portée et des affectations exactes d’entité ou de flux nécessaires pour lire, enregistrer, terminer et approuver le travail généré.
 
 ## Ou Ouvrir Les Schemas
 
-Un schema est ouvert dans un contexte de volet, habituellement depuis les configurations d examen ou une surface de gestion des ensembles d evaluation. Le fil d Ariane retourne par le programme et le volet. L editeur charge:
+Ouvrez un schéma depuis un ensemble d’examens d’agence. Le fil d’Ariane retourne au catalogue d’agence. L’éditeur charge :
 
-- Profil de paiement de transfert parent.
-- Volet parent.
+- Agence et ensemble d’examens propriétaires.
 - Schema d evaluation.
 - Contenu effectif du schema et matrice de pointage.
 - Champs d aide disponibles pour le type d entite du schema.
 
 L editeur a un sommaire repliable et une barre laterale avec controles de sauvegarde et navigation par section.
+
+## Importer une définition JSON
+
+Dans l’éditeur, **Importer** accepte une définition JSON d’évaluation collée. Le client l’analyse et la valide selon le contrat de définition avant de remplacer le brouillon local. Vérifiez les sections, les calculs et le texte bilingue, puis utilisez séparément **Enregistrer** et **Publier**. Un JSON invalide ou des champs invalides restent dans la fenêtre pour correction; l’importation seule ne change ni le serveur ni un examen d’exécution figé.
 
 ## États de publication
 

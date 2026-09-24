@@ -4,9 +4,9 @@ Utilisez **Administration → Audit** pour examiner les changements enregistrés
 
 ## Accès
 
-Un rôle doit accorder explicitement le sujet `audit` à portée **globale**. Chaque niveau pris en charge accorde seulement la lecture Audit. Une permission d’organisme, une affectation ou la permission Système seule ne donne pas cet accès. Audit ne propose aucune action de création, modification, suppression, affectation, approbation ou transition.
+Un rôle doit accorder explicitement `audit:read` à portée globale ou d’agence. Une permission globale permet de lire les preuves de toutes les agences; une permission d’agence retourne seulement les événements attribués à cette agence. La règle de visibilité s’applique avant la recherche, les comptes, la pagination et la lecture des détails. Une permission Système, une permission métier ou une affectation exacte ne donne pas accès à Audit. L’espace est en lecture seule, sans création, modification ni suppression.
 
-Accordez cette permission aux personnes dont les fonctions exigent des preuves couvrant plusieurs organismes. La page et chaque API de liste ou de détail l’appliquent séparément des permissions sur les dossiers métier.
+Les valeurs d’entrée capturées des requêtes exigent la capacité distincte `audit:view_audit_inputs`. Un lecteur Audit sans cette capacité voit l’événement et l’état de visibilité des entrées, mais pas les valeurs capturées. Une permission d’entrée d’agence ne révèle que les preuves attribuées à cette agence; les entrées attribuées globalement exigent une permission globale. Les valeurs sont assainies et peuvent être indisponibles pour un événement. Réservez ces permissions aux personnes dont les fonctions exigent ces preuves.
 
 ## Trouver un événement
 
@@ -30,7 +30,7 @@ L’acteur est le `user.id` du compte authentifié, non l’identifiant Common U
 
 Les nombres dans la preuve de changement conservent le texte décimal afin d’éviter l’arrondissement des grands identifiants et montants exacts. Les colonnes JSON sont comparées comme valeurs complètes. Les exclusions de secrets et les politiques de capture restreinte omettent volontairement les données sensibles.
 
-Les paramètres, littéraux SQL et commentaires sont expurgés. Une requête structurée simple sur une table peut identifier les clés primaires retournées, y compris les alias et clés composites. Les projections jointes, agrégées, brutes ou sans identifiant peuvent indiquer des identités indisponibles. Lisez les limites affichées; une projection indisponible n’est pas un résultat vide. Le filtre d’identifiant de fiche des accès cherche les valeurs de clés capturées et ne retrouve pas les identités non capturées.
+Les littéraux SQL et commentaires sont expurgés. Les entrées assainies des requêtes apparaissent seulement avec la permission distincte de voir les entrées; elles ne copient pas tout le corps de la demande. Une requête structurée simple sur une table peut identifier les clés primaires retournées, y compris les alias et clés composites. Les projections jointes, agrégées, brutes ou sans identifiant peuvent indiquer des identités indisponibles. Lisez les limites affichées; une projection indisponible n’est pas un résultat vide. Le filtre d’identifiant de fiche des accès cherche les valeurs de clés capturées et ne retrouve pas les identités non capturées.
 
 ## Exemple d’enquête
 
@@ -56,7 +56,8 @@ La file est limitée à 2 000 événements et 32 Mio de charge sérialisée esti
 
 | Symptôme | Action |
 | --- | --- |
-| Navigation Audit absente ou accès refusé | Vérifiez une permission Audit globale explicite; Système ne suffit pas. |
+| Navigation Audit absente ou accès refusé | Vérifiez `audit:read` explicite, global ou pour l’agence correspondante; Système ne suffit pas. |
+| Événement ou entrée capturée absent | Vérifiez l’agence propriétaire et `audit:view_audit_inputs`; une entrée restreinte ou indisponible ne prouve pas qu’aucune requête n’a eu lieu. |
 | Échec de chargement de liste, détail ou conservation | Utilisez l’action de reprise visible. Un échec n’est pas un ensemble vide. |
 | Aucune ligne d’accès pour une demande récente réussie | Attendez le lot, rechargez et demandez à l’opérateur de vérifier l’activation, le retard et les événements de perte ou d’échec. |
 | Preuve ancienne absente | Comparez son âge à la conservation. Un filtre ne recrée pas une preuve expirée ou non capturée. |

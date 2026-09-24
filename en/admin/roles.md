@@ -40,12 +40,13 @@ The Permissions tab shows one row per supported subject. Select `None`, `Viewer`
 | Contributor | Read, create, update |
 | Manager | Read, create, update, delete |
 
-The subjects are `system`, `audit`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
+The subjects are `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
 
 | Role subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
 | `system` | Yes | No | No |
-| `audit` | Yes | No | No |
+| `audit` | Yes | Yes | No |
+| `group` | Yes | Yes | No |
 | `agency` | Yes | Yes | No |
 | `transfer_payment` | Yes | Yes | Yes |
 | `role` | Yes | Yes | No |
@@ -89,4 +90,4 @@ Role creation, profile updates, deletion, and permission replacements append non
 
 Prefer a small set of durable job-function roles. Use scope and user-role assignments to vary coverage, then exact entity assignments to allocate saved work.
 
-Audit access must be granted explicitly on a global role. A System Manager does not automatically gain access to the [audit browser](./audit.md). For an analyst who only needs evidence, grant Audit Viewer without broader operational or assignment-management permissions.
+Audit access must be granted explicitly on a global or Agency role. `audit:view_audit_inputs` is a separate capability for sanitized captured inputs. A System Manager does not automatically gain access to the [audit browser](./audit.md). For an analyst who only needs evidence, grant Audit Viewer at the required scope without broader operational or assignment-management permissions.

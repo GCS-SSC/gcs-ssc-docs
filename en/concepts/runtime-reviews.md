@@ -44,7 +44,7 @@ An assessment renders the published definition pinned when the review was materi
 
 ## Complete a checklist
 
-A checklist presents the pinned bilingual questions grouped by section and subsection. Choose **Pass** or **Fail** and provide comments according to each question's policy: optional, required, or required on failure. The sidebar shows answered counts and the live result.
+A checklist presents pinned bilingual questions grouped by section and subsection. Choose **Pass** or **Fail**, or **Not applicable** when that question offers it. Comments may be optional, always required, required on failure, required on Not applicable, or required on either of those answers. The sidebar shows answered counts and the live result. A required question still needs one of its configured answers; Not applicable is an explicit answer, not an unanswered question.
 
 The result is always evaluated server-side from the pinned rule tree. It can be `pass`, `fail`, or `pass_with_considerations`. **Explain** displays the matched groups and triggering questions; it is an explanation of the deterministic calculation, not an editable result. A normal save validates known, unique question keys but permits incomplete required work. Completion applies the stricter required-answer and required-comment rules.
 

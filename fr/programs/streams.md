@@ -86,9 +86,7 @@ La page de detail du volet expose ces onglets:
 - Domaines d expertise.
 - Limites financieres.
 - Configurations d examen.
-- Modeles d approbation.
 - Modeles de documents.
-- Configurations de recommandation.
 - Configurations de flux de travail.
 - Extensions.
 
@@ -134,9 +132,9 @@ Une nouvelle allocation exige un budget de programme admissible dont l’exercic
 
 Les destinataires admissibles definissent quels sous-types de destinataires demandeurs de l agence peuvent etre utilises pour le volet. Chaque ligne selectionne un sous-type de destinataire demandeur.
 
-Ces correspondances décrivent les catégories prévues par le volet. La sélection des promoteurs d’une entente vérifie séparément le profil actif et la portée de lecture et permet un organisme principal distinct. La configuration seule ne prouve pas l’admissibilité d’un destinataire au programme.
+Ces correspondances fournissent le sous-type requis sur chaque lien entente–promoteur. Le profil du promoteur ne conserve plus de sous-type. Le réglage **Exiger un type de promoteur cohérent** fixe le type d’un promoteur qui revient dans ce volet à son sous-type admissible précédent; sinon, le type peut être choisi pour chaque entente. Le profil exige toujours une lecture autorisée et peut relever d’une agence différente. Cette correspondance seule ne prouve pas toute l’admissibilité au programme.
 
-Les correspondances historiques conservent le libellé du sous-type après son retrait. La même référence peut être gardée; son remplacement doit être un sous-type actuellement admissible de l’organisme. Les références conservées de profil ou d’admissibilité peuvent bloquer la suppression ou le retrait d’un sous-type d’organisme.
+Les correspondances historiques conservent le libellé du sous-type après son retrait. La même référence peut être gardée; son remplacement doit être un sous-type actuellement admissible de l’organisme. Les références conservées de relation d’entente ou d’admissibilité peuvent bloquer la suppression ou le retrait d’un sous-type d’organisme.
 
 ## Onglet Elements De Ligne De Categorie De Couts
 
@@ -170,15 +168,13 @@ Changer le type d’entente d’organisme derrière un sous-type doit préserver
 
 ## Plan comptable et types d’engagement
 
-L’onglet **Plan comptable** définit le codage financier que les lignes d’engagement d’une entente peuvent sélectionner. Créez d’abord les budgets du volet : chaque entrée du plan appartient à un budget actif de ce volet exact et, par conséquent, à un exercice. Chaque entrée contient une ou plusieurs dimensions ordonnées; chaque dimension exige un libellé anglais, un libellé français et une valeur. Les libellés anglais doivent être uniques dans l’entrée, tout comme les libellés français. Un même budget d’exercice ne peut pas contenir deux entrées actives dont le JSON ordonné des dimensions est identique.
+Définissez les entrées bilingues du plan comptable sur la page Agence, avec exercice et dimensions comptables ordonnées. L’onglet **Plan comptable** du volet lie ensuite une entrée d’agence admissible. La recherche couvre l’exercice et le texte des dimensions. Le retrait du lien est une suppression logique, refusée tant qu’une ligne d’engagement active de l’entente le référence. Le retrait d’une définition d’agence peut laisser les liens historiques visibles; corrigez l’entrée d’agence plutôt que de réutiliser son identifiant pour une autre classification.
 
-La recherche correspond à l’exercice affiché ou au texte de toute dimension conservée. La création et la modification exigent l’accès de création ou de modification au programme de paiements de transfert dans la portée résolue; la suppression exige l’accès de suppression de niveau Gestionnaire. Les écritures répètent l’autorisation après avoir verrouillé le programme, le volet et l’organisme actifs. La suppression est logique et est refusée tant qu’une ligne d’engagement d’entente active référence l’entrée.
-
-L’onglet **Types d’engagement** définit les types bilingues proposés lors de la création d’un engagement d’entente. Les deux noms sont obligatoires et la paire active de noms anglais et français doit être unique dans le volet. Un type peut être modifié, mais ne peut plus être retiré dès qu’un engagement d’entente l’a référencé. L’assistant de volet peut créer les budgets, les entrées du plan comptable et les types d’engagement ensemble; toute entrée temporaire du plan doit pointer vers un budget temporaire de la même charge utile.
+Définissez les types d’engagement bilingues sur la page Agence. L’onglet **Types d’engagement** du volet sélectionne un type d’agence disponible pour les nouveaux engagements. Le retrait d’un lien utilisé ou la suppression d’un type d’agence référencé est refusé. Contributeur du volet peut ajouter un lien; un retrait admissible exige Gestionnaire. Le serveur revérifie l’agence, le programme, le volet et les références actuelles sous verrou.
 
 ## Onglet Types De Surveillance
 
-Les types de surveillance classent les dossiers de surveillance du volet. Chaque ligne contient un nom anglais et francais. Ces valeurs deviennent des options de reference pour les flux de surveillance rattaches aux ententes du volet.
+Créez les types de surveillance bilingues sur la page Agence, puis associez ici les types admissibles. La sélection du volet détermine les types offerts aux nouvelles surveillances. Les dossiers existants conservent leur référence lorsque le type d’agence ou le lien est retiré. Si un type manque au sélecteur, rechargez les deux catalogues et vérifiez la propriété d’agence et l’état actif avant de réessayer.
 
 ## Onglet Cotes De Risque
 
@@ -212,85 +208,27 @@ L assistant traite les limites financieres comme optionnelles. Si le volet n a a
 
 ## Onglet Configurations D Examen
 
-Les configurations d examen definissent comment les evaluations sont generees pour les entites d execution. Une configuration contient:
-
-- Type d entite.
-- Indicateur "a la completion".
-- Nom anglais et nom francais.
-- Ordre.
-- Indicateur sequentiel.
-- Modele d approbation optionnel.
-- Statut du cycle de vie, version et état de publication en attente.
-- Un ou plusieurs membres de configuration.
-
-Chaque membre est lie a un schema d evaluation, a un ordre et a un modele d approbation optionnel. Les lignes affichent aussi les metadonnees du schema comme le nom, le nom du resultat, la version et le statut.
-
-Regles metier:
-
-- Les membres d une meme configuration doivent utiliser des schemas d examen uniques.
-- Les membres d une meme configuration doivent utiliser des ordres uniques.
-- La generation a la completion n est pas permise pour les types d entite qui supportent seulement la creation manuelle: admission de dossier de financement, entente de dossier de financement et demandeur/destinataire.
-- Les configurations actives ne peuvent pas dupliquer type d entite plus ordre ou type d entite plus nom bilingue.
-- Les schemas d examen doivent appartenir a l agence du volet et correspondre au type d entite configure.
-
-Implication d execution: lorsque la configuration est activee pour des entites supportees, elle peut generer du travail d examen commun. Les configurations sequentielles controlent si les membres s executent en sequence ou en parallele.
-
-Une nouvelle configuration commence à l’état d’ébauche. La publication d’une ébauche valide crée la version immuable 1. Modifier une configuration publiée crée du contenu de travail en attente; Publier est offert seulement si ce contenu est valide et différent. Une configuration publiée peut être retirée définitivement. Les examens d’exécution demeurent liés aux versions de publication exactes de la configuration et du schéma qui les ont générés; une modification ultérieure ne réécrit donc pas le travail existant. L’éditeur détaillé peut associer un schéma existant de la même agence ou créer un schéma d’évaluation ou de liste de vérification, puis ouvrir son éditeur.
-
-Le code source conserve aussi les contrats d'API d'ensembles d'évaluation propres au volet et un composant Ensembles d'évaluation non monté. Celui-ci n'est inscrit dans aucune page ni dans la carte d'onglets courante et n'a donc aucun chemin de navigation utilisateur pris en charge. Les intégrations qui utilisent ces API doivent quand même respecter la propriété du volet, les membres d'évaluation seulement, l'autorisation actualisée, l'unicité et la suppression logique; les administrateurs doivent utiliser Configurations d'examen dans l'interface courante.
+Cet onglet liste les ensembles d’examens appartenant à l’agence et liés au volet. Utilisez **Ajouter** pour choisir un ensemble publié admissible de la même agence. Ouvrez une ligne pour modifier sa définition d’agence, ses schémas membres, sa publication et son comportement d’examen direct ou à l’achèvement. Retirer le lien du volet ne supprime ni l’ensemble d’agence ni les examens historiques. Une définition peut être liée à plusieurs volets de l’agence; chaque examen d’exécution conserve la publication utilisée lors de sa création. Consultez [Examens en exécution](../concepts/runtime-reviews.md).
 
 ## Onglet Configurations De Recommandation
 
-Les configurations de recommandation definissent la generation de recommandations pour un volet. Chaque configuration contient:
-
-- Type d entite.
-- Nom anglais et nom francais.
-- Description anglaise et description francaise.
-- Schema de recommandation.
-- Modele d approbation optionnel.
-- Indicateur actif.
-
-Les configurations actives ne doivent pas dupliquer type d entite plus nom bilingue. Les schemas de recommandation doivent appartenir a l agence et correspondre au type d entite configure.
+Les schémas et ensembles de recommandations sont créés sur la page **Agence**. Ils sont référencés par les flux d’agence et leurs membres publiés; le volet n’a plus d’onglet distinct de configuration des recommandations. La définition contient des questions bilingues, une question décisive, des membres ordonnés, des étapes d’approbation facultatives et la politique d’échec. Consultez [Schémas et ensembles de recommandations](./recommendations.md).
 
 ## Onglet Modeles D Approbation
 
-Les modeles d approbation de volet definissent les routes d approbation portees par le volet. Les modèles sont réutilisables dans le volet et contiennent des étapes et attestations; la configuration consommatrice fournit la cible d’exécution.
-
-Utilisez cet onglet lorsque les routes d approbation doivent varier selon le volet. Des modeles communs/globaux peuvent exister ailleurs, mais les modeles de volet sont ceux qui sont generalement references par les flux d examen, recommandation, entente, reclamation, prevision, paiement, surveillance et demandeur/destinataire.
-
-Voir [Modeles d approbation](./approval-templates.md) pour le comportement complet des modeles et de l approbation en execution.
+Les modèles d’approbation sont créés et publiés sur la page **Agence**. Le volet n’a plus d’onglet distinct Modèles d’approbation. Les ensembles d’examens, ensembles de recommandations et flux référencent un modèle d’agence admissible; chaque bordereau d’exécution conserve ses étapes et attestations figées. Consultez [Modèles d’approbation](./approval-templates.md).
 
 ## Onglet Configurations De Flux De Travail
 
-Les configurations définissent l’orchestration du volet. Un flux standard démarre explicitement depuis le catalogue de la cible; la soumission d’approbation démarre explicitement pour l’entente et par achèvement pour les enfants pris en charge. La cotation du risque démarre explicitement sur l’entente. L’en-tête conserve la cible, l’objet, les états de départ permis, les replis d'annulation/échec d'exécution, l'état actif et la politique de reprise. La page de détail construit une séquence positive unique d'ensembles d'examens, d'ensembles de recommandations et de modèles d'approbation racine. Chaque membre peut appliquer un état cible à la matérialisation, à la réussite ou à l'échec. Les membres d'examen/recommandation exigent exactement un utilisateur actif par défaut pour chaque membre imbriqué; **Permettre le réacheminement du propriétaire** autorise le rétablissement si cet utilisateur n'est plus admissible à l'exécution. La publication revalide ressources, propriétaires, cible et portée. Les exécutions publiées conservent la séquence, les transitions, les correspondances et la filiation immuables. Consultez [Flux de travail](../concepts/workflows.md).
+Cet onglet liste les flux d’agence publiés liés au volet. La commande d’ajout choisit un flux de la même agence; la ligne ouvre l’éditeur détaillé de l’agence. Retirer le lien empêche un nouvel usage dans ce volet sans supprimer la définition partagée ni les tentatives historiques. La définition d’agence précise le type d’entité, l’objet, les états de départ, les membres d’examen, recommandation et approbation ordonnés, les conditions et la reprise. Son déploiement dans le volet résout les valeurs locales comme les cotes de risque; des champs requis manquants ou des références locales incompatibles bloquent l’usage au lieu d’ignorer une étape. Consultez [Flux de travail](../concepts/workflows.md) et [Catalogues d’agence](../admin/agency-catalogs.md).
 
 ## Onglet Modeles De Documents
 
-Les modeles de documents de volet definissent les fichiers sources utilises par la generation de documents d entente. L onglet affiche le type d entite, le nom anglais, le genre de modele, les formats de sortie, l etat actif, les pieces jointes bilingues et les actions de ligne.
+Créez les modèles sources bilingues DOCX ou HTML dans **Modèles de documents** de l’agence, puis liez un modèle admissible ici. Retirer le lien du volet conserve la source d’agence et les documents historiques générés. Un modèle enregistre sa cible, ses noms et descriptions bilingues, ses formats de sortie, son état actif et ses fichiers sources. Les deux fichiers linguistiques sont requis à la création; chaque fichier est limité à 10 Mio et la requête à 21 Mio. DOCX permet DOCX/PDF et HTML permet HTML/PDF. Le type du modèle ne peut plus changer après création. L’extension du nom détermine la validation du type de fichier; la création de modèles exige donc un accès fiable. Consultez [Documents](../agreements/documents.md) et [Génération de documents](../developer/document-generation.md).
 
-Chaque modele stocke :
+## Schémas d’évaluation
 
-| Champ | Regle |
-| --- | --- |
-| Type d entite | Utilise actuellement par la generation d entente comme `fundingcaseagreement`. |
-| Nom anglais/francais | Nom d affichage bilingue requis. |
-| Description anglaise/francaise | Description bilingue requise affichee lorsque les utilisateurs choisissent un modele sur une entente. |
-| Genre de modele | `docx` ou `html`. |
-| Formats de sortie | Un ou plusieurs formats compatibles : les modèles DOCX permettent `docx` et/ou `pdf`; les modèles HTML permettent `html` et/ou `pdf`. |
-| Fichier anglais/francais | Requis a la creation. Les modeles DOCX acceptent `.docx`; les modeles HTML acceptent `.html` ou `.htm`. |
-| Actif | Seuls les modeles actifs d entente sont disponibles dans l onglet Documents d une entente. |
-
-La création utilise des données multiparties et exige les deux fichiers linguistiques. Chaque fichier est limité à 10 Mio et la requête complète à 21 Mio. La validation du genre de fichier repose actuellement sur l'extension du nom (`.docx`, ou `.html`/`.htm`); les opérateurs doivent donc traiter la permission de téléversement comme un accès fiable de création de contenu. Le genre de modèle devient immuable après la création.
-
-La modification peut mettre à jour les métadonnées, les formats compatibles, l'état actif et l'un ou l'autre fichier linguistique. Le remplacement stocke une nouvelle pièce jointe puis nettoie l'ancienne après la mise à jour de la base; une mise à jour échouée nettoie les nouvelles pièces créées. La suppression logique retire le modèle et ses pièces jointes sources de l'utilisation active. Les documents d'entente déjà générés demeurent des dossiers distincts. Un téléchargement autorise la relation précise entre le volet actif et le modèle, puis retourne la pièce jointe source française ou anglaise demandée.
-
-Note operationnelle : la generation PDF depuis DOCX utilise LibreOffice, et HTML vers PDF utilise Puppeteer. Le developpement local peut installer ces outils avec la commande de generation de documents decrite dans [Demarrage local](../developer/startup.md).
-
-## Schemas D Evaluation
-
-Les schemas d evaluation sont accessibles depuis les lignes de configuration d examen ou d ensemble d evaluation qui referencent un schema. L editeur permet de maintenir la matrice de pointage, les sections, questions, questions calculees, dependances, resultats et facteurs d impact utilises par les evaluations d execution.
-
-Voir [Schemas d evaluation](./assessment-schemas.md) pour le cycle de vie et le comportement complet de l editeur.
+Les schémas d’évaluation et de liste de vérification sont créés depuis l’éditeur d’ensemble d’examens de l’agence et publiés à cet endroit. Ils définissent les questions, calculs, dépendances, résultats et règles figés utilisés par les examens d’exécution. Consultez [Schémas d’évaluation](./assessment-schemas.md) et [Schémas de listes de vérification](./checklist-schemas.md).
 
 ## Onglet Extensions
 

@@ -40,12 +40,13 @@ L’onglet Permissions affiche une ligne par sujet pris en charge. Sélectionnez
 | Contributeur | Lecture, création, modification |
 | Gestionnaire | Lecture, création, modification, suppression |
 
-Les sujets sont `system`, `audit`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
+Les sujets sont `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
 
 | Sujet du rôle | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
-| `audit` | Oui | Non | Non |
+| `audit` | Oui | Oui | Non |
+| `group` | Oui | Oui | Non |
 | `agency` | Oui | Oui | Non |
 | `transfer_payment` | Oui | Oui | Oui |
 | `role` | Oui | Oui | Non |
@@ -89,4 +90,4 @@ La création, les mises à jour de profil, la suppression et le remplacement de 
 
 Privilégiez un petit ensemble de rôles durables fondés sur les fonctions. Utilisez la portée et les attributions utilisateur-rôle pour varier la couverture, puis les affectations exactes pour répartir le travail enregistré.
 
-Accordez explicitement l’accès Audit sur un rôle global. Gestionnaire Système ne donne pas automatiquement accès au [navigateur d’audit](./audit.md). Pour une personne qui consulte seulement les preuves, accordez Lecteur Audit sans permissions opérationnelles ni gestion des affectations supplémentaires.
+Accordez explicitement l’accès Audit sur un rôle global ou d’agence. `audit:view_audit_inputs` est une capacité distincte pour les entrées capturées assainies. Gestionnaire Système ne donne pas automatiquement accès au [navigateur d’audit](./audit.md). Pour une personne qui consulte seulement les preuves, accordez Lecteur Audit à la portée requise sans permissions opérationnelles ni gestion des affectations supplémentaires.

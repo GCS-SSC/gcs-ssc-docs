@@ -1,10 +1,10 @@
 # Flux de travail
 
-Les flux relient les examens, recommandations et approbations publiés d’un volet à un dossier métier exact. Choisissez explicitement un flux `standard` pour un processus facultatif, utilisez `approval_submission` pour l’approbation du dossier et `risk_rating` pour calculer le risque d’une entente. La clôture utilise la soumission d’approbation, sans objet distinct `close_out`. Les statuts métier, états de publication et états d’exécution sont distincts.
+Les flux relient les examens, recommandations et approbations publiés d’une agence à un dossier métier exact. Choisissez explicitement un flux `standard` pour un processus facultatif, utilisez `approval_submission` pour l’approbation du dossier et `risk_rating` pour calculer le risque d’une entente. La clôture utilise la soumission d’approbation, sans objet distinct `close_out`. Les statuts métier, états de publication et états d’exécution sont distincts.
 
 ## Configurer un flux
 
-Ouvrez un programme et un volet, puis choisissez **Configurations de flux**. L’éditeur de détail regroupe l’identité, l’acheminement, les transitions et le comportement.
+Ouvrez une agence et choisissez **Configurations de flux** pour créer et publier la définition. Ouvrez ensuite le volet du programme et ajoutez le flux d’agence publié dans **Configurations de flux**. L’éditeur regroupe l’identité, l’acheminement, les transitions et le comportement. Le lien au volet résout les valeurs locales, notamment les cotes de risque et la disponibilité des champs. Consultez [Catalogues d’agence](../admin/agency-catalogs.md).
 
 | Champ | Signification |
 | --- | --- |
@@ -18,7 +18,7 @@ Ouvrez un programme et un volet, puis choisissez **Configurations de flux**. L�
 | Propriétaires par défaut | Une correspondance par membre d’examen/recommandation imbriqué, avec réacheminement facultatif. |
 | Permettre la reprise | Autorise la dernière tentative échouée à reprendre sa configuration figée. |
 
-Une configuration appartient au volet exact de l’URL. La lecture et les mutations exigent le plafond de rôle et la portée `transfer_payment` correspondants; les affectations exactes aux dossiers métier n’accordent pas l’accès à la configuration.
+Une définition appartient à l’agence exacte de son URL. La création et la publication exigent le niveau de rôle d’agence correspondant; l’ajout ou le retrait du lien au volet exige le niveau `transfer_payment` correspondant; les affectations exactes aux dossiers métier n’accordent pas l’accès à la configuration.
 
 L’approbation d’une entente démarre explicitement. Les modifications et clôtures exigent un flux publié de soumission d’approbation lors de l’achèvement, avec un parcours de réussite terminale. Les réclamations, rapprochements, engagements, prévisions, paiements et surveillances peuvent s’achever avec un flux d’approbation facultatif. Les séquences et propriétaires doivent être complets et uniques. Les statuts cibles sont des identifiants appartenant à l’organisme, non des mots codés en dur tels que `inreview` ou `complete`.
 
@@ -55,7 +55,7 @@ Par exemple, configurez un flux d’approbation d’engagement avec un ensemble 
 
 ## Conditions et Évaluation du risque
 
-Les membres peuvent dépendre des sélections personnalisées de l’entente propriétaire. Les champs se combinent par ET et les options d’un champ par OU. Le démarrage capture valeurs et admissibilité; les membres ignorés gardent leur position publiée à l’écran sans créer de tâche. Une nouvelle tentative conserve les publications initiales et capture les valeurs actuelles. Consultez les [champs personnalisés](../programs/custom-fields.md) pour les exemples, valeurs requises et contraintes de retrait.
+Les conditions des membres peuvent utiliser les options des champs personnalisés de l’agence ainsi que les valeurs du profil d’entente : sous-type d’entente, redistribution (oui/non) et sous-type de bénéficiaire. Choisissez **Un des** ou **Tous** pour comparer les sous-types de bénéficiaire sélectionnés. Les conditions de champs différents se combinent par ET; les options d’un même champ se combinent par OU. L’éditeur présente les conditions dans une fenêtre dédiée et conserve leurs libellés. Le démarrage capture les valeurs d’entente et l’admissibilité des membres; les membres ignorés gardent leur position publiée sans créer de tâche. Une nouvelle tentative conserve les publications initiales, mais capture les valeurs courantes pour sa propre exécution sans modifier les preuves de la tentative précédente. Un champ requis manquant ou une valeur indisponible dans le volet bloque un nouveau déploiement. Consultez les [champs personnalisés](../programs/custom-fields.md) pour les exemples et contraintes de retrait.
 
 Le flux d’Évaluation du risque se sélectionne indépendamment de l’approbation. Sa publication fixe une seule source d’évaluation et une correspondance un à un entre maxima ordonnés de notes et cotes actives du volet. Une exécution réussie associe la note au premier maximum applicable et applique la cote capturée. Une preuve invalide ou périmée suit le parcours d’échec sans remplacer l’ancienne cote. Le parcours conditionnel choisi doit conserver cette évaluation.
 

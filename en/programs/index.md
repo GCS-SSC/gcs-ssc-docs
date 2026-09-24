@@ -91,7 +91,7 @@ The General tab is read-only display of the profile fields:
 - English and French abbreviation.
 - English and French description.
 - English and French purpose.
-- Terms and conditions link.
+- English and French terms and conditions links.
 - Status.
 
 Use the page-level edit action to change these fields.

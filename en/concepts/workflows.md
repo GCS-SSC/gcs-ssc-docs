@@ -1,10 +1,10 @@
 # Workflows
 
-Workflows connect a stream's published reviews, recommendations, and approvals to an exact business record. Choose an explicit `standard` workflow for optional process work, use `approval_submission` for the record's approval path, or use `risk_rating` to calculate an Agreement risk rating. Closeout uses approval submission; it does not have a separate `close_out` purpose. Business statuses, publication states, and runtime states are distinct.
+Workflows connect an Agency's published reviews, recommendations, and approvals to an exact business record. Choose an explicit `standard` workflow for optional process work, use `approval_submission` for the record's approval path, or use `risk_rating` to calculate an Agreement risk rating. Closeout uses approval submission; it does not have a separate `close_out` purpose. Business statuses, publication states, and runtime states are distinct.
 
 ## Configure a workflow setup
 
-Open a program and stream, then choose **Workflow Setups**. The detail editor groups identity, routing, transitions, and behaviour.
+Open an Agency and choose **Workflow Setups** to author and publish the design. Then open the Program Stream and add the published Agency Workflow on its **Workflow Setups** tab. The detail editor groups identity, routing, transitions, and behaviour. The Stream link resolves local values such as risk ratings and field availability. See [Agency catalogs](../admin/agency-catalogs.md).
 
 | Field | Meaning |
 | --- | --- |
@@ -18,7 +18,7 @@ Open a program and stream, then choose **Workflow Setups**. The detail editor gr
 | Default owners | One mapping per nested review/recommendation member, with optional owner redirection. |
 | Allow retry | Allows the latest failed attempt to retry its pinned setup. |
 
-A setup belongs to the exact stream in the URL. Read and mutation operations require the matching `transfer_payment` role ceiling and scope; exact business assignments do not grant configuration access.
+A design belongs to the exact Agency in its URL. Authoring and publication require the matching Agency role ceiling; adding or removing a Stream link requires the matching `transfer_payment` role ceiling. Exact business assignments do not grant configuration access.
 
 Agreement approval submission starts explicitly. Amendments and Closeouts require a published approval-submission workflow at Completion, with a terminal-success path. Claims, reconciliations, commitments, forecasts, payments, and monitors can complete with an optional approval-submission workflow. Sequence numbers and nested owner mappings must be complete and unique. Target statuses are Agency-owned status IDs, not hard-coded words such as `inreview` or `complete`.
 
@@ -32,7 +32,7 @@ Retiring a published setup is permanent and prevents new selection. Historical a
 
 ## Composable runtime sequence
 
-Several published standard workflows may coexist for the same scope and entity type. The user explicitly selects an eligible setup; the API requires `workflowSetupId` for `purpose: "standard"`. Approval submission and Risk Rating each use their selected published configuration. At most one workflow can be active for an exact target across all purposes. A terminal attempt releases that constraint; another eligible standard run may then start, including after Completion when the business status is not terminal. Completion never selects or starts a standard workflow.
+Several published standard workflows may coexist for the same Stream and entity type. The user explicitly selects an eligible setup; the API requires `workflowSetupId` for `purpose: "standard"`. Approval submission and Risk Rating each use their selected published configuration. At most one workflow can be active for an exact target across all purposes. A terminal attempt releases that constraint; another eligible standard run may then start, including after Completion when the business status is not terminal. Completion never selects or starts a standard workflow.
 
 Members execute strictly by their unique positive sequence:
 
@@ -55,7 +55,7 @@ For example, configure a commitment approval-submission workflow with a review s
 
 ## Conditions and Risk Rating
 
-Members can be conditional on the owning Agreement's configured selection fields. Conditions across fields use AND; allowed options within one field use OR. Start captures values and eligibility, and skipped members retain their published positions in the display without creating tasks. A retry keeps its original publication pins and captures current values anew. See [custom fields](../programs/custom-fields.md) for examples, required-value failures, and definition-retirement constraints.
+Workflow member conditions can use Agency custom-field options and Agreement profile values: Agreement subtype, Further distribution (yes/no), and recipient subtype. Choose **Any** or **All** when matching the Agreement's selected recipient subtypes. Conditions for different fields are combined with AND; alternatives selected for one field are combined with OR. The editor displays each condition in a dedicated modal and preserves its selected labels. Start captures the Agreement values and member eligibility, and skipped members retain their published positions without creating tasks. A retry keeps the original publication pins but captures current Agreement values for its new attempt; it does not rewrite the prior attempt's evidence. A missing required field or unavailable Stream value blocks a new deployment. See [custom fields](../programs/custom-fields.md) for examples and definition-retirement constraints.
 
 An Agreement Risk Rating workflow is selected independently from approval submission. Its publication pins one assessment source and a one-to-one mapping of ordered assessment score maxima to active stream ratings. A successful run maps the assessment score to the first applicable maximum and applies the captured risk score. Invalid or stale evidence follows the execution-failure path without overwriting the prior Agreement score. The chosen conditional route must still contain that risk assessment.
 

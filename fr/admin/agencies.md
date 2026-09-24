@@ -34,20 +34,9 @@ L'onglet Général affiche ces valeurs. Une modification du profil remplace uniq
 
 ## Navigation de la fiche
 
-La fiche comporte douze onglets pouvant être liés directement :
+La fiche de l’agence comporte 21 onglets pouvant être liés directement : Général; États; Champs personnalisés; Modèles d’approbation; Configurations de flux de travail; Ensembles d’examens; Ensembles de recommandations; Programmes; Catégories de coûts; Exercices financiers; Plan comptable; Types d’engagement; Modèles de documents; Bases de retenue; Types de surveillance; Types d’adresse; Types de pièces jointes; Sous-types de demandeur ou bénéficiaire; Approbation au nom d’autrui; Types d’entente; Extensions.
 
-1. Général
-2. États
-3. Programmes
-4. Catégories de coûts
-5. Exercices financiers
-6. Bases de retenue
-7. Types d’adresse
-8. Types de pièces jointes
-9. Sous-types de demandeur ou bénéficiaire
-10. Approbation au nom d’autrui
-11. Types d’entente
-12. Extensions
+Les catalogues de configurations et de données financières appartiennent à l’agence. Créez une définition réutilisable ici, puis liez-la ou affectez-la à chaque volet applicable. Consultez [Catalogues d’agence et sélections des volets](./agency-catalogs.md) pour les permissions, l’ordre de configuration, la publication et le rétablissement.
 
 Chaque onglet de données de référence offre la recherche littérale, le filtre de statut, la pagination et les totaux de l'agence. La recherche et le statut modifient les lignes affichées et le total paginé, tandis que le sommaire demeure celui de toute l'agence.
 

@@ -1,32 +1,30 @@
 # Agreement custom fields
 
-Use a stream's **Custom fields** tab to add information to its Agreements without an extension. Configure sections, fields, and selection options here; caseworkers enter the values on the Agreement's General tab. Selection fields can also decide which published workflow steps apply.
+Create reusable field definitions and selection options on the Agency's **Custom Fields** tab. A Program Stream's **Custom Fields** tab assigns those Agency fields to Agreement sections and controls each assignment's order, required flag, and active flag. Caseworkers enter values on the Agreement's General tab. Selection fields can determine which published workflow steps apply.
 
 ## Access and setup order
 
-Definitions use the existing transfer-payment permissions at global, agency, or program scope. Viewers can read them; Contributors can create, edit, deactivate, and reactivate them; Managers can delete unused definitions. They have no separate assignment roster. Entering Agreement values still requires Agreement Contributor access and an exact Agreement assignment, with the ordinary lifecycle restrictions.
+Agency Viewer can read definitions; Agency Contributor can create or edit them; eligible deletion needs Agency Manager. Stream assignment and section changes need `transfer_payment` Contributor in the Program scope; removing an eligible assignment needs Manager. Agreement values still require Contributor and the exact Agreement assignment, with normal status guards.
 
-1. Open the program, then its stream, then **Custom fields**.
-2. Add a section with English and French names and a display order.
-3. Use the section row's add action to create a field.
-4. For a selection field, expand it and add its options before caseworkers use it.
-5. Open an Agreement in that stream and verify the resulting labels, order, and required fields in both languages.
-6. If the field controls routing, configure and publish the relevant [workflow](../concepts/workflows.md) after its options exist.
+1. Open **Agencies**, select the Agency, and create bilingual fields and options under **Custom Fields**. Choose text, number, or selection; selection options must exist before caseworkers use them.
+2. Open a Program Stream's **Custom Fields** tab. Create bilingual Stream sections, then add Agency fields. Set section, display order, required, and active separately for this Stream.
+3. Open an Agreement in the Stream and check labels, order, and required fields in both languages.
+4. For routing fields, configure Agency Workflow conditions after creating options; link a published workflow to the Stream and verify each route.
 
-The table groups sections, fields, option categories, and options. Search matches both languages, including category and option labels. Pagination counts sections, so expanding a field can show many options on one page. Expansion survives a save; changing streams resets the editor and table context.
+The Agency field and option IDs are shared across assigned Streams; section and required settings belong to each Stream. An Agency field can be placed differently in two Streams. Search covers bilingual labels and option categories. See [Agency catalogs](../admin/agency-catalogs.md).
 
 ## Field definitions
 
 | Setting | Rule and consequence |
 | --- | --- |
-| Section | Required; must belong to this stream. Moving a field to another section in the same stream preserves its identity and saved values. |
+| Section | Stream-owned placement; moving an assigned Agency field to another section in the same Stream preserves its field ID and saved values. |
 | English and French name | Both are required nonblank labels. Values entered by caseworkers are not automatically translated. |
 | Type | Text, number, or selection. The type cannot be changed after creation. |
 | Text presentation | Single line or multiline. Single-line values reject line breaks; multiline values preserve their formatting. |
 | Multiple selections | Available only for selection fields. Single selection can become multiple; multiple cannot become single again. |
-| Required | Active required fields must be populated when creating an Agreement or saving custom-field changes. Numeric zero is a value. |
+| Required | Set on the Stream assignment. Active required fields must be populated when creating an Agreement or saving custom-field changes. Numeric zero is a value. |
 | Use in workflow conditions | Available only for selection fields; makes the field a routing discriminator. |
-| Active | Active fields accept new values. A populated inactive field remains visible and can be retained or cleared, but cannot receive a replacement value. |
+| Active | Set on the Stream assignment. Active fields accept new values. A populated inactive field remains visible and can be retained or cleared, but cannot receive a replacement value. |
 | Display order | Integer from 0 through 2,147,483,647; defaults to 0. Equal orders are resolved by identifier. |
 
 Sections appear after the Agreement's built-in sections, numbered from 04. Their order changes only the configured sections, not the core profile layout. Section names and field names are bilingual, while a text answer is one shared string and a numeric answer is one finite number. Numeric fields are not exact-money fields: use the Agreement Budget for financial amounts.

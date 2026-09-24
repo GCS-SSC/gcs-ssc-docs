@@ -1,6 +1,6 @@
 # Assessment Schemas
 
-Assessment schemas define the structured questions, scoring matrices, dependencies, calculated values, outcomes, and impactors used by runtime assessment reviews. In the transfer payment area, administrators reach a schema editor from stream review setup or assessment-set rows that reference an assessment review schema.
+Assessment schemas define the structured questions, scoring matrices, dependencies, calculated values, outcomes, and impactors used by runtime assessment reviews. In the transfer payment area, administrators open a schema from an Agency Review Set member.
 
 The schema record itself is agency-scoped. A schema used by a stream must belong to the stream's agency and match the configured runtime entity type.
 
@@ -11,21 +11,24 @@ Before a stream can use assessment schemas operationally, configure:
 - Agency and transfer payment program.
 - Stream.
 - Common review schemas for the agency and entity type, with review type set to assessment.
-- Stream review setup or assessment-set rows that reference those schemas.
+- An Agency Review Set that references those schemas; link its published set to the Stream.
 - Approval templates if assessment completion or review steps require approval routing.
 - Users with the required scoped roles and exact runtime-entity or workflow assignments for reading, saving, completing, and approving the generated work.
 
 ## Where Schemas Are Opened
 
-A schema is opened from a stream context, usually from Review Setups or an assessment-set management surface. The breadcrumb returns through the program and stream. The editor loads:
+Open a schema from an Agency Review Set. The breadcrumb returns to the Agency catalog. The editor loads:
 
-- Parent transfer payment profile.
-- Parent stream.
+- Owning Agency and Review Set.
 - Assessment review schema.
 - Effective schema content and scoring matrix.
 - Helper fields available for the schema entity type.
 
 The editor has a collapsible hero and a left sidebar with save controls and section navigation.
+
+## Import a JSON definition
+
+In the schema editor, **Import** accepts a pasted JSON assessment definition. The client parses it and validates it against the assessment definition contract before replacing the local editor draft. Review the imported sections, scoring, and bilingual text, then use **Save** and **Publish** as separate actions. Invalid JSON or invalid fields stay in the import dialog for correction; an import alone does not change the server or any pinned runtime review.
 
 ## Publication states
 

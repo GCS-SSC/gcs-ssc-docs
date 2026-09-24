@@ -216,7 +216,7 @@ const domains = [
   ['reviews-assessments-checklists', 'server/api/reviews; server/api/review-sets', 'programs/assessment-schemas.md'],
   ['approvals-recommendations-completions-workflows', 'server/api/approvals; server/api/completions; server/api/workflows', 'concepts/approvals-completions.md'],
   ['common-administration', 'server/api/admin/gwcoa', 'admin/common-admin.md'],
-  ['audit-evidence', 'server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0013_audit.ts', 'admin/audit.md'],
+  ['audit-evidence', 'server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0120_audit.ts', 'admin/audit.md'],
   ['database-integrity-concurrency', 'server/database/migrations; server/utils/*transaction*', 'developer/data-model.md'],
   ['i18n-validation-errors', 'i18n; shared/types/schemas; server/utils/api-validate.ts', 'developer/validation-i18n.md'],
   ['files-documents', 'server/utils/file-storage.ts; server/utils/document-generation.ts', 'developer/document-generation.md'],

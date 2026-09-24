@@ -2,21 +2,14 @@
 
 ## Current phase
 
-`DOCUMENTED_VERIFIED` — **zero remaining items** in this synchronization. The detailed bilingual update, source dispositions, generated references, and final documentation checks are complete.
-
-The single continuation marker is the Source and baseline record in `.agents/skills/gcs-docs-sync/SKILL.md`. Run `$gcs-docs-sync` for the next incremental update. `AGENTS.md` retains repository rules, including explicit-only CodeRabbit use, without duplicating the marker.
+`COMPLETE` — the bilingual documentation is synchronized through application `main` commit `c02d847de7078a2110f54c298ed3ef7f3e1b620b` (`2026-09-24T10:28:18-04:00`). The prior baseline was `395a5c7e62f982ce71b4390fe33fa1dd04480d6b`. All 1,485 coverage rows are terminal, with zero remaining items.
 
 ## Verification
 
-- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:inventory` — passed.
-- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:references` — passed.
-- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:audit-impact` — passed.
-- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check` — passed, including the production build.
-- `git diff --check` — passed.
-- `VITEPRESS_BASE=/gcs-ssc-docs/ bun run docs:build` — passed.
-- Repeat-generation consistency and focused inventory regression checks — passed.
-- Repository skill validation — passed.
+- The isolated `.reference-repos/gcs-ssc` clone is clean at the pinned target, with initialized gitlinks; the final fetch found `origin/main` at the same commit. The sibling application working repository was untouched.
+- English and French guides cover Agency catalogs, Stream selections, group claimable work, live Home queues, scoped notes, Agreement–Proponent classification, Audit attribution, workflow conditions, checklists and deployment changes. The 51 commits have dispositions in `incremental-changes.json`.
+- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:inventory`, `docs:references` and `docs:audit-impact` passed. Repeat generation left all 27 generated files byte-for-byte stable.
+- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check` passed, including terminal source coverage, locale parity, links and production build. `git diff --check` and `VITEPRESS_BASE=/gcs-ssc-docs/ bun run docs:build` passed.
+- The builds emitted the existing nonfatal warning for chunks larger than 500 kB. No application runtime tests, browser tests or CodeRabbit review were run or claimed.
 
-The build has a non-fatal large-chunk warning. Application test suites were not executed for this documentation-only update. The source clone and its pinned submodules are clean; the final source fetch found no drift. The sibling working repository was not used or changed.
-
-See [source verification receipt](./source-baseline.md), [review dispositions](./sync-review.md), `incremental-changes.json`, and the terminal coverage ledgers for details. Documentation and skill changes remain uncommitted; no push or deployment was performed.
+See the [verification receipt](./source-baseline.md), [review scope](./sync-review.md) and [findings](./documentation-findings.md). Changes are intentionally uncommitted.

@@ -17,7 +17,7 @@ This documentation follows the application hierarchy: main menu, page, tabs, sub
 
 ## Main menu
 
-The sidebar includes Home, Agencies, Programs, Agreements, Proponents, Assignment Management, Roles, Users, GWCOA, and Audit according to the signed-in user's permissions. A visible destination does not grant access to every record. [Navigation](./getting-started/navigation.md) explains visibility, Assigned Work, loading and recovery states, and the dashboard's placeholder metrics.
+The sidebar includes Home, Agencies, Programs, Agreements, Proponents, Assignment Management, Groups, Roles, Users, GWCOA, and Audit according to the signed-in user's permissions. A visible destination does not grant access to every record. [Navigation](./getting-started/navigation.md) explains visibility, Assigned Work, loading and recovery states, and the live work dashboard and group queue.
 
 ## Documentation map
 

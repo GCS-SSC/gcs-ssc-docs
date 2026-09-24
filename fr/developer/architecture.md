@@ -37,7 +37,7 @@ La logique RBAC partagee se trouve dans `shared/utils/abilities.ts`, `shared/uti
 
 ## Architecture admin
 
-GWCOA possède une interface globale dédiée et les routes `/api/admin/gwcoa`. La lecture exige `system:read` global; le navigateur d’audit exige séparément `audit:read` global. Les onglets de référence utilisent les routes de l’organisme, et les modèles de flux réutilisables appartiennent au volet. Les actions métier créent les enregistrements d’exécution, sans CRUD administratif générique.
+GWCOA possède une interface globale dédiée et les routes `/api/admin/gwcoa`. La lecture exige `system:read` global; le navigateur d’audit exige séparément `audit:read` global ou d’agence. Les routes du catalogue d’agence possèdent les définitions réutilisables de flux et d’examens; les routes du volet gèrent leurs liens et affectations locales. Les actions métier créent les enregistrements d’exécution, sans CRUD administratif générique.
 
 ## Architecture extensions
 

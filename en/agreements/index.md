@@ -43,7 +43,7 @@ The create form starts **Further distribution** as false and **Holdback** at 10%
 | Holdback | Required percentage from 0 through 100, stored to two decimal places. |
 | Holdback basis | Required active basis configured for the stream. It is not limited to two hard-coded labels. |
 | Risk score | Optional manual selection when no Risk Rating workflow is published; otherwise workflow-managed and not writable through the profile. |
-| Proponents | At least one unique active profile, and the creator must be able to read every selection. See [Agreement Proponents](./applicant-recipients.md). |
+| Proponents | At least one unique active readable profile. Choose an eligible recipient subtype for each Agreement–Proponent link; the type belongs to this relationship. See [Agreement Proponents](./applicant-recipients.md). |
 
 Changing the stream in the form clears subtype, holdback basis, and risk score because each is stream-owned. Creation locks extension scopes and the selected stream, rebuilds authorization, locks every selected Proponent, validates cross-stream references, inserts the Agreement and recipient links, registers the typed entity, and creates the creator-primary assignment atomically.
 
@@ -75,11 +75,18 @@ The detail route first resolves the agreement’s agency, program, and stream sc
 | Closeouts | [Agreement Closeout](./closeouts.md): readiness, financial reconciliation, workflow evidence, documents, and closure. |
 | Documents | [Documents](./documents.md) |
 | Activities | [Activities](./activities.md) |
+| Notes | Bilingual working notes for this Agreement. |
 | Recommendation | Published approval-submission workflow, immutable packet, recommendations, and approvals. |
 | Amendments | Amendment creation, snapshots, approval submission, cancellation, and promotion. |
 | Assigned users | Exact Agreement roster; roster mutations require `manage_assignments`. |
 
 Enabled extensions may append additional tabs and profile fields. Child detail routes replace the parent tab workspace while retaining agreement context.
+
+## Agreement notes
+
+Open **Notes** on the Agreement to search, read, add, edit, or remove working notes. Each note needs a subject in at least one language and a body in at least one language; a subject is limited to 255 Unicode characters. Supply both languages when both audiences need the text. The list shows author and last editor, newest first. Readers with Agreement read access can see the notes. Creating and editing require the corresponding Agreement action permission and exact assignment; deletion requires the applicable Manager ceiling and assignment. The server rechecks the Agreement scope and status during writes. A deleted note disappears from the active list but retains its historical record.
+
+If a note save fails, keep the draft text, reload the Agreement to check its current status and your assignment, then retry. A partial update keeps omitted language fields; clearing the last subject or last body is rejected. Notes do not replace documents or approval evidence.
 
 ## Update safeguards
 

@@ -91,7 +91,7 @@ L onglet General affiche les champs du profil en lecture seule:
 - Abreviation anglaise et abreviation francaise.
 - Description anglaise et description francaise.
 - Objectif anglais et objectif francais.
-- Lien des modalites.
+- Liens français et anglais des modalités.
 - Statut.
 
 Utilisez l action de modification au niveau de la page pour changer ces champs.

@@ -187,7 +187,7 @@
   },
   {
     "id": "domain:audit-evidence",
-    "source": "server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0013_audit.ts",
+    "source": "server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0120_audit.ts",
     "audience": [
       "end-user",
       "administrator",
@@ -201,10 +201,10 @@
       "server/utils/audit-runtime.ts",
       "server/utils/audit-driver.ts",
       "server/utils/audit-context.ts",
-      "server/database/migrations/0013_audit.ts"
+      "server/database/migrations/0120_audit.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit global audit permission, filters, exact evidence values, SQL redaction, buffered access events and retention limits. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Compared current audit migration, ownership capture and scoped browser helper. Paired Audit, RBAC and data-model guides cover Agency/global visibility and separate sanitized-input permission. No application test execution is claimed."
   },
   {
     "id": "domain:database-integrity-concurrency",
@@ -343,6 +343,6 @@
       "app/pages"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: sidebar permissions, loading/error recovery, table/lookup behavior, Assigned Work and explicit dashboard placeholders. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed current sidebar, live Home dashboard, per-section paging, claim work, retry and role hints against paired Navigation and Groups guides. No browser or application test execution is claimed."
   }
 ]

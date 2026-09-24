@@ -10,7 +10,7 @@ Agreement read access lists non-deleted links to non-deleted Proponent profiles,
 | --- | --- |
 | `read` | View, search, and page through links. |
 | `create` | Add a link. |
-| `update` | Replace the profile on an existing link. |
+| `update` | Change the profile or its recipient subtype on an existing link. |
 | `delete` | Remove a link by soft deletion. |
 
 Reading links requires Agreement Viewer. Adding/replacing requires Contributor plus the exact Agreement assignment; removal requires Manager plus that assignment. The selected Proponent is a separate boundary and must be readable through `applicant_recipient` Viewer. An Agreement assignment does not grant Proponent access.
@@ -21,9 +21,11 @@ The new-Agreement form requires at least one Proponent and rejects duplicate IDs
 
 Creation locks every selected profile and rechecks read access in the same transaction that inserts the agreement and links. If any profile becomes inactive or inaccessible, the entire creation fails.
 
+Each Agreement–Proponent link also requires a recipient subtype from the Agreement Stream’s eligible recipient mappings. This classification belongs to the relationship, not to the Proponent profile. When the same Proponent has a prior active link in this Stream, the lookup suggests that saved type. The Stream’s **Require consistent Proponent type** setting fixes the type to that previous eligible choice; otherwise an authorized user can choose another eligible type. A single eligible type is suggested when there is no previous choice. The server checks the selected type again on creation or replacement. A deleted or no-longer-eligible type is not offered for new work; resolve the Stream mapping rather than editing the Proponent profile.
+
 ## Add, replace, and remove links
 
-On a saved agreement, **Add** uses a lookup filtered by both the requested agreement action and the caller’s current Proponent read visibility. Editing changes only the profile referenced by that link. Every write locks the agreement, rebuilds agreement authorization, then locks and revalidates a newly selected proponent. A link ID from another agreement is treated as not found.
+On a saved agreement, **Add** uses a lookup filtered by both the requested agreement action and the caller’s current Proponent read visibility. Editing can change the linked profile, its recipient subtype, or both; the server rechecks a changed subtype against the Stream's eligible mappings and consistency setting. Every write locks the agreement, rebuilds agreement authorization, then locks and revalidates a newly selected proponent. A link ID from another agreement is treated as not found.
 
 Removing a link soft-deletes the relationship; it does not delete the agreement or proponent. The tab has no restore action. Add a new link after an accidental removal.
 

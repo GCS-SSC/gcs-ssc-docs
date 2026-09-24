@@ -1,16 +1,14 @@
 # Recommendation schemas and setups
 
-Recommendation configuration has two layers. An agency-owned schema defines bilingual questions and the canonical Recommended/Not Recommended result. A stream setup orders published schemas, chooses per-member failure policy, and can attach member or final approval routes.
+Recommendation configuration has two layers. An Agency-owned schema defines bilingual questions and the canonical Recommended/Not Recommended result. An Agency Recommendation Set orders published schemas, chooses per-member failure policy, and can attach member or final approval routes.
 
 ## Navigation and access
 
-Open a program and stream, then select **Recommendation Setups**. The grouped list organizes setups by runtime entity type. A setup detail page manages its identity, final approval, and ordered members; a schema detail page edits the questions.
-
-Viewer for `transfer_payment` reads configuration in the exact program. Contributor creates and updates; Manager deletes. Publish and Retire are update operations. Server routes rebuild the active agency/program/stream chain and mask inaccessible records. Exact work assignments do not grant stream-configuration access.
+Open **Agencies**, choose the Agency, then **Recommendation Sets**. The grouped list organizes sets by runtime entity type. A set detail page manages identity, final approval, and ordered members; a schema detail page edits the questions. Agency Viewer reads, Contributor creates, edits, and publishes, and Manager performs eligible deletion. A Program Stream references these Agency designs through a linked Agency Workflow; exact work assignments do not grant catalog access.
 
 ## Recommendation schema
 
-A schema records entity type, bilingual name, agency, status/version, result metadata, and a definition. Creation from a stream always uses that stream's agency.
+A schema records entity type, bilingual name, agency, status/version, result metadata, and a definition. Creation from a set uses its Agency.
 
 The editor contains General and Form Sections. A valid definition needs at least one section, one subsection per section, and one question per subsection. Section, subsection, question, option, and help keys are language-independent runtime identities and must be unique where required.
 
@@ -21,17 +19,19 @@ The editor contains General and Form Sections. A valid definition needs at least
 
 Either type can be required and can provide bilingual help. Exactly one question is the deciding result question. It must be a required radio question and every option on it must map to `recommended` or `not_recommended`. Selecting a new deciding question clears result mappings from the former one.
 
+Radio questions can also allow an optional or required comment, including for the deciding question. Set the comment policy when authoring the Agency schema; at submission the pinned schema decides whether a missing comment blocks the response. A comment does not change the Recommended/Not Recommended mapping of the selected option.
+
 ## Create a schema while configuring a setup
 
-On a setup detail page, **Create schema** opens a short modal for member order, optional same-stream recommendation approval template, and **Fail set on Not Recommended**. Continue creates a draft, agency-owned schema with a minimal bilingual deciding question, associates it to the setup in one transaction, and opens the schema editor.
+On an Agency set detail page, **Create schema** opens a short modal for member order, optional same-Agency recommendation approval template, and **Fail set on Not Recommended**. Continue creates a draft, agency-owned schema with a minimal bilingual deciding question, associates it to the setup in one transaction, and opens the schema editor.
 
-The order must be a positive integer unused by an active member. The approval template, when supplied, must be a valid template owned by that stream. A failure creates neither a partial member nor an orphaned schema.
+The order must be a positive integer unused by an active member. The approval template, when supplied, must be a valid template owned by that Agency. A failure creates neither a partial member nor an orphaned schema.
 
 Use **Associate schema** instead when the agency schema already exists.
 
 ## Schema publication
 
-Save validates the working schema. Publish freshly authorizes the stream operation, creates an immutable schema-version row, marks its publication published, and advances its immutable publication version.
+Save validates the working schema. Publish freshly authorizes the Agency operation, creates an immutable schema-version row, marks its publication published, and advances its immutable publication version.
 
 Runtime recommendations point to an exact schema-version row. Editing and republishing therefore affects future work only.
 
@@ -39,7 +39,7 @@ Runtime recommendations point to an exact schema-version row. Editing and republ
 
 A setup stores runtime entity type, bilingual name/description, optional final approval, lifecycle/version state, and ordered members. Each member selects one same-agency schema, a unique integer order, an optional member approval, and **Fail set on Not Recommended** (off by default).
 
-A publishable plan requires at least one member, contiguous orders beginning at 1, a published version for every schema, and a published configuration for every approval template. The setup and all dependencies must match the stream and entity context.
+A publishable plan requires at least one member, contiguous orders beginning at 1, a published version for every schema, and a published configuration for every approval template. The set and all dependencies must match the Agency and entity context.
 
 Publish creates version 1 and makes the setup eligible. Editing a published setup creates pending content; Publish snapshots the next plan only after full validation. The immutable plan includes each member's schema version, failure flag, and approval configuration plus the final approval.
 

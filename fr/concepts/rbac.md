@@ -23,11 +23,13 @@ Chaque permission de rôle possède un niveau d’accès cumulatif :
 
 ## Sujets et portées
 
-Les sujets pris en charge sont `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
+Les sujets pris en charge sont `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
 
 | Sujet | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
+| `audit` | Oui | Oui | Non |
+| `group` | Oui | Oui | Non |
 | `agency` | Oui | Oui | Non |
 | `transfer_payment` | Oui | Oui | Oui |
 | `role` | Oui | Oui | Non |
@@ -38,6 +40,8 @@ Les sujets pris en charge sont `system`, `agency`, `transfer_payment`, `role`, `
 Un rôle global n’a pas d’agence. Un rôle d’agence est lié à une agence et n’a aucun lien de programme. Un rôle de programme est lié à une agence et à un ou plusieurs programmes actifs de cette agence. Des contraintes de base de données rejettent les combinaisons incompatibles de permissions et de portées.
 
 La ressource détermine la portée utilisée par la vérification. Une entente est résolue par son volet et son programme; un promoteur, par son agence principale. Une permission de promoteur limitée à une agence est donc possible sans accorder un accès interagences.
+
+La lecture Audit et la gestion des groupes administratifs utilisent leurs propres sujets plutôt que les affectations exactes aux ententes. Les valeurs d’entrée d’audit exigent aussi `audit:view_audit_inputs`; l’appartenance à un groupe ne donne pas accès aux dossiers métier. Consultez [Audit](../admin/audit.md) et [Groupes](../admin/groups.md).
 
 ## La règle des deux clés
 

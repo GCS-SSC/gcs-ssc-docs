@@ -44,7 +44,7 @@ Une évaluation affiche la définition publiée qui a été figée lors de sa ma
 
 ## Remplir une liste de vérification
 
-Une liste de vérification présente les questions bilingues figées, groupées par section et sous-section. Choisissez **Réussite** ou **Échec** et fournissez les commentaires selon la politique de chaque question : facultatif, obligatoire ou obligatoire en cas d'échec. La barre latérale affiche le nombre de réponses et le résultat courant.
+Une liste de vérification présente les questions bilingues figées, groupées par section et sous-section. Choisissez **Réussite** ou **Échec**, ou **Sans objet** lorsque la question le propose. Un commentaire peut être facultatif, toujours obligatoire, obligatoire en cas d’échec, obligatoire pour Sans objet ou obligatoire dans ces deux derniers cas. La barre latérale affiche le nombre de réponses et le résultat courant. Une question obligatoire exige toujours une des réponses configurées; Sans objet est une réponse explicite, pas une question laissée vide.
 
 Le résultat est toujours évalué par le serveur à partir de l'arbre de règles figé. Il peut être `pass`, `fail` ou `pass_with_considerations`. **Expliquer** montre les groupes correspondants et les questions déclencheuses; cette vue explique le calcul déterministe, elle ne permet pas de modifier le résultat. Un enregistrement normal valide des clés de question connues et uniques, mais permet un travail obligatoire incomplet. L'achèvement applique les règles plus strictes sur les réponses et commentaires obligatoires.
 

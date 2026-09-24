@@ -23,11 +23,13 @@ Each role permission has one cumulative access level:
 
 ## Subjects and scopes
 
-The supported subjects are `system`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
+The supported subjects are `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
 
 | Subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
 | `system` | Yes | No | No |
+| `audit` | Yes | Yes | No |
+| `group` | Yes | Yes | No |
 | `agency` | Yes | Yes | No |
 | `transfer_payment` | Yes | Yes | Yes |
 | `role` | Yes | Yes | No |
@@ -38,6 +40,8 @@ The supported subjects are `system`, `agency`, `transfer_payment`, `role`, `user
 A global role has no agency. An agency role is tied to one agency and has no program links. A program role is tied to one agency and one or more active programs in that agency. Database constraints reject incompatible role-permission and scope combinations.
 
 The resource determines the scope used for the check. An Agreement resolves through its stream and program; a Proponent resolves through its lead agency. Agency-scoped Proponent permission is therefore supported without granting cross-agency access.
+
+Audit reads and administrative group management use their own subjects, rather than exact Agreement assignments. Audit input values additionally require `audit:view_audit_inputs`; group membership alone does not grant business-record access. See [Audit](../admin/audit.md) and [Groups](../admin/groups.md).
 
 ## The two-key rule
 

@@ -158,8 +158,10 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       text: labels.admin,
       items: [
         { text: labels.agencies, link: `${p}admin/agencies` },
+        { text: locale === 'fr' ? 'Catalogues d’agence' : 'Agency catalogs', link: `${p}admin/agency-catalogs` },
         { text: labels.common, link: `${p}admin/common-admin` },
         { text: labels.assignments, link: `${p}admin/assignments` },
+        { text: locale === 'fr' ? 'Groupes' : 'Groups', link: `${p}admin/groups` },
         { text: labels.roles, link: `${p}admin/roles` },
         { text: labels.users, link: `${p}admin/users` },
         { text: locale === 'fr' ? 'Journaux d’audit et d’accès' : 'Audit and access logs', link: `${p}admin/audit` }

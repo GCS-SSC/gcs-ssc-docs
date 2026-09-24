@@ -37,7 +37,7 @@ Shared RBAC logic lives in `shared/utils/abilities.ts`, `shared/utils/scopes.ts`
 
 ## Admin architecture
 
-GWCOA has a dedicated global catalogue UI and `/api/admin/gwcoa` routes. Its read boundary is global `system:read`; the audit browser has a separate global `audit:read` boundary. Agency reference tabs use Agency-scoped routes, and stream configuration owns reusable workflow designs. Runtime records are created through their domain actions rather than generic administrative CRUD.
+GWCOA has a dedicated global catalogue UI and `/api/admin/gwcoa` routes. Its read boundary is global `system:read`; the audit browser has a separate global or Agency `audit:read` boundary. Agency catalog routes own reusable workflow and review designs; Stream routes manage their local links and assignments. Runtime records are created through their domain actions rather than generic administrative CRUD.
 
 ## Extension architecture
 

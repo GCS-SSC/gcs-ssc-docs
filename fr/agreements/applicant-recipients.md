@@ -10,7 +10,7 @@ L’accès en lecture à l’entente permet d’énumérer les liens non supprim
 | --- | --- |
 | `read` | Consulter et rechercher les liens, et parcourir les pages. |
 | `create` | Ajouter un lien. |
-| `update` | Remplacer le profil d’un lien existant. |
+| `update` | Modifier le profil ou son sous-type de bénéficiaire sur un lien existant. |
 | `delete` | Retirer un lien par suppression logique. |
 
 La lecture des liens exige le plafond Lecteur de l’entente. L’ajout ou le remplacement exige Contributeur et l’affectation exacte à l’entente; le retrait exige Gestionnaire et cette affectation. Le promoteur est une frontière distincte et doit être lisible grâce à Lecteur `applicant_recipient`. L’affectation à l’entente n’accorde pas l’accès au promoteur.
@@ -21,9 +21,11 @@ Le formulaire de nouvelle entente exige au moins un promoteur et refuse les iden
 
 La création verrouille chaque profil sélectionné et revérifie l’accès en lecture dans la transaction qui insère l’entente et les liens. Si un profil devient inactif ou inaccessible, toute la création échoue.
 
+Chaque lien entente–promoteur exige aussi un sous-type de bénéficiaire parmi les correspondances admissibles du volet. Cette classification appartient à la relation et non au profil du promoteur. Si le même promoteur possède déjà un lien actif dans ce volet, la recherche suggère le type enregistré. Le réglage **Exiger un type de promoteur cohérent** du volet fixe le type au choix antérieur admissible; sinon, une personne autorisée peut choisir un autre type admissible. S’il n’y a aucun choix antérieur et un seul type admissible, celui-ci est suggéré. Le serveur revérifie le type à la création ou au remplacement. Un type supprimé ou devenu inadmissible n’est pas proposé pour le nouveau travail; corrigez la correspondance du volet plutôt que le profil du promoteur.
+
 ## Ajouter, remplacer et retirer des liens
 
-Dans une entente enregistrée, **Ajouter** utilise une recherche filtrée selon l’action demandée sur l’entente et la visibilité courante des promoteurs. La modification change seulement le profil référencé par ce lien. Chaque écriture verrouille l’entente, reconstruit son autorisation, puis verrouille et revalide un promoteur nouvellement sélectionné. Un identifiant de lien provenant d’une autre entente est traité comme introuvable.
+Dans une entente enregistrée, **Ajouter** utilise une recherche filtrée selon l’action demandée sur l’entente et la visibilité courante des promoteurs. La modification peut changer le profil lié, son sous-type de bénéficiaire ou les deux; le serveur revérifie un sous-type modifié selon les correspondances admissibles et le réglage de cohérence du volet. Chaque écriture verrouille l’entente, reconstruit son autorisation, puis verrouille et revalide un promoteur nouvellement sélectionné. Un identifiant de lien provenant d’une autre entente est traité comme introuvable.
 
 Le retrait supprime logiquement la relation; il ne supprime ni l’entente ni le promoteur. Cet onglet n’offre aucune commande de restauration. Ajoutez un nouveau lien après un retrait accidentel.
 

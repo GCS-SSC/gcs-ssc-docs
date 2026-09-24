@@ -24,6 +24,6 @@ La barre latérale dépend des permissions :
 - Ententes apparaît avec un plafond Lecteur Entente actif dans une portée autorisée.
 - Promoteurs apparaît avec un plafond Lecteur Promoteur global ou d’agence actif.
 - Gestion des affectations apparaît avec une capacité `manage_assignments` Entente ou Promoteur active.
-- GWCOA et le téléchargement SQL exigent Lecteur Système global; Audit exige sa permission globale explicite. Déconnexion reste disponible.
+- GWCOA et le téléchargement SQL exigent Lecteur Système global; Audit exige sa propre permission globale ou d’agence. Déconnexion reste disponible.
 
 Si vous voyez moins de pages que prévu, vérifiez avec votre administrateur vos attributions de rôles actives, leurs niveaux d’accès et leurs portées. Les affectations exactes déterminent les modifications permises et le Travail affecté; elles ne remplacent pas les permissions qui rendent une destination accessible.

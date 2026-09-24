@@ -20,8 +20,8 @@ A clean GCS-SSC installation is not usable by ordinary operators until a bootstr
 6. Assign roles to users.
 7. Create programs for the agency.
 8. Create streams under each program.
-9. Configure stream-level setup records used by agreements and reviews.
-10. Publish the stream designs required by the intended workflow and select the Agency storage provider.
+9. Author and publish reusable Review Sets, Recommendation Sets, Approval Templates, Workflows, fields, and document templates in the Agency catalog.
+10. Link the required Agency designs and reference values to each Stream, then select the Agency storage provider.
 11. Create proponent profiles.
 12. Create agreements and begin operational workflows.
 
@@ -34,7 +34,7 @@ Create the agency profile first. The profile stores bilingual names and abbrevia
 1. Fiscal Years, because budgets, commitments, payments, claims, forecasts, and monitors depend on fiscal periods.
 2. Cost Categories, then line items under each category, because financial child workflows need cost classification.
 3. Address Types, because proponent and agreement addresses need stable classifications.
-4. Applicant/Recipient Subtypes, because proponent profiles require a subtype that belongs to the selected lead agency.
+4. Applicant/Recipient Subtypes, because each Agreement–Proponent relationship needs a subtype eligible for its Stream.
 5. Agreement Types, because agreements classify their legal or operational type.
 6. Approval Behalf Types, because approval actions can require an on-behalf-of explanation.
 7. Extensions, only after you understand which installed extensions are approved for that agency.
@@ -46,7 +46,7 @@ Create the required organization in [GWCOA](../admin/common-admin.md) before lin
 
 In the Agency, configure **Statuses** for normal, read-only and terminal business states; **Attachment Types** for file classification; and **Commitment Types** for financial work. Optional claim reconciliation settings choose the Claim status when reconciliation starts and when an approved final reconciliation finishes. Select and configure a registered file-storage provider before uploading files or generating stored documents.
 
-In each stream, build the review schemas and review sets, recommendation schemas and setups, approval templates with steps and certifications, and workflow setups the process needs. Publish reusable designs before trying to start their runtime counterparts. Amendment and Closeout completion require a published `approval_submission` workflow configured for `on_completion`; other supported child records can complete without one. Configure document templates and custom fields where needed. See [Streams](../programs/streams.md) and [Approvals and Completions](../concepts/approvals-completions.md).
+In the Agency catalog, build and publish the review schemas and sets, recommendation schemas and sets, approval templates with steps and certifications, and workflows the process needs. Link eligible published designs to each Stream before starting their runtime counterparts. Amendment and Closeout completion require a published `approval_submission` workflow configured for `on_completion`; other supported child records can complete without one. Configure document templates and custom fields where needed. See [Streams](../programs/streams.md) and [Approvals and Completions](../concepts/approvals-completions.md).
 
 For example, prepare an Agency fiscal year and cost items, create a program with both terms-and-conditions URLs, create its stream, make the stream cost items available, then create the Agreement and its first budget. Publishing an approval template alone does not make an Amendment completable: the published completion workflow must actually reference the approval design.
 
@@ -57,13 +57,13 @@ Create roles before inviting ordinary users into operational work.
 - Keep one root administrator role global and narrow its assignment to trusted administrators.
 - Create agency administrator roles scoped to one agency when users should manage agency records, agency programs, users in that agency, or agency-scoped roles.
 - Create program roles by selecting an agency and one or more transfer payment programs.
-- Use only subjects valid for the role's derived scope. Program roles support only `transfer_payment` and `agreement`. Agency roles support `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`. `system` and `audit` are global only.
+- Use only subjects valid for the role's derived scope. Program roles support only `transfer_payment` and `agreement`. Agency roles support `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`. `system` is global only; `audit` and `group` may be Agency-scoped where applicable.
 - Assign roles from the user detail page. Duplicate user-role assignments return the existing assignment rather than creating a second active row.
 - Grant Viewer, Contributor, or Manager per role subject. Grant `manage_assignments` independently on Agreement/Proponent permission rows only to assignment coordinators.
 
 ## Minimum proponent setup
 
-Before creating Proponents, make sure the lead agency has applicant/recipient subtypes. The form validates the selected agency/subtype relationship. Top-level creation requires a Contributor `applicant_recipient` ceiling at that lead agency, creates an initially inactive profile, and makes the creator primary. Scoped Viewer handles reads; later profile/child mutations require the cumulative ceiling and exact Proponent assignment. Roster changes require separate `manage_assignments`.
+Proponent creation needs an active lead Agency, but no profile subtype. Configure Agency recipient subtypes and eligible Stream mappings before linking a Proponent to an Agreement. Top-level creation requires a Contributor `applicant_recipient` ceiling at that lead agency, creates an initially inactive profile, and makes the creator primary. Scoped Viewer handles reads; later profile/child mutations require the cumulative ceiling and exact Proponent assignment. Roster changes require separate `manage_assignments`.
 
 ## Minimum agreement readiness
 
@@ -78,4 +78,4 @@ Agreement creation is outside this section, but empty-system setup should still 
 
 ## Verification pass
 
-After setup, sign in as a delegated test user and verify the real sidebar. Agreements and Proponents are hidden without the corresponding scoped Viewer ceiling; Assignment Management is hidden without `manage_assignments`; GWCOA is hidden without global System Viewer; Audit requires its own global Audit Viewer grant. Open an agency, program, stream, Proponent, Agreement, and user to confirm role scope, cumulative levels, exact assignments, tabs, and actions.
+After setup, sign in as a delegated test user and verify the real sidebar. Agreements and Proponents are hidden without the corresponding scoped Viewer ceiling; Assignment Management is hidden without `manage_assignments`; GWCOA is hidden without global System Viewer; Audit requires its own global or Agency Audit Viewer grant; Groups needs a Group read grant. Open an agency, program, stream, Proponent, Agreement, and user to confirm role scope, cumulative levels, exact assignments, tabs, and actions.

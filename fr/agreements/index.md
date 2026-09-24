@@ -43,7 +43,7 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %. Il co
 | Retenue | Pourcentage obligatoire de 0 à 100 inclusivement, enregistré à deux décimales. |
 | Base de retenue | Base active obligatoire configurée pour le volet. Elle n’est pas limitée à deux libellés codés en dur. |
 | Cote de risque | Sélection manuelle facultative sans flux publié d’Évaluation du risque; sinon, gestion par flux et modification interdite dans le profil. |
-| Promoteurs | Au moins un profil actif unique; la personne responsable de la création doit pouvoir lire chaque sélection. Consultez [Promoteurs de l’entente](./applicant-recipients.md). |
+| Promoteurs | Au moins un profil actif et lisible sans doublon. Choisissez un sous-type de bénéficiaire admissible pour chaque lien entente–promoteur; le type appartient à cette relation. Consultez [Promoteurs de l’entente](./applicant-recipients.md). |
 
 Le changement de volet dans le formulaire efface le sous-type, la base de retenue et la cote de risque, puisque ces valeurs appartiennent au volet. La création verrouille les portées d’extension et le volet sélectionné, reconstruit l’autorisation, verrouille chaque promoteur choisi, valide les références entre volets, insère l’entente et ses liens, enregistre l’entité typée et crée atomiquement l’affectation principale du créateur.
 
@@ -75,11 +75,18 @@ La route de détail résout d’abord la portée d’agence, de programme et de 
 | Clôtures | [Clôture d’une entente](./closeouts.md) : préparation, rapprochement financier, preuve du flux, documents et fermeture. |
 | Documents | [Documents](./documents.md) |
 | Activités | [Activités](./activities.md) |
+| Notes | Notes de travail bilingues de cette entente. |
 | Recommandation | Flux de soumission publié, dossier immuable, recommandations et approbations. |
 | Modifications | Création, instantanés, soumission d’approbation, annulation et promotion. |
 | Utilisateurs affectés | Registre exact de l’entente; les mutations exigent `manage_assignments`. |
 
 Les extensions activées peuvent ajouter des onglets et des champs au profil. Les routes de détail enfant remplacent l’espace d’onglets parent tout en conservant le contexte de l’entente.
+
+## Notes de l’entente
+
+Ouvrez **Notes** dans l’entente pour chercher, lire, ajouter, modifier ou retirer des notes de travail. Chaque note exige un objet dans au moins une langue et un corps dans au moins une langue; l’objet est limité à 255 caractères Unicode. Rédigez les deux langues lorsque les deux publics doivent la lire. La liste indique l’auteur et la dernière personne ayant modifié la note, de la plus récente à la plus ancienne. Les personnes pouvant lire l’entente voient les notes. La création et la modification exigent la permission d’action correspondante sur l’entente et son affectation exacte; la suppression exige le niveau Gestionnaire applicable et l’affectation. Le serveur revérifie la portée et l’état de l’entente à l’écriture. Une note supprimée quitte la liste active, mais demeure dans l’historique.
+
+Si l’enregistrement échoue, conservez le brouillon, rechargez l’entente pour vérifier son état et votre affectation, puis réessayez. Une mise à jour partielle conserve les champs de langue omis; effacer le dernier objet ou le dernier corps est refusé. Les notes ne remplacent ni les documents ni les preuves d’approbation.
 
 ## Protections lors de la modification
 

@@ -4,7 +4,7 @@ Agreement profiles, child resources, finance, lifecycle, exact assignments, docu
 
 This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
 
-## Handlers (151)
+## Handlers (156)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
@@ -45,7 +45,7 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/agreements/[id]/amendments/lookups/subtypes` | — | getValidatedQueryI18n | `server/api/agreements/[id]/amendments/lookups/subtypes.get.ts` |
 | GET | `/api/agreements/[id]/amendments/lookups/types` | — | AdminCommonListQuerySchema, AmendmentTypeLookupQuerySchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/[id]/amendments/lookups/types.get.ts` |
 | DELETE | `/api/agreements/[id]/applicant-recipients/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/applicant-recipients/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/applicant-recipients/[childId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementApplicantRecipientPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/applicant-recipients/[childId].patch.ts` |
+| PATCH | `/api/agreements/[id]/applicant-recipients/[childId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementApplicantRecipientCreateSchema, FundingCaseAgreementApplicantRecipientPatchSchema, parseI18n, readValidatedBodyI18n | `server/api/agreements/[id]/applicant-recipients/[childId].patch.ts` |
 | GET | `/api/agreements/[id]/applicant-recipients` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/applicant-recipients/index.get.ts` |
 | POST | `/api/agreements/[id]/applicant-recipients` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementApplicantRecipientCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/applicant-recipients/index.post.ts` |
 | GET | `/api/agreements/[id]/applicant-recipients/lookups/applicant-recipients` | requireAuthContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/applicant-recipients/lookups/applicant-recipients.get.ts` |
@@ -132,6 +132,10 @@ This generated route index is an exhaustive navigation table, not independent pr
 | POST | `/api/agreements/[id]/monitors` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementMonitorCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitors/index.post.ts` |
 | GET | `/api/agreements/[id]/monitors/lookups/fiscal-years` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/monitors/lookups/fiscal-years.get.ts` |
 | GET | `/api/agreements/[id]/monitors/lookups/monitor-types` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/monitors/lookups/monitor-types.get.ts` |
+| DELETE | `/api/agreements/[id]/notes/[noteId]` | — | — | `server/api/agreements/[id]/notes/[noteId].delete.ts` |
+| PATCH | `/api/agreements/[id]/notes/[noteId]` | — | — | `server/api/agreements/[id]/notes/[noteId].patch.ts` |
+| GET | `/api/agreements/[id]/notes` | — | — | `server/api/agreements/[id]/notes/index.get.ts` |
+| POST | `/api/agreements/[id]/notes` | — | — | `server/api/agreements/[id]/notes/index.post.ts` |
 | DELETE | `/api/agreements/[id]/payment-lines/[lineId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/payment-lines/[lineId].delete.ts` |
 | PATCH | `/api/agreements/[id]/payment-lines/[lineId]` | — | — | `server/api/agreements/[id]/payment-lines/[lineId].patch.ts` |
 | POST | `/api/agreements/[id]/payment-lines` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentLineCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payment-lines/index.post.ts` |
@@ -149,6 +153,7 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/agreements/lookups/applicant-recipients` | — | ApplicantRecipientLookupQuerySchema, PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/lookups/applicant-recipients.get.ts` |
 | GET | `/api/agreements/lookups/custom-fields` | — | — | `server/api/agreements/lookups/custom-fields.get.ts` |
 | GET | `/api/agreements/lookups/holdback-bases` | — | — | `server/api/agreements/lookups/holdback-bases.get.ts` |
+| GET | `/api/agreements/lookups/proponent-types` | requireAuthContext, resolveAgreementStreamScopeContext | PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/proponent-types.get.ts` |
 | GET | `/api/agreements/lookups/risk-ratings` | — | — | `server/api/agreements/lookups/risk-ratings.get.ts` |
 | GET | `/api/agreements/lookups/streams` | resolveAgreementScopeContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/streams.get.ts` |
 | GET | `/api/agreements/number-mode` | resolveAgreementStreamScopeContext | PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/number-mode.get.ts` |

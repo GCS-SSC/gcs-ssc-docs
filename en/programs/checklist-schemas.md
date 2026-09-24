@@ -1,12 +1,12 @@
 # Checklist Schemas
 
-Checklist schemas define bilingual pass/fail questions and deterministic result rules for runtime reviews. They are agency-owned review schemas, opened from a stream Review Setup member, and must match the setup's runtime entity type.
+Checklist schemas define bilingual pass/fail questions and deterministic result rules for runtime reviews. They are agency-owned review schemas, opened from an Agency Review Set member, and must match the setup's runtime entity type.
 
 ## Prerequisites And Navigation
 
-Create the agency, program, stream, and Review Setup first. In the Review Setup detail editor, either associate an existing same-agency checklist schema or create a checklist member. Selecting the member opens the checklist editor; its breadcrumb returns to the stream's Review Setups tab.
+Create the Agency Review Set first. In its detail editor, associate an existing same-Agency checklist schema or create a checklist member. Selecting the member opens the checklist editor; its breadcrumb returns to the Agency Review Sets tab. Link the published Review Set to an eligible Stream for runtime use.
 
-Users need `transfer_payment:read` for the exact program to view the schema and `transfer_payment:update` to save, publish, or retire it. Client controls mirror those permissions, while every server request independently resolves the active agency/program/stream/schema chain.
+Users need Agency read access to view the schema and Agency update access to save, publish, or retire it. Client controls mirror those permissions, while the server independently resolves the active Agency and schema chain.
 
 ## Editor Sections
 
@@ -29,11 +29,15 @@ Every question contains:
 | Language-independent key | Required and unique across the complete schema |
 | English/French question | Both required |
 | Required | Controls whether completion requires an answer |
-| Comment policy | `optional`, `required`, or `required_on_fail` |
-| Pass/fail options | Both options are always present and each has a required bilingual description |
+| Comment policy | `optional`, `required`, `required_on_fail`, `required_on_not_applicable`, or `required_on_fail_or_not_applicable` |
+| Pass/fail options | Pass and Fail are always present; an optional Not applicable choice may be added, each with a required bilingual description |
 | Help | Zero or more bilingual help entries |
 
 Keys are runtime identities used by saved responses and result rules. Treat a key change as a structural change and update every rule that targets it before saving.
+
+## Import a JSON definition
+
+The editor's **Import** action accepts a pasted JSON checklist definition. It validates syntax and the full definition contract, then replaces only the local draft. Inspect the bilingual questions, optional Not applicable answers, and result rules before **Save** and **Publish**. A failed import leaves the current draft intact; import alone does not alter published or runtime snapshots.
 
 ## Result Policy
 

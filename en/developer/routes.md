@@ -38,7 +38,7 @@ await navigateTo(localePath(appRouteLocations.proponentEdit(id)))
 
 `auth.global.ts` protects authenticated routes and redirects signed-in users away from login. `admin-gwcoa.ts` protects GWCOA by requiring the explicit global `system:read` permission. The seeded root user satisfies that rule through an ordinary global role; there is no root-user bypass.
 
-`admin-audit.ts` separately requires global `audit:read`; System access does not imply Audit access.
+`admin-audit.ts` separately requires global or Agency `audit:read`; System access does not imply Audit access.
 
 ## API route style
 

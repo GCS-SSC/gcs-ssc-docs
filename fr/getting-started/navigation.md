@@ -12,22 +12,21 @@ GCS-SSC utilise une interface de tableau de bord adaptative avec une barre laté
 | Ententes | Lorsqu’un rôle actif peut lire `agreement` à une portée quelconque. |
 | Promoteurs | Lorsqu’un rôle actif peut lire `applicant_recipient` à une portée globale ou d’agence. |
 | Gestion des affectations | Lorsqu’une permission Entente ou Promoteur active comporte `manage_assignments`. |
+| Groupes | Lorsqu’un rôle actif permet de lire `group`. |
 | Rôles | Toujours affiché; les API imposent tout de même la portée `role`. |
 | Utilisateurs | Lorsqu’un rôle actif peut lire `user`. |
 | GWCOA | Seulement avec Lecteur ou un niveau supérieur global pour `system`. |
-| Audit | Seulement avec Lecteur ou un niveau supérieur explicite et global pour `audit`. |
+| Audit | Avec Lecteur ou un niveau supérieur explicite, global ou pour une agence, pour `audit`. |
 
 Les affectations à une entité exacte ne font pas apparaître Ententes ou Promoteurs puisqu’une affectation ne fournit jamais le plafond de rôle manquant. Inversement, une destination visible n’affecte pas tous les dossiers et ne garantit pas une liste non vide. La visibilité de la barre latérale est seulement un repère d’utilisation; chaque API impose indépendamment l’autorisation courante.
 
 ## Page d’accueil
 
-La page d’accueil contient une file **Travail affecté** en direct. Elle présente seulement les affectations exactes de l’utilisateur connecté qui sont encore ouvertes et pour lesquelles le graphe de rôles courant fournit au moins Lecteur. Les affectations principales sont triées en premier. La recherche, le filtre de type, les liens directs et la pagination couvrent les promoteurs, ententes, examens, recommandations, réclamations, rapprochements, paiements, prévisions, surveillances, modifications et engagements.
+L’accueil présente un tableau de bord de travail en direct. **Mon travail ouvert** compte les affectations exactes et ouvertes de l’utilisateur connecté. Les listes distinguent le travail direct et partagé, les promoteurs et les ententes. Chaque section propose des liens et sa propre pagination. Le tableau charge d’autres affectations au besoin; le total provient du serveur et ne se limite pas aux cinq lignes visibles.
 
-::: warning Éléments fictifs du tableau de bord
-Les quatre totaux de Vue d’ensemble du système (`54`, `116`, `950` et `100`), leurs graphiques de tendance et de progression et le message « Tous les systèmes sont opérationnels » sont des valeurs de présentation codées en dur, non des comptes ou des résultats d’état en direct. Activité récente, Approbations en attente et Paramètres du système sont des cartes statiques dont les boutons n’ont aucune destination ni aucun gestionnaire. Le bouton Documentation de l’en-tête n’a pas non plus de destination. N’utilisez pas ces éléments pour les rapports, la surveillance, les approbations, les journaux, la configuration ou les décisions d’incident. Utilisez plutôt les listes autorisées sous-jacentes, Travail affecté, les pages de flux et la réponse publique de `/api/health`.
-:::
+Si l’utilisateur appartient à un groupe administratif actif, **Disponible à réclamer** présente les examens, demandes de réviseur supplémentaire et étapes d’approbation non réclamés de ses groupes. Réclamer un élément actualise la file du groupe et le travail affecté. L’appartenance au groupe ne donne pas à elle seule accès au dossier ni le droit de réclamer le travail : le serveur vérifie l’admissibilité actuelle. Sans appartenance à un groupe, le deuxième sommaire montre plutôt le nombre d’ententes affectées. Consultez [Groupes](../admin/groups.md).
 
-L’action Voir les agences de l’en-tête apparaît seulement lorsque l’utilisateur peut lire les agences et mène à leur liste.
+Si une file ne charge pas, utilisez Réessayer. Un échec de réclamation laisse l’élément disponible; actualisez puis vérifiez l’appartenance, la portée du rôle et l’état du travail avant de réessayer. L’API publique `/api/health` demeure le contrôle de santé opérationnel.
 
 ## Barre de navigation et menu utilisateur
 
@@ -67,4 +66,4 @@ Si le changement de langue ne conserve pas une section, ouvrez la destination da
 
 ![Navigation et sélecteur de langue](/screenshots/fr/navigation.png)
 
-_Exemple de l’environnement de développement initial. Les valeurs de Vue d’ensemble du système et les cartes récapitulatives affichées sont fictives et non des données opérationnelles._
+_Exemple de l’environnement de développement initial; les dossiers illustrés sont fictifs._

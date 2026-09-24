@@ -6,23 +6,22 @@ The ordered migrations registered in `server/database/production-core-migrations
 
 | Migration | Area |
 | --- | --- |
-| `0001_common` | Common enums, contacts, addresses, and approval-template foundation |
-| `0002_users` | Better Auth users, sessions, accounts, and verification |
-| `0003_rbac` | Roles, cumulative permissions, user-role assignments, and security audit events |
-| `0004_agency` | Agency profile and agency-owned resources |
-| `0005_common_agency` | Role-to-Agency foreign key |
-| `0006_transfer_payment` | Programs, streams, configuration, schemas, budgets, and setups |
-| `0007_polymorphic_common_tp` | Typed entity registry, review/recommendation/approval/workflow runtime, constraints, and triggers |
-| `0008_applicant_recipient` | Proponent profile and child/link records |
-| `0009_funding_case_agreement` | Agreement aggregate, lifecycle, financial records, ownership constraints, and state triggers |
-| `0010_extensions` | Agency/stream enablement, configuration, KV, and encrypted secret records |
-| `0011_storage_cleanup_outbox` | Durable object deletion and metadata-restoration jobs, leases, retries, and retention |
-| `0012_recommendation_revision` | Integer response revision for optimistic concurrency |
-| `0013_audit` | Change/access/security evidence, capture policy, protected retention, and audit permissions |
-| `0014_program_terms_links` | Required English/French terms URLs, backfill, and legacy-insert compatibility |
-| `0015_cost_category_availability` | Active flags for categories, Agency cost lines, and stream cost-line mappings |
+| `0010_common` | Common enums, contacts, addresses, and approval-template foundation |
+| `0020_users` | Better Auth users, sessions, accounts, and verification |
+| `0030_rbac` | Roles, cumulative permissions, user-role assignments, and security audit events |
+| `0040_agency` | Agency profile and agency-owned resources |
+| `0050_common_agency` | Role-to-Agency foreign key |
+| `0060_transfer_payment` | Programs, streams, configuration, schemas, budgets, and setups |
+| `0070_polymorphic_common_tp` | Typed entity registry, review/recommendation/approval/workflow runtime, constraints, and triggers |
+| `0080_applicant_recipient` | Proponent profile and child/link records |
+| `0090_funding_case_agreement` | Agreement aggregate, lifecycle, financial records, ownership constraints, and state triggers |
+| `0100_extensions` | Agency/stream enablement, configuration, KV, and encrypted secret records |
+| `0110_storage_cleanup_outbox` | Durable object deletion and metadata-restoration jobs, leases, retries, and retention |
+| `0120_audit` | Change/access/security evidence, Agency attribution, sanitized inputs, protected retention, and audit permissions |
+| `0130_notes` | Agency-scoped Proponent notes and Agreement notes with author/editor evidence |
+| `0140_administrative_groups` | Agency groups, membership, claimable review and approval assignments |
 
-The demo-only `9999_seed` migration is not in this production registry.
+The demo-only `0240_seed` migration is not in this production registry.
 
 ## Ownership and identifiers
 
@@ -48,13 +47,11 @@ Agency-owned `Common_Status` is the configurable business-status catalogue. The 
 
 Agreement approval submissions are immutable schema-versioned JSON packets with a canonical SHA-256 hash. Each workflow run has at most one packet; each persisted Agreement revision links to exactly one approval submission. Hash verification and amendment-domain promotion happen before the run reaches successful terminal state.
 
-## Custom fields and conditional routing
+## Agency custom fields and conditional routing
 
-`0006` creates `Transfer_Payment_Stream_Field_Section`, `Transfer_Payment_Stream_Field`, and `Transfer_Payment_Stream_Field_Option`. Composite keys keep sections and fields in one stream and options in their owning field. A field’s stream and kind are immutable; multiple selection cannot be changed back to single selection. Relational fields alone can be discriminators or allow multiple selection.
+`0060` creates Agency-owned `Agency_Custom_Field` and `Agency_Custom_Field_Option`, plus Stream-owned `Transfer_Payment_Stream_Field_Section` and `Transfer_Payment_Stream_Field_Assignment`. The field and option IDs are stable across Streams; each Stream sets its own placement, order, required flag, and active flag. Agreement values remain in `Funding_Case_Agreement_Profile.egcs_fc_customfields` and are validated against assignments in the Agreement's exact Stream.
 
-Agreement values live in the object-valued `Funding_Case_Agreement_Profile.egcs_fc_customfields` JSON column. Runtime validation applies the stream definition, selected option ownership, requiredness, and exact value formats. This JSON is not a free-form substitute for typed field configuration.
-
-`Common_Workflow_Member_Condition` links a setup member to field/option conditions in the same stream. `Common_Workflow_Publication_Condition` retains immutable published references, and `Common_Workflow_Run.egcs_cn_routing` freezes the captured routing values and eligibility. Working configuration and historical evidence therefore have separate reference guards. See [Custom fields](../programs/custom-fields.md) for editing rules, AND/OR examples, and retirement behavior.
+`0070` links Workflow conditions to Agency field/option IDs and can also evaluate Agreement subtype, further distribution, and recipient subtype. A Stream Workflow link captures its own deployment against local values. Publication and runtime routing records preserve immutable conditions and captured values, so a later catalog edit does not rewrite an existing run. Composite references and guards reject cross-Agency options and unavailable dependencies. See [Custom fields](../programs/custom-fields.md) and [Workflows](../concepts/workflows.md).
 
 ## Exact assignment integrity
 
@@ -82,18 +79,18 @@ The following inventory is grouped by aggregate. Names are physical table names 
 
 | Migration | Persisted entities | Material integrity contract |
 | --- | --- | --- |
-| `0001_common` | `Common_Contact`, `Common_Address`, `Common_Approval_Template` | Shared enums and `citext`; active contact email uniqueness; Canadian subdivision validation; `numeric(10,7)` coordinates. Later migrations add the typed publication/runtime and attachment structures. |
-| `0002_users` | `user`, `session`, `account`, `verification` | Installs `plpgsql` when absent so PostgreSQL and PGlite can compile procedural functions. Better Auth owns these shapes. User email and session token are unique; sessions/accounts cascade with the user. `enforce_active_session_user()` and its trigger reject a session whose user is soft-deleted. |
-| `0003_rbac` | `role`, `role_permission`, `user_role_assignment`, `security_audit_event` (moved to `audit` by `0013`) | Permission subject, access level, effective-row, assignment-management subject, and active uniqueness constraints enforce the cumulative model. Role and assignment children cascade; audit actors are restricted. `prevent_security_audit_event_mutation()` plus its trigger reject audit updates/deletes. |
-| `0004_agency` | `Agency_Profile`, `Common_Status`, `Agency_Cost_Category`, `Agency_Cost_Category_Line_Item`, `Agency_Holdback_Basis`, `Agency_Fiscal_Year`, `Agency_Address_Type`, `Agency_Applicant_Recipient_Subtype`, `Agency_Approval_Behalf_Type`, `Agency_Agreement_Type` | All reference rows belong to an agency and carry bilingual values and soft deletion. Active bilingual names/codes are unique inside their owner; line items belong to a category; fiscal-year date ranges and profile uniqueness are database constrained. |
-| `0005_common_agency` | `role.agency_id` relationship | Adds `role_agency_fk` to `Agency_Profile` with restricted deletion, after the Agency table exists. |
-| `0006_transfer_payment` | `Transfer_Payment_Profile`, fiscal-year and stream budgets, stream setup/reference tables, `Transfer_Payment_Stream_Chart_of_Account`, `Transfer_Payment_Stream_Commitment_Type`, and `role_transfer_payment_scope` | Program/stream ownership and financial precision are constrained. Chart entries carry ordered bilingual JSON dimensions, belong to a same-stream budget, and are unique by active budget/dimensions. Commitment types are bilingual same-stream references. Ownership-protection and deferred permission/scope triggers reject cross-owner changes and incompatible permission graphs. |
-| `0008_applicant_recipient` | `Applicant_Recipient_Profile`, `Applicant_Recipient_Registry`, `Applicant_Recipient_Agency_Financial_Id`, `Applicant_Recipient_Other_Name`, `Applicant_Recipient_Address`, `Applicant_Recipient_Contact`, `Applicant_Recipient_Funding_History`, `Applicant_Recipient_Funding_History_Recipient` | The profile has a registered typed identity and lead agency. Active child relationships are owner-scoped and unique. Funding amount is `numeric(19,2)`. Funding-history cleanup retires an unlinked record. Proponent roster/soft-delete triggers enforce its exact assignments. |
-| `0010_extensions` | `extensions.agency_enablement`, `extensions.agency_storage_selection`, `extensions.stream_configuration`, `extensions.kv_entry`, `extensions.secret_entry` | Enablement/configuration is unique per extension and agency/stream and uses restricted host foreign keys. KV uniqueness is `(extension_id, owner_type, owner_id, key)`. Secret uniqueness is scoped similarly; ciphertext, IV, authentication tag, and key version are stored, never plaintext. Extension migrations run through the host transaction described in the extension architecture guide. |
+| `0010_common` | `Common_Contact`, `Common_Address`, `Common_Approval_Template` | Shared enums and `citext`; active contact email uniqueness; Canadian subdivision validation; `numeric(10,7)` coordinates. Later migrations add the typed publication/runtime and attachment structures. |
+| `0020_users` | `user`, `session`, `account`, `verification` | Installs `plpgsql` when absent so PostgreSQL and PGlite can compile procedural functions. Better Auth owns these shapes. User email and session token are unique; sessions/accounts cascade with the user. `enforce_active_session_user()` and its trigger reject a session whose user is soft-deleted. |
+| `0030_rbac` | `role`, `role_permission`, `user_role_assignment`, `security_audit_event` (moved to `audit` by `0120`) | Permission subject, access level, effective-row, assignment-management subject, and active uniqueness constraints enforce the cumulative model. Role and assignment children cascade; audit actors are restricted. `prevent_security_audit_event_mutation()` plus its trigger reject audit updates/deletes. |
+| `0040_agency` | `Agency_Profile`, `Common_Status`, `Agency_Cost_Category`, `Agency_Cost_Category_Line_Item`, `Agency_Holdback_Basis`, `Agency_Fiscal_Year`, `Agency_Address_Type`, `Agency_Applicant_Recipient_Subtype`, `Agency_Approval_Behalf_Type`, `Agency_Agreement_Type`, `Agency_Chart_of_Account`, `Agency_Commitment_Type`, `Agency_Monitor_Type` | All reference rows belong to an agency and carry bilingual values and soft deletion. Active bilingual names/codes are unique inside their owner; line items belong to a category; fiscal-year date ranges and profile uniqueness are database constrained. |
+| `0050_common_agency` | `role.agency_id` relationship | Adds `role_agency_fk` to `Agency_Profile` with restricted deletion, after the Agency table exists. |
+| `0060_transfer_payment` | `Transfer_Payment_Profile`, fiscal-year and stream budgets, Stream assignment/link tables, `Transfer_Payment_Stream_Chart_of_Account`, `Transfer_Payment_Stream_Commitment_Type`, and `role_transfer_payment_scope` | Program/stream ownership and financial precision are constrained. Agency chart definitions carry ordered bilingual JSON dimensions and fiscal years; Stream rows link eligible Agency definitions. Agency Commitment Types are selected through Stream links. Ownership-protection and deferred permission/scope triggers reject cross-owner changes and incompatible permission graphs. |
+| `0080_applicant_recipient` | `Applicant_Recipient_Profile`, `Applicant_Recipient_Registry`, `Applicant_Recipient_Agency_Financial_Id`, `Applicant_Recipient_Other_Name`, `Applicant_Recipient_Address`, `Applicant_Recipient_Contact`, `Applicant_Recipient_Funding_History`, `Applicant_Recipient_Funding_History_Recipient` | The profile has a registered typed identity and lead agency. Active child relationships are owner-scoped and unique. Funding amount is `numeric(19,2)`. Funding-history cleanup retires an unlinked record. Proponent roster/soft-delete triggers enforce its exact assignments. |
+| `0100_extensions` | `extensions.agency_enablement`, `extensions.agency_storage_selection`, `extensions.stream_configuration`, `extensions.kv_entry`, `extensions.secret_entry` | Enablement/configuration is unique per extension and agency/stream and uses restricted host foreign keys. KV uniqueness is `(extension_id, owner_type, owner_id, key)`. Secret uniqueness is scoped similarly; ciphertext, IV, authentication tag, and key version are stored, never plaintext. Extension migrations run through the host transaction described in the extension architecture guide. |
 
-## Polymorphic review, approval, recommendation, and workflow engine (`0007`)
+## Polymorphic review, approval, recommendation, and workflow engine (`0070`)
 
-`0007_polymorphic_common_tp` creates `Common_Entity`, `Common_Entity_Type`, `register_entity()`, composite typed foreign keys, and the review/recommendation/approval/completion/workflow authoring and runtime graphs. `Common_Entity_Assignment` replaces entity-specific Team rows with an exact, no-access-level roster. Review and recommendation lifecycle triggers enforce non-empty one-primary rosters. Recommendation setup members include the snapshotted fail-on-Not-Recommended policy.
+`0070_polymorphic_common_tp` creates `Common_Entity`, `Common_Entity_Type`, `register_entity()`, composite typed foreign keys, and the review/recommendation/approval/completion/workflow authoring and runtime graphs. `Common_Entity_Assignment` replaces entity-specific Team rows with an exact, no-access-level roster. Review and recommendation lifecycle triggers enforce non-empty one-primary rosters. Recommendation setup members include the snapshotted fail-on-Not-Recommended policy.
 
 The named constraint rows `ay_ref_profilegwcoanumber`, `tp_ref_streamid`, and `cn_ref_*` bind agency/program identities and typed review/template setup chains. The `cn_chk_*` rows narrow legal approval/review scope and target types and validate additional-approval names. `Common_Review_Setup` must match its `Common_Review_Set_Setup` entity type, and review runtime rows pin the schema version they execute.
 
@@ -103,7 +100,7 @@ Publication versions, references, and transitions are sealed evidence. The publi
 
 Completion validators enforce one exact target, its registry capability, its disposition, and the related workflow target. `trg_fn_lock_completion` freezes completion evidence. Workflows retain default-owner mappings, status transitions, and owner blockers. Conditional routing additionally retains published discriminator references and immutable per-run captured values and member eligibility. See [Custom fields](../programs/custom-fields.md) for active versus historical reference rules.
 
-## Funding-agreement aggregate (`0009`)
+## Funding-agreement aggregate (`0090`)
 
 The agreement root is `Funding_Case_Agreement_Profile`. Its children are:
 
@@ -115,23 +112,21 @@ The agreement root is `Funding_Case_Agreement_Profile`. Its children are:
 
 Agreement, amendment, claim, claim reconciliation, forecast, commitment, payment, monitor, and Closeout rows receive registered `Common_Entity` identities. Their assignment triggers enforce/retire exact rosters. `Funding_Case_Agreement_Closeout` permits one open row per Agreement, constrains status/open combinations, and owns an immutable readiness snapshot per run. Snapshot triggers validate the `approval_submission` run and parent Agreement and reject update/delete. Stable budget identities are PostgreSQL bigint values, exposed as decimal strings. Initial working-version triggers create budget/activity versions. Approval-submission triggers validate run purpose/target and reject packet update/delete. Revision validation requires the submission, optional amendment, and Agreement to agree.
 
-The `trg_fn_resolve_*` family and corresponding triggers derive—not trust—parent identity: current budget/activity version, budget-line item identity, claim-line agreement, forecast-line agreement, reconcile-line claim, commitment-line stream/budget scope, payment agreement, and payment-line commitment. Root-enforcement triggers then reject cross-agreement fiscal years or line items. Amendment type/subtype triggers require configuration from the agreement’s stream.
+The `trg_fn_resolve_*` family and corresponding triggers derive—not trust—parent identity: current budget/activity version, budget-line item identity, claim-line agreement, forecast-line agreement, reconcile-line claim, commitment-line stream/budget scope, payment agreement, payment-line commitment, and the owning Stream for monitors and generated documents. Composite foreign keys bind monitors, generated document templates, and holdback bases to the Agreement's exact Stream. Root-enforcement triggers then reject cross-agreement fiscal years or line items. Amendment type/subtype triggers require configuration from the agreement’s stream.
+
+The Agreement–Proponent link carries a required Agency recipient subtype. Database guards reject a choice outside the Stream's active eligible-recipient mapping, prevent retirement of a referenced subtype, and protect existing links when a Stream or Program changes ownership or eligibility. The optional Stream consistency setting checks future choices against the latest eligible saved link for that Proponent in the same Stream; historical differences do not block enabling it. Workflow profile-reference guards also protect published conditions that depend on these classifications.
 
 Money fields for agreement budgets, forecasts, claims, reconciliation, commitments, and payments are `numeric(19,2)`; holdback/percentages are `numeric(5,2)` and risk score is `numeric(8,2)`. `fc_enforce_commitment_program_funding_total` is the shared validation function invoked by the budget-line, budget-version, and commitment-line trigger families: active commitment allocation may not exceed the corresponding program-funding total. These checks execute for both sides of relevant inserts/updates, so a later budget reduction cannot bypass the invariant.
 
-## Storage, audit, and incremental additions
+## Storage, audit, notes, and groups
 
-`Common_Attachment_Types` belongs to an Agency. `Common_Attachment` stores host metadata plus a pinned provider/object/locator and optional metadata contract. `Common_Entity_Attachment` binds an upload to an exact typed target. Generated documents instead use their typed generated-document relationship. `extensions.agency_storage_selection` chooses the provider for new writes; it does not relocate existing objects.
+`Common_Attachment_Types` belongs to an Agency. `Common_Attachment` stores host metadata plus a pinned provider/object/locator, and `Common_Entity_Attachment` binds it to a typed target. Generated documents use a separate relationship. `0110` persists durable storage deletion and metadata restoration jobs; external bytes are not in the database transaction. See [Background work](../operator/background-work.md).
 
-`0011` persists `delete_object` and `restore_metadata` operations with pending/processing/completed/dead-letter states, attempt counts, next-attempt time, and lease ownership. External bytes are not part of the database transaction. The outbox enables retry and compensation; it does not make every generated-document cleanup durable. See [Background work](../operator/background-work.md).
+`0120` defines append-only change, access, and security evidence in the `audit` schema. Change capture is transactional; buffered access capture can be delayed or lost. Agency ownership attribution supports scoped Audit reads, and sanitized inputs require a separate permission. See [Audit](../admin/audit.md).
 
-`0012` starts recommendation response revision at 1. A save supplies the expected revision, updates under lock, and increments it. This counter is independent of the recommendation schema publication.
+`0130` adds `Applicant_Recipient_Note` with an Agency owner and `Funding_Case_Agreement_Note` under an exact Agreement. Both retain author and last editor and use soft deletion. `0140` adds `Common_Group` and `Common_Group_Member`, group defaults on approval and review setup, and claim fields on runtime work. It relaxes the exact assignment roster only while a group review is pending claim, then requires a claimant's exact assignment. The database checks approval claimant evidence at decision time; a default group member cannot supply on-behalf evidence, and a required group-detail step needs claimant name, title, and date. The migration refuses rollback while retained group data or references exist. Group membership is not a business-data grant. See [Groups](../admin/groups.md).
 
-`0013` moves security events into `audit.security_audit_event` and adds `audit.change_event`, `audit.access_event`, capture policy, and retention policy. Change capture records exact JSON values and configured redaction. Append-only triggers reject ordinary update/delete/truncate; the expiry function permits only eligible retention deletion. Access capture is buffered outside business transactions and can be delayed or lost. The two evidence streams must not be interpreted as identical guarantees.
-
-`0014` backfills both new terms URL columns from the old destination, including retired programs, and requires both columns. A compatibility insert trigger permits historical seed inserts; current APIs require independently supplied English and French URLs. The migration is intentionally forward-only because merging independently authored URLs would lose information.
-
-`0015` adds availability flags defaulting to true on existing cost categories, line items, and stream mappings. Availability does not remove references or rewrite saved Agreement calculations. Deletion, availability, and the Agency’s business-status catalogue remain separate concepts.
+Recommendation response revisions, bilingual Program terms URLs, and cost-category availability are now folded into the clean schema rather than applied by separate incremental migrations. Existing deployed databases need the application's supported upgrade path; these ordered files describe fresh initialization.
 
 ## Manual spreadsheet maintenance
 

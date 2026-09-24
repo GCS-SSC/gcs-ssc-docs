@@ -24,6 +24,6 @@ The sidebar is permission-driven:
 - Agreements appears with an active scoped Agreement Viewer ceiling.
 - Proponents appears with an active global or agency-scoped Proponent Viewer ceiling.
 - Assignment Management appears with any active Agreement/Proponent `manage_assignments` capability.
-- GWCOA and SQL dump download require global System Viewer; Audit requires its explicit global permission. Logout remains available.
+- GWCOA and SQL dump download require global System Viewer; Audit requires its own global or Agency permission. Logout remains available.
 
 If a user signs in successfully but sees fewer pages than expected, check active user-role assignments, cumulative subject levels, scope, and the independent assignment-management capability. Exact work assignments affect record mutations and Assigned Work, not the role ceiling used to show these destinations.

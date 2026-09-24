@@ -4,7 +4,7 @@ Proponent profiles, identity, relationships, funding history, reviews, agreement
 
 This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
 
-## Handlers (36)
+## Handlers (40)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
@@ -32,6 +32,11 @@ This generated route index is an exhaustive navigation table, not independent pr
 | POST | `/api/applicant-recipients/[id]/funding-history` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | FundingHistoryExternalCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/funding-history/index.post.ts` |
 | GET | `/api/applicant-recipients/[id]/funding-history/lookups/recipients` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/funding-history/lookups/recipients.get.ts` |
 | POST | `/api/applicant-recipients/[id]/funding-history/similarity` | requireAuthContext, resolveApplicantRecipientAuthorization | FundingHistoryIdentityBaseSchema, SimilaritySchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/funding-history/similarity.post.ts` |
+| DELETE | `/api/applicant-recipients/[id]/notes/[noteId]` | — | — | `server/api/applicant-recipients/[id]/notes/[noteId].delete.ts` |
+| PATCH | `/api/applicant-recipients/[id]/notes/[noteId]` | — | — | `server/api/applicant-recipients/[id]/notes/[noteId].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/notes` | — | — | `server/api/applicant-recipients/[id]/notes/index.get.ts` |
+| POST | `/api/applicant-recipients/[id]/notes` | — | — | `server/api/applicant-recipients/[id]/notes/index.post.ts` |
+| GET | `/api/applicant-recipients/[id]/notes/lookups/agencies` | requireAuthContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/notes/lookups/agencies.get.ts` |
 | DELETE | `/api/applicant-recipients/[id]/other-names/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/other-names/[childId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/other-names/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientOtherNamePatchSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/other-names/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/other-names` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/other-names/index.get.ts` |
@@ -43,4 +48,3 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/applicant-recipients` | — | ApplicantRecipientPaginationSchema, AssignedListViewSchema, PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/applicant-recipients/index.get.ts` |
 | POST | `/api/applicant-recipients` | requireAuthContext | ApplicantRecipientProfileSchema, readValidatedBodyI18n | `server/api/applicant-recipients/index.post.ts` |
 | GET | `/api/applicant-recipients/lookups/agencies` | requireAuthContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/lookups/agencies.get.ts` |
-| GET | `/api/applicant-recipients/lookups/subtypes` | requireAuthContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/lookups/subtypes.get.ts` |

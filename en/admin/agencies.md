@@ -34,20 +34,9 @@ The General tab displays those values. Agency profile edits replace only submitt
 
 ## Detail navigation
 
-The detail page has twelve linkable tabs:
+The Agency detail page has 21 linkable tabs: General; Statuses; Custom Fields; Approval Templates; Workflow Setups; Review Sets; Recommendation Sets; Programs; Cost Categories; Fiscal Years; Chart of Accounts; Commitment Types; Document Templates; Holdback Bases; Monitor Types; Address Types; Attachment Types; Applicant/Recipient Subtypes; Approval Behalf; Agreement Types; and Extensions.
 
-1. General
-2. Statuses
-3. Programs
-4. Cost Categories
-5. Fiscal Years
-6. Holdback Bases
-7. Address Types
-8. Attachment Types
-9. Applicant/Recipient Subtypes
-10. Approval Behalf
-11. Agreement Types
-12. Extensions
+The design and financial catalogs are Agency-owned. Author a reusable design here, then link or assign it on each applicable Program Stream. See [Agency catalogs and Stream selections](./agency-catalogs.md) for permissions, setup order, publication, and recovery.
 
 Each reference-data tab supports literal search, status filtering, pagination, and agency-wide summary counts. Search and status filters change the displayed rows and paginated total, while the summary remains an agency-wide total.
 
@@ -128,7 +117,8 @@ For a new agency, a practical dependency order is:
 4. Add Holdback Bases, Address Types, Applicant/Recipient Subtypes, Approval Behalf types, and Agreement Types required by the business process.
 5. Enable required Extensions at agency scope.
 6. Create Programs.
-7. Add program streams and complete stream-level setup.
+7. Author and publish Agency review, recommendation, approval, workflow, document, and custom-field definitions.
+8. Add program streams and assign the required Agency catalog entries alongside Stream-specific setup.
 
 ## Failure and recovery
 

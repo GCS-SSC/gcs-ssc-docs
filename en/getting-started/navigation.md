@@ -12,22 +12,21 @@ GCS-SSC uses a responsive dashboard shell with a collapsible/resizable sidebar, 
 | Agreements | When an active role can read `agreement` at any scope. |
 | Proponents | When an active role can read `applicant_recipient` at global or agency scope. |
 | Assignment Management | When any active Agreement or Proponent permission has `manage_assignments`. |
+| Groups | When an active role can read `group`. |
 | Roles | Always listed; APIs still enforce `role` scope. |
 | Users | When an active role can read `user`. |
 | GWCOA | Only with global Viewer or higher for `system`. |
-| Audit | Only with explicit global Viewer or higher for `audit`. |
+| Audit | With explicit global or Agency Viewer or higher for `audit`. |
 
 Exact entity assignments do not make the Agreements or Proponents destination appear because an assignment never supplies its missing role ceiling. Conversely, a visible destination does not assign every record or guarantee a non-empty list. Sidebar visibility is only a usability hint; every API enforces current authorization independently.
 
 ## Home page
 
-The Home page contains a live **Assigned Work** queue. It shows only the signed-in user's exact assignments that are still open and for which the current role graph supplies at least Viewer. Primary assignments sort first. Search, an entity-type filter, direct links, and pagination cover Proponents, Agreements, reviews, recommendations, claims, claim reconciliations, payments, forecasts, monitors, amendments, and commitments.
+Home is a live work dashboard. **My Open Work** counts the signed-in user's open exact assignments; the lists separate direct and shared work, Proponents, and Agreements. Each section links to its records and has its own pager. The dashboard loads more assigned work as needed, so an initial section can fill as later batches arrive. Its count is a server result, not a count of the currently visible five rows.
 
-::: warning Dashboard placeholders
-The four System Overview totals (`54`, `116`, `950`, and `100`), their trend/progress graphics, and the “All systems operational” message are hard-coded presentation values, not live counts or health results. Recent Activity, Pending Approvals, and System Settings are static summary cards whose buttons have no destination or handler. The hero Documentation button also has no destination. Do not use these elements for reporting, monitoring, approvals, logs, configuration, or incident decisions. Use the underlying authorized lists, Assigned Work, workflow pages, and the public `/api/health` response instead.
-:::
+If the user belongs to an active administrative group, **Available to Claim** lists unclaimed group reviews, additional-reviewer requests, and approval steps. Claiming refreshes both the group queue and assigned work. Group membership alone does not grant access to the business record or make a claim valid: the server checks current eligibility. If the user has no group membership, the second summary shows their assigned Agreement count instead. See [Groups](../admin/groups.md).
 
-The View Agencies hero action is shown only when the user can read agencies and links to the agency list.
+If a queue cannot load, use its Retry action. A failed claim leaves the item unclaimed; refresh and confirm membership, role scope, and current work state before trying again. The public `/api/health` endpoint remains the operational health check.
 
 ## Navbar and user menu
 
@@ -67,4 +66,4 @@ If language switching does not retain a section, open the destination in the cho
 
 ![Navigation and language switcher](/screenshots/en/navigation.png)
 
-_Seeded development-environment example. System Overview values and summary cards shown here are placeholders, not operational data._
+_Seeded development-environment example; the records shown are illustrative._

@@ -9,7 +9,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
 | GET | `/api/assigned-work` | requireAuthContext, requireFreshAuthContext | AssignedWorkQuerySchema, Common_Recommendation_Schema, Common_Review_Schema, getValidatedQueryI18n | `server/api/assigned-work/index.get.ts` |
-| GET | `/api/assignment-management` | requireAuthContext | AssignedWorkQuerySchema, getValidatedQueryI18n | `server/api/assignment-management/index.get.ts` |
+| GET | `/api/assignment-management` | requireAuthContext | AssignedWorkQuerySchema, Common_Recommendation_Schema, Common_Review_Schema, getValidatedQueryI18n | `server/api/assignment-management/index.get.ts` |
 | ANY | `/api/auth/[...auth]` | — | — | `server/api/auth/[...auth].ts` |
 | GET | `/api/auth/permissions` | — | — | `server/api/auth/permissions.get.ts` |
 | DELETE | `/api/entity-assignments/[entityType]/[entityId]/[userId]` | requireAuthContext | EntityAssignmentRemoveSchema, EntityAssignmentTargetSchema, parseI18n | `server/api/entity-assignments/[entityType]/[entityId]/[userId].delete.ts` |

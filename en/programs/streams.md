@@ -86,9 +86,7 @@ The stream detail page exposes these tabs:
 - Areas of Expertise.
 - Financial Limits.
 - Review Setups.
-- Approval Templates.
 - Document Templates.
-- Recommendation Setups.
 - Workflow Setups.
 - Extensions.
 
@@ -134,9 +132,9 @@ New allocations require an eligible program budget with a non-retired fiscal yea
 
 Eligible recipients define which agency applicant recipient subtypes can be used for the stream. Each row selects one agency applicant recipient subtype.
 
-These mappings record the stream’s intended recipient categories. Agreement Proponent selection has its own current active-profile and read-authorization checks and permits a Proponent from an independent lead Agency. Do not treat this configuration alone as proof that a particular Agreement recipient has passed a program eligibility assessment.
+These mappings provide the recipient subtype required on each Agreement–Proponent link. The Proponent profile no longer stores a subtype. The Stream’s **Require consistent Proponent type** setting fixes a returning Proponent to its previous eligible subtype in that Stream; otherwise the type can be chosen per Agreement. The profile still needs current read access and can have a lead Agency different from the Agreement Agency. This mapping alone does not prove broader program eligibility.
 
-Historical eligibility mappings retain the saved subtype label even after retirement. Keeping the same reference is permitted; a replacement must be a currently eligible subtype from the Agency. Removing or retiring an Agency subtype is blocked when retained profile or eligibility references depend on it.
+Historical eligibility mappings retain the saved subtype label even after retirement. Keeping the same reference is permitted; a replacement must be a currently eligible subtype from the Agency. Removing or retiring an Agency subtype is blocked when retained Agreement relationship or eligibility references depend on it.
 
 ## Cost Category Line Items Tab
 
@@ -168,15 +166,13 @@ Changing a subtype’s underlying Agency agreement type must preserve the classi
 
 ## Chart of Accounts and Commitment Types
 
-The **Chart of Accounts** tab defines the financial coding that Agreement commitment lines can select. Create stream budgets first: every chart entry belongs to one active budget for this exact stream and therefore one fiscal year. Each entry contains one or more ordered dimensions; every dimension requires an English label, French label, and value. English labels must be unique within the entry, as must French labels. The same fiscal-year budget cannot contain two active entries with the same ordered dimension JSON.
+Define bilingual Chart of Accounts entries on the Agency page, including fiscal year and ordered accounting dimensions. Then use this Stream's **Chart of Accounts** tab to link an eligible Agency entry. Search matches the fiscal-year display and dimension text. Removing a Stream link is a logical deletion and is blocked while an active Agreement commitment line references it. Retiring the Agency definition can leave historical Stream links visible; correct the Agency entry instead of reusing a referenced ID for a different classification.
 
-Search matches the fiscal-year display or any stored dimension text. Create and update require transfer-payment create/update access at the resolved scope; deletion requires Manager-level delete access. Writes repeat authorization after locking the active program, stream, and Agency. Deletion is logical and is blocked while an active Agreement commitment line references the chart entry.
-
-The **Commitment Types** tab defines the bilingual types offered when an Agreement commitment is created. Both names are required and the active English/French name pair must be unique within the stream. A type can be edited, but cannot be retired after any Agreement commitment has referenced it. The stream wizard can create budgets, chart entries, and commitment types together; temporary chart entries must point to a temporary budget in the same wizard payload.
+Define bilingual Commitment Types on the Agency page. The Stream **Commitment Types** tab selects an available Agency type for new Agreement commitments. Removing a used Stream link or deleting a referenced Agency type is blocked. A Stream Contributor can add a link, while eligible removal requires Manager. The server rechecks the Agency, Program, Stream, and current references under lock.
 
 ## Monitor Types Tab
 
-Monitor types classify monitoring records for the stream. Each row contains an English and French name. These values become reference options for monitoring workflows attached to stream agreements.
+Create bilingual Monitor Types on the Agency page, then associate eligible types here. The Stream selection determines which types new monitors may use. Existing monitor references retain their identity when an Agency type or Stream link is retired. Reload both catalogs if a type is absent from the picker; confirm Agency ownership and active state before retrying.
 
 ## Risk Ratings Tab
 
@@ -210,85 +206,27 @@ The wizard treats financial limits as optional. If the stream has no financial l
 
 ## Review Setups Tab
 
-Review setups configure how assessment reviews are generated for runtime entities. A review setup has:
-
-- Entity type.
-- On-completion flag.
-- English and French name.
-- Order.
-- Sequential flag.
-- Optional approval template.
-- Lifecycle status, version, and pending-publication state.
-- One or more review setup members.
-
-Each member links to an assessment review schema, has an order, and can have its own optional approval template. Member rows also carry schema metadata such as schema name, outcome name, version, and status for display.
-
-Business rules:
-
-- Review setup members in the same setup must use unique review schemas.
-- Review setup members in the same setup must use unique order values.
-- On-completion generation is not allowed for entity types that only support manual review creation: funding case intake, funding case agreement, and applicant recipient.
-- Active review setups cannot duplicate entity type plus order or entity type plus bilingual name.
-- Review schemas must belong to the stream's agency and match the configured entity type.
-
-Runtime implication: when enabled for supported runtime entities, the setup can generate common review work. Sequential setups control whether members are executed in sequence or in parallel.
-
-New setups begin as drafts. Publishing a valid draft creates immutable version 1. Editing a published setup creates pending working content; Publish is available only when that content is valid and changed. A published setup can be permanently retired. Runtime reviews remain pinned to the exact setup and schema publication versions that generated them, so later edits do not rewrite existing work. The detail editor can associate an existing same-agency schema or create a new assessment/checklist schema and then open its editor.
-
-The source also retains stream-scoped Assessment Set API contracts and an unmounted Assessment Sets component. They are not registered in the current stream tab map and therefore have no supported end-user navigation path. Integrations using those APIs must still obey the same stream ownership, assessment-only member, fresh-authorization, uniqueness, and soft-delete rules; administrators should use Review Setups in the current UI.
+This tab lists Agency-owned Review Sets linked to the Stream. Use **Add** to select an eligible published set from the same Agency. Open a row to edit its Agency definition, schema members, publication, and direct-review or on-completion behavior. Removing a Stream link does not delete the Agency set or its historical reviews. The definition can be linked to more than one Stream in that Agency; each runtime review remains pinned to the publication used when it was created. See [Runtime Reviews](../concepts/runtime-reviews.md).
 
 ## Recommendation Setups Tab
 
-Recommendation setups configure recommendation generation for a stream. Each setup contains:
-
-- Entity type.
-- English and French name.
-- English and French description.
-- Recommendation schema.
-- Optional approval template.
-- Active flag.
-
-Active recommendation setups must not duplicate entity type plus bilingual name. Recommendation schemas must belong to the agency and match the entity type being configured.
+Recommendation schemas and sets are authored on the **Agency** page. They are referenced by Agency Workflows and their published members; the Stream has no separate Recommendation Setups tab. The design records bilingual questions, a deciding result question, ordered members, optional approval stages, and failure policy. See [Recommendation schemas and sets](./recommendations.md).
 
 ## Approval Templates Tab
 
-Stream approval templates define approval routes scoped to the stream. Templates are reusable within the stream and contain ordered steps and certifications; the consuming configuration supplies the runtime target.
-
-Use this tab when approval routes must vary by stream. Common/global templates can exist elsewhere, but stream templates are the ones usually referenced by stream review, recommendation, agreement, claim, forecast, payment, monitor, and applicant recipient workflows.
-
-See [Approval Templates](./approval-templates.md) for the full template and runtime approval behavior.
+Approval templates are authored and published on the **Agency** page. The Stream has no separate Approval Templates tab. Review Sets, Recommendation Sets, and Workflows reference an eligible Agency template; each runtime routing slip keeps its pinned step and certification evidence. See [Approval Templates](./approval-templates.md).
 
 ## Workflow Setups Tab
 
-Workflow setups define stream-scoped orchestration. A standard workflow starts explicitly from the target’s catalogue; approval submission starts explicitly for an Agreement and through completion for supported children. Risk-rating workflows start explicitly on an Agreement. The header stores target, purpose, allowed starting statuses, cancellation/execution-failure fallbacks, active state, and retry policy. The detail page builds a unique positive sequence of review sets, recommendation sets, and root approval templates. Each member can apply target status on materialization, success, or failure. Review/recommendation members require exactly one default active user for each nested setup member; **Allow owner redirect** permits authorized recovery if that user is no longer eligible at runtime. Linked resources, owners, target, and scope are validated again at publication. Published runs retain the complete immutable sequence, transitions, owner mappings, and lineage. See [Workflows](../concepts/workflows.md).
+This tab lists published Agency Workflows linked to the Stream. The add control selects a same-Agency Workflow; the row opens its Agency detail editor. Removing a link stops new use on this Stream without deleting the shared definition or historical attempts. The Agency design declares entity type, purpose, starting statuses, ordered review/recommendation/approval members, conditions, and retry policy. Its Stream-specific deployment resolves local values such as risk ratings; missing required fields or incompatible local references block use rather than skipping a step. See [Workflows](../concepts/workflows.md) and [Agency catalogs](../admin/agency-catalogs.md).
 
 ## Document Templates Tab
 
-Stream document templates define the source files used by agreement document generation. The tab shows entity type, English name, template kind, output formats, active status, bilingual attachments, and row actions.
-
-Each template stores:
-
-| Field | Rule |
-| --- | --- |
-| Entity type | `fundingcaseagreement` or the supported Closeout target `fundingcaseagreementcloseout`. |
-| English/French name | Required bilingual display name. |
-| English/French description | Required bilingual description shown when users choose a template on an agreement. |
-| Template kind | `docx` or `html`. |
-| Output formats | One or more compatible formats: DOCX templates allow `docx` and/or `pdf`; HTML templates allow `html` and/or `pdf`. |
-| English/French file | Required on create. DOCX templates accept `.docx`; HTML templates accept `.html` or `.htm`. |
-| Active | Only active agreement templates are available in the agreement Documents tab. |
-
-Creation uses multipart data and requires both language files. Each file is limited to 10 MiB and the complete request to 21 MiB. File-kind validation currently uses the filename extension (`.docx`, or `.html`/`.htm`); operators must therefore treat template-upload permission as trusted content-authoring access. Template kind becomes immutable after creation.
-
-Editing can update metadata, compatible output formats, active status, and either language file. Replacing a language file stores a new attachment and cleans up the replaced attachment after the database update; a failed update cleans up newly created attachments. Deleting a template soft-deletes it and its source attachments from active use. Generated agreement documents created earlier remain separate records. Downloads authorize the exact active stream/template relationship and return the requested English or French source attachment.
-
-Operational note: PDF generation from DOCX uses LibreOffice, and HTML-to-PDF uses Puppeteer. Local development can install these tools with the document generation setup command in [Startup](../developer/startup.md).
+Create bilingual DOCX or HTML source templates on the Agency's **Document Templates** tab, then link an eligible template here. Removing the Stream link leaves the Agency source and generated historical documents intact. A template records its target entity, bilingual name and description, output formats, active state, and source files. Both language files are required at creation; each is limited to 10 MiB and the request to 21 MiB. DOCX permits DOCX/PDF output and HTML permits HTML/PDF. A template's kind cannot change after creation. Uploaded filename extensions determine file-kind validation, so template authoring remains trusted access. See [Documents](../agreements/documents.md) and [Document generation](../developer/document-generation.md).
 
 ## Assessment Schemas
 
-Assessment schemas are reached from review setup or assessment-set rows that reference a review schema. The schema editor lets administrators maintain the scoring matrix, sections, questions, calculated questions, dependencies, outcomes, and impactors used by runtime assessments.
-
-See [Assessment Schemas](./assessment-schemas.md) for the full lifecycle and editor behavior.
+Assessment and checklist schemas are created from the Agency Review Set editor and published there. They define the pinned questions, scoring, dependencies, outcomes, and result rules used by runtime reviews. See [Assessment Schemas](./assessment-schemas.md) and [Checklist Schemas](./checklist-schemas.md).
 
 ## Extensions Tab
 

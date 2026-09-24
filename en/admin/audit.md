@@ -4,9 +4,9 @@ Use **Administration → Audit** to investigate saved changes, security events, 
 
 ## Access
 
-A role must explicitly grant the `audit` subject at **global** scope. Every supported role level grants Audit read access only. An Agency-scoped grant, assignment, or System permission alone does not grant Audit access. There are no Audit create, edit, delete, roster, approval, or transition actions.
+A role must explicitly grant `audit:read` at global or Agency scope. A global grant can read evidence across Agencies; an Agency grant returns only events attributed to that Agency. The visibility rule is applied before search, counts, pagination, and detail reads. A System grant, business-record permission, or exact assignment does not grant Audit access. Audit is read-only; it has no create, edit, or delete actions.
 
-Give this permission only to users whose duties require cross-Agency evidence. The page and every list/detail API enforce it separately from normal business-record permissions.
+Captured request and query inputs have a separate `audit:view_audit_inputs` capability. An Audit reader without it sees the event and an input-visibility status, but not the captured values. A suitable Agency input grant reveals only evidence attributed to that Agency; globally attributed inputs require a global grant. Captured values are sanitized and may be unavailable for a given event. Give these permissions only to staff whose duties require that evidence.
 
 ## Find an event
 
@@ -30,7 +30,7 @@ The actor is the authenticated account's `user.id`, not the separate Common User
 
 Numeric values in change evidence retain decimal text so large identifiers and exact money are not rounded through JavaScript numbers. JSON columns are compared as whole values. Credential/secret exclusions and restricted capture policies intentionally omit sensitive values.
 
-Access parameters and SQL literals/comments are redacted. A straightforward structured single-table query may identify returned primary keys, including aliases and composite keys. Joined, aggregate, raw, or identifier-free projections may report unavailable identities. Read the limitations shown in the details; do not interpret an unavailable projection as an empty result. A record-ID filter in Access matches captured primary-key values and cannot recover identities that were not captured.
+SQL literals/comments are redacted. Sanitized request or query inputs appear only with the separate input-view grant; they are not a copy of the complete request body. A straightforward structured single-table query may identify returned primary keys, including aliases and composite keys. Joined, aggregate, raw, or identifier-free projections may report unavailable identities. Read the limitations shown in the details; do not interpret an unavailable projection as an empty result. A record-ID filter in Access matches captured primary-key values and cannot recover identities that were not captured.
 
 ## Worked investigation
 
@@ -56,7 +56,8 @@ The queue is limited to 2,000 events and 32 MiB of estimated serialized payload.
 
 | Symptom | Action |
 | --- | --- |
-| Audit navigation is absent or access is denied | Verify an explicit global Audit grant; System access is insufficient. |
+| Audit navigation is absent or access is denied | Verify an explicit global or matching Agency `audit:read` grant; System access is insufficient. |
+| An event or captured input is missing | Check whether the event belongs to another Agency and whether `audit:view_audit_inputs` applies; a restricted or unavailable input is not proof that no query ran. |
 | List, detail, or retention settings fail to load | Use the visible retry action. A failed fetch is not an empty evidence set. |
 | A successful recent request has no access rows yet | Wait for batching, reload, and ask an operator to check capture enablement, queue backlog, and loss/failure events. |
 | Old evidence is absent | Compare its age with the configured retention. Expired or uncaptured evidence cannot be recreated by changing the filter. |

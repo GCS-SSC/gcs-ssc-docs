@@ -1,8 +1,8 @@
 # Approval Templates
 
-Approval templates define ordered approval routes. A template stores its stream scope, bilingual template metadata, ordered approval steps, default approvers, approver titles, step certifications, and the policy for user-added approval steps. At runtime, templates are materialized into routing slips that users can approve, deny, reassign, or extend when the template permits it.
+Approval templates define ordered approval routes. A template stores its Agency ownership, bilingual template metadata, ordered approval steps, default approvers, approver titles, step certifications, and the policy for user-added approval steps. At runtime, templates are materialized into routing slips that users can approve, deny, reassign, or extend when the template permits it.
 
-In transfer payment setup, templates are commonly configured at the stream level and then referenced by review setups, recommendation setups, assessment members, or runtime workflows for agreements, claims, forecasts, payments, monitoring, applicant recipients, and related work.
+In transfer payment setup, templates are configured in the Agency catalog and then referenced by review setups, recommendation setups, assessment members, or runtime workflows for agreements, claims, forecasts, payments, monitoring, applicant recipients, and related work.
 
 ## Empty-System Prerequisites
 
@@ -10,20 +10,20 @@ Before creating operational approval templates, configure:
 
 - Common users who can be selected as default approvers.
 - Agency approval behalf types if users can approve on behalf of others.
-- Stream, review setup, recommendation setup, or other runtime setup that will reference the template.
+- Agency Review Set, Recommendation Set, Workflow, or other runtime design that will reference the template.
 - Permissions for users who will manage templates and users who will act on runtime approvals.
 
 Templates can be saved without steps, but a template with no steps produces an empty routing slip and cannot collect meaningful approvals.
 
 ## Where templates live
 
-Manage templates on a stream’s **Approval Templates** tab. The supported scope is `transferpaymentstream`, with the exact stream ID. Each row shows the bilingual name, step count and certification count.
+Manage templates on the Agency’s **Approval Templates** tab. A template belongs to the exact Agency and may be used by eligible Agency designs linked to its Streams. Each row shows the bilingual name, step count, and certification count. Agency Viewer reads, Contributor authors and publishes, and Manager performs eligible deletion. Stream configuration access alone does not authorize editing the Agency template.
 
 ## Runtime targets
 
-A template is a reusable stream-scoped approval design; its header does not select a runtime entity type. The consuming published workflow, review or recommendation configuration determines its use and target. The runtime materializes that target into the routing slip and checks the template’s owning scope. A template’s presence does not enable a lifecycle capability that the target does not support.
+A template is a reusable Agency-owned approval design; its header does not select a runtime entity type. The consuming published workflow, review or recommendation configuration determines its use and target. The runtime materializes that target into the routing slip and checks the template’s Agency ownership. A template’s presence does not enable a lifecycle capability that the target does not support.
 
-For example, a stream can reuse its “Manager sign-off” template in a Claim approval workflow and a recommendation member’s approval. Each generated routing slip has independent steps, evidence and lifecycle; editing the template does not rewrite either slip.
+For example, an Agency can reuse its “Manager sign-off” template in a Claim approval workflow and a recommendation member’s approval. Each generated routing slip has independent steps, evidence and lifecycle; editing the template does not rewrite either slip.
 
 ## Template List
 
@@ -44,7 +44,7 @@ Steps and certifications are managed from the template detail page.
 
 Opening a template displays a detail workspace with:
 
-- Breadcrumb back to the program and stream context.
+- Breadcrumb back to the Agency catalog.
 - Collapsible hero with template name, description, publication state/version, step count, and certification count.
 - Sidebar with General and Approval Steps sections.
 - Save action for the full template.
@@ -83,7 +83,7 @@ Approval steps are the ordered actions in a routing slip. Each step contains:
 
 Step order must be unique within the template. The template detail page saves steps in sequence order.
 
-The default user is selected from the common users lookup. Runtime routing slips use the default user as the assigned approver unless the step is reassigned.
+Choose either a default Common user or an active same-Agency administrative group for each step. A group step can require group details. Members claim pending group steps from Home; claiming and acting require current eligibility. See [Groups](../admin/groups.md). Runtime routing slips retain the published assignee choice unless an authorized action reassigns the step.
 
 ## Step Editor
 

@@ -6,7 +6,7 @@
 
 The root `Dockerfile` pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Demo builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
 
-The repository’s `railway.json` selects this Dockerfile, probes `/api/health` with a 300-second health-check timeout, and uses an on-failure restart policy with at most ten retries. Docker Compose exposes host port 8995 by default. These are checked-in defaults; deployment-specific overrides must be recorded separately.
+For legacy Dockerfile deployments, `railway.json` selects this Dockerfile, probes `/api/health` with a 300-second health-check timeout, and uses an on-failure restart policy with at most ten retries. Docker Compose exposes host port 8995 by default. These are checked-in defaults; deployment-specific overrides must be recorded separately.
 
 ## Persistence topology
 
@@ -22,7 +22,7 @@ The runtime image uses the non-root `node` identity. Provision database and any 
 
 Back up the database, provider objects, provider configuration, and required secret keys as one recovery set. Attachment metadata contains the saved provider ID, object identity, opaque locator, MIME type, size, and bilingual metadata; bytes remain external. Include the cleanup outbox and audit records under their retention policy. A database-only backup cannot restore documents.
 
-`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It is a migration-derived bootstrap, **not a dump of the live application database**: an isolated worker creates scratch in-memory PGlite, applies the ordered non-seed core migrations, and emits schema/migration SQL with no owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `9999_seed`.
+`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It is a migration-derived bootstrap, **not a dump of the live application database**: an isolated worker creates scratch in-memory PGlite, applies the ordered non-seed core migrations, and emits schema/migration SQL with no owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `0240_seed`.
 
 The worker is bounded to 30 seconds, one generation is shared process-wide by concurrent callers, and each disconnected caller stops waiting without cancelling work still needed by another caller. Invalid worker responses, early exit, timeout, or generation failure return localized `ADMIN_DUMP_FAILED` with HTTP 500. This endpoint is not a platform-level PostgreSQL backup or a storage backup. Treat the artifact as controlled deployment material, restrict access and retention, and test it only in an isolated environment.
 
@@ -40,10 +40,14 @@ For PGlite, stop or quiesce writes before copying the persistent database and pr
 
 The GitHub Pages/WebContainer workflow is a browser-hosted demo. Its in-browser PGlite database, demo migration, assets, and credentials are not a production deployment model.
 
+## Shared demo image and deployments
+
+The application repository has a manually triggered GitHub workflow that builds and verifies one public `linux/amd64` demo image, then records its immutable GHCR digest in `deployment/demo-image.json`. The AWS CDK stack and Railway IaC can consume that same pin. An image publication or manifest edit alone does not apply either deployment. Verify `/api/health`, localized login, and a seeded document download after each platform update. Retain the prior digest and a compatible database backup; rolling back an image does not undo migrations.
+
+The AWS demo CDK app in `infra/aws` targets Canada Central (`ca-central-1`): CloudFront with a private load-balancer origin, one Fargate task, single-AZ PostgreSQL RDS, and encrypted EFS for the local attachment provider. A separate private S3 bucket is provisioned for future use, but is not selected as the attachment provider. The CDK budget is an alert, not a spending cap. The AWS runbook in the application source specifies bootstrap, credentials, deployment, and recovery; this is a demo architecture, not a production availability model.
+
+The checked-in `.railway/railway.ts` manages the existing GCS Demo environment, preserves its secrets, domain, database, and volumes, and uses the pinned image when the manifest contains a digest. Operators review `railway config plan` before `railway config apply`; committing IaC alone does not apply it. The old `railway.json` remains a legacy Dockerfile default for other deployments.
+
 ## Dedicated Railway demo reset
 
-The application provides `bun run railway:demo:reset` for its specifically pinned GCS Demo environment. The default (or `--preview`) prints the intended scope without resetting it. `--execute` is destructive and must be run by the operator in their actual interactive terminal, with no input/output redirection. The script refuses agent-driven file deletion and checks the fixed project, environment, service, volume, and demo mode; it is not a general production recovery command.
-
-The reset uses the latest application `main` captured at the start, a maintenance deployment, the dedicated PostgreSQL database, and the demo volume’s `/files` directory. It restores twelve seeded templates and verifies the resulting deployment. External object storage and the old PGlite directory are outside its scope. Pause competing pushes and deployments during the operation; a superseding deployment stops the reset.
-
-Sleeping database services are awakened and checked before destructive work. SSH failures report targeted diagnostics for keys, host verification, authentication, or unavailable targets. On a partial failure the script restores its local deployment source but does not automatically deploy over the incomplete reset. Inspect the reported phase and environment before recovery. Never use this demo reset in place of the production backup procedure above.
+`bun run railway:demo:reset` is restricted to the former source-mode demo layout with a service named `Postgres`. Its preview mode is read-only. The current pinned-image `GCS DB` demo layout is rejected before Railway calls; **do not use `--execute` against that layout**. The application source runbook describes the exact supported preconditions. For the current image deployment, plan recovery from the paired database and attachment-volume backups instead of treating this helper as an executable reset path.

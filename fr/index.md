@@ -17,7 +17,7 @@ Cette documentation suit la hiérarchie de l’application : menu principal, pag
 
 ## Menu principal
 
-La barre latérale comprend Accueil, Agences, Programmes, Ententes, Promoteurs, Gestion des affectations, Rôles, Utilisateurs, GWCOA et Audit selon les permissions de l’utilisateur. Une destination visible ne donne pas accès à tous les dossiers. Le guide de [Navigation](./getting-started/navigation.md) explique la visibilité, le travail affecté, les états de chargement et de rétablissement, ainsi que les indicateurs fictifs du tableau de bord.
+La barre latérale comprend Accueil, Agences, Programmes, Ententes, Promoteurs, Gestion des affectations, Groupes, Rôles, Utilisateurs, GWCOA et Audit selon les permissions de l’utilisateur. Une destination visible ne donne pas accès à tous les dossiers. Le guide de [Navigation](./getting-started/navigation.md) explique la visibilité, le travail affecté, les états de chargement et de rétablissement, ainsi que le tableau de bord de travail et la file des groupes.
 
 ## Carte de documentation
 

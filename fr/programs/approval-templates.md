@@ -1,8 +1,8 @@
 # Modeles D Approbation
 
-Les modeles d approbation definissent des routes d approbation ordonnees. Un modele stocke sa portée de volet, les métadonnées bilingues, les etapes d approbation ordonnees, les approbateurs par defaut, les titres d approbateur, les certifications d etape et la politique des etapes ajoutees par les utilisateurs. En execution, les modeles sont materialises en feuilles de route que les utilisateurs peuvent approuver, refuser, reattribuer ou prolonger lorsque le modele le permet.
+Les modeles d approbation definissent des routes d approbation ordonnees. Un modele stocke sa propriété d’agence, les métadonnées bilingues, les etapes d approbation ordonnees, les approbateurs par defaut, les titres d approbateur, les certifications d etape et la politique des etapes ajoutees par les utilisateurs. En execution, les modeles sont materialises en feuilles de route que les utilisateurs peuvent approuver, refuser, reattribuer ou prolonger lorsque le modele le permet.
 
-Dans la configuration des paiements de transfert, les modeles sont souvent configures au niveau du volet puis references par les configurations d examen, configurations de recommandation, membres d evaluation ou flux d execution pour ententes, reclamations, previsions, paiements, surveillance, demandeurs/destinataires et travaux connexes.
+Dans la configuration des paiements de transfert, les modeles sont configurés dans le catalogue de l’agence puis references par les configurations d examen, configurations de recommandation, membres d evaluation ou flux d execution pour ententes, reclamations, previsions, paiements, surveillance, demandeurs/destinataires et travaux connexes.
 
 ## Prerequis Dans Une Installation Vide
 
@@ -10,20 +10,20 @@ Avant de creer des modeles operationnels, configurez:
 
 - Utilisateurs communs qui peuvent etre selectionnes comme approbateurs par defaut.
 - Types d approbation "au nom de" de l agence si les utilisateurs peuvent approuver au nom d autres personnes.
-- Volet, configuration d examen, configuration de recommandation ou autre configuration d execution qui referencera le modele.
+- Ensemble d’examens, ensemble de recommandations, flux ou autre configuration d’exécution d’agence qui référencera le modèle.
 - Permissions pour les utilisateurs qui gerent les modeles et ceux qui agiront sur les approbations d execution.
 
 Un modele peut etre sauvegarde sans etapes, mais un modele sans etapes produit une feuille de route vide et ne peut pas recueillir d approbations utiles.
 
 ## Emplacement des modèles
 
-Gérez les modèles dans l’onglet **Modèles d’approbation** du volet. La portée prise en charge est `transferpaymentstream`, avec l’identifiant exact du volet. Chaque ligne affiche le nom bilingue et les nombres d’étapes et d’attestations.
+Gérez les modèles dans **Modèles d’approbation** de l’agence. Chaque modèle appartient à l’agence exacte et peut servir aux configurations d’agence admissibles liées à ses volets. Chaque ligne montre le nom bilingue et les nombres d’étapes et d’attestations. Lecteur consulte, Contributeur crée et publie, et Gestionnaire effectue les suppressions admissibles. La permission de configurer un volet ne permet pas, à elle seule, de modifier le modèle d’agence.
 
 ## Cibles d’exécution
 
-Un modèle est une conception d’approbation réutilisable du volet; son en-tête ne choisit pas de type d’entité d’exécution. La configuration publiée du flux, de l’examen ou de la recommandation détermine sa cible et son usage. L’exécution matérialise cette cible dans le bordereau et contrôle la portée propriétaire du modèle. La présence d’un modèle n’active pas une capacité de cycle de vie non prise en charge par la cible.
+Un modèle est une conception d’approbation réutilisable de l’agence; son en-tête ne choisit pas de type d’entité d’exécution. La configuration publiée du flux, de l’examen ou de la recommandation détermine sa cible et son usage. L’exécution matérialise cette cible dans le bordereau et contrôle la propriété d’agence du modèle. La présence d’un modèle n’active pas une capacité de cycle de vie non prise en charge par la cible.
 
-Par exemple, le volet peut réutiliser « Signature du gestionnaire » dans un flux de réclamation et dans l’approbation d’un membre de recommandation. Chaque bordereau possède ses étapes, preuves et cycle propres; modifier le modèle ne réécrit aucun des deux.
+Par exemple, une agence peut réutiliser « Signature du gestionnaire » dans un flux de réclamation et dans l’approbation d’un membre de recommandation. Chaque bordereau possède ses étapes, preuves et cycle propres; modifier le modèle ne réécrit aucun des deux.
 
 ## Liste Des Modeles
 

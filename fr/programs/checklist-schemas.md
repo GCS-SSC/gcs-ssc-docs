@@ -1,12 +1,12 @@
 # Schémas De Listes De Vérification
 
-Les schémas de listes de vérification définissent des questions bilingues réussite-échec et des règles de résultat déterministes pour les examens d'exécution. Ces schémas d'examen appartiennent à une agence, s'ouvrent depuis un membre d'une configuration d'examen de volet et doivent correspondre au type d'entité d'exécution de la configuration.
+Les schémas de listes de vérification définissent des questions bilingues et des règles de résultat déterministes pour les examens d'exécution. Ils appartiennent à une agence, s'ouvrent depuis un membre d’ensemble d’examens d’agence et doivent correspondre au type d’entité de l’ensemble.
 
 ## Préalables Et Navigation
 
-Créez d'abord l'agence, le programme, le volet et la configuration d'examen. Dans l'éditeur détaillé de la configuration, associez un schéma existant de la même agence ou créez un membre de type liste de vérification. Sélectionner le membre ouvre l'éditeur; son fil d'Ariane retourne à l'onglet Configurations d'examen du volet.
+Créez d’abord l’ensemble d’examens de l’agence. Dans son éditeur, associez un schéma de liste de vérification de la même agence ou créez un membre. Sélectionnez-le pour ouvrir l’éditeur; le fil d’Ariane retourne aux ensembles d’examens de l’agence. Liez l’ensemble publié à un volet admissible pour l’utiliser à l’exécution.
 
-L'utilisateur doit posséder `transfer_payment:read` pour le programme précis afin de consulter le schéma et `transfer_payment:update` afin de l’enregistrer, le publier ou le retirer. Les contrôles client reflètent ces permissions, mais chaque requête serveur résout indépendamment la chaîne active agence-programme-volet-schéma.
+L’utilisateur doit pouvoir lire l’agence pour consulter le schéma et modifier l’agence pour l’enregistrer, le publier ou le retirer. Les contrôles client reflètent ces permissions; le serveur revérifie indépendamment l’agence et le schéma actifs.
 
 ## Sections De L'Éditeur
 
@@ -29,11 +29,15 @@ Chaque question contient :
 | Clé indépendante de la langue | Obligatoire et unique dans tout le schéma |
 | Question française-anglaise | Les deux langues sont obligatoires |
 | Obligatoire | Détermine si la complétion exige une réponse |
-| Politique de commentaire | `optional`, `required` ou `required_on_fail` |
-| Options réussite-échec | Les deux options sont toujours présentes et chacune exige une description bilingue |
+| Politique de commentaire | `optional`, `required`, `required_on_fail`, `required_on_not_applicable` ou `required_on_fail_or_not_applicable` |
+| Options de réponse | Réussite et Échec sont toujours présents; Sans objet est facultatif. Chaque option exige une description bilingue. |
 | Aide | Zéro ou plusieurs éléments d'aide bilingues |
 
 Les clés sont les identités d'exécution utilisées par les réponses enregistrées et les règles de résultat. Traitez leur modification comme un changement structurel et mettez à jour toutes les règles qui les ciblent avant l'enregistrement.
+
+## Importer une définition JSON
+
+L’action **Importer** accepte une définition JSON collée. L’éditeur valide la syntaxe et tout le contrat, puis remplace seulement le brouillon local. Vérifiez les questions bilingues, les réponses Sans objet et les règles avant **Enregistrer** et **Publier**. Une importation refusée conserve le brouillon; l’importation seule ne change ni les publications ni les examens en cours.
 
 ## Politique De Résultat
 

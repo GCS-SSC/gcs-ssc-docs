@@ -1,30 +1,28 @@
 # Champs personnalisés des ententes
 
-Utilisez l’onglet **Champs personnalisés** d’un volet pour ajouter des renseignements aux ententes sans extension. Configurez les sections, les champs et les options ici; les responsables de dossiers saisissent les valeurs dans l’onglet Général de l’entente. Les champs de sélection peuvent aussi déterminer les étapes applicables d’un flux de travail publié.
+Créez les définitions de champs et options réutilisables dans **Champs personnalisés** de l’agence. L’onglet **Champs personnalisés** d’un volet affecte ces champs d’agence aux sections d’entente et contrôle l’ordre, le caractère obligatoire et l’état actif de chaque affectation. Les responsables saisissent les valeurs dans Général de l’entente. Les champs de sélection peuvent déterminer les étapes d’un flux publié.
 
 ## Accès et ordre de configuration
 
-Les définitions utilisent les permissions de paiements de transfert aux portées globale, de l’organisme ou du programme. Les lecteurs peuvent les consulter; les contributeurs peuvent les créer, modifier, désactiver et réactiver; les gestionnaires peuvent supprimer les définitions inutilisées. Elles n’ont pas de liste d’affectation distincte. La saisie des valeurs exige toujours un accès Contributeur à l’entente et une affectation exacte, avec les restrictions habituelles de cycle de vie.
+Lecteur de l’agence consulte les définitions; Contributeur peut les créer ou modifier; une suppression admissible exige Gestionnaire. L’affectation au volet et les changements de section exigent Contributeur pour `transfer_payment` dans le programme; retirer une affectation admissible exige Gestionnaire. Les valeurs d’entente exigent toujours Contributeur et l’affectation exacte à l’entente, sous réserve de l’état opérationnel.
 
-1. Ouvrez le programme, son volet, puis **Champs personnalisés**.
-2. Ajoutez une section avec ses noms anglais et français et son ordre d’affichage.
-3. Utilisez l’action d’ajout de la ligne de section pour créer un champ.
-4. Pour un champ de sélection, développez-le et ajoutez ses options avant son utilisation.
-5. Ouvrez une entente du volet et vérifiez les libellés, l’ordre et les champs obligatoires dans les deux langues.
-6. Si le champ commande l’acheminement, configurez et publiez le [flux de travail](../concepts/workflows.md) après avoir créé ses options.
+1. Ouvrez **Agences**, choisissez l’agence et créez les champs bilingues et leurs options dans **Champs personnalisés**. Choisissez texte, nombre ou sélection; préparez les options avant l’usage opérationnel.
+2. Ouvrez **Champs personnalisés** du volet d’un programme. Créez les sections bilingues du volet, puis ajoutez les champs d’agence. Réglez la section, l’ordre, le caractère obligatoire et l’état actif propres au volet.
+3. Ouvrez une entente du volet et vérifiez les libellés, l’ordre et les champs obligatoires dans les deux langues.
+4. Pour l’acheminement, configurez les conditions du flux d’agence après la création des options; liez le flux publié au volet et vérifiez chaque parcours.
 
-Le tableau regroupe les sections, champs, catégories d’options et options. La recherche couvre les deux langues, y compris les catégories et les options. La pagination compte les sections; développer un champ peut donc afficher de nombreuses options sur une page. Le développement est conservé après un enregistrement; changer de volet réinitialise le contexte du tableau et de l’éditeur.
+Les identifiants de champ et d’option d’agence sont partagés entre les volets; la section et le caractère obligatoire appartiennent à chaque volet. Un champ d’agence peut être placé différemment dans deux volets. La recherche couvre les libellés bilingues et catégories d’options. Consultez [Catalogues d’agence](../admin/agency-catalogs.md).
 
 ## Définition des champs
 
 | Paramètre | Règle et conséquence |
 | --- | --- |
-| Section | Obligatoire et appartenant au volet. Déplacer un champ vers une autre section du même volet conserve son identité et ses valeurs. |
+| Section | Emplacement appartenant au volet; déplacer un champ d’agence affecté vers une autre section du même volet conserve son identifiant et ses valeurs. |
 | Noms anglais et français | Deux libellés non vides obligatoires. Les valeurs saisies ne sont pas traduites automatiquement. |
 | Type | Texte, nombre ou sélection. Le type est immuable après la création. |
 | Présentation du texte | Une ligne ou multiligne. Une ligne interdit les sauts de ligne; multiligne conserve la mise en forme. |
 | Sélections multiples | Réservées aux champs de sélection. Une sélection unique peut devenir multiple; l’inverse est ensuite interdit. |
-| Obligatoire | Les champs actifs obligatoires doivent être remplis lors de la création ou de l’enregistrement de modifications des champs personnalisés. Zéro est une valeur numérique valide. |
+| Obligatoire | Réglé sur l’affectation au volet. Les champs actifs obligatoires doivent être remplis lors de la création ou de l’enregistrement de modifications des champs personnalisés. Zéro est une valeur numérique valide. |
 | Utiliser dans les conditions de flux de travail | Réservé aux champs de sélection; transforme le champ en discriminant d’acheminement. |
 | Actif | Un champ actif accepte de nouvelles valeurs. Un champ inactif renseigné reste visible; sa valeur peut être conservée ou effacée, mais pas remplacée. |
 | Ordre d’affichage | Entier de 0 à 2 147 483 647; valeur initiale 0. Les identifiants départagent les ordres égaux. |
