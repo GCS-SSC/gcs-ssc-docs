@@ -1,6 +1,8 @@
 # Testing
 
-The source app uses Vitest for unit tests and Playwright for end-to-end tests. The docs site should still be built after documentation edits to catch broken frontmatter, links, or markdown.
+This page is for developers who check changes to GCS-SSC. Grants and contributions officers do not need to run these commands for daily work. The tests help protect activities such as assigning an officer, limiting access to another agency’s records, and submitting a review.
+
+Vitest checks individual pieces of application logic (unit tests). Playwright checks complete tasks in a browser (end-to-end tests). Build the documentation site after documentation edits to catch problems with page metadata, links, or Markdown.
 
 Tests and architecture resources come from the pinned private `tooling/gcs-ssc` submodule. Run `bun run tooling:setup` to initialize it and create the ignored `tests`, `architecture` and skill links; do not copy private suites back into the host repository.
 
@@ -25,7 +27,7 @@ bun run quality:pr
 
 Automatic pull-request CI is not configured. Contributors run `quality:pr` as the authoritative local gate: it records the branch diff, runs lint and type checking, builds the extension SDK, verifies the production artifact on supported POSIX non-root hosts, and runs the host unit/coverage suites, all extension typechecks, and the local/S3 storage-provider unit/coverage suites. It does not run the opt-in PostgreSQL or Playwright e2e suites, so run those separately when the changed behavior depends on real database locking or browser interaction.
 
-`test:unit` and `test:coverage` first run `forms:check`, which checks the required-field contracts. `test:e2e:fast` and `test:e2e:light` are one-worker PGlite aliases, not reduced correctness guarantees. Focused one-worker suites cover attachments, Agency statuses, Amendment refresh, Agreement amendments and Closeouts, workflow recommendations, retired workflow setups and fresh resets. Use the matching `:spec` script to select a file; `test:all:manual` includes the configured suite sequence.
+`test:unit` and `test:coverage` first run `forms:check`, which checks the required-field contracts. `test:e2e:light` runs one managed PGlite suite. A full `test:e2e:fast` runs eight fresh managed PGlite shards serially; an explicit `--spec`, `--shard` or `E2E_SPEC` selects one managed invocation. Any failed shard fails the aggregate. Focused one-worker suites cover attachments, Agency statuses, Amendment refresh, Agreement amendments and Closeouts, workflow recommendations, retired workflow setups and fresh resets. Use the matching `:spec` script to select a file; `test:all:manual` includes the configured suite sequence.
 
 ### Production artifact checks
 
@@ -77,6 +79,8 @@ For agency setup changes, run agency route, agency schema, agency lookup, agency
 For proponents, run applicant-recipient auth, routes, assignment routes, child routes, review routes, and applicant-recipient e2e tests.
 
 For GWCOA and audit changes, select the dedicated route, schema, access-control and browser tests for the affected surface. For shared attachments, include provider compensation, cleanup and metadata recovery cases.
+
+For example, changing proponent assignment rules can affect whether an officer may edit a file. Check the assignment and authorization unit tests, then use a browser test to confirm that an assigned officer can perform the action and an unassigned officer is denied. RBAC means role-based access control: it combines roles, their permitted scope, and the required record assignments.
 
 ## Docs commands
 

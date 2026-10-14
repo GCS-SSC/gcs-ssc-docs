@@ -1,10 +1,10 @@
 # Adresses de l’entente
 
-L’onglet **Adresses** conserve les emplacements utilisés expressément par une entente. Chaque ligne lie l’entente et un type d’adresse appartenant à l’agence à un enregistrement d’adresse commune.
+L’onglet **Adresses** conserve les emplacements utilisés expressément par une entente. Par exemple, consignez le lieu du projet financé et choisissez le type d’adresse approprié configuré par votre agence. Chaque ligne contient un type et les coordonnées de l’adresse; l’adresse sous-jacente peut aussi servir à une autre entente ou à un promoteur.
 
 ## Accès et liste
 
-Le plafond Lecteur de l’entente énumère les liens actifs vers une adresse non supprimée, y compris le libellé enregistré d’un type retiré. La création ou modification exige Contributeur et l’affectation exacte à l’entente; la suppression exige Gestionnaire et cette affectation. Les adresses emploient l’entente comme racine d’affectation.
+L’accès Lecteur de l’entente permet de consulter les liens actifs vers une adresse non supprimée, y compris le libellé enregistré d’un type retiré. La création ou modification exige Contributeur et l’affectation exacte à l’entente; la suppression exige Gestionnaire et cette affectation. Votre affectation doit viser cette entente; l’accès à une autre entente ne permet pas de modifier celle-ci.
 
 Le tableau présente le type d’adresse bilingue, la première ligne de rue, la ville et le code postal ou ZIP. La recherche porte aussi sur la subdivision, les trois lignes de rue et le type d’adresse dans l’une ou l’autre langue.
 
@@ -28,17 +28,17 @@ Le schéma d’API accepte aussi une latitude et une longitude facultatives, bie
 
 ## Créer et modifier
 
-La création insère atomiquement l’adresse commune et le lien à l’entente après une nouvelle vérification de l’autorisation. La modification peut changer le type, les détails de l’adresse ou les deux. L’identifiant enfant doit appartenir à l’entente indiquée dans l’adresse URL.
+Pour ajouter une adresse, choisissez un type disponible, remplissez les champs obligatoires et enregistrez. Pour la modifier, ouvrez sa ligne et corrigez le type, les coordonnées ou les deux. Le système vérifie votre accès actuel à l’entente et enregistre ensemble l’adresse et son lien : un échec ne laisse pas de dossier incomplet. L’identifiant enfant doit appartenir à l’entente indiquée dans l’adresse URL.
 
 Une adresse commune peut être référencée par une autre entente ou un promoteur. Lorsqu’une autre référence active existe, le serveur refuse la modification des champs d’adresse partagés afin de ne pas changer silencieusement un autre dossier. Une modification limitée au type demeure permise puisqu’elle ne touche que le lien de cette entente.
 
 ## Suppression et rétablissement
 
-La suppression verrouille le lien et l’adresse commune, puis supprime logiquement le lien de cette entente. L’adresse commune est supprimée logiquement seulement lorsqu’aucun autre lien actif d’entente ou de promoteur ne la référence. Cette action ne supprime jamais les autres liens.
+La suppression retire l’adresse de la liste de cette entente sans effacer son historique enregistré (suppression logique). Le système verrouille le lien et l’adresse commune pendant l’enregistrement. Il retire l’adresse commune seulement si aucun autre lien actif d’entente ou de promoteur ne l’utilise. Cette action ne supprime jamais les autres liens.
 
 Il n’existe aucune commande de restauration. Ajoutez l’adresse de nouveau après une suppression accidentelle. Si une modification signale que l’adresse est partagée, corrigez seulement le type ou créez une adresse distincte plutôt que de tenter de l’écraser.
 
-L’index actuel de la base de données accélère la recherche par entente et adresse, mais n’est pas unique; le service n’impose donc pas un seul lien actif par identifiant d’adresse commune. Vérifiez la liste avant de créer des emplacements répétés.
+Vérifiez la liste avant d’ajouter un emplacement : le système permet plusieurs liens vers la même adresse commune. Son index accélère les recherches sans imposer l’unicité.
 
 ## Guides connexes
 
@@ -48,7 +48,9 @@ L’index actuel de la base de données accélère la recherche par entente et a
 
 ## Valeurs exactes et modifications partielles
 
-Rue, ville, subdivision et code postal acceptent au plus 255 caractères Unicode et refusent NUL. Le téléphone principal et l’identifiant d’adresse GC facultatif conservent les bigint PostgreSQL signés sous forme de chaînes décimales; n’arrondissez pas un long identifiant dans un tableur ou un nombre JavaScript. Le poste est un petit entier signé et l’identifiant de circonscription un entier signé de 32 bits. Les coordonnées fournies par API doivent tenir dans `numeric(10,7)`.
+Limitez chaque champ de rue, ville, subdivision et code postal à 255 caractères. Si vous copiez un long numéro de téléphone ou identifiant d’adresse GC d’un tableur, vérifiez que chaque chiffre reste inchangé.
+
+**Référence technique pour les intégrations :** Rue, ville, subdivision et code postal acceptent au plus 255 caractères Unicode et refusent NUL. Le téléphone principal et l’identifiant d’adresse GC facultatif conservent les bigint PostgreSQL signés sous forme de chaînes décimales; n’arrondissez pas un long identifiant dans un tableur ou un nombre JavaScript. Le poste est un petit entier signé et l’identifiant de circonscription un entier signé de 32 bits. Les coordonnées fournies par API doivent tenir dans `numeric(10,7)`.
 
 Une modification partielle valide la paire pays/subdivision résultante, pas seulement le champ transmis. Par exemple, changer le pays pour le Canada en conservant une subdivision invalide échoue jusqu’à la saisie d’une province ou d’un territoire valide. Renvoyer les mêmes valeurs physiques ne constitue pas une modification d’adresse partagée.
 

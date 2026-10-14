@@ -1,6 +1,8 @@
 # Schémas et configurations de recommandation
 
-La configuration des recommandations comporte deux couches. Un schéma appartenant à une agence définit les questions bilingues et le résultat canonique Recommandé ou Non recommandé. Un ensemble de recommandations d’agence ordonne les schémas publiés, choisit la politique d’échec par membre et peut ajouter des approbations de membre ou finale.
+Une recommandation indique si un agent recommande de poursuivre le traitement d’un dossier. Un administrateur de l’agence configure deux éléments réutilisables : un **schéma**, soit le formulaire bilingue auquel les agents répondent, et un **ensemble de recommandations**, qui ordonne ces formulaires et détermine les approbations et la suite à donner au résultat Non recommandé.
+
+Par exemple, un ensemble pourrait demander une recommandation de financement à un agent de programme, puis une recommandation financière à un agent des finances. Chaque formulaire comporte une question qui détermine le résultat Recommandé ou Non recommandé. L’administrateur décide si un résultat Non recommandé arrête l’ensemble et si des approbations sont nécessaires. Adaptez cet exemple au processus de votre programme.
 
 ## Navigation et accès
 
@@ -8,16 +10,16 @@ Ouvrez **Agences**, choisissez l’agence, puis **Ensembles de recommandations**
 
 ## Schéma de recommandation
 
-Un schéma enregistre le type d’entité, le nom bilingue, l’agence, l’état et la version, les métadonnées du résultat et une définition. La création depuis un ensemble emploie son agence.
+Le schéma est le modèle du formulaire, et non la recommandation remplie par un agent. Il conserve le type de dossier visé, le nom bilingue, l’agence, l’état, la version, les questions et les règles du résultat. Un schéma créé depuis un ensemble appartient à l’agence de cet ensemble.
 
-L’éditeur contient Général et Sections du formulaire. Une définition valide exige au moins une section, une sous-section par section et une question par sous-section. Les clés de section, sous-section, question, option et aide sont des identités d’exécution indépendantes de la langue et doivent être uniques lorsqu’exigé.
+L’éditeur contient Général et Sections du formulaire. Une définition valide exige au moins une section, une sous-section par section et une question par sous-section. Les clés identifient les sections, sous-sections, questions, options et aides, quelle que soit la langue affichée. Gardez-les uniques lorsque cela est exigé pour que le système relie chaque réponse à la bonne question.
 
 | Type | Champs et règles |
 | --- | --- |
 | `radio` | Question bilingue, au moins deux options bilingues à clé unique, descriptions facultatives et correspondances de résultat facultatives. |
 | `text` | Question bilingue, description facultative et longueur maximale de 1 à 10 000. |
 
-Les deux types peuvent être obligatoires et offrir une aide bilingue. Exactement une question détermine le résultat. Elle doit être une question radio obligatoire et chaque option doit correspondre à `recommended` ou `not_recommended`. Le choix d’une nouvelle question décisive efface les correspondances de l’ancienne.
+Les deux types peuvent être obligatoires et offrir une aide bilingue. Une seule question détermine le résultat. Elle doit être une question radio obligatoire et chaque option doit correspondre à `recommended` ou `not_recommended`. Le choix d’une nouvelle question décisive efface les correspondances de l’ancienne.
 
 Les questions radio peuvent aussi autoriser un commentaire facultatif ou obligatoire, y compris la question décisive. Réglez cette politique dans le schéma d’agence; à la soumission, le schéma figé détermine si un commentaire manquant bloque la réponse. Le commentaire ne change pas la correspondance Recommandé ou Non recommandé de l’option choisie.
 
@@ -31,41 +33,43 @@ Utilisez plutôt **Associer un schéma** lorsque le schéma de l’agence existe
 
 ## Publication du schéma
 
-Enregistrer valide le schéma de travail. Publier autorise de nouveau l’opération de l’agence, crée une ligne de version immuable, marque sa publication comme publiée et avance sa version de publication immuable.
+**Enregistrer** vérifie et conserve le formulaire que vous modifiez. **Publier** vérifie de nouveau vos permissions d’agence et rend disponible une copie fixe et numérotée.
 
-Les recommandations d’exécution pointent vers une ligne de version exacte. La modification et la republication touchent donc seulement le travail futur.
+Une recommandation déjà commencée conserve la version publiée exacte qui lui a été attribuée. Par exemple, ajouter une question obligatoire de justification et publier une nouvelle version n’ajoute pas cette question à la recommandation existante d’un agent. Le nouveau formulaire s’applique au travail futur.
 
 ## Configuration de recommandation
 
-Une configuration stocke le type d’entité d’exécution, le nom et la description bilingues, l’approbation finale facultative, l’état et la version du cycle de vie et les membres ordonnés. Chaque membre choisit un schéma de la même agence, un ordre entier unique, une approbation facultative et **Faire échouer l’ensemble si Non recommandé** (désactivé par défaut).
+La configuration définit la séquence de recommandations pour un type de dossier. Elle conserve un nom et une description bilingues, une approbation finale facultative, l’état, la version et les membres ordonnés. Un **membre** est un formulaire de cette séquence. Chaque membre choisit un schéma de la même agence, un ordre entier unique, une approbation facultative pour cette recommandation et **Faire échouer l’ensemble si Non recommandé** (désactivé par défaut).
 
-Un plan publiable exige au moins un membre, des ordres contigus commençant à 1, une version publiée de chaque schéma et une configuration publiée de chaque modèle d’approbation. L’ensemble et toutes ses dépendances doivent correspondre au contexte de l’agence et de l’entité.
+Avant de publier, ajoutez au moins un membre et numérotez les membres à partir de 1, sans sauter de numéro (par exemple, 1, 2, 3). Chaque schéma et chaque modèle d’approbation choisi doit déjà être publié. L’ensemble et toutes ses dépendances doivent correspondre au contexte de l’agence et de l’entité.
 
 Publier crée la version 1 et rend la configuration admissible. La modification d’une configuration publiée crée du contenu en attente; Publier fige le prochain plan seulement après validation complète. Le plan immuable comprend la version de schéma, l’indicateur d’échec et la configuration d’approbation de chaque membre ainsi que l’approbation finale.
 
-Les membres peuvent être modifiés ou supprimés logiquement pendant la configuration. La suppression logique retire l’association active sans supprimer le schéma réutilisable ni la filiation historique d’exécution.
+Pendant la configuration, vous pouvez modifier ou retirer les membres. Retirer un membre l’enlève de la configuration active, mais conserve son schéma réutilisable et l’historique des recommandations déjà créées.
 
 ## Conséquences à l’exécution
 
-Le démarrage d’un flux matérialise un ensemble depuis son plan publié figé et active le prochain membre de recommandation. Son responsable principal provient de la correspondance de propriétaires figée du flux. Les membres suivants sont créés un à la fois à mesure que les précédents se terminent.
+Au démarrage d’un flux, le système crée un ensemble de recommandations à partir du plan publié fixe choisi pour ce flux. Il démarre la prochaine recommandation et affecte son agent principal selon la correspondance de responsables enregistrée dans le flux. Les recommandations suivantes sont créées une à la fois à mesure que les précédentes se terminent.
 
-La page directe Recommandation charge le schéma bilingue et les réponses figés. L’enregistrement ou la soumission exige l’affectation exacte à la recommandation, Contributeur pour le propriétaire résolu et un élément d’exécution `active`. La soumission valide les réponses obligatoires, les clés d’option et les longueurs, puis dérive le résultat de la question décisive.
+La page Recommandation montre la version du formulaire fixée pour cette recommandation et ses réponses enregistrées. L’enregistrement ou la soumission exige l’affectation exacte à la recommandation, le rôle Contributeur pour le propriétaire résolu et un élément d’exécution `active`. La soumission valide les réponses obligatoires, les clés d’option et les longueurs, puis détermine le résultat de la question décisive.
 
-Une approbation de membre s’exécute avant la progression. Sans approbation, ou après sa réussite, Non recommandé fait échouer l’ensemble seulement lorsque l’indicateur publié de ce membre est vrai. Sinon, la prochaine recommandation ou l’approbation finale facultative commence. L’annulation retire les enfants d’exécution en attente sans changer la configuration publiée.
+Si une recommandation possède une route d’approbation, cette approbation doit réussir avant que l’ensemble puisse avancer. Sans approbation, ou après sa réussite, Non recommandé fait échouer l’ensemble seulement lorsque l’indicateur publié de ce membre est vrai. Sinon, la prochaine recommandation ou l’approbation finale facultative commence. L’annulation de l’ensemble retire ses recommandations et approbations en attente sans changer la configuration publiée.
 
-Un flux de soumission d’approbation d’une entente ou modification doit référencer un plan publié et comporter au moins une étape d’approbation. Le détail d’une recommandation peut aussi montrer le dossier d’approbation immuable et haché à un lecteur d’entente autorisé ou à un approbateur affecté. Consultez [Flux de travail](../concepts/workflows.md).
+Par exemple, si l’agent de programme choisit Non recommandé et que **Faire échouer l’ensemble si Non recommandé** est activé pour ce membre, l’ensemble s’arrête après la réussite de toute approbation requise du membre. Si la bascule est désactivée, l’ensemble peut poursuivre avec la recommandation financière; la réponse de l’agent reste Non recommandé.
+
+Un flux de soumission d’approbation d’une entente ou d’une modification doit référencer un plan publié et comporter au moins une étape d’approbation. Le détail d’une recommandation peut aussi montrer le dossier d’approbation immuable et haché à un lecteur d’entente autorisé ou à un approbateur affecté. Consultez [Flux de travail](../concepts/workflows.md).
 
 ## Modifications concurrentes
 
 Chaque enregistrement ou soumission transmet l’entier `revision` affiché. Le serveur verrouille la recommandation, compare cette valeur et l’incrémente en cas de réussite. Une valeur périmée produit `409 RECOMMENDATION_REVISION_CONFLICT` sans écraser les réponses d’autrui.
 
-Par exemple, deux personnes ouvrent la révision 3. La première enregistre et crée la révision 4. La soumission de révision 3 de la seconde est rejetée. Conservez les changements souhaités, rechargez la révision 4, rapprochez les réponses et soumettez de nouveau. Cette révision de réponse est distincte de la version publiée du schéma figé.
+Par exemple, deux personnes ouvrent la révision 3. La première enregistre et crée la révision 4. La soumission de révision 3 de la seconde est rejetée. Conservez les changements souhaités, rechargez la révision 4, comparez et conciliez les réponses et soumettez de nouveau. Cette révision de réponse est distincte de la version publiée du schéma figé.
 
 ## Échec et récupération
 
 - La publication rejette les membres vides ou non contigus, les schémas non publiés, les références de portée ou d’entité invalides et les modèles d’approbation non publiés.
 - La validation du schéma rejette les clés en double, les structures de question invalides et tout autre résultat qu’une seule question décisive valide.
-- Les enregistrements d’exécution rejettent le travail qui n’est pas brouillon ou n’est pas affecté et les réponses hors de la définition figée.
+- Les enregistrements d’exécution rejettent le travail qui n’est pas actif ou n’est pas affecté et les réponses hors de la définition figée.
 - Les changements de configuration concurrents sont revérifiés dans une transaction à autorisation actualisée.
 - Les plans et réponses historiques ne sont jamais réécrits lors de la réparation d’une configuration de travail; enregistrez et publiez une version future.
 

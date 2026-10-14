@@ -1,14 +1,18 @@
 # Deployment and recovery
 
+This page is for the technical team that installs, updates and restores GCS-SSC. Grants and contributions officers can use it to understand service interruptions and what must be protected: agreement records, private attachments and access settings. Ask the operator to confirm that both records and attachments are recoverable before a release or restoration.
+
 ## Supported artifacts
 
 `bun run build` builds the public extension SDK, the Nuxt/Nitro node-server artifact, and the administrative SQL-dump and storage-cleanup workers. The result is a browser application plus a Node API, not a static-only site.
 
-The root `Dockerfile` pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Demo builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
+The root `Dockerfile` packages the authorization, diagram and connector survey workspaces and pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Demo builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
 
 For legacy Dockerfile deployments, `railway.json` selects this Dockerfile, probes `/api/health` with a 300-second health-check timeout, and uses an on-failure restart policy with at most ten retries. Docker Compose exposes host port 8995 by default. These are checked-in defaults; deployment-specific overrides must be recorded separately.
 
 ## Persistence topology
+
+Persistence means that saved information survives a restart or replacement of the application container. The database stores the records; the attachment provider stores the files. Both need durable storage.
 
 The container defaults to PGlite at `/app/.data/pglite` when no PostgreSQL URL is supplied. The checked-in Compose file mounts a named volume only at that database path; it does not provision attachment storage for every provider.
 
@@ -20,9 +24,11 @@ The runtime image uses the non-root `node` identity. Provision database and any 
 
 ## Backup and restore
 
+For example, restoring an agreement’s database record without its signed PDF restores the document’s listing, but not the file officers need to download. Test a private attachment download as well as a record read when verifying recovery.
+
 Back up the database, provider objects, provider configuration, and required secret keys as one recovery set. Attachment metadata contains the saved provider ID, object identity, opaque locator, MIME type, size, and bilingual metadata; bytes remain external. Include the cleanup outbox and audit records under their retention policy. A database-only backup cannot restore documents.
 
-`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It is a migration-derived bootstrap, **not a dump of the live application database**: an isolated worker creates scratch in-memory PGlite, applies the ordered non-seed core migrations, and emits schema/migration SQL with no owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `0240_seed`.
+`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It is a migration-derived bootstrap, **not a dump of the live application database**: an isolated worker creates scratch in-memory PGlite, applies the ordered non-seed core migrations, and emits schema/migration SQL with no owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `9999_seed`.
 
 The worker is bounded to 30 seconds, one generation is shared process-wide by concurrent callers, and each disconnected caller stops waiting without cancelling work still needed by another caller. Invalid worker responses, early exit, timeout, or generation failure return localized `ADMIN_DUMP_FAILED` with HTTP 500. This endpoint is not a platform-level PostgreSQL backup or a storage backup. Treat the artifact as controlled deployment material, restrict access and retention, and test it only in an isolated environment.
 
@@ -47,6 +53,16 @@ The application repository has a manually triggered GitHub workflow that builds 
 The AWS demo CDK app in `infra/aws` targets Canada Central (`ca-central-1`): CloudFront with a private load-balancer origin, one Fargate task, single-AZ PostgreSQL RDS, and encrypted EFS for the local attachment provider. A separate private S3 bucket is provisioned for future use, but is not selected as the attachment provider. The CDK budget is an alert, not a spending cap. The AWS runbook in the application source specifies bootstrap, credentials, deployment, and recovery; this is a demo architecture, not a production availability model.
 
 The checked-in `.railway/railway.ts` manages the existing GCS Demo environment, preserves its secrets, domain, database, and volumes, and uses the pinned image when the manifest contains a digest. Operators review `railway config plan` before `railway config apply`; committing IaC alone does not apply it. The old `railway.json` remains a legacy Dockerfile default for other deployments.
+
+## Companion services and clean cutovers
+
+The AWS demo stack now provisions a persistent Portal service with its own RDS database and private S3 attachment bucket, plus Metabase with a separate application database. CloudFront fronts private load balancers. Metabase uses certificate-verified RDS TLS, secret-backed session/encryption keys and a private initialization sidecar; its administrator credentials remain in Secrets Manager. Reporting access to GCS does not grant GCS user permissions. Back up and monitor each service independently.
+
+The Railway IaC preserves GCS, Portal and Metabase resources. Portal uses `deployment/portal-demo-image.json` and the sealed `PORTAL_AUTH_SECRET` secret. A GCS release plan must not change the other services. Inspect the plan and live service/volume attachments before applying: the source runbook records CLI database-attachment readback limitations, so an unchanged plan alone is insufficient evidence of storage state. Keep the application file volume and companion database volumes through an application database cutover.
+
+The application schema uses fresh subject baselines rather than incremental upgrades. A schema-changing demo release needs an explicitly authorized clean database cutover: stop application writes, stop the database, detach and verify the old volume, attach a new uniquely named volume, verify database readiness, then deploy the exact verified image and check login, scoped records and document persistence. Record old-volume deletion or pending deletion separately. Ordinary redeploys reuse existing storage. Do not extrapolate this disposable-demo procedure into production data migration.
+
+The pinned image manifest is build evidence, not a claim that this documentation sync inspected a live deployment. Follow the source’s current `.railway/README.md` and AWS runbook for deployment-specific resource identities and recovery.
 
 ## Dedicated Railway demo reset
 

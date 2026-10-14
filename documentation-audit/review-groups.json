@@ -1,0 +1,399 @@
+[
+  {
+    "id": "opportunity",
+    "documentation_pairs": [
+      "intake/opportunities.md",
+      "admin/agencies.md",
+      "programs/streams.md"
+    ],
+    "final_contract": "Program-authorized Opportunity, selected eligible Streams, Agency statuses, dated eligibility and attachment associations; ordinary UI has no status editor or automatic approval-to-Agreement creation.",
+    "source_evidence": [
+      "shared/types/schemas/funding-opportunity-intake.ts",
+      "server/utils/funding-opportunity-links.ts",
+      "server/utils/funding-opportunity-status.ts",
+      "server/api/funding-opportunities/index.post.ts",
+      "server/api/funding-opportunities/[id].patch.ts",
+      "app/components/FundingOpportunity/SetupRelationshipsTab.vue"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "intake",
+    "documentation_pairs": [
+      "intake/funding-case-intakes.md",
+      "intake/portal.md",
+      "concepts/attachments.md"
+    ],
+    "final_contract": "Exact funding_case authority, creator/group roster, immutable imported source and submitted application, staged-file sequential partial-save recovery and eligible Opportunity lookup.",
+    "source_evidence": [
+      "server/utils/funding-case-access.ts",
+      "server/utils/funding-case-exchange.ts",
+      "server/api/funding-case-intakes/[id]/claim.post.ts",
+      "app/components/FundingCaseIntake/ApplicationsTable.vue",
+      "app/utils/submitted-application.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/submitted-application.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "budget",
+    "documentation_pairs": [
+      "agreements/budget.md",
+      "agreements/claims.md",
+      "agreements/forecasts.md",
+      "programs/streams.md"
+    ],
+    "final_contract": "Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery.",
+    "source_evidence": [
+      "shared/types/schemas/funding-sources.ts",
+      "server/utils/agreement-budget-funding.ts",
+      "server/utils/agreement-financial-budget-controls.ts",
+      "server/utils/agreement-claim.ts",
+      "server/utils/agreement-forecast-completion.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "payments",
+    "documentation_pairs": [
+      "agreements/payments.md",
+      "agreements/commitments.md",
+      "agreements/closeouts.md"
+    ],
+    "final_contract": "Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting.",
+    "source_evidence": [
+      "server/utils/agreement-payment-policies.ts",
+      "server/utils/agreement-payment-calculation.ts",
+      "server/utils/agreement-payment-evidence.ts",
+      "server/utils/agreement-commitment-line-balance.ts",
+      "server/utils/agreement-payment-offset-plan.ts",
+      "server/utils/agreement-closeout.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/agreement-payment-evidence.test.ts",
+      "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "summary",
+    "documentation_pairs": [
+      "agreements/financial-summary.md"
+    ],
+    "final_contract": "Read-only monthly totals/pacing, exact arithmetic, highest active Forecast version, positive reconciliation cutoff and received-month signed accounting projections.",
+    "source_evidence": [
+      "server/utils/agreement-financial-summary.ts",
+      "app/components/Agreement/AgreementFinancialSummaryTab.vue",
+      "server/utils/agreement-accounting-projection.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "correction",
+    "documentation_pairs": [
+      "agreements/corrections.md",
+      "agreements/closeouts.md"
+    ],
+    "final_contract": "Independent Correction assignment and role, immutable eligible Payment sources, signed exact-line/shared-floor validation, required approval, posting/cancellation and aggregate locks.",
+    "source_evidence": [
+      "shared/types/schemas/correction.ts",
+      "server/utils/correction.ts",
+      "server/utils/correction-posting.ts",
+      "server/utils/correction-completion.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/correction-accounting.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "journal",
+    "documentation_pairs": [
+      "agreements/journal-vouchers.md",
+      "agreements/commitments.md"
+    ],
+    "final_contract": "Balanced per-Commitment-line accounting changes preserve cash, protected source reading, independent roster, latest reversal/replacement sequence and fiscal-year JV-open workflow input.",
+    "source_evidence": [
+      "shared/types/schemas/journal-voucher.ts",
+      "server/utils/journal-voucher.ts",
+      "server/utils/journal-voucher-source.ts",
+      "server/utils/journal-voucher-completion.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/journal-voucher-accounting.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "receivable",
+    "documentation_pairs": [
+      "agreements/receivables.md",
+      "agreements/payments.md",
+      "admin/agencies.md"
+    ],
+    "final_contract": "Claim/paid-Advance eligibility and coding, posted original/adjustment balances, independent permissions/rosters, approved recovery, reservations/holds, Claim reductions only at full clearance.",
+    "source_evidence": [
+      "shared/types/schemas/account-receivable.ts",
+      "server/utils/account-receivable.ts",
+      "server/utils/account-receivable-source.ts",
+      "server/utils/account-receivable-recovery.ts",
+      "server/utils/account-receivable-claim-reductions.ts",
+      "server/utils/payment-recovery-controls.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/account-receivable-host-payment-completion.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "credit",
+    "documentation_pairs": [
+      "proponents/credit-memos.md",
+      "agreements/receivables.md"
+    ],
+    "final_contract": "Agency/Proponent/currency pools, cash versus offset provenance, eligible tags, manual/retained coding, exact capacity and required approval posting.",
+    "source_evidence": [
+      "server/utils/account-receivable-proponent.ts",
+      "server/utils/account-receivable-credit-memo.ts",
+      "server/utils/account-receivable-credit-memo-lines.ts",
+      "server/utils/credit-memo-scope-authority.ts",
+      "server/utils/credit-memo-queue-authority.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "workflow",
+    "documentation_pairs": [
+      "concepts/workflows.md",
+      "concepts/runtime-reviews.md",
+      "concepts/approvals-completions.md",
+      "agreements/amendments.md"
+    ],
+    "final_contract": "Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal.",
+    "source_evidence": [
+      "server/utils/workflow-risk-source.ts",
+      "server/utils/risk-readiness.ts",
+      "server/utils/agreement-risk-rating.ts",
+      "server/utils/agreement-amendment-scope-removal.ts",
+      "server/utils/agreement-approval-submission.ts",
+      "server/utils/workflow-runtime.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/workflow-two-assessment-risk-outcome.test.ts",
+      "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "collection",
+    "documentation_pairs": [
+      "concepts/data-collections.md",
+      "admin/agency-catalogs.md"
+    ],
+    "final_contract": "Published Agency questionnaire, repeated inline/Home runtime, exact/group assignment, draft revision conflict, required-answer validation and optional approval.",
+    "source_evidence": [
+      "shared/types/schemas/data-collection.ts",
+      "server/utils/data-collection-runtime.ts",
+      "server/utils/data-collection-setup-versioning.ts",
+      "server/utils/questionnaire-runtime-save.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/data-collection-runtime.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "documents",
+    "documentation_pairs": [
+      "agreements/documents.md",
+      "developer/document-generation.md"
+    ],
+    "final_contract": "Generic render boundary, localized custom fields, scalar Word conditions, pagination/search and Amendment context/authorization; department context removed, internal event-local provider seam retained.",
+    "source_evidence": [
+      "server/utils/document-generation.ts",
+      "server/utils/document-rendering.ts",
+      "server/utils/document-conditions.ts",
+      "server/utils/document-word-conditions.ts",
+      "server/utils/agreement-document-custom-fields.ts",
+      "server/utils/amendment-document-generation.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/document-word-conditions.test.ts",
+      "tooling/gcs-ssc/tests/unit/document-rendering.test.ts",
+      "tooling/gcs-ssc/tests/unit/amendment-document-context.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "identity",
+    "documentation_pairs": [
+      "concepts/rbac.md",
+      "admin/assignments.md",
+      "admin/groups.md",
+      "proponents/index.md",
+      "proponents/agency-financial-ids.md",
+      "agreements/applicant-recipients.md"
+    ],
+    "final_contract": "Shared Proponent visibility via any effective active Agency/global Proponent grant, exact rosters and preserved group primary, dedicated financial subjects, mandatory same-Agency Financial ID with historical references and independent source reads.",
+    "source_evidence": [
+      "server/utils/applicant-recipient-auth.ts",
+      "server/utils/entity-assignment.ts",
+      "server/utils/entity-assignment-write.ts",
+      "server/utils/agreement-financial-ids.ts",
+      "server/utils/agreement-applicant-recipient.ts",
+      "shared/utils/abilities.ts",
+      "packages/gcs-ssc-authorization/src/role-scopes.ts",
+      "packages/gcs-ssc-authorization/src/owners.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "navigation",
+    "documentation_pairs": [
+      "getting-started/navigation.md",
+      "developer/architecture.md"
+    ],
+    "final_contract": "Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls.",
+    "source_evidence": [
+      "server/api/search.get.ts",
+      "server/utils/search-records.ts",
+      "server/utils/assigned-work-search.ts",
+      "app/components/Common/GlobalSearchPalette.vue",
+      "app/components/Common/DetailWorkspace.vue",
+      "app/components/Common/CurrencyInput.vue",
+      "app/composables/useNavigationCatalog.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/search-records.test.ts",
+      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "agency",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/agency-catalogs.md",
+      "programs/streams.md"
+    ],
+    "final_contract": "Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references.",
+    "source_evidence": [
+      "shared/types/schemas/agency.ts",
+      "shared/types/schemas/transfer-payment.ts",
+      "server/utils/agency-credit-memo-chart.ts",
+      "server/utils/funding-source-configuration.ts",
+      "server/utils/agency-finance-catalog.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "sdk",
+    "documentation_pairs": [
+      "developer/extensions-authoring.md",
+      "concepts/extensions.md",
+      "concepts/bilingualism.md"
+    ],
+    "final_contract": "SDK 0.3.17 host capability boundary: Agency workspace, Opportunity/Payment tabs, Agreement details, scoped bilingual fields, retained evidence, host-bound financial reads and Stream-catalog coding allocator.",
+    "source_evidence": [
+      "modules/gcs-extensions.ts",
+      "packages/gcs-ssc-extensions/src/index.ts",
+      "packages/gcs-ssc-extensions/src/server.ts",
+      "packages/gcs-ssc-extensions/src/ui.ts",
+      "server/utils/extension-runtime-route.ts",
+      "server/utils/extension-agreement-financials.ts",
+      "server/utils/agreement-coding-allocator.ts",
+      "server/utils/extension-dispatch-route.ts",
+      "server/utils/funding-case-exchange.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "packages/gcs-ssc-diagrams/src/FlowDiagram.vue"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "background",
+    "documentation_pairs": [
+      "operator/background-work.md",
+      "operator/configuration.md",
+      "developer/extensions-authoring.md"
+    ],
+    "final_contract": "Durable L1 post-readiness handlers, two-minute renewing leases, unlimited schedule retry and independent domain queue evidence; in-app storage drain and transaction/capability-bound scheduled drafts.",
+    "source_evidence": [
+      "server/plugins/l1-queue.ts",
+      "server/plugins/storage-cleanup.ts",
+      "server/utils/l1-queue.ts",
+      "server/utils/extension-scheduled-import.ts",
+      "server/utils/extension-nitro-plugins.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/l1-queue.test.ts",
+      "tooling/gcs-ssc/tests/unit/l1-queue-plugin.test.ts"
+    ],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "audit",
+    "documentation_pairs": [
+      "admin/audit.md",
+      "developer/data-model.md"
+    ],
+    "final_contract": "Concrete owner-attributed Audit for new/renamed subjects, actor Agency attribution for shared Proponents, separate sanitized input grant and bounded access queue.",
+    "source_evidence": [
+      "server/database/audit-ownership-registry.ts",
+      "server/database/migrations/0140_audit.ts",
+      "server/utils/audit-runtime.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "database",
+    "documentation_pairs": [
+      "developer/data-model.md"
+    ],
+    "final_contract": "Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership.",
+    "source_evidence": [
+      "server/database/production-core-migrations.ts",
+      "server/database/migrations/0130_integrity.ts",
+      "server/database/schema/account-receivable-adjustment.ts",
+      "server/database/schema/credit-memo.ts",
+      "server/database/schema/commitment-coding.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  },
+  {
+    "id": "operations",
+    "documentation_pairs": [
+      "operator/configuration.md",
+      "operator/deployment.md",
+      "developer/startup.md",
+      "developer/testing.md",
+      "developer/architecture.md"
+    ],
+    "final_contract": "Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection.",
+    "source_evidence": [
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+  }
+]

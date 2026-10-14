@@ -1,25 +1,29 @@
 # Proponents
 
-Proponents are applicant/recipient profiles. They can be created before Agreements, reviewed independently, assigned to exact work rosters, and linked to one or more Agreements.
+Use **Proponents** to find or create the organization applying for or receiving funding. Keep its names, contact details and identifiers in one profile, then link that profile to each relevant Agreement. You can create the profile before an Agreement exists and review it separately.
+
+For example, a community association receiving funding under two Streams can use one profile linked to two Agreements. Choose its recipient type separately on each Agreement.
+
+In this guide, a **role ceiling** means the highest action your role permits. An **exact assignment** means you are listed under **Assigned users** for this particular profile; being assigned to one of its Agreements does not count.
 
 ## Setup Dependencies
 
 | Dependency | Why It Matters |
 | --- | --- |
-| Lead agency | Every Proponent is led by one agency; this owns its profile and Agency-scoped notes. |
+| Lead agency | New profiles require an active lead Agency for tracking. Profile access uses the shared Proponent catalog; notes have their own Agency boundary. |
 | Agreement classification | A Proponent subtype is chosen on each Agreement–Proponent relationship, from the Agreement Stream’s eligible recipient types. The profile itself has no subtype field. |
-| Scoped role permission | Top-level creation requires a Contributor `applicant_recipient` ceiling globally or at the selected lead agency. |
+| Scoped role permission | Top-level creation requires a Contributor `applicant_recipient` ceiling globally or in any active Agency; it need not be the selected lead Agency. |
 | Exact assignment | Mutating a saved Proponent requires its exact assignment in addition to the role ceiling. The creator becomes primary automatically. |
 | Review setups | Reviews appear only when eligible review-set setups exist for proponent records. |
 | Agreement setup | The Agreements tab becomes useful after programs, streams, agreement subtypes, and agreement permissions exist. |
 
 ## List Page
 
-The Proponents page supports search, status filtering, pagination, column controls, and row actions. It returns profiles covered by the user's global or lead-agency Viewer ceiling; reading does not require an exact assignment. Search matches identifiers, legal/operating names, and lead agency.
+The Proponents page supports search, status filtering, pagination, column controls, and row actions. A global Proponent Viewer grant or Proponent Viewer in any active Agency gives access to the shared profile catalog; reading does not require an exact assignment. Search matches identifiers, legal/operating names, and lead agency.
 
 Create appears with a Contributor ceiling in an available scope. Edit requires Contributor plus the exact assignment; Delete requires Manager plus the assignment. Deletion is logical and removes the Proponent from ordinary active lists without erasing historical references.
 
-Use the list’s **All**, **Mine**, or Agency view to narrow the same authorized records. Mine requires an exact Proponent assignment. An Agency view includes profiles with a non-deleted Agency Financial ID for that Agency and requires the corresponding user Agency scope; it is not simply a filter on lead Agency. These views never grant additional reading rights.
+Use the list’s **All**, **Mine**, or Agency view to narrow the same authorized records. Mine requires an exact Proponent assignment. An Agency view includes profiles with an active, non-deleted Agency Financial ID for that Agency and requires the corresponding user Agency scope; it is not simply a filter on lead Agency. These views never grant additional reading rights.
 
 For example, a profile led by Agency A can appear in an authorized Agency B view after it has a B financial ID. It still needs to be readable through the caller’s Proponent permissions. Being linked to a B Agreement alone is not this view’s financial-ID criterion.
 
@@ -29,7 +33,7 @@ The create page starts with **Active** off. Users choose the lead agency, then e
 
 | Rule | Behaviour |
 | --- | --- |
-| Lead agency is required | A proponent cannot exist without an agency owner. |
+| Lead agency is required | New profile creation requires an active tracking Agency; this field does not limit shared-catalog permissions. |
 | Each main bilingual value requires at least one language | Legal name, operating name, and description each require an English or French value; supplying both supports full bilingual display. |
 | Active flag | Defaults to false. Activate the profile when it is ready for operational selection; availability is separate from deletion. |
 | Bilingual fields should be maintained together | Legal names, operating names, research organization names, and descriptions are displayed in the active language. |

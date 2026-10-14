@@ -1,10 +1,12 @@
 # Startup
 
+This page is for developers and technical support staff setting up a local copy of the application or documentation. Grants and contributions officers do not need to run these commands to use an existing GCS-SSC service. A local demo can help a support team reproduce a problem or demonstrate a workflow without changing live agreement records.
+
 The documentation repository and the source app repository are separate workspaces. The docs live in `gcs-ssc-docs`; the app source is `gcs-ssc`.
 
 ## App prerequisites
 
-The app uses Bun scripts, Nuxt 4, Better Auth, Kysely, and either PGlite or Postgres. Runtime config is read from environment variables:
+The app uses Bun scripts, Nuxt 4, Better Auth, Kysely, and either PGlite or Postgres. Environment variables supply the database connection, authentication settings and extension encryption key at startup:
 
 - `DATABASE_URL`
 - `PGLITE_DATA_DIR`
@@ -35,13 +37,13 @@ bun run dev
 
 Use `bun run repos:update` when you need to update the app repository and all registered submodules in one step. It pulls the main repository, syncs submodule URLs, and updates submodules recursively from their configured remotes.
 
-`bun run dev:clean` starts from a clean local data state. The app script is `scripts/dev.ts`, not a plain `nuxt dev` wrapper, so use the package scripts unless you intentionally need lower-level Nuxt behavior.
+`bun run dev:clean` removes the default `.data/pglite` database and cached `.nuxt/dev` output before rebuilding. It preserves stored files and does not reset an external PostgreSQL database; select database mode deliberately. The fresh demo uses `9999_seed`, the NCIA lifecycle and development Portal test configuration. The app script is `scripts/dev.ts`, not a plain `nuxt dev` wrapper, so use the package scripts unless you intentionally need lower-level Nuxt behavior.
 
 If agreement document generation needs PDF output locally, run `bun run bun:docgen:install` before starting the app. See [Document Generation](./document-generation.md) for the toolchain details.
 
 ## Extension metadata
 
-The extension system generates metadata under `.nuxt/gcs-extensions`. Server utilities require that metadata for extension registry calls. If extension APIs fail with missing metadata, run the Nuxt app so the module can regenerate it.
+Extensions add registered features to the application. The extension system generates metadata (the information needed to find those features) under `.nuxt/gcs-extensions`. Server utilities require that metadata for extension registry calls. If extension APIs fail with missing metadata, run the Nuxt app so the module can regenerate it.
 
 ## Document generation tools
 
@@ -51,13 +53,13 @@ Agreement document generation can run locally on Linux or WSL without global Lib
 bun run bun:docgen:install
 ```
 
-The installer downloads LibreOffice into `.tools/docgen/libreoffice`, downloads Puppeteer's browser into `.tools/docgen/puppeteer`, and upserts `LIBREOFFICE_SOFFICE_PATH` and `PUPPETEER_CACHE_DIR` into the regular Nuxt `.env` file. Nuxt loads `.env` during `dev`, `build`, and `preview`, so start normally with `bun run dev` after installation.
+The installer downloads LibreOffice into `.tools/docgen/libreoffice`, downloads Puppeteer's browser into `.tools/docgen/puppeteer`, and adds or updates `LIBREOFFICE_SOFFICE_PATH` and `PUPPETEER_CACHE_DIR` into the regular Nuxt `.env` file. Nuxt loads `.env` during `dev`, `build`, and `preview`, so start normally with `bun run dev` after installation.
 
 Use `DOCGEN_ENV_FILE` to target a different env file. Advanced overrides include `LIBREOFFICE_VERSION`, `LIBREOFFICE_DOWNLOAD_URL`, and `PUPPETEER_BROWSER`.
 
 ## Authentication bootstrap
 
-Development and test seed data may create `root@example.com` with `password123`. This account and password must never be deployed to production; remove them or rotate the credentials during production provisioning. After the root user exists, create roles and assignments through the UI and verify the canonical `{ grants }` response from `/api/auth/permissions`.
+Development and test seed data may create `root@example.com` with `password123`. This account and password must never be deployed to production; remove them or rotate the credentials during production provisioning. After the root user exists, create roles and assignments through the UI and verify that the permissions response has the expected `{ grants }` structure from `/api/auth/permissions`.
 
 ## Documentation startup
 
@@ -76,4 +78,6 @@ bun run docs:build
 
 ## Smoke check
 
-For the app, sign in, check `/en/` and `/fr/`, open Agencies, Roles, Users and GWCOA with the appropriate global permissions, and Audit with an explicit Audit Viewer grant, and verify a scoped user sees a reduced sidebar. For docs, open `/en/` and `/fr/` and confirm the English and French sidebars expose the same owned sections.
+For the app, sign in and check both `/en/` and `/fr/`. With the appropriate global permissions, open Agencies, Roles, Users and GWCOA. Open Audit using an explicit Audit Viewer grant. Then sign in as a user whose access is limited to particular records and confirm that the sidebar shows fewer options. These checks confirm that both languages and the main access controls are available.
+
+For docs, open `/en/` and `/fr/` and confirm that the English and French sidebars offer the same documentation sections.

@@ -1,6 +1,6 @@
 # Proponent Registries
 
-The **Registries** tab stores external identifiers for an existing Proponent. Open **Proponents**, select a profile, and choose **Registries**. The table supports search, pagination, create, edit, and soft deletion according to the profile permissions returned by the server.
+Use **Registries** to record identifiers issued by an external registry, such as a business number, or an industry classification code. Open **Proponents**, select the profile, then choose **Registries**. Choose the type that matches the identifier before entering its value. The table supports search, pagination, create, edit and deletion according to your profile permissions.
 
 ## Fields and formats
 
@@ -20,11 +20,13 @@ Three registry types have exact numeric formats enforced in both request validat
 
 Other enumerated registry types accept non-empty text without an additional pattern in the current contract. Do not add punctuation to one of the three numeric formats above.
 
+For example, a federal business number such as `123456789` meets the nine-digit format; `123-456-789` does not. NAICS means North American Industry Classification System: a classification of the organization’s industry. A value such as `62` meets the allowed length. These examples illustrate format only; enter the organization’s actual identifier. For `other`, explain the registry in **Other comment**, such as “Municipal community organization register”.
+
 ## Uniqueness and lifecycle
 
-An active `(registry type, number)` pair is unique across all Proponents, not only within one profile. A duplicate returns a localized conflict instead of disclosing or overwriting the other record. Soft-deleting a row removes it from active lists and from the partial uniqueness index, so the same pair can later be used by another active row. Historical deleted data remains stored.
+The same registry type and number cannot be active on two Proponents. If you receive a duplicate error, check whether you chose the correct profile and identifier. The error does not reveal the other record or replace it. Deleting a row removes it from current lists and allows that type/number pair to be used again; the deleted history remains stored.
 
-Create, update, and delete first authorize the requested action against the exact parent Proponent. The write transaction then reloads and locks the parent authorization context before changing a child that must belong to that same Proponent. Moving a child by changing URL ids is not supported. A partial update is merged and revalidated as a complete registry record, so changing the type can also make the existing number or comment invalid.
+Your permission is checked against the Proponent whose profile you opened, and checked again while the server saves the change. The registry row must belong to that profile; changing URL identifiers cannot move it to another profile. When you edit the registry type, check the number and comment too: the system validates all the fields together, even if you changed only one. For example, changing a nine-digit business number to the CRA program account type requires a 15-digit value.
 
 ## Search and recovery
 

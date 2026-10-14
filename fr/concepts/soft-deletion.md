@@ -1,6 +1,6 @@
 # Suppression logique
 
-La plupart des suppressions dans GCS-SSC marquent les lignes comme supprimees au lieu de les retirer physiquement. Le marqueur commun est `_deleted = true`.
+Lorsque vous supprimez la plupart des dossiers dans GCS-SSC, l’application les marque comme supprimés et les retire de l’usage normal. Elle conserve généralement le dossier enregistré pour préserver son historique. C’est la suppression logique. Le marqueur commun est `_deleted = true`.
 
 ## Pourquoi
 
@@ -12,12 +12,14 @@ La plupart des listes masquent les lignes supprimées. Le catalogue GWCOA dédi�
 
 ## Comportement des donnees
 
-La plupart des pages de liste et de detail cachent les lignes marquees `_deleted = true`. Les suppressions d attribution, utilisateur, role, agence, cle-valeur d extension et plusieurs ressources enfants suivent ce modele.
+Un dossier supprimé disparaît généralement des listes et des pages de détail, qui masquent les dossiers marqués `_deleted = true`. Sa disparition ne prouve pas que tous les renseignements enregistrés ont été effacés. Les suppressions d attribution, utilisateur, role, agence, cle-valeur d extension et plusieurs ressources enfants suivent ce modele.
 
 ## Unicite et recreation
 
-Les controles d unicite s appliquent generalement aux lignes non supprimees. Par exemple, le numero d entreprise d un promoteur est verifie parmi les profils actifs. Si un remplacement est bloque, verifiez si un enregistrement non supprime possede encore cette valeur unique.
+Les controles d unicite s appliquent generalement aux lignes non supprimees. Par exemple, le numero d entreprise d un promoteur est verifie parmi les profils actifs. Si un remplacement est bloqué, vérifiez si un dossier non supprimé possède encore cette valeur unique. Par exemple, cherchez un promoteur actif ayant ce numéro d’entreprise avant de créer un autre profil. Recréer un dossier ne restaure pas l’ancien et ne rétablit pas automatiquement ses liens historiques.
 
 ## Prudence operationnelle
 
-Supprimer logiquement une configuration peut quand meme perturber les flux. Un role supprime ne contribue plus aux permissions. Une configuration d examen supprimee n est plus disponible pour de nouvelles executions. Un utilisateur supprime ne peut normalement plus etre selectionne. Traitez les suppressions comme des decisions metier, pas comme un simple nettoyage d interface.
+Supprimer logiquement une configuration peut quand meme perturber les flux. Un role supprime ne contribue plus aux permissions. Une configuration d examen supprimee n est plus disponible pour de nouvelles executions. Un utilisateur supprime ne peut normalement plus etre selectionne. Traitez les suppressions comme des décisions métier, pas comme un simple nettoyage d’interface.
+
+Par exemple, supprimer une configuration d’examen inutilisée empêche les agents de la choisir pour de nouveaux examens. Avant de la supprimer, confirmez qu’aucun travail à venir n’en a besoin et suivez le processus d’approbation de votre organisation. Ne supposez pas que vous pouvez annuler la suppression : le contrôle du catalogue GWCOA décrit ci-dessus n’est pas une fonction générale de restauration.

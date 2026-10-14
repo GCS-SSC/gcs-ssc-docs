@@ -20,13 +20,13 @@ Reading the tab requires read access to the current proponent. A linked system a
 | Update access to every linked proponent | Edit the external details and recipient set. |
 | Delete access to the current proponent | Unlink the external record from this proponent. |
 
-Each affected profile is evaluated separately. Reads use its Proponent Viewer scope. Mutations require the role ceiling for the requested operation—Contributor for create or update and Manager for delete—plus the exact assignment to every parent affected by that operation. The selector lists only active profiles eligible for the requested action, and the write locks them in stable order before rechecking authorization.
+Permissions are checked for each affected proponent. Viewer access lets you read its history. To add or edit history, your role must allow Contributor actions; to unlink history, it must allow Manager actions. You also need an assignment to each proponent affected by the action. The recipient selector shows only active profiles you can use for that action. Before saving, the system locks the profiles and checks your permissions again.
 
 **All** combines both sources and preserves restricted relationship placeholders. **Mine** includes only readable system Agreements with your exact Agreement assignment. An **Agency** view includes readable system Agreements owned by that program Agency. External records appear only in All because their agency/program names are free text, not ownership links. Switching to Mine or an Agency view also removes restricted placeholders.
 
 For example, use All to compare an external award with an existing Agreement before adding a duplicate. Use Mine to focus on Agreements assigned to you; an external award disappearing from that view has not been deleted.
 
-The combined read uses one repeatable-read snapshot for rows and permissions. Each source is bounded at 5,000 candidate rows before search and pagination; exceeding the bound returns `FUNDING_HISTORY_TOO_LARGE` (413), not an incomplete history. A narrower system view can help, but changing the page size or search text cannot bypass this candidate limit.
+The system reads both sources and your permissions from the same database snapshot, so the list is consistent while it is being loaded. Each source is bounded at 5,000 candidate rows before search and pagination; exceeding the bound returns `FUNDING_HISTORY_TOO_LARGE` (413), not an incomplete history. A narrower system view can help, but changing the page size or search text cannot bypass this candidate limit.
 
 ## Add external funding
 
@@ -47,9 +47,11 @@ The profile from which you opened the wizard is the primary recipient and cannot
 
 The review step summarizes the entry before save. User-facing validation and API errors follow the request language.
 
+For example, record a previous CAD 25,000 municipal award for a community centre when it was administered outside GCS-SSC. Select the recipients, enter the municipality and program names, copy the agreement number and dates from the award documents, and enter `25000.00` with CAD. Review the summary and duplicate warnings before saving. This adds a history entry; it does not authorize a payment.
+
 ## Duplicate and similarity checks
 
-Agency names, program names, and agreement numbers are normalized for comparison. Within the same overlapping agency-and-program name scope, an exact normalized agreement number already used by an active external record or a live system agreement is blocked. It cannot be overridden.
+The system compares standardized versions of agency names, program names, and agreement numbers. When the agency and program names match the same comparison scope, it blocks an agreement number already used by an active external record or a live system agreement. You cannot confirm a warning to bypass this exact duplicate.
 
 The wizard also checks for:
 
@@ -57,7 +59,7 @@ The wizard also checks for:
 - a near agreement number in the same identity scope; and
 - a readable or restricted matching candidate.
 
-Similarity is a warning, not an automatic merge. Review the warning, go back to correct the entry, or explicitly confirm it. Restricted candidates are labelled without disclosing their details. Confirmations are fingerprints of the reviewed values; changing identity text clears them, and the server recomputes warnings during the final transaction.
+Similarity is a warning, not an automatic merge. Review the warning, go back to correct the entry, or explicitly confirm it. Restricted candidates are labelled without disclosing their details. Your confirmation applies only to the names and number you reviewed. Changing those values clears the confirmation. The system checks the warnings again when you save.
 
 ## Edit recipients or details
 

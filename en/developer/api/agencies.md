@@ -1,16 +1,33 @@
 # Agency API
 
-Agency profiles and agency-owned bilingual reference data.
+These requests support agency profiles and the shared lists used in forms, such as agreement types and fiscal years. Officers use these lists when working on funding files. See [Agencies](../../admin/agencies.md) and [Agency catalogues](../../admin/agency-catalogs.md).
 
-This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
+An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
 
-## Handlers (105)
+- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
+- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
+- **Authorization landmarks**: names found in the source that help a developer locate access checks.
+- **Validation landmarks**: names that help locate checks on submitted fields or query options.
+- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+
+This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+
+## Read-only example
+
+An authorized request for `GET /api/agency/12` reads agency 12’s profile. It does not change the profile or its reference lists. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
+
+## Handlers (127)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/agency/[agencyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/agency/[agencyId].delete.ts` |
 | GET | `/api/agency/[agencyId]` | requireAuthContext | — | `server/api/agency/[agencyId].get.ts` |
 | PATCH | `/api/agency/[agencyId]` | — | AgencyProfilePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId].patch.ts` |
+| DELETE | `/api/agency/[agencyId]/account-receivable-types/[typeId]` | — | — | `server/api/agency/[agencyId]/account-receivable-types/[typeId]/index.delete.ts` |
+| GET | `/api/agency/[agencyId]/account-receivable-types/[typeId]` | — | — | `server/api/agency/[agencyId]/account-receivable-types/[typeId]/index.get.ts` |
+| PATCH | `/api/agency/[agencyId]/account-receivable-types/[typeId]` | — | AgencyAccountReceivableTypePatchSchema, AgencyAccountReceivableTypeSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/[agencyId]/account-receivable-types/[typeId]/index.patch.ts` |
+| GET | `/api/agency/[agencyId]/account-receivable-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/account-receivable-types/index.get.ts` |
+| POST | `/api/agency/[agencyId]/account-receivable-types` | — | AgencyAccountReceivableTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/account-receivable-types/index.post.ts` |
 | GET | `/api/agency/[agencyId]/address-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/address-types.get.ts` |
 | POST | `/api/agency/[agencyId]/address-types` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/address-types.post.ts` |
 | GET | `/api/agency/[agencyId]/agreement-types` | — | AgencyAgreementTypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/agreement-types.get.ts` |
@@ -24,8 +41,9 @@ This generated route index is an exhaustive navigation table, not independent pr
 | DELETE | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | — | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.delete.ts` |
 | GET | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | — | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.get.ts` |
 | PATCH | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | AgencyChartOfAccountPatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.patch.ts` |
-| GET | `/api/agency/[agencyId]/chart-of-accounts` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/index.get.ts` |
+| GET | `/api/agency/[agencyId]/chart-of-accounts` | — | ChartListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/index.get.ts` |
 | POST | `/api/agency/[agencyId]/chart-of-accounts` | — | AgencyChartOfAccountSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/chart-of-accounts/index.post.ts` |
+| GET | `/api/agency/[agencyId]/chart-of-accounts/lookups/commitment-accounts` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, TransferPaymentStreamChartOfAccountDimensionSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/lookups/commitment-accounts.get.ts` |
 | GET | `/api/agency/[agencyId]/claim-reconciliation-statuses` | — | — | `server/api/agency/[agencyId]/claim-reconciliation-statuses.get.ts` |
 | PATCH | `/api/agency/[agencyId]/claim-reconciliation-statuses` | — | AgencyClaimReconciliationStatusConfigurationSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/claim-reconciliation-statuses.patch.ts` |
 | DELETE | `/api/agency/[agencyId]/commitment-types/[typeId]` | — | — | `server/api/agency/[agencyId]/commitment-types/[typeId]/index.delete.ts` |
@@ -42,6 +60,13 @@ This generated route index is an exhaustive navigation table, not independent pr
 | POST | `/api/agency/[agencyId]/custom-fields/[fieldId]/options` | — | AgencyCustomFieldOptionCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/custom-fields/[fieldId]/options/index.post.ts` |
 | GET | `/api/agency/[agencyId]/custom-fields` | — | — | `server/api/agency/[agencyId]/custom-fields/index.get.ts` |
 | POST | `/api/agency/[agencyId]/custom-fields` | — | AgencyCustomFieldCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/custom-fields/index.post.ts` |
+| DELETE | `/api/agency/[agencyId]/data-collections/[dataCollectionId]` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/index.delete.ts` |
+| GET | `/api/agency/[agencyId]/data-collections/[dataCollectionId]` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/index.get.ts` |
+| PATCH | `/api/agency/[agencyId]/data-collections/[dataCollectionId]` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/index.patch.ts` |
+| POST | `/api/agency/[agencyId]/data-collections/[dataCollectionId]/publish` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/publish.post.ts` |
+| POST | `/api/agency/[agencyId]/data-collections/[dataCollectionId]/retire` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/retire.post.ts` |
+| GET | `/api/agency/[agencyId]/data-collections` | — | — | `server/api/agency/[agencyId]/data-collections/index.get.ts` |
+| POST | `/api/agency/[agencyId]/data-collections` | — | — | `server/api/agency/[agencyId]/data-collections/index.post.ts` |
 | GET | `/api/agency/[agencyId]/document-templates/[templateId]/download` | — | QuerySchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/document-templates/[templateId]/download.get.ts` |
 | DELETE | `/api/agency/[agencyId]/document-templates/[templateId]` | — | — | `server/api/agency/[agencyId]/document-templates/[templateId]/index.delete.ts` |
 | GET | `/api/agency/[agencyId]/document-templates/[templateId]` | — | — | `server/api/agency/[agencyId]/document-templates/[templateId]/index.get.ts` |
@@ -49,7 +74,16 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/agency/[agencyId]/document-templates` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/document-templates/index.get.ts` |
 | POST | `/api/agency/[agencyId]/document-templates` | — | — | `server/api/agency/[agencyId]/document-templates/index.post.ts` |
 | GET | `/api/agency/[agencyId]/fiscal-years` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/fiscal-years.get.ts` |
-| POST | `/api/agency/[agencyId]/fiscal-years` | — | AgencyFiscalYearSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/fiscal-years.post.ts` |
+| POST | `/api/agency/[agencyId]/fiscal-years` | requireFreshAuthContext | AgencyFiscalYearSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/fiscal-years.post.ts` |
+| GET | `/api/agency/[agencyId]/funding-subtypes` | — | — | `server/api/agency/[agencyId]/funding-subtypes/index.get.ts` |
+| DELETE | `/api/agency/[agencyId]/funding-types/[typeId]` | — | — | `server/api/agency/[agencyId]/funding-types/[typeId].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/funding-types/[typeId]` | — | AgencyFundingTypePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId].patch.ts` |
+| DELETE | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId]` | — | — | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId]` | — | AgencyFundingSubtypePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId].patch.ts` |
+| GET | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/index.get.ts` |
+| POST | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes` | — | AgencyFundingSubtypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/index.post.ts` |
+| GET | `/api/agency/[agencyId]/funding-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/funding-types/index.get.ts` |
+| POST | `/api/agency/[agencyId]/funding-types` | — | AgencyFundingTypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/index.post.ts` |
 | GET | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/holdback-bases.get.ts` |
 | POST | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisWriteSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/holdback-bases.post.ts` |
 | GET | `/api/agency/[agencyId]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/line-items.get.ts` |
@@ -99,7 +133,7 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/agency/cost-categories/[id]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/cost-categories/[id]/line-items.get.ts` |
 | POST | `/api/agency/cost-categories/[id]/line-items` | — | AgencyCostCategoryLineItemSchema, readValidatedBodyI18n | `server/api/agency/cost-categories/[id]/line-items.post.ts` |
 | DELETE | `/api/agency/fiscal-years/[id]` | — | — | `server/api/agency/fiscal-years/[id].delete.ts` |
-| PATCH | `/api/agency/fiscal-years/[id]` | — | AgencyFiscalYearPatchSchema, AgencyFiscalYearSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/fiscal-years/[id].patch.ts` |
+| PATCH | `/api/agency/fiscal-years/[id]` | requireFreshAuthContext | AgencyFiscalYearPatchSchema, AgencyFiscalYearSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/fiscal-years/[id].patch.ts` |
 | DELETE | `/api/agency/holdback-bases/[id]` | — | — | `server/api/agency/holdback-bases/[id].delete.ts` |
 | PATCH | `/api/agency/holdback-bases/[id]` | — | AgencyHoldbackBasisPatchSchema, readValidatedBodyI18n | `server/api/agency/holdback-bases/[id].patch.ts` |
 | GET | `/api/agency` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/index.get.ts` |

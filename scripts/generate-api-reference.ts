@@ -69,17 +69,97 @@ for (const path of await walk(join(appRoot, 'server/api'))) {
   groups.set(group, [...(groups.get(group) ?? []), item])
 }
 
-const names: Record<string, { en: string, fr: string, enSummary: string, frSummary: string }> = {
-  agreements: { en: 'Agreement API', fr: 'API des ententes', enSummary: 'Agreement profiles, child resources, finance, lifecycle, exact assignments, documents, and generation.', frSummary: 'Profils d’entente, ressources enfants, finances, cycle de vie, affectations exactes, documents et production.' },
-  'applicant-recipients': { en: 'Applicant-recipient API', fr: 'API des bénéficiaires demandeurs', enSummary: 'Proponent profiles, identity, relationships, funding history, reviews, agreements, and exact assignments.', frSummary: 'Profils de promoteur, identité, relations, historique du financement, examens, ententes et affectations exactes.' },
-  'transfer-payments': { en: 'Transfer-payment API', fr: 'API des paiements de transfert', enSummary: 'Program and stream design, reference relationships, financial setup, schemas, publication, and workflow configuration.', frSummary: 'Conception des programmes et volets, relations de référence, configuration financière, schémas, publication et configuration des flux.' },
-  reviews: { en: 'Review API', fr: 'API des examens', enSummary: 'Runtime review sets, assessment and checklist responses, reviewers, cancellation, completion, and retry.', frSummary: 'Ensembles d’examens exécutés, réponses d’évaluation et de liste de contrôle, examinateurs, annulation, achèvement et reprise.' },
-  approvals: { en: 'Approval API', fr: 'API des approbations', enSummary: 'Approval-template authoring/versioning and generic routing-slip actions.', frSummary: 'Conception/versionnage des modèles d’approbation et actions génériques sur les bordereaux.' },
-  workflows: { en: 'Workflow and completion API', fr: 'API des flux et des achèvements', enSummary: 'Workflow runs/items, recommendations, completion, cancellation, and retry.', frSummary: 'Exécutions/éléments de flux, recommandations, achèvement, annulation et reprise.' },
-  extensions: { en: 'Extension host API', fr: 'API hôte des extensions', enSummary: 'Discovery metadata, enablement/configuration, dynamic dispatch, runtime contributions, and extension storage.', frSummary: 'Métadonnées de découverte, activation/configuration, répartition dynamique, contributions d’exécution et stockage d’extension.' },
-  agencies: { en: 'Agency API', fr: 'API des agences', enSummary: 'Agency profiles and agency-owned bilingual reference data.', frSummary: 'Profils d’agence et données de référence bilingues appartenant à l’agence.' },
-  identity: { en: 'Identity and RBAC API', fr: 'API d’identité et de contrôle d’accès', enSummary: 'Better Auth delegation, role permissions, exact entity assignments, assigned work, and assignment management.', frSummary: 'Délégation Better Auth, permissions de rôle, affectations exactes, travail affecté et gestion des affectations.' },
-  platform: { en: 'Platform and administration API', fr: 'API de plateforme et d’administration', enSummary: 'GWCOA, audit evidence, shared attachments, metadata, health, and platform endpoints.', frSummary: 'GWCOA, preuves d’audit, pièces jointes partagées, métadonnées, état de santé et points d’entrée de plateforme.' }
+const names: Record<string, { en: string, fr: string, enSummary: string, frSummary: string, exampleRoute: string, enExample: string, frExample: string }> = {
+  "agencies": {
+    "en": "Agency API",
+    "fr": "API des agences",
+    "enSummary": "These requests support agency profiles and the shared lists used in forms, such as agreement types and fiscal years. Officers use these lists when working on funding files. See [Agencies](../../admin/agencies.md) and [Agency catalogues](../../admin/agency-catalogs.md).",
+    "frSummary": "Ces requêtes servent aux profils d’agence et aux listes partagées des formulaires, comme les types d’entente et les exercices financiers. Les agents utilisent ces listes dans leurs dossiers de financement. Consultez les [agences](../../admin/agencies.md) et les [catalogues d’agence](../../admin/agency-catalogs.md).",
+    "exampleRoute": "/api/agency/[agencyId]",
+    "enExample": "An authorized request for `GET /api/agency/12` reads agency 12’s profile. It does not change the profile or its reference lists.",
+    "frExample": "Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence."
+  },
+  "agreements": {
+    "en": "Agreement API",
+    "fr": "API des ententes",
+    "enSummary": "These requests support funding agreements and their related records: budgets, claims, payments, amendments, assigned users and documents. For the work an officer performs on screen, start with [Agreements](../../agreements/index.md).",
+    "frSummary": "Ces requêtes servent aux ententes de financement et à leurs dossiers liés : budgets, réclamations, paiements, modifications, utilisateurs affectés et documents. Pour le travail effectué à l’écran par un agent, commencez par les [ententes](../../agreements/index.md).",
+    "exampleRoute": "/api/agreements/[id]",
+    "enExample": "An authorized request for `GET /api/agreements/42` reads agreement 42’s profile, including its status and program information. Reading the profile does not approve the agreement or create a payment.",
+    "frExample": "Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42, y compris son état et les renseignements sur le programme. Cette lecture n’approuve pas l’entente et ne crée pas de paiement."
+  },
+  "applicant-recipients": {
+    "en": "Applicant-recipient API",
+    "fr": "API des bénéficiaires demandeurs",
+    "enSummary": "These requests support proponent profiles: the organizations or people applying for or receiving funding. They also support contacts, addresses, funding history, reviews and links to agreements. See [Proponents](../../proponents/index.md).",
+    "frSummary": "Ces requêtes servent aux profils des promoteurs : les organisations ou personnes qui demandent ou reçoivent un financement. Elles servent aussi aux contacts, adresses, historiques de financement, examens et liens vers les ententes. Consultez les [promoteurs](../../proponents/index.md).",
+    "exampleRoute": "/api/applicant-recipients/[id]",
+    "enExample": "An authorized request for `GET /api/applicant-recipients/27` reads proponent 27’s profile, including legal and operating names. It does not create an agreement for that proponent.",
+    "frExample": "Une requête autorisée `GET /api/applicant-recipients/27` lit le profil du promoteur 27, y compris ses noms légaux et usuels. Elle ne crée pas d’entente pour ce promoteur."
+  },
+  "approvals": {
+    "en": "Approval API",
+    "fr": "API des approbations",
+    "enSummary": "These requests support approval templates and the approval steps used on a file. A template defines how approval is arranged; a running approval records the decision on a particular item. See [Approval templates](../../programs/approval-templates.md) and [Approvals and completions](../../concepts/approvals-completions.md).",
+    "frSummary": "Ces requêtes servent aux modèles d’approbation et aux étapes d’approbation d’un dossier. Un modèle définit l’organisation de l’approbation; une approbation en cours consigne la décision sur un élément précis. Consultez les [modèles d’approbation](../../programs/approval-templates.md) et les [approbations et achèvements](../../concepts/approvals-completions.md).",
+    "exampleRoute": "/api/agency/[agencyId]/approval-templates/[templateId]",
+    "enExample": "An authorized request for `GET /api/agency/12/approval-templates/8` reads template 8 for agency 12. It does not publish the template or approve any file.",
+    "frExample": "Une requête autorisée `GET /api/agency/12/approval-templates/8` lit le modèle 8 de l’agence 12. Elle ne publie pas le modèle et n’approuve aucun dossier."
+  },
+  "workflows": {
+    "en": "Workflow and completion API",
+    "fr": "API des flux et des achèvements",
+    "enSummary": "These requests support the sequence of work on a file: starting a workflow, recording a recommendation, completing an item and recovering interrupted work. Agency workflow definitions describe that sequence before it is used. See [Workflows](../../concepts/workflows.md) and [Child workflows](../../agreements/child-workflows.md).",
+    "frSummary": "Ces requêtes servent à la succession des tâches d’un dossier : démarrer un flux, consigner une recommandation, terminer un élément et reprendre un travail interrompu. Les définitions de flux de l’agence décrivent cette succession avant son utilisation. Consultez les [flux de travail](../../concepts/workflows.md) et les [flux des dossiers liés](../../agreements/child-workflows.md).",
+    "exampleRoute": "/api/agency/[agencyId]/workflows/[workflowId]",
+    "enExample": "An authorized request for `GET /api/agency/12/workflows/9` reads workflow definition 9, including its steps and owners. It does not start a workflow on an agreement.",
+    "frExample": "Une requête autorisée `GET /api/agency/12/workflows/9` lit la définition de flux 9, y compris ses étapes et responsables. Elle ne démarre pas de flux sur une entente."
+  },
+  "reviews": {
+    "en": "Review API",
+    "fr": "API des examens",
+    "enSummary": "These requests support the reviews carried out on a file, including assessment answers, checklist answers and additional reviewers. They also support the agency definitions used to create those reviews. See [Runtime reviews](../../concepts/runtime-reviews.md) and [Proponent reviews](../../proponents/reviews.md).",
+    "frSummary": "Ces requêtes servent aux examens réalisés sur un dossier, y compris les réponses aux évaluations et aux listes de contrôle et les examinateurs supplémentaires. Elles servent aussi aux définitions d’agence utilisées pour créer ces examens. Consultez les [examens en cours](../../concepts/runtime-reviews.md) et les [examens des promoteurs](../../proponents/reviews.md).",
+    "exampleRoute": "/api/reviews/[reviewId]/checklist",
+    "enExample": "An authorized request for `GET /api/reviews/35/checklist` reads review 35’s checklist definition, saved answers and current review state. It does not save answers or complete the review.",
+    "frExample": "Une requête autorisée `GET /api/reviews/35/checklist` lit la définition de la liste de contrôle, les réponses enregistrées et l’état actuel de l’examen 35. Elle n’enregistre pas de réponses et ne termine pas l’examen."
+  },
+  "extensions": {
+    "en": "Extension host API",
+    "fr": "API hôte des extensions",
+    "enSummary": "Extensions add features to the core system. These requests let the application find those features, read agency and stream settings, and call extension services. See [Extensions](../../concepts/extensions.md) to understand how they affect an officer’s workspace.",
+    "frSummary": "Les extensions ajoutent des fonctions au système principal. Ces requêtes permettent à l’application de trouver ces fonctions, de lire les paramètres des agences et des volets et d’appeler les services des extensions. Consultez les [extensions](../../concepts/extensions.md) pour comprendre leur effet sur l’espace de travail d’un agent.",
+    "exampleRoute": "/api/extensions/agency/[agencyId]",
+    "enExample": "An authorized request for `GET /api/extensions/agency/12` lists registered extensions and their enablement and configuration for agency 12. It does not enable an extension or run its migrations.",
+    "frExample": "Une requête autorisée `GET /api/extensions/agency/12` liste les extensions enregistrées ainsi que leur activation et leur configuration pour l’agence 12. Elle n’active pas d’extension et n’exécute pas ses migrations."
+  },
+  "identity": {
+    "en": "Identity and RBAC API",
+    "fr": "API d’identité et de contrôle d’accès",
+    "enSummary": "These requests support sign-in, users, roles and assignments to individual files. Together, these determine who can see or act on a record and which work is assigned to them. See [Roles](../../admin/roles.md), [Assignments](../../admin/assignments.md) and [Access control](../../concepts/rbac.md).",
+    "frSummary": "Ces requêtes servent à la connexion, aux utilisateurs, aux rôles et aux affectations à des dossiers précis. Ensemble, ces éléments déterminent qui peut consulter ou modifier un dossier et le travail qui lui est affecté. Consultez les [rôles](../../admin/roles.md), les [affectations](../../admin/assignments.md) et le [contrôle d’accès](../../concepts/rbac.md).",
+    "exampleRoute": "/api/auth/permissions",
+    "enExample": "For a signed-in user, `GET /api/auth/permissions` reads their static permission grants. It does not give them new rights. Permission to act on a particular file is still checked by that file’s server request.",
+    "frExample": "Pour un utilisateur connecté, `GET /api/auth/permissions` lit les permissions statiques qui lui sont accordées. Cette requête ne lui donne aucun nouveau droit. L’autorisation d’agir sur un dossier précis est toujours vérifiée par la requête serveur de ce dossier."
+  },
+  "platform": {
+    "en": "Platform and administration API",
+    "fr": "API de plateforme et d’administration",
+    "enSummary": "These requests support shared services such as attachments, audit logs, groups, searches and system health. This group also contains intake and financial records whose routes are outside the agreement and proponent groups. See [Audit and access logs](../../admin/audit.md), [Attachments](../../concepts/attachments.md) and [Funding case intakes](../../intake/funding-case-intakes.md).",
+    "frSummary": "Ces requêtes servent aux services partagés comme les pièces jointes, les journaux d’audit, les groupes, les recherches et l’état du système. Ce groupe comprend aussi des dossiers de réception et de finances dont les routes sont hors des groupes des ententes et des promoteurs. Consultez les [journaux d’audit et d’accès](../../admin/audit.md), les [pièces jointes](../../concepts/attachments.md) et les [dossiers de réception](../../intake/funding-case-intakes.md).",
+    "exampleRoute": "/api/health",
+    "enExample": "`GET /api/health` checks whether the application is ready and can reach its database. A successful response is `{ \"status\": \"ok\" }`. This public check does not return funding-file data.",
+    "frExample": "`GET /api/health` vérifie si l’application est prête et peut joindre sa base de données. Une réponse réussie est `{ \"status\": \"ok\" }`. Cette vérification publique ne renvoie pas les données des dossiers de financement."
+  },
+  "transfer-payments": {
+    "en": "Transfer-payment API",
+    "fr": "API des paiements de transfert",
+    "enSummary": "Here, transfer payment means the funding program and its streams. These requests support program design, eligible recipients, budgets, financial rules, published forms and workflow settings. Individual payments under an agreement are listed in the [Agreement API](./agreements.md). For screen guidance, see [Programs](../../programs/index.md) and [Streams](../../programs/streams.md).",
+    "frSummary": "Ici, paiement de transfert désigne le programme de financement et ses volets. Ces requêtes servent à la conception des programmes, aux bénéficiaires admissibles, aux budgets, aux règles financières, aux formulaires publiés et aux paramètres des flux. Les paiements individuels d’une entente figurent dans l’[API des ententes](./agreements.md). Pour les consignes à l’écran, consultez les [programmes](../../programs/index.md) et les [volets](../../programs/streams.md).",
+    "exampleRoute": "/api/transfer-payments/[id]",
+    "enExample": "An authorized request for `GET /api/transfer-payments/6` reads funding program 6’s profile. It does not issue a payment to a recipient.",
+    "frExample": "Une requête autorisée `GET /api/transfer-payments/6` lit le profil du programme de financement 6. Elle ne verse pas de paiement à un bénéficiaire."
+  }
 }
 
 const escapeCell = (value: string): string => value.replaceAll('|', '\\|').replaceAll('\n', ' ')
@@ -89,13 +169,22 @@ for (const [group, rows] of [...groups].sort(([a], [b]) => a.localeCompare(b))) 
     const title = name[locale]
     const summary = locale === 'en' ? name.enSummary : name.frSummary
     const notice = locale === 'en'
-      ? 'This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.'
-      : 'Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.'
+      ? 'An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.'
+      : 'Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.'
+    const columns = locale === 'en'
+      ? '- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.\n- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.\n- **Authorization landmarks**: names found in the source that help a developer locate access checks.\n- **Validation landmarks**: names that help locate checks on submitted fields or query options.\n- **Source**: the application file that handles the request. A handler is the code that receives and answers it.\n\nThis table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.'
+      : '- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.\n- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.\n- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.\n- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.\n- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.\n\nCe tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.'
+    if (!rows.some(row => row.method === 'GET' && row.route === name.exampleRoute)) {
+      throw new Error(`Read-only example route missing from ${group}: ${name.exampleRoute}`)
+    }
+    const example = locale === 'en'
+      ? `${name.enExample} Any numbers shown are illustrative: use IDs for existing records you are allowed to read.`
+      : `${name.frExample} Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.`
     const headers = locale === 'en'
       ? '| Method | Route | Authorization landmarks | Validation landmarks | Source |\n| --- | --- | --- | --- | --- |'
       : '| Méthode | Route | Repères d’autorisation | Repères de validation | Source |\n| --- | --- | --- | --- | --- |'
     const table = rows.map(row => `| ${row.method} | \`${escapeCell(row.route)}\` | ${escapeCell(row.authorization)} | ${escapeCell(row.validation)} | \`${row.source}\` |`).join('\n')
-    const content = `# ${title}\n\n${summary}\n\n${notice}\n\n## ${locale === 'en' ? 'Handlers' : 'Gestionnaires'} (${rows.length})\n\n${headers}\n${table}\n`
+    const content = `# ${title}\n\n${summary}\n\n${notice}\n\n${columns}\n\n## ${locale === 'en' ? 'Read-only example' : 'Exemple de lecture seule'}\n\n${example}\n\n## ${locale === 'en' ? 'Handlers' : 'Gestionnaires'} (${rows.length})\n\n${headers}\n${table}\n`
     const directory = join(docsRoot, locale, 'developer', 'api')
     await mkdir(directory, { recursive: true })
     await writeFile(join(directory, `${group}.md`), content)

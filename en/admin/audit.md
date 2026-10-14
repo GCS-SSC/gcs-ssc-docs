@@ -8,6 +8,12 @@ A role must explicitly grant `audit:read` at global or Agency scope. A global gr
 
 Captured request and query inputs have a separate `audit:view_audit_inputs` capability. An Audit reader without it sees the event and an input-visibility status, but not the captured values. A suitable Agency input grant reveals only evidence attributed to that Agency; globally attributed inputs require a global grant. Captured values are sanitized and may be unavailable for a given event. Give these permissions only to staff whose duties require that evidence.
 
+An event is assigned to an Agency according to the application’s current ownership rules. A linked Agency or the tracking Agency displayed on a record is not necessarily the Agency whose Audit readers can see the event. For shared Proponent profiles and Funding History, the event is visible within the Agencies covered by the person’s active Agency-scoped roles. Related child records follow this rule unless they have their own explicit Agency owner. Proponent notes and Agency Financial IDs use their explicit Agency. A lead Agency alone does not define the shared profile's audit audience. An actor with no active Agency-scoped roles has global attribution; actorless writes to role-audience records need explicit creation attribution rather than guessing from a parent label.
+
+Opportunities and Intakes follow Opportunity → anchor Stream → Program → Agency, including selected-Stream relationship rows. A selected secondary Stream supplies eligibility, not another audit owner. For approvals, Data Collections and other records that can belong to different types of work, the application checks the actual source record’s owner. These rules explain why profile visibility, operational assignment and Audit audience can differ; Audit grants remain independent.
+
+For example, assignment to an Agreement may let an officer work on that Agreement, but it does not let them investigate its Audit events. If you need to explain a budget change and Audit is unavailable, ask an authorized Audit reader to investigate with the record reference and approximate save time.
+
 ## Find an event
 
 1. Open Audit and choose the Audit events or Access view in the vertical navigation.
@@ -25,12 +31,12 @@ The actor is the authenticated account's `user.id`, not the separate Common User
 | Evidence | What it contains | Important boundary |
 | --- | --- | --- |
 | Change event | Initial values for inserts; old/new changed-column pairs for updates; retained values for deletion and restoration events. | Captured in the business transaction. An unchanged update produces no change event; failed capture rolls back the mutation. |
-| Security event | Recorded identity/role security action, target, and associated metadata. | This is a dedicated producer, not a replacement for every row-change event. |
+| Security event | Recorded identity/role security action, target, and associated metadata. | Recorded separately from change events; it does not replace them. |
 | Access event | Redacted SQL, elapsed time, query and transaction outcome, row count, correlation, and supported returned identities. | Query evidence, not complete returned data or proof that a user read every result. |
 
 Numeric values in change evidence retain decimal text so large identifiers and exact money are not rounded through JavaScript numbers. JSON columns are compared as whole values. Credential/secret exclusions and restricted capture policies intentionally omit sensitive values.
 
-SQL literals/comments are redacted. Sanitized request or query inputs appear only with the separate input-view grant; they are not a copy of the complete request body. A straightforward structured single-table query may identify returned primary keys, including aliases and composite keys. Joined, aggregate, raw, or identifier-free projections may report unavailable identities. Read the limitations shown in the details; do not interpret an unavailable projection as an empty result. A record-ID filter in Access matches captured primary-key values and cannot recover identities that were not captured.
+SQL literals/comments are redacted. Sanitized request or query inputs appear only with the separate input-view grant; they are not a copy of the complete request body. A simple query on one table may record the identifiers of the records it returned (primary keys, including aliases and keys made of several values). More complex queries that combine tables, summarize results, use raw SQL or omit identifiers may not record those identities. Read the limitations shown in the details; do not interpret an unavailable projection as an empty result. A record-ID filter in Access matches captured primary-key values and cannot recover identities that were not captured.
 
 ## Worked investigation
 
@@ -40,7 +46,7 @@ Suppose support needs to understand a budget-line change reported at 14:10.
 2. Open the matching change and compare the stored old/new values, actor, and operation.
 3. Filter by its request ID to find other changes from the same save. A percentage-budget save can update dependent lines in the same transaction.
 4. Open Access with that request ID to inspect durable query evidence and its transaction outcome.
-5. If Access is initially empty, allow time for the buffer to flush, then reload. Check retention and capture settings before concluding that evidence should exist.
+5. If Access is initially empty, wait for queued events to be saved, then reload. Check retention and capture settings before concluding that evidence should exist.
 
 This procedure does not reconstruct a full request body or unavailable query results. Use the retained evidence and the business record together, within your authorized duties.
 

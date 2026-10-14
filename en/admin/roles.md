@@ -1,6 +1,8 @@
 # Roles
 
-Roles define a reusable subject permission at global, agency, or program scope. A permission records one cumulative access level—Viewer, Contributor, or Manager—and, for Agreement or Proponent work, may independently allow assignment management.
+Use roles to give people the permissions needed for their job. Each permission applies to a type of work (the **subject**, such as Agreements) and an area of responsibility (the **scope**, such as one agency or program). Choose Viewer, Contributor, or Manager to set the actions allowed. Agreement, Proponent, Funding Case, Account Receivable, Correction and Journal Voucher permissions can also separately allow assignment management.
+
+For example, an officer with Agreement Contributor for Program A has permission to read, create and update Agreements within that program. To work on an existing assignable record, the officer also needs the direct assignment required for that record. The role does not give access to Program B or automatically assign every Program A Agreement.
 
 ## Role list
 
@@ -16,7 +18,7 @@ A role can be:
 - Agency-scoped: one agency selected and no program selected.
 - Program-scoped: one agency selected and one or more transfer payment programs in that agency selected.
 
-Only an administrator able to create global roles can choose Global. Program selection appears after an agency is selected. Searchable selectors load all records available to the administrator and hydrate saved values that are outside the current result page.
+Only an administrator able to create global roles can choose Global. Program selection appears after an agency is selected. Use the searchable selectors to find records available to you. Previously saved selections remain visible even when they are not on the current results page.
 
 The role's parent scope cannot move between global and agency after creation. An agency role can move between agency-wide and program-specific coverage when the resulting permissions remain compatible. Missing or unavailable saved programs are labelled rather than silently removed.
 
@@ -28,7 +30,7 @@ The role's parent scope cannot move between global and agency after creation. An
 | Agency and no programs | Agency |
 | Agency and one or more programs | Program |
 
-Program links must belong to the role's agency. Database constraints recheck the full role-permission graph at transaction commit, so a profile or permission update cannot leave an incompatible combination.
+Program links must belong to the role's agency. When a change is saved, the database checks the role, its programs and its permissions together. An incompatible combination is rejected.
 
 ## Permission levels
 
@@ -40,7 +42,7 @@ The Permissions tab shows one row per supported subject. Select `None`, `Viewer`
 | Contributor | Read, create, update |
 | Manager | Read, create, update, delete |
 
-The subjects are `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, and `applicant_recipient`.
+The subjects are `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction`, and `journal_voucher`.
 
 | Role subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
@@ -52,17 +54,23 @@ The subjects are `system`, `audit`, `group`, `agency`, `transfer_payment`, `role
 | `role` | Yes | Yes | No |
 | `user` | Yes | Yes | No |
 | `agreement` | Yes | Yes | Yes |
+| `funding_case` | Yes | Yes | Yes |
+| `account_receivable` | Yes | Yes | Yes |
+| `correction` | Yes | Yes | Yes |
+| `journal_voucher` | Yes | Yes | Yes |
 | `applicant_recipient` | Yes | Yes | No |
 
-There is no wildcard subject and no set of independent CRUD toggles. The server rejects a duplicate subject row or a subject that is incompatible with the role's effective scope.
+Choose a level for each subject separately; there is no permission for all subjects at once. Read, create, update and delete are included through these cumulative levels rather than separate switches. The server rejects a duplicate subject row or a subject that is incompatible with the role's effective scope.
+
+Account Receivable, Correction and Journal Voucher subjects are valid at global, Agency and Program scope. Grant them independently of Agreement access: Agreement Manager alone does not authorize these financial actions. The application checks which agency or program actually owns the financial record; a Program grant does not cover an Agency-owned credit pool.
 
 ## Assignment-management capability
 
-Agreement and Proponent permission rows also offer **Manage assignments**. This capability is independent:
+Agreement, Proponent, Funding Case, Account Receivable, Correction and Journal Voucher permission rows also offer **Manage assignments**. This capability is independent:
 
 - it can be enabled while the subject's access level is `None`;
 - Manager does not enable it automatically;
-- it exposes only the minimized Assignment Management and roster surfaces; and
+- it shows only the limited information needed on Assignment Management and assigned-user lists; and
 - it does not reveal entity content or make the administrator an assigned user.
 
 Setting the access level to `None` and turning Manage assignments off removes the permission row. See [Assignment Management](./assignments.md) and [role permissions and exact assignments](../concepts/rbac.md).
@@ -74,18 +82,18 @@ The detail page contains:
 - General, with bilingual names, descriptions, agency, and program scope.
 - Permissions, with the access-level selector and eligible assignment-management switches.
 
-General and Permissions save independently. A per-subject permission update atomically replaces that row and takes effect on subsequent server authorization. Profile edits cannot overwrite permission changes, and a permission change cannot save an invalid role scope.
+Save General and Permissions separately. Changing a subject’s permission replaces that permission in one operation and applies to the next request. Saving names or descriptions cannot overwrite permission changes. The application rejects permissions that do not fit the role’s scope.
 
 Role creation, profile updates, deletion, and permission replacements append non-sensitive `audit.security_audit_event` records in the same transaction. A failed change produces no audit row.
 
 ## Recommended role design
 
 - Root Administrator: a global role with the required Manager levels and explicit assignment-management capabilities. It remains an ordinary role and has no bypass.
-- Agency Administrator: agency, user, role, transfer-payment, Agreement, and Proponent levels at one agency as needed.
-- Program Manager: transfer-payment and Agreement levels for selected programs.
-- Assignment Coordinator: only the required Agreement and/or Proponent `manage_assignments` capability at a narrow scope.
-- Caseworker: Contributor ceilings for the owning subjects; exact entity assignments determine the actual work queue.
-- Reviewer or Approver: the ordinary entity ceiling required by the process plus the separately assigned workflow responsibility.
+- Agency Administrator: agency, user, role, transfer-payment, Agreement, Funding Case and Proponent levels at one agency as needed.
+- Program Manager: transfer-payment, Agreement and Funding Case levels for selected programs.
+- Assignment Coordinator: only the required subject-specific `manage_assignments` capability at a narrow scope.
+- Caseworker: Contributor permissions for the relevant types of work, plus direct assignments to the saved records the officer will handle.
+- Reviewer or Approver: the record permission required by the process, plus a separate assignment to the review or approval task.
 - Read-only Analyst: Viewer levels without assignment-management capability.
 
 Prefer a small set of durable job-function roles. Use scope and user-role assignments to vary coverage, then exact entity assignments to allocate saved work.

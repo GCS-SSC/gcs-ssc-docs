@@ -1,6 +1,6 @@
 # Proponent assigned users
 
-The **Assigned users** tab shows the exact work roster for one saved Proponent. It allocates that profile to users who already have a sufficient Proponent role ceiling at the lead agency; it does not create permission by itself.
+Open a saved Proponent and select **Assigned users** to see who is assigned to work on that specific profile. Users also need the appropriate Proponent role at its lead agency. Adding someone to this list does not give them that role.
 
 ## Required access
 
@@ -13,7 +13,7 @@ Adding, promoting, or removing users requires `manage_assignments`. Contributor 
 
 ## Roster rules
 
-Every active Proponent must have at least one active assignment and exactly one primary. The primary user is the work lead, not a more privileged member. An assigned user still needs the Viewer role ceiling to read and the two-key rule to change the profile.
+Every active Proponent must have at least one active assignment and exactly one primary. The primary user is the work lead, not a more privileged member. An assigned user still needs Viewer access to read the profile. Changing it requires both the appropriate role and an assignment to this specific profile.
 
 The roster remains readable when an existing user becomes inactive or loses Contributor eligibility. This makes an ineligible primary visible for correction; role changes do not silently rewrite assignment history.
 
@@ -25,24 +25,26 @@ The new user is non-primary. Adding the same person to another Proponent creates
 
 ## Change the primary user
 
-Choose **Make primary** on an active eligible assignment. The operation promotes that user and demotes the previous primary atomically. It cannot promote an inactive, ineligible, missing, or removed assignment.
+Choose **Make primary** on an active eligible assignment. Saving this change makes that person primary and makes the previous primary a regular assigned user together. It cannot promote an inactive, ineligible, missing, or removed assignment.
 
 If the current primary is ineligible, first add or identify an eligible replacement, promote the replacement, and then remove the old assignment if appropriate.
 
 ## Remove an assigned user
 
-A non-primary user can be removed while at least one active assignment remains. The server refuses removal of the primary and of the last assigned user. Removal is a soft delete and does not erase historical references.
+A non-primary user can be removed while at least one active assignment remains. The server refuses removal of the primary and of the last assigned user. Removal takes the user off the active list while preserving the history of their assignment.
 
 ## Status and scope changes
 
-The roster can change only while the Proponent’s active flag is true and the profile is not deleted. Inactive profiles retain their readable roster but cannot change it. Every write reloads the lead agency, role graph, user eligibility, status, and current roster inside one transaction, so a stale page cannot preserve access after a concurrent change.
+You can change assignments only while the Proponent is active and has not been deleted. Inactive profiles retain their readable roster but cannot change it. When you save, the application checks the current lead agency, permissions, eligible users, profile status and assignments again. A page left open does not preserve permissions that have since been removed.
 
 Changing the Proponent's lead agency changes the scope used by later authorization and eligibility checks. Review the roster and permissions as part of that change; an existing assignment can remain visible even when its user no longer qualifies at the new agency.
+
+For example, Alex is the primary officer for Harbour Community Services and is handing the file to Samira. A user with `manage_assignments` first adds Samira, who must already have Contributor or Manager access at the lead agency, then chooses **Make primary** for her. Alex can then be removed if no longer working on the file. Making Samira primary does not grant access to the organization’s agreements; check those assignments separately.
 
 ## Boundaries
 
 - A Proponent assignment does not grant access to another Proponent, a linked Agreement, an independently assigned review or recommendation, an agency, or a program.
-- It does not create top-level Proponent permission. Creation requires a Contributor role ceiling at the selected lead agency and makes the creator primary in the creation transaction.
+- It does not create top-level Proponent permission. Creating a Proponent requires Contributor access at the selected lead agency. The application assigns its creator as primary when it saves the new profile.
 - Approval and reviewer assignments remain separate workflow responsibilities.
 
 For cross-entity coordination, use [Assignment Management](../admin/assignments.md). For the authorization model, see [Role permissions and exact assignments](../concepts/rbac.md).

@@ -1,12 +1,12 @@
 # Examens du promoteur
 
-L’onglet **Examens** regroupe les évaluations et listes de contrôle d’exécution créées pour un promoteur. Il sert de point de départ des ensembles d’examens; les réponses, le calcul des résultats, l’achèvement, les approbations et les reprises suivent le processus d’examen commun.
+Utilisez l’onglet **Examens** pour lancer et suivre les évaluations et les listes de contrôle d’un promoteur. Un ensemble d’examens regroupe des examens à traiter ensemble. Par exemple, il peut contenir une liste de contrôle d’admissibilité suivie d’une évaluation des risques. Ouvrez chaque examen pour saisir les réponses, vérifier le résultat et achever le travail requis.
 
 ## Accès et comportement de la page
 
-L’accès Lecteur au promoteur énumère ses ensembles d’examens actifs et leurs enfants. La création d’un ensemble exige le plafond Contributeur et l’affectation exacte au promoteur; le créateur devient principal des examens d’exécution affectés indépendamment. L’annulation ou le clonage du travail suivant exige l’affectation exacte pertinente et Contributeur. L’affectation à une approbation est une exigence décisionnelle supplémentaire qui n’accorde jamais l’accès au promoteur.
+Avec l’accès Lecteur au promoteur, vous pouvez voir les ensembles d’examens actifs et les examens qu’ils contiennent. Pour créer un ensemble, votre rôle doit permettre les actions de Contributeur et vous devez être affecté à ce promoteur précis. Vous devenez la personne principale affectée aux nouveaux examens, qui ont leurs propres affectations. L’annulation ou le clonage exige aussi l’autorité de Contributeur et l’affectation au dossier modifié. Une affectation à une approbation permet de prendre la décision seulement si vous avez aussi l’accès requis au promoteur.
 
-Le tableau regroupe les examens par ensemble et développe initialement chaque groupe. Un groupe présente le nom épinglé de la configuration, l’agence, le nombre d’examens, l’état de l’ensemble, le résultat de réussite lorsqu’il est connu et les indicateurs **À l’achèvement** ou **Séquentiel** saisis lors de la création. Chaque enfant présente son nom bilingue épinglé, son type et son état. La recherche de ce point d’accès porte sur l’identifiant de l’ensemble et son nom épinglé anglais ou français.
+Le tableau regroupe les examens par ensemble et affiche au départ les examens de chaque groupe. Un nom ou une configuration épinglés sont la copie conservée lors de la création de l’ensemble. Un groupe présente le nom épinglé de la configuration, l’agence, le nombre d’examens, l’état de l’ensemble, le résultat de réussite lorsqu’il est connu et les indicateurs **À l’achèvement** ou **Séquentiel** saisis lors de la création. Chaque enfant présente son nom bilingue épinglé, son type et son état. La recherche de ce point d’accès porte sur l’identifiant de l’ensemble et son nom épinglé anglais ou français.
 
 Ouvrez une évaluation ou une liste de contrôle à partir de son nom ou de la flèche. La destination applique de nouveau l’accès au promoteur propriétaire.
 
@@ -23,9 +23,9 @@ La description du résultat indique l’agence propriétaire et, pour une porté
 
 ## Créer et exécuter un ensemble
 
-La sélection d’une configuration crée transactionnellement l’ensemble et ses évaluations ou listes de contrôle à partir de la configuration publiée. Le serveur verrouille le promoteur et le graphe de propriété applicable, reconstruit l’autorisation et revalide la portée et l’agence propriétaire avant la matérialisation. Un deuxième ensemble de la même configuration est refusé tant qu’un ensemble antérieur demeure dans un état bloquant en cours.
+Sélectionnez la configuration admissible pour créer l’ensemble et toutes ses évaluations ou listes de contrôle. Ils sont enregistrés ensemble à partir de la configuration publiée : si une vérification échoue, le système ne crée pas une partie de l’ensemble. Avant l’enregistrement, il verrouille les dossiers liés et revérifie vos permissions, la portée de la configuration et l’agence propriétaire. Vous ne pouvez pas créer un deuxième ensemble de la même configuration si un ensemble antérieur est encore dans un état en cours qui bloque la création. Ouvrez l’ensemble existant pour voir le travail restant.
 
-Un ensemble séquentiel progresse selon l’ordre configuré des membres. Un ensemble « à l’achèvement » interagit avec le processus d’achèvement ou de flux de travail propriétaire défini par sa configuration. Les lignes d’exécution conservent les versions et la configuration épinglées; les changements administratifs ultérieurs touchent les futurs ensembles plutôt que de réécrire les travaux existants.
+Un ensemble séquentiel progresse selon l’ordre configuré des membres. Le promoteur n’a pas d’action générale Achever qui crée ses examens : créez explicitement ses ensembles d’examens directs. Les lignes d’exécution conservent les versions et la configuration épinglées; les changements administratifs ultérieurs touchent les futurs ensembles plutôt que de réécrire les travaux existants.
 
 Pour les réponses, le calcul des résultats, les examinateurs supplémentaires, l’achèvement strict, le transfert vers l’approbation et les états verrouillés, consultez [Examens d’exécution](../concepts/runtime-reviews.md). Pour les décisions d’approbation, consultez [Approbations et achèvements](../concepts/approvals-completions.md).
 
@@ -36,6 +36,8 @@ Une personne autorisée peut annuler un ensemble non terminal. Les états termin
 Pour un ensemble autonome terminal, reprendre un examen refusé, annulé, échoué ou sans succès crée une exécution suivante et un nouvel ensemble depuis le plan figé. Les nouveaux examens ont de nouveaux conteneurs de réponses; l’ensemble et les décisions d’origine restent immuables. Aucun brouillon n’est ajouté à l’ancien ensemble et ses lignes terminales ne sont pas rouvertes. Les permissions, l’affectation et l’état actif du promoteur restent applicables. Voir [Examens en cours d’exécution](../concepts/runtime-reviews.md) pour la filiation et les reprises concurrentes.
 
 Si une action échoue parce que la cible ou l’autorisation a changé simultanément, actualisez l’onglet et réévaluez l’état courant. Ne créez pas un ensemble distinct uniquement pour contourner une transition bloquée ou terminale.
+
+Par exemple, après l’annulation d’un examen d’admissibilité, utilisez l’action de reprise prévue si vous avez la permission. Saisissez les réponses dans le nouvel examen et conservez l’ancien comme trace de la tentative annulée.
 
 ## Guides connexes
 

@@ -1,10 +1,12 @@
 # Authoring Extensions
 
-Extensions are installed code packages that the GCS-SSC host discovers at startup. Author extensions when a business process needs local behaviour without changing the core agreement, proponent, program, or admin screens for every deployment.
+An extension is an installed add-on that gives GCS-SSC extra features for a particular business process. For an officer, it may appear as another tab, additional fields, a payment calculator, or an action button. Developers build the add-on as a code package; GCS-SSC finds it during the Nuxt build, when the application is prepared to run. This lets one deployment add features without changing the core agreement, proponent, program, or admin screens for every deployment.
 
-Use this page for developer implementation. Operators should use [Concepts: Extensions](../concepts/extensions.md) and the agency/stream extension tabs.
+This page explains how developers implement extensions. Officers and operators can use [Concepts: Extensions](../concepts/extensions.md) and the agency/stream extension tabs.
 
 ## Authoring Contract
+
+In this page, **host** means the main GCS-SSC application. The **SDK** (software development kit) is the supported set of types, functions and components an extension uses to work with that application. A **contract** describes what each side must provide. Use these public contracts so the extension does not depend on the host’s internal code.
 
 Import SDK contracts from `@gcs-ssc/extensions`, server helpers from `@gcs-ssc/extensions/server`, UI wrappers from `@gcs-ssc/extensions/ui`, and test helpers from `@gcs-ssc/extensions/testing`. Do not import host internals such as `~~/server`, `~~/shared`, `~/`, or `#imports` for extension-owned contracts.
 
@@ -28,7 +30,7 @@ For standalone Nuxt typechecking, import `@gcs-ssc/extensions/nuxt` once from an
 
 ## Package Shape
 
-A typical extension has:
+An extension package keeps its declaration, screens, server code and tests together. A typical extension has:
 
 | File or folder | Purpose |
 | --- | --- |
@@ -44,12 +46,14 @@ A typical extension has:
 
 ## Manifest Fields
 
+The **manifest** is the extension’s declaration file. It tells the host the extension’s identity, the features it needs and where to find its components. For example, an extension that adds risk notes to an Agreement needs a tab and a server route to save those notes; both must be declared.
+
 ```ts
 import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
-  sdkVersion: '^0.3.1',
+  sdkVersion: '^0.3.17',
   requiredHostCapabilities: [
     'stream-config-modal',
     'server-handlers',
@@ -67,8 +71,8 @@ export default defineGcsExtension({
 | Field | Rule |
 | --- | --- |
 | `key` | Stable extension key. Use lowercase kebab-case and never change it after data exists. |
-| `sdkVersion` | Required compatible SDK version range, such as `^0.3.1`. The host rejects unsupported versions. |
-| `requiredHostCapabilities` | Required list of host capabilities used by the manifest or implementation. Use an empty list only when none are needed. See the startup-inference limits below. |
+| `sdkVersion` | Required compatible SDK version range, such as `^0.3.17`. The host rejects unsupported versions. |
+| `requiredHostCapabilities` | Required list of host capabilities used by the manifest or implementation. Use an empty list only when none are needed. See the discovery-inference limits below. |
 | `name` | Required bilingual display name. |
 | `description` | Optional bilingual description for admin screens. |
 | `admin` | Agency config, stream config modal, or stream config page components. |
@@ -83,7 +87,9 @@ The host validates component, handler, asset, and migration paths so they stay i
 
 ## Supported Capabilities
 
-Declare every capability the extension depends on. At startup, the host infers capabilities represented directly by `admin`, `client`, `serverHandlers`, `migrations`, `runtime`, `assets`, and `nitroPlugin` manifest fields; it rejects inferred-but-undeclared and unknown capabilities. The host does not inspect implementation imports or calls, so authors must separately audit code-only dependencies such as API clients, KV helpers, secret helpers, and create-operation hooks.
+A **capability** is a host feature that the extension needs. Declare every required capability. During Nuxt discovery, the host identifies features described by the `admin`, `client`, `serverHandlers`, `migrations`, `runtime`, `assets`, and `nitroPlugin` manifest fields. It rejects features that need an undeclared capability, and rejects unknown capabilities.
+
+The host does not inspect the extension’s imports or function calls. Developers must also check dependencies that appear only in code, such as API clients, KV helpers, secret helpers, and create-operation hooks.
 
 | Capability | Use |
 | --- | --- |
@@ -94,7 +100,7 @@ Declare every capability the extension depends on. At startup, the host infers c
 | `agency-config` | Agency admin configuration component. |
 | `stream-config-modal` | Stream configuration rendered in the stream Extensions modal. |
 | `stream-config-page` | Full-page stream configuration route through `admin.streamConfigPage`. |
-| `entity-tabs` | Agreement, proponent, claim, or monitor tabs. |
+| `entity-tabs` | Agreement, Proponent, Claim, Monitor, Opportunity or Payment tabs. |
 | `textarea-slots` | Runtime slot components in supported host page locations. |
 | `create-actions` | Extension create actions for agreement commitments or payments. |
 | `payment-amount-calculators` | Payment amount calculator components. |
@@ -114,21 +120,25 @@ Declare every capability the extension depends on. At startup, the host infers c
 
 ## Lifecycle entity declarations
 
-Use the SDK lifecycle contracts only when an extension-owned business entity must participate in host orchestration. Add `lifecycle-entities` to `requiredHostCapabilities` and declare each local type with non-empty bilingual labels, `completion` (`supported` or `none`), `approvalSubmission` (`on_completion` or `none`), `standardWorkflow: 'explicit'`, direct-Review support, `ownerKind` (`agreement` or `proponent`), `assignmentMode` (`independent` or `inherited`), and a package-contained server adapter path. The host qualifies the identity as `<extension-key>:<local-type>`.
+A **lifecycle entity** is a business record created by an extension that uses the host’s completion, approval and assignment rules. For example, an extension-owned record may need to be completed and approved under an Agreement. The extension describes the record; the host controls permissions and records the lifecycle history.
 
-The adapter resolves and locks the concrete entity, owner, scope, and business status and implements completion validation and any deterministic positive-terminus effect. It does not authorize requests, select lock order, weaken the declared ownership/assignment model, or create lifecycle evidence itself. Installation synchronizes the immutable declaration into `Common_Entity_Type`; an extension migration then uses `attachGcsLifecycleEntityIdentity(...)` to attach its concrete table to `Common_Entity`. Renaming or changing an installed declaration is rejected while identities or lifecycle history exist.
+Use the SDK lifecycle contracts only when an extension-owned business entity needs the host to manage its lifecycle. Add `lifecycle-entities` to `requiredHostCapabilities` and declare each local type with non-empty bilingual labels, `completion` (`supported` or `none`), `approvalSubmission` (`on_completion` or `none`), `standardWorkflow: 'explicit'`, direct-Review support, `ownerKind` (`agreement` or `proponent`), `assignmentMode` (`independent` or `inherited`), and a package-contained server adapter path. The host identifies each type as `<extension-key>:<local-type>`, so two extensions can use the same local type name without sharing an identity.
 
-Host reads require Viewer at the resolved owner. Create requires Contributor plus the declared creation-parent assignment. Update, Completion, Workflow start/retry/cancel, and transition require Contributor plus the exact declared assignment root; delete requires Manager plus that assignment. Independent entities create their creator-primary roster atomically; inherited entities resolve their parent roster every time. Extension enablement remains an additional gate, never an authorization substitute.
+The adapter resolves and locks the concrete entity, owner, scope, and business status and implements completion validation and any effect required when the process ends successfully. That effect must produce the same result for the same inputs. The adapter does not authorize requests, select lock order, weaken the declared ownership/assignment model, or create lifecycle evidence itself. Installation synchronizes the immutable declaration into `Common_Entity_Type`; an extension migration then uses `attachGcsLifecycleEntityIdentity(...)` to attach its concrete table to `Common_Entity`. Renaming or changing an installed declaration is rejected while identities or lifecycle history exist.
 
-Completion records `not_applicable`, `no_workflow`, or `workflow_started` at creation time. A required missing Workflow is a conflict and rolls back; a `no_workflow` completion cannot gain a Workflow later. Retry creates a successor attempt with the same publication pins. Positive-terminus hooks run inside the host transaction after `no_workflow`, `succeeded`, or `approved`; they must be deterministic, retry-safe, and free of external side effects that cannot roll back.
+Host reads require Viewer at the resolved owner. Create requires Contributor plus the declared creation-parent assignment. Update, Completion, Workflow start/retry/cancel, and transition require Contributor plus the exact declared assignment root; delete requires Manager plus that assignment. Independent entities create their assignment list, with the creator as primary user, in the same operation as the record. Inherited entities resolve their parent’s assignment list every time. Extension enablement remains an additional gate, never an authorization substitute.
+
+Completion records `not_applicable`, `no_workflow`, or `workflow_started` at creation time. A required missing Workflow is a conflict and rolls back; a `no_workflow` completion cannot gain a Workflow later. Retry creates a new attempt using the same published versions as the earlier attempt. Hooks for successful process endings (positive-terminus hooks) run inside the host transaction after `no_workflow`, `succeeded`, or `approved`; they must be deterministic, retry-safe, and free of external side effects that cannot roll back.
 
 ## Configuration scope and access
 
-The pinned public SDK is 0.3.1. Declare `configuration-access` when setting `configurationAccess` to `contributor` or `manager`; Contributor is the default. This controls the minimum role ceiling for enablement and JSON configuration, not runtime work or exact assignments.
+The public SDK version used here is 0.3.17. Declare `configuration-access` when setting `configurationAccess` to `contributor` or `manager`; Contributor is the default. This sets the minimum role required to enable the extension and edit its JSON configuration. Permissions for everyday work and exact record assignments are checked separately.
 
 An extension with `configurationScope: 'agency'` declares `agency-only-configuration`. It has Agency enablement/configuration only and cannot declare stream configuration editors. This is useful for one Agency numbering service shared across streams. An extension without that declaration retains the Agency-plus-stream enablement model.
 
 ## File-storage provider contract
+
+A **file-storage provider** connects the application to the service that stores uploaded files, templates and generated documents. Officers still use the host’s attachment screens and permissions. The provider implements storage behind those screens; it does not decide who may access a file.
 
 Declare `file-storage-provider` and one `fileStorageProvider` contribution. The containing extension key is the permanent provider identity; do not rename it after storing objects.
 
@@ -144,16 +154,18 @@ The default export from that module uses `defineGcsFileStorageProviderAdapter` f
 | Operation | Contract |
 | --- | --- |
 | Write | Receive host-generated object name, bytes, content type, Agency, purpose, optional typed target, configuration, scoped secret reader, and optional provider metadata. Return `{ objectId, locator }`. |
-| Read | Resolve the recorded object ID and opaque locator and return `{ bytes, contentType? }`. Never depend on the currently selected provider for a different object. |
+| Read | Resolve the recorded object ID and locator (provider-specific information used to find the object) and return `{ bytes, contentType? }`. Never depend on the currently selected provider for a different object. |
 | Delete | Succeed when the object is already absent. Cleanup can repeat after a crash or expired lease. |
 
 Object IDs are stable nonempty strings limited to 512 UTF-8 bytes, not temporary access URLs. The host bounds the server-only locator JSON object to 32 KiB and provider metadata to 15 KiB. Do not put credentials in browser metadata or assume an object name is a filesystem path. Purposes are `attachment`, `document-template`, and `generated-document`.
 
-The host owns attachment metadata, typed target links, authorization, assignment, and business-status protection. The provider owns only its storage operations and declared metadata behavior. There is no local fallback if the selected or recorded provider is unavailable. One Agency selects one provider for new writes; old objects remain pinned. Host guards prevent disabling selected or referenced providers, and startup rejects missing referenced implementations.
+The host owns attachment metadata, typed target links, authorization, assignment, and business-status protection. The provider owns only its storage operations and declared metadata behavior. There is no local fallback if the selected or recorded provider is unavailable. One Agency selects one provider for new writes; existing objects remain linked to the provider that stored them. Host guards prevent disabling selected or referenced providers, and startup rejects missing referenced implementations.
 
-Optional `metadata` declares a client component, server validator path, `persistence` (`host` or `provider`), `mutability` (`upload-only` or `editable`), and a positive integer `contractVersion`. Host-persisted values are namespaced by provider. Provider-persisted values require `readProviderMetadata` and `updateProviderMetadata`. Updates require a compatible stored contract and cannot combine provider-owned metadata with host fields in one PATCH. The host reserves restoration work before an external update so database failure can compensate it. See [Attachments](../concepts/attachments.md) and [Background work](../operator/background-work.md) for user-visible partial saves and worker recovery.
+Optional `metadata` declares a client component, server validator path, `persistence` (`host` or `provider`), `mutability` (`upload-only` or `editable`), and a positive integer `contractVersion`. Values stored by the host are kept separately for each provider. Provider-persisted values require `readProviderMetadata` and `updateProviderMetadata`. Updates require a compatible stored contract and cannot combine provider-owned metadata with host fields in one PATCH. Before an external update, the host reserves recovery work to restore the previous state if the database save fails. See [Attachments](../concepts/attachments.md) and [Background work](../operator/background-work.md) for user-visible partial saves and worker recovery.
 
 ## Agreement-number provider contract
+
+This provider fills in an Agreement number during creation. For example, an Agency may use the sequence `ABC-0000123` across its Streams so officers do not enter numbers manually. The developer must make number allocation safe when two officers create Agreements at the same time.
 
 Declare `agreement-number-provider` and `agreementNumberProvider: { path: './server/number.ts' }`. Its default export implements `GcsAgreementNumberProvider` and returns only the Agreement number. The host still authorizes creation, validates profile data, resolves the program/stream and selected proponents, creates the Agreement, and assigns its creator.
 
@@ -177,7 +189,7 @@ admin: {
 
 Agency config components receive the current JSON config with `v-model`, plus `extension` and `agencyId` props. Store sensitive values through extension server handlers and encrypted secret helpers instead of putting them in agency config.
 
-Use `admin.streamConfig` when the extension needs a modal-based stream configuration component:
+Use `admin.streamConfig` when the extension needs a stream configuration component displayed in a modal (a dialog over the current page):
 
 ```ts
 admin: {
@@ -223,7 +235,7 @@ Full-page components also receive `hostLayout: true` and can use the page space 
 
 ## Runtime Slots
 
-Slots render extension components inside existing host pages. Supported slot names are:
+A **slot** is a place in an existing host page where an extension can display its own component. For example, the risk-management slot can show extra fields alongside the Agreement’s existing risk information. Supported slot names are:
 
 | Slot | Host area |
 | --- | --- |
@@ -234,6 +246,8 @@ Slots render extension components inside existing host pages. Supported slot nam
 | `agreement.profile.risk-management.fields` | Agreement risk management section. |
 | `agreement.profile.sections.after` | After agreement profile sections. |
 | `proponent.descriptions.after` | Proponent English/French description area. |
+| `bilingual-field.after` | Scoped paired-language fields; receives live field models, labels and explicit authorization context. |
+| `payment.evidence` | Payment detail evidence; receives retained evidence and effective access context. |
 
 ```ts
 client: {
@@ -250,7 +264,7 @@ Slot components should be visually quiet and should not duplicate host-owned fie
 
 ## Entity Tabs
 
-Entity tabs can target `agreement`, `proponent`, `claim`, or `monitor`.
+An entity tab gives officers a separate view on an existing record, such as the Risk notes tab below. Entity tabs can target `agreement`, `proponent`, `claim`, `monitor`, `opportunity` or `payment`. Opportunity uses the `transfer_payment` subject; Payment remains in the `agreement` domain.
 
 ```ts
 client: {
@@ -272,7 +286,7 @@ Tab components receive:
 | Prop | Contents |
 | --- | --- |
 | `extensionKey` | Extension key from the manifest. |
-| `context` | Target, agency, stream/agreement/proponent/claim/monitor ids, owner type, owner id, scope, and RBAC requirement. |
+| `context` | Context depends on the target type. Ordinary targets include the resolved Agency, owner and scope. Proponent includes `applicantRecipientId`, owner identity and an authorized `agencies` list rather than one Agency/scope. |
 | `config` | Resolved stream or agency extension config. |
 | `rbac` | The tab's declared RBAC requirement. |
 
@@ -281,9 +295,11 @@ Tab components receive:
 | Tab ids are unique per target | Use lowercase kebab-case ids. |
 | Tabs require enablement | Agreement, claim, and monitor tabs require agency and stream enablement; proponent tabs require agency enablement. |
 | Tabs require RBAC | The host checks the declared subject/action before rendering. |
-| Proponents without lead agency do not show tabs | Proponent tabs resolve enablement through the lead agency. |
+| Proponent Agency contexts | The host returns authorized active Agencies with enablement/configuration in `context.agencies`; no lead-Agency picker is required. An explicit `agencyReadRequired` can further narrow availability. |
 
 ## SDK UI Boundary
+
+UI means **user interface**: the buttons, fields and tables officers see. SDK wrappers are supported versions of the host’s interface components. Composables are reusable functions for tasks such as loading data or showing a notification.
 
 Import host-provided wrappers and composables from `@gcs-ssc/extensions/ui`. Do not import `~/`, `~~/`, `#imports`, `#app`, or `#gcs-*`, and do not use host component names directly in an extension template. Wrappers such as `ExtensionButton`, `ExtensionFormField`, `ExtensionSaveButton`, and `ExtensionTable` preserve host behaviour behind a versioned contract.
 
@@ -302,7 +318,9 @@ The host installs the concrete UI runtime. Standalone tests can install SDK test
 
 ## Server Handlers
 
-Use `serverHandlers` for authenticated extension endpoints:
+**RBAC** means role-based access control: the host checks whether the user’s role allows the declared action on the relevant record. Showing a tab or button does not replace this server-side check.
+
+A server handler receives a request from an extension screen and performs server-side work, such as saving a risk note. An endpoint is the address used to send that request. Use `serverHandlers` for authenticated extension endpoints:
 
 ```ts
 serverHandlers: [
@@ -346,7 +364,7 @@ The stable route context contains `db`, `params`, `auth`, `config`, `entity`, `s
 
 Manual handlers that resolve stream ownership must call `resolveExtensionStreamContext(db, streamId)` to resolve the active ownership chain. It returns `agencyId`, `profileId`, `streamId`, and the canonical entity scope only when the stream, its transfer payment profile, and its owning agency are all active; treat `null` as unavailable and stop the operation.
 
-Protected extension writes use the host-provided `writeAuthorization` protocol. It separates fresh authorization into two phases so authorization-table locks are never acquired after extension or entity locks. A write handler must reject a missing protocol before entering transactional business logic:
+Protected extension writes use the host-provided `writeAuthorization` protocol. It checks current permissions in two phases. This keeps permission-table locks before extension or entity locks and allows a request to be rejected if access changes while it waits. A write handler must reject a missing protocol before entering transactional business logic:
 
 ```ts
 import { defineGcsExtensionRouteHandler } from '@gcs-ssc/extensions/server'
@@ -376,7 +394,7 @@ Routes that expose agreement choices must call `context.agreementAccess.listVisi
 
 ## Create Actions
 
-Extensions can add or replace create actions for:
+A create action is a button or command that starts creation. For example, Generate payments can provide an extension’s creation screen in the Agreement Payments tab. Extensions can add or replace create actions for:
 
 | Operation | Host surface |
 | --- | --- |
@@ -406,7 +424,7 @@ client: {
 
 If more than one enabled extension replaces the same operation, the host blocks the action until configuration is fixed. Create action components receive the operation, context, config, label, icon, RBAC requirement, and an `onCreated` callback. Call `onCreated()` after successful creation so the host refreshes the table.
 
-Server-side create hooks belong in a Nitro plugin:
+A **hook** is code the host calls at a defined point in an operation. Server-side create hooks belong in a Nitro plugin (a module loaded by the application server):
 
 ```ts
 import {
@@ -433,7 +451,7 @@ When a create hook blocks a user-correctable action, throw `createGcsExtensionUs
 
 ## Payment Amount Calculators
 
-Payment calculators can provide a suggested amount, ceiling amount, currency, explanation details, loading state, and extension data for `agreement.payments.create`. Only one enabled calculator can apply to the payment creation surface at a time.
+For example, a calculator can suggest a payment amount and explain its maximum before an officer saves. The server must still validate the amount. Payment calculators can provide a suggested amount, ceiling amount, currency, explanation details, loading state, and extension data for `agreement.payments.create`. Only one enabled calculator can apply to the payment creation surface at a time.
 
 | Rule | Behaviour |
 | --- | --- |
@@ -443,6 +461,8 @@ Payment calculators can provide a suggested amount, ceiling amount, currency, ex
 | Server validation is still required | Recheck generated amounts before writing records. |
 
 ## Migrations, KV, And Secrets
+
+A **migration** creates or changes database tables for the extension. **KV** means key-value storage: simple saved values identified by a key. A **secret** is a sensitive value, such as an external service password or API token. Keep secrets in encrypted storage, separate from ordinary settings.
 
 ```ts
 import {
@@ -471,6 +491,8 @@ Encrypted secret helpers are exposed from `@gcs-ssc/extensions/server`: `setEncr
 
 ## Lifecycle Locks And Guards
 
+A **transaction** is a group of database changes that either succeed together or are undone together. A **lock** prevents conflicting work from changing protected state at the same time. A **guard** rejects an operation that would break a business rule. For example, a guard can block deletion of an Agreement whose extension-owned history must remain available.
+
 Extensions that generate durable records from configuration must coordinate with host lifecycle changes. All lifecycle helpers require an active Kysely `Transaction`; passing a root `Kysely` client is intentionally a type error because transaction advisory locks would be released after each statement.
 
 After `writeAuthorization.lockAuthState(trx)`, call `lockGcsExtensionLifecycleScope(trx, extensionKey, agencyId, streamId)` before extension/entity locks. The canonical domain order is agency scope, stream scope, then extension-specific or entity locks. Re-read configuration after locking, call `authorizeCurrentScope(trx)` or its `authorizeCurrentEntity` compatibility fallback, and only then read or mutate protected state.
@@ -479,17 +501,19 @@ Register lifecycle hooks from `defineGcsExtensionNitroPlugin`:
 
 | Registration | Use |
 | --- | --- |
-| `registerGcsExtensionDisableGuard` | Veto agency or stream disablement when extension-owned state still requires runtime support. |
+| `registerGcsExtensionDisableGuard` | Reject agency or stream disablement when extension-owned state still requires runtime support. |
 | `registerGcsExtensionAgreementLifecycleLock` | Acquire extension agreement locks before the host agreement row lock. |
 | `registerGcsExtensionAgreementStreamChangeGuard` | Reject a stream move that would invalidate extension-owned state. |
 | `registerGcsExtensionAgreementDeleteGuard` | Reject agreement deletion while extension-owned history or generated provenance must be preserved. |
 | `registerGcsExtensionAgreementPaymentMutationGuard` | Validate payment and payment-line updates, deletes, and status changes inside host transactions. |
 
-The host runs an agreement-delete guard after extension lifecycle locks are acquired and before it deletes the agreement, inside the same host transaction. The guard must read protected extension state through the supplied transaction and throw to veto deletion; the error propagates so the agreement deletion and every related write roll back together. Do not defer the check or query through a root database client.
+The host runs an agreement-delete guard after extension lifecycle locks are acquired and before it deletes the agreement, inside the same host transaction. The guard must read protected extension state through the supplied transaction and throw an error to reject deletion; the error propagates so the agreement deletion and every related write roll back together. Do not defer the check or query through a root database client.
 
-Guards should throw localized extension user errors for correctable business conflicts. They must be deterministic, transaction-bound, and safe when host routes invoke them outside the extension UI.
+Guards should throw localized extension user errors for correctable business conflicts. For the same inputs, guards must produce the same result. They must use the supplied transaction and remain safe when host routes call them outside the extension UI.
 
 ## Assets And I18n
+
+**Assets** are files shipped with the extension, such as images or model files. **I18n** means internationalization: supplying the right language and number formatting. Officers must receive understandable labels and errors in both English and French.
 
 | Feature | Manifest field | Guidance |
 | --- | --- | --- |
@@ -512,15 +536,73 @@ const { t, locale, n } = useExtensionI18n(messages)
 const label = t('files.count', { count: 3 })
 ```
 
-The SDK checks exact locale-key and placeholder parity, freezes a detached catalogue, and resolves only its own keys. Missing keys or interpolation values throw; there is no fallback to host translation keys, linked messages, or host-wide message registration. Use the reactive locale for localized display and `n` for number formatting. Server `createGcsExtensionUserError` messages and detail messages should supply `{ en, fr }`; plain strings are already resolved text, not host i18n keys.
+The SDK checks that both languages have exactly the same message keys and placeholders, such as `{count}`. It makes an independent, unchangeable copy of the catalogue and looks up only that catalogue’s keys. Missing keys or interpolation values throw; there is no fallback to host translation keys, linked messages, or host-wide message registration. Use the reactive locale for localized display and `n` for number formatting. Server `createGcsExtensionUserError` messages and detail messages should supply `{ en, fr }`; plain strings are already resolved text, not host i18n keys.
 
 ## Bounded external operations
 
-The host bounds selected extension operations, including Proponent profile-update hooks, storage configuration validation, provider-metadata updates, and metadata restoration. `GCS_EXTENSION_OPERATION_TIMEOUT_MS` defaults to 10,000 ms with a minimum of 100 ms. The callback receives an `AbortSignal`; pass it to cancellable downstream work and stop when aborted. The deadline rejects the host wait, but cannot forcibly undo an external side effect from a callback that ignores the signal.
+The host sets a time limit for selected extension operations, including Proponent profile-update hooks, storage configuration validation, provider-metadata updates, and metadata restoration. `GCS_EXTENSION_OPERATION_TIMEOUT_MS` defaults to 10,000 ms with a minimum of 100 ms. The callback receives an `AbortSignal`; pass it to cancellable downstream work and stop when aborted. The deadline rejects the host wait, but cannot forcibly undo an external side effect from a callback that ignores the signal.
 
-Keep transactional guards on the supplied transaction, make remote work idempotent, and distinguish a failed database write from a provider operation whose result is uncertain. A Proponent update timeout returns `EXTENSION_OPERATION_TIMEOUT` (503). Reload the record and reconcile any external effect before retrying; a timeout alone is not proof that a remote service did nothing. Storage metadata recovery uses the compensation path described in [Attachments](../concepts/attachments.md). This limit does not apply universally to every extension handler or document-rendering operation.
+Keep transactional guards on the supplied transaction, make remote work idempotent (repeating the same request must not create a duplicate effect), and distinguish a failed database write from a provider operation whose result is uncertain. A Proponent update timeout returns `EXTENSION_OPERATION_TIMEOUT` (503). Reload the record and reconcile any external effect before retrying; a timeout alone is not proof that a remote service did nothing. Storage metadata recovery uses the compensation path described in [Attachments](../concepts/attachments.md). This limit does not apply universally to every extension handler or document-rendering operation.
+
+## Agency workspaces and detail pages
+
+An Agency workspace groups extension screens for an Agency. A detail page shows one record selected from an Agreement tab, such as an allocation. These screens must keep the same owner and access rules as the records they display.
+
+Declare `agency-workspace` with `admin.agencyWorkspace` and an `admin.agency` component. Supply a bilingual workspace label and nonempty tabs with unique lowercase IDs and bilingual labels. The host exposes authorized Agency choices and preserves the selected workspace across locale changes; installation, enablement and configuration access still apply. Concrete connector screens own their implementation documentation.
+
+An Agreement tab may declare `detailPage: { path: './components/AllocationDetail.vue' }` and `entity-detail-pages`. The host registers the component and supplies Agreement context and record permissions within its shared detail workspace. Other tab targets cannot declare a detail page. Optional `agencyConfigVisibility` is a configuration filter, not server authorization. Preserve owner resolution, loading/retry and URL section state when navigating between list and detail.
+
+## Scoped bilingual fields and payment evidence
+
+These two integrations serve different officer tasks: proposing text in the other language and explaining a saved payment calculation. A proposed translation remains a draft for review. Payment evidence remains a record of the saved calculation even if budgets later change.
+
+Declare `bilingual-field-slots` for `bilingual-field.after` and use the SDK’s typed bilingual field context. Fields retain separate English/French live models, labels, multiline/length and disabled/read-only constraints. A contributed translation action updates the form draft; the user still reviews and saves. The host resolves `agency`, `transfer_payment`, `agreement` or `applicant_recipient` authority explicitly. Do not borrow Agreement authority for an unrelated Agency field or pass an arbitrary Agency to a Proponent slot; the latter receives the authorized Agency configurations as an array.
+
+Declare `payment-evidence` for `payment.evidence`. The evidence slot renders the saved Payment calculation contract; it does not silently recalculate history from live budgets or catalogs. The host exposes core financial inputs and retained calculation details separately. Show readable bilingual sections and exact monetary amounts. Do not show raw technical data in their place. Machine translation provider, glossary behavior and calculator formulas belong to their respective extensions.
+
+## Shared financial reads and coding allocation
+
+**Coding allocation** splits a financial amount among eligible accounting lines. The extension can propose the split, but the host checks the total, available capacity and amounts already paid. A paid floor is the minimum amount a line must retain to cover existing payments; a pool is shared available capacity.
+
+Declare `agreement-payment-capacity` and use `requireGcsExtensionAgreementFinancials(context)`. The host binds the service to the authorized Agreement and active database/transaction. It exposes Payment calculation inputs, recorded paid projections, Claim recovery, effective accounting, allocation context, exact-line paid coverage, allocation validation and commitment capacity. It refreshes route authority before reads and rejects a currency mismatch or an excluded Payment/Commitment line from another Agreement. Missing capability fails; there is no extension-local capacity fallback. Reading projections grants no source-record access, assignment or write authority.
+
+Declare `coding-allocator` with `codingAllocator: { path: './server/coding.ts' }`. Its default allocator receives an exact amount, output kind (Commitment, Payment, Receivable or Credit Memo), Stream catalog, retained/current coding context, existing paid floors and available pools. Return exact `{ codingLineId, amount }` lines, an envelope with `lines` and retained `policy`, or `null` for manual coding. The host validates catalog membership, unique coding IDs, sum equality, exact paid floors and applicable shared capacity before saving in the transaction. An `accountCatalog` override is rejected: accounts must be available on the Stream. Configuration guards can query the host’s active Agency `codingAccounts.list` by kind, currency and optional fiscal year.
+
+For example, a two-line allocation of `600.00` and `400.00` for a `1000.00` Payment must both reference eligible coding and fit the shared pools. A result totaling `999.99`, selecting an unavailable account or reducing retained paid coverage fails; correct configuration and retry rather than editing immutable evidence. Extension-specific weighting algorithms stay in the owning extension’s guide.
+
+## Opportunity exchange and Intake import
+
+A connector can publish a funding Opportunity to another system and import a submitted application as an Intake. Importing places the Intake in a group’s work queue; a user must later claim it to become assigned. The contracts below prevent an import from bypassing permissions or creating the same submission twice.
+
+Authenticated RBAC-declared routes receive `GcsExtensionWriteAuthorization`. Call `lockAuthState(trx)` on the owning transaction before extension lifecycle locks, then refresh the current route authority. The callbacks below reject a different transaction or missing locked actor context. They do not authorize an arbitrary Agency or Program just because its ID was submitted.
+
+`projectFundingOpportunity(trx, opportunityId)` refreshes route authority and independently requires `transfer_payment:update` at the owning Program. An Opportunity-bound route must request that same ID; an Agency/Stream route must match its current owner and selected Streams. An unavailable/mismatched Opportunity returns `null`. The projection contains exact string IDs, bilingual Agency/Program/Stream names, all selected Streams, Opportunity names/objectives, start/end dates and whole-day times, plus `active` and `editable`. Final host output also includes external attachment-type metadata. `active` describes eligible status flags; new Intake creation separately enforces the inclusive date window. The route callback may return inactive metadata so a connector can disable a previously published call.
+
+`createFundingCaseIntake(trx, input)` additionally requires `funding_case:create` at the current Opportunity scope and rechecks the owner after locking the Opportunity. Supply canonical IDs for Opportunity, Proponent, group and application; optional `intakeId` identifies a retained host receipt. `application` and `sourceExport` are JSON objects; `sourceSystem` is trimmed nonempty text of at most 100 characters and `sourceSubmissionId` at most 255. New imports require an eligible non-Draft/writable/nonterminal Agency status, inclusive current-date window, readable Proponent, assignable same-Agency group and Agency Draft status. The created Intake is group-only queued work; later claiming establishes user assignment.
+
+Handle typed results deliberately: `created` returns `intakeId`/`draftStatusId`, while `already_imported` returns the retained `intakeId`. Unavailable results are `opportunity_unavailable`, `recipient_unavailable`, `group_unavailable` and `draft_status_unavailable`; identity conflicts are `intake_id_conflict`, `source_conflict` and `application_id_conflict`. A denied domain action throws `FUNDING_CASE_EXCHANGE_FORBIDDEN`. Do not turn a conflict into another insertion.
+
+For example, if a remote submission was imported but its acknowledgement was lost, retry with its same source identity/export and retained host ID when available. The host verifies the receipt’s Opportunity, Proponent, application and unchangeable source history and returns the existing ID even after the call closes. It does not overwrite the retained application or reopen workflow history. Scheduled Agency-service imports use the separately capability-bound L1 authorization and its active recipient affiliation checks; do not substitute staff-route grants for that service boundary. See [Portal](../intake/portal.md).
+
+## Shared diagram rendering
+
+Use this component to show officers the steps and choices in a process. It draws the diagram and offers downloads; it does not run the process or decide whether a record can move to its next step.
+
+Extensions import `ExtensionFlowDiagram` and `FlowDiagramDefinition` from `@gcs-ssc/extensions/ui`; host code uses `CommonFlowDiagram` backed by `@gcs-ssc/diagrams`. Supply already-localized ordered nodes with unique IDs and explicit valid route targets. Node kinds are `start`, `step`, `decision` and `end`; routes are `direct`, `conditional`, `default` or `failure`. Only nodes with `selectLabel` emit selection; `selectedNodeId` marks the selected node.
+
+The renderer owns responsive layout, connections, accessible controls, theme and local downloads. SVG preserves native shapes/searchable text and the complete canvas; PNG rasterizes it at four times CSS width/height with an opaque background. Export failure leaves the diagram available with localized retry. A diagram describes the caller’s definition; it does not execute form rules or workflow transitions. Keep domain state and translation outside the renderer.
+
+## Scheduled imports and L1 handlers
+
+L1 is the host’s background-work execution context. A scheduled handler performs recurring work without an officer pressing a button. For example, it may import new submissions as drafts. A run can happen more than once, so the extension must keep the request and its duplicate-prevention key for safe retries.
+
+Declare `scheduled-agreement-import` or `scheduled-intake-import` for the corresponding host import boundary, and `l1-queue` when registering recurring work with `registerGcsExtensionL1QueueHandler`. Supply a stable `<extension-key>:<handler-name>` identity, `extensionKey`, an integer interval from 1000 to 2147483647 milliseconds, and a bounded async `run`. The host rejects duplicate IDs and mismatched namespaces and dispatches only currently enabled extensions after their migrations and Audit readiness. Scheduled plugins are lazily activated once per Nitro app; failed activation can retry.
+
+The L1 context supplies the host database, `createWriteAuthorization(extensionKey, agencyId)` and Agency Audit execution through `runForAgency`. Use the transaction-bound authorization callbacks before creating an imported Intake, Claim or Forecast. Agreement imports recheck Agency, Stream, linked recipient where required, active primary user, status and Closeout boundary. They create drafts, not approvals. A handler may run more than once for the same work. Persistent business queues must preserve the exact request to retry and its idempotency key, which identifies repeated requests for the same operation. See [Background work](../operator/background-work.md) for leases, failure delays and monitoring.
 
 ## Testing Checklist
+
+Check both what officers see and what the server enforces. For example, a hidden button must not be the only thing preventing an unauthorized save. Use the checklist below to test configuration, permissions, record protection and bilingual behaviour.
 
 Use `installExtensionTestUiRuntime` from `@gcs-ssc/extensions/testing` for standalone component tests that need host UI wrappers.
 

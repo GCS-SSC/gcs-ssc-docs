@@ -1,18 +1,20 @@
 # Schemas D Evaluation
 
-Les schémas d’évaluation définissent les questions, matrices de pointage, dépendances, valeurs calculées, résultats et facteurs d’impact des examens. Les administrateurs ouvrent l’éditeur depuis un membre d’ensemble d’examens de l’agence.
+Un schéma d’évaluation est un formulaire d’examen réutilisable accompagné de ses règles de pointage. Il indique aux agents les questions à répondre, la contribution des réponses au pointage et les résultats associés. Les administrateurs l’ouvrent depuis un membre d’ensemble d’examens d’agence, dans les paiements de transfert.
 
-Le schema lui-meme est porte par l agence. Un schema utilise par un volet doit appartenir a l agence du volet et correspondre au type d entite d execution configure.
+Par exemple, un programme peut évaluer la capacité de réalisation d’un demandeur : les agents répondent aux questions sur le personnel et les projets antérieurs, puis utilisent le pointage et le résultat configurés pour appuyer leur examen. Les questions et les règles doivent être configurées; cet exemple n’est pas une évaluation intégrée.
+
+Le schéma appartient à l’agence. Un volet peut l’utiliser seulement s’il appartient à la même agence et correspond au genre de dossier examiné, appelé type d’entité.
 
 ## Prerequis Dans Une Installation Vide
 
-Avant qu un volet puisse utiliser des schemas d evaluation en operation, configurez:
+Avant qu’un volet puisse utiliser des schémas d’évaluation pour les examens, configurez :
 
 - Agence et programme de paiement de transfert.
 - Volet.
-- Schemas d examen communs pour l agence et le type d entite, avec type d examen evaluation.
+- Schémas d’examen communs pour l’agence et le type d’entité, avec le type d’examen Évaluation.
 - Ensemble d’examens d’agence qui référence ces schémas; liez l’ensemble publié au volet.
-- Modeles d approbation si la completion de l evaluation ou les etapes d examen exigent une route d approbation.
+- Modèles d’approbation si l’achèvement de l’évaluation ou les étapes d’examen exigent un parcours d’approbation.
 - Utilisateurs disposant des rôles de portée et des affectations exactes d’entité ou de flux nécessaires pour lire, enregistrer, terminer et approuver le travail généré.
 
 ## Ou Ouvrir Les Schemas
@@ -20,11 +22,11 @@ Avant qu un volet puisse utiliser des schemas d evaluation en operation, configu
 Ouvrez un schéma depuis un ensemble d’examens d’agence. Le fil d’Ariane retourne au catalogue d’agence. L’éditeur charge :
 
 - Agence et ensemble d’examens propriétaires.
-- Schema d evaluation.
-- Contenu effectif du schema et matrice de pointage.
-- Champs d aide disponibles pour le type d entite du schema.
+- Schéma d’évaluation.
+- Contenu du schéma utilisé et matrice de pointage.
+- Champs d’aide disponibles pour le type d’entité du schéma.
 
-L editeur a un sommaire repliable et une barre laterale avec controles de sauvegarde et navigation par section.
+Le sommaire en haut de page peut être replié. La barre latérale gauche contient les commandes d’enregistrement et les liens vers les sections de l’éditeur.
 
 ## Importer une définition JSON
 
@@ -42,251 +44,251 @@ Le sommaire affiche l’état de publication, la version et la présence de chan
 
 ## Première publication
 
-Enregistrez un schéma valide, puis choisissez **Publier**. La première publication crée la version immuable `1`, avec empreinte canonique et acteur consignés par le moteur commun. Elle comprend les métadonnées bilingues, la matrice, la définition et les indicateurs. Une API Activer distincte ne fait pas partie du contrat actuel.
+Enregistrez un schéma valide, puis choisissez **Publier**. La première publication crée la version immuable `1`, avec une empreinte du contenu (empreinte canonique) et le nom de l’utilisateur qui publie. Elle comprend les métadonnées bilingues, la matrice, la définition et les indicateurs. Une API Activer distincte ne fait pas partie du contrat actuel.
 
-La configuration d’examen doit ensuite être publiée contre cette version avant de générer le travail figé. Publier le schéma ne démarre pas une évaluation.
+Publiez ensuite la configuration d’examen avec cette version du schéma pour créer des examens qui conserveront cette version. Publier le schéma ne démarre pas une évaluation.
 
 ## Modifications publiées et retrait
 
 Enregistrez les modifications, consultez l’indicateur de changements, puis publiez la définition prête. Chaque publication modifiée incrémente la version entière : corriger un libellé ou modifier la structure fait passer `1` à `2`. Une définition canonique identique conserve sa version. Aucun calcul décimal majeur/mineur ne s’applique.
 
-Par exemple, changer le texte d’une question et publier la version `2` laisse un examen version `1` avec son texte original. Modifiez et publiez la configuration d’examen consommatrice pour que les travaux futurs utilisent le nouveau schéma. Renommer une clé exige aussi de corriger toutes les dépendances qui la nomment.
+Par exemple, changer le texte d’une question et publier la version `2` laisse un examen version `1` avec son texte original. Modifiez et publiez la configuration d’examen qui utilise le schéma pour que les travaux futurs utilisent le nouveau schéma. Renommer une clé exige aussi de corriger toutes les dépendances qui la nomment.
 
-Retirez un schéma publié pour empêcher les nouvelles sélections. Le retrait est permanent; les versions historiques restent disponibles aux tentatives qui les épinglent. Modifier le schéma courant ne doit pas modifier les réponses historiques.
+Retirez un schéma publié pour empêcher les nouvelles sélections. Le retrait est permanent; les versions historiques restent disponibles aux tentatives d’examen qui utilisent déjà ces versions. Modifier le schéma courant ne doit pas modifier les réponses historiques.
 
 ## Comportement De Sauvegarde
 
-L editeur a une action de sauvegarde qui valide et sauvegarde a la fois les metadonnees generales et le contenu de definition:
+Une seule action d’enregistrement valide et enregistre à la fois les renseignements généraux et la définition de l’évaluation :
 
-| Zone | Contenu sauvegarde |
+| Zone | Contenu enregistré |
 | --- | --- |
-| General | Noms du schema, noms de resultat et indicateurs de desactivation. |
-| Definition | Matrice de pointage globale et definition d evaluation. |
+| Général | Noms du schéma, noms de résultat et indicateurs de désactivation. |
+| Définition | Matrice de pointage globale et définition d’évaluation. |
 
-Si l une des zones echoue la validation, la sauvegarde est arretee et la premiere erreur est affichee. Si les deux sont valides, l editeur enregistre le schema et rafraichit les donnees.
+Si une zone contient une erreur de validation, l’enregistrement est arrêté et la première erreur est affichée. Si les deux zones sont valides, l’éditeur enregistre le schéma et actualise les données.
 
 ## Section General
 
-La section General capture:
+La section Général contient :
 
-- Nom anglais et nom francais du schema.
-- Nom anglais et nom francais du resultat.
-- Desactiver les resultats personnalises.
-- Desactiver l alignement.
-- Desactiver les examinateurs.
+- Nom anglais et nom français du schéma.
+- Nom anglais et nom français du résultat.
+- Désactiver les résultats personnalisés.
+- Désactiver l’alignement.
+- Désactiver les examinateurs.
 
-Les indicateurs de desactivation affectent l evaluation en execution:
+Ces options modifient le comportement de l’évaluation pendant l’examen :
 
-- Desactiver les resultats personnalises limite la capacite de creer des resultats hors des resultats configures.
-- Desactiver l alignement retire le comportement d alignement lorsque supporte.
-- Desactiver les examinateurs retire le comportement d examinateurs additionnels lorsque supporte.
+- Désactiver les résultats personnalisés limite la possibilité de créer des résultats autres que ceux du schéma.
+- Désactiver l’alignement retire cette fonction lorsqu’elle est prise en charge.
+- Désactiver les examinateurs retire la fonction d’examinateurs additionnels lorsqu’elle est prise en charge.
 
 ## Matrices De Pointage
 
-La section Matrices contient:
+La section Matrices contient :
 
 - Matrice de pointage globale.
 - Matrice de pointage par section.
 
-Chaque ligne de matrice contient:
+Chaque ligne de matrice contient :
 
 - Seuil de pointage maximal.
-- Libelle anglais et francais.
-- Couleur d indicateur, validee comme couleur hexadecimale.
+- Libellé anglais et français.
+- Couleur de l’indicateur, validée comme couleur hexadécimale.
 
-Les matrices traduisent les pointages numeriques d evaluation ou de section en libelles et indicateurs visuels. Gardez les seuils ordonnes et sans chevauchement en pratique, meme si le modele stocke des seuils maximaux plutot qu une plage affichee.
+Une matrice transforme le pointage numérique d’une évaluation ou d’une section en libellé et en couleur, par exemple une cote de risque. Gardez les seuils ordonnés et sans chevauchement en pratique, même si le modèle stocke des seuils maximaux plutôt que des plages affichées.
 
 ## Sections
 
-Les sections sont les groupes de premier niveau de l evaluation. Chaque section contient:
+Les sections sont les groupes de premier niveau de l’évaluation. Chaque section contient :
 
-- Ordre/numero.
-- Code independant de la langue.
-- Libelle anglais et francais.
-- Icone.
+- Ordre/numéro.
+- Code indépendant de la langue.
+- Libellé anglais et français.
+- Icône.
 - Poids.
 - Une ou plusieurs sous-sections.
 
-Le code independant de la langue est important parce que les dependances et calculs referencent les codes de section, sous-section et question. Renommer des codes sur un schéma publié est un changement structurel et peut briser les references si les elements dependants ne sont pas mis a jour.
+Un code indépendant de la langue est un identifiant interne identique en français et en anglais. Les conditions et les calculs utilisent les codes de section, de sous-section et de question pour retrouver la bonne réponse. Renommer un code dans un schéma publié modifie sa structure et peut rendre les références invalides si les éléments qui l’utilisent ne sont pas mis à jour.
 
 ## Sous-Sections
 
-Les sous-sections regroupent les questions d une section. Chaque sous-section contient:
+Les sous-sections regroupent les questions d’une section. Chaque sous-section contient :
 
-- Ordre/numero.
-- Code independant de la langue.
-- Libelle anglais et francais.
+- Ordre/numéro.
+- Code indépendant de la langue.
+- Libellé anglais et français.
 - Poids.
-- Dependances optionnelles.
-- Questions d evaluation et elements calcules.
+- Dépendances facultatives.
+- Questions d’évaluation et éléments calculés.
 
-Les dependances de sous-section controlent si la sous-section apparait ou participe selon des valeurs d aide ou des reponses precedentes. Les poids de sous-section peuvent etre fixes, ajustables ou un tableau de scenarios ajustables.
+Les dépendances d’une sous-section sont des conditions qui déterminent si elle apparaît ou contribue à l’évaluation. Elles utilisent les réponses précédentes ou des valeurs d’aide : des renseignements déjà disponibles dans le dossier examiné. Les poids de sous-section peuvent être fixes, ajustables ou définis par un tableau de scénarios ajustables.
 
 ## Elements D Evaluation
 
-Les elements d evaluation peuvent etre des questions directes ou des elements calcules.
+Les éléments d’évaluation peuvent être des questions directes ou des éléments calculés.
 
-Une question contient:
+Une question contient :
 
-- Code independant de la langue.
-- Texte anglais et francais de la question.
+- Code indépendant de la langue.
+- Texte anglais et français de la question.
 - Poids.
-- Dependances optionnelles.
+- Dépendances facultatives.
 - Seuil de commentaire avec minimum et maximum.
-- Type d assistance optionnel. La valeur actuellement supportee est l historique de financement.
-- Options de reponse.
-- Texte d aide.
+- Type d’assistance facultatif. La valeur actuellement prise en charge est l’historique de financement.
+- Options de réponse.
+- Texte d’aide.
 
-Chaque option de reponse contient:
+Chaque option de réponse contient :
 
-- Valeur numerique.
-- Libelle anglais et francais.
-- Description anglaise et francaise.
+- Valeur numérique.
+- Libellé anglais et français.
+- Description anglaise et française.
 
-Les lignes d aide contiennent:
+Les lignes d’aide contiennent :
 
-- Titre anglais et francais.
-- Description anglaise et francaise.
+- Titre anglais et français.
+- Description anglaise et française.
 
 ## Elements Calcules
 
-Un element calcule contient:
+Un élément calculé contient :
 
-- Code independant de la langue.
-- Libelle anglais et francais.
+- Code indépendant de la langue.
+- Libellé anglais et français.
 - Poids.
-- Dependances optionnelles.
-- Texte d aide.
+- Dépendances facultatives.
+- Texte d’aide.
 - Formule.
 
-La racine d une formule doit etre une operation. Les operateurs supportes comprennent add, subtract, multiply, divide, sum, average, min, max, round, clamp, coalesce, if, eq, ne, gt, gte, lt, lte, and, or et not.
+La racine d’une formule doit être une opération. Les opérateurs pris en charge comprennent add, subtract, multiply, divide, sum, average, min, max, round, clamp, coalesce, if, eq, ne, gt, gte, lt, lte, and, or et not.
 
-Les operandes peuvent etre:
+Les valeurs utilisées dans une opération (opérandes) peuvent être :
 
-- Literal numerique.
-- Literal booleen.
-- Reference de reponse, avec code de section, sous-section et question.
-- Reference de champ d aide.
-- Operation imbriquee.
+- Valeur littérale numérique.
+- Valeur littérale booléenne (vrai ou faux).
+- Référence à une réponse, avec les codes de section, de sous-section et de question.
+- Référence à un champ d’aide.
+- Opération imbriquée.
 
-La validation rejette les formules qui referencent des elements inexistants, les champs d aide invalides et les cycles de calcul entre elements calcules.
+La validation rejette les formules qui référencent des éléments inexistants, les champs d’aide invalides et les cycles de calcul entre éléments calculés.
 
 ## Poids
 
-Les poids peuvent etre:
+Les poids déterminent la contribution d’une réponse ou d’un groupe de réponses au pointage. Ils peuvent être :
 
-- Fixes: un poids numerique.
-- Ajustables: une cible de dependance plus des correspondances cle de pointage vers poids.
-- Tableau de scenarios ajustables: poids de base plus plusieurs scenarios de dependance, chacun avec des correspondances cle de pointage vers poids.
+- Fixes : un poids numérique.
+- Ajustables : un champ d’aide ou une réponse cible, avec une correspondance entre chaque clé de pointage et un poids.
+- Tableau de scénarios ajustables : un poids de base et plusieurs scénarios de dépendance, chacun associant des clés de pointage à des poids.
 
-Les cibles de dependance peuvent etre des champs d aide ou des chemins de reponse. Les cibles d aide sont validees contre le registre du type d entite. Les cibles de reponse utilisent les codes de section, sous-section et question.
+Les conditions peuvent cibler des champs d’aide ou des réponses. Un champ d’aide doit figurer dans la liste des champs disponibles pour le type d’entité. Une réponse est désignée par les codes de section, de sous-section et de question.
 
-Pour les poids ajustables, si aucune correspondance ne s applique en execution, la logique retombe sur le premier element disponible, ce qui peut produire une contribution nulle selon les valeurs configurees. Les administrateurs devraient definir des correspondances explicites pour chaque valeur attendue.
+Pour les poids ajustables, si aucune correspondance ne s’applique pendant l’examen, le calcul utilise le premier élément disponible. La contribution peut alors être nulle selon les valeurs configurées. Les administrateurs devraient définir une correspondance explicite pour chaque valeur attendue.
 
 ## Dependances
 
-Les dependances controlent la visibilite ou l applicabilite conditionnelle. Une regle peut etre une condition simple ou un groupe de conditions. Chaque condition contient:
+Les dépendances sont des règles qui affichent ou appliquent une partie de l’évaluation seulement lorsqu’une condition est remplie. Par exemple, une question sur la gestion des partenaires peut dépendre d’une réponse précédente indiquant que des partenaires réaliseront le projet. Une règle peut être une condition simple ou un groupe de conditions. Chaque condition contient :
 
-- Type de dependance: champ d aide ou reponse.
-- Champ d aide cible ou chemin de reponse.
-- Type de valeur: booleen, nombre ou texte.
+- Type de dépendance: champ d’aide ou réponse.
+- Champ d’aide cible ou chemin de réponse.
+- Type de valeur: booléen, nombre ou texte.
 - Valeur attendue.
 
-Les valeurs de dependance sur champ d aide sont typees selon la definition du champ. Pour les evaluations de demandeur/destinataire, les champs disponibles comprennent les identifiants, numeros d entreprise, sous-type, agence responsable, agent responsable, noms legaux, noms d organisme de recherche, SCIAN et statut.
+Une condition sur un champ d’aide doit utiliser le type de valeur prévu pour ce champ. Pour les évaluations de demandeur ou de destinataire, les champs disponibles comprennent les identifiants, les numéros d’entreprise, le sous-type, l’agence responsable, l’agent responsable, les noms légaux, les noms d’organisme de recherche, le SCIAN et le statut.
 
-Les dependances sur reponse utilisent les codes independants de la langue de section, sous-section et question. Renommez ces codes avec prudence.
+Les dépendances sur réponse utilisent les codes indépendants de la langue de section, sous-section et question. Renommez ces codes avec prudence.
 
 ## Resultats Et Strategies
 
-Les resultats d evaluation sont configures dans la section Resultats. Chaque resultat contient:
+Les résultats d’évaluation sont configurés dans la section Résultats. Chaque résultat contient :
 
-- Code independant de la langue.
-- Libelle anglais et francais.
-- Une ou plusieurs strategies.
+- Code indépendant de la langue.
+- Libellé anglais et français.
+- Une ou plusieurs stratégies.
 
-Chaque strategie contient:
+Chaque stratégie contient :
 
-- Code independant de la langue.
-- Libelle anglais et francais.
+- Code indépendant de la langue.
+- Libellé anglais et français.
 - Options.
 
-Chaque option de strategie contient:
+Chaque option de stratégie contient :
 
 - Seuil maximal de pointage.
-- Valeur stockee.
-- Libelle anglais et francais.
+- Valeur stockée.
+- Libellé anglais et français.
 
-Les resultats et strategies traduisent les resultats calcules en resultats d affaires. Les resultats personnalises en execution peuvent etre desactives par le reglage general.
+Les résultats et les stratégies relient le pointage aux décisions ou aux choix de suivi configurés par le programme. Par exemple, les administrateurs peuvent définir des libellés pour les niveaux de suivi nécessaires après un examen de capacité. Le réglage de la section Général permet de désactiver les résultats personnalisés pendant l’examen.
 
 ## Facteurs D Impact
 
-Les facteurs d impact ajustent ou classent les resultats selon des valeurs d aide ou de reponse. Chaque facteur contient:
+Les facteurs d’impact ajustent ou classent les résultats selon des valeurs d’aide ou de réponse. Chaque facteur contient :
 
 - Poids.
-- Libelle anglais et francais optionnel.
-- Cible de dependance.
+- Libellé anglais et français facultatif.
+- Cible de dépendance.
 - Lignes de matrice de pointage.
 
-Chaque ligne de pointage contient un seuil maximal et une valeur numerique. Changer une cible modifie la définition publiée et exige une nouvelle version entière.
+Chaque ligne de pointage contient un seuil maximal et une valeur numérique. Changer une cible modifie la définition publiée et exige une nouvelle version entière.
 
 ## Flux D Evaluation En Execution
 
-Lorsque du travail d examen est genere depuis la configuration du volet, la page d evaluation en execution presente le contenu publie du schema. Les examinateurs repondent aux questions, les elements calcules derivent des valeurs des reponses ou champs d aide, les dependances determinent les portions applicables, et les matrices/resultats resumement l evaluation.
+Lorsqu’un examen est créé à partir de la configuration du volet, sa page d’évaluation présente le contenu publié du schéma. Les examinateurs répondent aux questions. Les éléments calculés utilisent les réponses ou les champs d’aide; les dépendances déterminent les parties applicables; les matrices et les résultats résument l’évaluation.
 
-Les pages d evaluation en execution peuvent inclure:
+Les pages d’évaluation en exécution peuvent inclure :
 
-- Questions du schema et options de reponse.
+- Questions du schéma et options de réponse.
 - Sommaires de pointage.
-- Selection de resultat ou affichage de resultat calcule.
-- Commentaires d examinateur.
-- Gestion d examinateurs additionnels sauf si desactivee par le schema.
-- Alignement sauf si desactive par le schema.
-- Route d approbation lorsque l examen genere reference un modele d approbation.
-- Action de completion.
+- Sélection d’un résultat ou affichage du résultat calculé.
+- Commentaires d’examinateur.
+- Gestion d’examinateurs additionnels sauf si désactivée par le schéma.
+- Alignement sauf si désactivé par le schéma.
+- Parcours d’approbation lorsque l’examen créé utilise un modèle d’approbation.
+- Action permettant de terminer l’examen.
 
-![Editeur de schema d evaluation](/screenshots/fr/assessment-schema-editor.png)
+![Éditeur de schéma d’évaluation](/screenshots/fr/assessment-schema-editor.png)
 
-_Capture reelle de l environnement de developpement avec donnees semees. Les enregistrements montres sont seulement des exemples et ne sont pas crees dans une installation fraiche._
+_Capture réelle de l’environnement de développement avec des données de démonstration. Les dossiers affichés sont des exemples; ils ne sont pas créés dans une nouvelle installation._
 
-![Flux d evaluation d execution](/screenshots/fr/runtime-assessment.png)
+![Flux d’évaluation d’exécution](/screenshots/fr/runtime-assessment.png)
 
-_Capture reelle de l environnement de developpement avec donnees semees. Les enregistrements montres sont seulement des exemples et ne sont pas crees dans une installation fraiche._
+_Capture réelle de l’environnement de développement avec des données de démonstration. Les dossiers affichés sont des exemples; ils ne sont pas créés dans une nouvelle installation._
 
 ## Comportement De Completion
 
-La completion en execution est geree par la section commune de completion. Elle charge l etat pour un type d entite et un identifiant, puis affiche:
+La section commune d’achèvement indique si l’examen est terminé. Elle charge l’état du dossier selon son type d’entité et son identifiant, puis affiche :
 
-- Metadonnees de completion: complete par, complete le et commentaire.
-- Zone de commentaire et action de completion lorsque l utilisateur peut completer et que l entite n est pas verrouillee.
-- Message verrouille lorsque la completion est bloquee par l etat de la page.
+- Renseignements sur l’achèvement : personne ayant terminé l’examen, date et commentaire.
+- Zone de commentaire et action permettant de terminer l’examen lorsque l’utilisateur y est autorisé et que le dossier n’est pas verrouillé.
+- Message de verrouillage lorsque l’état de la page empêche de terminer l’examen.
 
-Soumettre la completion enregistre les commentaires et, pour une completion d examen commun, peut inclure la reponse d evaluation. L utilisateur doit pouvoir sauvegarder l evaluation avant que la completion soit enregistree.
+Terminer l’examen enregistre les commentaires. Pour un examen commun, cette action peut aussi transmettre les réponses de l’évaluation. L’utilisateur doit être autorisé à enregistrer l’évaluation avant que l’achèvement puisse être enregistré.
 
 ## Comportement D Approbation
 
-Lorsqu une evaluation ou un examen a un modele d approbation, son parcours figé d’achèvement ou de flux matérialise le bordereau; la section d’approbation gère ensuite les décisions. Les approbations sont groupees par feuille de route et par etape.
+Lorsqu’une évaluation ou un examen a un modèle d’approbation, terminer l’examen ou atteindre l’étape pertinente du flux crée le bordereau selon les versions déjà retenues pour cet examen. Le bordereau énumère les étapes d’approbation; la section d’approbation consigne les décisions par bordereau et par étape.
 
-Les approbateurs peuvent:
+Les approbateurs peuvent :
 
-- Voir les feuilles de route courantes et precedentes.
-- Reattribuer une etape courante avec la permission de gestion d approbation.
-- Approuver ou refuser une etape courante actionable.
-- Completer les certifications requises pendant l approbation.
-- Fournir un commentaire obligatoire lors d un refus.
-- Agir au nom d un autre utilisateur lorsque l approbateur affecte differe de l approbateur par defaut ou lorsqu un type "au nom de" est selectionne.
+- Voir les feuilles de route courantes et précédentes.
+- Réattribuer une étape courante avec la permission de gestion d’approbation.
+- Approuver ou refuser une étape courante sur laquelle ils peuvent agir.
+- Remplir les certifications requises pendant l’approbation.
+- Fournir un commentaire obligatoire lors d’un refus.
+- Agir au nom d’un autre utilisateur lorsque l’approbateur affecté diffère de l’approbateur par défaut ou lorsqu’un type « au nom de » est sélectionné.
 
-Si un type "au nom de" exige les details reels, l approbateur doit saisir le titre de poste reel et la date de decision.
+Si un type « au nom de » exige les détails de l’approbation réelle, l’approbateur doit saisir le titre de poste réel et la date de décision.
 
 ## Conseils Operationnels
 
-Les opérations d’enregistrement, de publication et de retrait revérifient la chaîne active volet-programme-agence et l'accès précis `transfer_payment:update` dans une transaction actualisée. Un schéma inaccessible est masqué comme un schéma absent. La publication exige un contenu valide; le retrait empêche toute nouvelle modification et publication. Lorsqu'une validation signale une dépendance brisée, un champ d'aide inconnu, un code en double, un cycle de calcul ou un état de publication invalide, gardez l'éditeur ouvert, corrigez la section ou l'élément référencé, enregistrez de nouveau, puis publiez.
+Chaque enregistrement, publication et retrait vérifie que le volet, le programme et l’agence sont toujours actifs et que vous disposez encore de l’accès précis `transfer_payment:update`. Ces vérifications sont effectuées ensemble dans une nouvelle transaction de base de données. Si vous ne pouvez pas accéder au schéma, l’application répond comme s’il n’existait pas. La publication exige un contenu valide; le retrait empêche toute nouvelle modification et publication. Lorsqu'une validation signale une dépendance brisée, un champ d'aide inconnu, un code en double, un cycle de calcul ou un état de publication invalide, gardez l'éditeur ouvert, corrigez la section ou l'élément référencé, enregistrez de nouveau, puis publiez.
 
-Utilisez ces pratiques pour des schemas stables:
+Utilisez ces pratiques pour des schémas stables :
 
-- Traitez les codes independants de la langue comme des identifiants durables.
-- Publiez les changements de schéma avant d attendre que les nouveaux travaux d execution les utilisent.
-- Evitez de supprimer ou renommer des codes que des reponses d execution existantes pourraient referencer.
-- Gardez les valeurs d option, seuils de matrice, cotes de risque et seuils de resultat coherents.
-- Configurez les dependances d aide seulement avec des champs disponibles pour le type d entite du schema.
-- Testez les elements calcules apres l ajout de dependances, car les references manquantes et les cycles sont des erreurs de validation.
-- Configurez les modeles d approbation et utilisateurs par defaut avant d attacher les modeles aux membres de configuration d examen.
+- Traitez les codes indépendants de la langue comme des identifiants durables.
+- Publiez les changements de schéma avant d’attendre que les nouveaux travaux d’exécution les utilisent.
+- Évitez de supprimer ou renommer des codes que des réponses d’exécution existantes pourraient référencer.
+- Gardez les valeurs d’option, seuils de matrice, cotes de risque et seuils de résultat cohérents.
+- Configurez les dépendances d’aide seulement avec des champs disponibles pour le type d’entité du schéma.
+- Testez les éléments calculés après l’ajout de dépendances, car les références manquantes et les cycles sont des erreurs de validation.
+- Configurez les modèles d’approbation et les utilisateurs par défaut avant d’associer les modèles aux membres de la configuration d’examen.

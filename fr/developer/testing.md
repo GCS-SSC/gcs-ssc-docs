@@ -1,6 +1,8 @@
 # Tests
 
-L application source utilise Vitest pour les tests unitaires et Playwright pour les tests de bout en bout. Le site de documentation devrait quand meme etre construit apres les modifications pour detecter les erreurs de markdown, liens ou structure.
+Cette page s’adresse aux développeurs qui vérifient les changements de GCS-SSC. Les agents de subventions et de contributions n’ont pas à exécuter ces commandes dans leur travail quotidien. Les tests protègent notamment l’affectation d’un agent, les restrictions d’accès aux dossiers d’une autre agence et la soumission d’un examen.
+
+Vitest vérifie des éléments individuels de logique applicative (tests unitaires). Playwright vérifie des tâches complètes dans un navigateur (tests de bout en bout). Construisez le site après les modifications documentaires pour détecter les problèmes de métadonnées de page, de liens ou de Markdown.
 
 Les tests et ressources d’architecture proviennent du sous-module privé figé `tooling/gcs-ssc`. `bun run tooling:setup` l’initialise et crée les liens ignorés `tests`, `architecture` et de compétence; ne recopiez pas les suites privées dans le dépôt hôte.
 
@@ -13,7 +15,7 @@ bun run lint
 bun run typecheck
 bun run test:unit
 bun run test:coverage
-# Nécessite la variable AGREEMENT_CONCURRENCY_POSTGRES_TEST_URL décrites ci-dessous.
+# Nécessite la variable AGREEMENT_CONCURRENCY_POSTGRES_TEST_URL décrite ci-dessous.
 bun run test:integration:postgres
 bun run test:e2e
 bun run test:e2e:light
@@ -25,7 +27,7 @@ bun run quality:pr
 
 L’intégration continue automatique des demandes de tirage n’est pas configurée. Les contributeurs exécutent `quality:pr` comme vérification locale de référence : elle consigne le diff de la branche, exécute l’analyse statique et la vérification des types, compile le SDK d’extensions, vérifie l’artefact de production sur les hôtes POSIX non racines pris en charge et exécute les suites unitaires et de couverture de l’hôte, la vérification des types des extensions et les suites unitaires/couverture des fournisseurs de stockage local et S3. Elle n’exécute pas les suites PostgreSQL facultatives ni les tests Playwright de bout en bout ; exécutez-les séparément lorsque le changement dépend du verrouillage réel de la base de données ou d’une interaction dans le navigateur.
 
-`test:unit` et `test:coverage` exécutent d’abord `forms:check`, qui vérifie les contrats des champs requis. `test:e2e:fast` et `test:e2e:light` sont des alias PGlite à un seul processus. Les suites ciblées couvrent les pièces jointes, statuts d’organisme, actualisations et modifications d’entente, clôtures, recommandations, configurations de flux retirées et réinitialisations. Utilisez le script `:spec` correspondant pour choisir un fichier; `test:all:manual` comprend la séquence configurée.
+`test:unit` et `test:coverage` exécutent d’abord `forms:check`, qui vérifie les contrats des champs requis. `test:e2e:light` exécute une suite PGlite gérée. Une exécution complète de `test:e2e:fast` lance huit partitions PGlite gérées neuves en série; `--spec`, `--shard` ou `E2E_SPEC` choisit une seule invocation. Un échec de partition fait échouer l’agrégat. Les suites ciblées couvrent les pièces jointes, statuts d’organisme, actualisations et modifications d’entente, clôtures, recommandations, configurations de flux retirées et réinitialisations. Utilisez le script `:spec` correspondant pour choisir un fichier; `test:all:manual` comprend la séquence configurée.
 
 ### Vérification des artefacts de production
 
@@ -55,36 +57,38 @@ La suite principale de concurrence des ententes utilise la base de données jeta
 
 La couverture pertinente inclut :
 
-- Middleware auth et gardes de route.
-- Composables client d autorisation.
-- Utilitaires serveur d autorisation.
-- Cas limites RBAC et validation de portee de role.
+- Vérification de connexion et protection des routes.
+- Fonctions partagées d’autorisation côté client.
+- Utilitaires d’autorisation côté serveur.
+- Cas limites du contrôle d’accès et validation de la portée des rôles.
 - Cycle de vie des permissions cumulatives de rôle.
 - RBAC des rôles structurels et des affectations exactes d’entité.
-- Gestion d agence et RBAC par portee d agence.
+- Gestion des agences et contrôle d’accès par agence.
 - Catalogue GWCOA, accès Audit, références d’organisme, formulaires et validation localisée.
-- Routes demandeur/beneficiaire, onglets enfants, routes d’affectation exacte, execution d examens et RBAC.
-- Activation d extension par agence, configuration de volet, emplacements d execution, onglets d entite, repartition serveur, migrations et SDK.
+- Routes demandeur/bénéficiaire, onglets associés, affectations aux dossiers, examens en cours et contrôle d’accès.
+- Activation des extensions par agence, configuration des volets, emplacements d’exécution, onglets d’entité, répartition serveur, migrations et SDK.
 - Ordre de l’autorisation des écritures protégées et des verrous du cycle de vie sous concurrence PostgreSQL.
-- Execution bilingue et erreurs/validations localisees.
+- Fonctionnement bilingue et messages d’erreur et de validation traduits.
 
 ## Choisir les tests pour admin/RBAC
 
-Pour les roles ou utilisateurs, executez les tests autour de `rbac`, `role-scope`, `roles-routes`, `users-routes`, `use-auth`, `use-can`, `use-role-modal-state`, ainsi que les e2e d attributions de role et de refus porte.
+Pour les rôles ou utilisateurs, exécutez les tests autour de `rbac`, `role-scope`, `roles-routes`, `users-routes`, `use-auth`, `use-can`, `use-role-modal-state`, ainsi que les tests de navigateur d’affectation de rôle et de refus selon la portée.
 
-Pour les changements d agence, executez les tests de route d agence, schema d agence, recherche d agence, gestion d agence et RBAC par portee d agence.
+Pour les changements d’agence, exécutez les tests des routes, schémas, recherches, gestion et accès propres aux agences.
 
-Pour les promoteurs, executez les tests d auth demandeur/beneficiaire, routes, routes d’affectation, routes enfants, routes d examen et e2e demandeur/beneficiaire.
+Pour les promoteurs, exécutez les tests d’autorisation demandeur/bénéficiaire, des routes, affectations, onglets associés et examens, ainsi que les tests de navigateur demandeur/bénéficiaire.
 
 Pour GWCOA et Audit, choisissez les tests dédiés des routes, schémas, accès et pages touchés. Pour les pièces jointes partagées, incluez les compensations de fournisseur, le nettoyage et la récupération des métadonnées.
 
+Par exemple, modifier les règles d’affectation des promoteurs peut changer le droit d’un agent à modifier un dossier. Vérifiez les tests unitaires d’affectation et d’autorisation, puis un test de navigateur qui confirme qu’un agent affecté peut agir et qu’un agent non affecté reçoit un refus. RBAC désigne le contrôle d’accès fondé sur les rôles : il combine les rôles, leur portée autorisée et les affectations requises aux dossiers.
+
 ## Commandes docs
 
-Depuis ce depot de documentation :
+Depuis ce dépôt de documentation :
 
 ```bash
 bun run docs:build
 bun run docs:dev
 ```
 
-Apres une construction, verifiez quelques pages anglaises et francaises pour la parite des titres et l absence de references de capture obsoletes.
+Après une construction, vérifiez quelques pages anglaises et françaises pour confirmer la correspondance des titres et l’absence de références à des captures devenues obsolètes.

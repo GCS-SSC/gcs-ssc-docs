@@ -1,134 +1,96 @@
 # Modèle de données et intégrité
 
-Les migrations ordonnées enregistrées dans `server/database/production-core-migrations.ts` font autorité. `shared/types/database.d.ts` constitue le contrat Kysely de l’application, mais ne remplace ni les contraintes, ni les fonctions, ni les déclencheurs de la base.
+Cette page explique comment la base de données relie correctement les dossiers de financement et conserve les preuves des décisions et des paiements. Pour un agent, cela signifie qu’une entente utilise son propre organisme, volet et devise, que l’historique approuvé est conservé et qu’une affectation à un dossier ne permet pas automatiquement de travailler sur tous les dossiers liés. Consultez les guides opérationnels liés pour les étapes dans l’application.
+
+Les sections suivantes conservent les noms exacts des tables, les contraintes et les commandes utiles aux développeurs. Le **schéma** est la structure de la base de données. L’**intégrité** désigne les règles qui empêchent les dossiers incohérents, comme une réclamation liée à la mauvaise entente. **Immuable** signifie qu’un dossier enregistré ne peut pas être réécrit. Une **transaction** enregistre ensemble plusieurs changements ou les annule tous; un **verrou** empêche les écritures concurrentes pendant les vérifications.
+
+`server/database/production-core-migrations.ts` définit le schéma neuf. `shared/types/database.d.ts` décrit les types applicatifs; contraintes, fonctions et déclencheurs en base font autorité pour l’intégrité persistée. Il s’agit de bases initiales propres par sujet, pas de mises à niveau incrémentales d’un ancien journal.
 
 ## Schéma ordonné
 
-| Migration | Domaine |
+| Migration | Schéma possédé et contrat |
 | --- | --- |
-| `0010_common` | Énumérations, contacts, adresses et base des modèles d’approbation |
-| `0020_users` | Utilisateurs, sessions, comptes et vérification Better Auth |
-| `0030_rbac` | Rôles, permissions cumulatives, attributions utilisateur-rôle et événements d’audit |
-| `0040_agency` | Profil d’agence et ressources appartenant à l’agence |
-| `0050_common_agency` | Clé étrangère du rôle vers l’organisme |
-| `0060_transfer_payment` | Programmes, volets, configuration, schémas, budgets et paramètres |
-| `0070_polymorphic_common_tp` | Registre d’entités typé, exécution des examens, recommandations, approbations et flux, contraintes et déclencheurs |
-| `0080_applicant_recipient` | Profil de promoteur et dossiers enfants/de liaison |
-| `0090_funding_case_agreement` | Agrégat d’entente, cycle de vie, données financières, contraintes de propriété et déclencheurs d’état |
-| `0100_extensions` | Activation par agence/volet, configuration, paires clé-valeur et secrets chiffrés |
-| `0110_storage_cleanup_outbox` | Suppression et restauration de métadonnées durables, baux, reprises et conservation |
-| `0120_audit` | Preuves de changement/accès/sécurité, attribution d’agence, entrées assainies, conservation protégée et permissions |
-| `0130_notes` | Notes des promoteurs propres à l’agence et notes des ententes avec auteur et responsable des modifications |
-| `0140_administrative_groups` | Groupes d’agence, membres et affectations d’examen et d’approbation à réclamer |
+| `0010_enums` | Énumérations partagées et extensions de base, dont la recherche textuelle. |
+| `0020_users` | Utilisateurs, sessions, comptes et vérification Better Auth; protection des utilisateurs de session actifs. |
+| `0030_rbac` | Rôles, permissions cumulatives, affectations et validation des portées. |
+| `0040_agency` | Organisme, catalogues bilingues, champs, modèles, exercices, sources de financement et types de créance. |
+| `0050_common` | Contacts, adresses, pièces jointes, notes, groupes, entités typées, publication, exécution, examen, recommandation, approbation, collecte de données, achèvement et flux. |
+| `0060_transfer_payment` | Programmes, volets, budgets et liens admissibles vers les catalogues d’organisme. |
+| `0070_applicant_recipient` | Promoteurs, identifiants financiers, historique, contacts et relations. |
+| `0080_funding_opportunity` | Possibilités, volets sélectionnés, liens d’examen et de flux et associations de pièces jointes. |
+| `0090_funding_case_agreement` | Révisions d’entente, instantanés, budgets, transactions financières, recouvrements, surveillance et documents. |
+| `0100_funding_case_intake` | Profil de réception, preuves de source importée, réclamations de groupe et affectations exactes. |
+| `0110_extensions` | Activation, configuration, stockage KV et secrets chiffrés. |
+| `0120_storage` | File durable de nettoyage et de compensation du stockage. |
+| `0125_l1_queue` | Horaires récurrents et baux d’exécution expirants. |
+| `0130_integrity` | Installe fonctions, clés étrangères et déclencheurs des sujets après création de toutes les tables référencées. |
+| `0140_audit` | Preuves de changement, d’accès et de sécurité et attribution de propriété. |
 
-La migration de démonstration `0240_seed` ne fait pas partie de ce registre de production.
+La migration de démonstration `9999_seed` charge les données finales et modèles documentaires; elle est exclue du registre de production. Les aides `server/database/schema/` installent les réductions de créance, les notes de crédit et les mécanismes d’imputation des engagements par la base d’entente et figurent dans l’inventaire.
 
 ## Propriété et identifiants
 
-La hiérarchie principale est Agence → Profil de paiements de transfert → Volet → Entente de financement. Un bénéficiaire demandeur possède une agence responsable et se lie séparément aux ententes. L’autorisation résout ces relations actives dans la base; une propriété fournie par l’appelant ne fait jamais autorité.
+Organisme → programme → volet → entente constitue la chaîne de propriété financière. Une possibilité sélectionne un ou plusieurs volets admissibles de son programme; la réception appartient à la possibilité. La visibilité métier du promoteur suit les permissions effectives de promoteur plutôt que le seul organisme responsable. Comptes financiers et notes conservent leur organisme explicite.
 
-Les identifiants principaux sont des `bigserial`/`bigint`. PostgreSQL/Kysely les expose sous forme de chaînes aux frontières de l’application. Les entités et liaisons principales utilisent généralement `_deleted`; la suppression active cet indicateur et les requêtes actives l’excluent. Vérifiez chaque table, car certains enfants d’approbation à ajout seulement n’offrent intentionnellement aucune suppression logique.
+Les identifiants bigint traversent les frontières API/Kysely comme chaînes décimales. `Common_Entity` donne une identité typée partagée aux dossiers pris en charge. Les clés composites lient `(id, type d’entité)`; les types propagés sont des valeurs d’intégrité, pas des champs modifiables. Les fonctions de résolution refusent les références au mauvais parent, volet ou organisme.
 
-## Polymorphisme typé
+La suppression métier utilise généralement `_deleted`. Soumissions, versions, transitions et preuves comptables immuables ont des protections plus fortes. Le retrait explicitement confirmé d’une portée de modification brouillon supprime physiquement ses instantanés jetables; cette exception ne permet pas d’effacer l’historique approuvé. Voir [Modifications](../agreements/amendments.md).
 
-`Common_Entity` possède un identifiant globalement unique et une clé de type varchar référençant `Common_Entity_Type`. Les consommateurs polymorphes référencent la paire `(id, type)`; un identifiant existant du mauvais type est donc refusé. Des déclencheurs d’inscription attribuent l’identité partagée aux volets, promoteurs, ententes, modifications, prévisions, rapprochements de réclamation, engagements, paiements, surveillances, examens et recommandations.
+## Publication, exécution et affectations
 
-Les chaînes paramètre/membre/exécution propagent les colonnes de type par des clés étrangères composées. Ces valeurs sont des champs d’intégrité, non des données métier modifiables indépendamment. Des contraintes limitent aussi les types acceptés par chaque moteur d’examen, d’approbation, d’achèvement, de recommandation, de flux ou d’affectation.
+Par exemple, si un questionnaire publié en version 1 est ensuite révisé en version 2, le travail déjà commencé conserve sa version initiale. On garde ainsi les questions auxquelles le demandeur a réellement répondu. Dans les sections suivantes, une version **figée** est la version enregistrée qui reste utilisée; l’**exécution** est le travail réel effectué à partir d’une conception publiée.
 
-## Cycles distincts d’état opérationnel, de publication et d’exécution
+Les conceptions d’organisme utilisent `Common_Publication`, `Common_Publication_Version` immuable avec empreinte et références de version typées. Les parents publiés fixent les versions enfants et statuts exacts. Le retrait est terminal; l’exécution historique conserve ses versions. Les configurations de collecte participent au même graphe que les examens, recommandations, approbations et flux.
 
-`Common_Status`, appartenant à l’agence, constitue le catalogue configurable des états opérationnels. Les états stables de publication `draft`, `published` et `retired`, ainsi que les états stables d’exécution `pending`, `active`, `awaiting_action`, `paused`, `succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled` et `failed`, sont des constantes système et jamais des lignes d’état d’agence.
+`Common_Runtime` conserve cible exacte, but, versions, initiateur, tentative et prédécesseur. Sa hiérarchie `Common_Runtime_Item` comprend les collectes, examens, recommandations et approbations. L’insertion d’une transition valide et change l’état; les modifications directes ne sont pas prises en charge. Une reprise crée un successeur avec les mêmes versions et capture les valeurs actuelles de routage de cette tentative.
 
-`Common_Publication` donne aux modèles d’approbation, schémas d’examen, configurations d’ensembles d’examens, schémas de recommandation, configurations d’ensembles de recommandations et configurations de flux une identité typée partagée. La publication hache une définition de travail canonique et ajoute une `Common_Publication_Version` immuable seulement si le contenu a changé. Une publication parente épingle les versions enfants exactes et une publication de flux prend un instantané de chaque état d’agence référencé. Le retrait est terminal; seul un brouillon non référencé peut être supprimé logiquement.
+`Common_Completion` fige `not_applicable`, `no_workflow` ou `workflow_started`. Un flux obligatoire absent annule l’achèvement. Un achèvement sans flux n’en acquiert pas ultérieurement. Les soumissions d’approbation capturent du JSON versionné et une empreinte canonique; la promotion vérifie le dossier et applique atomiquement les domaines approuvés. Sélection d’évaluation des risques, cote et propositions d’atténuation suivent les règles de préparation et preuves retenues, pas un score librement modifiable.
 
-`Common_Runtime` représente une tentative immuable dont la racine est un flux ou un ensemble d’examens lancé directement. Elle épingle ses versions publiées, sa cible typée exacte, son but, l’initiateur, le numéro de tentative et le prédécesseur. Une reprise crée un successeur avec les mêmes versions; elle ne rouvre jamais une tentative terminale et n’adopte pas une configuration plus récente. `Common_Runtime_Item` forme la hiérarchie ordonnée des ensembles d’examens, examens, ensembles de recommandations, recommandations, bordereaux et étapes d’approbation. Seule l’insertion d’un historique de transition immuable change l’état; les déclencheurs valident et appliquent la transition, puis figent les preuves terminales.
+`Common_Entity_Assignment` conserve les cibles typées exactes et utilisateurs communs. Un registre actif non vide possède exactement un principal; création et remplacement sont transactionnels. Examens, recommandations, collectes et réceptions de groupe non réclamés peuvent n’avoir aucun utilisateur. L’appartenance permet la réclamation admissible mais ne donne aucun accès métier. Les protections différées de registre/réclamation et les déclencheurs de suppression imposent cette frontière. Un enfant indépendant exige sa propre affectation; être affecté à l’entente n’affecte pas automatiquement tous ses enfants.
 
-`Common_Completion` consigne une disposition ponctuelle `not_applicable`, `no_workflow` ou `workflow_started`. Une entité pilotée par l’achèvement crée sa première tentative de flux applicable dans la même transaction, consigne définitivement qu’aucun flux ne s’appliquait, ou annule la transaction si sa déclaration exige un flux. Les ententes démarrent leurs flux explicitement sans achèvement racine; les modifications et clôtures exigent un flux d’achèvement; les réclamations, rapprochements, engagements, paiements, prévisions et surveillances permettent l’achèvement avec ou sans flux. L’état d’exécution n’accorde jamais d’accès et ne remplace pas les contrôles existants de rôle, d’affectation exacte et d’état d’agence.
+## Intégrité de configuration et de questionnaire
 
-Les soumissions d’approbation d’entente sont des dossiers JSON immuables, versionnés par schéma et munis d’un hachage canonique SHA-256. Une exécution possède au plus un dossier; chaque révision persistée est liée à exactement une soumission. Le hachage est vérifié et les domaines de modification sont promus avant la réussite terminale.
+Les identifiants de champ et d’option d’organisme restent stables; l’affectation du volet définit placement, obligation et disponibilité active. Les valeurs d’entente sont validées contre son volet exact. Les conditions publiées conservent dépendances et capture immuable, dont classification et source de risque sélectionnée. Le retrait du catalogue ne peut invalider silencieusement les références actives.
 
-## Champs personnalisés et routage conditionnel
+Types et sous-types de financement remplacent les colonnes fixes d’autre financement. Les lignes de sources budgétaires et d’exercice conservent sous-type et montants exacts; le volet contrôle les choix futurs et l’historique conserve sa référence. Les comptes distinguent engagement, créance et note de crédit, avec devise et exercice propriétaires; les liens du volet fournissent le catalogue d’imputation.
 
-`0060` crée `Agency_Custom_Field` et `Agency_Custom_Field_Option`, appartenant à l’agence, ainsi que `Transfer_Payment_Stream_Field_Section` et `Transfer_Payment_Stream_Field_Assignment`, appartenant au volet. Les identifiants des champs et options restent stables entre les volets; chaque volet règle l’emplacement, l’ordre, le caractère obligatoire et l’état actif de son affectation. Les valeurs d’entente restent dans `Funding_Case_Agreement_Profile.egcs_fc_customfields` et sont validées selon les affectations du volet exact de l’entente.
+Les définitions de collecte contiennent des questions typées ordonnées et du texte bilingue. Une sauvegarde vérifie la révision attendue et la définition figée; `DATA_COLLECTION_REVISION_CONFLICT` exige de recharger avant de réappliquer volontairement les changements. La soumission vérifie les réponses obligatoires. La réception conserve la demande et sa provenance importée immuable : système, identifiant externe et export. Une modification ordinaire ne réécrit pas cette provenance. Voir [Collectes de données](../concepts/data-collections.md) et [Réception](../intake/funding-case-intakes.md).
 
-`0070` lie les conditions de flux aux identifiants de champs et d’options de l’agence; elles peuvent aussi évaluer le sous-type de l’entente, la redistribution et le sous-type de bénéficiaire. Un lien de flux à un volet saisit son déploiement avec les valeurs locales. Les publications et les preuves d’exécution conservent les conditions et les valeurs capturées immuables : une modification ultérieure du catalogue ne réécrit pas une exécution existante. Les références composites et les protections refusent les options d’une autre agence et les dépendances indisponibles.
+## Frontières financières exactes
 
-Consultez [Champs personnalisés](../programs/custom-fields.md) et [Flux de travail](../concepts/workflows.md) pour les règles, les exemples ET/OU et le retrait.
+Les montants sont du texte décimal canonique et des calculs exacts en cents; `numeric(19,2)` accepte une valeur absolue maximale de `99999999999999999.99`. Conservez par exemple l’identifiant `"9007199254740993"` et le montant `"10000000000000000.01"` comme chaînes. Signes et limites de total dépendent du domaine; un analyseur monétaire générique ne garantit pas un montant métier positif. La devise de l’entente est immuable et les enfants financiers doivent la respecter. Les contrôles utilisent cette devise et la langue avec deux décimales.
 
-## Intégrité des affectations exactes
+Les budgets annuels actuels gouvernent écritures et achèvements des prévisions et réclamations. Les contrôles utilisent identités stables d’exercice/poste, versions courantes et preuves effectives et se répètent sous verrou. Un budget courant ne peut sous-financer les preuves engagées ou consommées. La promotion revérifie l’usage annuel de la même entente; le contrôle distinct de capacité interententes du volet et de surengagement reste une limite documentée dans le guide de modification. Voir [Budget](../agreements/budget.md), [Prévisions](../agreements/forecasts.md) et [Réclamations](../agreements/claims.md) pour calculs et reprises partielles.
 
-`Common_Entity_Assignment` stocke les lignes exactes `(type d’entité, identifiant, utilisateur commun)` et un indicateur principal informatif. L’unicité active empêche les doublons. Des déclencheurs différés exigent au moins une affectation active et exactement un principal pour chaque entité active pouvant être affectée. Les déclencheurs de suppression logique retirent les affectations lorsque l’entité est supprimée.
+L’imputation protège planchers payés des lignes exactes et bassins partagés des comptes d’organisme. `fc_payment_counts_for_coding`, `fc_positive_coding_completion`, `fc_commitment_line_gross_paid`, les aides de crédit/net/disponibilité et les déclencheurs de plancher et d’imputation achevée imposent les effets retenus. Dupliquer un compte ne multiplie pas la capacité. Montant comptant, imputation signée et recouvrements du paiement sont des projections distinctes; le succès du flux gouverne leur inscription effective.
 
-Les promoteurs, ententes, examens, recommandations, réclamations, rapprochements, paiements, prévisions, surveillances, modifications et engagements enregistrent leurs déclencheurs de registre et de suppression. Les noms générés par programmation pour les enfants d’entente sont développés explicitement dans `documentation-audit/data-coverage.json` afin qu’aucun mécanisme ne soit caché dans une interpolation.
+## Entités de preuve financière
 
-L’accès d’un rôle est stocké dans `role_permission`, une ligne active par rôle et sujet. `access_level` est nul ou `viewer`, `contributor`, `manager`; `can_manage_assignments` est indépendant et permis seulement pour les sujets persistés `agreement` et `applicant_recipient` (étiquetés Entente et Promoteur dans l’interface). Des déclencheurs différés rejettent les permissions incompatibles avec la structure globale, d’agence ou de programme du rôle.
+| Agrégat | Preuve retenue et intégrité |
+| --- | --- |
+| Entente | Versions actuelles/historiques de budget et activité, identités stables, soumissions et révisions immuables, choix d’identifiant financier et preuve de risque. |
+| Pièce de journal | Imputations signées équilibrées sur paiements admissibles; effet positif d’achèvement/approbation, lien de contrepassation et condition de flux d’exercice ouvert aux pièces. Modifie l’imputation, pas le comptant payé. |
+| Correction | Lignes financières signées, paiements sources admissibles, inscription immuable et frontières d’annulation/approbation; comptabilité effective distincte du comptant brut. |
+| Créance | Source typée réclamation ou avance payée, promoteur/organisme, lignes et imputation, achèvement, réductions, remboursements par note de crédit et compensations de paiement. Sources et soldes sont contrôlés sous verrou. |
+| Réduction de réclamation | `Funding_Case_Account_Receivable_Claim_Reduction` conserve montant positif et ligne source exacte; `trg_fn_validate_ar_claim_reduction` protège propriétaire, capacité restante et preuves achevées. |
+| Note de crédit | Bassin du promoteur et lignes de créance, organisme/devise/dimensions concordants, comptabilité signée et effets d’achèvement retenus. Les validateurs refusent les crédits incompatibles ou suraffectés. |
+| Clôture | Une clôture ouverte par entente, instantané immuable par tentative et frontière d’écriture parente; préparation financière, recouvrements et travail enfant. |
 
-## Précision financière et concurrence
+Les flux et reprises figurent dans [Pièces de journal](../agreements/journal-vouchers.md), [Corrections](../agreements/corrections.md), [Créances](../agreements/receivables.md), [Paiements](../agreements/payments.md) et [Clôtures](../agreements/closeouts.md).
 
-Les montants publics sont des chaînes canoniques à deux décimales, calculées en cents entiers exacts. Une ligne `numeric(19,2)` représente jusqu’à `99999999999999999.99` en valeur absolue; un domaine peut imposer d’autres règles de signe ou de total. Ne convertissez pas les identifiants ou montants en `Number` JavaScript. Conservez par exemple `"9007199254740993"` comme identifiant et `"10000000000000000.01"` comme montant, sans perte par nombre JSON.
+## Stockage, ordonnancement et audit
 
-Les budgets calculés capturent mode, source et pourcentage et arrondissent au dollar avant de retourner deux décimales. Le recalcul groupe par version, exercice et devise, valide les totaux touchés et annule la mutation en cas d’échec. Voir les exemples de [Budget](../agreements/budget.md).
+Les pièces conservent fournisseur, objet, localisateur opaque et association typée. Une définition de possibilité peut associer un type de pièce d’organisme sans posséder ses octets. La préparation de réception vérifie fournisseur et limites avant l’association finale. Annulation en base et stockage distant ont des frontières distinctes; `storage_cleanup_outbox` conserve suppression/restauration compensatoire.
 
-Une écriture sensible verrouille et reconstruit l’autorisation avant de verrouiller les agrégats métier. Les aides pour les ententes, paiements de transfert, extensions, approbations, examens et flux codent un ordre de verrouillage stable. Les tests d’intégration PostgreSQL — et non les simulations PGlite — font autorité pour les courses entre connexions, le comportement des contraintes et la prévention des interblocages.
+`l1_queue` contient un `handler_id` unique, prochaine exécution, tentatives, propriétaire/expiration du bail et dernière erreur. Ses colonnes d’infrastructure sont volontairement sans préfixe; sa propriété Audit est globale et elle n’a aucune charge utile métier. Les files métier conservent leurs propres preuves. Voir [Travail en arrière-plan](../operator/background-work.md).
 
-PGlite convient au fonctionnement local/de démonstration et reproduit la plupart du schéma, mais utilise un seul moteur intégré. Il ne peut prouver le verrouillage PostgreSQL entre plusieurs connexions.
+Les preuves de changement `audit` sont transactionnelles, à ajout seulement avec rétention protégée; les accès utilisent une file mémoire bornée et peuvent être perdus en cas de saturation ou d’arrêt. `audit-ownership-registry.ts` déclare les chaînes concrètes, dont possibilité, réception, collecte et recouvrement. La visibilité d’organisme suit l’attribution, pas l’imbrication de l’URL. Les entrées assainies exigent la permission Audit supplémentaire. Voir [Audit](../admin/audit.md).
 
-La disposition exhaustive des tables, contraintes, fonctions et déclencheurs se trouve dans `documentation-audit/data-coverage.json` et doit être terminale avant que cette référence soit considérée comme complète.
+## Vérification et différences de moteur
 
-## Référence des entités par migration
+Les tests de schéma canonique inventorient tables, énumérations, index, contraintes, fonctions et déclencheurs PGlite neufs. Les suites PostgreSQL exercent verrous et nouvelle autorisation entre sessions; PGlite utilise un moteur intégré et ne prouve pas ces courses. Les écritures sensibles renouvellent permissions, propriété, affectation et cycle de vie après les verrous ordonnés établis.
 
-L’inventaire suivant est regroupé par agrégat. Les noms désignent des tables physiques, sauf lorsqu’ils sont qualifiés de fonction, déclencheur, contrainte ou relation. Les clés étrangères des dossiers métier utilisent `RESTRICT`, sauf indication explicite d’une cascade; l’unicité des dossiers actifs désigne normalement un index unique partiel avec `_deleted = false`.
-
-| Migration | Entités persistées | Contrat d’intégrité important |
-| --- | --- | --- |
-| `0010_common` | `Common_Contact`, `Common_Address`, `Common_Approval_Template` | Énumérations et `citext`; unicité du courriel actif; subdivision canadienne valide; coordonnées `numeric(10,7)`. Les migrations suivantes ajoutent publications, exécutions et pièces jointes typées. |
-| `0020_users` | `user`, `session`, `account`, `verification` | Installe `plpgsql` s’il manque afin que PostgreSQL et PGlite compilent les fonctions procédurales. Better Auth possède ces formes. Courriel et jeton sont uniques; sessions/comptes suivent l’utilisateur. `enforce_active_session_user()` et son déclencheur refusent la session d’un utilisateur supprimé. |
-| `0030_rbac` | `role`, `role_permission`, `user_role_assignment`, `security_audit_event` | Les contraintes de sujet, niveau, ligne effective, sujet de gestion et unicité imposent le modèle cumulatif. Les enfants suivent le rôle; les acteurs d’audit sont restreints. `prevent_security_audit_event_mutation()` et son déclencheur refusent les modifications/suppressions d’audit. |
-| `0040_agency` | `Agency_Profile`, `Common_Status`, `Agency_Cost_Category`, `Agency_Cost_Category_Line_Item`, `Agency_Holdback_Basis`, `Agency_Fiscal_Year`, `Agency_Address_Type`, `Agency_Applicant_Recipient_Subtype`, `Agency_Approval_Behalf_Type`, `Agency_Agreement_Type`, `Agency_Chart_of_Account`, `Agency_Commitment_Type`, `Agency_Monitor_Type` | Toutes les références appartiennent à une agence, sont bilingues et supprimables logiquement. Noms/codes bilingues actifs sont uniques dans leur propriétaire; un poste appartient à une catégorie; les plages d’exercice et l’unicité du profil sont contraintes en base. |
-| `0050_common_agency` | Relation `role.agency_id` | Ajoute `role_agency_fk` vers `Agency_Profile` avec suppression restreinte, après la création de la table d’organisme. |
-| `0060_transfer_payment` | `Transfer_Payment_Profile`, budgets d’exercice et de volet, sections et affectations des champs personnalisés du volet, liens du volet vers le plan comptable et les types d’engagement de l’agence, et `role_transfer_payment_scope` | La propriété programme/volet et la précision financière sont contraintes. Les définitions de plan comptable de l’agence portent des dimensions JSON bilingues ordonnées et un exercice; les lignes du volet lient les définitions admissibles. Les types d’engagement de l’agence sont également liés au volet. Les déclencheurs de protection de propriété et les déclencheurs différés de permission/portée refusent les changements de propriétaire et graphes incompatibles. |
-| `0080_applicant_recipient` | `Applicant_Recipient_Profile`, `Applicant_Recipient_Registry`, `Applicant_Recipient_Agency_Financial_Id`, `Applicant_Recipient_Other_Name`, `Applicant_Recipient_Address`, `Applicant_Recipient_Contact`, `Applicant_Recipient_Funding_History`, `Applicant_Recipient_Funding_History_Recipient` | Le profil possède une identité typée et une agence principale. Les relations actives sont uniques dans leur propriétaire. Le financement est `numeric(19,2)`. Le nettoyage retire un historique sans lien. Les déclencheurs du registre de promoteur imposent ses affectations exactes. |
-| `0100_extensions` | `extensions.agency_enablement`, `extensions.agency_storage_selection`, `extensions.stream_configuration`, `extensions.kv_entry`, `extensions.secret_entry` | Activation/configuration est unique par extension et agence/volet. La clé KV est unique sur `(extension_id, owner_type, owner_id, key)`. Le secret est pareillement délimité; texte chiffré, IV, étiquette d’authentification et version de clé sont stockés, jamais le texte clair. |
-
-## Moteurs polymorphes (`0070`)
-
-`0070_polymorphic_common_tp` crée `Common_Entity`, `Common_Entity_Type`, `register_entity()`, les clés typées et les graphes de conception/exécution des examens, recommandations, approbations, achèvements et flux. `Common_Entity_Assignment` remplace les lignes propres aux équipes par un registre exact sans niveau d’accès. Les déclencheurs des examens et recommandations imposent un registre non vide avec un principal. Les membres de recommandation incluent la politique figée d’échec sur Non recommandé.
-
-Les contraintes `ay_ref_profilegwcoanumber`, `tp_ref_streamid` et `cn_ref_*` lient les identités d’agence/programme et les chaînes typées. Les contraintes `cn_chk_*` restreignent les types légaux et les noms d’approbations supplémentaires. `Common_Review_Setup` doit reprendre le type de son ensemble et l’exécution épingle la version du schéma.
-
-Les preuves d’approbation sont liées aux éléments d’exécution canoniques. `trg_fn_enforce_approval_sequence`, `trg_fn_lock_actioned_approval`, `trg_fn_require_certifications` et `trg_fn_require_actual_delegation_detail` imposent ordre, immutabilité, attestations et preuve de délégation. `trg_fn_validate_approval_runtime_item`, `trg_fn_enforce_approval_runtime_state` et les verrous de preuve lient les décisions à l’exécution courante. `trg_fn_validate_added_approval_runtime_step` encadre les étapes ajoutées sans réécrire le préfixe résolu.
-
-Versions, références et transitions de publication sont des preuves scellées. Le validateur de références vérifie le graphe typé; les protections de conception empêchent de modifier une configuration retirée. Les validateurs d’insertion et de hiérarchie imposent l’identité et la structure parent-enfant. Un changement d’état exige l’insertion d’une transition; modifier directement l’état d’exécution n’est pas un mécanisme pris en charge.
-
-Les validateurs d’achèvement imposent cible exacte, capacité, disposition et cible du flux associé. `trg_fn_lock_completion` fige la preuve. Les flux conservent propriétaires par défaut, transitions et obstacles. Le routage conditionnel conserve aussi les références publiées aux discriminants et les valeurs et admissibilités immuables capturées par exécution. Voir [Champs personnalisés](../programs/custom-fields.md) pour les références actives et historiques.
-
-## Agrégat d’entente (`0090`)
-
-La racine est `Funding_Case_Agreement_Profile`. Ses enfants comprennent :
-
-- promoteurs et adresses : `Funding_Case_Agreement_Applicant_Recipient`, `Funding_Case_Agreement_Address`;
-- modifications et versions : `Funding_Case_Agreement_Amendment`, ses liens de type/sous-type, `Funding_Case_Agreement_Budget_Version`, `Funding_Case_Agreement_Activity_Version`, `Funding_Case_Agreement_Approval_Submission` et `Funding_Case_Agreement_Revision`;
-- budgets et activités : `Funding_Case_Agreement_Budget_Fiscal_Year`, `Funding_Case_Agreement_Budget_Line_Item`, `Funding_Case_Agreement_Activity`, liens résultat/activité et responsable/activité;
-- opérations : prévisions, réclamations, rapprochements de réclamation, engagements et paiements avec leurs lignes;
-- surveillance : dossiers, planification, éléments, constatations, suivis, mises à jour de suivi et pratiques prometteuses.
-
-Entente, modification, réclamation, rapprochement, prévision, engagement, paiement, surveillance et clôture reçoivent une identité `Common_Entity`. Leurs déclencheurs d’affectation imposent et retirent les registres exacts. `Funding_Case_Agreement_Closeout` permet une seule ligne ouverte par entente, contraint les combinaisons état/ouverture et possède un instantané immuable de préparation par exécution. Les déclencheurs d’instantané valident l’exécution `approval_submission` et l’entente parente et refusent modification/suppression. Les identités budgétaires stables sont des bigint PostgreSQL exposés comme chaînes décimales. Les déclencheurs de soumission valident le but et la cible du flux et refusent la modification/suppression du dossier. La validation des révisions exige la concordance de la soumission, de la modification facultative et de l’entente.
-
-La famille `trg_fn_resolve_*` et ses déclencheurs dérivent — sans faire confiance à l’appelant — versions courantes, identité du poste budgétaire, entente des lignes de réclamation/prévision, réclamation d’une ligne rapprochée, portée d’une ligne d’engagement, entente du paiement, engagement de sa ligne et volet propriétaire des surveillances et documents générés. Les clés étrangères composites lient les surveillances, modèles de documents générés et bases de retenue au volet exact de l’entente. Les contrôles de racine refusent les croisements d’entente. Les déclencheurs de modification exigent une configuration du volet de l’entente.
-
-Le lien entente–promoteur porte un sous-type de bénéficiaire d’agence obligatoire. Les protections de la base refusent un choix hors des correspondances admissibles actives du volet, empêchent le retrait d’un sous-type référencé et protègent les liens existants lors d’un changement de propriété ou d’admissibilité du volet ou du programme. Le réglage facultatif de cohérence du volet compare les choix futurs au dernier lien enregistré admissible de ce promoteur dans le même volet; les différences historiques ne bloquent pas son activation. Les protections de références du profil de flux préservent aussi les conditions publiées dépendant de ces classifications.
-
-Les montants sont `numeric(19,2)`, retenues/pourcentages `numeric(5,2)` et risque `numeric(8,2)`. `fc_enforce_commitment_program_funding_total`, invoquée par les familles de déclencheurs des postes, versions et engagements, empêche les affectations actives de dépasser le financement de programme correspondant. Un abaissement ultérieur du budget ne contourne donc pas l’invariant.
-
-## Stockage, audit, notes et groupes
-
-`Common_Attachment_Types` appartient à une agence. `Common_Attachment` conserve les métadonnées, le fournisseur et l’emplacement figés; `Common_Entity_Attachment` lie le fichier à une cible typée. Les documents générés utilisent une relation distincte. `0110` conserve les tâches durables de suppression et de restauration des métadonnées; les octets externes ne font pas partie de la transaction. Consultez [Travail de fond](../operator/background-work.md).
-
-`0120` définit les preuves de changement, d’accès et de sécurité à ajout seulement dans le schéma `audit`. La capture des changements est transactionnelle; la capture des accès en tampon peut être retardée ou perdue. L’attribution d’agence permet une lecture Audit limitée et les entrées assainies exigent une permission distincte. Consultez [Audit](../admin/audit.md).
-
-`0130` ajoute `Applicant_Recipient_Note`, dont une agence est propriétaire, et `Funding_Case_Agreement_Note` sous une entente exacte. Les deux conservent l’auteur et le dernier responsable de la modification et sont supprimées logiquement. `0140` ajoute `Common_Group` et `Common_Group_Member`, les groupes par défaut dans les configurations d’approbation et d’examen et les champs de réclamation du travail d’exécution. Le registre d’affectation exacte est assoupli uniquement pendant qu’un examen de groupe attend sa réclamation; le demandeur devient ensuite l’affectataire exact. La base vérifie la preuve du demandeur lors de la décision d’approbation : un membre du groupe par défaut ne peut fournir de preuve « au nom de », et une étape exigeant les détails du groupe requiert son nom, son titre et sa date. La migration refuse le retour arrière tant que des données ou références de groupe sont conservées. L’appartenance à un groupe ne donne pas de permission sur les données métier. Consultez [Groupes](../admin/groups.md).
-
-Les révisions de réponse de recommandation, les URL bilingues des conditions de programme et la disponibilité des catégories de coûts sont maintenant intégrées au schéma initial plutôt qu’appliquées par des migrations incrémentales distinctes. Les bases déjà déployées exigent la voie de mise à niveau prise en charge par l’application; ces fichiers ordonnés décrivent une installation neuve.
+`documentation-audit/data-coverage.json` consigne les mécanismes de sujet et aides SQL brutes découverts. Un statut documentaire terminal décrit la couverture examinée, pas l’exécution des tests applicatifs. Le reçu de synchronisation indique les commandes réellement exécutées.
 
 ## Maintenance manuelle du tableur
 
@@ -141,7 +103,3 @@ Chaque écriture nomme la feuille et la ligne et fournit la valeur courante atte
 Lors d’une autorisation depuis un terminal distant, le navigateur peut ne pas atteindre son écouteur local. Collez **l’URL de rappel entière dans la commande d’autorisation toujours ouverte**, jamais dans un billet ou une conversation. Elle valide l’origine et le chemin attendus, un seul état correspondant et un seul code avant l’échange. Le même délai de dix minutes s’applique.
 
 Pour un petit bloc préparé, exécutez `bun run scripts/data-model-spreadsheet-row.ts fill-blank --sheet "Titre de feuille" --row 100 --count 2 --expected-first-cell-empty --values-file /chemin/rows.json`. Remplacez la feuille et les lignes après lecture de la destination. Le fichier doit contenir exactement deux tableaux de chaînes de même largeur, par exemple `[["Champ A", "text"], ["Champ B", "bigint"]]`. Cette écriture de valeurs accepte 1 à 32 lignes dans la grille existante, refuse toute ligne contenant une valeur, formule ou note et conserve la mise en forme. Elle n’insère aucune ligne et n’écrase aucune ligne remplie. Les déplacements vérifient séparément la première cellule attendue de la destination, y compris une destination explicitement vide.
-
-## Vérification et différences de moteur
-
-Le test de schéma canonique migre une base PGlite neuve et inventorie tables, énumérations, colonnes, index, contraintes, fonctions et déclencheurs. Les tests ciblés vérifient sous-types/versions de revue, paires polymorphes, états d’approbation, propriété/versionnement d’entente et totaux financiers. Les suites PostgreSQL vérifient en plus les courses et verrous entre connexions; elles exigent une URL de test PostgreSQL et ne sont pas impliquées par une réussite PGlite.

@@ -1,10 +1,22 @@
 # Transfer-payment API
 
-Program and stream design, reference relationships, financial setup, schemas, publication, and workflow configuration.
+Here, transfer payment means the funding program and its streams. These requests support program design, eligible recipients, budgets, financial rules, published forms and workflow settings. Individual payments under an agreement are listed in the [Agreement API](./agreements.md). For screen guidance, see [Programs](../../programs/index.md) and [Streams](../../programs/streams.md).
 
-This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
+An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
 
-## Handlers (109)
+- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
+- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
+- **Authorization landmarks**: names found in the source that help a developer locate access checks.
+- **Validation landmarks**: names that help locate checks on submitted fields or query options.
+- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+
+This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+
+## Read-only example
+
+An authorized request for `GET /api/transfer-payments/6` reads funding program 6’s profile. It does not issue a payment to a recipient. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
+
+## Handlers (113)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
@@ -83,6 +95,9 @@ This generated route index is an exhaustive navigation table, not independent pr
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/financial-limits/[financialLimitId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentFinancialLimitsSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/[financialLimitId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/financial-limits` | createTransferPaymentScopedAuthorizeHandler | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/index.get.ts` |
 | POST | `/api/transfer-payments/[id]/streams/[streamId]/financial-limits` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentFinancialLimitsSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/index.post.ts` |
+| DELETE | `/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes/[linkId]` | executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes/[linkId].delete.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes/index.get.ts` |
+| POST | `/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes` | executeFreshAuthorizedTransferPaymentStreamWrite | StreamFundingSubtypeSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes/index.post.ts` |
 | DELETE | `/api/transfer-payments/[id]/streams/[streamId]/holdback-bases/[basisId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/holdback-bases/[basisId].delete.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/holdback-bases/[basisId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentStreamHoldbackBasisCreateSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/holdback-bases/[basisId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/holdback-bases` | createTransferPaymentScopedAuthorizeHandler | HoldbackBasisListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/holdback-bases/index.get.ts` |
@@ -91,6 +106,7 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/transfer-payments/[id]/streams/[streamId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/index.get.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]` | executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentStreamPatchSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/index.patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types` | — | AgreementTypeLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/funding-subtypes` | — | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/funding-subtypes.get.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/holdback-bases` | — | HoldbackBasisLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/holdback-bases.get.ts` |
 | DELETE | `/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId].delete.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentMonitorTypeSchema | `server/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId].patch.ts` |

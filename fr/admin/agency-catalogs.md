@@ -1,17 +1,19 @@
 # Catalogues d’agence et sélections des volets
 
-Une agence possède maintenant les définitions réutilisables des champs personnalisés, modèles d’approbation, ensembles d’examens et de recommandations, flux de travail, modèles de documents, plans comptables, types d’engagement et types de surveillance. Un volet sélectionne ou affecte les entrées d’agence qu’il utilise. Créez les définitions partagées dans le catalogue d’agence, puis rendez-les disponibles dans le volet.
+Utilisez les catalogues d’agence pour préparer des réglages partagés par plusieurs volets. Un catalogue est une liste de définitions réutilisables : champs personnalisés, modèles d’approbation, ensembles d’examens et de recommandations, collectes de données, flux de travail, modèles de documents, plans comptables, types d’engagement et types de surveillance. Créez la définition dans l’agence, puis sélectionnez-la ou affectez-la au volet qui en a besoin.
+
+Pour un agent, cela explique pourquoi un formulaire ou une évaluation peut exister sans être disponible dans son volet. Il faut publier la définition, lorsque requis, et la rendre disponible au volet avant de pouvoir l’utiliser.
 
 ## Permissions et ordre de configuration
 
 Ouvrez une agence depuis **Agences**. Le niveau Lecteur de l’agence peut consulter son catalogue; Contributeur peut créer, modifier et publier; Gestionnaire peut effectuer les suppressions permises. Dans le volet d’un programme, le niveau Contributeur de `transfer_payment` affecte les entrées d’agence disponibles et Gestionnaire retire les liens admissibles. Une affectation exacte à une entente ou à un examen ne donne pas accès à la configuration. Le serveur revérifie la chaîne active de l’agence et du programme à chaque opération.
 
 1. Créez les valeurs de référence de l’agence nécessaires aux configurations : états opérationnels, sous-types d’entente et de bénéficiaire, exercices et catégories financières.
-2. Créez les champs, modèles d’approbation, schémas et ensembles d’examens, schémas et ensembles de recommandations et flux sur la page Agence. Publiez chaque configuration dans l’ordre de ses dépendances. Une ébauche reste visible pour la création, mais ne peut servir de plan d’exécution publié.
+2. Créez les champs, modèles d’approbation, schémas et ensembles d’examens, schémas et ensembles de recommandations et flux sur la page Agence. Publiez les définitions dont une configuration dépend avant de publier cette configuration. Une ébauche reste modifiable; la publication conserve une version vérifiée utilisable dans les dossiers.
 3. Ouvrez le volet du programme. Ajoutez les champs et les autres entrées d’agence dans leurs onglets. Définissez les sections, l’ordre, le caractère obligatoire et l’état actif propres au volet; ajoutez les ensembles d’examens et flux publiés nécessaires.
-4. Vérifiez les cotes de risque, budgets, états et autres références propres au volet avant de commencer le travail. Une configuration liée doit aussi convenir au volet et au type d’entité choisis.
+4. Vérifiez les cotes de risque, budgets, états et autres références propres au volet avant de commencer le travail. Une configuration liée doit aussi convenir au volet et au genre de dossier visé, comme une entente ou un dossier de financement. Ce genre de dossier est le type d’entité.
 
-Par exemple, l’agence A peut publier un ensemble d’examens « Évaluation standard » et le lier à deux volets de A. Ils utilisent la même définition d’agence, mais leurs ententes et tentatives d’exécution restent distinctes. Une modification de l’ébauche de travail ne réécrit pas une tentative existante; publiez une nouvelle version pour le travail futur. Un volet d’une autre agence ne peut pas lier cette définition.
+Par exemple, l’agence A peut publier un ensemble d’examens « Évaluation standard » et le lier à deux volets de A. Ils utilisent la même définition d’agence, mais leurs ententes et évaluations commencées restent distinctes. Modifier l’ébauche d’agence ne change pas une évaluation déjà commencée. Publiez une nouvelle version pour le travail futur. Un volet d’une autre agence ne peut pas lier cette définition.
 
 ## Ce que contrôle le volet
 
@@ -25,9 +27,24 @@ Par exemple, l’agence A peut publier un ensemble d’examens « Évaluation st
 
 Les listes **Configurations d’examen** et **Configurations de flux de travail** du volet mènent à l’éditeur détaillé de l’agence. Retirer un lien ne supprime pas la définition d’agence partagée. L’onglet **Champs personnalisés** du volet gère les sections et les affectations; modifiez les libellés, le type et les options dans le catalogue d’agence. Un champ partagé conserve une seule identité, mais chaque volet peut le placer et l’exiger différemment.
 
+## Catalogue de collectes de données
+
+Ouvrez **Collectes de données** de l’agence, créez une définition, puis ouvrez son éditeur. Lecteur d’agence consulte. Contributeur (`agency:update`) peut créer, modifier, publier, retirer et supprimer un brouillon admissible sans référence. Cette suppression de brouillon n’exige pas le niveau Gestionnaire.
+
+Saisissez noms français/anglais obligatoires (255 caractères au maximum), descriptions et définition de questionnaire. La section Général conserve ces valeurs et un modèle d’approbation publié facultatif de la même agence. Utilisez la section de définition pour créer les sections et questions du questionnaire. Enregistrez avant de publier. La publication valide le formulaire et le plan d’approbation référencé, puis capture une version réutilisable. Un brouillon enregistré n’est pas disponible comme membre publié d’un flux.
+
+Sélectionnez une collecte publiée dans un membre de flux d’agence. Aucun lien distinct de collecte n’est requis au volet : celui-ci sélectionne le flux qui la contient. Par exemple, publiez « Renseignements du site » avec questions bilingues d’adresse et de capacité, ajoutez-la avant un examen du flux de dossier, publiez ce flux, liez-le au volet et sélectionnez-le sur la possibilité. Une collecte déjà commencée garde les versions du questionnaire et de l’approbation utilisées au départ. Les modifications ultérieures du catalogue ne changent pas ses questions.
+
+Le retrait bloque les nouveaux usages et fige la définition tout en conservant les exécutions. Seul un brouillon qu’aucune étape de flux ne référence peut être retiré par suppression. Un membre de flux désigne une étape du flux; sa référence bloque la suppression. En cas d’erreur de publication, vérifiez le formulaire et l’approbation publiée de la même agence, corrigez et enregistrez, puis réessayez. Ne retirez pas une version pour réparer une collecte en cours; utilisez sa reprise d’exécution. Consultez [Flux](../concepts/workflows.md).
+
+## Configuration de l’évaluation des dossiers
+
+Créez des ensembles d’examens et flux visant **Dossier de financement** (`fundingcaseintake`), publiez-les et liez-les aux volets du programme sélectionnés. Choisissez-les ensuite explicitement sur la [Possibilité de financement](../intake/opportunities.md). Le lien de volet seul ne rend pas l’évaluation disponible sur toutes les possibilités. L’admissibilité et l’affectation exacte du dossier sont vérifiées au démarrage.
+
+
 ## Publier, retirer et rétablir
 
-La publication vérifie les définitions référencées et la propriété d’agence. Un flux utilisé par un volet doit y retrouver les champs et valeurs locales nécessaires; une configuration incompatible est refusée au lieu d’ignorer une étape. Les instantanés publiés et les exécutions existantes restent liés à leurs versions lorsque l’administrateur modifie ou retire une définition. Le retrait empêche un nouvel usage, mais les dossiers historiques conservent leurs libellés et preuves.
+La publication vérifie les définitions référencées et la propriété d’agence. Un flux utilisé par un volet doit y retrouver les champs et valeurs locales nécessaires; une configuration incompatible est refusée au lieu d’ignorer une étape. Un instantané publié est une version enregistrée de la configuration. Le travail existant garde cette version lorsque l’administrateur modifie ou retire la configuration. Le retrait empêche un nouvel usage, mais les dossiers historiques conservent leurs libellés et preuves.
 
 Si Ajouter, Publier ou Démarrer échoue, rechargez la définition d’agence et les liens du volet. Vérifiez sa publication, sa propriété dans la même agence, son type d’entité et l’admissibilité de chaque champ, modèle d’approbation, état, cote de risque et responsable référencé dans le volet. Corrigez la dépendance, republiez au besoin, puis réessayez. Ne supprimez pas un champ pour recréer son libellé : son identifiant fait partie des valeurs d’entente et des conditions historiques.
 

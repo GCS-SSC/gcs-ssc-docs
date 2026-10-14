@@ -1,6 +1,6 @@
 # Agreement assigned users
 
-The **Assigned users** tab shows the exact work roster for one saved Agreement. It allocates that Agreement to users who already have a sufficient Agreement role ceiling at its agency/program scope; it does not create permission by itself.
+The **Assigned users** tab lists the people responsible for work on this particular agreement. This list is also called its roster. An assignment applies to this agreement only. Each person still needs the appropriate role for the agreement’s agency or program; adding a name to the list does not grant that role.
 
 ## Required access
 
@@ -13,13 +13,19 @@ Adding, promoting, or removing users requires `manage_assignments`. Contributor 
 
 ## Roster rules
 
-Every active Agreement must have at least one active assignment and exactly one primary. The primary user is the work lead, not a more privileged member. An assigned user still needs the Viewer role ceiling to read and the two-key rule to change the Agreement.
+Every active agreement must have at least one assigned user and exactly one primary user. The primary user leads the work and has the same access rules as other assigned users. Reading requires Viewer or higher access. Editing requires Contributor or higher access **and** assignment to this agreement; deletion requires Manager access and assignment.
+
+For example, an officer with Contributor access to the program can read an agreement but cannot edit it until assigned to that agreement. Making the officer primary changes who leads the work, rather than granting extra permissions.
 
 The roster remains readable when an existing user becomes inactive or loses Contributor eligibility. This makes an ineligible primary visible for correction; role changes do not silently rewrite assignment history.
 
 ## Add an assigned user
 
-Select **Add user** and search the eligible users. A candidate must be active and have Contributor or Manager for `agreement` globally or at this Agreement's current agency/program scope. The server rejects inactive users, Viewer-only users, out-of-scope users, active duplicates, unknown fields, and malformed identifiers.
+1. Open **Assigned users** on the agreement.
+2. Select **Add user** and search for the colleague who will work on it.
+3. Choose an eligible user and save the assignment.
+
+The colleague must be active and have Contributor or Manager access for `agreement`, either globally or for the agreement’s current agency/program scope. If a name is unavailable, ask the access administrator to check the user’s status and role. The application rejects inactive users, Viewer-only users, users outside that scope, duplicate active assignments, unknown fields, and invalid identifiers.
 
 The new user is non-primary. An assignment to one Agreement does not affect another Agreement in the same program.
 
@@ -35,14 +41,22 @@ A non-primary user can be removed while at least one active assignment remains. 
 
 ## Status and scope changes
 
-The roster can change while the Agreement has a normal, non-read-only, nonterminal Agency status and the current aggregate guards permit it. Each write rechecks the ownership chain, role graph, user eligibility, and roster inside the transaction.
+You can change assigned users only when the agreement’s Agency status allows editing and other protections on the agreement and its related records permit the change. Read-only or terminal statuses block roster changes. The application rechecks the agreement’s owner, permissions, user eligibility, and existing assignments when you save.
+
+If a reassignment is refused, reload the agreement and check its status before retrying. A colleague’s role or account status may also have changed since you opened the list.
 
 Moving ownership or program scope changes later authorization and eligibility checks. Review the roster when the scope changes; an existing assignment remains visible even if the user no longer qualifies at the new scope.
 
 ## Independently assigned child work
 
-The Agreement roster is not inherited by claims, claim reconciliations, payments, forecasts, monitors, amendments, commitments, reviews, or recommendations that have their own exact roster. Creating one of these children requires Contributor plus the required parent assignment and assigns its creator as that child's primary user. Later child actions require the child's exact assignment.
+An agreement assignment does not automatically assign you to its claims, claim reconciliations, payments, forecasts, monitors, amendments, commitments, reviews, or recommendations. These records have their own assigned users. Creating a business record with its own roster requires the applicable Contributor role and the required parent assignment; the creator becomes its primary user. Later changes require assignment to that record.
+
+For example, when a colleague creates a payment, that colleague becomes its primary user. To take over the payment, arrange an assignment on the payment itself. Adding yourself only to the agreement’s roster does not provide that payment assignment.
+
+Reviews, recommendations, and Data Collections created during workflow execution follow the responsible person or group recorded for that work. Group work can be waiting to be claimed without any individual assigned yet.
 
 Ordinary child data, such as addresses, proponents, activities, budget lines, and documents, continues to use the Agreement itself as the assignment root.
 
 For cross-entity coordination, use [Assignment Management](../admin/assignments.md). For the authorization model, see [Role permissions and exact assignments](../concepts/rbac.md).
+
+Data Collections have their own assigned users, and access is checked through the file they come from. Claiming group-owned review, recommendation, or collection work preserves any existing assigned users and primary user. Claiming work does not give permission to manage its roster. During approval or a terminal state, you cannot change responses or assigned users.

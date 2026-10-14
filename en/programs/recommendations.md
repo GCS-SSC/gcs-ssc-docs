@@ -1,6 +1,8 @@
 # Recommendation schemas and setups
 
-Recommendation configuration has two layers. An Agency-owned schema defines bilingual questions and the canonical Recommended/Not Recommended result. An Agency Recommendation Set orders published schemas, chooses per-member failure policy, and can attach member or final approval routes.
+A recommendation records whether an officer recommends proceeding with a file. An Agency administrator sets up two reusable parts: a **schema**, which is the bilingual form officers answer, and a **Recommendation Set**, which puts those forms in order and controls approvals and what happens after a Not Recommended result.
+
+For example, a set could ask a program officer for a funding recommendation, then a finance officer for a financial recommendation. Each form has one question that decides its Recommended/Not Recommended result. The administrator decides whether a Not Recommended result stops the set and whether approvals are needed. This is an example to adapt to your program’s process.
 
 ## Navigation and access
 
@@ -8,9 +10,9 @@ Open **Agencies**, choose the Agency, then **Recommendation Sets**. The grouped 
 
 ## Recommendation schema
 
-A schema records entity type, bilingual name, agency, status/version, result metadata, and a definition. Creation from a set uses its Agency.
+The schema is the form design, not an officer’s completed recommendation. It stores the kind of record it applies to, bilingual name, Agency, status, version, questions, and result rules. A schema created from a set belongs to that set’s Agency.
 
-The editor contains General and Form Sections. A valid definition needs at least one section, one subsection per section, and one question per subsection. Section, subsection, question, option, and help keys are language-independent runtime identities and must be unique where required.
+The editor contains General and Form Sections. A valid definition needs at least one section, one subsection per section, and one question per subsection. Keys identify sections, subsections, questions, options, and help regardless of the displayed language. Keep them unique where required so the system can match answers to the correct question.
 
 | Type | Fields and rules |
 | --- | --- |
@@ -31,27 +33,29 @@ Use **Associate schema** instead when the agency schema already exists.
 
 ## Schema publication
 
-Save validates the working schema. Publish freshly authorizes the Agency operation, creates an immutable schema-version row, marks its publication published, and advances its immutable publication version.
+**Save** checks and stores the form you are editing. **Publish** checks your Agency permissions again and makes a fixed, numbered copy available for use.
 
-Runtime recommendations point to an exact schema-version row. Editing and republishing therefore affects future work only.
+A recommendation already started keeps the exact published form version it was given. For example, adding a required rationale question and publishing a new version does not add that question to an officer’s existing recommendation. The new form applies to future work.
 
 ## Recommendation setup
 
-A setup stores runtime entity type, bilingual name/description, optional final approval, lifecycle/version state, and ordered members. Each member selects one same-agency schema, a unique integer order, an optional member approval, and **Fail set on Not Recommended** (off by default).
+The setup defines the sequence of recommendations for a kind of record. It stores a bilingual name and description, an optional final approval, status and version, and ordered members. A **member** is one form in that sequence. Each member selects a schema from the same Agency, a unique integer order, an optional approval for that recommendation, and **Fail set on Not Recommended** (off by default).
 
-A publishable plan requires at least one member, contiguous orders beginning at 1, a published version for every schema, and a published configuration for every approval template. The set and all dependencies must match the Agency and entity context.
+Before publishing, include at least one member and number the members consecutively from 1 (for example, 1, 2, 3, with no gaps). Every schema and every selected approval template must already be published. The set and all dependencies must match the Agency and entity context.
 
 Publish creates version 1 and makes the setup eligible. Editing a published setup creates pending content; Publish snapshots the next plan only after full validation. The immutable plan includes each member's schema version, failure flag, and approval configuration plus the final approval.
 
-Members can be edited or soft-deleted while configuring the setup. Soft deletion removes the active association without deleting the reusable schema or historical runtime lineage.
+While configuring the setup, you can edit or remove members. Removing a member takes it out of the active setup, but keeps its reusable schema and the history of recommendations already created.
 
 ## Runtime consequences
 
-Starting a workflow materializes a recommendation set from its pinned published plan and activates the next recommendation member. Its primary exact assignee comes from the workflow’s pinned owner mapping. Later members are created one at a time as preceding members finish.
+When a workflow starts, the system creates a recommendation set using the fixed published plan selected for that workflow. It starts the next recommendation and assigns its primary officer using the workflow’s saved owner mapping. Later recommendations are created one at a time as earlier ones finish.
 
-The direct Recommendation page loads the pinned bilingual schema and responses. Saving or submitting requires the exact recommendation assignment, Contributor for the resolved owner, and an `active` runtime item. Submission validates required responses, option keys, and text lengths, then derives the result from the deciding question.
+The Recommendation page shows the form version fixed for this recommendation and its saved answers. Saving or submitting requires the exact recommendation assignment, Contributor for the resolved owner, and an `active` runtime item. Submission validates required responses, option keys, and text lengths, then derives the result from the deciding question.
 
-An attached member approval runs before progression. Without an approval, or after its success, Not Recommended fails the set only when that member's published failure flag is true. Otherwise the next recommendation or optional final approval begins. Cancellation retires pending runtime children without changing the published setup.
+If a recommendation has an approval route, that approval must finish successfully before the set can move on. Without an approval, or after its success, Not Recommended fails the set only when that member's published failure flag is true. Otherwise the next recommendation or optional final approval begins. Cancelling the set retires its pending recommendations and approvals without changing the published setup.
+
+For example, if the program officer selects Not Recommended and that member has **Fail set on Not Recommended** enabled, the set stops after any required member approval succeeds. If the switch is off, the set can continue to the finance recommendation; the officer’s answer is still recorded as Not Recommended.
 
 An approval-submission workflow for an Agreement or amendment must reference a published recommendation plan and contain at least one approval stage. Its recommendation detail can also show the immutable, hashed approval packet to an authorized Agreement reader or assigned approver. See [Workflows](../concepts/workflows.md).
 

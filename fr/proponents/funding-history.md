@@ -20,13 +20,13 @@ La consultation de l’onglet exige un accès en lecture au promoteur courant. C
 | Accès de modification à tous les promoteurs liés | Modifier les détails externes et l’ensemble des bénéficiaires. |
 | Accès de suppression au promoteur courant | Dissocier l’enregistrement externe de ce promoteur. |
 
-Chaque profil touché est évalué séparément. La lecture emploie sa portée Lecteur Promoteur. Les mutations exigent le plafond de rôle correspondant à l’opération demandée — Contributeur pour créer ou modifier et Gestionnaire pour supprimer — ainsi que l’affectation exacte à chaque parent touché par cette opération. Le sélecteur présente seulement les profils actifs admissibles à l’action demandée, et l’écriture les verrouille dans un ordre stable avant de revérifier l’autorisation.
+Les permissions sont vérifiées pour chaque promoteur touché. L’accès Lecteur permet de consulter son historique. Pour ajouter ou modifier l’historique, votre rôle doit permettre les actions de Contributeur; pour le dissocier, il doit permettre les actions de Gestionnaire. Vous devez aussi être affecté à chaque promoteur touché par l’action. Le sélecteur de bénéficiaires montre seulement les profils actifs utilisables pour cette action. Avant l’enregistrement, le système verrouille les profils et revérifie vos permissions.
 
 **Tous** combine les deux sources et conserve les indicateurs de relations restreintes. **Les miens** inclut seulement les ententes système lisibles avec votre affectation exacte à l’entente. Une vue **Agence** inclut les ententes système lisibles appartenant à l’agence du programme. Les enregistrements externes apparaissent seulement dans Tous, car leurs noms d’agence et de programme sont du texte libre, non des liens de propriété. Les autres vues retirent aussi les indicateurs restreints.
 
 Par exemple, utilisez Tous pour comparer un financement externe à une entente existante avant de créer un doublon. Utilisez Les miens pour travailler sur vos ententes affectées; un financement externe absent de cette vue n’a pas été supprimé.
 
-La lecture combinée utilise un même instantané à lecture répétable pour les lignes et les permissions. Chaque source est limitée à 5 000 candidats avant la recherche et la pagination; un dépassement retourne `FUNDING_HISTORY_TOO_LARGE` (413), non un historique incomplet. Une vue système plus étroite peut aider, mais changer la taille de page ou le texte de recherche ne contourne pas cette limite.
+Le système lit les deux sources et vos permissions depuis le même instantané de la base de données, pour que la liste reste cohérente pendant son chargement. Chaque source est limitée à 5 000 candidats avant la recherche et la pagination; un dépassement retourne `FUNDING_HISTORY_TOO_LARGE` (413), non un historique incomplet. Une vue système plus étroite peut aider, mais changer la taille de page ou le texte de recherche ne contourne pas cette limite.
 
 ## Ajouter un financement externe
 
@@ -47,9 +47,11 @@ Le profil depuis lequel l’assistant a été ouvert est le bénéficiaire princ
 
 L’étape de révision résume la saisie avant l’enregistrement. Les erreurs de validation et d’API destinées à l’utilisateur suivent la langue de la demande.
 
+Par exemple, consignez une aide municipale antérieure de 25 000 CAD à un centre communautaire si elle a été administrée hors de GCS-SSC. Sélectionnez les bénéficiaires, saisissez les noms de la municipalité et du programme, copiez le numéro et les dates de l’entente depuis les documents, puis saisissez `25000.00` en CAD. Vérifiez le résumé et les avertissements de doublon avant l’enregistrement. Cela ajoute une entrée historique sans autoriser de paiement.
+
 ## Vérification des doublons et des similarités
 
-Les noms d’agence et de programme ainsi que les numéros d’entente sont normalisés aux fins de comparaison. Dans une même portée où les noms d’agence et de programme se chevauchent, un numéro d’entente normalisé identique déjà utilisé par un enregistrement externe actif ou une entente système active est bloqué. Il ne peut pas être contourné.
+Le système compare des versions standardisées des noms d’agence et de programme et des numéros d’entente. Lorsque les noms d’agence et de programme correspondent au même périmètre de comparaison, il bloque un numéro déjà utilisé par un enregistrement externe actif ou une entente système active. Confirmer un avertissement ne permet pas de contourner ce doublon exact.
 
 L’assistant vérifie aussi :
 
@@ -57,7 +59,7 @@ L’assistant vérifie aussi :
 - un numéro d’entente proche dans la même portée d’identité;
 - un candidat correspondant lisible ou restreint.
 
-Une similarité constitue un avertissement, et non une fusion automatique. Examinez l’avertissement, revenez corriger la saisie ou confirmez-le explicitement. Un candidat restreint est signalé sans divulguer ses détails. Les confirmations sont des empreintes des valeurs examinées; la modification du texte d’identité les efface, et le serveur recalcule les avertissements dans la transaction finale.
+Une similarité constitue un avertissement, et non une fusion automatique. Examinez l’avertissement, revenez corriger la saisie ou confirmez-le explicitement. Un candidat restreint est signalé sans divulguer ses détails. Votre confirmation vaut seulement pour les noms et le numéro examinés. Leur modification efface la confirmation. Le système revérifie les avertissements à l’enregistrement.
 
 ## Modifier les bénéficiaires ou les détails
 

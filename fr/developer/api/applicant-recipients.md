@@ -1,22 +1,36 @@
 # API des bénéficiaires demandeurs
 
-Profils de promoteur, identité, relations, historique du financement, examens, ententes et affectations exactes.
+Ces requêtes servent aux profils des promoteurs : les organisations ou personnes qui demandent ou reçoivent un financement. Elles servent aussi aux contacts, adresses, historiques de financement, examens et liens vers les ententes. Consultez les [promoteurs](../../proponents/index.md).
 
-Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
+Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
 
-## Gestionnaires (40)
+- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
+- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
+- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
+- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
+- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+
+Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+
+## Exemple de lecture seule
+
+Une requête autorisée `GET /api/applicant-recipients/27` lit le profil du promoteur 27, y compris ses noms légaux et usuels. Elle ne crée pas d’entente pour ce promoteur. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
+
+## Gestionnaires (44)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/applicant-recipients/[id]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id].delete.ts` |
 | GET | `/api/applicant-recipients/[id]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/applicant-recipients/[id].get.ts` |
 | PATCH | `/api/applicant-recipients/[id]` | resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/account-receivables` | — | — | `server/api/applicant-recipients/[id]/account-receivables/index.get.ts` |
 | DELETE | `/api/applicant-recipients/[id]/addresses/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/addresses/[childId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/addresses/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAddressPatchSchema, CommonAddressSubdivisionSchema, parseI18n, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/addresses/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/addresses` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/addresses/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/addresses` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAddressCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/addresses/index.post.ts` |
 | DELETE | `/api/applicant-recipients/[id]/agency-financial-ids/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/agency-financial-ids/[childId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/agency-financial-ids/[childId]` | requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/agency-financial-ids/[childId].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/agency-financial-ids/[childId]/uses` | requireAuthContext, resolveApplicantRecipientAuthorization | QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/[childId]/uses.get.ts` |
 | GET | `/api/applicant-recipients/[id]/agency-financial-ids` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/agency-financial-ids` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAgencyFinancialIdCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/index.post.ts` |
 | GET | `/api/applicant-recipients/[id]/agency-financial-ids/lookups/agencies` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/lookups/agencies.get.ts` |
@@ -24,6 +38,8 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | PATCH | `/api/applicant-recipients/[id]/contacts/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientContactPatchSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/contacts/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/contacts` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/contacts/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/contacts` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientContactCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/contacts/index.post.ts` |
+| GET | `/api/applicant-recipients/[id]/credit-memos` | — | — | `server/api/applicant-recipients/[id]/credit-memos/index.get.ts` |
+| GET | `/api/applicant-recipients/[id]/financial-summary` | — | — | `server/api/applicant-recipients/[id]/financial-summary/index.get.ts` |
 | DELETE | `/api/applicant-recipients/[id]/funding-history/[historyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/funding-history/[historyId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/funding-history/[historyId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | FundingHistoryExternalPatchSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/funding-history/[historyId].patch.ts` |
 | POST | `/api/applicant-recipients/[id]/funding-history/[historyId]/recipients` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | BodySchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/funding-history/[historyId]/recipients.post.ts` |

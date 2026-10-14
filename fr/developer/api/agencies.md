@@ -1,16 +1,33 @@
 # API des agences
 
-Profils d’agence et données de référence bilingues appartenant à l’agence.
+Ces requêtes servent aux profils d’agence et aux listes partagées des formulaires, comme les types d’entente et les exercices financiers. Les agents utilisent ces listes dans leurs dossiers de financement. Consultez les [agences](../../admin/agencies.md) et les [catalogues d’agence](../../admin/agency-catalogs.md).
 
-Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
+Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
 
-## Gestionnaires (105)
+- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
+- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
+- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
+- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
+- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+
+Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+
+## Exemple de lecture seule
+
+Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
+
+## Gestionnaires (127)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/agency/[agencyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/agency/[agencyId].delete.ts` |
 | GET | `/api/agency/[agencyId]` | requireAuthContext | — | `server/api/agency/[agencyId].get.ts` |
 | PATCH | `/api/agency/[agencyId]` | — | AgencyProfilePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId].patch.ts` |
+| DELETE | `/api/agency/[agencyId]/account-receivable-types/[typeId]` | — | — | `server/api/agency/[agencyId]/account-receivable-types/[typeId]/index.delete.ts` |
+| GET | `/api/agency/[agencyId]/account-receivable-types/[typeId]` | — | — | `server/api/agency/[agencyId]/account-receivable-types/[typeId]/index.get.ts` |
+| PATCH | `/api/agency/[agencyId]/account-receivable-types/[typeId]` | — | AgencyAccountReceivableTypePatchSchema, AgencyAccountReceivableTypeSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/[agencyId]/account-receivable-types/[typeId]/index.patch.ts` |
+| GET | `/api/agency/[agencyId]/account-receivable-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/account-receivable-types/index.get.ts` |
+| POST | `/api/agency/[agencyId]/account-receivable-types` | — | AgencyAccountReceivableTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/account-receivable-types/index.post.ts` |
 | GET | `/api/agency/[agencyId]/address-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/address-types.get.ts` |
 | POST | `/api/agency/[agencyId]/address-types` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/address-types.post.ts` |
 | GET | `/api/agency/[agencyId]/agreement-types` | — | AgencyAgreementTypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/agreement-types.get.ts` |
@@ -24,8 +41,9 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | DELETE | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | — | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.delete.ts` |
 | GET | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | — | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.get.ts` |
 | PATCH | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | AgencyChartOfAccountPatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.patch.ts` |
-| GET | `/api/agency/[agencyId]/chart-of-accounts` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/index.get.ts` |
+| GET | `/api/agency/[agencyId]/chart-of-accounts` | — | ChartListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/index.get.ts` |
 | POST | `/api/agency/[agencyId]/chart-of-accounts` | — | AgencyChartOfAccountSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/chart-of-accounts/index.post.ts` |
+| GET | `/api/agency/[agencyId]/chart-of-accounts/lookups/commitment-accounts` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, TransferPaymentStreamChartOfAccountDimensionSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/lookups/commitment-accounts.get.ts` |
 | GET | `/api/agency/[agencyId]/claim-reconciliation-statuses` | — | — | `server/api/agency/[agencyId]/claim-reconciliation-statuses.get.ts` |
 | PATCH | `/api/agency/[agencyId]/claim-reconciliation-statuses` | — | AgencyClaimReconciliationStatusConfigurationSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/claim-reconciliation-statuses.patch.ts` |
 | DELETE | `/api/agency/[agencyId]/commitment-types/[typeId]` | — | — | `server/api/agency/[agencyId]/commitment-types/[typeId]/index.delete.ts` |
@@ -42,6 +60,13 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | POST | `/api/agency/[agencyId]/custom-fields/[fieldId]/options` | — | AgencyCustomFieldOptionCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/custom-fields/[fieldId]/options/index.post.ts` |
 | GET | `/api/agency/[agencyId]/custom-fields` | — | — | `server/api/agency/[agencyId]/custom-fields/index.get.ts` |
 | POST | `/api/agency/[agencyId]/custom-fields` | — | AgencyCustomFieldCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/custom-fields/index.post.ts` |
+| DELETE | `/api/agency/[agencyId]/data-collections/[dataCollectionId]` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/index.delete.ts` |
+| GET | `/api/agency/[agencyId]/data-collections/[dataCollectionId]` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/index.get.ts` |
+| PATCH | `/api/agency/[agencyId]/data-collections/[dataCollectionId]` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/index.patch.ts` |
+| POST | `/api/agency/[agencyId]/data-collections/[dataCollectionId]/publish` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/publish.post.ts` |
+| POST | `/api/agency/[agencyId]/data-collections/[dataCollectionId]/retire` | — | — | `server/api/agency/[agencyId]/data-collections/[dataCollectionId]/retire.post.ts` |
+| GET | `/api/agency/[agencyId]/data-collections` | — | — | `server/api/agency/[agencyId]/data-collections/index.get.ts` |
+| POST | `/api/agency/[agencyId]/data-collections` | — | — | `server/api/agency/[agencyId]/data-collections/index.post.ts` |
 | GET | `/api/agency/[agencyId]/document-templates/[templateId]/download` | — | QuerySchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/document-templates/[templateId]/download.get.ts` |
 | DELETE | `/api/agency/[agencyId]/document-templates/[templateId]` | — | — | `server/api/agency/[agencyId]/document-templates/[templateId]/index.delete.ts` |
 | GET | `/api/agency/[agencyId]/document-templates/[templateId]` | — | — | `server/api/agency/[agencyId]/document-templates/[templateId]/index.get.ts` |
@@ -49,7 +74,16 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | GET | `/api/agency/[agencyId]/document-templates` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/document-templates/index.get.ts` |
 | POST | `/api/agency/[agencyId]/document-templates` | — | — | `server/api/agency/[agencyId]/document-templates/index.post.ts` |
 | GET | `/api/agency/[agencyId]/fiscal-years` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/fiscal-years.get.ts` |
-| POST | `/api/agency/[agencyId]/fiscal-years` | — | AgencyFiscalYearSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/fiscal-years.post.ts` |
+| POST | `/api/agency/[agencyId]/fiscal-years` | requireFreshAuthContext | AgencyFiscalYearSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/fiscal-years.post.ts` |
+| GET | `/api/agency/[agencyId]/funding-subtypes` | — | — | `server/api/agency/[agencyId]/funding-subtypes/index.get.ts` |
+| DELETE | `/api/agency/[agencyId]/funding-types/[typeId]` | — | — | `server/api/agency/[agencyId]/funding-types/[typeId].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/funding-types/[typeId]` | — | AgencyFundingTypePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId].patch.ts` |
+| DELETE | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId]` | — | — | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId]` | — | AgencyFundingSubtypePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/[subtypeId].patch.ts` |
+| GET | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/index.get.ts` |
+| POST | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes` | — | AgencyFundingSubtypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/index.post.ts` |
+| GET | `/api/agency/[agencyId]/funding-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/funding-types/index.get.ts` |
+| POST | `/api/agency/[agencyId]/funding-types` | — | AgencyFundingTypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/index.post.ts` |
 | GET | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/holdback-bases.get.ts` |
 | POST | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisWriteSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/holdback-bases.post.ts` |
 | GET | `/api/agency/[agencyId]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/line-items.get.ts` |
@@ -99,7 +133,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | GET | `/api/agency/cost-categories/[id]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/cost-categories/[id]/line-items.get.ts` |
 | POST | `/api/agency/cost-categories/[id]/line-items` | — | AgencyCostCategoryLineItemSchema, readValidatedBodyI18n | `server/api/agency/cost-categories/[id]/line-items.post.ts` |
 | DELETE | `/api/agency/fiscal-years/[id]` | — | — | `server/api/agency/fiscal-years/[id].delete.ts` |
-| PATCH | `/api/agency/fiscal-years/[id]` | — | AgencyFiscalYearPatchSchema, AgencyFiscalYearSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/fiscal-years/[id].patch.ts` |
+| PATCH | `/api/agency/fiscal-years/[id]` | requireFreshAuthContext | AgencyFiscalYearPatchSchema, AgencyFiscalYearSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/fiscal-years/[id].patch.ts` |
 | DELETE | `/api/agency/holdback-bases/[id]` | — | — | `server/api/agency/holdback-bases/[id].delete.ts` |
 | PATCH | `/api/agency/holdback-bases/[id]` | — | AgencyHoldbackBasisPatchSchema, readValidatedBodyI18n | `server/api/agency/holdback-bases/[id].patch.ts` |
 | GET | `/api/agency` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/index.get.ts` |

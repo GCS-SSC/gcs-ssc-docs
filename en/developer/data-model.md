@@ -1,132 +1,96 @@
 # Data model and integrity
 
-The ordered migrations registered in `server/database/production-core-migrations.ts` are authoritative. `shared/types/database.d.ts` is the Kysely application contract, but it does not replace database constraints, functions, or triggers.
+This page explains how the database keeps funding records linked correctly and preserves the evidence behind decisions and payments. For an officer, the practical effects are that an Agreement uses its own Agency, Stream and currency; approved history is retained; and an assignment to one record does not automatically allow work on every related record. Use the linked operational guides for steps in the application.
+
+For developers, the sections below retain the exact table names, constraints and maintenance commands. A **schema** is the structure of the database. **Integrity** means the rules that prevent inconsistent records, such as a Claim linked to the wrong Agreement. **Immutable** means a saved record cannot be rewritten. A **transaction** saves a group of changes together or rolls them all back; a **lock** prevents competing writes while the checks run.
+
+`server/database/production-core-migrations.ts` defines the fresh schema. `shared/types/database.d.ts` describes application types; database constraints, functions and triggers remain authoritative for persisted integrity. These are clean subject baselines, not incremental upgrades for an older migration journal.
 
 ## Ordered schema
 
-| Migration | Area |
+| Migration | Owned schema and contract |
 | --- | --- |
-| `0010_common` | Common enums, contacts, addresses, and approval-template foundation |
-| `0020_users` | Better Auth users, sessions, accounts, and verification |
-| `0030_rbac` | Roles, cumulative permissions, user-role assignments, and security audit events |
-| `0040_agency` | Agency profile and agency-owned resources |
-| `0050_common_agency` | Role-to-Agency foreign key |
-| `0060_transfer_payment` | Programs, streams, configuration, schemas, budgets, and setups |
-| `0070_polymorphic_common_tp` | Typed entity registry, review/recommendation/approval/workflow runtime, constraints, and triggers |
-| `0080_applicant_recipient` | Proponent profile and child/link records |
-| `0090_funding_case_agreement` | Agreement aggregate, lifecycle, financial records, ownership constraints, and state triggers |
-| `0100_extensions` | Agency/stream enablement, configuration, KV, and encrypted secret records |
-| `0110_storage_cleanup_outbox` | Durable object deletion and metadata-restoration jobs, leases, retries, and retention |
-| `0120_audit` | Change/access/security evidence, Agency attribution, sanitized inputs, protected retention, and audit permissions |
-| `0130_notes` | Agency-scoped Proponent notes and Agreement notes with author/editor evidence |
-| `0140_administrative_groups` | Agency groups, membership, claimable review and approval assignments |
+| `0010_enums` | Shared enum types and database extensions, including text-search support. |
+| `0020_users` | Better Auth users, sessions, accounts and verification; active-session user protection. |
+| `0030_rbac` | Roles, cumulative role permissions, assignments and scope validation. |
+| `0040_agency` | Agency profile, bilingual catalogs, custom fields, templates, fiscal years, funding sources and receivable types. |
+| `0050_common` | Contacts, addresses, attachments, notes, groups, typed entities, publication, runtime, review, recommendation, approval, Data Collection, Completion and Workflow graphs. |
+| `0060_transfer_payment` | Programs, Streams, budgets and eligible Agency catalog links. |
+| `0070_applicant_recipient` | Proponent profiles, financial IDs, funding history, contacts and relationships. |
+| `0080_funding_opportunity` | Opportunities, selected Streams, review/workflow links and attachment associations. |
+| `0090_funding_case_agreement` | Agreement revisions, snapshots, budgets, financial transactions, recoveries, monitoring and documents. |
+| `0100_funding_case_intake` | Intake profile, imported-source evidence, group claims and exact assignments. |
+| `0110_extensions` | Enablement, configuration, KV and encrypted secrets. |
+| `0120_storage` | Durable storage cleanup and compensation outbox. |
+| `0125_l1_queue` | Recurring handler schedules and expiring execution leases. |
+| `0130_integrity` | Installs subject-owned functions, foreign keys and triggers after all referenced tables exist. |
+| `0140_audit` | Change/access/security evidence and ownership attribution. |
 
-The demo-only `0240_seed` migration is not in this production registry.
+Demo-only `9999_seed` loads the final demo fixtures and document templates; it is excluded from the production registry. Schema helpers in `server/database/schema/` install receivable reductions, Credit Memo and commitment-coding mechanisms through the Agreement baseline and are included in the coverage inventory.
 
 ## Ownership and identifiers
 
-The principal hierarchy is Agency → Transfer Payment Profile → Stream → Funding Agreement. Applicant recipients have a lead agency and link independently to agreements. Authorization resolves these current active relationships from the database; caller-supplied ownership is never authoritative.
+Agency → Program → Stream → Agreement is the financial ownership chain. An Opportunity selects one or more eligible Streams of its Program; Intake belongs to the Opportunity. Proponent business visibility follows effective Proponent grants rather than the lead-Agency field alone. Financial accounts and notes still have explicit Agency ownership.
 
-Core identifiers are `bigserial`/`bigint`. PostgreSQL/Kysely exposes them as strings at application boundaries. Core entities and links generally use `_deleted`; deletion sets the flag and active queries filter it. Check each table because some append-only approval children intentionally do not expose soft deletion.
+Core bigint IDs cross API/Kysely boundaries as decimal strings. `Common_Entity` gives supported business records a shared typed identity. Composite foreign keys bind `(id, entity type)`; propagated type fields are integrity values, not editable user fields. Owner-resolution functions reject wrong-parent, wrong-Stream and wrong-Agency references.
 
-## Typed polymorphism
+Most business deletion sets `_deleted`. Immutable submissions, versions, transitions and accounting evidence have stronger update/delete guards. Explicitly confirmed removal of disposable Draft Amendment scope physically discards the corresponding draft snapshots; that exception does not authorize deleting approved history. See [Amendments](../agreements/amendments.md).
 
-`Common_Entity` owns a globally unique ID and a varchar type key referencing `Common_Entity_Type`. Polymorphic consumers reference the composite `(id, type)`, so an existing ID with the wrong type is rejected. Registration triggers allocate the shared identity for streams, proponents, agreements, amendments, forecasts, claim reconciliations, commitments, payments, monitors, reviews, and recommendations.
+## Publication, runtime and assignments
 
-Setup/member/runtime chains propagate type columns through composite foreign keys. Those propagated values are integrity fields, not independently editable business data. Narrow check constraints further limit which types each review, approval, completion, recommendation, workflow, or entity-assignment engine accepts.
+For example, when a questionnaire is published as version 1 and later revised to version 2, existing work keeps the version it started with. This preserves which questions the applicant actually answered. In the sections below, **pinned** means fixed to that saved version; **runtime** means the actual work performed using a published design.
 
-## Separate business, publication, and runtime lifecycles
+Agency designs use `Common_Publication`, immutable hashed `Common_Publication_Version` and typed version references. Published parents pin exact child versions and status definitions. Retirement is terminal; historical runtime retains its pins. Data Collection setups participate in the same publication graph as review, recommendation, approval and workflow designs.
 
-Agency-owned `Common_Status` is the configurable business-status catalogue. The stable publication states `draft`, `published`, and `retired`, and the stable runtime states `pending`, `active`, `awaiting_action`, `paused`, `succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled`, and `failed`, are system constants and never Agency status rows.
+`Common_Runtime` records an exact target, purpose, version pins, initiator, attempt and predecessor. Its `Common_Runtime_Item` hierarchy includes Data Collections alongside reviews, recommendations and approval steps. Transition insertion validates and changes state; direct state patches are unsupported. Retry creates a successor and retains version pins, while capturing current routing values for the new attempt.
 
-`Common_Publication` gives Approval Templates, Review Schemas, Review Set Setups, Recommendation Schemas, Recommendation Set Setups, and Workflow Setups a shared typed identity. Publishing hashes a canonical working definition and appends an immutable `Common_Publication_Version` only when content changed. Parent publications pin exact child versions, and Workflow publications snapshot every referenced Agency status. Retiring is terminal; only an unreferenced draft can be soft-deleted.
+`Common_Completion` freezes `not_applicable`, `no_workflow` or `workflow_started`. Required missing workflows roll back completion. A no-workflow completion does not acquire a workflow later. Approval submissions capture schema-versioned JSON and a canonical hash; revision promotion verifies the packet and applies approved domains atomically. Risk-assessment selection, risk rating and mitigation proposals are governed by readiness and retained evidence, not a free-standing mutable score.
 
-`Common_Runtime` is one immutable attempt rooted at a Workflow or directly started Review Set. It pins its publication versions, exact typed target, purpose, initiator, attempt number, and predecessor. Retry creates a successor with the same pins; it never reopens a terminal attempt or adopts newer configuration. `Common_Runtime_Item` forms the ordered Review Set, Review, Recommendation Set, Recommendation, Routing Slip, and Approval Step hierarchy. Only immutable transition-history insertion changes runtime/item state; triggers validate and apply the transition and freeze terminal evidence.
+`Common_Entity_Assignment` stores exact typed targets and Common users. Nonempty active rosters have exactly one primary; creator-primary creation and replacement are transactional. Unclaimed group-backed Reviews, Recommendations, Data Collections and Intake can have zero users. Group membership permits the eligible claim path but does not grant business-data access. Deferred roster/claim guards and soft-delete triggers enforce the boundary. Independent children require their own assignment; assignment to an Agreement does not automatically assign every child.
 
-`Common_Completion` records a point-in-time disposition of `not_applicable`, `no_workflow`, or `workflow_started`. A completion-driven entity either creates its first applicable Workflow attempt in the same transaction, records permanently that no Workflow applied, or rolls back when its registry declaration requires a Workflow. Funding Agreements start workflows explicitly and have no root completion; Amendments and Closeouts require a completion Workflow; Claims, Claim Reconciliations, Commitments, Payments, Forecasts, and Monitors allow completion with or without one. Runtime state never grants access or replaces the existing role, exact-assignment, and Agency-status checks.
+## Configuration and questionnaire integrity
 
-Agreement approval submissions are immutable schema-versioned JSON packets with a canonical SHA-256 hash. Each workflow run has at most one packet; each persisted Agreement revision links to exactly one approval submission. Hash verification and amendment-domain promotion happen before the run reaches successful terminal state.
+Agency field and option IDs remain stable; Stream assignment defines placement, requiredness and active availability. Agreement custom values are validated against the exact Stream. Published conditions retain dependencies and immutable capture, including classification and selected risk source. Catalog retirement cannot silently invalidate active references.
 
-## Agency custom fields and conditional routing
+Agency funding types and subtypes replace fixed other-funding columns. Budget-line and fiscal-year funding-source rows retain selected subtype and exact amounts; Stream selection controls future eligibility while saved history keeps its reference. Chart accounts distinguish commitment, receivable and Credit Memo kinds and owning currency/fiscal year; Stream links provide the available coding catalog.
 
-`0060` creates Agency-owned `Agency_Custom_Field` and `Agency_Custom_Field_Option`, plus Stream-owned `Transfer_Payment_Stream_Field_Section` and `Transfer_Payment_Stream_Field_Assignment`. The field and option IDs are stable across Streams; each Stream sets its own placement, order, required flag, and active flag. Agreement values remain in `Funding_Case_Agreement_Profile.egcs_fc_customfields` and are validated against assignments in the Agreement's exact Stream.
+Data Collection definitions contain ordered typed questions and bilingual text. Runtime response saves check the expected revision and pinned definition; `DATA_COLLECTION_REVISION_CONFLICT` requires reloading before deliberate reapplication. Final submission checks required answers. Submitted Intake stores application data plus immutable imported source system, external ID and source export; imported provenance cannot be rewritten through ordinary updates. See [Data Collections](../concepts/data-collections.md) and [Intake](../intake/funding-case-intakes.md).
 
-`0070` links Workflow conditions to Agency field/option IDs and can also evaluate Agreement subtype, further distribution, and recipient subtype. A Stream Workflow link captures its own deployment against local values. Publication and runtime routing records preserve immutable conditions and captured values, so a later catalog edit does not rewrite an existing run. Composite references and guards reject cross-Agency options and unavailable dependencies. See [Custom fields](../programs/custom-fields.md) and [Workflows](../concepts/workflows.md).
+## Exact financial boundaries
 
-## Exact assignment integrity
+Money is canonical decimal text and exact integer-cent arithmetic; `numeric(19,2)` supports magnitude up to `99999999999999999.99`. For example, retain ID `"9007199254740993"` and amount `"10000000000000000.01"` as strings. Sign and aggregate limits are domain-specific; a generic money parser is not a positive-business-amount guarantee. Agreement currency is immutable and all financial children must match it. UI controls use that denomination and locale with two fraction digits.
 
-`Common_Entity_Assignment` stores exact `(entity type, entity ID, Common user)` rows and an informational primary flag. Active-row uniqueness prevents duplicate assignees. Deferred roster triggers require every active assignable entity to have at least one active assignment and exactly one primary at commit. Soft-delete lifecycle triggers retire assignments when their entity is deleted.
+Current annual Agreement budgets govern Forecast and Claim writes and completion. Usage checks use stable fiscal-year/budget-line identities, current versions and effective financial evidence, and repeat under the write lock. Changing a current budget cannot undercut committed/consumed evidence. Amendment promotion rechecks the same Agreement’s annual usage; the separate cross-Agreement Stream/overcommit check remains a documented limitation in the Amendment guide. See [Budget](../agreements/budget.md), [Forecasts](../agreements/forecasts.md) and [Claims](../agreements/claims.md) for formulas and partial-save recovery.
 
-Proponents, Agreements, reviews, recommendations, claims, claim reconciliations, payments, forecasts, monitors, amendments, and commitments each register the appropriate roster and soft-delete triggers. The trigger names generated programmatically for Agreement children are expanded explicitly in `documentation-audit/data-coverage.json` so no material mechanism is hidden behind a template literal.
+Commitment coding protects both exact-line paid floors and shared Agency coding pools. `fc_payment_counts_for_coding`, `fc_positive_coding_completion`, `fc_commitment_line_gross_paid`, coding-credit/net-paid/available helpers and completed-coding/paid-floor triggers enforce retained accounting effects. Duplicate coding rows do not multiply shared capacity. A Payment’s cash amount, signed accounting allocation and recovery amounts are separate projections; successful workflow termination controls their effective posting.
 
-Role access is stored in `role_permission`, one active row per role/subject. `access_level` is nullable or `viewer`, `contributor`, `manager`; `can_manage_assignments` is independent and allowed only for persisted subjects `agreement` and `applicant_recipient` (labelled Agreement and Proponent in the UI). Deferred scope triggers reject permissions that are incompatible with the role's global, agency, or program structure.
+## Financial evidence entities
 
-## Financial precision and concurrency
+| Aggregate | Retained evidence and integrity |
+| --- | --- |
+| Agreement | Current and historical Budget/Activity versions, stable line/year identities, immutable approval submissions and revisions, Financial ID choice and risk evidence. |
+| Journal Voucher | Balanced signed accounting allocations on eligible source Payments; positive Completion/approval effect, reversal linkage and the fiscal-year JV-open workflow condition. It changes coding, not cash paid. |
+| Correction | Signed financial lines, eligible source Payments, immutable posting and cancellation/approval boundaries; effective accounting differs from gross cash. |
+| Account Receivable | Typed Claim or paid-Advance source, Proponent/Agency, lines and coding, workflow completion, Claim reductions, Credit Memo repayments and Payment offset evidence. Source and recovered balances are checked under locks. |
+| Claim reduction | `Funding_Case_Account_Receivable_Claim_Reduction` stores a positive amount and exact source Claim line; `trg_fn_validate_ar_claim_reduction` protects ownership, remaining source capacity and completed evidence. |
+| Credit Memo | Proponent credit pool and receivable lines, matching Agency/currency/accounting dimensions, signed accounting and retained completion effects. Pool/line validators reject mismatched or overallocated credits. |
+| Closeout | One open Closeout per Agreement, immutable readiness snapshot per approval attempt and parent write boundary; financial/recovery and child-work readiness participate. |
 
-Public money uses canonical two-decimal strings and exact integer-cent arithmetic. A `numeric(19,2)` row can represent up to `99999999999999999.99` in magnitude; a domain may impose additional sign or aggregate rules. Do not convert IDs or money to JavaScript `Number` for convenience. For example, preserve `"9007199254740993"` as an identifier and `"10000000000000000.01"` as money rather than losing precision in JSON numbers.
+The workflows and recovery procedures are in [Journal vouchers](../agreements/journal-vouchers.md), [Corrections](../agreements/corrections.md), [Receivables](../agreements/receivables.md), [Payments](../agreements/payments.md) and [Closeouts](../agreements/closeouts.md).
 
-Percentage-derived budget amounts use captured mode/source/percentage settings and round to a whole dollar before returning two-decimal money. Recalculation groups by budget version, fiscal year, and currency, validates affected totals, and rolls the mutation back on failure. The supported user calculation examples are in [Budget](../agreements/budget.md).
+## Storage, scheduling and audit
 
-Sensitive writes lock and rebuild authorization before locking business aggregates. Agreement, transfer-payment, extension, approval, review, and workflow helpers encode stable lock ordering. PostgreSQL integration tests—not PGlite mocks—are the authority for independent-session races, constraint behaviour, and deadlock prevention.
+Attachments retain provider identity, object ID, opaque locator and typed target association. Opportunity attachment definitions may associate an Agency attachment type without owning its bytes. Intake staging validates the provider and file limits before final associations. Database rollback and remote storage are different transaction boundaries; `storage_cleanup_outbox` retains compensating delete/restore work.
 
-PGlite supports local/demo operation and most schema behaviour but uses one embedded backend. It cannot prove multi-connection PostgreSQL locking.
+`l1_queue` contains one unique `handler_id`, next-run time, attempt count, lease owner/expiry and last error. Its infrastructure columns are deliberately unprefixed; it has global Audit ownership and no business payload. Domain queues retain operation-specific evidence. See [Background work](../operator/background-work.md).
 
-The exhaustive table/constraint/function/trigger disposition is maintained in `documentation-audit/data-coverage.json` and must be terminal before this reference is considered complete.
+`audit` change evidence is transactionally captured and append-only under protected retention; access events use a bounded memory queue and may be lost on saturation/process failure. `audit-ownership-registry.ts` declares concrete ownership chains including Opportunity, Intake, Data Collection and financial-recovery tables. Agency-filtered visibility follows attribution, not URL nesting. Sanitized request inputs require the additional Audit input grant. See [Audit](../admin/audit.md).
 
-## Migration-by-migration entity reference
+## Verification and engine differences
 
-The following inventory is grouped by aggregate. Names are physical table names unless described as a function, trigger, constraint, or relationship. Foreign keys use `RESTRICT` for domain records unless a cascade is stated explicitly; active-row uniqueness normally means a partial unique index with `_deleted = false`.
+The canonical-schema tests enumerate fresh PGlite tables, enums, indexes, constraints, functions and triggers. PostgreSQL suites exercise independent-session locks and reauthorization; PGlite uses one embedded backend and cannot prove those races. Sensitive writes refresh grants, owner scope, assignment and lifecycle after acquiring the established ordered locks.
 
-| Migration | Persisted entities | Material integrity contract |
-| --- | --- | --- |
-| `0010_common` | `Common_Contact`, `Common_Address`, `Common_Approval_Template` | Shared enums and `citext`; active contact email uniqueness; Canadian subdivision validation; `numeric(10,7)` coordinates. Later migrations add the typed publication/runtime and attachment structures. |
-| `0020_users` | `user`, `session`, `account`, `verification` | Installs `plpgsql` when absent so PostgreSQL and PGlite can compile procedural functions. Better Auth owns these shapes. User email and session token are unique; sessions/accounts cascade with the user. `enforce_active_session_user()` and its trigger reject a session whose user is soft-deleted. |
-| `0030_rbac` | `role`, `role_permission`, `user_role_assignment`, `security_audit_event` (moved to `audit` by `0120`) | Permission subject, access level, effective-row, assignment-management subject, and active uniqueness constraints enforce the cumulative model. Role and assignment children cascade; audit actors are restricted. `prevent_security_audit_event_mutation()` plus its trigger reject audit updates/deletes. |
-| `0040_agency` | `Agency_Profile`, `Common_Status`, `Agency_Cost_Category`, `Agency_Cost_Category_Line_Item`, `Agency_Holdback_Basis`, `Agency_Fiscal_Year`, `Agency_Address_Type`, `Agency_Applicant_Recipient_Subtype`, `Agency_Approval_Behalf_Type`, `Agency_Agreement_Type`, `Agency_Chart_of_Account`, `Agency_Commitment_Type`, `Agency_Monitor_Type` | All reference rows belong to an agency and carry bilingual values and soft deletion. Active bilingual names/codes are unique inside their owner; line items belong to a category; fiscal-year date ranges and profile uniqueness are database constrained. |
-| `0050_common_agency` | `role.agency_id` relationship | Adds `role_agency_fk` to `Agency_Profile` with restricted deletion, after the Agency table exists. |
-| `0060_transfer_payment` | `Transfer_Payment_Profile`, fiscal-year and stream budgets, Stream assignment/link tables, `Transfer_Payment_Stream_Chart_of_Account`, `Transfer_Payment_Stream_Commitment_Type`, and `role_transfer_payment_scope` | Program/stream ownership and financial precision are constrained. Agency chart definitions carry ordered bilingual JSON dimensions and fiscal years; Stream rows link eligible Agency definitions. Agency Commitment Types are selected through Stream links. Ownership-protection and deferred permission/scope triggers reject cross-owner changes and incompatible permission graphs. |
-| `0080_applicant_recipient` | `Applicant_Recipient_Profile`, `Applicant_Recipient_Registry`, `Applicant_Recipient_Agency_Financial_Id`, `Applicant_Recipient_Other_Name`, `Applicant_Recipient_Address`, `Applicant_Recipient_Contact`, `Applicant_Recipient_Funding_History`, `Applicant_Recipient_Funding_History_Recipient` | The profile has a registered typed identity and lead agency. Active child relationships are owner-scoped and unique. Funding amount is `numeric(19,2)`. Funding-history cleanup retires an unlinked record. Proponent roster/soft-delete triggers enforce its exact assignments. |
-| `0100_extensions` | `extensions.agency_enablement`, `extensions.agency_storage_selection`, `extensions.stream_configuration`, `extensions.kv_entry`, `extensions.secret_entry` | Enablement/configuration is unique per extension and agency/stream and uses restricted host foreign keys. KV uniqueness is `(extension_id, owner_type, owner_id, key)`. Secret uniqueness is scoped similarly; ciphertext, IV, authentication tag, and key version are stored, never plaintext. Extension migrations run through the host transaction described in the extension architecture guide. |
-
-## Polymorphic review, approval, recommendation, and workflow engine (`0070`)
-
-`0070_polymorphic_common_tp` creates `Common_Entity`, `Common_Entity_Type`, `register_entity()`, composite typed foreign keys, and the review/recommendation/approval/completion/workflow authoring and runtime graphs. `Common_Entity_Assignment` replaces entity-specific Team rows with an exact, no-access-level roster. Review and recommendation lifecycle triggers enforce non-empty one-primary rosters. Recommendation setup members include the snapshotted fail-on-Not-Recommended policy.
-
-The named constraint rows `ay_ref_profilegwcoanumber`, `tp_ref_streamid`, and `cn_ref_*` bind agency/program identities and typed review/template setup chains. The `cn_chk_*` rows narrow legal approval/review scope and target types and validate additional-approval names. `Common_Review_Setup` must match its `Common_Review_Set_Setup` entity type, and review runtime rows pin the schema version they execute.
-
-Approval evidence is attached to canonical runtime items. `trg_fn_enforce_approval_sequence`, `trg_fn_lock_actioned_approval`, `trg_fn_require_certifications`, and `trg_fn_require_actual_delegation_detail` enforce decision order, immutability, certifications, and delegated-approver evidence. `trg_fn_validate_approval_runtime_item`, `trg_fn_enforce_approval_runtime_state`, and the approval/certification evidence locks bind decisions to the current runtime. Additional steps use `trg_fn_validate_added_approval_runtime_step`; they cannot rewrite a resolved prefix.
-
-Publication versions, references, and transitions are sealed evidence. The publication-reference validator checks the typed dependency graph, and authoring guards prevent edits to retired configuration. Runtime insert and hierarchy validators enforce root/item identity and parent-child structure. State changes require transition insertion; directly patching runtime state is not a supported transition mechanism.
-
-Completion validators enforce one exact target, its registry capability, its disposition, and the related workflow target. `trg_fn_lock_completion` freezes completion evidence. Workflows retain default-owner mappings, status transitions, and owner blockers. Conditional routing additionally retains published discriminator references and immutable per-run captured values and member eligibility. See [Custom fields](../programs/custom-fields.md) for active versus historical reference rules.
-
-## Funding-agreement aggregate (`0090`)
-
-The agreement root is `Funding_Case_Agreement_Profile`. Its children are:
-
-- recipients and addresses: `Funding_Case_Agreement_Applicant_Recipient`, `Funding_Case_Agreement_Address`;
-- amendment/versioning: `Funding_Case_Agreement_Amendment`, its type/subtype links, `Funding_Case_Agreement_Budget_Version`, `Funding_Case_Agreement_Activity_Version`, `Funding_Case_Agreement_Approval_Submission`, and `Funding_Case_Agreement_Revision`;
-- budgets and activities: `Funding_Case_Agreement_Budget_Fiscal_Year`, `Funding_Case_Agreement_Budget_Line_Item`, `Funding_Case_Agreement_Activity`, outcome/activity and responsible-party/activity links;
-- operations: forecast and line items, claim and line items, claim reconciliation and line items, commitment and lines, payment and lines;
-- monitoring: monitor, planning, items, findings, follow-ups, follow-up updates, and promising practices.
-
-Agreement, amendment, claim, claim reconciliation, forecast, commitment, payment, monitor, and Closeout rows receive registered `Common_Entity` identities. Their assignment triggers enforce/retire exact rosters. `Funding_Case_Agreement_Closeout` permits one open row per Agreement, constrains status/open combinations, and owns an immutable readiness snapshot per run. Snapshot triggers validate the `approval_submission` run and parent Agreement and reject update/delete. Stable budget identities are PostgreSQL bigint values, exposed as decimal strings. Initial working-version triggers create budget/activity versions. Approval-submission triggers validate run purpose/target and reject packet update/delete. Revision validation requires the submission, optional amendment, and Agreement to agree.
-
-The `trg_fn_resolve_*` family and corresponding triggers derive—not trust—parent identity: current budget/activity version, budget-line item identity, claim-line agreement, forecast-line agreement, reconcile-line claim, commitment-line stream/budget scope, payment agreement, payment-line commitment, and the owning Stream for monitors and generated documents. Composite foreign keys bind monitors, generated document templates, and holdback bases to the Agreement's exact Stream. Root-enforcement triggers then reject cross-agreement fiscal years or line items. Amendment type/subtype triggers require configuration from the agreement’s stream.
-
-The Agreement–Proponent link carries a required Agency recipient subtype. Database guards reject a choice outside the Stream's active eligible-recipient mapping, prevent retirement of a referenced subtype, and protect existing links when a Stream or Program changes ownership or eligibility. The optional Stream consistency setting checks future choices against the latest eligible saved link for that Proponent in the same Stream; historical differences do not block enabling it. Workflow profile-reference guards also protect published conditions that depend on these classifications.
-
-Money fields for agreement budgets, forecasts, claims, reconciliation, commitments, and payments are `numeric(19,2)`; holdback/percentages are `numeric(5,2)` and risk score is `numeric(8,2)`. `fc_enforce_commitment_program_funding_total` is the shared validation function invoked by the budget-line, budget-version, and commitment-line trigger families: active commitment allocation may not exceed the corresponding program-funding total. These checks execute for both sides of relevant inserts/updates, so a later budget reduction cannot bypass the invariant.
-
-## Storage, audit, notes, and groups
-
-`Common_Attachment_Types` belongs to an Agency. `Common_Attachment` stores host metadata plus a pinned provider/object/locator, and `Common_Entity_Attachment` binds it to a typed target. Generated documents use a separate relationship. `0110` persists durable storage deletion and metadata restoration jobs; external bytes are not in the database transaction. See [Background work](../operator/background-work.md).
-
-`0120` defines append-only change, access, and security evidence in the `audit` schema. Change capture is transactional; buffered access capture can be delayed or lost. Agency ownership attribution supports scoped Audit reads, and sanitized inputs require a separate permission. See [Audit](../admin/audit.md).
-
-`0130` adds `Applicant_Recipient_Note` with an Agency owner and `Funding_Case_Agreement_Note` under an exact Agreement. Both retain author and last editor and use soft deletion. `0140` adds `Common_Group` and `Common_Group_Member`, group defaults on approval and review setup, and claim fields on runtime work. It relaxes the exact assignment roster only while a group review is pending claim, then requires a claimant's exact assignment. The database checks approval claimant evidence at decision time; a default group member cannot supply on-behalf evidence, and a required group-detail step needs claimant name, title, and date. The migration refuses rollback while retained group data or references exist. Group membership is not a business-data grant. See [Groups](../admin/groups.md).
-
-Recommendation response revisions, bilingual Program terms URLs, and cost-category availability are now folded into the clean schema rather than applied by separate incremental migrations. Existing deployed databases need the application's supported upgrade path; these ordered files describe fresh initialization.
+`documentation-audit/data-coverage.json` records discovered subject and raw-SQL helper mechanisms. A terminal documentation status describes reviewed coverage, not execution of application regression suites. See the synchronization receipt for commands actually run.
 
 ## Manual spreadsheet maintenance
 
@@ -139,7 +103,3 @@ Every write names the sheet and row and supplies an expected current cell value;
 When authorizing from a remote terminal, the browser may fail to reach that terminal’s loopback listener. Paste the **entire callback URL into the still-running authorization command**, not into an issue or chat. It validates the expected origin/path, a single matching state, and a single authorization code before exchange. The same ten-minute deadline applies.
 
 For a small prepared block, invoke `bun run scripts/data-model-spreadsheet-row.ts fill-blank --sheet "Sheet title" --row 100 --count 2 --expected-first-cell-empty --values-file /path/to/rows.json`. Replace the example sheet and rows after reading the destination. The file must contain exactly two equally sized arrays of strings, for example `[["Field A", "text"], ["Field B", "bigint"]]`. This value-only operation supports 1–32 rows within the existing grid, refuses any destination row containing a value, formula, or note, and preserves formatting. It does not insert rows or permit overwriting populated rows. Moves separately guard the destination’s expected first cell, including an explicitly empty destination.
-
-## Verification and engine differences
-
-The canonical-schema test migrates a fresh PGlite database and inventories tables, enums, columns, indexes, unique/check/foreign-key constraints, functions, and triggers. Targeted migration tests verify review subtype/version pinning, polymorphic pairs, approval state enforcement, agreement ownership/versioning and financial totals. PostgreSQL integration suites additionally verify independent-session locking and races; they require a configured PostgreSQL test URL and are not implied by a PGlite pass.

@@ -11,6 +11,7 @@
     "evidence": [
       "nuxt.config.ts",
       "server/utils/db.ts",
+      "server/utils/audit-request.ts",
       "server/utils/audit-driver.ts",
       "server/utils/audit-context.ts",
       "server/utils/audit-runtime.ts",
@@ -18,10 +19,16 @@
       "server/utils/database-config.ts",
       "server/utils/database-health.ts",
       "server/utils/migration-readiness.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:local-setup-commands",
@@ -35,10 +42,16 @@
     "evidence": [
       "package.json",
       "scripts/setup-workspaces.ts",
-      "scripts/dev.ts"
+      "scripts/dev.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:database-modes",
@@ -51,6 +64,7 @@
     "fr": "fr/operator/configuration.md",
     "evidence": [
       "server/utils/db.ts",
+      "server/utils/audit-request.ts",
       "server/utils/audit-driver.ts",
       "server/utils/audit-context.ts",
       "server/utils/audit-runtime.ts",
@@ -59,6 +73,16 @@
       "server/utils/database-health.ts",
       "server/utils/migration-readiness.ts",
       "server/plugins/migrations.ts",
+      "server/utils/extensions.ts",
+      "server/utils/startup-recovery.ts",
+      "server/utils/extension-nitro-plugins.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts",
       "server/plugins/../utils/audit-runtime.ts",
       "server/plugins/../utils/extensions.ts",
       "server/plugins/../utils/migration-readiness.ts",
@@ -66,7 +90,7 @@
       "server/plugins/../utils/startup-recovery.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:authentication-providers",
@@ -79,11 +103,18 @@
     "fr": "fr/operator/configuration.md",
     "evidence": [
       "server/utils/auth.ts",
+      "server/utils/audit-context.ts",
       "server/utils/db.ts",
-      "nuxt.config.ts"
+      "nuxt.config.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:storage-document-generation",
@@ -96,18 +127,32 @@
     "fr": "fr/operator/configuration.md",
     "evidence": [
       "server/utils/file-storage.ts",
+      "server/utils/audit-context.ts",
       "server/utils/file-storage-provider.ts",
       "server/utils/extensions.ts",
       "server/utils/document-generation.ts",
+      "server/utils/document-conditions.ts",
+      "server/utils/document-rendering.ts",
       "server/utils/api-errors.ts",
       "server/utils/sql-like.ts",
+      "server/utils/agreement-custom-fields.ts",
+      "server/utils/agreement-document-custom-fields.ts",
       "server/utils/agreement-closeout.ts",
       "shared/utils/database-id.ts",
       "server/utils/database-money.ts",
-      "shared/utils/money.ts"
+      "server/utils/agreement-budget-funding.ts",
+      "shared/utils/money.ts",
+      "server/utils/agreement-accounting-projection.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:docker-railway",
@@ -121,10 +166,16 @@
     "evidence": [
       "Dockerfile",
       "docker-compose.yml",
-      "railway.json"
+      "railway.json",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:ci-demo-webcontainer",
@@ -138,10 +189,17 @@
     "evidence": [
       ".github/workflows",
       "scripts/webcontainer.ts",
-      "scripts/webcontainer-archive.ts"
+      "scripts/webcontainer-archive.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:health-readiness",
@@ -154,12 +212,77 @@
     "fr": "fr/operator/configuration.md",
     "evidence": [
       "server/api/health.get.ts",
+      "server/utils/api-errors.ts",
+      "server/utils/migration-readiness.ts",
+      "server/utils/startup-unavailable.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts",
       "server/api/../utils/api-errors.ts",
       "server/api/../utils/migration-readiness.ts",
       "server/api/../utils/startup-unavailable.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "config:durable-l1-scheduling",
+    "source": "server/plugins/l1-queue.ts; server/utils/l1-queue.ts; server/utils/extension-scheduled-import.ts",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/background-work.md",
+    "fr": "fr/operator/background-work.md",
+    "evidence": [
+      "server/plugins/l1-queue.ts",
+      "server/utils/db.ts",
+      "server/utils/migration-readiness.ts",
+      "server/utils/extension-nitro-plugins.ts",
+      "server/utils/extensions.ts",
+      "server/utils/extension-scheduled-import.ts",
+      "server/utils/audit-context.ts",
+      "server/utils/l1-queue.ts",
+      "server/utils/agreement.ts",
+      "server/utils/transfer-payment-stream-lock.ts",
+      "server/utils/business-status-runtime.ts",
+      "server/utils/agreement-closeout.ts",
+      "server/utils/agreement-claim.ts",
+      "server/utils/agreement-forecast-import.ts",
+      "server/utils/funding-case-exchange.ts",
+      "server/plugins/storage-cleanup.ts",
+      "tooling/gcs-ssc/tests/unit/l1-queue.test.ts",
+      "tooling/gcs-ssc/tests/unit/l1-queue-plugin.test.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group background in review-groups.json. Durable L1 post-readiness handlers, two-minute renewing leases, unlimited schedule retry and independent domain queue evidence; in-app storage drain and transaction/capability-bound scheduled drafts. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "config:host-diagrams",
+    "source": "packages/gcs-ssc-diagrams; app/components/Common/FlowDiagram.vue",
+    "audience": [
+      "operator",
+      "developer"
+    ],
+    "en": "en/operator/configuration.md",
+    "fr": "fr/operator/configuration.md",
+    "evidence": [
+      "packages/gcs-ssc-diagrams",
+      "app/components/Common/FlowDiagram.vue",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:quality-testing",
@@ -173,10 +296,17 @@
     "evidence": [
       "package.json",
       "tooling/gcs-ssc",
-      "playwright.config.ts"
+      "playwright.config.ts",
+      "Dockerfile",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "config:extension-packaging",
@@ -189,13 +319,22 @@
     "fr": "fr/operator/configuration.md",
     "evidence": [
       "modules/gcs-extensions.ts",
+      "shared/utils/extensions.ts",
+      "shared/utils/abilities.ts",
+      "shared/utils/extension-sdk-aliases.ts",
+      "Dockerfile",
+      "package.json",
+      ".railway/railway.ts",
+      "infra/aws/src/demo-stack.ts",
+      "scripts/dev.ts",
+      "scripts/test-e2e-pglite-shards.ts",
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/utils/auth.ts",
       "modules/../shared/utils/extensions.ts",
       "modules/../shared/utils/abilities.ts",
-      "modules/../shared/utils/extension-sdk-aliases.ts",
-      "Dockerfile",
-      "package.json"
+      "modules/../shared/utils/extension-sdk-aliases.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: runtime variables, defaults, database/auth precedence, audit/storage configuration and readiness. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   }
 ]

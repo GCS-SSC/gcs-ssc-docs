@@ -1,8 +1,20 @@
 # Review API
 
-Runtime review sets, assessment and checklist responses, reviewers, cancellation, completion, and retry.
+These requests support the reviews carried out on a file, including assessment answers, checklist answers and additional reviewers. They also support the agency definitions used to create those reviews. See [Runtime reviews](../../concepts/runtime-reviews.md) and [Proponent reviews](../../proponents/reviews.md).
 
-This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
+An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
+
+- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
+- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
+- **Authorization landmarks**: names found in the source that help a developer locate access checks.
+- **Validation landmarks**: names that help locate checks on submitted fields or query options.
+- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+
+This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+
+## Read-only example
+
+An authorized request for `GET /api/reviews/35/checklist` reads review 35’s checklist definition, saved answers and current review state. It does not save answers or complete the review. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
 
 ## Handlers (29)
 
@@ -27,7 +39,7 @@ This generated route index is an exhaustive navigation table, not independent pr
 | GET | `/api/review-sets/lookups/setups` | requireAuthContext | CoreOrExtensionEntityTargetSchema, PaginationSchema, ReviewSetupLookupQuerySchema, getValidatedQueryI18n | `server/api/review-sets/lookups/setups.get.ts` |
 | GET | `/api/reviews/[reviewId]/additional-reviewers` | canAuthorizeReviewRuntimeAction, requireAuthContext | — | `server/api/reviews/[reviewId]/additional-reviewers/index.get.ts` |
 | POST | `/api/reviews/[reviewId]/additional-reviewers` | executeFreshAuthorizedReviewRuntimeWrite, requireAuthContext | AdditionalReviewerInputSchema, readValidatedBodyI18n | `server/api/reviews/[reviewId]/additional-reviewers/index.post.ts` |
-| GET | `/api/reviews/[reviewId]/additional-reviewers/lookups/groups` | requireAuthContext | — | `server/api/reviews/[reviewId]/additional-reviewers/lookups/groups.get.ts` |
+| GET | `/api/reviews/[reviewId]/additional-reviewers/lookups/groups` | requireAuthContext | GroupLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/reviews/[reviewId]/additional-reviewers/lookups/groups.get.ts` |
 | GET | `/api/reviews/[reviewId]/additional-reviewers/lookups/users` | requireAuthContext | PaginationSchema, UserLookupQuerySchema, getValidatedQueryI18n | `server/api/reviews/[reviewId]/additional-reviewers/lookups/users.get.ts` |
 | GET | `/api/reviews/[reviewId]/assessment` | canAuthorizeReviewRuntimeAction, requireAuthContext | AssessmentRuntimeSchema, Common_Review_Schema | `server/api/reviews/[reviewId]/assessment.get.ts` |
 | PATCH | `/api/reviews/[reviewId]/assessment` | executeFreshAuthorizedReviewRuntimeWrite, requireAuthContext | AssessmentResponseSchema, readValidatedBodyI18n | `server/api/reviews/[reviewId]/assessment.patch.ts` |

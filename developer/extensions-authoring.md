@@ -8,4 +8,4 @@ if (typeof window !== 'undefined') {
 }
 </script>
 
-[Continue in English](../en/developer/extensions-authoring.md)
+[Open the extension authoring guide in English](../en/developer/extensions-authoring.md)

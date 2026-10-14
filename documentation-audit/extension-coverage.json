@@ -11,15 +11,21 @@
     "fr": "fr/developer/extensions-authoring.md",
     "evidence": [
       "modules/gcs-extensions.ts",
-      "modules/../shared/utils/extensions.ts",
-      "modules/../shared/utils/abilities.ts",
-      "modules/../shared/utils/extension-sdk-aliases.ts",
+      "shared/utils/extensions.ts",
+      "shared/utils/abilities.ts",
+      "shared/utils/extension-sdk-aliases.ts",
       "packages/gcs-ssc-extensions",
       "packages/gcs-ssc-extensions/src/index.ts",
       "packages/gcs-ssc-extensions/src/server.ts",
-      "packages/gcs-ssc-extensions/src/ui.ts"
+      "packages/gcs-ssc-extensions/src/ui.ts",
+      "server/utils/extension-runtime-route.ts",
+      "server/utils/extension-agreement-financials.ts",
+      "server/utils/agreement-coding-allocator.ts",
+      "modules/../shared/utils/extensions.ts",
+      "modules/../shared/utils/abilities.ts",
+      "modules/../shared/utils/extension-sdk-aliases.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: public SDK 0.3.1 manifests, typed ownership, transactional lifecycle, storage/numbering providers and extension-owned i18n. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group sdk in review-groups.json. SDK 0.3.17 host capability boundary: Agency workspace, Opportunity/Payment tabs, Agreement details, scoped bilingual fields, retained evidence, host-bound financial reads and Stream-catalog coding allocator. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   }
 ]

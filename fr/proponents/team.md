@@ -1,6 +1,6 @@
 # Utilisateurs affectés au promoteur
 
-L’onglet **Utilisateurs affectés** présente le registre de travail exact d’un promoteur enregistré. Il répartit ce profil entre des utilisateurs qui possèdent déjà un plafond de rôle Promoteur suffisant pour l’agence principale; il ne crée pas de permission à lui seul.
+Ouvrez un promoteur enregistré et choisissez **Utilisateurs affectés** pour voir qui travaille sur ce profil précis. Ces utilisateurs doivent aussi posséder le rôle Promoteur approprié à son agence principale. L’ajout à cette liste ne leur donne pas ce rôle.
 
 ## Accès requis
 
@@ -13,7 +13,7 @@ L’ajout, la promotion ou le retrait d’utilisateurs exige `manage_assignments
 
 ## Règles du registre
 
-Chaque promoteur actif doit compter au moins une affectation active et exactement un utilisateur principal. Le principal dirige le travail; il n’est pas un membre plus privilégié. Un utilisateur affecté a encore besoin du plafond Lecteur pour lire et de la règle des deux clés pour modifier le profil.
+Chaque promoteur actif doit compter au moins une affectation active et exactement un utilisateur principal. Le principal dirige le travail; il n’est pas un membre plus privilégié. Un utilisateur affecté doit encore avoir l’accès Lecteur pour consulter le profil. Pour le modifier, il faut à la fois le rôle approprié et une affectation à ce profil précis.
 
 Le registre demeure lisible lorsqu’un utilisateur existant devient inactif ou perd son admissibilité Contributeur. Un principal inadmissible reste ainsi visible pour correction; les changements de rôle ne réécrivent pas silencieusement l’historique.
 
@@ -25,24 +25,26 @@ Le nouvel utilisateur n’est pas principal. L’ajout de la même personne à u
 
 ## Changer l’utilisateur principal
 
-Choisissez **Rendre principal** pour une affectation active et admissible. L’opération promeut cet utilisateur et rétrograde atomiquement l’ancien principal. Elle ne peut promouvoir une affectation inactive, inadmissible, manquante ou retirée.
+Choisissez **Rendre principal** pour une affectation active et admissible. L’enregistrement rend cette personne principale et fait de l’ancien principal un utilisateur affecté ordinaire, ensemble. Elle ne peut promouvoir une affectation inactive, inadmissible, manquante ou retirée.
 
 Si le principal courant est inadmissible, ajoutez ou repérez d’abord un remplaçant admissible, promouvez-le, puis retirez l’ancienne affectation s’il y a lieu.
 
 ## Retirer un utilisateur affecté
 
-Un utilisateur non principal peut être retiré lorsqu’il reste au moins une affectation active. Le serveur refuse le retrait du principal et de la dernière personne affectée. Le retrait est une suppression logique qui n’efface pas les références historiques.
+Un utilisateur non principal peut être retiré lorsqu’il reste au moins une affectation active. Le serveur refuse le retrait du principal et de la dernière personne affectée. Le retrait enlève l’utilisateur de la liste active tout en conservant l’historique de son affectation.
 
 ## Changements d’état et de portée
 
-Le registre ne peut changer que lorsque l’indicateur actif du promoteur est vrai et que le profil n’est pas supprimé. Les profils inactifs conservent leur registre lisible, sans pouvoir le modifier. Chaque écriture recharge l’agence principale, le graphe des rôles, l’admissibilité, l’état et le registre courant dans une transaction; une page périmée ne peut donc pas conserver l’accès après un changement concurrent.
+Vous pouvez modifier les affectations seulement lorsque le promoteur est actif et n’a pas été supprimé. Les profils inactifs conservent leur registre lisible, sans pouvoir le modifier. À l’enregistrement, l’application revérifie l’agence principale, les permissions, les utilisateurs admissibles, l’état du profil et les affectations actuelles. Une page laissée ouverte ne conserve pas des permissions retirées depuis.
 
 Le changement d’agence principale modifie la portée utilisée par les autorisations et les vérifications d’admissibilité suivantes. Révisez le registre et les permissions dans le cadre de ce changement; une affectation existante peut demeurer visible même si son utilisateur n’est plus admissible dans la nouvelle agence.
+
+Par exemple, Alex est l’agent principal pour Services communautaires du Havre et transfère le dossier à Samira. Un utilisateur ayant `manage_assignments` ajoute d’abord Samira, qui doit déjà posséder l’accès Contributeur ou Gestionnaire à l’agence principale, puis choisit **Rendre principal** pour elle. Alex peut ensuite être retiré s’il ne travaille plus sur le dossier. Rendre Samira principale ne lui donne pas accès aux ententes de l’organisme; vérifiez ces affectations séparément.
 
 ## Frontières
 
 - L’affectation à un promoteur n’accorde pas l’accès à un autre promoteur, à une entente liée, à un examen ou une recommandation affecté indépendamment, à une agence ou à un programme.
-- Elle ne crée pas de permission de premier niveau sur les promoteurs. La création exige un plafond Contributeur à l’agence principale choisie et rend le créateur principal dans la transaction de création.
+- Elle ne crée pas de permission de premier niveau sur les promoteurs. La création d’un promoteur exige l’accès Contributeur à l’agence principale choisie. L’application affecte son créateur comme principal à l’enregistrement du nouveau profil.
 - Les affectations d’approbateur et de réviseur demeurent des responsabilités de flux distinctes.
 
 Pour coordonner plusieurs entités, utilisez [Gestion des affectations](../admin/assignments.md). Pour le modèle d’autorisation, consultez [Permissions de rôle et affectations exactes](../concepts/rbac.md).

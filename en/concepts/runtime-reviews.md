@@ -1,6 +1,6 @@
 # Runtime Reviews
 
-Runtime reviews are the assessments and checklists created from a published Review Setup. They belong to a review set on a source record, use pinned schema and setup versions, and can participate in a larger [workflow](workflows.md). This guide covers doing the review; administrators configure its design in [Assessment Schemas](../programs/assessment-schemas.md) and [Checklist Schemas](../programs/checklist-schemas.md).
+A **runtime review** is the assessment or checklist you complete for a particular record, such as a Claim. An administrator publishes the Review Setup that defines this work. A **review set** groups the reviews required for that record. Each review keeps the exact published questionnaire (schema) and setup versions used when it was created; these are called **pinned versions**. Reviews can also be part of a larger [workflow](workflows.md). This guide explains how to do the review; administrators design the questionnaires in [Assessment Schemas](../programs/assessment-schemas.md) and [Checklist Schemas](../programs/checklist-schemas.md).
 
 ## Open and navigate a review
 
@@ -11,6 +11,8 @@ Access is resolved from the review through its review set to the exact owning Ap
 The server returns not found when the id is missing, deleted, of the wrong review type, or no longer resolves through a valid owner. It masks inaccessible resources through the established authorization rules.
 
 ## Create and manage review sets
+
+To start a direct review, open the record’s Reviews area and choose an available published setup. For example, a Claim may need an eligibility checklist followed by a financial assessment. A sequential set makes the second review available after the first succeeds; a parallel set makes eligible reviews available together. You need permission to update the source record. The technical details below explain which setups are offered and how duplicate active work is prevented.
 
 Direct review support is declared by the entity registry and resolved through the exact owner. The generic `/api/review-sets` routes cover supported Proponents, Agreements, and Agreement children, including Claims and Closeouts. Registered qualified extension entities can participate when their host lifecycle capability declares direct reviews. A declared capability does not bypass the required owner resolver, permission, or lifecycle checks; unsupported targets return `UNSUPPORTED_REVIEW_ENTITY_TYPE`.
 
@@ -25,13 +27,13 @@ Before creation, `GET /api/review-sets/lookups/setups` returns only active, publ
 
 For an Applicant-Recipient, applicable scopes are its exact profile plus streams reached through active agreements in its lead agency. For an Agreement-owned child, scopes are its exact parent agreement and that agreement's current active stream. The lookup is searchable by bilingual setup, agency, and stream names.
 
-`POST /api/review-sets` requires source update access, then refreshes authorization and locks the current ownership/scope graph and setup snapshot. It rejects an ineligible or unpublished setup and permits only one non-deleted set for the same setup and target while a prior set is in a blocking non-terminal status. Creation atomically records the published configuration and schema versions in the canonical runtime and its items. Sequential plans activate the next eligible member; parallel plans activate their eligible members together. Waiting members and active work have distinct runtime states.
+`POST /api/review-sets` requires source update access, then refreshes authorization and locks the current ownership/scope graph and setup snapshot. It rejects an ineligible or unpublished setup and permits only one non-deleted set for the same setup and target while a prior set is in a blocking nonterminal status. Creation records the published configuration and schema versions for the review set and its reviews in one transaction. Sequential plans activate the next eligible member; parallel plans activate their eligible members together. Waiting members and active work have distinct runtime states.
 
-An authorized update user can cancel a non-terminal set through `POST /api/review-sets/{reviewSetId}/cancel`. The route resolves the target from the set, refreshes ownership authorization in the protected transaction, cancels the runtime and its unfinished children. It does not delete the historical rows. Terminal runtime states (`succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled`, `failed`) reject cancellation.
+An authorized update user can cancel an unfinished set through `POST /api/review-sets/{reviewSetId}/cancel`. The route resolves the target from the set, refreshes ownership authorization in the protected transaction, cancels the runtime and its unfinished children. It does not delete the historical rows. Terminal runtime states (`succeeded`, `approved`, `unsuccessful`, `denied`, `cancelled`, `failed`) reject cancellation.
 
 ## Complete an assessment
 
-An assessment renders the published definition pinned when the review was materialized. Work through its sections and subsections:
+An assessment shows the published questionnaire version saved when your review was created. Work through its sections and subsections:
 
 - Answer applicable numeric questions and add comments when their configured policy requires them.
 - Dependencies determine which questions and calculations apply. Calculated values are derived rather than accepted as authoritative user input.
@@ -40,9 +42,11 @@ An assessment renders the published definition pinned when the review was materi
 - Add custom outcomes only when the setup permits them.
 - Record review alignment, its numeric result, and narrative only when alignment is enabled.
 
-**Save** validates the active section and persists the complete normalized response in a fresh-authorized transaction. Saving does not mean completing: incomplete required answers can remain in progress. Once a review or its review set is complete, denied, or cancelled, the page is locked and no further response mutation is accepted.
+**Save** checks the active section and saves the full response in the required format, after checking your current permission again within the transaction. Saving does not mean completing: incomplete required answers can remain in progress. Once a review or its review set is complete, denied, or cancelled, the page is locked and no further response mutation is accepted.
 
 ## Complete a checklist
+
+For example, when checking whether a Claim includes the required supporting documents, choose **Pass** if the requirement is met or **Fail** if it is not. Add the explanation required by that question’s comment rule. Use **Save** to keep work in progress; use Completion only after all required questions, comments, and additional-reviewer requests are finished. Use **Explain** to understand how your answers produced the overall result.
 
 A checklist presents pinned bilingual questions grouped by section and subsection. Choose **Pass** or **Fail**, or **Not applicable** when that question offers it. Comments may be optional, always required, required on failure, required on Not applicable, or required on either of those answers. The sidebar shows answered counts and the live result. A required question still needs one of its configured answers; Not applicable is an explicit answer, not an unanswered question.
 
@@ -54,9 +58,15 @@ When the schema has not disabled reviewers, the Review section can track additio
 
 1. A user with assessment-save access adds an assignee from the schema agency's active Common users. Creation always starts with a blank comment.
 2. Only the assigned Common user can edit that row's comment, reassign it to another eligible agency user, or mark it complete. The row must still be incomplete and the parent review unlocked.
-3. A user with the assessment-child delete permission can soft-delete a row while the review is unlocked.
+3. A user with the assessment-child delete permission can mark as deleted while retaining history a row while the review is unlocked.
 
 The list shows total and active rows. Completing the main review is blocked until every non-deleted additional-reviewer row is completed or removed. Assignment remains an action rule, not a source-record access grant. All mutations re-resolve ownership, permission, row assignment, and lock state inside the transaction.
+
+## Group review ownership
+
+A published group default creates unclaimed review work rather than assigning the workflow initiator. Claim it from Home or the review’s claim action with current group membership and Contributor eligibility for the exact source owner. Claiming does not require prior personal assignment or `manage_assignments`; it creates the exact assignment if needed and preserves existing assigned users and the current primary. An empty roster makes the claimant primary. A second claim is rejected once another member succeeds.
+
+Additional-reviewer requests can also be assigned to an eligible group. A member must claim the request before acting as its reviewer; the assigned reviewer’s comment/completion rules still apply. Group membership never grants access to unrelated source records. If claiming fails, reload and check membership, current owner role scope, and whether the item remains active.
 
 ## Finish, approve, and advance
 
@@ -64,7 +74,7 @@ Use the Completion section only when responses are ready. Completion revalidates
 
 The review set advances according to its published member order and policy. Successful review/approval work advances to the next member. A denied member can end or deny the set according to its runtime rules; when the set belongs to a workflow, a successful terminal set advances the workflow and an unsuccessful set fails it. Historical runtime records continue to use their pinned versions.
 
-Retry creates a successor attempt; it does not reopen historical runtime rows. The direct review clone route requires a terminal standalone `review_set` runtime and a requested review whose outcome is `denied`, `cancelled`, `failed`, or `unsuccessful`. It copies the pinned runtime plan into a new set, creates fresh review records and response containers, and preserves predecessor lineage. A repeated concurrent request resolves to the same successor rather than creating duplicate attempts. Reviews owned by a workflow use that workflow’s retry path instead.
+Retry creates a successor attempt; it does not reopen historical runtime rows. The direct review clone route requires a terminal standalone `review_set` runtime and a requested review whose outcome is `denied`, `cancelled`, `failed`, or `unsuccessful`. It copies the pinned runtime plan into a new set, creates fresh review records and response containers, and preserves predecessor links to earlier versions and attempts. A repeated concurrent request resolves to the same successor rather than creating duplicate attempts. Reviews owned by a workflow use that workflow’s retry path instead.
 
 For example, after a standalone checklist set fails, an authorized user can retry the unsuccessful review into a new attempt. The original answers and decisions remain historical; complete the fresh successor rather than attempting to edit the failed record. Current ownership, assignment, and parent business-status guards still apply.
 

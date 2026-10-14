@@ -8,4 +8,4 @@ if (typeof window !== 'undefined') {
 }
 </script>
 
-[Continue in English](../en/agreements/commitments.md)
+[Open the commitments guide in English](../en/agreements/commitments.md)

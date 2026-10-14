@@ -1,6 +1,6 @@
 # Proponent Contacts
 
-Use **Contacts** for people associated with a Proponent. A Proponent contact is a common contact record linked to the selected profile; it is not automatically an application login or assigned user.
+Use **Contacts** for people associated with a Proponent. A contact records someone you can reach about the organization, such as its finance officer. Saving a contact does not give that person a login or permission to work on the file.
 
 Open **Proponents**, select a saved profile, and choose **Contacts**. The active table shows name, email, and English job title. Search matches name, email, or either language’s job title.
 
@@ -13,17 +13,17 @@ Open **Proponents**, select a saved profile, and choose **Contacts**. The active
 | Manager plus exact Proponent assignment | View, add, edit, and delete contacts. |
 | No access | The server refuses the request. |
 
-Viewer reads contacts. Creating/updating requires Contributor plus the exact parent assignment; deleting requires Manager plus that assignment. The server authorizes every child action against the Proponent and rebuilds authorization after locking it for a write.
+To add or change a contact, you need both Contributor access and an assignment to this specific Proponent. To delete one, you need Manager access and that assignment. The application checks these permissions again when saving, including any changes made while your page was open.
 
 ## Fields and validation
 
 | Field | Rule |
 | --- | --- |
 | Name | Required. |
-| Email | Required. Active common contacts use a case-insensitive globally unique email address. |
-| General language preference | Required value from the supported language-preference list. |
-| English and French job titles | Both are required persisted values. |
-| Primary account | Required yes/no value. The application does not enforce that only one contact per proponent is primary. |
+| Email | Required. The address must be different from every other active contact’s address throughout the application. Uppercase and lowercase letters count as the same address. |
+| General language preference | Choose a supported language preference for communication with this person. |
+| English and French job titles | Enter both versions, for example “Finance officer” and “Agent des finances”. Both are saved. |
+| Primary account | Choose yes or no to indicate a primary contact. More than one contact may be marked primary. |
 | Title | Optional. |
 | Business phone and extension | Optional numeric values. |
 
@@ -31,11 +31,13 @@ The language preference records a service preference; it does not translate the 
 
 ## Record ownership and shared contacts
 
-Adding a contact creates the common contact and its proponent link in one transaction. The email uniqueness rule applies across all active common contacts, not just within this proponent. Use a genuinely distinct address for a different person; a duplicate email cannot be saved.
+Saving a new contact saves both the person’s details and their connection to this Proponent together. The email uniqueness rule applies across all active common contacts, not just within this proponent. Use a genuinely distinct address for a different person; a duplicate email cannot be saved.
 
-A common contact can also be referenced by another proponent or by completion and approval configuration. The server locks the contact before checking those references. It refuses an edit when another active reference exists so the change cannot silently affect another record.
+A common contact can also be referenced by another proponent or by completion and approval configuration. If another active record uses the same contact, the application refuses changes here to prevent you from changing that other record’s contact details.
 
-Deleting a contact soft-deletes this Proponent's link. The common contact is soft-deleted only when no other active Proponent, completion, or approval-step reference remains. There is no restore action in this tab. Deleting a link does not remove an application user account, exact assignment, or another record's live reference.
+Deleting a contact removes it from this Proponent’s active contact list while preserving history. The contact itself is marked deleted only if no other active Proponent, completion, or approval step still uses it. There is no restore action in this tab. Deleting a link does not remove an application user account, exact assignment, or another record's live reference.
+
+For example, when preparing a contribution agreement for Harbour Community Services, search for its finance officer, Maya Chen, before adding her. Enter her name, `maya.chen@example.org`, both job titles, and her language preference. If that email already belongs to an active contact elsewhere, saving fails; confirm which existing record uses it before creating a separate contact with a different address.
 
 ## Recovery
 

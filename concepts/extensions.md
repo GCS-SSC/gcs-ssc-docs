@@ -8,4 +8,4 @@ if (typeof window !== 'undefined') {
 }
 </script>
 
-[Continue in English](../en/concepts/extensions.md)
+[Open the extensions guide in English](../en/concepts/extensions.md)

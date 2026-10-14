@@ -1,22 +1,36 @@
 # Applicant-recipient API
 
-Proponent profiles, identity, relationships, funding history, reviews, agreements, and exact assignments.
+These requests support proponent profiles: the organizations or people applying for or receiving funding. They also support contacts, addresses, funding history, reviews and links to agreements. See [Proponents](../../proponents/index.md).
 
-This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
+An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
 
-## Handlers (40)
+- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
+- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
+- **Authorization landmarks**: names found in the source that help a developer locate access checks.
+- **Validation landmarks**: names that help locate checks on submitted fields or query options.
+- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+
+This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+
+## Read-only example
+
+An authorized request for `GET /api/applicant-recipients/27` reads proponent 27’s profile, including legal and operating names. It does not create an agreement for that proponent. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
+
+## Handlers (44)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/applicant-recipients/[id]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id].delete.ts` |
 | GET | `/api/applicant-recipients/[id]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/applicant-recipients/[id].get.ts` |
 | PATCH | `/api/applicant-recipients/[id]` | resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/account-receivables` | — | — | `server/api/applicant-recipients/[id]/account-receivables/index.get.ts` |
 | DELETE | `/api/applicant-recipients/[id]/addresses/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/addresses/[childId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/addresses/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAddressPatchSchema, CommonAddressSubdivisionSchema, parseI18n, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/addresses/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/addresses` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/addresses/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/addresses` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAddressCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/addresses/index.post.ts` |
 | DELETE | `/api/applicant-recipients/[id]/agency-financial-ids/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/agency-financial-ids/[childId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/agency-financial-ids/[childId]` | requireAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/agency-financial-ids/[childId].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/agency-financial-ids/[childId]/uses` | requireAuthContext, resolveApplicantRecipientAuthorization | QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/[childId]/uses.get.ts` |
 | GET | `/api/applicant-recipients/[id]/agency-financial-ids` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/agency-financial-ids` | executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization | ApplicantRecipientAgencyFinancialIdCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/index.post.ts` |
 | GET | `/api/applicant-recipients/[id]/agency-financial-ids/lookups/agencies` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agency-financial-ids/lookups/agencies.get.ts` |
@@ -24,6 +38,8 @@ This generated route index is an exhaustive navigation table, not independent pr
 | PATCH | `/api/applicant-recipients/[id]/contacts/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientContactPatchSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/contacts/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/contacts` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/contacts/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/contacts` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientContactCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/contacts/index.post.ts` |
+| GET | `/api/applicant-recipients/[id]/credit-memos` | — | — | `server/api/applicant-recipients/[id]/credit-memos/index.get.ts` |
+| GET | `/api/applicant-recipients/[id]/financial-summary` | — | — | `server/api/applicant-recipients/[id]/financial-summary/index.get.ts` |
 | DELETE | `/api/applicant-recipients/[id]/funding-history/[historyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | — | `server/api/applicant-recipients/[id]/funding-history/[historyId].delete.ts` |
 | PATCH | `/api/applicant-recipients/[id]/funding-history/[historyId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | FundingHistoryExternalPatchSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/funding-history/[historyId].patch.ts` |
 | POST | `/api/applicant-recipients/[id]/funding-history/[historyId]/recipients` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext, resolveApplicantRecipientAuthorization | BodySchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/funding-history/[historyId]/recipients.post.ts` |

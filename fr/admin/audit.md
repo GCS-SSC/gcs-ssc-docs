@@ -8,6 +8,12 @@ Un rôle doit accorder explicitement `audit:read` à portée globale ou d’agen
 
 Les valeurs d’entrée capturées des requêtes exigent la capacité distincte `audit:view_audit_inputs`. Un lecteur Audit sans cette capacité voit l’événement et l’état de visibilité des entrées, mais pas les valeurs capturées. Une permission d’entrée d’agence ne révèle que les preuves attribuées à cette agence; les entrées attribuées globalement exigent une permission globale. Les valeurs sont assainies et peuvent être indisponibles pour un événement. Réservez ces permissions aux personnes dont les fonctions exigent ces preuves.
 
+Un événement est attribué à une agence selon les règles de propriété courantes de l’application. Une agence liée ou l’agence de suivi affichée sur un dossier n’est pas nécessairement celle dont les lecteurs Audit peuvent voir l’événement. Pour les profils partagés de promoteur et l’historique du financement, l’événement est visible dans les agences couvertes par les rôles actifs d’agence de la personne. Les dossiers enfants suivent cette règle sauf s’ils ont leur propre agence propriétaire explicite. Notes de promoteur et identifiants financiers utilisent leur agence explicite. L’agence principale seule ne définit pas le public d’audit du profil partagé. Un acteur sans rôle actif d’agence a une attribution globale; une écriture sans acteur sur ces dossiers exige une attribution de création explicite plutôt qu’une agence déduite d’un libellé.
+
+Possibilités et dossiers suivent Possibilité → volet d’ancrage → programme → agence, y compris les liens de volets sélectionnés. Un volet secondaire fournit l’admissibilité, pas un autre propriétaire d’audit. Pour les approbations, les collectes et les autres dossiers pouvant appartenir à différents types de travail, l’application vérifie le propriétaire du dossier source réel. Visibilité du profil, affectation opérationnelle et public Audit peuvent donc différer; les permissions Audit restent indépendantes.
+
+Par exemple, une affectation à une entente peut permettre à un agent de traiter cette entente, mais pas d’examiner ses événements Audit. Si vous devez expliquer un changement budgétaire et que vous n’avez pas accès à Audit, demandez à un lecteur Audit autorisé d’enquêter avec la référence du dossier et l’heure approximative de l’enregistrement.
+
 ## Trouver un événement
 
 1. Ouvrez Audit et choisissez la vue des événements d’audit ou des accès dans la navigation verticale.
@@ -25,12 +31,12 @@ L’acteur est le `user.id` du compte authentifié, non l’identifiant Common U
 | Preuve | Contenu | Limite importante |
 | --- | --- | --- |
 | Changement | Valeurs initiales d’insertion; paires ancienne/nouvelle des colonnes modifiées; valeurs conservées de suppression et de restauration. | Capture dans la transaction métier. Une mise à jour inchangée ne produit pas d’événement; un échec de capture annule la mutation. |
-| Sécurité | Action enregistrée de sécurité d’identité ou de rôle, cible et métadonnées. | Producteur distinct, qui ne remplace pas tous les événements de changement. |
+| Sécurité | Action enregistrée de sécurité d’identité ou de rôle, cible et métadonnées. | Enregistré séparément des événements de changement; ne les remplace pas. |
 | Accès | SQL expurgé, durée, résultats de requête et de transaction, nombre de lignes, corrélation et identités prises en charge. | Preuve de requête, non copie complète des résultats ni preuve que l’utilisateur les a tous lus. |
 
 Les nombres dans la preuve de changement conservent le texte décimal afin d’éviter l’arrondissement des grands identifiants et montants exacts. Les colonnes JSON sont comparées comme valeurs complètes. Les exclusions de secrets et les politiques de capture restreinte omettent volontairement les données sensibles.
 
-Les littéraux SQL et commentaires sont expurgés. Les entrées assainies des requêtes apparaissent seulement avec la permission distincte de voir les entrées; elles ne copient pas tout le corps de la demande. Une requête structurée simple sur une table peut identifier les clés primaires retournées, y compris les alias et clés composites. Les projections jointes, agrégées, brutes ou sans identifiant peuvent indiquer des identités indisponibles. Lisez les limites affichées; une projection indisponible n’est pas un résultat vide. Le filtre d’identifiant de fiche des accès cherche les valeurs de clés capturées et ne retrouve pas les identités non capturées.
+Les littéraux SQL et commentaires sont expurgés. Les entrées assainies des requêtes apparaissent seulement avec la permission distincte de voir les entrées; elles ne copient pas tout le corps de la demande. Une requête simple sur une table peut enregistrer les identifiants des dossiers retournés (clés primaires, y compris les alias et les clés composées de plusieurs valeurs). Les requêtes plus complexes qui combinent des tables, résument les résultats, utilisent du SQL brut ou omettent les identifiants peuvent ne pas enregistrer ces identités. Lisez les limites affichées; une projection indisponible n’est pas un résultat vide. Le filtre d’identifiant de fiche des accès cherche les valeurs de clés capturées et ne retrouve pas les identités non capturées.
 
 ## Exemple d’enquête
 
@@ -40,7 +46,7 @@ Supposons que le soutien doive comprendre un changement de ligne budgétaire sig
 2. Ouvrez le changement et comparez les anciennes et nouvelles valeurs, l’acteur et l’opération.
 3. Filtrez sur son identifiant de requête pour voir les autres changements du même enregistrement. Un budget en pourcentage peut modifier plusieurs lignes dépendantes dans une transaction.
 4. Ouvrez Accès avec cet identifiant pour examiner les preuves persistées et le résultat transactionnel.
-5. Si Accès est d’abord vide, attendez l’écriture du tampon puis rechargez. Vérifiez la conservation et la capture avant de conclure qu’une preuve devrait exister.
+5. Si Accès est d’abord vide, attendez l’enregistrement des événements en attente, puis rechargez. Vérifiez la conservation et la capture avant de conclure qu’une preuve devrait exister.
 
 Cette procédure ne reconstruit pas le corps complet d’une demande ni les résultats indisponibles. Utilisez les preuves conservées et le dossier métier dans le cadre de vos fonctions autorisées.
 

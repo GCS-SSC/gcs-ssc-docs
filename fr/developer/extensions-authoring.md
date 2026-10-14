@@ -1,10 +1,12 @@
 # Création d’extensions
 
-Les extensions sont des paquets de code installés que l’hôte GCS-SSC découvre au démarrage. Créez une extension lorsqu’un processus opérationnel nécessite un comportement local sans modifier les écrans principaux des ententes, des promoteurs, des programmes ou de l’administration pour tous les déploiements.
+Une extension est un ajout installé qui donne à GCS-SSC des fonctions supplémentaires pour un processus opérationnel particulier. Pour un agent, elle peut apparaître sous forme d’onglet, de champs supplémentaires, de calculateur de paiement ou de bouton d’action. Les développeurs créent cet ajout comme un paquet de code; GCS-SSC le repère pendant la construction Nuxt, lorsque l’application est préparée pour fonctionner. Un déploiement peut ainsi ajouter des fonctions sans modifier les écrans principaux des ententes, des promoteurs, des programmes ou de l’administration pour tous les déploiements.
 
-Cette page porte sur la mise en œuvre destinée aux développeurs. Les responsables des opérations devraient consulter [Concepts : Extensions](../concepts/extensions.md) et les onglets Extensions des agences et des volets.
+Cette page explique comment les développeurs réalisent les extensions. Les agents et les responsables des opérations peuvent consulter [Concepts : Extensions](../concepts/extensions.md) et les onglets Extensions des agences et des volets.
 
 ## Contrat de création
+
+Dans cette page, **hôte** désigne l’application GCS-SSC principale. Le **SDK** (trousse de développement logiciel) est l’ensemble pris en charge de types, de fonctions et de composants que l’extension utilise pour communiquer avec cette application. Un **contrat** précise ce que chaque partie doit fournir. Utilisez ces contrats publics pour éviter que l’extension dépende du code interne de l’hôte.
 
 Importez les contrats du SDK depuis `@gcs-ssc/extensions`, les aides serveur depuis `@gcs-ssc/extensions/server`, les composants d’interface depuis `@gcs-ssc/extensions/ui` et les aides de test depuis `@gcs-ssc/extensions/testing`. N’importez pas les chemins internes de l’hôte comme `~~/server`, `~~/shared`, `~/` ou `#imports` pour les contrats appartenant à l’extension.
 
@@ -28,7 +30,7 @@ Pour la vérification autonome des types Nuxt, importez `@gcs-ssc/extensions/nux
 
 ## Structure d’un paquet
 
-Une extension type comprend les éléments suivants :
+Un paquet d’extension regroupe sa déclaration, ses écrans, son code serveur et ses tests. Une extension type comprend les éléments suivants :
 
 | Fichier ou dossier | Rôle |
 | --- | --- |
@@ -44,12 +46,14 @@ Une extension type comprend les éléments suivants :
 
 ## Champs du manifeste
 
+Le **manifeste** est le fichier de déclaration de l’extension. Il indique à l’hôte son identité, les fonctions nécessaires et l’emplacement de ses composants. Par exemple, une extension qui ajoute des notes de risque à une entente a besoin d’un onglet et d’une route serveur pour enregistrer les notes; les deux doivent être déclarés.
+
 ```ts
 import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
-  sdkVersion: '^0.3.1',
+  sdkVersion: '^0.3.17',
   requiredHostCapabilities: [
     'stream-config-modal',
     'server-handlers',
@@ -67,8 +71,8 @@ export default defineGcsExtension({
 | Champ | Règle |
 | --- | --- |
 | `key` | Clé stable de l’extension. Utilisez le format kebab-case en minuscules et ne la modifiez jamais après la création de données. |
-| `sdkVersion` | Plage de versions compatibles requise pour le SDK, par exemple `^0.3.1`. L’hôte rejette les versions non prises en charge. |
-| `requiredHostCapabilities` | Liste requise des capacités de l’hôte utilisées par le manifeste ou la mise en œuvre. Utilisez une liste vide seulement si aucune capacité n’est nécessaire. Consultez ci-dessous les limites de la déduction au démarrage. |
+| `sdkVersion` | Plage de versions compatibles requise pour le SDK, par exemple `^0.3.17`. L’hôte rejette les versions non prises en charge. |
+| `requiredHostCapabilities` | Liste requise des capacités de l’hôte utilisées par le manifeste ou la mise en œuvre. Utilisez une liste vide seulement si aucune capacité n’est nécessaire. Consultez ci-dessous les limites de la déduction lors de la découverte. |
 | `name` | Nom bilingue requis. |
 | `description` | Description bilingue facultative destinée aux écrans d’administration. |
 | `admin` | Composants de configuration de l’agence, de la fenêtre modale du volet ou de la page du volet. |
@@ -83,7 +87,9 @@ L’hôte vérifie les chemins des composants, des gestionnaires, des actifs et 
 
 ## Capacités prises en charge
 
-Déclarez chaque capacité dont dépend l’extension. Au démarrage, l’hôte déduit les capacités représentées directement par les champs `admin`, `client`, `serverHandlers`, `migrations`, `runtime`, `assets` et `nitroPlugin` du manifeste; il rejette les capacités déduites mais non déclarées ainsi que les capacités inconnues. L’hôte n’inspecte pas les importations ou les appels du code de mise en œuvre. Les auteurs doivent donc vérifier séparément les dépendances propres au code, notamment les clients API, les aides KV, les aides de secrets et les hooks d’opération de création.
+Une **capacité** est une fonction de l’hôte dont l’extension a besoin. Déclarez chaque capacité requise. Lors de la découverte Nuxt, l’hôte repère les fonctions décrites par les champs `admin`, `client`, `serverHandlers`, `migrations`, `runtime`, `assets` et `nitroPlugin` du manifeste. Il rejette les fonctions nécessitant une capacité non déclarée ainsi que les capacités inconnues.
+
+L’hôte n’inspecte pas les importations ou les appels de fonctions de l’extension. Les développeurs doivent aussi vérifier les dépendances qui figurent uniquement dans le code, comme les clients API, les aides KV, les aides de secrets et les hooks d’opération de création.
 
 | Capacité | Utilisation |
 | --- | --- |
@@ -94,7 +100,7 @@ Déclarez chaque capacité dont dépend l’extension. Au démarrage, l’hôte 
 | `agency-config` | Composant de configuration administrative d’une agence. |
 | `stream-config-modal` | Configuration du volet affichée dans la fenêtre modale Extensions du volet. |
 | `stream-config-page` | Route de configuration pleine page au moyen de `admin.streamConfigPage`. |
-| `entity-tabs` | Onglets d’entente, de promoteur, de réclamation ou de surveillance. |
+| `entity-tabs` | Onglets d’entente, de promoteur, de réclamation, de surveillance, de possibilité ou de paiement. |
 | `textarea-slots` | Composants d’emplacement d’exécution dans les zones prises en charge des pages de l’hôte. |
 | `create-actions` | Actions de création d’engagements ou de paiements d’une entente. |
 | `payment-amount-calculators` | Composants de calcul du montant des paiements. |
@@ -114,21 +120,25 @@ Déclarez chaque capacité dont dépend l’extension. Au démarrage, l’hôte 
 
 ## Déclarations d’entités de cycle de vie
 
-Utilisez les contrats de cycle de vie du SDK seulement lorsqu’une entité opérationnelle appartenant à l’extension doit participer à l’orchestration de l’hôte. Ajoutez `lifecycle-entities` à `requiredHostCapabilities` et déclarez chaque type local avec des libellés bilingues non vides, `completion` (`supported` ou `none`), `approvalSubmission` (`on_completion` ou `none`), `standardWorkflow: 'explicit'`, la prise en charge des examens directs, `ownerKind` (`agreement` ou `proponent`), `assignmentMode` (`independent` ou `inherited`) et le chemin d’un adaptateur serveur contenu dans le progiciel. L’hôte qualifie l’identité comme `<extension-key>:<local-type>`.
+Une **entité de cycle de vie** est un dossier créé par une extension qui utilise les règles d’achèvement, d’approbation et d’affectation de l’hôte. Par exemple, un dossier appartenant à une extension peut devoir être achevé et approuvé dans le cadre d’une entente. L’extension décrit le dossier; l’hôte contrôle les permissions et consigne l’historique du cycle de vie.
 
-L’adaptateur résout et verrouille l’entité concrète, son propriétaire, sa portée et son état opérationnel, puis implémente la validation d’achèvement et tout effet déterministe de terminaison positive. Il n’autorise pas les requêtes, ne choisit pas l’ordre des verrous, n’affaiblit pas le modèle déclaré de propriété ou d’affectation et ne crée pas lui-même les preuves de cycle de vie. L’installation synchronise la déclaration immuable dans `Common_Entity_Type`; une migration de l’extension utilise ensuite `attachGcsLifecycleEntityIdentity(...)` pour rattacher sa table concrète à `Common_Entity`. Renommer ou modifier une déclaration installée est refusé tant que des identités ou un historique existent.
+Utilisez les contrats de cycle de vie du SDK seulement lorsqu’une entité opérationnelle appartenant à l’extension a besoin que l’hôte gère son cycle de vie. Ajoutez `lifecycle-entities` à `requiredHostCapabilities` et déclarez chaque type local avec des libellés bilingues non vides, `completion` (`supported` ou `none`), `approvalSubmission` (`on_completion` ou `none`), `standardWorkflow: 'explicit'`, la prise en charge des examens directs, `ownerKind` (`agreement` ou `proponent`), `assignmentMode` (`independent` ou `inherited`) et le chemin d’un adaptateur serveur contenu dans le progiciel. L’hôte identifie chaque type par `<extension-key>:<local-type>` : deux extensions peuvent ainsi utiliser le même nom de type local sans partager une identité.
 
-La lecture hôte exige Lecteur auprès du propriétaire résolu. La création exige Contributeur et l’affectation au parent de création déclaré. La modification, l’achèvement, le démarrage, la reprise ou l’annulation d’un flux et la transition exigent Contributeur et la racine d’affectation exacte déclarée; la suppression exige Gestionnaire et cette affectation. Une entité indépendante crée atomiquement son registre où le créateur est principal; une entité héritée résout chaque fois le registre du parent. L’activation de l’extension demeure une barrière supplémentaire, jamais un remplacement de l’autorisation.
+L’adaptateur résout et verrouille l’entité concrète, son propriétaire, sa portée et son état opérationnel, puis implémente la validation d’achèvement et tout effet requis lorsque le processus se termine avec succès. Cet effet doit produire le même résultat à partir des mêmes données. L’adaptateur n’autorise pas les requêtes, ne choisit pas l’ordre des verrous, n’affaiblit pas le modèle déclaré de propriété ou d’affectation et ne crée pas lui-même les preuves de cycle de vie. L’installation synchronise la déclaration immuable dans `Common_Entity_Type`; une migration de l’extension utilise ensuite `attachGcsLifecycleEntityIdentity(...)` pour rattacher sa table concrète à `Common_Entity`. Renommer ou modifier une déclaration installée est refusé tant que des identités ou un historique existent.
 
-L’achèvement consigne `not_applicable`, `no_workflow` ou `workflow_started` au moment de sa création. L’absence d’un flux obligatoire produit un conflit et annule la transaction; un achèvement `no_workflow` ne peut recevoir un flux plus tard. Une reprise crée une tentative successeure avec les mêmes versions épinglées. Les hooks de terminaison positive s’exécutent dans la transaction hôte après `no_workflow`, `succeeded` ou `approved`; ils doivent être déterministes, sûrs à réessayer et exempts d’effets externes impossibles à annuler.
+La lecture hôte exige Lecteur auprès du propriétaire résolu. La création exige Contributeur et l’affectation au parent de création déclaré. La modification, l’achèvement, le démarrage, la reprise ou l’annulation d’un flux et la transition exigent Contributeur et la racine d’affectation exacte déclarée; la suppression exige Gestionnaire et cette affectation. Une entité indépendante crée sa liste d’affectation, avec le créateur comme utilisateur principal, dans la même opération que le dossier. Une entité héritée résout chaque fois la liste d’affectation de son parent. L’activation de l’extension demeure une barrière supplémentaire, jamais un remplacement de l’autorisation.
+
+L’achèvement consigne `not_applicable`, `no_workflow` ou `workflow_started` au moment de sa création. L’absence d’un flux obligatoire produit un conflit et annule la transaction; un achèvement `no_workflow` ne peut recevoir un flux plus tard. Une reprise crée une nouvelle tentative utilisant les mêmes versions publiées que la tentative précédente. Les hooks de fin réussie du processus (terminaison positive) s’exécutent dans la transaction hôte après `no_workflow`, `succeeded` ou `approved`; ils doivent être déterministes, sûrs à réessayer et exempts d’effets externes impossibles à annuler.
 
 ## Portée et accès de configuration
 
-Le SDK public figé est 0.3.1. Déclarez `configuration-access` pour définir `configurationAccess` à `contributor` ou `manager`; Contributeur est la valeur par défaut. Cela règle le plafond minimal pour l’activation et la configuration JSON, pas le travail d’exécution ni les affectations exactes.
+La version du SDK public utilisée ici est 0.3.17. Déclarez `configuration-access` pour définir `configurationAccess` à `contributor` ou `manager`; Contributeur est la valeur par défaut. Cela fixe le rôle minimal requis pour activer l’extension et modifier sa configuration JSON. Les permissions pour le travail courant et les affectations exactes aux dossiers sont vérifiées séparément.
 
 Une extension `configurationScope: 'agency'` déclare `agency-only-configuration`. Elle possède seulement l’activation et la configuration d’organisme et ne peut déclarer d’éditeur de volet. Cela convient à une numérotation d’organisme partagée entre volets. Sans cette déclaration, le modèle organisme-plus-volet reste applicable.
 
 ## Contrat de fournisseur de stockage
+
+Un **fournisseur de stockage** relie l’application au service qui conserve les fichiers téléversés, les modèles et les documents générés. Les agents continuent d’utiliser les écrans et les permissions de pièces jointes de l’hôte. Le fournisseur assure le stockage derrière ces écrans; il ne décide pas qui peut accéder à un fichier.
 
 Déclarez `file-storage-provider` et une contribution `fileStorageProvider`. La clé d’extension est l’identité permanente du fournisseur; ne la renommez pas après avoir stocké des objets.
 
@@ -144,16 +154,18 @@ L’export par défaut utilise `defineGcsFileStorageProviderAdapter` du SDK serv
 | Opération | Contrat |
 | --- | --- |
 | Écrire | Recevoir nom généré par l’hôte, octets, type de contenu, organisme, objet, cible typée facultative, configuration, lecteur de secrets et métadonnées facultatives. Retourner `{ objectId, locator }`. |
-| Lire | Résoudre l’identité et le localisateur enregistrés et retourner `{ bytes, contentType? }`. Ne pas dépendre d’un autre fournisseur actuellement sélectionné. |
+| Lire | Résoudre l’identité et le localisateur enregistrés (les renseignements propres au fournisseur permettant de retrouver l’objet) et retourner `{ bytes, contentType? }`. Ne pas dépendre d’un autre fournisseur actuellement sélectionné. |
 | Supprimer | Réussir si l’objet est déjà absent. Le nettoyage peut se répéter après une interruption ou expiration du bail. |
 
 Les identités d’objet sont des chaînes stables non vides d’au plus 512 octets UTF-8, pas des URL temporaires. L’hôte limite le localisateur JSON réservé au serveur à 32 Kio et les métadonnées à 15 Kio. Ne mettez pas d’identifiants secrets dans les métadonnées navigateur et ne supposez pas que le nom est un chemin local. Les objets d’usage sont `attachment`, `document-template` et `generated-document`.
 
-L’hôte possède métadonnées, liens typés, autorisation, affectation et protection d’état. Le fournisseur possède seulement ses opérations et métadonnées déclarées. Aucun repli local n’existe si le fournisseur sélectionné ou enregistré est indisponible. L’organisme sélectionne un fournisseur pour les nouvelles écritures; les anciens objets restent figés. Les gardes empêchent de désactiver un fournisseur sélectionné ou référencé; le démarrage rejette une implémentation référencée absente.
+L’hôte possède métadonnées, liens typés, autorisation, affectation et protection d’état. Le fournisseur possède seulement ses opérations et métadonnées déclarées. Aucun repli local n’existe si le fournisseur sélectionné ou enregistré est indisponible. L’organisme sélectionne un fournisseur pour les nouvelles écritures; les objets existants restent liés au fournisseur qui les a stockés. Les gardes empêchent de désactiver un fournisseur sélectionné ou référencé; le démarrage rejette une implémentation référencée absente.
 
-La contribution facultative `metadata` déclare composant client, validateur serveur, `persistence` (`host` ou `provider`), `mutability` (`upload-only` ou `editable`) et `contractVersion` entier positif. Les valeurs hôte sont isolées par fournisseur. La persistance fournisseur exige `readProviderMetadata` et `updateProviderMetadata`. Les mises à jour exigent un contrat enregistré compatible et ne mélangent pas champs hôte et métadonnées fournisseur dans un même PATCH. L’hôte réserve une restauration avant la modification externe pour compenser un échec de base. Voir [Pièces jointes](../concepts/attachments.md) et [Travail en arrière-plan](../operator/background-work.md).
+La contribution facultative `metadata` déclare composant client, validateur serveur, `persistence` (`host` ou `provider`), `mutability` (`upload-only` ou `editable`) et `contractVersion` entier positif. Les valeurs stockées par l’hôte sont conservées séparément pour chaque fournisseur. La persistance fournisseur exige `readProviderMetadata` et `updateProviderMetadata`. Les mises à jour exigent un contrat enregistré compatible et ne mélangent pas champs hôte et métadonnées fournisseur dans un même PATCH. Avant une modification externe, l’hôte réserve un travail de récupération pour rétablir l’état précédent si l’enregistrement en base échoue. Voir [Pièces jointes](../concepts/attachments.md) et [Travail en arrière-plan](../operator/background-work.md).
 
 ## Contrat de fournisseur de numéros d’entente
+
+Ce fournisseur remplit le numéro d’entente lors de sa création. Par exemple, un organisme peut utiliser la séquence `ABC-0000123` dans ses volets pour que les agents n’aient pas à saisir les numéros manuellement. Le développeur doit assurer une attribution sûre lorsque deux agents créent des ententes en même temps.
 
 Déclarez `agreement-number-provider` et `agreementNumberProvider: { path: './server/number.ts' }`. L’export par défaut implémente `GcsAgreementNumberProvider` et retourne seulement le numéro. L’hôte autorise encore la création, valide le profil, résout programme/volet et promoteurs, crée l’entente et affecte son auteur.
 
@@ -177,7 +189,7 @@ admin: {
 
 Les composants de configuration de l’agence reçoivent la configuration JSON actuelle avec `v-model`, ainsi que les propriétés `extension` et `agencyId`. Stockez les valeurs sensibles au moyen des gestionnaires serveur de l’extension et des aides de secrets chiffrés plutôt que dans la configuration de l’agence.
 
-Utilisez `admin.streamConfig` lorsque l’extension nécessite un composant de configuration du volet dans une fenêtre modale :
+Utilisez `admin.streamConfig` lorsque l’extension nécessite un composant de configuration du volet dans une fenêtre modale (une boîte de dialogue au-dessus de la page actuelle) :
 
 ```ts
 admin: {
@@ -223,7 +235,7 @@ Les composants pleine page reçoivent aussi `hostLayout: true` et peuvent utilis
 
 ## Emplacements d’exécution
 
-Les emplacements affichent les composants des extensions dans les pages existantes de l’hôte. Les noms d’emplacement pris en charge sont les suivants :
+Un **emplacement** est une zone d’une page existante de l’hôte où une extension peut afficher son propre composant. Par exemple, l’emplacement de gestion du risque peut montrer des champs supplémentaires à côté des renseignements de risque existants de l’entente. Les noms d’emplacement pris en charge sont les suivants :
 
 | Emplacement | Zone de l’hôte |
 | --- | --- |
@@ -234,6 +246,8 @@ Les emplacements affichent les composants des extensions dans les pages existant
 | `agreement.profile.risk-management.fields` | Section Gestion du risque du profil d’une entente. |
 | `agreement.profile.sections.after` | Zone située après les sections du profil d’une entente. |
 | `proponent.descriptions.after` | Zone des descriptions française et anglaise d’un promoteur. |
+| `bilingual-field.after` | Champs bilingues à portée explicite avec modèles actifs, libellés et contexte d’autorisation. |
+| `payment.evidence` | Preuve du paiement avec données retenues et accès effectif. |
 
 ```ts
 client: {
@@ -250,7 +264,7 @@ Les composants d’emplacement devraient rester discrets et ne pas reproduire le
 
 ## Onglets d’entité
 
-Les onglets d’entité peuvent cibler `agreement`, `proponent`, `claim` ou `monitor`.
+Un onglet d’entité donne aux agents une vue distincte sur un dossier existant, comme l’onglet Notes de risque ci-dessous. Les onglets d’entité peuvent cibler `agreement`, `proponent`, `claim`, `monitor`, `opportunity` ou `payment`. Une possibilité utilise le sujet `transfer_payment`; un paiement reste dans le domaine `agreement`.
 
 ```ts
 client: {
@@ -272,7 +286,7 @@ Les composants d’onglet reçoivent les propriétés suivantes :
 | Propriété | Contenu |
 | --- | --- |
 | `extensionKey` | Clé de l’extension provenant du manifeste. |
-| `context` | Cible, identifiants de l’agence, du volet, de l’entente, du promoteur, de la réclamation ou de la surveillance, type et identifiant du propriétaire, portée et exigence de contrôle d’accès en fonction des rôles. |
+| `context` | Le contexte dépend du type de cible. Les cibles ordinaires incluent l’organisme, le propriétaire et la portée résolus. Le promoteur inclut `applicantRecipientId`, l’identité du propriétaire et une liste `agencies` autorisée, sans organisme/portée unique. |
 | `config` | Configuration résolue de l’extension pour le volet ou l’agence. |
 | `rbac` | Exigence de contrôle d’accès en fonction des rôles déclarée par l’onglet. |
 
@@ -281,9 +295,11 @@ Les composants d’onglet reçoivent les propriétés suivantes :
 | Les identifiants d’onglet sont uniques pour chaque cible | Utilisez des identifiants en minuscules au format kebab-case. |
 | Les onglets nécessitent l’activation | Les onglets d’entente, de réclamation et de surveillance nécessitent l’activation pour l’agence et le volet; les onglets de promoteur nécessitent l’activation pour l’agence. |
 | Les onglets nécessitent un contrôle d’accès | Avant l’affichage, l’hôte vérifie le sujet et l’action déclarés. |
-| Les promoteurs sans agence responsable n’affichent aucun onglet | L’activation des onglets d’un promoteur est résolue par l’intermédiaire de son agence responsable. |
+| Contextes d’organisme du promoteur | L’hôte retourne les organismes actifs autorisés avec activation/configuration dans `context.agencies`; aucun sélecteur d’organisme responsable n’est requis. `agencyReadRequired` peut restreindre davantage la disponibilité. |
 
 ## Frontière d’interface du SDK
+
+L’**interface utilisateur** comprend les boutons, les champs et les tableaux que les agents voient. Les composants du SDK sont des versions prises en charge des composants d’interface de l’hôte. Les composables sont des fonctions réutilisables pour charger des données ou afficher une notification, par exemple.
 
 Importez les composants et les composables fournis par l’hôte depuis `@gcs-ssc/extensions/ui`. N’importez pas `~/`, `~~/`, `#imports`, `#app` ou `#gcs-*`, et n’utilisez pas directement les noms de composants de l’hôte dans un gabarit d’extension. Des composants comme `ExtensionButton`, `ExtensionFormField`, `ExtensionSaveButton` et `ExtensionTable` préservent le comportement de l’hôte derrière un contrat versionné.
 
@@ -302,7 +318,9 @@ L’hôte installe l’environnement d’exécution concret de l’interface. Le
 
 ## Gestionnaires serveur
 
-Utilisez `serverHandlers` pour les points de terminaison authentifiés de l’extension :
+Le **RBAC** est le contrôle d’accès en fonction des rôles : l’hôte vérifie si le rôle de l’utilisateur permet l’action déclarée sur le dossier concerné. Afficher un onglet ou un bouton ne remplace pas cette vérification côté serveur.
+
+Un gestionnaire serveur reçoit une requête d’un écran d’extension et effectue le travail côté serveur, comme enregistrer une note de risque. Un point de terminaison est l’adresse utilisée pour envoyer cette requête. Utilisez `serverHandlers` pour les points de terminaison authentifiés de l’extension :
 
 ```ts
 serverHandlers: [
@@ -346,7 +364,7 @@ Le contexte de route stable contient `db`, `params`, `auth`, `config`, `entity`,
 
 Les gestionnaires manuels qui résolvent la propriété d’un volet doivent appeler `resolveExtensionStreamContext(db, streamId)` pour résoudre la chaîne de propriété active. Cette aide retourne `agencyId`, `profileId`, `streamId` et la portée d’entité canonique uniquement lorsque le volet, son profil de paiement de transfert et l’agence propriétaire sont tous actifs ; traitez `null` comme une ressource indisponible et interrompez l’opération.
 
-Les écritures protégées d’une extension utilisent le protocole `writeAuthorization` fourni par l’hôte. Celui-ci sépare l’autorisation récente en deux phases afin que les verrous des tables d’autorisation ne soient jamais acquis après les verrous de l’extension ou de l’entité. Un gestionnaire d’écriture doit rejeter l’absence de ce protocole avant d’exécuter sa logique transactionnelle :
+Les écritures protégées d’une extension utilisent le protocole `writeAuthorization` fourni par l’hôte. Il vérifie les permissions actuelles en deux phases. Les verrous des tables de permissions précèdent ainsi les verrous de l’extension ou de l’entité, et une requête peut être refusée si l’accès change pendant l’attente. Un gestionnaire d’écriture doit rejeter l’absence de ce protocole avant d’exécuter sa logique transactionnelle :
 
 ```ts
 import { defineGcsExtensionRouteHandler } from '@gcs-ssc/extensions/server'
@@ -376,7 +394,7 @@ Les routes qui présentent des choix d’entente doivent appeler `context.agreem
 
 ## Actions de création
 
-Les extensions peuvent ajouter ou remplacer les actions de création suivantes :
+Une action de création est un bouton ou une commande qui lance la création. Par exemple, Générer les paiements peut ouvrir l’écran de création d’une extension dans l’onglet Paiements de l’entente. Les extensions peuvent ajouter ou remplacer les actions de création suivantes :
 
 | Opération | Surface de l’hôte |
 | --- | --- |
@@ -406,7 +424,7 @@ client: {
 
 Si plusieurs extensions activées remplacent la même opération, l’hôte bloque l’action jusqu’à ce que la configuration soit corrigée. Les composants d’action de création reçoivent l’opération, le contexte, la configuration, le libellé, l’icône, l’exigence de contrôle d’accès et une fonction de rappel `onCreated`. Appelez `onCreated()` après une création réussie afin que l’hôte actualise le tableau.
 
-Les hooks d’opération de création côté serveur appartiennent à un module Nitro :
+Un **hook** est du code que l’hôte appelle à un moment défini d’une opération. Les hooks d’opération de création côté serveur appartiennent à un module Nitro, chargé par le serveur de l’application :
 
 ```ts
 import {
@@ -433,7 +451,7 @@ Lorsqu’un hook de création bloque une action que l’utilisateur peut corrige
 
 ## Calculateurs de montant des paiements
 
-Les calculateurs de paiement peuvent fournir un montant suggéré, un montant maximal, une devise, des détails explicatifs, un état de chargement et des données d’extension pour `agreement.payments.create`. Un seul calculateur activé peut s’appliquer à la surface de création des paiements à la fois.
+Par exemple, un calculateur peut proposer un montant de paiement et expliquer son maximum avant que l’agent enregistre. Le serveur doit toujours valider le montant. Les calculateurs de paiement peuvent fournir un montant suggéré, un montant maximal, une devise, des détails explicatifs, un état de chargement et des données d’extension pour `agreement.payments.create`. Un seul calculateur activé peut s’appliquer à la surface de création des paiements à la fois.
 
 | Règle | Comportement |
 | --- | --- |
@@ -443,6 +461,8 @@ Les calculateurs de paiement peuvent fournir un montant suggéré, un montant ma
 | La validation serveur demeure requise | Vérifiez de nouveau les montants générés avant d’écrire les dossiers. |
 
 ## Migrations, stockage KV et secrets
+
+Une **migration** crée ou modifie les tables de base de données de l’extension. **KV** désigne le stockage clé-valeur : des valeurs simples enregistrées sous une clé. Un **secret** est une valeur sensible, comme le mot de passe d’un service externe ou un jeton d’API. Conservez les secrets dans le stockage chiffré, séparément des paramètres ordinaires.
 
 ```ts
 import {
@@ -471,6 +491,8 @@ Les aides de secrets chiffrés sont exportées depuis `@gcs-ssc/extensions/serve
 
 ## Verrous et gardes du cycle de vie
 
+Une **transaction** est un groupe de modifications en base de données qui réussissent ensemble ou sont annulées ensemble. Un **verrou** empêche des opérations incompatibles de modifier les données protégées au même moment. Une **garde** refuse une opération qui enfreindrait une règle métier. Par exemple, une garde peut bloquer la suppression d’une entente dont l’historique appartenant à l’extension doit rester disponible.
+
 Les extensions qui génèrent des dossiers durables à partir de la configuration doivent se coordonner avec les changements de cycle de vie de l’hôte. Toutes les aides du cycle de vie nécessitent une `Transaction` Kysely active. Le passage d’un client `Kysely` racine provoque volontairement une erreur de type, car les verrous consultatifs transactionnels seraient libérés après chaque instruction.
 
 Après `writeAuthorization.lockAuthState(trx)`, appelez `lockGcsExtensionLifecycleScope(trx, extensionKey, agencyId, streamId)` avant les verrous propres à l’extension ou à l’entité. L’ordre canonique du domaine est la portée de l’agence, la portée du volet, puis les verrous propres à l’extension ou à l’entité. Relisez la configuration après le verrouillage, appelez `authorizeCurrentScope(trx)` ou sa solution de compatibilité `authorizeCurrentEntity`, puis seulement ensuite lisez ou modifiez l’état protégé.
@@ -487,9 +509,11 @@ Enregistrez les hooks de cycle de vie depuis `defineGcsExtensionNitroPlugin` :
 
 L’hôte exécute la garde de suppression d’une entente après l’acquisition des verrous du cycle de vie de l’extension et avant la suppression de l’entente, dans la même transaction de l’hôte. La garde doit lire l’état protégé de l’extension au moyen de la transaction fournie et lancer une erreur pour refuser la suppression; l’erreur se propage afin que la suppression de l’entente et toutes les écritures connexes soient annulées ensemble. Ne reportez pas la vérification et n’effectuez pas la requête au moyen d’un client de base de données racine.
 
-Les gardes devraient lancer des erreurs d’extension localisées et visibles par l’utilisateur pour les conflits opérationnels qu’il peut corriger. Elles doivent être déterministes, liées à la transaction et sécuritaires lorsque les routes de l’hôte les appellent hors de l’interface de l’extension.
+Les gardes devraient lancer des erreurs d’extension localisées et visibles par l’utilisateur pour les conflits opérationnels qu’il peut corriger. Pour les mêmes données, les gardes doivent produire le même résultat. Elles doivent utiliser la transaction fournie et rester sûres lorsque les routes de l’hôte les appellent hors de l’interface de l’extension.
 
 ## Actifs et internationalisation
+
+Les **actifs** sont les fichiers fournis avec l’extension, comme des images ou des fichiers de modèles. L’**internationalisation**, aussi appelée i18n, fournit la bonne langue et le bon format numérique. Les agents doivent recevoir des libellés et des erreurs compréhensibles en anglais et en français.
 
 | Fonctionnalité | Champ du manifeste | Orientation |
 | --- | --- | --- |
@@ -512,15 +536,73 @@ const { t, locale, n } = useExtensionI18n(messages)
 const label = t('files.count', { count: 3 })
 ```
 
-Le SDK vérifie la parité exacte des clés et paramètres, fige un catalogue détaché et résout seulement ses propres clés. Une clé ou valeur d’interpolation absente produit une erreur; aucun repli sur les clés hôte, message lié ou enregistrement global n’existe. Utilisez la langue réactive pour l’affichage et `n` pour les nombres. Les messages serveur et détails de `createGcsExtensionUserError` devraient fournir `{ en, fr }`; une chaîne simple est un texte déjà résolu, pas une clé hôte.
+Le SDK vérifie que les deux langues ont exactement les mêmes clés de messages et paramètres, comme `{count}`. Il crée une copie indépendante et non modifiable du catalogue, puis recherche uniquement les clés de ce catalogue. Une clé ou valeur d’interpolation absente produit une erreur; aucun repli sur les clés hôte, message lié ou enregistrement global n’existe. Utilisez la langue réactive pour l’affichage et `n` pour les nombres. Les messages serveur et détails de `createGcsExtensionUserError` devraient fournir `{ en, fr }`; une chaîne simple est un texte déjà résolu, pas une clé hôte.
 
 ## Opérations externes bornées
 
-L’hôte borne certaines opérations d’extension, notamment les crochets de modification de profil de promoteur, la validation du stockage, la modification des métadonnées du fournisseur et leur restauration. `GCS_EXTENSION_OPERATION_TIMEOUT_MS` vaut 10 000 ms par défaut, avec un minimum de 100 ms. Le rappel reçoit un `AbortSignal`; transmettez-le aux opérations annulables et arrêtez le travail après l’annulation. Le délai interrompt l’attente de l’hôte, mais ne peut annuler de force un effet externe produit par un rappel qui ignore le signal.
+L’hôte fixe une limite de temps pour certaines opérations d’extension, notamment les crochets de modification de profil de promoteur, la validation du stockage, la modification des métadonnées du fournisseur et leur restauration. `GCS_EXTENSION_OPERATION_TIMEOUT_MS` vaut 10 000 ms par défaut, avec un minimum de 100 ms. Le rappel reçoit un `AbortSignal`; transmettez-le aux opérations annulables et arrêtez le travail après l’annulation. Le délai interrompt l’attente de l’hôte, mais ne peut annuler de force un effet externe produit par un rappel qui ignore le signal.
 
-Exécutez les gardes transactionnelles avec la transaction fournie, rendez les opérations distantes idempotentes et distinguez un échec d’écriture en base d’un résultat de fournisseur incertain. Un délai dépassé pendant une modification de promoteur retourne `EXTENSION_OPERATION_TIMEOUT` (503). Rechargez le dossier et rapprochez tout effet externe avant de réessayer; un délai dépassé ne prouve pas qu’un service distant n’a rien fait. Le rétablissement des métadonnées utilise la compensation décrite dans [Pièces jointes](../concepts/attachments.md). Cette limite ne s’applique pas universellement à chaque gestionnaire d’extension ni au rendu de documents.
+Exécutez les gardes transactionnelles avec la transaction fournie, rendez les opérations distantes idempotentes (répéter la même requête ne doit pas produire un effet en double) et distinguez un échec d’écriture en base d’un résultat de fournisseur incertain. Un délai dépassé pendant une modification de promoteur retourne `EXTENSION_OPERATION_TIMEOUT` (503). Rechargez le dossier et rapprochez tout effet externe avant de réessayer; un délai dépassé ne prouve pas qu’un service distant n’a rien fait. Le rétablissement des métadonnées utilise la compensation décrite dans [Pièces jointes](../concepts/attachments.md). Cette limite ne s’applique pas universellement à chaque gestionnaire d’extension ni au rendu de documents.
+
+## Espaces d’organisme et pages de détail
+
+Un espace d’organisme regroupe les écrans d’une extension pour un organisme. Une page de détail montre un dossier sélectionné dans un onglet d’entente, comme une affectation financière. Ces écrans doivent conserver les règles de propriété et d’accès des dossiers qu’ils affichent.
+
+Déclarez `agency-workspace` avec `admin.agencyWorkspace` et un composant `admin.agency`. Fournissez un libellé bilingue et des onglets non vides avec identifiants minuscules uniques et libellés bilingues. L’hôte expose les organismes autorisés et conserve l’espace sélectionné lors du changement de langue; installation, activation et politique de configuration s’appliquent. Les écrans concrets de connecteur possèdent leur propre documentation.
+
+Un onglet d’entente peut déclarer `detailPage: { path: './components/AllocationDetail.vue' }` et `entity-detail-pages`. L’hôte enregistre le composant et fournit contexte d’entente et permissions dans son espace partagé. Les autres cibles ne peuvent déclarer de page de détail. `agencyConfigVisibility` filtre la configuration sans autoriser le serveur. Préservez résolution propriétaire, chargement/reprise et section d’URL entre liste et détail.
+
+## Champs bilingues et preuves de paiement
+
+Ces deux intégrations répondent à des tâches différentes des agents : proposer du texte dans l’autre langue et expliquer un calcul de paiement enregistré. Une traduction proposée reste un brouillon à examiner. La preuve de paiement conserve le calcul enregistré même si les budgets changent par la suite.
+
+Déclarez `bilingual-field-slots` pour `bilingual-field.after` et utilisez le contexte typé du SDK. Les champs conservent modèles anglais/français distincts, libellés, limites multiligne/longueur et états désactivés/lecture seule. Une traduction proposée modifie le brouillon; l’utilisateur doit encore examiner et enregistrer. L’hôte résout explicitement l’autorité `agency`, `transfer_payment`, `agreement` ou `applicant_recipient`. N’empruntez pas l’autorité d’une entente pour un champ d’organisme distinct et ne transmettez pas d’organisme arbitraire à un emplacement de promoteur; ce dernier reçoit les configurations autorisées en tableau.
+
+Déclarez `payment-evidence` pour `payment.evidence`. L’emplacement rend le contrat enregistré du calcul de paiement; il ne recalcule pas silencieusement l’historique à partir des budgets ou catalogues actuels. L’hôte expose séparément entrées financières et calcul retenu. Présentez des sections bilingues lisibles et des montants exacts. Ne les remplacez pas par des données techniques brutes. Fournisseur de traduction, glossaires et formules relèvent de leurs extensions.
+
+## Lectures financières partagées et imputation
+
+L’**imputation** répartit un montant financier entre des lignes comptables admissibles. L’extension peut proposer la répartition, mais l’hôte vérifie le total, la capacité disponible et les montants déjà payés. Un plancher payé est le minimum qu’une ligne doit conserver pour couvrir les paiements existants; un bassin est une capacité disponible partagée.
+
+Déclarez `agreement-payment-capacity` et utilisez `requireGcsExtensionAgreementFinancials(context)`. L’hôte lie le service à l’entente autorisée et à la base/transaction active. Il expose entrées de calcul, projections payées, recouvrements de réclamation, comptabilité effective, contexte d’imputation, couverture des lignes, validation d’affectation et capacité. Il renouvelle l’autorité avant les lectures et refuse une devise incompatible ou un paiement exclu/une ligne d’engagement d’une autre entente. Une capacité absente échoue sans repli local. Lire les projections ne donne ni accès aux dossiers sources ni affectation ni droit d’écriture.
+
+Déclarez `coding-allocator` avec `codingAllocator: { path: './server/coding.ts' }`. Le répartiteur reçoit montant exact, type de sortie (engagement, paiement, créance ou note de crédit), catalogue du volet, contexte retenu/actuel, planchers payés et bassins disponibles. Retournez les lignes exactes `{ codingLineId, amount }`, une enveloppe `lines` avec `policy` retenue ou `null` pour l’imputation manuelle. L’hôte valide catalogue, identifiants uniques, égalité du total, planchers et capacité partagée avant l’enregistrement dans la transaction. Une surcharge `accountCatalog` est refusée : les comptes doivent être disponibles au volet. Les gardes peuvent interroger `codingAccounts.list` de l’organisme actif par type, devise et exercice facultatif.
+
+Par exemple, deux lignes de `600.00` et `400.00` pour un paiement de `1000.00` doivent être admissibles et tenir dans les bassins. Un total de `999.99`, un compte indisponible ou une réduction sous la couverture payée échoue; corrigez la configuration et reprenez sans modifier la preuve immuable. Les pondérations propres à l’extension restent dans son guide.
+
+## Échange de possibilité et importation de réception
+
+Un connecteur peut publier une possibilité de financement dans un autre système et importer une demande soumise comme réception. L’importation place la réception dans la file de travail d’un groupe; un utilisateur doit ensuite la réclamer pour être affecté. Les contrats ci-dessous empêchent une importation de contourner les permissions ou de créer deux fois la même soumission.
+
+Les routes authentifiées avec contrôle d’accès déclaré reçoivent `GcsExtensionWriteAuthorization`. Appelez `lockAuthState(trx)` dans la transaction propriétaire avant les verrous d’extension, puis renouvelez l’autorité de route. Les rappels refusent une autre transaction ou l’absence du contexte utilisateur verrouillé. Transmettre un identifiant ne donne aucune autorité sur un organisme ou programme arbitraire.
+
+`projectFundingOpportunity(trx, opportunityId)` renouvelle l’autorité et exige séparément `transfer_payment:update` au programme propriétaire. Une route liée à une possibilité doit demander ce même ID; une route d’organisme/volet doit correspondre au propriétaire actuel et aux volets sélectionnés. Une possibilité indisponible/incompatible retourne `null`. La projection contient identifiants exacts, noms bilingues d’organisme/programme/volet, tous les volets, noms/objectifs de possibilité, dates et heures de journée entière, ainsi que `active` et `editable`. La sortie hôte inclut aussi les métadonnées de types de pièces externes. `active` décrit les indicateurs de statut; créer une réception vérifie séparément la fenêtre inclusive. Le rappel peut retourner des métadonnées inactives afin de désactiver un appel déjà publié.
+
+`createFundingCaseIntake(trx, input)` exige aussi `funding_case:create` à la portée actuelle et revérifie le propriétaire après verrouillage de la possibilité. Fournissez les IDs canoniques de possibilité, promoteur, groupe et demande; `intakeId` facultatif désigne un reçu hôte retenu. `application` et `sourceExport` sont des objets JSON; `sourceSystem` est du texte non vide nettoyé, au plus 100 caractères, `sourceSubmissionId` au plus 255. Une nouvelle importation exige statut d’organisme admissible non brouillon/modifiable/non terminal, fenêtre de date inclusive, promoteur lisible, groupe affectable du même organisme et statut Brouillon d’organisme. La réception créée attend dans la file de groupe sans utilisateurs; la réclamation établit l’affectation.
+
+Traitez explicitement les résultats : `created` retourne `intakeId`/`draftStatusId`, `already_imported` retourne l’ID conservé. Les indisponibilités sont `opportunity_unavailable`, `recipient_unavailable`, `group_unavailable` et `draft_status_unavailable`; les conflits sont `intake_id_conflict`, `source_conflict` et `application_id_conflict`. Un refus métier lève `FUNDING_CASE_EXCHANGE_FORBIDDEN`. Ne transformez pas un conflit en nouvelle insertion.
+
+Par exemple, si une soumission a été importée mais son accusé perdu, reprenez avec la même identité/export source et l’ID hôte retenu si disponible. L’hôte vérifie possibilité, promoteur, demande et historique source non modifiable et retourne l’ID existant même après fermeture de l’appel. Il ne remplace pas la demande retenue et ne rouvre pas l’historique. Les importations de service d’organisme utilisent l’autorisation L1 liée aux capacités et leurs contrôles d’affiliation du bénéficiaire actif; ne substituez pas les permissions de route utilisateur à cette frontière. Voir [Portail](../intake/portal.md).
+
+## Rendu partagé des diagrammes
+
+Utilisez ce composant pour montrer aux agents les étapes et les choix d’un processus. Il dessine le diagramme et permet de le télécharger; il n’exécute pas le processus et ne décide pas si un dossier peut passer à l’étape suivante.
+
+Les extensions importent `ExtensionFlowDiagram` et `FlowDiagramDefinition` depuis `@gcs-ssc/extensions/ui`; l’hôte utilise `CommonFlowDiagram` et `@gcs-ssc/diagrams`. Fournissez des nœuds ordonnés déjà localisés avec IDs uniques et cibles valides explicites. Les types de nœud sont `start`, `step`, `decision` et `end`; les routes `direct`, `conditional`, `default` ou `failure`. Seuls les nœuds avec `selectLabel` émettent une sélection; `selectedNodeId` marque le choix.
+
+Le rendu possède disposition adaptative, connexions, contrôles accessibles, thème et téléchargements locaux. SVG conserve formes natives, texte interrogeable et canevas complet; PNG le rend à quatre fois largeur/hauteur CSS avec fond opaque. Un échec d’export conserve le diagramme et propose une reprise localisée. Le diagramme décrit la définition; il n’exécute ni règles de formulaire ni transitions de flux. Conservez état métier et traduction hors du moteur.
+
+## Importations planifiées et gestionnaires L1
+
+L1 est le contexte d’exécution du travail en arrière-plan de l’hôte. Un gestionnaire planifié effectue du travail récurrent sans qu’un agent appuie sur un bouton. Il peut, par exemple, importer de nouvelles soumissions comme brouillons. Une exécution peut se répéter; l’extension doit donc conserver la requête et sa clé de prévention des doublons pour reprendre sans risque.
+
+Déclarez `scheduled-agreement-import` ou `scheduled-intake-import` pour la frontière d’importation concernée et `l1-queue` pour `registerGcsExtensionL1QueueHandler`. Fournissez une identité stable `<extension-key>:<handler-name>`, `extensionKey`, un intervalle entier de 1000 à 2147483647 millisecondes et un `run` asynchrone borné. L’hôte refuse doublons et espaces de noms incompatibles; il distribue seulement aux extensions activées après migrations et préparation d’Audit. Les modules planifiés s’activent une fois par application Nitro; un échec peut être repris.
+
+Le contexte L1 fournit base hôte, `createWriteAuthorization(extensionKey, agencyId)` et attribution Audit par `runForAgency`. Utilisez les rappels d’autorisation liés à la transaction avant de créer réception, réclamation ou prévision importée. Les importations d’entente revérifient organisme, volet, bénéficiaire lié si requis, principal actif, statut et clôture. Elles créent des brouillons, pas des approbations. Un gestionnaire peut s’exécuter plusieurs fois pour le même travail. Les files métier persistantes doivent conserver la requête exacte à reprendre et sa clé d’idempotence, qui identifie les requêtes répétées pour la même opération. Voir [Travail en arrière-plan](../operator/background-work.md) pour baux, délais et surveillance.
 
 ## Liste de vérification des tests
+
+Vérifiez ce que les agents voient et ce que le serveur impose. Par exemple, masquer un bouton ne doit pas être la seule protection contre un enregistrement non autorisé. Utilisez la liste ci-dessous pour tester la configuration, les permissions, la protection des dossiers et le comportement bilingue.
 
 Utilisez `installExtensionTestUiRuntime` depuis `@gcs-ssc/extensions/testing` pour les tests autonomes de composants qui nécessitent les composants d’interface de l’hôte.
 

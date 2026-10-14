@@ -1,6 +1,8 @@
 # Checklist Schemas
 
-Checklist schemas define bilingual pass/fail questions and deterministic result rules for runtime reviews. They are agency-owned review schemas, opened from an Agency Review Set member, and must match the setup's runtime entity type.
+A checklist schema is a reusable review form with bilingual pass/fail questions and rules for the overall result. It gives officers a consistent way to check requirements. The Agency owns it, and administrators open it from an Agency Review Set member. It must be configured for the kind of record the Review Setup will review, called the entity type.
+
+For example, an eligibility checklist can ask whether the applicant is eligible and whether the required documents are present. An officer records Pass or Fail for each question and adds any required explanation. The configured rules determine the overall result; this example is not a built-in checklist.
 
 ## Prerequisites And Navigation
 
@@ -16,7 +18,7 @@ The editor has three anchored sections:
 2. Sections: ordered sections, subsections, and questions.
 3. Result Rules: the default failure policy and nested conditional result groups.
 
-The hero shows entity type, draft/published/retired publication state, version, and whether unpublished changes exist. Save validates the whole definition. The publish action first saves, then publishes the first draft or pending changes to an already published schema.
+The summary at the top shows entity type, draft/published/retired publication state, version, and whether unpublished changes exist. Save validates the whole definition. The publish action first saves, then publishes the first draft or pending changes to an already published schema.
 
 ## Sections And Questions
 
@@ -33,7 +35,7 @@ Every question contains:
 | Pass/fail options | Pass and Fail are always present; an optional Not applicable choice may be added, each with a required bilingual description |
 | Help | Zero or more bilingual help entries |
 
-Keys are runtime identities used by saved responses and result rules. Treat a key change as a structural change and update every rule that targets it before saving.
+Keys are internal identifiers that stay the same in both languages. Saved answers and result rules use them to identify questions. Treat a key change as a structural change and update every rule that targets it before saving.
 
 ## Import a JSON definition
 
@@ -41,7 +43,7 @@ The editor's **Import** action accepts a pasted JSON checklist definition. It va
 
 ## Result Policy
 
-When `anyFailureFails` is enabled, any failed answer produces a failing baseline. Additional nested groups can instead or additionally map configured failure conditions to `pass`, `pass_with_considerations`, or `fail`.
+Enable `anyFailureFails` when any failed answer should make the checklist fail. Additional nested groups can instead or additionally map configured failure conditions to `pass`, `pass_with_considerations`, or `fail`.
 
 A group has a unique key, bilingual label, result, one or more conditions, and a mode:
 
@@ -52,19 +54,19 @@ A group has a unique key, bilingual label, result, one or more conditions, and a
 | `at_least_count` | At least the configured whole-number count matches; the threshold is 1 through the number of items |
 | `at_least_rate` | At least the configured percentage matches; the threshold is greater than 0 and at most 100 |
 
-Conditions can target a failed question or contain another group. Group keys are unique, a question cannot be repeated directly within one group, every referenced question must exist, and groups can be at most three levels deep (a root plus two nested levels).
+A condition checks whether a question was answered Fail, or checks another group of conditions. For example, an `all` group targeting “Applicant is eligible” and “Required documents are present” matches only when both questions are answered Fail. Use `any` if either failed answer should match. Group keys are unique, a question cannot be repeated directly within one group, every referenced question must exist, and groups can be at most three levels deep (a root plus two nested levels).
 
 ## Publication and snapshots
 
 A draft has no published version. Publishing a valid definition creates immutable version `1`; each changed publication increments the integer version by one. Saving after publication changes authoring content only. Identical canonical content keeps the current published version. Retiring a published schema is permanent and prevents new selection, edits and publication.
 
-Runtime reviews retain the exact schema and setup publication versions that generated them. For example, publishing a new required question does not insert that question into an already generated checklist. Publish the consuming Review Setup before expecting future work to use the new schema. Historical attempts retain their own answers and rules.
+Runtime reviews retain the exact schema and setup publication versions that generated them. For example, publishing a new required question does not insert that question into an already generated checklist. Publish the Review Setup that uses it before expecting future work to use the new schema. Historical attempts retain their own answers and rules.
 
 ## Runtime Checklist Behaviour
 
-Runtime reviewers answer pass or fail, add comments according to each question's policy, and can inspect how configured groups produced the current result. Saving validates unique known question keys. Completion additionally requires every required question and every required comment. The result is derived server-side from the pinned definition; clients do not submit an authoritative result.
+Runtime reviewers answer pass or fail, add comments according to each question's policy, and can inspect how configured groups produced the current result. Saving validates unique known question keys. Completion additionally requires every required question and every required comment. The server calculates the result using the schema version retained by that review; the reviewer does not set the result directly.
 
-The result-rules help button opens a side panel that explains the currently effective policy. It shows whether any failed answer fails the checklist; when that shortcut is off, it renders every configured group recursively, including its localized label, matching mode and threshold, resulting status, nested groups, and the localized names of targeted questions. Missing question references are displayed by their stored key, which is a signal to correct and republish the schema. The panel also explains parent-group gating, result severity, and that comments do not determine the result.
+The result-rules help button opens a side panel that explains the currently effective policy. It shows whether any failed answer fails the checklist; when that shortcut is off, it renders every configured group recursively, including its localized label, matching mode and threshold, resulting status, nested groups, and the localized names of targeted questions. Missing question references are displayed by their stored key, which is a signal to correct and republish the schema. The panel also explains when a parent group allows nested results to apply, how more severe results take priority, and why comments do not change the result.
 
 Review access, assigned-reviewer rules, completion, approvals, cancellation, and retry are covered by the runtime review workflow. Disabling additional reviewers on the schema removes that capability for work generated from it.
 
@@ -72,7 +74,7 @@ Review access, assigned-reviewer rules, completion, approvals, cancellation, and
 
 - Duplicate or missing keys, empty sections/subsections, missing answer options, unknown rule targets, invalid thresholds, or excessive nesting produce localized validation errors.
 - Publication requires valid authoring content and a non-retired publication.
-- A missing or inaccessible schema is masked consistently; verify the identifier and exact program scope.
+- If you cannot access a schema, the application responds as though it does not exist. Check the identifier and your access to the relevant Program.
 - Save and publication recheck fresh authorization and ownership in a transaction. Reload after a concurrent lifecycle change, correct the definition, save, and retry.
 - Do not remove or rename questions from published schemas without considering pinned historical responses and future rule behaviour.
 

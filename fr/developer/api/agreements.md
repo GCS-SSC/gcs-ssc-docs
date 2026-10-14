@@ -1,16 +1,36 @@
 # API des ententes
 
-Profils d’entente, ressources enfants, finances, cycle de vie, affectations exactes, documents et production.
+Ces requêtes servent aux ententes de financement et à leurs dossiers liés : budgets, réclamations, paiements, modifications, utilisateurs affectés et documents. Pour le travail effectué à l’écran par un agent, commencez par les [ententes](../../agreements/index.md).
 
-Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
+Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
 
-## Gestionnaires (156)
+- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
+- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
+- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
+- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
+- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+
+Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+
+## Exemple de lecture seule
+
+Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42, y compris son état et les renseignements sur le programme. Cette lecture n’approuve pas l’entente et ne crée pas de paiement. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
+
+## Gestionnaires (184)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/agreements/[id]` | executeFreshAuthorizedAgreementWrite, resolveAgreementScopeContext | — | `server/api/agreements/[id].delete.ts` |
 | GET | `/api/agreements/[id]` | authorizeWithFreshAuthContext, egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireFreshAuthContext, resolveAgreementScopeContext | — | `server/api/agreements/[id].get.ts` |
 | PATCH | `/api/agreements/[id]` | resolveAgreementScopeContext | — | `server/api/agreements/[id].patch.ts` |
+| GET | `/api/agreements/[id]/account-receivables` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/account-receivables/index.get.ts` |
+| POST | `/api/agreements/[id]/account-receivables` | — | AccountReceivableCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/account-receivables/index.post.ts` |
+| GET | `/api/agreements/[id]/account-receivables/lookups/fiscal-years` | — | — | `server/api/agreements/[id]/account-receivables/lookups/fiscal-years.get.ts` |
+| GET | `/api/agreements/[id]/account-receivables/lookups/monitor-followups` | — | — | `server/api/agreements/[id]/account-receivables/lookups/monitor-followups.get.ts` |
+| GET | `/api/agreements/[id]/account-receivables/lookups/proponents` | — | — | `server/api/agreements/[id]/account-receivables/lookups/proponents.get.ts` |
+| GET | `/api/agreements/[id]/account-receivables/lookups/sources` | — | — | `server/api/agreements/[id]/account-receivables/lookups/sources.get.ts` |
+| GET | `/api/agreements/[id]/account-receivables/lookups/types` | — | — | `server/api/agreements/[id]/account-receivables/lookups/types.get.ts` |
+| GET | `/api/agreements/[id]/account-receivables/source-entry` | — | PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/[id]/account-receivables/source-entry.get.ts` |
 | DELETE | `/api/agreements/[id]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/activities/[childId].delete.ts` |
 | PATCH | `/api/agreements/[id]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/activities/[childId].patch.ts` |
 | GET | `/api/agreements/[id]/activities` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/index.get.ts` |
@@ -23,7 +43,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | POST | `/api/agreements/[id]/addresses` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementAddressCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/addresses/index.post.ts` |
 | GET | `/api/agreements/[id]/addresses/lookups/address-types` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/addresses/lookups/address-types.get.ts` |
 | DELETE | `/api/agreements/[id]/amendments/[amendmentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId].delete.ts` |
-| GET | `/api/agreements/[id]/amendments/[amendmentId]` | — | — | `server/api/agreements/[id]/amendments/[amendmentId].get.ts` |
+| GET | `/api/agreements/[id]/amendments/[amendmentId]` | requireAuthContext | — | `server/api/agreements/[id]/amendments/[amendmentId].get.ts` |
 | PATCH | `/api/agreements/[id]/amendments/[amendmentId]` | egcs_fc_proposedauthorizedassistanceenddate, egcs_fc_proposedauthorizedassistancestartdate, executeFreshAuthorizedAgreementWrite | FundingCaseAgreementAmendmentPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId].patch.ts` |
 | DELETE | `/api/agreements/[id]/amendments/[amendmentId]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].delete.ts` |
 | PATCH | `/api/agreements/[id]/amendments/[amendmentId]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementActivityPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].patch.ts` |
@@ -40,6 +60,12 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | GET | `/api/agreements/[id]/amendments/[amendmentId]/budget-overview` | — | — | `server/api/agreements/[id]/amendments/[amendmentId]/budget-overview.get.ts` |
 | POST | `/api/agreements/[id]/amendments/[amendmentId]/budget-snapshot` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId]/budget-snapshot.post.ts` |
 | POST | `/api/agreements/[id]/amendments/[amendmentId]/cancel` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId]/cancel.post.ts` |
+| GET | `/api/agreements/[id]/amendments/[amendmentId]/document-templates` | — | — | `server/api/agreements/[id]/amendments/[amendmentId]/document-templates.get.ts` |
+| GET | `/api/agreements/[id]/amendments/[amendmentId]/documents/[documentId]/download` | — | — | `server/api/agreements/[id]/amendments/[amendmentId]/documents/[documentId]/download.get.ts` |
+| DELETE | `/api/agreements/[id]/amendments/[amendmentId]/documents/[documentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId]/documents/[documentId]/index.delete.ts` |
+| POST | `/api/agreements/[id]/amendments/[amendmentId]/documents/generate` | executeFreshAuthorizedAgreementWrite, requireAuthContext | AgreementDocumentGenerateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId]/documents/generate.post.ts` |
+| GET | `/api/agreements/[id]/amendments/[amendmentId]/documents` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/amendments/[amendmentId]/documents/index.get.ts` |
+| GET | `/api/agreements/[id]/amendments/[amendmentId]/lookups/risk-ratings` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/amendments/[amendmentId]/lookups/risk-ratings.get.ts` |
 | GET | `/api/agreements/[id]/amendments` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/amendments/index.get.ts` |
 | POST | `/api/agreements/[id]/amendments` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, egcs_fc_proposedauthorizedassistanceenddate, egcs_fc_proposedauthorizedassistancestartdate, executeFreshAuthorizedAgreementWrite | FundingCaseAgreementAmendmentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/index.post.ts` |
 | GET | `/api/agreements/[id]/amendments/lookups/subtypes` | — | getValidatedQueryI18n | `server/api/agreements/[id]/amendments/lookups/subtypes.get.ts` |
@@ -74,6 +100,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | POST | `/api/agreements/[id]/claims/[claimId]/cancel` | — | — | `server/api/agreements/[id]/claims/[claimId]/cancel.post.ts` |
 | POST | `/api/agreements/[id]/claims/[claimId]/withdraw` | — | — | `server/api/agreements/[id]/claims/[claimId]/withdraw.post.ts` |
 | POST | `/api/agreements/[id]/claims` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementClaimCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/claims/index.post.ts` |
+| GET | `/api/agreements/[id]/claims/lookups/proponents` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/claims/lookups/proponents.get.ts` |
 | GET | `/api/agreements/[id]/closeout-readiness` | — | — | `server/api/agreements/[id]/closeout-readiness.get.ts` |
 | DELETE | `/api/agreements/[id]/closeouts/[closeoutId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/[closeoutId].delete.ts` |
 | GET | `/api/agreements/[id]/closeouts/[closeoutId]` | — | — | `server/api/agreements/[id]/closeouts/[closeoutId].get.ts` |
@@ -85,6 +112,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | POST | `/api/agreements/[id]/closeouts/[closeoutId]/documents/preview` | — | AgreementDocumentGenerateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/closeouts/[closeoutId]/documents/preview.post.ts` |
 | GET | `/api/agreements/[id]/closeouts` | — | — | `server/api/agreements/[id]/closeouts/index.get.ts` |
 | POST | `/api/agreements/[id]/closeouts` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/index.post.ts` |
+| GET | `/api/agreements/[id]/commitment-line-balances` | — | CommitmentLineBalancesQuerySchema, FundingCaseAgreementPaymentBaseSchema, FundingCaseAgreementPaymentCreateSchema, getValidatedQueryI18n | `server/api/agreements/[id]/commitment-line-balances.get.ts` |
 | DELETE | `/api/agreements/[id]/commitment-lines/[lineId]` | — | — | `server/api/agreements/[id]/commitment-lines/[lineId].delete.ts` |
 | PATCH | `/api/agreements/[id]/commitment-lines/[lineId]` | — | — | `server/api/agreements/[id]/commitment-lines/[lineId].patch.ts` |
 | POST | `/api/agreements/[id]/commitment-lines` | — | FundingCaseAgreementCommitmentLineCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitment-lines/index.post.ts` |
@@ -95,11 +123,17 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | PATCH | `/api/agreements/[id]/commitments/[childId]` | — | FundingCaseAgreementCommitmentPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitments/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/commitments` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementCommitmentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/commitments/index.post.ts` |
 | GET | `/api/agreements/[id]/commitments/lookups/types` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/commitments/lookups/types.get.ts` |
+| GET | `/api/agreements/[id]/corrections/export` | — | CorrectionCollectionQuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/export.get.ts` |
+| GET | `/api/agreements/[id]/corrections` | requireAuthContext | CorrectionCollectionQuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/index.get.ts` |
+| POST | `/api/agreements/[id]/corrections` | — | CorrectionCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/corrections/index.post.ts` |
+| GET | `/api/agreements/[id]/corrections/lookups/commitments` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/lookups/commitments.get.ts` |
+| GET | `/api/agreements/[id]/corrections/lookups/payments` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/lookups/payments.get.ts` |
 | GET | `/api/agreements/[id]/document-templates` | — | — | `server/api/agreements/[id]/document-templates/index.get.ts` |
 | GET | `/api/agreements/[id]/documents/[documentId]/download` | — | — | `server/api/agreements/[id]/documents/[documentId]/download.get.ts` |
 | DELETE | `/api/agreements/[id]/documents/[documentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/documents/[documentId]/index.delete.ts` |
 | POST | `/api/agreements/[id]/documents/generate` | executeFreshAuthorizedAgreementWrite, requireAuthContext | AgreementDocumentGenerateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/documents/generate.post.ts` |
 | GET | `/api/agreements/[id]/documents` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/documents/index.get.ts` |
+| GET | `/api/agreements/[id]/financial-summary` | — | — | `server/api/agreements/[id]/financial-summary.get.ts` |
 | DELETE | `/api/agreements/[id]/forecast-line-items/[lineId]` | — | — | `server/api/agreements/[id]/forecast-line-items/[lineId].delete.ts` |
 | PATCH | `/api/agreements/[id]/forecast-line-items/[lineId]` | AgreementScopeContext | FundingCaseAgreementForecastLineItemPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecast-line-items/[lineId].patch.ts` |
 | POST | `/api/agreements/[id]/forecast-line-items` | — | FundingCaseAgreementForecastLineItemCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecast-line-items/index.post.ts` |
@@ -107,6 +141,7 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | DELETE | `/api/agreements/[id]/forecasts/[forecastId]` | — | — | `server/api/agreements/[id]/forecasts/[forecastId].delete.ts` |
 | PATCH | `/api/agreements/[id]/forecasts/[forecastId]` | — | FundingCaseAgreementForecastPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecasts/[forecastId].patch.ts` |
 | POST | `/api/agreements/[id]/forecasts` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementForecastCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecasts/index.post.ts` |
+| GET | `/api/agreements/[id]/funding-subtypes` | resolveAgreementScopeContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/funding-subtypes.get.ts` |
 | DELETE | `/api/agreements/[id]/monitor-findings/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-findings/[childId].delete.ts` |
 | PATCH | `/api/agreements/[id]/monitor-findings/[childId]` | — | FundingCaseAgreementMonitorFindingPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-findings/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-findings` | — | FundingCaseAgreementMonitorFindingCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-findings/index.post.ts` |
@@ -136,26 +171,31 @@ Cet index généré constitue une table de navigation exhaustive, non une preuve
 | PATCH | `/api/agreements/[id]/notes/[noteId]` | — | — | `server/api/agreements/[id]/notes/[noteId].patch.ts` |
 | GET | `/api/agreements/[id]/notes` | — | — | `server/api/agreements/[id]/notes/index.get.ts` |
 | POST | `/api/agreements/[id]/notes` | — | — | `server/api/agreements/[id]/notes/index.post.ts` |
+| GET | `/api/agreements/[id]/payment-financial-inputs` | — | FundingCaseAgreementPaymentBaseSchema, FundingCaseAgreementPaymentCreateSchema, PaymentFinancialInputsQuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payment-financial-inputs.get.ts` |
 | DELETE | `/api/agreements/[id]/payment-lines/[lineId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/payment-lines/[lineId].delete.ts` |
 | PATCH | `/api/agreements/[id]/payment-lines/[lineId]` | — | — | `server/api/agreements/[id]/payment-lines/[lineId].patch.ts` |
 | POST | `/api/agreements/[id]/payment-lines` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentLineCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payment-lines/index.post.ts` |
 | GET | `/api/agreements/[id]/payment-lines/lookups/commitment-lines` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payment-lines/lookups/commitment-lines.get.ts` |
-| GET | `/api/agreements/[id]/payments-overview` | — | — | `server/api/agreements/[id]/payments-overview.get.ts` |
+| GET | `/api/agreements/[id]/payments-overview` | requireAuthContext | — | `server/api/agreements/[id]/payments-overview.get.ts` |
 | DELETE | `/api/agreements/[id]/payments/[paymentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/payments/[paymentId].delete.ts` |
-| GET | `/api/agreements/[id]/payments/[paymentId]` | — | — | `server/api/agreements/[id]/payments/[paymentId].get.ts` |
-| PATCH | `/api/agreements/[id]/payments/[paymentId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/[paymentId].patch.ts` |
+| GET | `/api/agreements/[id]/payments/[paymentId]` | requireAuthContext | — | `server/api/agreements/[id]/payments/[paymentId].get.ts` |
+| PATCH | `/api/agreements/[id]/payments/[paymentId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentCreateSchema, FundingCaseAgreementPaymentPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/[paymentId].patch.ts` |
+| POST | `/api/agreements/[id]/payments/[paymentId]/preview` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/[paymentId]/preview.post.ts` |
 | POST | `/api/agreements/[id]/payments` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/index.post.ts` |
 | GET | `/api/agreements/[id]/payments/lookups/commitments` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/commitments.get.ts` |
 | GET | `/api/agreements/[id]/payments/lookups/fiscal-years` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/fiscal-years.get.ts` |
+| GET | `/api/agreements/[id]/payments/lookups/proponents` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/proponents.get.ts` |
+| POST | `/api/agreements/[id]/payments/preview` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/preview.post.ts` |
 | GET | `/api/agreements` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireAuthContext | AgencyFilterSchema, AgreementsPaginationSchema, AssignedListViewSchema, PaginationSchema, getValidatedQueryI18n | `server/api/agreements/index.get.ts` |
 | POST | `/api/agreements` | authorizeWithFreshAuthContext, egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireFreshAuthContext, resolveAgreementStreamScopeContext | FundingCaseAgreementCreateSchema, FundingCaseAgreementGeneratedCreateSchema, parseI18n, readValidatedBodyI18n | `server/api/agreements/index.post.ts` |
 | GET | `/api/agreements/lookups/agreement-subtypes` | — | — | `server/api/agreements/lookups/agreement-subtypes.get.ts` |
 | GET | `/api/agreements/lookups/applicant-recipients` | — | ApplicantRecipientLookupQuerySchema, PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/lookups/applicant-recipients.get.ts` |
 | GET | `/api/agreements/lookups/custom-fields` | — | — | `server/api/agreements/lookups/custom-fields.get.ts` |
+| GET | `/api/agreements/lookups/financial-ids` | requireAuthContext, resolveAgreementStreamScopeContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/financial-ids.get.ts` |
 | GET | `/api/agreements/lookups/holdback-bases` | — | — | `server/api/agreements/lookups/holdback-bases.get.ts` |
 | GET | `/api/agreements/lookups/proponent-types` | requireAuthContext, resolveAgreementStreamScopeContext | PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/proponent-types.get.ts` |
 | GET | `/api/agreements/lookups/risk-ratings` | — | — | `server/api/agreements/lookups/risk-ratings.get.ts` |
-| GET | `/api/agreements/lookups/streams` | resolveAgreementScopeContext | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/streams.get.ts` |
+| GET | `/api/agreements/lookups/streams` | resolveAgreementScopeContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/streams.get.ts` |
 | GET | `/api/agreements/number-mode` | resolveAgreementStreamScopeContext | PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/number-mode.get.ts` |
 | POST | `/api/agreements/similarity` | requireAuthContext, resolveAgreementScopeContext, resolveAgreementStreamScopeContext | BodySchema, PositivePostgresBigintIdSchema, readValidatedBodyI18n | `server/api/agreements/similarity.post.ts` |
 | GET | `/api/applicant-recipients/[id]/agreements` | authorizeWithFreshAuthContext, egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireFreshAuthContext, resolveApplicantRecipientAuthorization | AssignedListViewSchema, PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agreements/index.get.ts` |

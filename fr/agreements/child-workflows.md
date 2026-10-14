@@ -1,34 +1,52 @@
 # Flux enfants d entente
 
-Les flux enfants sont atteints depuis les onglets de detail d une entente. Certains sont des tables CRUD integrees; d autres ont leurs propres pages de detail avec sous-dossiers, statut de flux, completion et feuilles d approbation.
+Une entente est le dossier principal de financement. Ses onglets contiennent des dossiers connexes, comme un budget, un paiement, une réclamation ou une visite de surveillance. Ce guide les appelle **enfants**. Certains, comme les adresses et les activités, se modifient directement dans un onglet de l’entente. D’autres ouvrent leur propre espace, où vous gérez leurs lignes, pièces jointes, utilisateurs affectés et étapes d’approbation.
 
+Par exemple, ouvrez **Paiements** dans une entente pour trouver un paiement, puis ouvrez ce paiement pour travailler sur ses lignes. Vous travaillez toujours sous la même entente, mais le paiement a son propre dossier et ses propres vérifications d’accès.
 ## Pages de flux
 
 | Flux | Documentation |
 | --- | --- |
-| Exercices budgetaires et lignes budgetaires | [Budget](./budget.md) |
-| Adresses d entente | [Adresses](./addresses.md) |
-| Liens promoteur/demandeur-beneficiaire | [Promoteurs et demandeurs-beneficiaires](./applicant-recipients.md) |
-| Activites, resultats et responsables | [Activites](./activities.md) |
-| Engagements et lignes d engagement | [Engagements](./commitments.md) |
+| Exercices budgétaires et lignes budgétaires | [Budget](./budget.md) |
+| Adresses d’entente | [Adresses](./addresses.md) |
+| Liens promoteur/demandeur-bénéficiaire | [Promoteurs et demandeurs-beneficiaires](./applicant-recipients.md) |
+| Activités, résultats et responsables | [Activités](./activities.md) |
+| Engagements et lignes d’engagement | [Engagements](./commitments.md) |
 | Paiements et lignes de paiement | [Paiements](./payments.md) |
-| Previsions, versions et lignes mensuelles | [Previsions](./forecasts.md) |
-| Reclamations, lignes, rapprochements et approbations | [Reclamations](./claims.md) |
-| Surveillances, constatations, suivis, mises a jour et pratiques prometteuses | [Surveillances](./monitors.md) |
-| Documents d entente generes | [Documents](./documents.md) |
+| Rythme mensuel et projections comptables | [Sommaire financier](./financial-summary.md) |
+| Corrections signées et transferts comptables équilibrés | [Corrections](./corrections.md), [Pièces de journal](./journal-vouchers.md) |
+| Créances, ajustements et recouvrements | [Créances](./receivables.md) |
+| Prévisions, versions et lignes mensuelles | [Prévisions](./forecasts.md) |
+| Réclamations, lignes, rapprochements et approbations | [Réclamations](./claims.md) |
+| Surveillances, constatations, suivis, mises à jour et pratiques prometteuses | [Surveillances](./monitors.md) |
+| Documents d’entente générés | [Documents](./documents.md) |
 
 ## Comportement commun
 
-Tous les enfants résolvent la portée de l’entente courante. Lecteur consulte. Les enfants ordinaires exigent Contributeur et l’affectation exacte à l’entente pour créer ou modifier, puis Gestionnaire et cette affectation pour la suppression logique. Les réclamations, rapprochements, paiements, prévisions, surveillances, modifications, engagements, examens et recommandations affectés indépendamment emploient l’affectation parente pour la création, créent un registre enfant dont le créateur est principal et exigent l’affectation à cet enfant pour les mutations suivantes. Les recherches emploient le plafond du formulaire. L’affectation d’un réviseur ou approbateur détermine l’action de flux, sans remplacer la lecture ordinaire du propriétaire.
+Votre rôle détermine les actions permises dans l’organisme ou le programme. Votre affectation désigne le dossier précis dont vous vous occupez. Les deux sont nécessaires pour modifier :
 
-La plupart des suppressions sont logiques. Les enfants supprimes disparaissent des listes et selecteurs normaux mais restent disponibles pour l integrite historique.
+- L’accès Lecteur permet de consulter les dossiers dans votre portée autorisée sans affectation.
+- Pour les fiches ordinaires, comme les adresses ou les activités, l’accès Contributeur et l’affectation à l’entente permettent de créer ou de modifier. L’accès Gestionnaire et cette affectation sont nécessaires pour supprimer.
+- Les réclamations, rapprochements, paiements, prévisions, surveillances, modifications, engagements, examens et recommandations ont leurs propres utilisateurs affectés. Pour les dossiers métier créés depuis l’entente, l’affectation parente requise permet la création et le créateur devient l’utilisateur principal de l’enfant. Les modifications suivantes exigent l’affectation à cet enfant et le rôle applicable. Les examens et recommandations d’exécution suivent leurs propres règles de responsabilité; consultez [Utilisateurs affectés](./team.md).
+
+Par exemple, une affectation à l’entente permet à un agent admissible d’ajouter une activité. Elle ne lui permet pas automatiquement de modifier un paiement créé par un collègue : vérifiez les utilisateurs affectés au paiement.
+
+Les listes de sélection respectent l’accès requis par le formulaire de création ou de modification ouvert. Une affectation comme réviseur ou approbateur permet l’action de flux attribuée; elle ne donne pas l’accès de consultation ordinaire au dossier.
+
+La plupart des suppressions retirent la fiche des listes ordinaires et des listes de sélection tout en préservant son historique. C’est une suppression logique.
 
 ## État métier, achèvement et flux
 
-Les enfants d’entente utilisent les états métier configurables de l’organisme. Les enregistrements ordinaires préservent l’état. Les indicateurs lecture seule et terminal, la preuve d’achèvement, les verrous de flux actif et la protection de l’entente parente déterminent la possibilité de modifier le travail. Un libellé comme « Approuvé » ne constitue pas à lui seul une preuve d’approbation.
+L’organisme définit les états métier, comme brouillon ou approuvé. Enregistrer vos changements conserve normalement l’état courant. Un état marqué en lecture seule ou terminal, un dossier achevé, un flux actif ou une protection de l’entente parente peut empêcher la modification. Le libellé « Approuvé » ne prouve pas à lui seul la réussite des étapes d’approbation.
 
-Achever valide le dossier et démarre son flux publié de soumission d’approbation si configuré. Les modifications et clôtures exigent ce flux; les autres enfants pris en charge peuvent être achevés sans flux. Les effets positifs, comme l’activation d’une prévision ou d’un engagement de remplacement, attendent la réussite du flux lorsqu’une exécution existe. Un achèvement enregistré ne prouve pas à lui seul la réussite de l’approbation.
+Pour soumettre un dossier pris en charge à l’achèvement :
 
-L’onglet **Flux de travail** démarre explicitement un flux standard sélectionné. Une seule exécution peut être active sur une cible exacte, tous objets confondus. Achèvement, soumission d’approbation racine, flux standard et examen direct sont des actions distinctes; consultez le guide de l’entité et [Approbations et achèvements](../concepts/approvals-completions.md) pour leurs préalables.
+1. Ouvrez son espace et vérifiez les renseignements obligatoires à l’aide du guide ci-dessus.
+2. Utilisez **Achever** lorsque le dossier est prêt. L’application vérifie le dossier et démarre son flux publié de soumission d’approbation s’il est configuré.
+3. Suivez le flux jusqu’à son résultat. Si une approbation est requise, attendez sa réussite avant de considérer le dossier comme effectif. Par exemple, une prévision ou un engagement de remplacement devient actif seulement après la réussite du flux.
 
-Les justificatifs appartiennent à l’onglet [Pièces jointes](../concepts/attachments.md) de l’enfant exact. Les [Modifications](./amendments.md) et [Clôtures](./closeouts.md) ont leurs propres règles d’achèvement, d’instantané et de verrouillage d’agrégat.
+Les modifications, clôtures, corrections, créances, ajustements de créance et notes de crédit exigent un flux de soumission d’approbation. Les autres dossiers pris en charge utilisent leur flux facultatif configuré. Les corrections et recouvrements ont aussi leurs propres permissions de rôle et affectations. Enregistrer l’achèvement ne signifie pas obtenir l’approbation.
+
+Utilisez **Flux de travail** pour choisir et démarrer explicitement un flux standard. Un seul flux peut être actif sur le même dossier, quel que soit son objet. Achever un dossier, soumettre l’entente principale à l’approbation, démarrer un flux standard et demander un examen direct sont des actions différentes. Consultez le guide du dossier et [Approbations et achèvements](../concepts/approvals-completions.md) avant de choisir une action.
+
+Ajoutez les justificatifs à l’onglet [Pièces jointes](../concepts/attachments.md) du dossier précis. Par exemple, joignez les preuves d’une réclamation à la réclamation, plutôt que de supposer qu’une pièce jointe à l’entente remplit le même rôle. Les [Modifications](./amendments.md) et [Clôtures](./closeouts.md) ont des règles supplémentaires d’achèvement, d’instantanés enregistrés et de verrouillage des dossiers connexes.

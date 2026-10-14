@@ -1,10 +1,10 @@
 # Agreement budget
 
-The **Budget** tab records the agreement's fiscal years and detailed cost lines. Forecasts and claims select from these stable budget coordinates; commitments are limited by current program funding; and payments use agreement fiscal years. Configure the budget before downstream financial work.
+The **Budget** tab records the agreement's fiscal years and detailed cost lines. Set it up before entering forecasts, claims, commitments or payments. Forecasts and claims refer to the budget’s saved years and cost lines. Commitments cannot exceed the permitted current program funding, and payments use the Agreement’s fiscal years.
 
 ## Prerequisites and access
 
-Configure the following in order:
+Before entering an Agreement budget, confirm that your agency or program administrator has configured the first four items below. Then check the saved Agreement and its dates. Complete these prerequisites in order:
 
 1. agency fiscal years;
 2. program fiscal-year budgets;
@@ -12,9 +12,9 @@ Configure the following in order:
 4. active stream cost-category line items; and
 5. the saved agreement and its authorized-assistance dates.
 
-Agreement Viewer displays the budget. Adding or editing fiscal years/lines requires Contributor plus the exact Agreement assignment; deleting requires Manager plus that assignment. Budget rows use the Agreement assignment root. Lookup routes require the same create/update ceiling as the form that opened them.
+You need Agreement Viewer access to view the budget. Adding or editing fiscal years/lines requires Contributor plus the exact Agreement assignment; deleting requires Manager plus that assignment. Your assignment must cover this exact Agreement. The choices offered in an add or edit form follow the same access requirements as that form.
 
-Writes use the established agreement transaction: the server locks the agreement and scope chain, rebuilds authorization, resolves the current stream, and then mutates only the current working budget version.
+When you save, the system rechecks your current permissions and stream and changes only the current working budget. It protects the Agreement and its agency/program/stream links from competing changes during the save. A failed save leaves the budget unchanged.
 
 ## Fiscal years
 
@@ -22,13 +22,13 @@ Select a fiscal year backed by an active budget on the agreement's current strea
 
 The table preserves a fiscal-year group even when it has no lines. From that group, authorized users can add a line, change the fiscal year, or delete the group when the interface considers deletion safe.
 
-Deletion is soft and is refused when the fiscal year has active budget lines, claims, payments, or claim-line use. The main tab therefore shows its fiscal-year delete action only for an empty group. There is no restore control.
+Deleting removes the year from the current list while keeping stored history (soft deletion). It is refused when the fiscal year has active budget lines, claims, payments, or claim-line use. The main tab therefore shows its fiscal-year delete action only for an empty group. There is no restore control.
 
 Changing a fiscal-year group repeats the authorized-assistance overlap check on the server. A group with active budget lines cannot be reassigned. An unchanged saved year can still be retained when its reference is retired; that does not make the retired year available for new allocations. Review claims and payments before any reassignment: the current reassignment guard checks active budget lines, while deletion has its own downstream-use checks.
 
 ## Budget lines
 
-The full-screen line form contains:
+For a manual line, choose the year and cost line, identify the cost in the subsection and description, enter the total and funding amounts, then save. For example, a CAD 1,500 travel cost with CAD 1,000 from the program and CAD 500 from a configured municipal source uses a total of 1,500, not 1,000. The full-screen line form contains:
 
 | Field | Rule |
 | --- | --- |
@@ -38,16 +38,18 @@ The full-screen line form contains:
 | Description | Required non-empty text; this agreement-specific description is not bilingual. |
 | Total amount | Required finite amount with at most two decimals. |
 | Program funding | Enter an exact amount for manual lines. For percentage lines, the server calculates it; do not submit a replacement amount. |
-| Other federal, other government, other funding | Optional finite amounts with at most two decimals; blank values become absent values. |
-| Currency | Required configured `currency_codes` value; new forms default to `cad`. |
+| Other funding sources | Select configured funding subtypes and exact amounts, with optional English/French descriptions. Each subtype appears once per line. |
+| Currency | Required configured `currency_codes` value; the form displays the agreement’s immutable currency and does not allow a replacement. |
 
-Agreement money is transported as exact decimal text, such as `"1250.00"`, and persisted as `numeric(19,2)`. The absolute per-row maximum is `99999999999999999.99`. Decimal strings are authoritative; the compatibility path accepts JSON numbers only when their serialized cents are safe integers. Exponent notation, surrounding whitespace, leading zeroes, excess decimal places, and out-of-range amounts are rejected. Signed amounts remain supported where the domain schema permits them; do not assume a positive-only business rule from the display control.
+Enter amounts with no more than two decimal places, using the Agreement’s currency. The currency cannot be changed in this form.
 
-The total must cover program funding plus all three other-funding amounts. Percentage recalculation checks the complete affected rows and rolls back the initiating change if any line becomes underfunded. Total amount and other funding remain manually entered even on calculated lines.
+**Technical reference for integrations:** Agreement money is transported as exact decimal text, such as `"1250.00"`, and persisted as `numeric(19,2)`. The absolute per-row maximum is `99999999999999999.99`. Decimal strings are authoritative; the compatibility path accepts JSON numbers only when their serialized cents are safe integers. Exponent notation, surrounding whitespace, leading zeroes, excess decimal places, and out-of-range amounts are rejected. Signed amounts remain supported where the domain schema permits them; do not assume a positive-only business rule from the display control.
+
+The total must be at least the program funding plus all configured other-funding amounts. For example, 1,000 from the program plus 500 from another source requires a total of at least 1,500. A total of 1,400 is rejected. If recalculating a percentage leaves any affected line’s total below its combined funding, the system cancels the entire change. Total amount and other funding remain manually entered even on calculated lines.
 
 ## Percentage-based lines
 
-Agency cost-line definitions select one of three calculation modes. The stream exposes eligible definitions to Agreements. A new budget line captures the definition's mode, source category, default percentage, and override permission. Later Agency default changes do not rewrite saved lines; amendment copies retain their saved calculation settings.
+Your agency sets up cost lines as manual or percentage-based, and your stream determines which ones you can choose. When you create a line, it keeps that definition’s calculation mode, source category, default percentage, and permission to change the percentage. Later changes to agency defaults do not change saved lines. Copies made for an Amendment keep those saved settings.
 
 | Mode | Program-funding base | Editable values |
 | --- | --- | --- |
@@ -55,7 +57,7 @@ Agency cost-line definitions select one of three calculation modes. The stream e
 | Percentage of a category (`category`) | Program funding of manual lines in the configured source category. | Total and other funding; percentage only if overrides were allowed when this line was created. |
 | Percentage of all other items (`all_other`) | Program funding of every other line in the same calculation group, including calculated category charges. | Total and other funding; percentage only if the saved definition allows it. |
 
-Calculations group by budget version, Agency fiscal year, and currency, across subsections. Other federal, other government, and other funding never enter the percentage base. Category charges are calculated before all-other charges. Only one active all-other charge is allowed per version/year/currency. Percentage values range from 0 through 100 with at most two decimal places.
+Calculations group by budget version, Agency fiscal year, and currency, across subsections. Other funding sources never enter the percentage base. Category charges are calculated before all-other charges. Only one active all-other charge is allowed per version/year/currency. Percentage values range from 0 through 100 with at most two decimal places.
 
 The result is rounded once to the nearest **whole dollar**, with an exact half rounded away from zero, then stored as two-decimal money. For example, 10% of `"1005.00"` is `"101.00"`, not `"100.50"`. Browser previews use the same exact arithmetic, but the server reloads saved settings and validates the final transaction.
 
@@ -77,10 +79,10 @@ The Administration base is 11,000. Adding 2,000 of other funding to Salaries doe
 1. Select the budget fiscal year and configured cost line.
 2. Read the captured mode and source category. For a category charge, verify that the intended manual source rows exist in this year and currency.
 3. Accept the default percentage or change it if the form permits an override.
-4. Enter total amount, description, subsection, currency, and any other funding. Leave calculated program funding to the preview and server.
+4. Enter total amount, description, subsection and any other funding; confirm the displayed agreement currency. Leave calculated program funding to the preview and server.
 5. Save, then review the refreshed whole-budget totals; changes to a source can affect other lines.
 
-Creating, editing, moving, or deleting a line recalculates the affected version inside the same authorized Agreement transaction. An invalid dependency, duplicate all-other charge, insufficient line total, numeric overflow, or current-version stream-capacity failure rolls back both the initiating mutation and its derived changes. Changing currency or fiscal year also changes the calculation group. Amendment versions remain isolated from the current version until their application workflow.
+Adding, editing, moving or deleting a line recalculates the affected budget version as part of the same save. The system cancels both your change and the recalculations if a required calculation source is invalid, a second all-other charge is created, a line’s total is too low, a calculated amount is too large, or the current budget exceeds the stream’s available capacity. Moving a line to another fiscal year changes the calculation group. Currency must remain the agreement’s denomination; the server rejects a mismatch. Amendment versions remain isolated from the current version until their application workflow.
 
 ## Retired cost definitions
 
@@ -92,26 +94,40 @@ For the chosen fiscal year, maximum program funding is:
 
 `stream budget total × (1 + overcommit threshold)`
 
-The capacity check sums program funding from active lines in the current budget versions of **all active agreements in the same stream and fiscal year**. Creation locks the stream-budget row before checking and inserting. An update excludes the line being edited, locks the target stream budget, then tests its proposed program-funding amount. A missing/deleted current fiscal year or stream budget is rejected.
+For example, a CAD 100,000 stream budget with a configured overcommit ratio of `0.10` (10%) allows CAD 110,000 of program funding across its active Agreements for that year: 100,000 × 1.10 = 110,000. If other Agreements already use 90,000, only 20,000 remains for this Agreement. Other funding sources do not increase that program-funding capacity.
 
-Changing a line's fiscal year is refused while an active claim line references that stable budget line. Deleting a line is also refused while an active claim line references it. Other successful line deletions are soft deletions and have no tab-level restore action.
+Available capacity includes program funding on active lines in the current budgets of **all active agreements in the same stream and fiscal year**. When editing a line, its proposed amount replaces its old amount in this check; the old and new amounts are not counted together. You cannot save without an existing, non-deleted current fiscal year and stream budget.
+
+**Technical reference for developers:** Creation locks the stream-budget row before checking capacity and inserting. An update excludes the edited line, locks the target stream budget and checks the proposed program-funding amount.
+
+You cannot move a cost line to another fiscal year while an active claim line refers to it. Deleting a line is also refused while an active claim line references it. Other successful line deletions are soft deletions and have no tab-level restore action.
 
 ## Grouped table and search
 
-Rows are grouped by fiscal year, organization cost category, and free-text subsection. Add actions on category/subsection groups prefill and lock those grouping values for the new form. Leaf rows show the bilingual configured cost-line name, agreement description, total, program funding, and combined other funding.
+Rows are grouped by fiscal year, organization cost category, and free-text subsection. Add actions on category/subsection groups prefill and lock those grouping values for the new form. Individual cost rows show the bilingual configured cost-line name, agreement description, total, program funding, and combined other funding.
 
-Search is client-side over the loaded overview and matches fiscal-year display, English/French category and line names, subsection, and description. The view loads the complete overview rather than a server-paginated search; the table's local page size starts at 50.
+Search looks through the complete overview already loaded in your browser and matches fiscal-year display, English/French category and line names, subsection, and description. The table starts with 50 rows per page; searching covers the loaded overview, not just the visible page.
 
-Group and footer totals sum the displayed numeric values. A single currency is formatted using that currency (`cad` receives currency formatting); mixed currencies are deliberately shown as plain decimal sums and are **not** converted. Do not interpret a mixed-currency total as a converted financial total.
+Group and footer totals sum the displayed values in the agreement currency. Current financial writes cannot introduce another denomination, and no exchange conversion occurs.
 
 ## Versions and downstream records
 
-Agreement creation automatically creates one current working budget version. The ordinary Budget tab reads and writes only that version. Amendment preparation copies fiscal years and lines into a separate amendment version while retaining stable public identities; approved revisions preserve the selected version as provenance. Historical copies do not count toward current stream-capacity calculations.
+Agreement creation automatically creates one current working budget version. The ordinary Budget tab reads and writes only that version. Preparing an Amendment copies the years and lines into a separate version. The copied items keep their identifiers so existing references still point to the same year or cost. Approved revisions record which budget version they used. Historical copies do not count toward current stream-capacity calculations.
 
-Stable identities allow forecasts, claims, extensions, and revision snapshots to follow a logical fiscal year or line across version copies. Database constraints bind physical lines to a fiscal year, budget version, and agreement and prevent duplicate active stable identities within one version.
+Each year and cost line keeps a stable identity when copied into another budget version. This lets forecasts, claims, extensions and saved revisions continue to refer to the same logical item. **Technical reference for developers:** The database checks that each stored line belongs to its Agreement, year and budget version, and prevents duplicate active stable identities in one version.
 
 Before reducing or deleting budget data, review [Commitments](./commitments.md), [Forecasts](./forecasts.md), [Claims](./claims.md), and [Payments](./payments.md). Downstream constraints can refuse a change even when its button is available.
 
 ## Recovery
 
-If save fails, reload the agreement and verify your permission, the current stream configuration, the agreement dates, the selected stable fiscal year, the cost line, and remaining capacity. Do not create replacement rows to bypass an in-use error. Soft-deleted data or an incorrect fiscal-year move requires an authorized administrative/data recovery operation.
+If save fails, reload the agreement and verify your permission, the current stream configuration, the agreement dates, the selected fiscal year, the cost line, and remaining capacity. Do not create replacement rows to bypass an in-use error. Ask an authorized administrator for recovery help if data was deleted or a line was moved to the wrong fiscal year.
+
+## Configured funding sources and annual controls
+
+Other funding is recorded by the Agency’s funding types and subtypes linked to this stream, rather than three fixed federal/government/other columns. Select each subtype once, enter its amount, and optionally describe it in both languages. A new selection must be active and available to the stream; an existing saved allocation may retain a retired subtype. Saved allocations supply the other-funding total and their type’s stacking and cost-sharing participation. The agreement currency applies to budget and downstream financial lines.
+
+Before reducing the current budget, check the financial work already recorded for that year. The system refuses a reduction that would put counted forecasts, claims or successful reconciliations above the available annual budget. It checks total costs, program funding and each other-funding type separately. Subtypes of the same funding type share one limit: two municipal subtypes do not each get the full municipal budget. This annual Agreement check is separate from the stream-wide program-funding capacity and the commitment ceiling.
+
+For example, an annual budget of 15,000 total, 10,000 program and 5,000 municipal funding cannot support a forecast with 6,000 municipal funding, even if its total is only 14,000. Correct the funding mix or obtain and apply an authorized budget amendment; increasing another funding type does not increase municipal capacity. A failed reduction rolls back its budget changes and dependent recalculations.
+
+See [Financial summary](./financial-summary.md) for the annual and monthly read-only comparison.

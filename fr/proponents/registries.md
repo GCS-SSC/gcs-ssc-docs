@@ -1,6 +1,6 @@
 # Registres des promoteurs
 
-L'onglet **Registres** stocke les identifiants externes d'un promoteur existant. Ouvrez **Promoteurs**, choisissez un profil, puis **Registres**. Le tableau permet la recherche, la pagination, la création, la modification et la suppression logique selon les permissions de profil retournées par le serveur.
+Utilisez **Registres** pour consigner les identifiants d’un registre externe, comme un numéro d’entreprise, ou un code de classification industrielle. Ouvrez **Promoteurs**, choisissez le profil, puis **Registres**. Choisissez le type correspondant avant de saisir la valeur. Le tableau permet la recherche, la pagination, la création, la modification et la suppression selon vos permissions sur le profil.
 
 ## Champs et formats
 
@@ -20,11 +20,13 @@ Trois types imposent un format numérique exact dans la validation de la requêt
 
 Les autres types énumérés acceptent actuellement tout texte non vide sans motif supplémentaire. N'ajoutez pas de ponctuation aux trois formats numériques ci-dessus.
 
+Par exemple, un numéro d’entreprise fédéral comme `123456789` respecte le format de neuf chiffres; `123-456-789` ne le respecte pas. Le SCIAN, ou Système de classification des industries de l’Amérique du Nord, classe l’activité de l’organisme. Une valeur comme `62` respecte la longueur permise. Ces exemples illustrent seulement le format; saisissez l’identifiant réel de l’organisme. Pour `other`, nommez le registre dans **Commentaire Autre**, par exemple « Registre municipal des organismes communautaires ».
+
 ## Unicité et cycle de vie
 
-Une paire active `(type de registre, numéro)` est unique dans l'ensemble des promoteurs, et non seulement dans un profil. Un doublon produit un conflit localisé sans révéler ni remplacer l'autre enregistrement. La suppression logique retire la ligne des listes actives et de l'index d'unicité partiel; la même paire peut donc être réutilisée plus tard par une autre ligne active. Les données historiques supprimées demeurent stockées.
+Le même type de registre et le même numéro ne peuvent pas être actifs sur deux promoteurs. Si un message indique un doublon, vérifiez le profil et l’identifiant choisis. Le message ne révèle pas l’autre dossier et ne le remplace pas. Supprimer une ligne la retire des listes courantes et permet de réutiliser la paire type-numéro; l’historique supprimé demeure conservé.
 
-La création, la modification et la suppression autorisent d'abord l'action sur le promoteur parent exact. La transaction recharge ensuite le contexte d'autorisation et le verrouille avant de modifier un enfant qui doit appartenir à ce même promoteur. Il est impossible de déplacer un enfant en changeant les identifiants de l'URL. Une modification partielle est fusionnée et revalidée comme enregistrement complet; changer le type peut donc rendre le numéro ou le commentaire existant invalide.
+Votre permission est vérifiée sur le promoteur dont vous avez ouvert le profil, puis à nouveau pendant l’enregistrement. La ligne de registre doit appartenir à ce profil; changer les identifiants de l’URL ne permet pas de la déplacer. Si vous modifiez le type, vérifiez aussi le numéro et le commentaire : le système valide tous les champs ensemble, même si vous n’en avez changé qu’un. Par exemple, passer d’un numéro d’entreprise de neuf chiffres à un compte de programme de l’ARC exige une valeur de 15 chiffres.
 
 ## Recherche et rétablissement
 

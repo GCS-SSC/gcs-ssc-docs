@@ -180,6 +180,14 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       ]
     },
     {
+      text: locale === 'fr' ? 'Réception des demandes' : 'Application Intake',
+      items: [
+        { text: locale === 'fr' ? 'Possibilités de financement' : 'Funding opportunities', link: `${p}intake/opportunities` },
+        { text: locale === 'fr' ? 'Réceptions' : 'Intakes', link: `${p}intake/funding-case-intakes` },
+        { text: locale === 'fr' ? 'Portail' : 'Portal', link: `${p}intake/portal` }
+      ]
+    },
+    {
       text: labels.agreements,
       items: [
         { text: labels.agreementOverview, link: `${p}agreements/` },
@@ -192,6 +200,10 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.amendments, link: `${p}agreements/amendments` },
         { text: labels.commitments, link: `${p}agreements/commitments` },
         { text: labels.payments, link: `${p}agreements/payments` },
+        { text: locale === 'fr' ? 'Sommaire financier' : 'Financial summary', link: `${p}agreements/financial-summary` },
+        { text: locale === 'fr' ? 'Pièces de journal' : 'Journal vouchers', link: `${p}agreements/journal-vouchers` },
+        { text: locale === 'fr' ? 'Corrections' : 'Corrections', link: `${p}agreements/corrections` },
+        { text: locale === 'fr' ? 'Créances' : 'Receivables', link: `${p}agreements/receivables` },
         { text: labels.forecasts, link: `${p}agreements/forecasts` },
         { text: labels.claims, link: `${p}agreements/claims` },
         { text: labels.documents, link: `${p}agreements/documents` },
@@ -204,6 +216,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       items: [
         { text: labels.proponentOverview, link: `${p}proponents/` },
         { text: labels.proponentFinancialIds, link: `${p}proponents/agency-financial-ids` },
+        { text: locale === 'fr' ? 'Notes de crédit' : 'Credit memos', link: `${p}proponents/credit-memos` },
         { text: labels.proponentRegistries, link: `${p}proponents/registries` },
         { text: labels.proponentOtherNames, link: `${p}proponents/other-names` },
         { text: labels.proponentAddresses, link: `${p}proponents/addresses` },
@@ -223,6 +236,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.approvals, link: `${p}concepts/approvals-completions` },
         { text: labels.workflows, link: `${p}concepts/workflows` },
         { text: labels.runtimeReviews, link: `${p}concepts/runtime-reviews` },
+        { text: locale === 'fr' ? 'Collectes de données' : 'Data Collections', link: `${p}concepts/data-collections` },
         { text: labels.bilingualism, link: `${p}concepts/bilingualism` },
         { text: labels.deletion, link: `${p}concepts/soft-deletion` }
       ]

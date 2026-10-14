@@ -8,4 +8,4 @@ if (typeof window !== 'undefined') {
 }
 </script>
 
-[Continue in English](../en/agreements/payments.md)
+[Open the payments guide in English](../en/agreements/payments.md)

@@ -1,8 +1,10 @@
 # Streams
 
-Streams are the operational configuration layer under a program. A stream connects a program to agreement types, eligible recipients, funding budgets, cost line items, commitments, review generation, approval routes, recommendation setup, risk ratings, monitor types, document templates, areas of expertise, financial limits, and stream-specific extensions.
+A stream is the funding route officers choose when working on an agreement. For example, the “Community Facilities Improvement” program might have a “Small Community Projects” stream with its own yearly allocation, eligible recipient types, and allowable costs.
 
-Most agreement and runtime behavior is stream-driven. A program can exist without a stream, but a production agreement workflow normally cannot.
+The stream brings together the agreement types, funding budgets, cost lines, commitments, reviews, approvals, recommendations, risk ratings, monitoring types, document templates, expertise areas, financial limits, and extensions needed for that route. A program can be saved without a stream, but a production agreement workflow normally needs one.
+
+Start with the stream's identity, budget, recipients, and agreement types. Then configure the parts your officers will use, such as claims, reviews, and documents. Saving the stream does not mean all of these parts are ready.
 
 ## Stream List And Navigation
 
@@ -38,14 +40,14 @@ The wizard steps are:
 - Amendment types: amended entity category plus bilingual type name.
 - Amendment subtypes: subtype name and description linked to one wizard amendment type.
 - Agreement subtypes: agency agreement types allowed for the stream.
-- Chart of Accounts: ordered bilingual financial dimensions tied to a temporary stream budget.
-- Commitment Types: bilingual commitment classifications.
-- Monitor types: bilingual monitoring record types.
+- Chart of Accounts: eligible agency financial coding entries. Add stream budgets before selecting these entries.
+- Commitment Types: available commitment classifications already created at the agency.
+- Monitor types: eligible monitoring types already created at the agency.
 - Areas: bilingual areas of expertise for review/assessment assignment.
 - Financial limits: optional max-per-recipient, support percentage, retroactive-cost percentage, stacking limit, and status.
 - Review: summary of the configured stream setup.
 
-The visible wizard steps focus on the stream's core program setup data. Configure review setups, recommendation setups, approval templates, assessment schemas, and extensions from the stream detail tabs after the stream exists.
+The wizard covers the stream's core setup. After saving it, link Review Sets and Workflows and configure extensions from its detail tabs. Create and publish recommendation definitions, approval templates, and assessment schemas at the agency before using them in those shared designs.
 
 ## Stream Wizard Validation
 
@@ -110,31 +112,57 @@ Edit these fields from the stream page action or from the parent program's Strea
 
 ## Holdback Bases Tab
 
-Holdback Bases maps the agency's active holdback bases into the stream and gives each mapping an English and French name. The selected agency basis must belong to the program's agency, and it can appear only once in an active stream mapping. Configure these mappings before agreement holdback rules need them.
+Use this tab to make an active agency holdback basis available in the stream and give it English and French labels. The basis must belong to the program's agency. You can link it only once in the stream's active mappings. Set this up before an agreement needs a holdback rule.
 
-A holdback mapping’s bilingual label can be corrected, but its underlying Agency basis cannot be changed while a non-deleted Agreement references it. Agency basis codes likewise cannot be changed while referenced. New selections must belong to the current Agency. Resolve the dependency instead of repurposing a used identifier.
+For example, choose the agency basis appropriate to your program's holdback policy and give it a label officers will recognize. The label describes the choice; it does not create the agreement's holdback rule.
+
+You can correct a mapping's bilingual label. You cannot change its underlying agency basis while a non-deleted agreement uses it. The agency basis code is also protected while referenced. Resolve the dependency before changing the basis; new selections must belong to the current agency.
 
 ## Budgets Tab
 
-Stream budgets allocate part of a program fiscal-year budget to the stream. Each row contains:
+A stream budget assigns part of a program's yearly funding pool to this stream. Create the program budget first, then add a stream budget row with:
 
-- Program budget.
-- Total budget.
-- Overcommit threshold.
+- Program budget: the program budget for the relevant fiscal year.
+- Total budget: the amount allocated to this stream.
+- Overcommit threshold: the configured allowance above the stream budget, shown as a percentage. The stored value is a ratio: `0.10` means 10%, and `0` means no overcommit allowance. Use the percentage shown in the form.
 
-Configure program budgets before stream budgets. Agreement funding and commitment setup depend on the fiscal-year budget structure being present.
+Agreement funding and commitment setup need this fiscal-year structure. The selector searches only the current program's budgets and shows their fiscal-year labels. An existing row keeps its saved budget label visible even outside the current results page.
 
-The program-budget selector searches budgets from the current program and displays their fiscal-year labels. When editing an existing stream budget, its saved program budget is resolved by id so the label remains visible even when it is outside the current results page.
+All stream allocations for the target year together must fit within the selected program budget. For example, a $100,000 program budget with $70,000 already allocated to other streams leaves $30,000 for this stream. Saving $35,000 is refused. Money is stored as exact decimal strings: `"100000.00"`, `"70000.00"`, and `"30000.00"` in this example.
 
-New allocations require an eligible program budget with a non-retired fiscal year. An existing stream budget can retain its original retired-year reference while other values are corrected; changing the reference requires a currently eligible destination. Total allocations across the program’s streams for the target fiscal year cannot exceed the selected program budget. For example, with a program budget of `"100000.00"` and other stream allocations of `"70000.00"`, the remaining allocation is `"30000.00"`; a larger save is rejected. Money uses exact decimal strings. A failed refresh after a committed save is a read problem: retry loading before submitting another allocation.
+For example, a $100,000 stream budget with a 10% threshold permits up to $110,000 of Agreement program funding. This does not increase the program funding pool available for stream allocations or the actual commitment payment capacity.
+
+A new allocation needs an eligible program budget with a fiscal year that has not been retired. An existing row can keep its original retired-year reference while other values are corrected. Changing the reference requires a currently eligible budget.
+
+If saving succeeds but refreshing the table fails, reload the table before submitting another allocation. A failed refresh does not mean the save failed.
+
+## Funding Subtypes and required funding breakdowns
+
+Use **Funding Subtypes** to choose which sources of other funding officers can select for this stream. First create Funding Types and their subtypes on the Agency page. Then link an active subtype from the same agency whose parent type is also active.
+
+For example, create “Other public funding” with stacking enabled and the subtype “Municipal contribution.” Link that subtype to the stream so officers can choose it when recording a municipal funding source. This link makes the source available; it does not enter an agreement funding amount. The table shows the parent type's stacking and cost-sharing classifications. A saved funding source keeps its captured classification if the catalog later changes.
+
+A Program-scoped `transfer_payment` Contributor can add a link; removal requires Manager. Duplicate active links are refused. Adding a previously removed subtype restores its association. Removing a link stops new selection and preserves saved funding evidence. You cannot delete the agency type or subtype while an active stream link remains.
+
+The stream also has **Require forecast funding breakdown** and **Require claim funding breakdown**, both off by default. General displays the saved settings; users with permission to edit the stream can change them. They require a breakdown at final submission, while officers can still save unfinished work. Make the eligible subtypes available before enabling these settings, and check forecast and claim validation before production use.
+
+If a subtype is missing, reload the agency and stream catalogs. Check its agency, its own and its parent's availability, and whether it is already linked before trying to add it again.
+
+## Opportunity and Intake assessment eligibility
+
+An [Opportunity](../intake/opportunities.md) can use this stream and other active streams from the same program. To offer an Intake Review Set or Workflow, first link a published agency definition targeting `fundingcaseintake` through at least one selected stream. Then select that definition on the Opportunity itself.
+
+For example, linking an intake review set to “Small Community Projects” makes it eligible for an Opportunity using that stream. The Opportunity still needs its own selection before the set is used. Removing these links does not change assessment evidence already created.
 
 ## Eligible Recipients Tab
 
-Eligible recipients define which agency applicant recipient subtypes can be used for the stream. Each row selects one agency applicant recipient subtype.
+Choose the agency applicant recipient subtypes that officers may use for this stream. Each row makes one subtype available on the link between an Agreement and a Proponent. The Proponent profile itself does not store a subtype.
 
-These mappings provide the recipient subtype required on each Agreement–Proponent link. The Proponent profile no longer stores a subtype. The Stream’s **Require consistent Proponent type** setting fixes a returning Proponent to its previous eligible subtype in that Stream; otherwise the type can be chosen per Agreement. The profile still needs current read access and can have a lead Agency different from the Agreement Agency. This mapping alone does not prove broader program eligibility.
+For example, if the stream supports municipalities and nonprofit organizations, link the corresponding agency subtypes. Officers then select the appropriate subtype when linking a Proponent to an Agreement. That selection alone does not confirm all program eligibility criteria.
 
-Historical eligibility mappings retain the saved subtype label even after retirement. Keeping the same reference is permitted; a replacement must be a currently eligible subtype from the Agency. Removing or retiring an Agency subtype is blocked when retained Agreement relationship or eligibility references depend on it.
+With **Require consistent Proponent type** enabled, a returning Proponent must keep the eligible subtype previously used in this stream. Otherwise officers can choose the type separately for each Agreement. They still need current permission to read the Proponent profile; its lead agency may differ from the Agreement's agency.
+
+Historical mappings keep the subtype label after the agency retires it. You can retain the same reference, but a replacement must be currently eligible and belong to the agency. Retained Agreement relationship or eligibility references can block removal or retirement of an agency subtype.
 
 ## Cost Category Line Items Tab
 
@@ -145,9 +173,11 @@ Cost category line items expose agency cost line items to the stream. Each row c
 
 The selected line item must belong to a cost category for the program's agency. These rows control which cost items can be used by stream-specific agreement budgets and claims. The mapping, source line item, and source category have separate Active flags. The table exposes inactive sources so administrators can diagnose availability; an existing mapping does not override a disabled source. Saved Agreement lines retain their references and calculation settings. Activate the necessary source levels before adding new budget lines.
 
+For example, link the agency’s “Construction materials” line so officers can select it for this stream’s costs. If it does not appear for a new agreement budget line, check all three Active settings: the stream mapping, the agency line item, and its cost category.
+
 ## Amendment Types And Subtypes
 
-Amendment types define the high-level amended entity category and a bilingual display name. The amended category uses the transfer payment amended-type enum.
+An amendment type identifies the category of record being changed and gives that kind of change a bilingual name. Choose the category from the supported transfer payment amended-type enum; a subtype describes a more specific change within that category.
 
 Amendment subtypes are linked to an amendment type and add:
 
@@ -166,9 +196,13 @@ Changing a subtype’s underlying Agency agreement type must preserve the classi
 
 ## Chart of Accounts and Commitment Types
 
-Define bilingual Chart of Accounts entries on the Agency page, including fiscal year and ordered accounting dimensions. Then use this Stream's **Chart of Accounts** tab to link an eligible Agency entry. Search matches the fiscal-year display and dimension text. Removing a Stream link is a logical deletion and is blocked while an active Agreement commitment line references it. Retiring the Agency definition can leave historical Stream links visible; correct the Agency entry instead of reusing a referenced ID for a different classification.
+Set up financial coding on the Agency page before linking it to the stream. An agency Chart of Accounts entry has bilingual text, a fiscal year, currency, kind, and accounting dimensions in a defined order. For example, your finance team might supply the fund, responsibility centre, and account dimensions officers need when recording an agreement commitment.
 
-Define bilingual Commitment Types on the Agency page. The Stream **Commitment Types** tab selects an available Agency type for new Agreement commitments. Removing a used Stream link or deleting a referenced Agency type is blocked. A Stream Contributor can add a link, while eligible removal requires Manager. The server rechecks the Agency, Program, Stream, and current references under lock.
+Use the stream's **Chart of Accounts** tab to link an eligible agency entry. Its currency must match the program budget supporting the stream. Search by fiscal-year label or dimension text. The entry's fiscal year, currency, and kind cannot change at agency level. Commitment, Account Receivable, and Credit Memo charts have different uses; select the kind for the work being configured.
+
+Removing a stream link is a logical deletion and is refused while an active Agreement commitment line references it. Retiring the agency definition may leave historical stream links visible. Correct the agency entry rather than reuse a referenced ID for a different classification.
+
+Create bilingual Commitment Types on the Agency page, then choose an available type in the stream's **Commitment Types** tab. This makes it available for new Agreement commitments. A Stream Contributor can add a link; eligible removal requires Manager. You cannot remove a used stream link or delete a referenced agency type. The server locks and rechecks the current agency, program, stream, and references before saving.
 
 ## Monitor Types Tab
 
@@ -181,7 +215,7 @@ Risk ratings define the available risk labels and scores for the stream. Each ro
 - Numeric risk score. The score must be finite and non-negative.
 - English and French name.
 
-Risk ratings supply the bands for an explicit Agreement `risk_rating` workflow. Its publication maps the assessment outcome maxima to the active stream ratings; successful runtime completion applies the resulting score. Ordinary Agreement profile editing does not manually set the risk score. See [Workflows](../concepts/workflows.md) for ordered bands, stale configuration, and recovery.
+These ratings are used by an Agreement workflow with the purpose `risk_rating`. When the workflow is published, the maximum values for its assessment outcomes are matched to active stream ratings. Completing that workflow successfully applies the resulting score to the Agreement. Officers do not set that score through ordinary Agreement profile editing. See [Workflows](../concepts/workflows.md) for how to order the bands and recover when the configuration changes.
 
 ## Areas Of Expertise Tab
 
@@ -204,9 +238,15 @@ Financial limits define stream-level thresholds:
 
 The wizard treats financial limits as optional. If the stream has no financial limit row, downstream processes that rely on limit checks will not have stream-specific values to use.
 
+For example, a maximum allowable amount of $50,000 per recipient describes the stream’s recipient ceiling. It is separate from the stream’s total yearly allocation: configuring one does not create the other. Enter the limits approved for the program, then verify the agreement process that uses them.
+
 ## Review Setups Tab
 
-This tab lists Agency-owned Review Sets linked to the Stream. Use **Add** to select an eligible published set from the same Agency. Open a row to edit its Agency definition, schema members, publication, and direct-review or on-completion behavior. Removing a Stream link does not delete the Agency set or its historical reviews. The definition can be linked to more than one Stream in that Agency; each runtime review remains pinned to the publication used when it was created. See [Runtime Reviews](../concepts/runtime-reviews.md).
+Use **Add** to link an eligible published Review Set from the same agency. A Review Set groups the review definitions officers will use. For example, the agency could publish an agreement-assessment set and make it available to several streams that use the same assessment process.
+
+Open a row to edit the agency definition, its schema members, publication, and direct-review or on-completion behavior. You are editing the shared agency definition, so it can also be linked to other streams in that agency.
+
+Removing the stream link preserves the agency set and historical reviews. Each review already created keeps the publication it started with. See [Runtime Reviews](../concepts/runtime-reviews.md).
 
 ## Recommendation Setups Tab
 
@@ -218,11 +258,19 @@ Approval templates are authored and published on the **Agency** page. The Stream
 
 ## Workflow Setups Tab
 
-This tab lists published Agency Workflows linked to the Stream. The add control selects a same-Agency Workflow; the row opens its Agency detail editor. Removing a link stops new use on this Stream without deleting the shared definition or historical attempts. The Agency design declares entity type, purpose, starting statuses, ordered review/recommendation/approval members, conditions, and retry policy. Its Stream-specific deployment resolves local values such as risk ratings; missing required fields or incompatible local references block use rather than skipping a step. See [Workflows](../concepts/workflows.md) and [Agency catalogs](../admin/agency-catalogs.md).
+Use this tab to make a published Agency Workflow available to the stream. Add a Workflow from the same agency; open its row to edit the shared definition on the Agency page.
+
+For example, a workflow for an Agreement can specify a review followed by a recommendation and approval. The agency definition states which entity it applies to, its purpose, allowed starting statuses, the order of its members, conditions, and retry policy. Linking it to a stream supplies stream-specific values, such as risk ratings. Required fields or local references that are missing or incompatible block its use; the system does not skip the affected step.
+
+Removing the link stops new use in this stream and preserves the shared definition and historical attempts. See [Workflows](../concepts/workflows.md) and [Agency catalogs](../admin/agency-catalogs.md).
 
 ## Document Templates Tab
 
-Create bilingual DOCX or HTML source templates on the Agency's **Document Templates** tab, then link an eligible template here. Removing the Stream link leaves the Agency source and generated historical documents intact. A template records its target entity, bilingual name and description, output formats, active state, and source files. Both language files are required at creation; each is limited to 10 MiB and the request to 21 MiB. DOCX permits DOCX/PDF output and HTML permits HTML/PDF. A template's kind cannot change after creation. Uploaded filename extensions determine file-kind validation, so template authoring remains trusted access. See [Documents](../agreements/documents.md) and [Document generation](../developer/document-generation.md).
+Create a template on the Agency's **Document Templates** tab, then link an eligible template to this stream. For example, prepare English and French agreement-letter source files at the agency, then link the template to each stream that uses that letter.
+
+The template records its target entity, bilingual name and description, output formats, Active setting, and source files. Both language files are required at creation. Each file may be at most 10 MiB; the whole request may be at most 21 MiB. A DOCX source permits DOCX/PDF output, and HTML permits HTML/PDF. The template kind cannot change after creation.
+
+Validation uses the uploaded filename extension to determine the file kind. Template creation therefore requires trusted access. Removing the stream link preserves the agency source and documents already generated. See [Documents](../agreements/documents.md) and [Document generation](../developer/document-generation.md).
 
 ## Assessment Schemas
 
@@ -238,9 +286,13 @@ _Actual screenshot from the seeded development environment. The records shown ar
 
 ## Lifecycle, Failure, and Recovery
 
-Stream and setup deletions are soft deletes unless a specialized section says otherwise. Stream deletion locks the current stream and extension-owned agreement scopes, rechecks exact delete access against the active program/agency chain, and lets registered extensions block deletion. A repeatedly changing ownership scope fails closed rather than using stale authorization. Historical child setup is not physically erased, but active-stream paths stop exposing it.
+Deleting a stream or setup row normally hides it from current use without physically erasing it. A specialized section may describe an exception. Historical child setup remains stored, but pages requiring a non-deleted stream no longer expose it.
 
-Stream and child writes use fresh-authorized transactions and re-resolve their canonical parent chain. Parent streams must be active siblings in the same program and a stream cannot parent itself. Agency-owned selections, program budgets, and nested setup resources must belong to the current chain. Missing and inaccessible resources are intentionally masked similarly. On a localized conflict, invalid selection, capacity failure, or concurrent scope error, reload the current tab, correct the referenced record, and retry.
+Before deletion, the system locks the stream and extension-owned Agreement scopes, checks current delete permission against the active program/agency chain, and lets registered extensions block deletion. If ownership keeps changing during these checks, the operation stops rather than use an outdated permission check.
+
+Every stream or child-record save checks permissions and current parent ownership together in a transaction. A parent stream must be an active sibling in the same program; a stream cannot be its own parent. Agency choices, program budgets, and nested records must belong to the correct agency/program/stream chain.
+
+If a record appears missing, check both its identifier and your access: the system deliberately gives similar errors for missing and inaccessible records. After a conflict, invalid choice, allocation over capacity, or concurrent scope change, reload the tab, correct the referenced record, and retry.
 
 ## Runtime Dependencies
 

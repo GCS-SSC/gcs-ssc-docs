@@ -4,6 +4,10 @@ Use **Other Names** to record a trade name, former name, acronym, or other alter
 
 Open **Proponents**, select a profile, and choose **Other Names**. The table lists active names in creation order and supports search and pagination.
 
+For example, keep “River Community Association” as the profile’s legal name and add “River Centre” here if staff know it by that name. If it previously operated as “River Neighbourhood Group”, add that former name as another row. Each row contains one name; enter separate English and French names as separate rows when needed.
+
+An **exact assignment** means you are assigned to this profile through **Assigned users**. A role alone does not allow you to change its names.
+
 ## Access and actions
 
 | Effective access to the proponent | Available actions |
@@ -13,11 +17,11 @@ Open **Proponents**, select a profile, and choose **Other Names**. The table lis
 | Manager plus exact Proponent assignment | View, add, edit, and delete names. |
 | No access | The server refuses the request even if a URL is entered directly. |
 
-Viewer reads alternate names. Creating/updating requires Contributor plus the exact parent assignment; deleting requires Manager plus that assignment. Every server request checks the parent profile, and writes lock it before rebuilding authorization.
+The system checks your access to this profile on every request and checks it again while saving a change. The table above applies to the profile you opened.
 
 ## Field and validation
 
-An other-name record contains one required **Other name** value. It is trimmed and cannot be blank. It is not a bilingual English/French pair and has no description field.
+An other-name record contains one required **Other name** value. Spaces at the beginning and end are removed, and the name cannot be blank. It is not a bilingual English/French pair and has no description field.
 
 The same active name cannot be added twice to one proponent. A name used by a different proponent is allowed. After a name has been deleted, the same value can be added again because uniqueness applies only to active rows.
 

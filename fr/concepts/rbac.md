@@ -1,11 +1,11 @@
 # Permissions de rôle et affectations exactes
 
-L’autorisation de GCS-SSC comporte deux couches indépendantes :
+Pour comprendre pourquoi vous pouvez consulter un dossier sans pouvoir le modifier, vérifiez deux éléments. GCS-SSC utilise le **contrôle d’accès fondé sur les rôles (RBAC)** : votre rôle définit vos permissions, et votre affectation désigne le dossier précis sur lequel vous travaillez.
 
-1. Une **permission de rôle** fournit le niveau d’accès maximal pour un sujet à portée globale, d’agence ou de programme.
+1. Une **permission de rôle** fixe les actions permises pour une catégorie de dossiers (le **sujet**), dans toute l’application ou dans une agence ou un programme (la **portée**). Ce maximum est appelé le plafond du rôle ci-dessous.
 2. Une **affectation à une entité exacte** désigne le promoteur, l’entente, l’examen, la recommandation, la réclamation, le rapprochement, le paiement, la prévision, la surveillance, la modification ou l’engagement enregistré sur lequel l’utilisateur peut travailler.
 
-Lecteur permet les lectures dans la portée sans affectation. Pour les mutations d’une entité pouvant être affectée existante, les deux clés sont normalement requises. Une affectation n’élève jamais le plafond du rôle et une permission étendue ne place pas tous les dossiers correspondants dans la file de travail de l’utilisateur.
+Lecteur permet de consulter les dossiers dans la portée de votre rôle sans affectation à chacun. Pour modifier ou supprimer un dossier existant qui possède sa propre liste d’affectations, vous devez normalement avoir la permission de rôle appropriée et une affectation à ce dossier. Une affectation n’augmente jamais vos permissions de rôle. Un rôle couvrant tout un programme ne place pas tous ses dossiers dans votre file de travail.
 
 Les affectations d’approbateur et de réviseur sont des responsabilités de flux distinctes. Elles peuvent autoriser l’action d’approbation ou d’examen attribuée, mais elles ne remplacent pas l’accès ordinaire à l’entité métier propriétaire.
 
@@ -19,11 +19,11 @@ Chaque permission de rôle possède un niveau d’accès cumulatif :
 | Contributeur | Lecture, création et modification. |
 | Gestionnaire | Lecture, création, modification et suppression. |
 
-`Aucun` signifie que le rôle ne fournit aucun plafond d’accès pour ce sujet. Il n’existe pas de commutateurs CRUD indépendants et Gestionnaire n’est pas un caractère générique pour les capacités distinctes.
+`Aucun` signifie que le rôle ne donne aucun accès à cette catégorie. Les permissions de création, lecture, modification et suppression sont regroupées dans les niveaux ci-dessus; elles ne peuvent pas être activées séparément. Gestionnaire n’inclut pas automatiquement les capacités distinctes, comme la gestion des affectations.
 
 ## Sujets et portées
 
-Les sujets pris en charge sont `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement` et `applicant_recipient`.
+Les sujets pris en charge sont `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction` et `journal_voucher`.
 
 | Sujet | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
@@ -35,15 +35,23 @@ Les sujets pris en charge sont `system`, `audit`, `group`, `agency`, `transfer_p
 | `role` | Oui | Oui | Non |
 | `user` | Oui | Oui | Non |
 | `agreement` | Oui | Oui | Oui |
+| `funding_case` | Oui | Oui | Oui |
+| `account_receivable` | Oui | Oui | Oui |
+| `correction` | Oui | Oui | Oui |
+| `journal_voucher` | Oui | Oui | Oui |
 | `applicant_recipient` | Oui | Oui | Non |
 
 Un rôle global n’a pas d’agence. Un rôle d’agence est lié à une agence et n’a aucun lien de programme. Un rôle de programme est lié à une agence et à un ou plusieurs programmes actifs de cette agence. Des contraintes de base de données rejettent les combinaisons incompatibles de permissions et de portées.
 
-La ressource détermine la portée utilisée par la vérification. Une entente est résolue par son volet et son programme; un promoteur, par son agence principale. Une permission de promoteur limitée à une agence est donc possible sans accorder un accès interagences.
+La ressource détermine la portée utilisée par la vérification. Une entente est résolue par son volet et son programme; un dossier, par sa possibilité et son programme. Les promoteurs forment un catalogue partagé : une permission Promoteur globale ou une permission d’action dans toute agence active fournit ce plafond pour tous les profils. L’agence principale est un contexte de suivi, pas la frontière d’autorisation du profil. Les notes d’agence conservent leur visibilité indépendante.
 
 La lecture Audit et la gestion des groupes administratifs utilisent leurs propres sujets plutôt que les affectations exactes aux ententes. Les valeurs d’entrée d’audit exigent aussi `audit:view_audit_inputs`; l’appartenance à un groupe ne donne pas accès aux dossiers métier. Consultez [Audit](../admin/audit.md) et [Groupes](../admin/groups.md).
 
 ## La règle des deux clés
+
+Par exemple, un agent de subventions ayant le niveau Contributeur pour les ententes d’un programme peut consulter ces ententes. Pour modifier les lignes budgétaires de l’entente A, il doit aussi être affecté à l’entente A. Cette affectation ne lui permet pas de modifier la réclamation B liée à cette entente : la réclamation B exige sa propre affectation. L’entente parente détermine toujours la portée du rôle applicable.
+
+La **racine d’affectation** est le dossier dont la liste d’affectations est vérifiée. Une adresse utilise la liste de son promoteur; une réclamation utilise sa propre liste. Les règles ci-dessous concernent ce dossier.
 
 Pour une entité racine d’affectation existante :
 
@@ -54,7 +62,7 @@ Pour une entité racine d’affectation existante :
 | Modifier | Contributeur ou niveau supérieur | Requise |
 | Supprimer | Gestionnaire | Requise |
 
-La création de premier niveau est la principale exception puisque le nouvel enregistrement n’a pas encore d’affectation. La création d’un promoteur ou d’une entente exige Contributeur à la portée propriétaire choisie. La transaction crée l’entité et affecte son créateur comme utilisateur principal. La création d’un dossier de traitement affecté indépendamment suit le même modèle pour cet enfant.
+La création de premier niveau est la principale exception puisque le nouvel enregistrement n’a pas encore d’affectation. Créer une entente exige Contributeur à sa portée propriétaire; créer un promoteur exige Contributeur Promoteur global ou dans toute agence active. La transaction crée l’entité et affecte son créateur comme utilisateur principal. La création d’un dossier de traitement affecté indépendamment suit le même modèle pour cet enfant.
 
 Une ligne enfant ordinaire, telle qu’une adresse ou une ligne budgétaire, emploie son promoteur ou son entente propriétaire comme racine d’affectation. Un dossier de traitement affecté indépendamment s’emploie lui-même comme racine. L’affectation au parent n’accorde pas l’accès à un enfant affecté indépendamment; l’affectation à l’enfant n’accorde ni le parent ni un dossier frère.
 
@@ -66,17 +74,19 @@ Le registre d’affectation exacte s’applique aux éléments suivants :
 - examens et recommandations communs;
 - réclamations et rapprochements de réclamation;
 - paiements, prévisions et surveillances;
-- modifications et engagements.
+- modifications et engagements;
+- dossiers de financement et collectes de données des flux;
+- comptes débiteurs, corrections et pièces de journal sous leurs sujets financiers indépendants.
 
-Une entité active pouvant être affectée doit compter au moins un utilisateur affecté actif et exactement un utilisateur principal. Le marqueur principal désigne le responsable; il ne confère pas de permissions métier supplémentaires. Tous les utilisateurs affectés actifs partagent la même frontière d’entité et demeurent limités par leur propre plafond de rôle.
+Une entité ordinaire active exige un utilisateur actif et exactement un principal. Un examen, une recommandation, une collecte ou un dossier avec groupe non réclamé peut n’avoir aucun utilisateur; tout registre non vide exige un principal. Le marqueur principal désigne le responsable; il ne confère pas de permissions métier supplémentaires. Tous les utilisateurs affectés actifs partagent la même frontière d’entité et demeurent limités par leur propre plafond de rôle.
 
 La modification du registre exige une cible exacte modifiable : promoteur actif; état métier normal sans achèvement pour le travail d’entente; ou examen/recommandation actif ou en pause sans achèvement. Les cibles en lecture seule, terminales, achevées ou supprimées sont protégées. Voir [Gestion des affectations](../admin/assignments.md).
 
-La suppression d’une entité pouvant être affectée supprime logiquement ses affectations actives. Les changements du registre sont sérialisés et des déclencheurs de base de données imposent l’invariant non vide avec un seul principal à la validation de la transaction.
+Supprimer un dossier ayant des affectations marque aussi ses affectations actives comme supprimées, tout en conservant leur historique. Les changements de liste sont traités un à la fois. La base de données exige une liste non vide avec un seul principal à la fin de la transaction, sous réserve de l’exception des groupes non réclamés ci-dessus.
 
 ## Gérer les affectations
 
-`manage_assignments` est une capacité de rôle indépendante disponible seulement pour `agreement` et `applicant_recipient`. Elle peut être accordée sans Lecteur et n’est pas comprise dans Gestionnaire. Elle autorise la projection minimale de gestion et les opérations de registre pour les entités pouvant être affectées qui appartiennent à ce sujet et à la portée du rôle.
+`manage_assignments` est une capacité de rôle indépendante disponible pour exactement six sujets : `agreement`, `applicant_recipient`, `funding_case`, `account_receivable`, `correction` et `journal_voucher`. Elle peut être accordée sans Lecteur et n’est pas comprise dans Gestionnaire. Elle permet au gestionnaire d’affectations de voir les renseignements limités nécessaires pour identifier les dossiers et modifier leurs listes d’utilisateurs affectés, pour cette catégorie dans la portée du rôle.
 
 Elle **n’accorde pas** l’accès au contenu métier, personnel, financier, documentaire ou de flux. Elle n’affecte pas non plus l’administrateur à l’entité. Consultez [Gestion des affectations](../admin/assignments.md) pour le déroulement de la tâche.
 
@@ -91,23 +101,25 @@ Les actions du registre exigent la permission `manage_assignments` actuelle; l�
 | Action | Invariant |
 | --- | --- |
 | Ajouter | L’utilisateur est actif, admissible et pas déjà affecté activement. |
-| Rendre principal | L’utilisateur est déjà affecté activement et admissible; l’ancien principal est rétrogradé atomiquement. |
+| Rendre principal | L’utilisateur est déjà affecté activement et admissible; l’ancien principal perd ce marqueur dans la même transaction. |
 | Retirer | L’utilisateur principal et la dernière affectation active ne peuvent être retirés. |
 
 ## Travail affecté
 
-La file Travail affecté de la page d’accueil contient seulement les affectations exactes de l’utilisateur qui sont encore ouvertes selon la politique d’état de chaque entité et pour lesquelles il conserve au moins la permission Lecteur. Elle couvre les onze types d’entités pouvant être affectées, trie d’abord le travail principal et fournit un lien direct vers la page de détail appropriée.
+La file Travail affecté de la page d’accueil contient seulement les affectations exactes de l’utilisateur qui sont encore ouvertes selon la politique d’état de chaque entité et pour lesquelles il conserve au moins la permission Lecteur. Elle couvre les types d’entités affectables pris en charge, trie d’abord le travail principal et fournit un lien direct vers la page de détail appropriée.
 
 La recherche correspond aux identifiants anglais et français, aux types et états bruts, aux libellés de type et d’état localisés et aux libellés des dossiers. Le filtre de type d’entité et la pagination s’appliquent au jeu complet admissible; le composant d’accueil demande dix lignes à la fois.
 
 ## Autorisation actualisée
 
-Les écritures protégées ne font pas confiance à une page ouverte avant un changement de rôle, de portée, d’affectation, d’état ou de propriétaire. Le serveur commence une transaction, verrouille et reconstruit le graphe d’autorisation courant de l’appelant, résout le propriétaire et la racine d’affectation actuels, puis autorise la mutation. Un état client périmé ne peut donc pas conserver un accès révoqué.
+Par exemple, si votre affectation est retirée pendant que vous modifiez une réclamation, garder la page ouverte ne conserve pas votre permission d’enregistrer. Rechargez la page et demandez au gestionnaire d’affectations de vérifier votre accès actuel.
+
+Avant d’enregistrer une modification protégée, l’application vérifie à nouveau vos rôles, la portée, l’affectation, le statut et le propriétaire actuels du dossier. Elle verrouille les renseignements concernés et vérifie quelle liste d’affectations s’applique dans la même transaction. Une page ouverte avant un changement d’accès ne conserve pas une permission retirée depuis.
 
 ## Conséquences pour la navigation
 
 - Ententes et Promoteurs apparaissent lorsque l’utilisateur possède une permission de rôle pouvant lire ce sujet; l’affectation seule n’accorde pas la navigation.
-- Gestion des affectations apparaît lorsque l’utilisateur possède une capacité `manage_assignments` active.
+- La navigation Gestion des affectations vérifie `manage_assignments` sur Entente, Promoteur, Dossier de financement, Pièce de journal ou Correction. Une permission de gestion uniquement Compte débiteur est acceptée par l’API, sans cette entrée latérale; ouvrez directement `/assignment-management` si c’est votre seule permission.
 - Les programmes, rôles, utilisateurs, agences et l’administration Commune utilisent leurs propres sujets et portées; les affectations exactes ne s’y étendent pas.
 - Les tâches d’approbation et d’examen demeurent affectées séparément et n’élargissent pas la barre latérale.
 

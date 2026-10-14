@@ -1,6 +1,6 @@
 # Utilisateurs
 
-La zone Utilisateurs gère les identités de l’application et les attributions structurelles de rôles. Les affectations exactes de travail sont gérées sur l’entité ou dans [Gestion des affectations](./assignments.md); il n’existe aucun indicateur d’accès direct aux promoteurs sur l’utilisateur.
+Utilisez Utilisateurs pour créer et tenir à jour les profils de l’application et attribuer les rôles liés aux fonctions. Les affectations exactes de travail sont gérées sur l’entité ou dans [Gestion des affectations](./assignments.md); il n’existe aucun indicateur d’accès direct aux promoteurs sur l’utilisateur.
 
 ## Liste des utilisateurs
 
@@ -17,7 +17,7 @@ La page de détail contient :
 - Général, avec le nom, le courriel, l’état de vérification du courriel, l’image et les horodatages.
 - Attributions, avec les attributions structurelles de rôles actives de l’utilisateur.
 
-L’en-tête présente le nom, le courriel, l’avatar et l’état vérifié ou non vérifié. La modification des champs d’identité est distincte de l’attribution des rôles. La charge utile du profil ne contient aucun indicateur d’autorisation propre aux promoteurs.
+L’en-tête présente le nom, le courriel, l’avatar et l’état vérifié ou non vérifié. Modifier un nom ou un courriel ne change pas les rôles attribués. L’accès aux promoteurs n’est pas un réglage du profil utilisateur.
 
 Les adresses courriel sont validées et converties en minuscules à la création et à la modification. Par exemple, `Analyst@Example.org` est conservée sous `analyst@example.org`; changer la casse ne crée pas une seconde identité. Une adresse active en double est refusée.
 
@@ -33,13 +33,15 @@ Ouvrez Attributions et sélectionnez **Attribuer un rôle**. Le sélecteur charg
 | Rôle d’agence ou de programme | Exige un accès Contributeur couvrant l’agence du rôle. |
 | Paire active existante | Retourne l’attribution existante; aucune ligne active en double n’est créée. |
 
-Le retrait d’un rôle supprime logiquement l’attribution. Les vérifications serveur utilisent le graphe modifié lors des requêtes suivantes. Rechargez la page ou reconnectez-vous pour actualiser les commandes clientes déterminées par les permissions.
+Le retrait d’un rôle supprime logiquement l’attribution. Les rôles mis à jour s’appliquent à la prochaine requête. Rechargez la page ou reconnectez-vous si les boutons et menus affichés reflètent encore les anciennes permissions.
 
 ## Affectations exactes de travail
 
-Un utilisateur peut être affecté à des promoteurs, ententes, examens, recommandations, réclamations, rapprochements, paiements, prévisions, surveillances, modifications ou engagements précis. Ces lignes ne sont pas des rôles structurels et n’apparaissent pas sur la page de détail de l’utilisateur.
+Un utilisateur peut être affecté à des promoteurs, ententes, examens, recommandations, réclamations, rapprochements, paiements, prévisions, surveillances, modifications ou engagements précis. Ces affectations directes aux dossiers sont distinctes des rôles liés aux fonctions et n’apparaissent pas sur la page de détail de l’utilisateur.
 
-Une affectation exacte ne fait que désigner le travail. L’utilisateur doit aussi posséder une permission de rôle au moins Lecteur pour le sujet propriétaire et la portée actuelle de la ressource; Contributeur ou Gestionnaire est requis pour les mutations. Les gestionnaires d’affectations ajoutent ou retirent les utilisateurs dans l’onglet Utilisateurs affectés de l’entité ou dans la page de gestion dédiée.
+Une affectation directe désigne le dossier précis que l’utilisateur peut traiter. Elle doit être accompagnée d’une permission de rôle : au moins Lecteur pour ce type de travail à la portée actuelle globale, d’agence ou de programme du dossier, et Contributeur ou Gestionnaire pour apporter des changements. Les gestionnaires d’affectations ajoutent ou retirent les utilisateurs dans l’onglet Utilisateurs affectés de l’entité ou dans la page de gestion dédiée.
+
+Par exemple, attribuer à un agent un rôle Contributeur pour le programme A définit ce qu’il peut faire dans ce programme. L’ajouter à la liste **Utilisateurs affectés** d’une entente désigne l’entente enregistrée qu’il doit traiter. Si une réclamation a sa propre liste d’affectation, l’affectation à l’entente ne l’affecte pas à cette réclamation. Vérifiez l’affectation exigée par le dossier concerné.
 
 ## Activer un utilisateur avec identifiant
 
@@ -49,7 +51,7 @@ Le mot de passe est haché avant l’écriture atomique du compte avec identifia
 
 ## Piste d’audit de sécurité
 
-Les mutations de sécurité des rôles et des utilisateurs ajoutent un `audit.security_audit_event` dans la même transaction. Les événements actuels couvrent la création, la modification du profil, la suppression et le remplacement des permissions d’un rôle; la création, la modification du profil, la suppression et l’activation d’un utilisateur; ainsi que la création ou le retrait d’une attribution utilisateur-rôle.
+Chaque changement de sécurité enregistré sur un rôle ou un utilisateur crée aussi un `audit.security_audit_event` dans le même enregistrement. Les événements actuels couvrent la création, la modification du profil, la suppression et le remplacement des permissions d’un rôle; la création, la modification du profil, la suppression et l’activation d’un utilisateur; ainsi que la création ou le retrait d’une attribution utilisateur-rôle.
 
 Les enregistrements indiquent l’acteur authentifié, une catégorie d’événement contrainte, le type et l’identifiant de la cible, l’horodatage et des métadonnées structurelles non sensibles. Ils excluent les noms, courriels, images, identifiants de connexion, jetons et hachages de mot de passe. Des déclencheurs refusent les modifications et suppressions d’événements d’audit. Les changements du registre d’une entité exacte sont régis par leur propre transaction d’affectation et leurs preuves de cycle de vie.
 
@@ -63,8 +65,8 @@ Si un utilisateur ne peut voir ou modifier une ressource :
 
 1. Confirmez que l’utilisateur, l’attribution de rôle, le rôle, l’agence parente et les programmes liés sont actifs.
 2. Confirmez que la structure du rôle correspond à une portée globale, d’agence ou de programme.
-3. Vérifiez le niveau d’accès cumulatif du sujet et la portée propriétaire actuelle de la ressource.
-4. Pour un travail enregistré pouvant être affecté, vérifiez la racine d’affectation exacte et l’état permettant le travail.
+3. Vérifiez le niveau de permission pour le type de travail et l’agence ou le programme qui possède actuellement le dossier.
+4. Pour un travail enregistré exigeant une affectation, vérifiez quelle liste de personnes affectées contrôle l’accès, confirmez que l’utilisateur y figure et vérifiez que l’état du dossier permet l’action souhaitée.
 5. Pour administrer un registre, vérifiez la capacité `manage_assignments` distincte.
 6. Pour une action d’approbation ou d’examen, vérifiez l’affectation de flux distincte.
 7. Rechargez la page ou reconnectez-vous si les commandes clientes sont périmées; les écritures serveur emploient toujours l’état courant de la base de données.

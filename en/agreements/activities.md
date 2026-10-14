@@ -4,17 +4,24 @@ Use the **Activities** tab on an agreement to describe the work, schedule, expec
 
 ## Access and prerequisites
 
-The agreement must exist and be visible through your exact Agreement scope. `read` lists activities, `create` adds them, `update` changes them, and `delete` removes them. The server checks the requested permission against the agreement and deliberately returns the same not-found response when the agreement is absent or inaccessible.
+You must be able to read the agreement to see its activities. Contributor access plus assignment to this agreement allows you to add or edit activities; Manager access plus that assignment is required to delete them. The permissions are called `read`, `create`, `update`, and `delete`. If the agreement does not exist or you cannot access it, the application gives the same not-found response.
 
 Before creating an activity:
 
 - configure the outcomes on the agreement's transfer payment program;
 - link every intended responsible proponent on the agreement's **Proponents** tab; and
-- make sure your Agreement role ceiling and exact Agreement assignment permit the mutation.
+- make sure you have Contributor or higher access and are assigned to this agreement.
 
-Outcome and responsible-party lookups use the same `create` or `update` action as the form being opened. They cannot be used to bypass the agreement permission check.
+The available outcomes and responsible parties are checked using the same create or edit permission as the form. If a choice is missing, confirm that it is configured or linked to this agreement and that you have the required access.
 
 ## Add or edit an activity
+
+1. Open **Activities** on the agreement and choose to add an activity or edit an existing one.
+2. Describe the work and expected results in both languages, and enter its start and end dates.
+3. Select the program outcomes this work supports and the agreement proponents responsible for it.
+4. Save, then check the activity in the list.
+
+For example, for a community training project, an activity could be “Deliver six workshops” / “Offrir six ateliers”. Describe the sessions and participants, set the delivery dates, and enter a measurable expected result such as “60 participants complete training” / “60 participants terminent la formation”. Select an available program outcome and the linked proponent delivering the workshops.
 
 The tab opens a full-screen form. Every field below is required.
 
@@ -43,17 +50,19 @@ Deleted outcome links, deleted Agreement–Proponent links, and deleted Proponen
 
 ## Validation, concurrency, and recovery
 
-The server rechecks the exact agreement scope inside the write transaction after locking the established agreement and scope rows. It then verifies that every selected outcome still belongs to the agreement's program and every responsible-party ID still belongs to this agreement. Stale, deleted, foreign-program, or foreign-agreement choices are rejected with a localized validation/API error.
+When you save, the application checks your agreement access again and verifies your selections. Each outcome must still belong to the agreement’s program, and each responsible party must still be linked to this agreement. A deleted choice or one belonging to another program or agreement is rejected with an error in the current language.
 
-Selection changes are synchronized transactionally. Removed links are soft-deleted; selecting the same outcome or responsible party later restores its existing link when possible. Partial failures roll back the activity and its selections together. The database also enforces the date range, agreement/version ownership, and one active link per activity/outcome and activity/responsible-party pair.
+For example, if a colleague removes a proponent link while you are entering an activity, saving with that responsible party can fail. Keep your draft text, reload the agreement, and choose a currently available responsible party.
 
-If another writer changes access or related configuration before save, reload the agreement and reopen the form. An empty patch leaves the activity unchanged and returns its current values. A partial date edit is validated against the other saved date: changing only the start date cannot move it after the existing end date. Activity reads keep the header and relationship labels in one consistent snapshot.
+The activity and all its selections are saved together. If part of the save fails, none of those changes is saved. Removing a selected outcome or responsible party preserves the old link in history; selecting it again restores that link when possible. Checks also prevent invalid date ranges, links to another agreement or activity version, and duplicate active links to the same outcome or responsible party.
+
+If someone changes your access or the available choices before you save, reload the agreement and reopen the form. Saving no field changes leaves the activity unchanged. When you change only one date, the other saved date still applies: the start cannot be later than the existing end. The activity information and its outcome and responsible-party labels are read together so the list is consistent.
 
 ## Delete and version behaviour
 
 Deleting an activity asks for confirmation and soft-deletes the activity plus its outcome links. Responsible-party links become invisible because their parent activity is deleted, but the core delete route does not separately mark those rows deleted. There is no restore action in the Activities tab; recovery requires an authorized administrative/data operation.
 
-The normal Activities tab reads and edits only the agreement's single current working activity version. Creating an agreement creates that working version automatically. Amendment preparation uses a separate snapshot and amendment-specific activity routes; it does not silently edit the current tab's rows. Approved revision checkpoints retain their version provenance. See [Funding agreements](./index.md) for the agreement tab map.
+The normal Activities tab shows the agreement’s current working version, created automatically with the agreement. Changes prepared within an amendment use a separate saved copy and amendment activity controls. They do not immediately change the ordinary Activities tab. Approved revisions keep a record of which version they came from. See [Funding agreements](./index.md) for the agreement tab map.
 
 Activities do not themselves start an approval, review, completion, or workflow.
 

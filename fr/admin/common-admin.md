@@ -1,14 +1,16 @@
 # Administration du GWCOA
 
-Ouvrez **Administration → GWCOA** à `/fr/admin/gwcoa` pour gérer le catalogue d’organisations utilisé par les profils d’organisme. L’application possède maintenant un gestionnaire GWCOA dédié. Les anciens onglets d’administration commune et routes CRUD génériques ne constituent plus l’interface opérationnelle; gérez les références, configurations et travaux dans leurs espaces propriétaires.
+Ouvrez **Administration → GWCOA** à `/fr/admin/gwcoa` pour gérer la liste d’organisations utilisée par les profils d’agence. GWCOA désigne le plan comptable pangouvernemental. Cette page gère ses numéros d’organisation et ses noms bilingues.
+
+Par exemple, utilisez cette page pour corriger le nom d’une organisation dans le sélecteur d’agence. Pour ajouter un exercice ou une catégorie de coûts, utilisez plutôt la page de l’agence. L’application possède un gestionnaire GWCOA dédié; les anciens onglets d’administration commune et les routes génériques de création, consultation, modification et suppression ne sont plus l’interface de travail.
 
 ## Permissions
 
-Le GWCOA est une configuration globale. La lecture exige `system:read` global; la création exige `system:create` global; la modification, suppression logique et restauration utilisent `system:update` global. L’accès à un organisme ne suffit pas. Chaque requête serveur vérifie la permission, et les écritures reconstruisent l’autorisation dans leur transaction avant d’appliquer les changements.
+Le GWCOA est partagé entre agences; ses permissions s’appliquent donc à tout le système. La lecture exige `system:read` global; la création exige `system:create` global; la modification, suppression logique et restauration utilisent `system:update` global. L’accès à un organisme ne suffit pas. Le serveur vérifie chaque requête et revérifie les permissions actuelles au moment d’enregistrer un changement.
 
 ## Rechercher et consulter
 
-Le tableau propose pagination, recherche littérale et filtre actif/supprimé. La recherche couvre l’identifiant de ligne, le numéro d’organisation et les noms anglais/français; `%` et `_` sont ordinaires. Le total filtré décrit les résultats courants, tandis que les comptes total et actif de l’en-tête couvrent tout le catalogue. Réduire l’en-tête masque ses statistiques.
+Le tableau propose pagination, recherche littérale et filtre actif/supprimé. La recherche couvre l’identifiant de ligne, le numéro d’organisation et les noms anglais/français; `%` et `_` sont ordinaires. Le total filtré décrit les résultats courants, tandis que les comptes total et actif du sommaire en haut couvrent tout le catalogue. Réduire ce sommaire masque ses statistiques.
 
 Ouvrez une ligne pour la consulter ou modifier. L’identifiant de base désigne la ligne; le numéro GWCOA est le numéro d’organisation référencé par les profils d’organisme. Ne confondez pas ces identifiants.
 
@@ -35,10 +37,10 @@ Une référence GWCOA retirée inchangée peut rester sur un organisme existant 
 | Tâche | Espace |
 | --- | --- |
 | Exercices, coûts, types d’adresse et de pièce jointe, sous-types de destinataire, types d’entente et statuts | Onglets de référence de l’[organisme](./agencies.md) |
-| Approbations, examens, recommandations, flux, documents et champs personnalisés | [Volet](../programs/streams.md) et éditeurs dédiés |
+| Approbations, examens, recommandations, flux, documents et champs personnalisés | [Catalogues d’agence](./agency-catalogs.md) pour les définitions partagées; [Volet](../programs/streams.md) pour les sélections et réglages locaux |
 | Contacts et adresses | Espace du promoteur ou de l’entente propriétaire |
-| Examens, recommandations, approbations et achèvement à l’exécution | Dossier métier et flux correspondants |
-| Preuves de changements et de requêtes entre organismes | [Audit](./audit.md), avec permission Audit globale explicite |
+| Effectuer les examens, recommandations, approbations et l’achèvement | Dossier métier et flux correspondants |
+| Preuves de changements et de requêtes entre agences | [Audit](./audit.md), avec permission Audit globale explicite |
 
 Ne tentez pas de réparer l’historique en recréant l’éditeur générique retiré. Les définitions publiées et preuves d’exécution ont leurs propres règles de cycle de vie et d’autorisation.
 
@@ -46,4 +48,4 @@ Ne tentez pas de réparer l’historique en recréant l’éditeur générique r
 
 Un chargement échoué est une erreur, non la preuve d’un catalogue vide. Réessayez avant de modifier. Après un échec d’enregistrement, conservez le brouillon, corrigez les champs ou le numéro conflictuel, puis réessayez. Après un changement de permissions, rechargez les capacités. Si l’écriture a réussi mais l’actualisation échoue, reprenez la lecture plutôt que créer un doublon.
 
-Les contrôles d’énumération utilisent `GET /api/metadata/enums?name=...`, une route publique volontaire avec noms autorisés et réponse en tableau ordonné de chaînes. Elle fournit des codes stables que le client traduit. Distincte du GWCOA, elle ne consulte pas des types arbitraires de base. Même ces métadonnées publiques attendent la fin du démarrage et la disponibilité de l’audit.
+Note technique : une énumération est une liste fixe de codes, comme les genres de dossier pris en charge. Les contrôles d’énumération utilisent `GET /api/metadata/enums?name=...`, une route publique volontaire avec noms autorisés et réponse en tableau ordonné de chaînes. Elle fournit des codes stables que le client traduit. Distincte du GWCOA, elle ne consulte pas des types arbitraires de base. Même ces métadonnées publiques attendent la fin du démarrage et la disponibilité de l’audit.

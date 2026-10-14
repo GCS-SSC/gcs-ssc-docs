@@ -1,8 +1,8 @@
 # Programs
 
-Programs are transfer payment profiles. A program belongs to one agency, holds the program-level terms and conditions, and groups the streams that drive agreement intake, agreement setup, reviews, approvals, claims, forecasts, payments, monitoring, and amendments.
+A program is the overall funding initiative, such as “Community Facilities Improvement.” It belongs to one agency and records the dates, terms and conditions, yearly funding, objectives, and expected results for that initiative.
 
-Programs are not just labels. The agency, date range, status, budgets, outcomes, objectives, and performance indicators entered here become reference data for downstream stream setup and runtime agreement work.
+A **stream** is a funding route within the program, such as “Small Community Projects.” It supplies the choices and rules officers use for intake, agreements, reviews, approvals, claims, forecasts, payments, monitoring, and amendments. Set up the program first, then its streams. The program's agency, dates, Active setting, budgets, outcomes, objectives, and indicators provide the starting information for that work.
 
 ## Empty-System Prerequisites
 
@@ -113,6 +113,8 @@ Outcomes define the result areas used by program performance tracking. Each outc
 
 Performance indicators are linked to outcomes, so changing or deleting outcomes can affect the options available when configuring indicators.
 
+For example, use “Improved access to community facilities” as an outcome and describe the change the program aims to achieve. Add the measures used to track that change under Performance Indicators.
+
 ## Objectives Tab
 
 Objectives capture bilingual objective statements for the program. Each row stores:
@@ -122,21 +124,23 @@ Objectives capture bilingual objective statements for the program. Each row stor
 
 Objectives are program-level statements. They do not replace stream-level objectives, which are configured on each stream.
 
+For example, “Support renovations to accessible community spaces” states what the program intends to support. A stream may have a narrower objective, such as supporting small renovation projects.
+
 ## Budgets Tab
 
-Program budgets allocate funding by agency fiscal year. Each row has:
+Create a program budget for each agency fiscal year the streams will use. Each row contains:
 
-- Fiscal year from the agency fiscal-year reference data.
-- Total budget.
-- Overcommit threshold.
+- Fiscal year: choose a year from the program's agency reference data.
+- Total budget: the funding pool available for that year.
+- Overcommit threshold: the configured allowance above the budget, shown as a percentage. The stored value is a ratio: `0.10` means 10%, and `0` means no overcommit allowance. Use the percentage shown in the form.
 
-Each program budget can later be referenced by stream budget rows. Configure program budgets before configuring stream budgets, commitments, or fiscal-year-driven agreement setup.
+Create these rows before stream budgets, commitments, or agreement setup that needs a fiscal year. Stream budget rows then reference the appropriate program budget.
 
-A program budget cannot be reduced below the sum of its active stream-budget allocations, and it cannot be deleted while active stream allocations still reference it. Reload before retrying if another administrator changed allocations concurrently.
+For example, if active stream allocations total $700,000, reducing the program budget to $650,000 is refused. You also cannot delete the program budget while active stream allocations reference it. Review allocations first and reload if another administrator changed them.
 
-A saved fiscal year can be retained when that Agency reference is retired; this permits an amount-only correction without silently changing the year. Choosing a different year requires an active same-Agency reference and is blocked when existing Agreement funding-year dependencies would be reassigned. Exact-ID hydration preserves the saved label outside the current lookup page. Changing Agency in a new-program wizard clears incompatible fiscal-year budgets; reload failed choices rather than submitting stale IDs.
+You can keep a saved fiscal year after the agency retires it, allowing an amount correction without changing the year. To choose another year, select an active year from the same agency. The change is blocked if it would move existing Agreement funding-year dependencies to another year.
 
-The fiscal-year selector searches the fiscal years available from the program's agency. When editing a budget, the saved fiscal year is resolved to its display label even when it is not on the current results page; records outside the program's agency scope cannot be selected.
+The selector searches the agency's fiscal years and keeps the saved year's label visible even when it is outside the current results page. It never permits a year from another agency. In a new-program wizard, changing agency clears incompatible budgets. If a choice fails, reload the options before retrying instead of submitting an old identifier.
 
 ## Performance Indicators Tab
 
@@ -147,6 +151,8 @@ Performance indicators are created under outcomes. Each indicator has:
 - English and French description.
 
 The indicator create form preselects an available outcome when possible. If there are no outcomes, create at least one outcome before adding indicators.
+
+For the outcome “Improved access to community facilities,” an indicator could be “Number of facilities improved.” Use the description to explain what counts as an improved facility. This creates the indicator definition; it does not record a measured result.
 
 ## Status and Lifecycle
 
@@ -166,9 +172,13 @@ If a user can read a program but cannot update it, the detail page still loads b
 
 ## Deletion, Failure, and Recovery
 
-Profile and child deletes are logical rather than physical. Deleting a profile does not physically delete its streams or historical setup rows, but active-profile paths no longer expose them. Before deletion, the server locks the current profile and active stream set, freshly checks exact delete access, and asks every registered extension to guard each stream scope. An extension lifecycle guard can block the operation. If the active stream set changes repeatedly while locks are acquired, the request fails with a localized scope-change error instead of deleting against stale state.
+Deletion removes a program from normal use without physically erasing its streams or historical setup. Pages that require a non-deleted profile will no longer show those records. Use deletion to correct setup mistakes; consider the program's history before deleting it.
 
-Create, update, wizard, and child mutations recheck authorization and active ownership inside transactions. The agency on an existing profile is immutable. A missing and an inaccessible resource are deliberately difficult to distinguish; confirm both the identifier and the user's global, agency, or linked-program scope. Duplicate bilingual values, invalid dates or URLs, out-of-agency fiscal years, and unsafe financial values return localized validation or conflict errors. Reload after a concurrent change, correct the indicated field, and resubmit; modal values remain available after ordinary API failures.
+The system checks current delete permission and locks the program and its active streams while it checks dependencies. Registered extensions can block deletion to protect work attached to a stream. If streams keep changing during these checks, deletion stops with a localized scope-change error. Reload and review the current streams before trying again.
+
+Every save, wizard submission, and child-record change checks permission and the current agency/program ownership together in a transaction. You cannot change the agency of an existing program. A missing record and one you cannot access may produce similar errors: check the identifier and your global, agency, or linked-program permission scope.
+
+For a validation error, correct the field identified in the message. Common causes are duplicate bilingual values, invalid dates or URLs, a fiscal year from another agency, or unsafe financial values. After another administrator changes the setup, reload before resubmitting. Ordinary API failures leave the modal's entered values available.
 
 ## Operational Setup Order
 

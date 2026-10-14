@@ -1,14 +1,26 @@
 # Identity and RBAC API
 
-Better Auth delegation, role permissions, exact entity assignments, assigned work, and assignment management.
+These requests support sign-in, users, roles and assignments to individual files. Together, these determine who can see or act on a record and which work is assigned to them. See [Roles](../../admin/roles.md), [Assignments](../../admin/assignments.md) and [Access control](../../concepts/rbac.md).
 
-This generated route index is an exhaustive navigation table, not independent proof of a contract. For each handler, the coverage ledger records the direct authorization, validation, helper, database, response, UI, and test evidence required before terminal verification. Client permissions never replace server authorization.
+An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
+
+- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
+- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
+- **Authorization landmarks**: names found in the source that help a developer locate access checks.
+- **Validation landmarks**: names that help locate checks on submitted fields or query options.
+- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+
+This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+
+## Read-only example
+
+For a signed-in user, `GET /api/auth/permissions` reads their static permission grants. It does not give them new rights. Permission to act on a particular file is still checked by that file’s server request. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
 
 ## Handlers (29)
 
 | Method | Route | Authorization landmarks | Validation landmarks | Source |
 | --- | --- | --- | --- | --- |
-| GET | `/api/assigned-work` | requireAuthContext, requireFreshAuthContext | AssignedWorkQuerySchema, Common_Recommendation_Schema, Common_Review_Schema, getValidatedQueryI18n | `server/api/assigned-work/index.get.ts` |
+| GET | `/api/assigned-work` | requireAuthContext, requireFreshAuthContext | AssignedWorkQuerySchema, getValidatedQueryI18n | `server/api/assigned-work/index.get.ts` |
 | GET | `/api/assignment-management` | requireAuthContext | AssignedWorkQuerySchema, Common_Recommendation_Schema, Common_Review_Schema, getValidatedQueryI18n | `server/api/assignment-management/index.get.ts` |
 | ANY | `/api/auth/[...auth]` | — | — | `server/api/auth/[...auth].ts` |
 | GET | `/api/auth/permissions` | — | — | `server/api/auth/permissions.get.ts` |

@@ -1,14 +1,18 @@
 # Déploiement et reprise
 
+Cette page s’adresse à l’équipe technique qui installe, met à jour et restaure GCS-SSC. Les agents de subventions et contributions peuvent l’utiliser pour comprendre les interruptions de service et les éléments à protéger : dossiers d’entente, pièces jointes privées et paramètres d’accès. Demandez à l’exploitant de confirmer que les dossiers et les pièces peuvent être restaurés avant une livraison ou une restauration.
+
 ## Artéfacts pris en charge
 
 `bun run build` construit le SDK public des extensions, l’artéfact Nuxt/Nitro `node-server` et les processus de vidage SQL administratif et de nettoyage du stockage. Le résultat comprend une application Web et une API Node; il ne s’agit pas d’un site entièrement statique.
 
-Le `Dockerfile` à la racine définit le conteneur de production. Il fixe Bun 1.3.13 pour la construction et Node 24 Bookworm Slim pour l’exécution, puis installe Chromium et LibreOffice Writer. Il copie aussi l’espace de travail `gcs-ssc-authorization` avant l’installation figée. Une construction distante récupère tout sous-module absent au SHA exact du gitlink avant que la copie des sources superpose les extractions locales; Docker et l’aperçu WebContainer produisent ensuite leur migration de démonstration avec le même outil de regroupement. Le processus s’exécute sous l’utilisateur non privilégié `node`.
+Le `Dockerfile` à la racine définit le conteneur de production et inclut les espaces de travail d’autorisation, de diagrammes et de sondage du connecteur. Il fixe Bun 1.3.13 pour la construction et Node 24 Bookworm Slim pour l’exécution, puis installe Chromium et LibreOffice Writer. Il copie aussi l’espace de travail `gcs-ssc-authorization` avant l’installation figée. Une construction distante récupère tout sous-module absent au SHA exact du gitlink avant que la copie des sources superpose les extractions locales; Docker et l’aperçu WebContainer produisent ensuite leur migration de démonstration avec le même outil de regroupement. Le processus s’exécute sous l’utilisateur non privilégié `node`.
 
 Pour les déploiements Dockerfile hérités, `railway.json` sélectionne ce Dockerfile, sonde `/api/health` avec un délai de 300 secondes et configure le redémarrage sur échec avec au plus dix tentatives. Docker Compose expose le port hôte 8995 par défaut. Ce sont les valeurs du dépôt; consignez séparément les remplacements propres au déploiement.
 
 ## Topologie de persistance
+
+La persistance signifie que l’information enregistrée survit au redémarrage ou au remplacement du conteneur de l’application. La base conserve les dossiers; le fournisseur de pièces jointes conserve les fichiers. Les deux exigent un stockage durable.
 
 Le conteneur utilise PGlite à `/app/.data/pglite` par défaut lorsqu’aucune URL PostgreSQL n’est fournie. Le fichier Compose monte un volume nommé seulement sur ce chemin de base; il ne provisionne pas le stockage des pièces pour chaque fournisseur.
 
@@ -20,9 +24,11 @@ L’image utilise l’identité non privilégiée `node`. Préparez les volumes 
 
 ## Sauvegarde et restauration
 
+Par exemple, restaurer le dossier d’une entente sans son PDF signé rétablit la liste des documents, mais pas le fichier que les agents doivent télécharger. Testez le téléchargement d’une pièce privée et la lecture d’un dossier pour vérifier la reprise.
+
 Sauvegardez la base, les objets, la configuration des fournisseurs et les clés requises comme un ensemble de reprise. Les métadonnées conservent l’identifiant du fournisseur, l’identité de l’objet, le localisateur opaque, le type MIME, la taille et les valeurs bilingues; les octets restent externes. Incluez la file de nettoyage et les audits selon leur rétention. Une sauvegarde de base seule ne restaure pas les documents.
 
-`GET /api/admin/dump` exige `system:read` global et retourne `application/sql` sous le nom `migrations-AAAA-MM-JJ.sql`. Il s'agit d'un amorçage dérivé des migrations, **et non d'un vidage de la base active** : un processus isolé crée une base PGlite temporaire en mémoire, applique les migrations principales ordonnées autres que celle de démonstration, puis produit le SQL du schéma et des migrations sans instructions de propriétaire ni de privilèges. Le fichier ne contient aucun utilisateur, aucune entente, aucune donnée d'extension ni aucun autre dossier métier actif, et exclut la migration de démonstration `0240_seed`.
+`GET /api/admin/dump` exige `system:read` global et retourne `application/sql` sous le nom `migrations-AAAA-MM-JJ.sql`. Il s'agit d'un amorçage dérivé des migrations, **et non d'un vidage de la base active** : un processus isolé crée une base PGlite temporaire en mémoire, applique les migrations principales ordonnées autres que celle de démonstration, puis produit le SQL du schéma et des migrations sans instructions de propriétaire ni de privilèges. Le fichier ne contient aucun utilisateur, aucune entente, aucune donnée d'extension ni aucun autre dossier métier actif, et exclut la migration de démonstration `9999_seed`.
 
 Le processus est limité à 30 secondes, une seule génération est partagée dans le processus serveur entre les appels concurrents, et chaque appelant déconnecté cesse d'attendre sans annuler le travail encore utile à un autre appelant. Une réponse invalide du processus, une sortie prématurée, un délai dépassé ou un échec de génération produit l'erreur localisée `ADMIN_DUMP_FAILED` avec le code HTTP 500. Cette route ne remplace ni une sauvegarde PostgreSQL de la plateforme ni celle du stockage. Traitez l'artefact comme du matériel de déploiement contrôlé, limitez son accès et sa conservation et testez-le seulement dans un milieu isolé.
 
@@ -47,6 +53,16 @@ Un flux GitHub déclenché manuellement dans le dépôt de l’application const
 L’application CDK de démonstration dans `infra/aws` cible la région du Canada central (`ca-central-1`) : CloudFront et un équilibreur privé, une tâche Fargate, PostgreSQL RDS sur une seule zone et EFS chiffré pour les pièces du fournisseur local. Un compartiment S3 privé distinct est provisionné pour un usage futur, mais il n’est pas choisi comme fournisseur de pièces jointes. Le budget CDK envoie des alertes et n’impose aucun plafond de dépense. Le guide AWS dans la source de l’application précise l’amorçage, les identifiants, le déploiement et la reprise; il s’agit d’une architecture de démonstration.
 
 Le fichier `.railway/railway.ts` gère l’environnement GCS Demo existant, conserve ses secrets, son domaine, sa base et ses volumes et utilise l’image figée lorsque le manifeste contient un condensat. Les exploitants examinent `railway config plan` avant `railway config apply`; un commit IaC seul ne l’applique pas. L’ancien `railway.json` demeure une valeur Dockerfile héritée pour d’autres déploiements.
+
+## Services compagnons et bascules propres
+
+La pile de démonstration AWS provisionne maintenant un Portail persistant avec sa propre base RDS et un compartiment privé de pièces jointes S3, ainsi que Metabase avec une base d’application distincte. CloudFront précède les équilibreurs privés. Metabase utilise TLS avec vérification du certificat RDS, des clés de session et de chiffrement conservées comme secrets et un processus privé d’initialisation; les identifiants administratifs restent dans Secrets Manager. L’accès de rapport à GCS n’accorde aucune permission utilisateur GCS. Sauvegardez et surveillez chaque service séparément.
+
+L’IaC Railway conserve les ressources GCS, Portail et Metabase. Le Portail utilise `deployment/portal-demo-image.json` et le secret scellé `PORTAL_AUTH_SECRET`. Un plan de livraison GCS ne doit pas modifier les autres services. Inspectez le plan et les attaches réelles des services et volumes avant l’application : le guide source consigne des limites de relecture des attaches par la CLI; un plan inchangé ne prouve donc pas l’état du stockage. Conservez le volume de fichiers de l’application et les volumes des bases compagnons pendant une bascule de base GCS.
+
+Le schéma utilise des bases initiales par sujet plutôt que des mises à niveau incrémentales. Une livraison de démonstration modifiant le schéma exige une bascule propre explicitement autorisée : arrêter les écritures et la base, détacher et vérifier l’ancien volume, attacher un nouveau volume nommé distinctement, vérifier la préparation de la base, puis déployer l’image exacte vérifiée et tester connexion, dossiers accessibles et persistance documentaire. Consignez séparément la suppression ou suppression en attente de l’ancien volume. Un redéploiement ordinaire réutilise le stockage. N’appliquez pas cette procédure de démonstration jetable aux données de production.
+
+Le manifeste d’image constitue une preuve de construction, pas une affirmation que cette synchronisation a inspecté un déploiement actif. Consultez les guides sources actuels `.railway/README.md` et AWS pour les identités de ressources et la reprise propres au déploiement.
 
 ## Réinitialisation de la démonstration Railway dédiée
 

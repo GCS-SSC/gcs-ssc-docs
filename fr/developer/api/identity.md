@@ -1,14 +1,26 @@
 # API d’identité et de contrôle d’accès
 
-Délégation Better Auth, permissions de rôle, affectations exactes, travail affecté et gestion des affectations.
+Ces requêtes servent à la connexion, aux utilisateurs, aux rôles et aux affectations à des dossiers précis. Ensemble, ces éléments déterminent qui peut consulter ou modifier un dossier et le travail qui lui est affecté. Consultez les [rôles](../../admin/roles.md), les [affectations](../../admin/assignments.md) et le [contrôle d’accès](../../concepts/rbac.md).
 
-Cet index généré constitue une table de navigation exhaustive, non une preuve indépendante du contrat. Pour chaque gestionnaire, le registre de couverture consigne les preuves directes requises sur l’autorisation, la validation, les aides, la base, la réponse, l’interface et les tests avant la vérification terminale. Les permissions clientes ne remplacent jamais l’autorisation serveur.
+Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
+
+- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
+- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
+- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
+- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
+- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+
+Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+
+## Exemple de lecture seule
+
+Pour un utilisateur connecté, `GET /api/auth/permissions` lit les permissions statiques qui lui sont accordées. Cette requête ne lui donne aucun nouveau droit. L’autorisation d’agir sur un dossier précis est toujours vérifiée par la requête serveur de ce dossier. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
 
 ## Gestionnaires (29)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
-| GET | `/api/assigned-work` | requireAuthContext, requireFreshAuthContext | AssignedWorkQuerySchema, Common_Recommendation_Schema, Common_Review_Schema, getValidatedQueryI18n | `server/api/assigned-work/index.get.ts` |
+| GET | `/api/assigned-work` | requireAuthContext, requireFreshAuthContext | AssignedWorkQuerySchema, getValidatedQueryI18n | `server/api/assigned-work/index.get.ts` |
 | GET | `/api/assignment-management` | requireAuthContext | AssignedWorkQuerySchema, Common_Recommendation_Schema, Common_Review_Schema, getValidatedQueryI18n | `server/api/assignment-management/index.get.ts` |
 | ANY | `/api/auth/[...auth]` | — | — | `server/api/auth/[...auth].ts` |
 | GET | `/api/auth/permissions` | — | — | `server/api/auth/permissions.get.ts` |

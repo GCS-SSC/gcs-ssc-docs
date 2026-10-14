@@ -1,10 +1,12 @@
 # Demarrage
 
-Le depot de documentation et le depot source de l application sont des espaces de travail separes. La documentation vit dans `gcs-ssc-docs`; la source de l application est `gcs-ssc`.
+Cette page s’adresse aux développeurs et au personnel de soutien technique qui préparent une copie locale de l’application ou de la documentation. Les agents de subventions et contributions n’ont pas à exécuter ces commandes pour utiliser un service GCS-SSC existant. Une démonstration locale peut aider le soutien à reproduire un problème ou à présenter un flux sans modifier les dossiers d’entente en production.
+
+Le dépôt de documentation et le dépôt source de l’application sont des espaces de travail séparés. La documentation se trouve dans `gcs-ssc-docs`; la source de l’application est `gcs-ssc`.
 
 ## Prerequis de l application
 
-L application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou Postgres. La configuration d execution vient des variables d environnement :
+L’application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou Postgres. Les variables d’environnement fournissent la connexion à la base de données, les paramètres d’authentification et la clé de chiffrement des extensions au démarrage :
 
 - `DATABASE_URL`
 - `PGLITE_DATA_DIR`
@@ -16,7 +18,7 @@ L application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou 
 - `BETTER_AUTH_COOKIE_VERSION`
 - `GCS_EXTENSION_SECRETS_KEY`
 
-Si `DATABASE_URL` est absent, le developpement local peut utiliser le repertoire PGlite configure.
+Si `DATABASE_URL` est absent, le développement local peut utiliser le répertoire PGlite configuré.
 
 `GCS_EXTENSION_SECRETS_KEY` est requis en production lorsque les extensions stockent des identifiants chiffrés. La valeur doit être une clé de 32 octets encodée en base64. Les données d’amorçage du développement peuvent fournir une clé fixe de démonstration pour des identifiants locaux non réels uniquement.
 
@@ -33,42 +35,44 @@ bun run setup
 bun run dev
 ```
 
-Utilisez `bun run repos:update` lorsque vous devez mettre a jour le depot de l application et tous les sous-modules en une seule etape. Le script tire le depot principal, synchronise les URL de sous-modules et met a jour les sous-modules recursivement depuis leurs remotes configures.
+Utilisez `bun run repos:update` pour mettre à jour le dépôt de l’application et tous les sous-modules enregistrés en une seule étape. Le script récupère les changements du dépôt principal, synchronise les URL des sous-modules et met à jour récursivement les sous-modules depuis leurs dépôts distants configurés.
 
-`bun run dev:clean` demarre avec un etat de donnees local propre. Le script d application est `scripts/dev.ts`, pas un simple wrapper `nuxt dev`; utilisez les scripts package sauf besoin Nuxt de bas niveau.
+Le script de l’application est `scripts/dev.ts`, et pas une simple invocation de `nuxt dev`; utilisez les scripts du package, sauf si vous avez besoin directement des commandes Nuxt de bas niveau.
 
-Si la generation de documents d entente doit produire des PDF localement, executez `bun run bun:docgen:install` avant de demarrer l application. Voir [Generation de documents](./document-generation.md) pour les details de la chaine d outils.
+Si la génération de documents d’entente doit produire des PDF localement, exécutez `bun run bun:docgen:install` avant de démarrer l’application. Consultez [Génération de documents](./document-generation.md) pour les détails des outils nécessaires.
+
+`bun run dev:clean` supprime la base `.data/pglite` par défaut et le cache `.nuxt/dev` avant reconstruction. Les fichiers restent conservés et aucune base PostgreSQL externe n’est réinitialisée; choisissez explicitement le mode de base. La démonstration neuve utilise `9999_seed`, le cycle NCIA et la configuration de test Portail de développement.
 
 ## Metadonnees d extension
 
-Le systeme d extension genere des metadonnees sous `.nuxt/gcs-extensions`. Les utilitaires serveur exigent ces metadonnees pour les appels au registre. Si les API d extension echouent avec des metadonnees manquantes, executez l application Nuxt pour que le module les regenere.
+Les extensions ajoutent des fonctions enregistrées à l’application. Le système d’extension génère des métadonnées (les renseignements nécessaires pour trouver ces fonctions) sous `.nuxt/gcs-extensions`. Les utilitaires serveur exigent ces métadonnées pour les appels au registre. Si les API d’extension échouent parce que des métadonnées manquent, exécutez l’application Nuxt pour que le module les régénère.
 
 ## Outils de generation de documents
 
-La generation de documents d entente peut fonctionner localement sous Linux ou WSL sans installations globales de LibreOffice ou Chrome. Depuis `gcs-ssc`, executez :
+La génération de documents d’entente peut fonctionner localement sous Linux ou WSL sans installations globales de LibreOffice ou Chrome. Depuis `gcs-ssc`, exécutez :
 
 ```bash
 bun run bun:docgen:install
 ```
 
-L installateur telecharge LibreOffice dans `.tools/docgen/libreoffice`, telecharge le navigateur de Puppeteer dans `.tools/docgen/puppeteer`, et ajoute ou met a jour `LIBREOFFICE_SOFFICE_PATH` et `PUPPETEER_CACHE_DIR` dans le fichier Nuxt `.env` regulier. Nuxt charge `.env` pendant `dev`, `build` et `preview`; demarrez donc normalement avec `bun run dev` apres l installation.
+L’installateur télécharge LibreOffice dans `.tools/docgen/libreoffice`, télécharge le navigateur de Puppeteer dans `.tools/docgen/puppeteer` et ajoute ou met à jour `LIBREOFFICE_SOFFICE_PATH` et `PUPPETEER_CACHE_DIR` dans le fichier Nuxt `.env` habituel. Nuxt charge `.env` pendant `dev`, `build` et `preview`; démarrez donc normalement avec `bun run dev` après l’installation.
 
-Utilisez `DOCGEN_ENV_FILE` pour cibler un autre fichier d environnement. Les options avancees incluent `LIBREOFFICE_VERSION`, `LIBREOFFICE_DOWNLOAD_URL` et `PUPPETEER_BROWSER`.
+Utilisez `DOCGEN_ENV_FILE` pour cibler un autre fichier d’environnement. Les options avancées incluent `LIBREOFFICE_VERSION`, `LIBREOFFICE_DOWNLOAD_URL` et `PUPPETEER_BROWSER`.
 
 ## Amorcage de l authentification
 
-Seules les données de développement et de test peuvent créer `root@example.com` avec `password123`. Ce compte et ce mot de passe ne doivent jamais être déployés en production; supprimez-les ou renouvelez les identifiants lors du provisionnement de la production. Une fois que l’utilisateur racine existe, créez les rôles et les attributions par l’interface utilisateur (UI), puis vérifiez la réponse canonique `{ grants }` de `/api/auth/permissions`.
+Seules les données de développement et de test peuvent créer `root@example.com` avec `password123`. Ce compte et ce mot de passe ne doivent jamais être déployés en production; supprimez-les ou renouvelez les identifiants lors du provisionnement de la production. Une fois que l’utilisateur racine existe, créez les rôles et les attributions par l’interface utilisateur (UI), puis vérifiez que la réponse des permissions a la structure attendue `{ grants }` de `/api/auth/permissions`.
 
 ## Demarrage de la documentation
 
-Depuis ce depot de documentation :
+Depuis ce dépôt de documentation :
 
 ```bash
 bun install
 bun run docs:dev
 ```
 
-Construisez les docs statiques avec :
+Construisez la documentation statique avec :
 
 ```bash
 bun run docs:build
@@ -76,4 +80,6 @@ bun run docs:build
 
 ## Verification rapide
 
-Pour l application, connectez-vous, verifiez `/en/` et `/fr/`, ouvrez Agences, Roles, Utilisateurs et GWCOA avec les permissions globales appropriées, puis Audit avec une permission explicite Lecteur Audit, puis confirmez qu un utilisateur porte voit une barre laterale reduite. Pour les docs, ouvrez `/en/` et `/fr/` et confirmez que les barres laterales anglaise et francaise exposent les memes sections possedees.
+Pour l’application, connectez-vous et vérifiez `/en/` et `/fr/`. Avec les permissions globales appropriées, ouvrez Agences, Roles, Utilisateurs et GWCOA. Ouvrez Audit avec une permission explicite Lecteur Audit. Connectez-vous ensuite comme utilisateur dont l’accès est limité à certains dossiers et vérifiez que la barre latérale propose moins d’options. Ces contrôles confirment la disponibilité des deux langues et des principaux contrôles d’accès.
+
+Pour la documentation, ouvrez `/en/` et `/fr/` et confirmez que les barres latérales anglaise et française proposent les mêmes sections de documentation.

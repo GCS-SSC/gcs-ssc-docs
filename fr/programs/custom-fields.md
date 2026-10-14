@@ -1,10 +1,10 @@
 # Champs personnalisés des ententes
 
-Créez les définitions de champs et options réutilisables dans **Champs personnalisés** de l’agence. L’onglet **Champs personnalisés** d’un volet affecte ces champs d’agence aux sections d’entente et contrôle l’ordre, le caractère obligatoire et l’état actif de chaque affectation. Les responsables saisissent les valeurs dans Général de l’entente. Les champs de sélection peuvent déterminer les étapes d’un flux publié.
+Les champs personnalisés recueillent les renseignements d’entente que les champs standards ne couvrent pas, comme une référence locale de projet ou un mode de réalisation. Créez les définitions de champs et options réutilisables dans **Champs personnalisés** de l’agence. L’onglet **Champs personnalisés** d’un volet affecte ces champs d’agence aux sections d’entente et contrôle l’ordre, le caractère obligatoire et l’état actif de chaque affectation. Les agents saisissent les valeurs dans l’onglet Général de l’entente. Les champs de sélection peuvent déterminer les étapes d’un flux publié.
 
 ## Accès et ordre de configuration
 
-Lecteur de l’agence consulte les définitions; Contributeur peut les créer ou modifier; une suppression admissible exige Gestionnaire. L’affectation au volet et les changements de section exigent Contributeur pour `transfer_payment` dans le programme; retirer une affectation admissible exige Gestionnaire. Les valeurs d’entente exigent toujours Contributeur et l’affectation exacte à l’entente, sous réserve de l’état opérationnel.
+Le rôle Lecteur de l’agence permet de consulter les définitions; Contributeur permet de les créer ou de les modifier; Gestionnaire est nécessaire pour une suppression autorisée. L’affectation au volet et les changements de section exigent Contributeur pour `transfer_payment` dans le programme; retirer une affectation admissible exige Gestionnaire. La modification des valeurs exige toujours le rôle Contributeur et une affectation à l’entente précise, si son état permet la modification.
 
 1. Ouvrez **Agences**, choisissez l’agence et créez les champs bilingues et leurs options dans **Champs personnalisés**. Choisissez texte, nombre ou sélection; préparez les options avant l’usage opérationnel.
 2. Ouvrez **Champs personnalisés** du volet d’un programme. Créez les sections bilingues du volet, puis ajoutez les champs d’agence. Réglez la section, l’ordre, le caractère obligatoire et l’état actif propres au volet.
@@ -23,11 +23,11 @@ Les identifiants de champ et d’option d’agence sont partagés entre les vole
 | Présentation du texte | Une ligne ou multiligne. Une ligne interdit les sauts de ligne; multiligne conserve la mise en forme. |
 | Sélections multiples | Réservées aux champs de sélection. Une sélection unique peut devenir multiple; l’inverse est ensuite interdit. |
 | Obligatoire | Réglé sur l’affectation au volet. Les champs actifs obligatoires doivent être remplis lors de la création ou de l’enregistrement de modifications des champs personnalisés. Zéro est une valeur numérique valide. |
-| Utiliser dans les conditions de flux de travail | Réservé aux champs de sélection; transforme le champ en discriminant d’acheminement. |
+| Utiliser dans les conditions de flux de travail | Réservé aux champs de sélection; permet aux options sélectionnées de déterminer les étapes du flux qui s’appliquent. |
 | Actif | Un champ actif accepte de nouvelles valeurs. Un champ inactif renseigné reste visible; sa valeur peut être conservée ou effacée, mais pas remplacée. |
 | Ordre d’affichage | Entier de 0 à 2 147 483 647; valeur initiale 0. Les identifiants départagent les ordres égaux. |
 
-Les sections apparaissent après les sections intégrées de l’entente, à partir du numéro 04. Leur ordre ne modifie pas la disposition du profil principal. Les noms de section et de champ sont bilingues; une réponse textuelle est une seule chaîne partagée et une réponse numérique est un nombre fini. Les champs numériques ne sont pas des champs monétaires exacts : utilisez le Budget pour les montants financiers.
+Les sections apparaissent après les sections intégrées de l’entente, à partir du numéro 04. Leur ordre ne modifie pas la disposition du profil principal. Les noms de section et de champ sont bilingues; une réponse textuelle est un texte commun aux deux langues et une réponse numérique est un nombre fini. Les champs numériques ne sont pas des champs monétaires exacts : utilisez le Budget pour les montants financiers.
 
 ## Options et catégories de sélection
 
@@ -50,9 +50,9 @@ Ajoutez **Direct delivery / Réalisation directe** et **Partner delivery / Réal
 
 ## Saisir et effacer les valeurs d’entente
 
-À la création, remplissez tous les champs actifs obligatoires. Les anciennes ententes ne sont pas remplies automatiquement lorsqu’un champ devient obligatoire. Une modification de profil sans rapport peut être enregistrée sans transmettre les champs personnalisés; dès qu’ils sont transmis, le serveur vérifie l’ensemble fusionné des valeurs existantes et modifiées selon toutes les définitions actives obligatoires.
+À la création, remplissez tous les champs actifs obligatoires. Les anciennes ententes ne sont pas remplies automatiquement lorsqu’un champ devient obligatoire. Une modification de profil sans rapport peut être enregistrée sans transmettre les champs personnalisés; dès qu’ils sont transmis, le serveur vérifie les valeurs existantes et les modifications ensemble pour s’assurer que tous les champs actifs obligatoires sont remplis.
 
-L’action **Effacer la valeur**, lorsqu’elle est disponible, modifie seulement le brouillon local. Enregistrez l’entente pour la conserver. Effacer un champ actif obligatoire est refusé. Un responsable autorisé peut effacer un champ inactif renseigné, même s’il était auparavant obligatoire. Une entente en lecture seule ne propose pas d’action d’effacement modifiable.
+L’action **Effacer la valeur**, lorsqu’elle est disponible, modifie seulement le brouillon local. Enregistrez l’entente pour conserver ce changement. Effacer un champ actif obligatoire est refusé. Un responsable autorisé peut effacer un champ inactif renseigné, même s’il était auparavant obligatoire. Une entente en lecture seule ne permet pas d’effacer une valeur.
 
 Les mises à jour partielles de l’API conservent les clés omises. Exemple avec des identifiants fictifs de champs et d’options :
 
@@ -73,15 +73,15 @@ Cette requête sélectionne l’option `201` du champ `101`, enregistre le texte
 
 Un membre peut avoir une condition par champ et plusieurs options permises par condition. Les options d’un champ se combinent par **OU**; les différents champs par **ET**. Une sélection multiple correspond si au moins une option sélectionnée est permise. Sans condition, l’étape est inconditionnelle.
 
-Par exemple, un membre exigeant Mode de réalisation = Réalisation par un partenaire **et** Région = Nord ou Est ne s’exécute que si les deux conditions correspondent. Nord et Sud satisfait la condition Région grâce à Nord; cela ne contourne pas celle du Mode de réalisation.
+Par exemple, un membre exigeant Mode de réalisation = Réalisation par un partenaire **et** Région = Nord ou Est ne s’exécute que si les deux conditions correspondent. Sélectionner Nord et Sud satisfait la condition Région grâce à Nord; cela ne contourne pas celle du Mode de réalisation.
 
-Au démarrage, le flux capture les valeurs discriminantes de l’entente propriétaire, les libellés bilingues et l’admissibilité de chaque membre. Le parcours doit contenir du travail et conserver les comportements essentiels d’approbation, d’évaluation du risque et de réussite terminale. Un discriminant absent ou invalide peut bloquer le démarrage plutôt qu’omettre silencieusement du travail essentiel. Les étapes exclues affichent **Ignoré — conditions non remplies** et ne créent aucune tâche d’exécution.
+Au démarrage, le flux conserve les réponses de l’entente utilisées dans les conditions, leurs libellés bilingues et les étapes qui s’appliquent. Le parcours doit contenir du travail et comprendre les étapes obligatoires d’approbation et d’évaluation du risque, ainsi qu’une fin réussie valide. Une réponse absente ou invalide utilisée dans les conditions peut bloquer le démarrage plutôt qu’omettre silencieusement du travail essentiel. Les étapes exclues affichent **Ignoré — conditions non remplies** et ne créent aucune tâche d’exécution.
 
-Modifier ensuite l’entente ne réoriente pas une tentative existante. Une nouvelle tentative conserve les versions publiées initiales, mais capture à nouveau les valeurs actuelles. Les dossiers d’approbation conservent les valeurs et libellés capturés des champs et sections; leur rendu historique ne reconstruit pas la preuve avec les libellés actuels.
+Modifier ensuite l’entente ne réoriente pas une tentative existante. Une nouvelle tentative conserve les versions publiées initiales, mais enregistre à nouveau les valeurs actuelles de l’entente. Les dossiers d’approbation conservent les valeurs et les libellés des champs et des sections enregistrés au démarrage. Leur affichage historique utilise ces renseignements conservés, plutôt que les libellés actuels.
 
 ## Modifier ou retirer des définitions
 
-Pour supprimer une section, déplacez ou supprimez d’abord tous ses champs non supprimés. La suppression d’un champ ou d’une option est refusée si des valeurs d’entente ou références de flux l’utilisent encore; les références de publications historiques et les valeurs conservées sur des ententes supprimées comptent aussi. La désactivation et le retrait de l’usage discriminant sont bloqués par les références des flux de travail courants ou publiés. Ne supprimez pas l’historique et ne recréez pas d’identifiants pour contourner ces protections.
+Pour supprimer une section, déplacez ou supprimez d’abord tous ses champs non supprimés. La suppression d’un champ ou d’une option est refusée si des valeurs d’entente ou références de flux l’utilisent encore; les références de publications historiques et les valeurs conservées sur des ententes supprimées comptent aussi. La désactivation et le retrait de l’utilisation dans les conditions de flux sont bloqués par les références des flux de travail courants ou publiés. Ne supprimez pas l’historique et ne recréez pas d’identifiants pour contourner ces protections.
 
 Avant de retirer un champ d’acheminement, examinez les définitions et publications courantes. Créez un nouveau champ pour changer de type de données. Désactivez les choix désuets lorsque cela est permis afin de préserver l’intelligibilité des valeurs historiques, et publiez un parcours de remplacement vérifié avant son utilisation.
 
@@ -93,5 +93,5 @@ Avant de retirer un champ d’acheminement, examinez les définitions et publica
 | Impossible de remplacer une valeur inactive | Conservez-la ou effacez-la; utilisez un champ ou une option actifs pour de nouveaux renseignements. |
 | Impossible de supprimer une section | Déplacez ou supprimez d’abord ses champs restants. |
 | Champ ou option utilisés | Examinez les valeurs d’entente et les références de flux courants, publiés et historiques. La suppression et la désactivation ont des règles différentes. |
-| Démarrage ou nouvelle tentative refusés | Vérifiez les discriminants et la conservation des étapes essentielles d’approbation, de risque et de terminaison. |
+| Démarrage ou nouvelle tentative refusés | Vérifiez les réponses utilisées dans les conditions et la présence des approbations obligatoires, de l’évaluation du risque et d’une fin valide. |
 | Échec après changement de permissions ou d’état | Rechargez l’entente ou le volet et vérifiez les permissions et le cycle de vie actuels; le serveur les revérifie sous verrou. |

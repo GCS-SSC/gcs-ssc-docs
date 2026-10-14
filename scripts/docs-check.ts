@@ -134,6 +134,11 @@ for (const match of migrationRegistry.matchAll(/'(?<name>\d{4}_[^']+)':/g)) {
   if (!dataRows.has(`migration:${match.groups!.name}`)) errors.push(`Registered migration missing from inventory: ${match.groups!.name}`)
 }
 
+for (const path of await walk(join(appRoot, 'server/database/schema'), path => path.endsWith('.ts'))) {
+  const name = relative(join(appRoot, 'server/database/schema'), path).replace(/\.ts$/, '')
+  if (!dataRows.has(`schema:${name}`)) errors.push(`Schema helper missing from inventory: ${name}`)
+}
+
 const extensionRows = new Set((coverage.get('extension-coverage.json') ?? []).map(row => row.id))
 if (!extensionRows.has('extension:host-platform')) {
   errors.push('Host extension framework and public SDK missing from inventory')

@@ -1,6 +1,8 @@
 # Approval Templates
 
-Approval templates define ordered approval routes. A template stores its Agency ownership, bilingual template metadata, ordered approval steps, default approvers, approver titles, step certifications, and the policy for user-added approval steps. At runtime, templates are materialized into routing slips that users can approve, deny, reassign, or extend when the template permits it.
+An approval template is a reusable list of who must approve a file, in what order, and what each person must confirm. An Agency administrator sets up the bilingual names, approvers, titles, checklist statements (certifications), and rules for adding extra approvals. When the process starts on a file, the system copies the template into a routing slip: the approval record for that particular file. Officers and approvers work on that copy.
+
+For example, a contribution claim might need a program manager’s approval followed by a finance officer’s approval. A required certification could say “I have checked the claim against the eligible expenses in the agreement.” Use statements that reflect your actual process; this example does not establish a required approval route.
 
 In transfer payment setup, templates are configured in the Agency catalog and then referenced by review setups, recommendation setups, assessment members, or runtime workflows for agreements, claims, forecasts, payments, monitoring, applicant recipients, and related work.
 
@@ -21,7 +23,7 @@ Manage templates on the Agency’s **Approval Templates** tab. A template belong
 
 ## Runtime targets
 
-A template is a reusable Agency-owned approval design; its header does not select a runtime entity type. The consuming published workflow, review or recommendation configuration determines its use and target. The runtime materializes that target into the routing slip and checks the template’s Agency ownership. A template’s presence does not enable a lifecycle capability that the target does not support.
+The template belongs to an Agency. Its header does not choose whether it will approve a claim, recommendation, or another kind of record. The published workflow, review, or recommendation setup that uses it makes that choice. The system checks that the template belongs to the correct Agency. Adding a template does not give a record actions that its process does not support.
 
 For example, an Agency can reuse its “Manager sign-off” template in a Claim approval workflow and a recommendation member’s approval. Each generated routing slip has independent steps, evidence and lifecycle; editing the template does not rewrite either slip.
 
@@ -66,7 +68,9 @@ When additional approvals are enabled, the bilingual default step names are requ
 
 ## Template Lifecycle And Publication
 
-A new template is a draft. Save prepares its header, steps, certifications and additional-approval policy. **Publish** creates immutable version `1`; each changed publication increments the integer version. Saving a published template prepares the next definition without changing its existing snapshot. An identical canonical publication keeps its version. **Retire** permanently prevents future selection and authoring changes while preserving history.
+A new template is a draft. **Save** stores your edits; **Publish** makes a fixed copy available for use, starting at version `1`. A changed publication increases the version number. Saving edits to a published template prepares a future version and leaves its published copy intact. Publishing the same definition again keeps its version. **Retire** permanently prevents new selection and further editing while keeping the history.
+
+For example, adding a director’s approval and publishing version `2` changes future routing slips. A claim already using version `1` keeps its original route.
 
 The published snapshot contains the template identity, additional-approval policy/default certifications, ordered step identities/sequences/default users, and each step's certification policy. Runtime routing slips copy this snapshot. Existing slips therefore retain their original route even after a later publication.
 
@@ -87,7 +91,7 @@ Choose either a default Common user or an active same-Agency administrative grou
 
 ## Step Editor
 
-The step editor opens fullscreen for add or edit. It contains the step fields and a certifications accordion. Saving the editor updates the local template state; the template is not persisted until the main template save action succeeds.
+Add or edit a step in the fullscreen editor. Enter its details and expand the certifications section to edit its checklist. Saving here puts the changes into the template on screen. You must also save the main template page to store them.
 
 Use this distinction carefully: closing a step editor does not save the template. The template detail page must still be saved.
 
@@ -136,7 +140,7 @@ Templates become operational only when referenced by another setup record or run
 - Recommendation setup: an optional approval template can be attached to generated recommendations.
 - Published workflow members and review/recommendation configurations that reference a template from their stream.
 
-When a setup references a template, changing the template affects future materialized routing slips. Already materialized runtime approvals are represented by routing slips and approval rows, not by a live pointer that rewrites completed approval history.
+A published template change affects future routing slips. Slips already created keep their own steps and decisions, so changing the template does not rewrite an approval history.
 
 ## Runtime Routing Slips
 
@@ -213,7 +217,7 @@ Denial is disabled when:
 - Acting on behalf without selecting an on-behalf type.
 - Actual approval details are required but title or decision date is missing.
 
-Required certifications do not need to be checked to deny a step. A denial immediately marks the whole routing slip denied, prevents later steps on that slip from being actioned or added, and preserves the slip as immutable history. A manager can then create a fresh template-based routing slip.
+Required certifications do not need to be checked to deny a step. A denial immediately marks the whole routing slip denied, prevents later steps on that slip from being actioned or added, and preserves the slip as immutable history. A new routing slip requires the recovery action supported by the owning process; see **Recover after denial** above.
 
 The approval action records the decision, certifications, on-behalf data, actual decision details when supplied, and comment. Approve and deny both require action-review-approval permission.
 
@@ -238,7 +242,7 @@ Administrators should configure both the template route and the runtime setup th
 
 ## Operational Guidance
 
-Template routes resolve the exact owning program and stream and recheck current authorization inside the write transaction. Missing and inaccessible templates use the same not-found boundary. Invalid steps, certification policy, default users or publication state can prevent saving or publication. A retired template cannot be republished. Reload after a concurrent change, correct the indicated dependency, save the full template and retry.
+The system checks the owning program and stream and your current permissions again when saving. A missing template and a template you cannot access both return a not-found response. Invalid steps, certification policy, default users or publication state can prevent saving or publication. A retired template cannot be republished. Reload after a concurrent change, correct the indicated dependency, save the full template and retry.
 
 Use these practices:
 

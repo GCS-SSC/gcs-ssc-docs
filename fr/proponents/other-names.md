@@ -4,6 +4,10 @@ Utilisez **Autres noms** pour consigner un nom commercial, un ancien nom, un acr
 
 Ouvrez **Promoteurs**, sélectionnez un profil, puis choisissez **Autres noms**. Le tableau présente les noms actifs selon leur ordre de création et offre la recherche et la pagination.
 
+Par exemple, conservez « Association communautaire de la Rivière » comme nom légal du profil et ajoutez « Centre de la Rivière » ici si le personnel connaît cet organisme sous ce nom. S’il portait auparavant le nom « Groupe de quartier de la Rivière », ajoutez ce nom dans une autre ligne. Chaque ligne contient un nom; au besoin, saisissez les noms français et anglais dans des lignes distinctes.
+
+Une **affectation exacte** signifie que vous êtes affecté à ce profil dans **Utilisateurs affectés**. Le rôle seul ne permet pas de modifier ses noms.
+
 ## Accès et actions
 
 | Accès effectif au promoteur | Actions disponibles |
@@ -13,11 +17,11 @@ Ouvrez **Promoteurs**, sélectionnez un profil, puis choisissez **Autres noms**.
 | Gestionnaire et affectation exacte au promoteur | Consulter, ajouter, modifier et supprimer des noms. |
 | Aucun accès | Le serveur refuse la demande, même si l’adresse URL est saisie directement. |
 
-Lecteur consulte les autres noms. La création ou modification exige Contributeur et l’affectation exacte au parent; la suppression exige Gestionnaire et cette affectation. Chaque requête vérifie le profil parent, et une écriture le verrouille avant de reconstruire l’autorisation.
+Le système vérifie votre accès à ce profil à chaque demande, puis à nouveau pendant l’enregistrement. Le tableau ci-dessus s’applique au profil que vous avez ouvert.
 
 ## Champ et validation
 
-Un enregistrement contient une seule valeur **Autre nom** obligatoire. Elle est élaguée et ne peut pas être vide. Il ne s’agit pas d’une paire bilingue anglais-français et il n’y a aucun champ de description.
+Un enregistrement contient une seule valeur **Autre nom** obligatoire. Les espaces au début et à la fin sont retirés, et le nom ne peut pas être vide. Il ne s’agit pas d’une paire bilingue anglais-français et il n’y a aucun champ de description.
 
 Un même nom actif ne peut pas être ajouté deux fois au même promoteur. Un autre promoteur peut toutefois utiliser ce nom. Après la suppression d’un nom, la même valeur peut être ajoutée de nouveau, car l’unicité ne vise que les lignes actives.
 

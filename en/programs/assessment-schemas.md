@@ -1,8 +1,10 @@
 # Assessment Schemas
 
-Assessment schemas define the structured questions, scoring matrices, dependencies, calculated values, outcomes, and impactors used by runtime assessment reviews. In the transfer payment area, administrators open a schema from an Agency Review Set member.
+An assessment schema is a reusable review form and its scoring rules. It tells officers which questions to answer, how answers contribute to scores, and how those scores lead to outcomes. Administrators open it from an Agency Review Set member in the transfer payment area.
 
-The schema record itself is agency-scoped. A schema used by a stream must belong to the stream's agency and match the configured runtime entity type.
+For example, a program can use an assessment to review an applicant’s delivery capacity: officers answer questions about staffing and previous projects, then use the configured score and outcome to support their review. The questions and rules must be configured; this example is not a built-in assessment.
+
+The Agency owns the schema. A Stream can use it only if it belongs to the same Agency and is configured for the kind of record being reviewed, called the entity type.
 
 ## Empty-System Prerequisites
 
@@ -24,7 +26,7 @@ Open a schema from an Agency Review Set. The breadcrumb returns to the Agency ca
 - Effective schema content and scoring matrix.
 - Helper fields available for the schema entity type.
 
-The editor has a collapsible hero and a left sidebar with save controls and section navigation.
+The summary at the top can be collapsed. The left sidebar contains save controls and links to the editor sections.
 
 ## Import a JSON definition
 
@@ -42,17 +44,17 @@ The detail hero shows publication state, version and whether unpublished changes
 
 ## First publication
 
-Save a valid schema, then choose **Publish**. The first publication creates immutable version `1`, with a canonical hash and actor recorded by the common publication engine. It includes the bilingual metadata, scoring matrix, assessment definition and flags. A separate Activate API is not part of the current contract.
+Save a valid schema, then choose **Publish**. The first publication creates immutable version `1`, with a content fingerprint (canonical hash) and the publishing user recorded. It includes the bilingual metadata, scoring matrix, assessment definition and flags. A separate Activate API is not part of the current contract.
 
-A Review Setup must itself be published against the schema version before it can generate pinned runtime work. Publishing a schema alone does not start an assessment.
+Publish the Review Setup with that schema version before it can create reviews that retain that version. Publishing a schema alone does not start an assessment.
 
 ## Publishing changes and retirement
 
 Save edits to the authoring schema, inspect the pending-change indicator, then publish when the new definition is ready. Each changed publication increments the integer version by one: a label correction and a structural change both move version `1` to `2`. An identical canonical definition keeps the current version. There is no major/minor decimal version calculation.
 
-For example, changing a question’s wording and publishing version `2` leaves an existing version-`1` review with its original wording. Update and publish the consuming Review Setup when future work should use the new schema. Renaming a question key also requires repairing every dependency that names it.
+For example, changing a question’s wording and publishing version `2` leaves an existing version-`1` review with its original wording. Update and publish the Review Setup that uses it when future work should use the new schema. Renaming a question key also requires repairing every dependency that names it.
 
-Retire a published schema when it must not be selected for new configuration. Retirement is permanent; historical versions remain available to their pinned runtime attempts. Do not edit historical responses by changing the current schema.
+Retire a published schema when it must not be selected for new configuration. Retirement is permanent; historical versions remain available to the review attempts that already use those versions. Do not edit historical responses by changing the current schema.
 
 ## Save Behavior
 
@@ -94,7 +96,7 @@ Each matrix row has:
 - English and French label.
 - Indicator color, validated as a hex color.
 
-Matrices translate numeric assessment or section scores into labels and visual indicators. Keep thresholds ordered and non-overlapping in practice, even though the data model stores max thresholds rather than a rendered range.
+A scoring matrix turns a numeric assessment or section score into a label and color, such as a risk rating. Keep thresholds ordered and non-overlapping in practice, even though the data model stores max thresholds rather than a rendered range.
 
 ## Sections
 
@@ -107,7 +109,7 @@ Sections are top-level groups in the assessment. Each section has:
 - Weight.
 - One or more subsections.
 
-The language-independent code is important because dependencies and calculations refer to section, subsection, and question codes. Renaming codes on a published schema is a structural change and can break references if dependent items are not updated.
+A language-independent code is an internal identifier that stays the same in English and French. Conditions and calculations use section, subsection, and question codes to find the right answer. Renaming codes on a published schema is a structural change and can break references if dependent items are not updated.
 
 ## Subsections
 
@@ -120,7 +122,7 @@ Subsections group questions within a section. Each subsection has:
 - Optional dependencies.
 - Assessment questions and calculated items.
 
-Subsection dependencies control whether the subsection appears or participates based on helper values or previous answers. Subsection weights can be fixed, adjustable, or an adjustable scenario array.
+Subsection dependencies are conditions that determine whether a subsection appears or contributes to the assessment. They use previous answers or helper values: information already available from the record being reviewed. Subsection weights can be fixed, adjustable, or an adjustable scenario array.
 
 ## Assessment Items
 
@@ -173,7 +175,7 @@ Validation rejects formulas that reference missing assessment items, formulas th
 
 ## Weights
 
-Weights can be:
+Weights determine how much an answer or group of answers contributes to the score. They can be:
 
 - Fixed: one numeric weight.
 - Adjustable: a dependency target plus score-key-to-weight mappings.
@@ -185,7 +187,7 @@ For adjustable weights, if no mapping matches at runtime, the calculation logic 
 
 ## Dependencies
 
-Dependencies control conditional visibility or applicability. A dependency rule can be a single condition or a grouped set of conditions. Each condition has:
+Dependencies are rules that show or apply part of the assessment only when a condition is met. For example, a question about managing delivery partners can depend on an earlier answer indicating that partners will deliver the project. A dependency rule can be a single condition or a grouped set of conditions. Each condition has:
 
 - Dependency type: helper or answer.
 - Target helper field or answer path.
@@ -216,7 +218,7 @@ Each strategy option contains:
 - Stored value.
 - English and French label.
 
-Outcomes and strategies translate calculated assessment results into business outcomes. Custom runtime outcomes may be disabled by the general setting.
+Outcomes and strategies connect assessment scores to the program’s configured decisions or follow-up choices. For example, administrators can configure labels for levels of monitoring needed after a capacity review. Custom runtime outcomes may be disabled by the general setting.
 
 ## Impactors
 
@@ -264,7 +266,7 @@ Submitting completion saves comments and, for common review completion, can incl
 
 ## Approval Behavior
 
-When an assessment or review has an approval template, its pinned review-completion or workflow path materializes the routing slip, and the approvals section manages decisions. Approvals are grouped by routing slip and step.
+When an assessment or review has an approval template, completing the review or reaching the relevant workflow step creates the routing slip using the versions already selected for that review. The routing slip lists the approval steps; the approvals section records decisions by slip and step.
 
 Approvers can:
 
@@ -279,7 +281,7 @@ If an on-behalf type requires actual approval details, the approver must enter a
 
 ## Operational Guidance
 
-Save, publish, and retire operations recheck the active stream/program/agency chain and exact `transfer_payment:update` access inside a fresh transaction. An inaccessible schema is masked like a missing one. Publication requires valid authoring content; retirement prevents further edits and publications. When validation identifies a broken dependency, unknown helper field, duplicate code, calculation cycle, or invalid publication state, keep the editor open, correct the referenced section/item, save again, and only then publish.
+Each save, publication, and retirement checks that the Stream, Program, and Agency are still active and that you still have the exact `transfer_payment:update` access. These checks occur together in a fresh database transaction. If you cannot access a schema, the application responds as though it does not exist. Publication requires valid authoring content; retirement prevents further edits and publications. When validation identifies a broken dependency, unknown helper field, duplicate code, calculation cycle, or invalid publication state, keep the editor open, correct the referenced section/item, save again, and only then publish.
 
 Use these practices for stable schemas:
 

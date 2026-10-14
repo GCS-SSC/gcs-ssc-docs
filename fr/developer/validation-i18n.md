@@ -1,6 +1,8 @@
 # Validation, localisation et erreurs d’API
 
-La localisation de l’interface, les données métier bilingues et la validation des requêtes constituent des contrats distincts.
+Cette page explique comment les développeurs rendent les formulaires et les erreurs utilisables en français et en anglais. Pour un agent, le résultat concret est un formulaire qui identifie les champs obligatoires, explique une valeur refusée dans la langue de l’interface choisie et conserve le sens des renseignements métier bilingues.
+
+La localisation de l’interface traduit les boutons, libellés et messages. Les données métier bilingues sont des contenus saisis séparément, comme les noms français et anglais d’une possibilité. La validation des requêtes vérifie si une valeur soumise est permise. Il s’agit de contrats distincts.
 
 Nuxt emploie des routes préfixées en anglais et en français. Le détecteur choisit d’abord le témoin de langue, ensuite l’entrée prise en charge ayant la meilleure qualité dans `Accept-Language` (l’ordre de l’en-tête tranche les égalités), puis l’anglais. Les clés d’interface résident dans `i18n/locales/en.json` et `fr.json` avec les mêmes paramètres. Les valeurs persistantes comme `name_en` et `name_fr` sont des données gérées par les utilisateurs; les aides bilingues les affichent au lieu de les copier dans les fichiers de langue.
 
@@ -13,6 +15,8 @@ Les gestionnaires serveur valident les données non fiables avec `readValidatedB
 Toute nouvelle clé doit exister dans les deux langues avec les mêmes paramètres d’interpolation. Les tests doivent couvrir le code machine, l’état HTTP, le chemin de champ, les paramètres et les deux résultats linguistiques lorsque la langue influence le comportement.
 
 ## Champs requis et contrôles accessibles
+
+Par exemple, un agent qui saisit une possibilité doit savoir que les deux noms linguistiques sont obligatoires avant l’enregistrement. L’indication obligatoire doit décrire le vrai champ de nom; saisir du texte dans la recherche d’un sélecteur de volet ne rend pas ce texte de recherche obligatoire comme donnée métier. L’implémentation ci-dessous maintient la cohérence entre ces exigences et la validation.
 
 Le module `form-requirements` enveloppe les formulaires et contrôles Nuxt UI de l’hôte et du SDK. `UForm` conserve le schéma Zod associé à `createValidator`; `UFormField` résout son chemin nommé et ajoute une indication localisée lorsque le schéma prouve que le champ est requis. Les formulaires imbriqués et tableaux doivent nommer le vrai chemin du schéma; utilisez `useFormFieldPath` pour composer un éditeur enfant.
 
@@ -31,3 +35,11 @@ Avec un schéma de courriel requis, cela fournit l’indication visible et la s�
 `forms:inventory` inventorie les déclarations; `forms:audit` décrit les contrats inférés et explicites, et `forms:check` refuse les décisions non résolues. Documentez les exceptions justifiées dans les dossiers privés `architecture/form-field-contracts`, avec motif et preuve source; ne supprimez pas le contrôle d’un composant entier pour un seul champ dynamique.
 
 Les messages d’interface d’extension utilisent les catalogues propres au paquet `defineGcsExtensionMessages` et `useExtensionI18n(messages)`, avec clés bilingues et paramètres identiques. Ils n’accèdent pas librement aux clés de traduction de l’hôte. Consultez [Création d’extensions](./extensions-authoring.md).
+
+## Contrôles monétaires exacts et traductions proposées
+
+Par exemple, un agent qui saisit un montant de réclamation de 1 250,50 doit enregistrer exactement cette valeur monétaire, même lorsque l’interface anglaise affiche des séparateurs de milliers et de décimales différents. Lorsqu’une traduction est proposée pour une description bilingue, l’agent doit encore vérifier le brouillon et l’enregistrer; la proposition n’est pas une modification métier approuvée ou enregistrée.
+
+Utilisez `CommonCurrencyInput` et `formatMoneyText` sans conversion numérique avec la devise propriétaire. Conservez brouillons vides/invalides, charges décimales exactes, groupement localisé et deux décimales. Ne convertissez pas les montants faisant autorité en `Number` ni en contrôle uniquement numérique. Les enfants financiers enregistrés doivent respecter la devise immuable de l’entente.
+
+Les champs bilingues d’extension reçoivent sujet/action explicites et modèles de langue actifs. Une proposition modifie le brouillon sans contourner obligation, longueur maximale, accès ni enregistrement. Les questionnaires conservent zéro/faux et valident la définition figée à la soumission. Voir [Bilinguisme](../concepts/bilingualism.md) et [Collectes de données](../concepts/data-collections.md).

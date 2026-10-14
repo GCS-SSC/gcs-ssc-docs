@@ -163,17 +163,22 @@ await writeCoverage('api-coverage.json', apiRows)
 const migrationRegistry = await readFile(join(appRoot, 'server/database/production-core-migrations.ts'), 'utf8')
 const migrationNames = [...migrationRegistry.matchAll(/'(?<name>\d{4}_[^']+)':/g)].map(match => match.groups!.name)
 const dataRows: CoverageRow[] = []
-for (const name of migrationNames) {
-  const source = `server/database/migrations/${name}.ts`
+const dataSources = [
+  ...migrationNames.map(name => ({ name, source: `server/database/migrations/${name}.ts`, kind: 'migration' })),
+  ...(await walk(join(appRoot, 'server/database/schema'), path => path.endsWith('.ts')))
+    .map(path => ({ name: relative(join(appRoot, 'server/database/schema'), path).replace(/\.ts$/, ''), source: relative(appRoot, path), kind: 'schema' }))
+]
+for (const { name, source, kind } of dataSources) {
   const text = await readFile(join(appRoot, source), 'utf8')
-  dataRows.push(row(`migration:${name}`, source, ['developer', 'operator'], 'developer/data-model.md', 'Registered ordered core migration and its PostgreSQL/PGlite behavior.'))
+  dataRows.push(row(`${kind}:${name}`, source, ['developer', 'operator'], 'developer/data-model.md', 'Registered subject baseline or schema helper and its PostgreSQL/PGlite behavior.'))
   const mechanisms = new Set<string>()
   for (const pattern of [
     /createTable\(['"`]([^'"`]+)['"`]\)/g,
     /createType\(['"`]([^'"`]+)['"`]\)/g,
     /CREATE(?: OR REPLACE)? FUNCTION\s+([\w.]+)/gi,
     /CREATE(?: CONSTRAINT)? TRIGGER\s+([\w.]+)(?=\s)/gi,
-    /ADD CONSTRAINT\s+([\w.]+)/gi
+    /\bCONSTRAINT\s+(?!TRIGGER\b)"?([\w.]+)"?/gi,
+    /CREATE\s+EXTENSION\s+(?:IF\s+NOT\s+EXISTS\s+)?([\w.]+)/gi
   ]) {
     for (const match of text.matchAll(pattern)) mechanisms.add(match[1])
   }
@@ -194,7 +199,10 @@ for (const name of migrationNames) {
     }
   }
   for (const mechanism of [...mechanisms].sort()) {
-    dataRows.push(row(`data:${name}:${mechanism.toLowerCase()}`, `${source}#${mechanism}`, ['developer', 'operator'], 'developer/data-model.md', 'Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract.'))
+    // Quoted SQL identifiers can differ only by case and must keep distinct rows.
+    const caseCollision = [...mechanisms].some(other => other !== mechanism && other.toLowerCase() === mechanism.toLowerCase())
+    const mechanismId = caseCollision ? mechanism : mechanism.toLowerCase()
+    dataRows.push(row(`data:${kind === 'schema' ? 'schema/' : ''}${name}:${mechanismId}`, `${source}#${mechanism}`, ['developer', 'operator'], 'developer/data-model.md', 'Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract.'))
   }
 }
 await writeCoverage('data-coverage.json', dataRows)
@@ -216,12 +224,15 @@ const domains = [
   ['reviews-assessments-checklists', 'server/api/reviews; server/api/review-sets', 'programs/assessment-schemas.md'],
   ['approvals-recommendations-completions-workflows', 'server/api/approvals; server/api/completions; server/api/workflows', 'concepts/approvals-completions.md'],
   ['common-administration', 'server/api/admin/gwcoa', 'admin/common-admin.md'],
-  ['audit-evidence', 'server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0120_audit.ts', 'admin/audit.md'],
+  ['audit-evidence', 'server/api/admin/audit; server/utils/audit-runtime.ts; server/database/migrations/0140_audit.ts', 'admin/audit.md'],
   ['database-integrity-concurrency', 'server/database/migrations; server/utils/*transaction*', 'developer/data-model.md'],
   ['i18n-validation-errors', 'i18n; shared/types/schemas; server/utils/api-validate.ts', 'developer/validation-i18n.md'],
   ['files-documents', 'server/utils/file-storage.ts; server/utils/document-generation.ts', 'developer/document-generation.md'],
   ['extensions', 'modules/gcs-extensions.ts; packages/gcs-ssc-extensions', 'concepts/extensions.md'],
-  ['workers-background-processing', 'server/workers', 'operator/background-work.md'],
+  ['funding-opportunity-intake', 'server/utils/funding-opportunity-links.ts; server/utils/funding-case-exchange.ts; shared/types/schemas/funding-opportunity-intake.ts', 'intake/opportunities.md'],
+  ['data-collections', 'server/utils/data-collection-runtime.ts; server/utils/data-collection-setup-versioning.ts; shared/types/schemas/data-collection.ts', 'concepts/data-collections.md'],
+  ['financial-adjustments-recoveries', 'server/utils/correction.ts; server/utils/journal-voucher.ts; server/utils/account-receivable.ts', 'agreements/receivables.md'],
+  ['workers-background-processing', 'server/workers; server/plugins/l1-queue.ts; server/plugins/storage-cleanup.ts', 'operator/background-work.md'],
   ['build-deployment-operations', 'package.json; nuxt.config.ts; Dockerfile; railway.json; .github/workflows', 'operator/deployment.md'],
   ['accessibility-ui-states', 'app/components; app/pages', 'getting-started/navigation.md']
 ] as const
@@ -238,6 +249,8 @@ const configItems = [
   ['docker-railway', 'Dockerfile; docker-compose.yml; railway.json'],
   ['ci-demo-webcontainer', '.github/workflows; scripts/webcontainer.ts'],
   ['health-readiness', 'server/api/health.get.ts'],
+  ['durable-l1-scheduling', 'server/plugins/l1-queue.ts; server/utils/l1-queue.ts; server/utils/extension-scheduled-import.ts'],
+  ['host-diagrams', 'packages/gcs-ssc-diagrams; app/components/Common/FlowDiagram.vue'],
   ['quality-testing', 'package.json; tooling/gcs-ssc; vitest*.ts; playwright.config.ts'],
   ['extension-packaging', 'modules/gcs-extensions.ts; Dockerfile; package.json']
 ] as const

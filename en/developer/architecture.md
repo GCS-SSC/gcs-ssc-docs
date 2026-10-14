@@ -1,6 +1,12 @@
 # Architecture
 
+This page is for developers maintaining the application or building extensions. Officers do not need these implementation details to manage a funding file. It explains where a change belongs and how the application protects saved records.
+
 The source app is a Nuxt 4 single-page application with server API routes, shared TypeScript schemas, Kysely database access, Better Auth, Nuxt UI, Nuxt i18n, and a local extension module.
+
+The browser displays forms and lists; server routes validate requests and enforce permissions; the database stores the records. Shared schemas keep the browser and server using the same field rules.
+
+For example, when an officer saves a Proponent contact, the page submits the entered details to a server route. The server validates the fields, checks the officer’s role and assignment to that Proponent, and saves the contact and its link together. A visible edit button is therefore only a convenience; the server still decides whether the change is allowed.
 
 ## Workspace shape
 
@@ -17,13 +23,13 @@ The source app is a Nuxt 4 single-page application with server API routes, share
 
 ## Frontend patterns
 
-List pages commonly use `useResourceTable` and resource layout components. Detail pages commonly use `CommonEntityHero` for the collapsible header, route tabs through `useRouteTabMap`, and route location helpers from `app/utils/route-locations.ts`. Create and update forms use shared Zod schemas through `useZodI18n`.
+List pages use shared resource tables, toolbar search and adjacent status filters. Detail pages compose `CommonDetailPage`, `CommonDetailWorkspace` and `CommonDetailSection` with explicit layout ownership, URL section selection and mobile focus; `CommonEntityHero` supplies parent context. Extension Agreement detail pages use the same frame. Create/update forms retain shared Zod validation through `useZodI18n`. `@gcs-ssc/diagrams` provides shared flow models and a Vue renderer for workflow and Portal form diagrams.
 
 Permission-aware UI uses `useAuth` and `useCan`. `useAuth` fetches the canonical `{ grants }` response from `/api/auth/permissions`, validates each static grant, and exposes `authorize`, `authorizeGrant`, and `hasAbility`. Static grants provide the cumulative role ceiling. Existing assignable-entity mutations separately require an exact `Common_Entity_Assignment`; this roster is returned by entity APIs rather than expanded into the static grant list.
 
 ## Server patterns
 
-Server routes read validated bodies and queries through i18n-aware helpers, authorize using `authorize`, and access the database through `event.context.$db`. Route helpers resolve scopes from target records before authorization. Soft deletion is implemented by updating `_deleted`.
+Server routes read validated bodies and queries through i18n-aware helpers, authorize using `authorize`, and access the database through `event.context.$db`. Route helpers resolve scopes from target records before authorization. Soft deletion updates `_deleted` to remove a record from active lists while preserving its history.
 
 ## Protected writes and concurrency
 
@@ -41,7 +47,7 @@ GWCOA has a dedicated global catalogue UI and `/api/admin/gwcoa` routes. Its rea
 
 ## Extension architecture
 
-The extension module discovers extension definitions and generates metadata. Runtime server utilities load handlers and runtime resolvers through Jiti. Agency enablement, stream configuration, full-page stream configuration, entity tabs, runtime slots, server handlers, create actions, calculators, migrations, key-value storage, and encrypted secrets are all host-mediated.
+The extension module discovers extension definitions and generates metadata. Runtime server utilities load registered handler and resolver contributions through the generated server module registry. Agency enablement, stream configuration, full-page stream configuration, entity tabs, runtime slots, server handlers, create actions, calculators, migrations, key-value storage, and encrypted secrets are all host-mediated.
 
 Extension packages should use the public `@gcs-ssc/extensions` package instead of host internals. Its entry points are:
 
@@ -61,4 +67,4 @@ Nuxt i18n uses prefixed locale routes and locale JSON files. Data models often s
 
 The database stores business metadata, provider identities and locators; registered file-storage extensions own bytes. Shared attachment mutations recheck exact target authorization and lifecycle state, while durable cleanup jobs compensate for external operations that cannot participate in the database transaction. Generated documents also use the provider facade. See [Attachments](../concepts/attachments.md) and [Background Work](../operator/background-work.md).
 
-Transactional audit triggers capture committed data changes. HTTP access events use a separate bounded in-memory queue, so they have different durability guarantees. Startup completes core migrations, enabled extension migrations, provider checks and audit setup before ordinary API traffic is accepted.
+Transactional audit triggers capture committed data changes. HTTP access events use a separate bounded in-memory queue, so they have different durability guarantees. Startup completes core migrations, enabled extension migrations, provider checks and Audit setup before ordinary API traffic is accepted. Deferred extension plugins then activate and the durable L1 runner offers bounded recurring work. Financial read/coding services remain bound to host-authorized scopes. See [Data model](./data-model.md) and [SDK authoring](./extensions-authoring.md).
