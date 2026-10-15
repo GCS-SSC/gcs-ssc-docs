@@ -72,7 +72,7 @@
       "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group identity in review-groups.json. Shared Proponent visibility via any effective active Agency/global Proponent grant, exact rosters and preserved group primary, dedicated financial subjects, mandatory same-Agency Financial ID with historical references and independent source reads. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:agency-administration",
@@ -95,7 +95,7 @@
       "server/utils/agency-finance-catalog.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:transfer-payment-design",
@@ -118,7 +118,7 @@
       "server/utils/agency-finance-catalog.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:applicant-recipients",
@@ -169,7 +169,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:reviews-assessments-checklists",
@@ -195,7 +195,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:approvals-recommendations-completions-workflows",
@@ -222,7 +222,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:common-administration",
@@ -244,7 +244,7 @@
       "server/utils/agency-finance-catalog.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:audit-evidence",
@@ -292,7 +292,7 @@
       "server/database/schema/commitment-coding.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:i18n-validation-errors",
@@ -358,7 +358,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-document-context.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group documents in review-groups.json. Generic render boundary, localized custom fields, scalar Word conditions, pagination/search and Amendment context/authorization; department context removed, internal event-local provider seam retained. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups program-budget-and-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:extensions",
@@ -388,7 +388,7 @@
       "modules/../shared/utils/extension-sdk-aliases.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group sdk in review-groups.json. SDK 0.3.17 host capability boundary: Agency workspace, Opportunity/Payment tabs, Agreement details, scoped bilingual fields, retained evidence, host-bound financial reads and Stream-catalog coding allocator. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:funding-opportunity-intake",
@@ -419,7 +419,7 @@
       "app/components/FundingOpportunity/SetupRelationshipsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group opportunity in review-groups.json. Program-authorized Opportunity, selected eligible Streams, Agency statuses, dated eligibility and attachment associations; ordinary UI has no status editor or automatic approval-to-Agreement creation. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs, deleted-agency-group-boundary, exact-target-and-input-hardening, opportunity-and-intake-current-source in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:data-collections",
@@ -450,7 +450,7 @@
       "tooling/gcs-ssc/tests/unit/data-collection-runtime.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group collection in review-groups.json. Published Agency questionnaire, repeated inline/Home runtime, exact/group assignment, draft revision conflict, required-answer validation and optional approval. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:financial-adjustments-recoveries",
@@ -507,7 +507,7 @@
       "tooling/gcs-ssc/tests/unit/account-receivable-host-payment-completion.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group receivable in review-groups.json. Claim/paid-Advance eligibility and coding, posted original/adjustment balances, independent permissions/rosters, approved recovery, reservations/holds, Claim reductions only at full clearance. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs, program-budget-and-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:workers-background-processing",
@@ -563,7 +563,7 @@
       "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group operations in review-groups.json. Pinned build/source/gitlinks, separate Portal/Metabase persistence, clean demo cutover boundary, bundled diagram/survey workspaces, same-origin dev auth, cached Nitro reset and serial managed PGlite shards; no live deployment inspection. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "domain:accessibility-ui-states",

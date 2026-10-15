@@ -44,13 +44,13 @@ Un changement d’exercice est refusé lorsque des lignes actives attribuées r�
 
 L’onglet **Soumission** regroupe les lignes budgétaires de l’exercice courant selon la catégorie de coûts bilingue et la sous-section. Il affiche les montants soumis, rapprochés et le solde. La recherche porte sur la catégorie, la sous-section, le nom bilingue de la ligne ou sa description.
 
-1. Saisissez le montant demandé au programme pour chaque ligne budgétaire requise. Utilisez la devise de l’entente et des montants de zéro ou plus; les montants soumis du programme, les coûts totaux et les autres sources ne peuvent pas être négatifs.
-2. Sélectionnez **Enregistrer la soumission**. Une nouvelle cellule à zéro ne crée aucune ligne. Une nouvelle cellule non nulle crée une ligne; modifier un montant existant met cette ligne à jour.
-3. Si l’enregistrement échoue, actualisez la page et comparez chaque ligne à la soumission voulue. Les premières lignes peuvent déjà être enregistrées, car la page enregistre séparément chaque ligne modifiée, dans l’ordre. Reprenez seulement les corrections manquantes.
+1. Sélectionnez l’action de modification de la ligne budgétaire voulue. La boîte **Modifier le montant soumis** affiche son montant enregistré.
+2. Saisissez le montant demandé au programme et sélectionnez **Enregistrer**. Utilisez la devise de l’entente et des montants de zéro ou plus. Seule cette ligne est modifiée. Un nouveau montant nul ne crée aucune ligne; une ligne existante peut être mise à zéro.
+3. Après une erreur, corrigez le montant dans la boîte. Si la réponse ou l’actualisation est incertaine, rechargez et vérifiez la ligne enregistrée avant de réessayer.
 
 **Détails techniques pour les intégrations :** l’API hôte prend aussi en charge la description, la devise, les libellés soumis facultatifs de catégorie, sous-section et ligne, le déplacement vers une autre réclamation modifiable et la suppression logique. Ces commandes supplémentaires de création, de modification et de suppression sont disponibles par l’API plutôt que dans la grille actuelle. La base dérive l’entente de chaque ligne à partir de sa réclamation et utilise des clés étrangères composites pour garder toute ligne budgétaire sélectionnée dans cette entente.
 
-Vérifiez les lignes en double dans les réclamations importées avant la soumission. La grille modifiable affiche seulement la première ligne pour une ligne budgétaire donnée; une réclamation verrouillée affiche les doublons séparément. Corrigez les entrées en double pendant que la réclamation est encore modifiable.
+Les lignes importées en double s’affichent séparément, même dans une réclamation modifiable. Confirmez la ligne précise avant de la modifier. Chaque doublon compte encore dans les totaux; modifier une ligne ne change pas les autres. Corrigez les doublons involontaires pendant que la réclamation est modifiable.
 
 **Détail technique :** aucune contrainte d’unicité active n’existe pour `(réclamation, ligne budgétaire)`. Les requêtes API directes et les importations peuvent donc créer des doublons.
 
@@ -110,7 +110,7 @@ La transaction commune démarre le flux de soumission `fundingclaimreconcile` s�
 
 Les statuts en lecture seule ou terminaux, la preuve d’achèvement, la fermeture et le rapprochement final réussi régissent l’édition. Le serveur vérifie aussi l’entente propriétaire et les flux actifs; un bouton visible ne permet pas de contourner un changement d’état ultérieur.
 
-Après un échec de grille de soumission, rechargez : des écritures précédentes peuvent être validées.
+Après un échec d’enregistrement du montant soumis, vérifiez la ligne choisie et rechargez après une réponse incertaine. Les autres lignes sont enregistrées séparément.
 
 Après un échec groupé de rapprochement, la transaction est annulée; corrigez les champs ou rechargez l’ensemble périmé.
 
@@ -134,7 +134,7 @@ Enregistrez d’abord la ligne mensuelle ou soumise, puis utilisez son éditeur 
 
 Le coût total ne peut être inférieur au financement du programme. Dès que des autres sources sont saisies, leur somme avec le programme doit égaler exactement le coût total.
 
-Votre volet peut exiger une ventilation pour les prévisions, les réclamations, les deux ou aucune des deux. Lorsqu’elle l’est, chaque ligne active doit avoir au moins une allocation d’autres fonds enregistrée et une ventilation exactement équilibrée avant Achèvement. Cela comprend toutes les versions de prévision rédigées, pas seulement celle affichée.
+Votre volet peut exiger une ventilation pour les prévisions, les réclamations, les deux ou aucune des deux. Lorsqu’elle l’est, chaque ligne active doit avoir au moins une allocation d’autres fonds enregistrée et une ventilation exactement équilibrée avant Achèvement. Chaque version de prévision a son propre achèvement et est vérifiée séparément.
 
 Par exemple, un équipement de 1 000,00 peut être financé par 700,00 du programme et 300,00 d’une autre source : 700,00 + 300,00 = 1 000,00. Saisir seulement 250,00 de cette source laisse un écart de 50,00; la ventilation ne peut donc pas être enregistrée comme équilibrée.
 
@@ -148,8 +148,12 @@ Les réclamations partagent la limite annuelle avec les autres réclamations act
 
 Pour les rapprochements, le contrôle comprend votre montant proposé et les rapprochements antérieurs réussis. Les réclamations ou dossiers à issue négative sont exclus.
 
-L’application vérifie des limites annuelles distinctes pour le financement du programme, le coût total et chaque type d’autres fonds. Les montants rapprochés sont comptés dans la limite du financement du programme.
+Le plafond annuel est le financement courant du programme pour cet exercice et cette devise. Le coût total et les autres sources suivent leurs règles d’équilibre par ligne, mais n’ont pas de plafonds annuels distincts. Les montants rapprochés comptent dans le plafond du programme.
 
 Par exemple, 10 000 de financement annuel du programme avec une réclamation comptée de 6 000 laisse 4 000 pour une autre réclamation. Une proposition de 4 500 échoue même si son promoteur ou sa ligne de coûts diffère.
 
-Actualisez le budget et les dossiers comptés, corrigez le montant ou la source, ou appliquez une modification autorisée. Une requête refusée annule cette requête; les premières requêtes de la grille peuvent déjà être enregistrées.
+Les réductions de réclamation appliquées libèrent de la capacité annuelle pour les réclamations et rapprochements dans l’exercice de la réclamation d’origine. Un plan en brouillon, la comptabilisation de la dette ou un remboursement partiel ne libère pas cette capacité. La réduction s’applique lorsque la créance comptabilisée est entièrement soldée. Elle ne peut ramener l’utilisation comptée d’une réclamation sous zéro ni transférer un crédit excédentaire à une autre réclamation.
+
+Par exemple, avec un financement annuel du programme de 120 000, une réclamation comptée de 30 000 laisse 90 000. Une créance entièrement soldée avec une réduction appliquée de 10 000 ramène l’utilisation comptée à 20 000 et permet une autre réclamation de 100 000. Une proposition de 100 000,01 échoue encore. La réclamation soumise d’origine reste inchangée.
+
+Actualisez le budget courant, les dossiers comptés et les [Créances](./receivables.md), corrigez le montant ou appliquez une modification autorisée avant de réessayer. Les réductions budgétaires utilisent une règle supplémentaire pour les encaissements comptabilisés, expliquée dans [Modifications](./amendments.md); elle ne libère pas de capacité pour une nouvelle réclamation avant l’application de la réduction.

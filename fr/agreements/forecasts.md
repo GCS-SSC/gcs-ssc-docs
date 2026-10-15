@@ -1,113 +1,72 @@
 # Prévisions d’entente
 
-Utilisez les prévisions pour indiquer quand les dépenses de l’entente devraient avoir lieu. Saisissez les montants attendus par ligne budgétaire et par mois; les numéros de version permettent de conserver plusieurs estimations dans la même prévision. Ouvrez une entente et sélectionnez **Prévisions**; l’onglet regroupe les versions affichées par exercice budgétaire de l’entente.
+Utilisez les prévisions pour indiquer quand les dépenses de l’entente devraient avoir lieu. Ouvrez une entente et sélectionnez **Prévisions**. Chaque version numérotée est une prévision distincte avec ses montants mensuels, ses utilisateurs affectés, son achèvement et son historique d’approbation.
 
 ## Avant de commencer
 
-| Exigence | Comportement vérifié |
+| Exigence | Points à vérifier |
 | --- | --- |
-| Budget courant de l’entente | Choisissez un exercice du budget courant de l’entente. La prévision conserve une référence stable à cet exercice et affiche ses lignes budgétaires courantes, même lorsqu’une modification remplace la version du budget. |
-| Autorisation | Lecteur Entente consulte. La création d’une prévision exige Contributeur et l’affectation à l’entente, puis rend le créateur principal. Les modifications ou l’achèvement exigent Contributeur et l’affectation à la prévision; la suppression exige Gestionnaire et cette affectation. |
-| Dossier d’utilisateur commun | L’achèvement exige que le compte connecté corresponde à un `Common_User` actif. |
-| Soumission d’approbation facultative | L’achèvement démarre atomiquement le flux publié `approval_submission` configuré avec le déclencheur `on_completion` pour `fundingcaseforecast`, ou consigne `no_workflow`. Les transitions du flux appliquent les statuts d’organisme configurés. |
+| Budget courant de l’entente | L’exercice doit appartenir au budget courant. Le sélecteur propose les exercices ayant des lignes budgétaires courantes. |
+| Accès | Lecteur Entente consulte. La création exige Contributeur et une affectation à l’entente; le créateur devient le responsable principal de la prévision. La modification et l’achèvement exigent Contributeur et une affectation à cette prévision. La suppression exige Gestionnaire et cette affectation. |
+| Dossier d’utilisateur | L’achèvement exige un dossier d’utilisateur actif pour le compte connecté. |
+| Flux d’approbation facultatif | Un flux publié de soumission d’approbation pour les prévisions démarre à l’achèvement s’il est configuré. Le remplacement devient actif seulement après la réussite. |
 
-Le serveur revérifie vos permissions sur l’entente à l’enregistrement et verrouille l’entente et les prévisions touchées pour éviter les modifications concurrentes. Vous ne pouvez pas utiliser un exercice ou une ligne budgétaire d’une autre entente, d’un dossier supprimé ou d’une ancienne version du budget.
+Le serveur vérifie de nouveau votre accès courant et les verrous de l’entente à l’enregistrement. Les lignes budgétaires doivent appartenir à cette entente, à l’exercice choisi et au budget courant.
 
 ## Créer et parcourir les prévisions
 
-Choisissez **Ajouter une prévision** et sélectionnez un exercice dérivé des lignes du budget courant. La nouvelle prévision est inactive et porte le statut Brouillon de l’organisme. « Inactive » signifie qu’elle n’a pas remplacé la prévision active de cet exercice. La base de données n’exige pas qu’une prévision contienne des lignes et n’impose pas un seul en-tête inactif par entente et par exercice.
+Choisissez **Ajouter une prévision**, sélectionnez l’exercice et enregistrez. La nouvelle prévision est un brouillon inactif. Le système attribue le prochain numéro de version pour cette entente et cet exercice, à partir de 0. Les versions supprimées réservent encore leur numéro.
 
-Un dossier de prévision peut contenir plusieurs versions numérotées des montants mensuels. Le tableau les affiche sur des rangées distinctes, mais elles partagent un seul dossier de prévision :
+Développez un groupe d’exercice pour voir chaque version, son statut, son indicateur actif, le nombre de lignes et son total dans la devise de l’entente. Le total et le statut du groupe proviennent de la version active, ou de la dernière version si aucune n’est active. Ils ne sont pas la somme des différentes estimations. La recherche porte sur l’exercice, la version, le statut, le nombre de lignes ou le total; le filtrage et la pagination suivent le chargement du résumé.
 
-| Affichage | Source |
-| --- | --- |
-| Groupe d’exercice | L’identité stable de l’exercice budgétaire de l’en-tête et le libellé de l’exercice courant. |
-| Version | Chaque valeur `egcs_fc_version` distincte trouvée dans les lignes mensuelles actives de cet en-tête. Un en-tête sans ligne est représenté comme version `0`. |
-| État | L’unique état de l’en-tête de prévision; toutes les versions affichées ont donc le même état de cycle de vie. |
-| Lignes et total | Nombre et somme des lignes actives de cet en-tête et de cette version. Les totaux utilisent la devise de l’entente sans conversion. |
+Sélectionnez **Ajouter une version** dans un groupe d’exercice pour créer et ouvrir un brouillon distinct. Normalement, il copie les montants mensuels, les coûts totaux et les allocations d’autres fonds de la prévision active. Sans prévision active, il est vide. Si la prévision active dépasse le budget annuel courant du programme, il est aussi vide afin de préparer un remplacement qui respecte le budget. Les versions précédentes gardent leur historique et leurs affectations.
 
-La recherche correspond à l’exercice, à la version, à l’état localisé, au nombre de lignes ou au total. Le filtrage, le regroupement, le tri et la pagination se font dans le navigateur après le chargement du résumé complet.
-
-Sélectionnez **Ajouter une version** pour saisir une nouvelle estimation dans le même dossier de prévision. L’action ouvre le prochain numéro de version dans l’URL; elle ne copie pas les montants précédents et ne crée pas de dossier distinct. Les cellules non nulles enregistrées portent le nouveau numéro. Par exemple, la version 0 peut prévoir 2 000,00 en avril et 3 000,00 en mai, soit 5 000,00. Pour montrer un retard dans la version 1, saisissez 1 000,00 en avril et 4 000,00 en mai. Le total reste 5 000,00; les deux versions partagent le statut de la prévision.
-
-::: warning Unicité des en-têtes et des versions
-Pour la saisie normale, conservez un dossier de prévision par exercice et un montant par ligne budgétaire, mois et version. Confirmez le dossier voulu avant de le modifier, de le supprimer ou d’ajouter une version depuis un groupe d’exercice.
-
-**Détail technique pour les importations et intégrations :** l’API permet plusieurs dossiers de prévision inactifs pour la même entente et le même exercice, ainsi que des lignes actives en double pour une même prévision, ligne budgétaire, mois et version. Les actions de groupe supposent un dossier par exercice; la correspondance en mémoire de la grille de détails ne conserve qu’un doublon. La grille affichée peut donc masquer des montants importés en double.
-:::
+Par exemple, la version active 0 prévoit 2 000 en avril et 3 000 en mai. Ajoutez la version 1, puis changez les montants copiés à 1 000 et 4 000. Les deux totalisent 5 000. La version 0 reste active pendant que la version 1 est en brouillon ou en attente d’approbation.
 
 ## Modifier la ventilation mensuelle
 
-La route de détails accepte une valeur `version` dans la requête; en son absence, la valeur par défaut est `0`. La grille regroupe les lignes du budget courant par catégorie de coûts bilingue et par sous-section de coûts. Elle montre d’abord les totaux trimestriels d’avril à mars; sélectionnez l’en-tête d’un trimestre pour afficher ses trois champs mensuels. La recherche correspond à la catégorie, à la sous-section, aux noms de ligne dans les deux langues ou à la description.
+Ouvrez la version à modifier. Son exercice et son numéro de version ne sont pas modifiables. La grille regroupe les lignes du budget courant par catégorie et sous-section de coûts, avec des totaux trimestriels d’avril à mars. Sélectionnez l’en-tête d’un trimestre pour afficher ses champs mensuels. La recherche porte sur la catégorie, la sous-section, le nom bilingue ou la description.
 
-Le tableau suivant comprend les formats techniques de l’API utilisés par les importations et les intégrations.
+1. Saisissez les montants attendus du programme, de zéro ou plus, dans la devise de l’entente, avec au plus deux décimales.
+2. Sélectionnez **Enregistrer la ventilation**. Une nouvelle cellule à zéro ne crée aucune ligne. Mettre une cellule existante à zéro conserve sa ligne avec un montant nul.
+3. Si l’enregistrement échoue, actualisez et comparez toutes les cellules enregistrées aux montants voulus. Les cellules sont enregistrées dans l’ordre; les premiers changements peuvent déjà être conservés. Corrigez la cellule signalée et enregistrez le reste.
 
-| Champ de ligne | Règle |
-| --- | --- |
-| Prévision | En-tête modifiable obligatoire de cette entente. Une requête PATCH directe peut déplacer une ligne vers une autre prévision modifiable de la même entente. |
-| Ligne budgétaire | Identité stable obligatoire d’une ligne de la version budgétaire courante, de la même entente et du même exercice que la prévision cible. |
-| Mois | Entier de `0` à `11`, soit d’avril à mars. |
-| Montant | Valeur `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas `99999999999999999.99`, transmis en texte décimal exact. Le schéma de requête impose des montants non négatifs pour le programme et le coût total. |
-| Devise | Valeur d’énumération de devise obligatoire. Les nouvelles lignes héritent de la devise de l’entente portée par la ligne budgétaire; aucune conversion de devise n’est effectuée. |
-| Version | Entier non négatif obligatoire, normalisé en texte décimal pour l’API et stocké comme bigint. |
+Une requête de ligne refusée annule cette requête. Aucune transaction unique ne couvre la grille entière. La grille peut masquer des montants importés en double pour la même ligne budgétaire et le même mois; les intégrations devraient envoyer un montant par cellule et vérifier les lignes enregistrées avant l’achèvement.
 
-1. Saisissez les montants du programme attendus par mois, avec des montants de zéro ou plus. Sélectionnez l’en-tête d’un trimestre pour ouvrir ses champs mensuels.
-2. Sélectionnez **Enregistrer la ventilation**. Une nouvelle cellule à zéro ne crée aucune ligne. Mettre une cellule existante à zéro conserve cette ligne avec un montant nul.
-3. Si l’enregistrement échoue, actualisez la page et comparez les cellules enregistrées à la prévision voulue. Les premières cellules peuvent déjà être enregistrées. Corrigez la cellule signalée et les modifications non enregistrées, puis enregistrez de nouveau.
-
-**Contrat technique :** les cellules sont enregistrées dans l’ordre, sans transaction couvrant toute la grille. Une ligne existante modifiée utilise PATCH et exige `update`; une ligne manquante non nulle utilise POST et exige `create`.
-
-Les écritures ordinaires de lignes conservent le statut métier de l’organisme. L’API peut supprimer logiquement des lignes individuelles, mais la grille actuelle n’offre aucune action de suppression de ligne. La suppression d’un en-tête modifiable supprime logiquement celui-ci et toutes ses lignes actives de façon atomique.
-
-L’exercice de l’en-tête ne peut pas changer tant qu’une ligne active existe. Le serveur vérifie l’exercice courant cible et refuse le déplacement; il ne masque pas silencieusement les anciennes lignes. Choisissez le bon exercice avant la saisie.
+Les changements ordinaires conservent le statut métier de l’organisme. Supprimer une prévision modifiable la retire des listes normales avec ses lignes actives, tout en conservant l’historique. Aucune commande de rétablissement n’est offerte.
 
 ## Cycle de vie et achèvement
 
-Vous ne pouvez pas modifier une prévision lorsque l’organisme a rendu son statut en lecture seule ou terminal, lorsqu’un achèvement a été consigné ou lorsque du travail de flux protégé empêche les changements. Le statut métier n’est pas déduit de noms fixes tels que `inprogress` ou `approved`.
+Enregistrez la ventilation et les détails de financement requis avant de sélectionner Achever. Il faut une affectation à cette version, le niveau Contributeur, au moins une ligne active, aucun achèvement antérieur et un dossier modifiable. Un statut d’organisme en lecture seule ou terminal, un flux actif ou une entente protégée peut bloquer les changements.
 
-Achèvement exige Contributeur et l’affectation à cette prévision, un en-tête modifiable, aucun achèvement antérieur et au moins une ligne active, toutes versions confondues. Un flux actif le bloque. L’action consigne l’utilisateur et le commentaire facultatif puis démarre atomiquement la soumission d’approbation configurée, ou consigne `no_workflow`. Le crochet de suivi de l’application s’exécute après la validation de la transaction en base de données.
+L’achèvement consigne l’utilisateur et le commentaire facultatif. Il démarre le flux configuré de soumission d’approbation, ou consigne un achèvement sans flux. La réussite active cette version et remplace la prévision active de la même entente et du même exercice. Sans flux d’approbation, c’est immédiat; sinon, cela attend sa réussite. Un échec ou une annulation laisse l’ancienne prévision active. Un brouillon portant un numéro plus élevé ne la remplace pas.
 
-Achèvement couvre tout le dossier de prévision, y compris chaque version, plutôt que seulement celle que vous consultez. Elle ne copie pas de version et n’exige pas une ligne pour chaque coordonnée mensuelle visible. À l’issue réussie de l’achèvement, cette prévision devient active et les autres prévisions actives de la même entente et identité d’exercice sont désactivées. Sans flux, c’est immédiat; avec un flux, cela attend sa réussite.
-
-## Approbation et exemple de remplacement
-
-Publiez un flux de soumission pour `fundingcaseforecast` afin d’exiger examen ou approbation à l’achèvement. Incluez le modèle ou plan publié; un modèle seul ne relie pas le parcours. Suivez les étapes dans la section Flux. Les flux standard sont choisis explicitement et ne remplacent pas Achèvement.
-
-Par exemple, conservez une prévision active de 12 000,00 pendant la préparation d’une prévision de remplacement de 10 000,00 à la suite d’un retard du projet. Saisissez et enregistrez ses lignes mensuelles, achevez-le puis terminez son approbation. La réussite remplace l’en-tête actif de cette entente/exercice; un échec ou une annulation ne l’active pas. Puisque plusieurs en-têtes inactifs sont permis, identifiez soigneusement le dossier voulu plutôt que traiter chaque version affichée comme une prévision approuvée indépendante.
-
-Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).
-
-## Rétablissement
-
-- L’achèvement ne peut pas être répété ni annulé à partir de cette page. Créez une prévision de remplacement seulement après avoir vérifié s’il existe déjà un en-tête pour cet exercice.
-- Les prévisions verrouillées ne peuvent pas être modifiées ni supprimées par ces routes. La suppression d’une prévision modifiable est logique plutôt que physique.
-- Si le sélecteur d’exercice est vide, ajoutez des lignes actives au [Budget](budget.md) courant de l’entente; l’interface n’offre pas un exercice sans ligne budgétaire courante, même si le serveur valide le dossier d’exercice lui-même.
-- Lorsqu’un amendement budgétaire remplace les rangées courantes tout en préservant la filiation stable, la prévision suit les identités d’exercice et de ligne correspondantes. Une ligne courante supprimée ou sans correspondance disparaît de la grille modifiable.
+L’achèvement ne peut être répété ni annulé ici. Utilisez une nouvelle version pour remplacer une prévision achevée. Les flux standard se choisissent séparément et ne remplacent pas l’achèvement. Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).
 
 ## Ventilation du financement et contrôles budgétaires annuels
 
-Une ligne financière indique comment un coût sera payé : le montant demandé au programme, le coût total et les montants provenant d’autres sources. Ces sources sont classées selon les sous-types de financement configurés pour le volet.
+Enregistrez une ligne mensuelle avant d’ouvrir son éditeur de financement. Saisissez le coût total et les autres sources avec les sous-types configurés du volet. Choisissez chaque sous-type une fois; une allocation existante peut garder son sous-type retiré. Le coût total ne peut être inférieur au financement du programme. Lorsque d’autres sources sont saisies, leur somme avec le programme doit égaler exactement le coût total.
 
-Enregistrez d’abord la ligne mensuelle ou soumise, puis utilisez son éditeur de financement pour saisir le coût total et les autres sources. Choisissez chaque sous-type une seule fois. Les choix proviennent de ce volet; une allocation existante peut conserver son sous-type retiré.
+Si le volet exige des détails de financement pour les prévisions, chaque ligne active de cette version doit avoir au moins une allocation d’autres fonds enregistrée et une ventilation équilibrée avant l’achèvement. Pour un équipement de 1 000, saisissez 700 du programme et 300 d’une autre source. Une allocation de seulement 250 laisse un écart de 50 à corriger.
 
-Le coût total ne peut être inférieur au financement du programme. Dès que des autres sources sont saisies, leur somme avec le programme doit égaler exactement le coût total.
+L’enregistrement et l’achèvement comparent le montant annuel du programme de cette prévision au financement courant du même exercice et de la même devise. Les versions sont vérifiées séparément. Le coût total et les autres sources doivent respecter les règles de ligne, mais n’ont pas de plafonds budgétaires annuels distincts.
 
-Votre volet peut exiger une ventilation pour les prévisions, les réclamations, les deux ou aucune des deux. Lorsqu’elle l’est, chaque ligne active doit avoir au moins une allocation d’autres fonds enregistrée et une ventilation exactement équilibrée avant Achèvement. Cela comprend toutes les versions de prévision rédigées, pas seulement celle affichée.
+## Remplacer une prévision après une réduction du financement
 
-Par exemple, un équipement de 1 000,00 peut être financé par 700,00 du programme et 300,00 d’une autre source : 700,00 + 300,00 = 1 000,00. Saisir seulement 250,00 de cette source laisse un écart de 50,00; la ventilation ne peut donc pas être enregistrée comme équilibrée.
+Une réduction budgétaire peut être enregistrée même si une prévision active est trop élevée. L’onglet Prévisions signale l’exercice et la version touchés. Les paiements de cet exercice sont suspendus jusqu’à ce que la prévision active respecte le nouveau budget du programme.
 
-Un import de brouillon peut laisser du travail à terminer; examinez les lignes enregistrées avant l’achèvement.
+Par exemple, réduire le financement annuel du programme de 12 000 à 10 000 laisse une prévision active de 12 000 au-dessus du budget. Choisissez **Ajouter une version** pour cet exercice, saisissez un remplacement de 10 000 ou moins, enregistrez et terminez son approbation. Ce brouillon est vide au départ au lieu de copier les montants trop élevés. Les paiements restent suspendus jusqu’à l’activation du remplacement. Rétablir un financement budgétaire autorisé suffisant résout aussi l’écart.
 
-L’enregistrement des lignes et l’achèvement vérifient aussi le budget annuel courant dans la devise de l’entente.
+Supprimer la prévision active trop élevée ne permet pas de lever cette suspension. Terminez le remplacement, puis réessayez l’action de paiement. Un exercice sans prévision active n’a pas cette suspension pour écart de prévision; les autres contrôles de paiement s’appliquent toujours.
 
-Chaque version de prévision saisie est vérifiée séparément par rapport aux limites annuelles; les versions sont des estimations différentes, dont les montants ne sont pas additionnés entre elles.
+## Rétablissement
 
-Les réclamations partagent la limite annuelle avec les autres réclamations actuellement comptées. Une réclamation cesse d’utiliser cette capacité lorsque son issue courante enregistrée est sans succès, refusée, annulée ou en échec. Modifier seulement le libellé de statut affiché ne libère pas le montant.
+- Si aucun exercice n’est proposé, ajoutez des lignes courantes au [Budget](budget.md) de l’entente.
+- Si un enregistrement échoue après un changement budgétaire, actualisez le budget et vérifiez le montant annuel du programme avant de réessayer.
+- Une modification budgétaire conserve les identités d’exercice et de ligne correspondantes. Une ligne courante retirée ou sans correspondance peut disparaître de la grille modifiable; vérifiez les lignes conservées avant d’achever un remplacement.
+- Un exercice ayant un historique de prévision ne peut être réaffecté ni retiré, même après la suppression de la prévision. Gardez cet exercice dans le budget proposé d’une modification.
+- Si la page ne charge pas, utilisez Réessayer avant de saisir le même travail. Après une réponse incertaine, vérifiez la version enregistrée et l’historique du flux.
 
-Pour les rapprochements, le contrôle comprend votre montant proposé et les rapprochements antérieurs réussis. Les réclamations ou dossiers à issue négative sont exclus.
+## Contrat de développement
 
-L’application vérifie des limites annuelles distinctes pour le financement du programme, le coût total et chaque type d’autres fonds. Les montants rapprochés sont comptés dans la limite du financement du programme.
-
-Par exemple, 10 000 de financement annuel du programme avec une réclamation comptée de 6 000 laisse 4 000 pour une autre réclamation. Une proposition de 4 500 échoue même si son promoteur ou sa ligne de coûts diffère.
-
-Actualisez le budget et les dossiers comptés, corrigez le montant ou la source, ou appliquez une modification autorisée. Une requête refusée annule cette requête; les premières requêtes de la grille peuvent déjà être enregistrées.
+Les versions appartiennent à `Funding_Case_Agreement_Forecast.egcs_fc_version`; les lignes n’ont pas de champ de version. Le serveur attribue le numéro sous le verrou de l’entente. La création accepte l’identifiant d’exercice et `egcs_fc_copyfromactive` facultatif; le PATCH d’en-tête est retiré. Les schémas de ligne refusent les champs inconnus, dont l’ancienne version de ligne. Les mois restent des entiers de `0` à `11`, d’avril à mars, et les montants sont transmis en texte décimal exact. Les importations SDK renvoient la version créée. Consultez [Création d’extensions](../developer/extensions-authoring.md).

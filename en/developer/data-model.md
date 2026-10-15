@@ -4,7 +4,7 @@ This page explains how the database keeps funding records linked correctly and p
 
 For developers, the sections below retain the exact table names, constraints and maintenance commands. A **schema** is the structure of the database. **Integrity** means the rules that prevent inconsistent records, such as a Claim linked to the wrong Agreement. **Immutable** means a saved record cannot be rewritten. A **transaction** saves a group of changes together or rolls them all back; a **lock** prevents competing writes while the checks run.
 
-`server/database/production-core-migrations.ts` defines the fresh schema. `shared/types/database.d.ts` describes application types; database constraints, functions and triggers remain authoritative for persisted integrity. These are clean subject baselines, not incremental upgrades for an older migration journal.
+`server/database/production-core-migrations.ts` defines the fresh schema. `shared/types/database.d.ts` describes application types; database constraints, functions and triggers remain authoritative for persisted integrity. The schema uses clean subject baselines, with the explicit incremental commitment-budget hotfix listed below for existing deployments.
 
 ## Ordered schema
 
@@ -25,6 +25,7 @@ For developers, the sections below retain the exact table names, constraints and
 | `0125_l1_queue` | Recurring handler schedules and expiring execution leases. |
 | `0130_integrity` | Installs subject-owned functions, foreign keys and triggers after all referenced tables exist. |
 | `0140_audit` | Change/access/security evidence and ownership attribution. |
+| `9999_z_commitment_budget_payment_hold` | Explicit incremental hotfix: removes the two obsolete budget-side commitment triggers/functions after existing demo seeds, preserving business data. |
 
 Demo-only `9999_seed` loads the final demo fixtures and document templates; it is excluded from the production registry. Schema helpers in `server/database/schema/` install receivable reductions, Credit Memo and commitment-coding mechanisms through the Agreement baseline and are included in the coverage inventory.
 
@@ -60,7 +61,9 @@ Data Collection definitions contain ordered typed questions and bilingual text. 
 
 Money is canonical decimal text and exact integer-cent arithmetic; `numeric(19,2)` supports magnitude up to `99999999999999999.99`. For example, retain ID `"9007199254740993"` and amount `"10000000000000000.01"` as strings. Sign and aggregate limits are domain-specific; a generic money parser is not a positive-business-amount guarantee. Agreement currency is immutable and all financial children must match it. UI controls use that denomination and locale with two fraction digits.
 
-Current annual Agreement budgets govern Forecast and Claim writes and completion. Usage checks use stable fiscal-year/budget-line identities, current versions and effective financial evidence, and repeat under the write lock. Changing a current budget cannot undercut committed/consumed evidence. Amendment promotion rechecks the same Agreement’s annual usage; the separate cross-Agreement Stream/overcommit check remains a documented limitation in the Amendment guide. See [Budget](../agreements/budget.md), [Forecasts](../agreements/forecasts.md) and [Claims](../agreements/claims.md) for formulas and partial-save recovery.
+Current annual program funding governs Forecast and Claim writes and completion under the Agreement write lock. Total cost and other-funding types retain line-level rules, without separate annual ceilings. Budget reductions recheck counted Claims and successful reconciliations, crediting applied reductions and eligible posted Claim AR collections without double counting. Forecast or Commitment excess instead holds Payment completion, workflow start, positive approval and successful processing. Forecast holds use the payment year; Commitment holds require a current selected Commitment and sum the larger declared/live-line amount of every active type across all years. The separate cross-Agreement Amendment Stream/overcommit check remains a documented limitation. See [Budget](../agreements/budget.md), [Forecasts](../agreements/forecasts.md), [Claims](../agreements/claims.md) and [Payments](../agreements/payments.md).
+
+Forecast `egcs_fc_version` is a nonnegative bigint on the header, unique by Agreement/year/version and immutable together with Agreement/year identity. Allocation follows stable year lineage under the Agreement lock and includes deleted history. Lines no longer have a version. New versions have independent assignments and lifecycle; copies retain active monthly amounts and funding. Budget years with any Forecast history must survive reassignment/deletion and Amendment promotion checks. Commitment-line amounts are nonnegative in the request schema and fresh baseline check constraint.
 
 Commitment coding protects both exact-line paid floors and shared Agency coding pools. `fc_payment_counts_for_coding`, `fc_positive_coding_completion`, `fc_commitment_line_gross_paid`, coding-credit/net-paid/available helpers and completed-coding/paid-floor triggers enforce retained accounting effects. Duplicate coding rows do not multiply shared capacity. A Payment’s cash amount, signed accounting allocation and recovery amounts are separate projections; successful workflow termination controls their effective posting.
 

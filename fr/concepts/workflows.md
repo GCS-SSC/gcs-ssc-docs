@@ -12,7 +12,7 @@ Ouvrez une agence et choisissez **Configurations de flux** pour créer et publie
 
 | Champ | Signification |
 | --- | --- |
-| Identité anglaise et française | Nom et description administratifs. |
+| Identité français/anglais | Noms obligatoires (255 caractères Unicode chacun au maximum) et descriptions. |
 | Type d’entité | Catégorie de dossier traité, comme une entente ou une réclamation. |
 | Démarrage | Dépend des capacités de la cible : sélection explicite d’un flux standard, approbation explicite de l’entente et soumission d’approbation des enfants par Achèvement. |
 | Objet | `standard`, `approval_submission` ou `risk_rating` pour les ententes/modifications. |

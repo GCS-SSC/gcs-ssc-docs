@@ -32,7 +32,7 @@ The agency form contains:
 | English and French abbreviations | Required, trimmed, maximum 255 Unicode characters each |
 | Active | On/off availability setting; a new Agency starts inactive |
 
-The General tab displays those values. Agency profile edits replace only submitted fields. The combination of financial-system ID, both names, and active flag must be unique among profiles that have not been deleted.
+The General tab displays those values. Agency profile edits replace only submitted fields. The combination of financial-system ID, both names, and active flag must be unique among profiles that have not been deleted. Name comparisons ignore case and surrounding spaces.
 
 ## Detail navigation
 
@@ -61,6 +61,8 @@ Programs contain streams. Configure the agency's fiscal years, cost categories, 
 | Approval Behalf | Required English and French names plus `require actual`; names are unique among active values in the agency | List, create, edit, soft-delete | Delegated approval rules and whether actual-approver details are required |
 | Agreement Types | Agreement-type enum plus required English and French names; names are unique for the active agency/type combination | List, create, edit, soft-delete | Classification of agreements created for the agency |
 
+Names for cost categories, cost lines, approval behalf types, and business statuses are trimmed and limited to 255 Unicode characters. Cost-category, cost-line, and approval-behalf names must remain unique in their existing scope even when only case or surrounding spaces differ. Deactivating a cost category or line does not free its name; deletion and availability are separate settings.
+
 Reference rows can be edited in place. Use **Edit** to correct a label while preserving the identifier used by existing records; use deletion only to retire the value. When you change only one fiscal-year date, the application checks it against the other saved date. For example, a new start date cannot be later than the saved end date. A duplicate or stale selection leaves the form available for correction.
 
 ### Availability and calculation defaults
@@ -75,17 +77,17 @@ A cost line can define an Agreement-budget calculation default:
 | Category | Select another category in the same Agency containing only manual lines; enter a percentage from 0 through 100 with at most two decimal places. |
 | All other | Calculate a percentage over the other eligible lines; leave source category empty. |
 
-A category used as a calculation source cannot itself acquire calculated lines. A line cannot depend on its own category or another Agency’s category. **Allow percentage override** controls whether the Agreement user may change the captured default percentage. Changing the Agency default does not rewrite existing Agreement rows.
+A category used as a calculation source cannot itself acquire calculated lines. You also cannot delete it while a retained cost line uses it as a source, even if that line is inactive. Change or remove the dependent calculation first; switching its Active setting off does not release the reference. A line cannot depend on its own category or another Agency’s category. **Allow percentage override** controls whether the Agreement user may change the captured default percentage. Changing the Agency default does not rewrite existing Agreement rows.
 
 For example, configure “Employer benefits” as 10% of the manual “Salaries” category, then make it available through the stream’s Cost Category Line Items. A supported salary of 10,000.00 produces 1,000.00 of benefits. See [Budget](../agreements/budget.md) for grouping, whole-dollar rounding, all-other calculations, and transactional capacity checks.
 
 ### Attachment Types
 
-Create the bilingual classifications users select when uploading [attachments](../concepts/attachments.md). These belong to the Agency, not to a global Common administration catalogue. Create, edit, and delete require the corresponding exact-Agency permission. Retired types are excluded from new choices; historical attachment metadata remains linked to its saved type.
+Create the bilingual classifications users select when uploading [attachments](../concepts/attachments.md). These belong to the Agency, not to a global Common administration catalogue. Create, edit, and delete require the corresponding exact-Agency permission. Names are required in both languages, limited to 255 Unicode characters and cannot contain only spaces. Retired types are excluded from new choices; historical attachment metadata remains linked to its saved type.
 
 ### Funding Types and Subtypes
 
-Create Funding Types on the Agency page, then add subtypes under each type. Names in both languages are required and limited to 255 characters. Types start active; **Included in stacking** and **Included in cost sharing** default to off. Subtypes start active and use their parent type’s stacking and cost-sharing settings. Stacking and cost sharing determine which funding is included in those calculations. Agency Contributor creates/edits; Manager performs eligible deletion.
+Create Funding Types on the Agency page, then add subtypes under each type. Names in both languages are required and limited to 255 characters. Types start active; **Included in stacking** and **Included in cost sharing** default to off. Editing a Funding Type’s name keeps its saved stacking and cost-sharing settings. Subtypes start active and use their parent type’s stacking and cost-sharing settings. Stacking and cost sharing determine which funding is included in those calculations. Agency Contributor creates/edits; Manager performs eligible deletion.
 
 Open the Stream's **Funding Subtypes** section and link active subtypes whose active parent belongs to the same Agency. Deletion of a type or subtype is blocked while active Stream links use it. Remove those links first; deleting a type logically retires its subtypes as well. Previously captured runtime funding evidence keeps its saved classification. Correct a label in place rather than recreating its identity. See [Streams](../programs/streams.md).
 

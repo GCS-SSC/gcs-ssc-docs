@@ -53,7 +53,7 @@ import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
-  sdkVersion: '^0.3.17',
+  sdkVersion: '^0.3.18',
   requiredHostCapabilities: [
     'stream-config-modal',
     'server-handlers',
@@ -71,7 +71,7 @@ export default defineGcsExtension({
 | Champ | Règle |
 | --- | --- |
 | `key` | Clé stable de l’extension. Utilisez le format kebab-case en minuscules et ne la modifiez jamais après la création de données. |
-| `sdkVersion` | Plage de versions compatibles requise pour le SDK, par exemple `^0.3.17`. L’hôte rejette les versions non prises en charge. |
+| `sdkVersion` | Plage de versions compatibles requise pour le SDK, par exemple `^0.3.18`. L’hôte rejette les versions non prises en charge. |
 | `requiredHostCapabilities` | Liste requise des capacités de l’hôte utilisées par le manifeste ou la mise en œuvre. Utilisez une liste vide seulement si aucune capacité n’est nécessaire. Consultez ci-dessous les limites de la déduction lors de la découverte. |
 | `name` | Nom bilingue requis. |
 | `description` | Description bilingue facultative destinée aux écrans d’administration. |
@@ -132,7 +132,7 @@ L’achèvement consigne `not_applicable`, `no_workflow` ou `workflow_started` a
 
 ## Portée et accès de configuration
 
-La version du SDK public utilisée ici est 0.3.17. Déclarez `configuration-access` pour définir `configurationAccess` à `contributor` ou `manager`; Contributeur est la valeur par défaut. Cela fixe le rôle minimal requis pour activer l’extension et modifier sa configuration JSON. Les permissions pour le travail courant et les affectations exactes aux dossiers sont vérifiées séparément.
+La version du SDK public utilisée ici est 0.3.18. Déclarez `configuration-access` pour définir `configurationAccess` à `contributor` ou `manager`; Contributeur est la valeur par défaut. Cela fixe le rôle minimal requis pour activer l’extension et modifier sa configuration JSON. Les permissions pour le travail courant et les affectations exactes aux dossiers sont vérifiées séparément.
 
 Une extension `configurationScope: 'agency'` déclare `agency-only-configuration`. Elle possède seulement l’activation et la configuration d’organisme et ne peut déclarer d’éditeur de volet. Cela convient à une numérotation d’organisme partagée entre volets. Sans cette déclaration, le modèle organisme-plus-volet reste applicable.
 
@@ -599,6 +599,16 @@ L1 est le contexte d’exécution du travail en arrière-plan de l’hôte. Un g
 Déclarez `scheduled-agreement-import` ou `scheduled-intake-import` pour la frontière d’importation concernée et `l1-queue` pour `registerGcsExtensionL1QueueHandler`. Fournissez une identité stable `<extension-key>:<handler-name>`, `extensionKey`, un intervalle entier de 1000 à 2147483647 millisecondes et un `run` asynchrone borné. L’hôte refuse doublons et espaces de noms incompatibles; il distribue seulement aux extensions activées après migrations et préparation d’Audit. Les modules planifiés s’activent une fois par application Nitro; un échec peut être repris.
 
 Le contexte L1 fournit base hôte, `createWriteAuthorization(extensionKey, agencyId)` et attribution Audit par `runForAgency`. Utilisez les rappels d’autorisation liés à la transaction avant de créer réception, réclamation ou prévision importée. Les importations d’entente revérifient organisme, volet, bénéficiaire lié si requis, principal actif, statut et clôture. Elles créent des brouillons, pas des approbations. Un gestionnaire peut s’exécuter plusieurs fois pour le même travail. Les files métier persistantes doivent conserver la requête exacte à reprendre et sa clé d’idempotence, qui identifie les requêtes répétées pour la même opération. Voir [Travail en arrière-plan](../operator/background-work.md) pour baux, délais et surveillance.
+
+### Versions des prévisions importées
+
+Le SDK 0.3.18 change `createAgreementForecast(trx, input)` : l’hôte attribue la version au dossier de prévision. Retirez `version` de chaque ligne mensuelle. Fournissez `agreementId`, `streamId`, `fiscalYearId`, `applicantRecipientId` et `lineItems`. Chaque ligne contient `budgetLineItemId`, `month` (0–11), le montant exact `amount` et `currency`. Utilisez les identités des lignes du budget actuel pour l’exercice de l’entente sélectionné et la devise de l’entente. L’hôte exige de 1 à 2400 lignes, des montants non négatifs et aucune répétition de paire ligne budgétaire/mois.
+
+L’importation crée un brouillon inactif, affecte son utilisateur principal et retourne `{ status: 'created', forecastId, version, lineItemIds, draftStatusId }`. `version` est un entier exact sous forme de chaîne : la numérotation commence à `'0'` pour chaque entente/exercice et inclut les dossiers supprimés, donc les anciens numéros ne sont jamais réutilisés. Conservez la valeur retournée; ne calculez pas de version mensuelle et n’activez pas vous-même le dossier importé. L’achèvement et l’approbation déterminent l’activation.
+
+Par exemple, si les versions `'0'` et `'1'` existent déjà pour l’exercice 2026–2027 d’une entente, importer douze lignes mensuelles de `'1000.00'` crée la version `'2'`, un brouillon inactif distinct totalisant `'12000.00'`. Elle ne remplace pas la prévision active. Les calculs de paiement partagés utilisent le dossier de prévision actif et toutes ses lignes mensuelles, même si un brouillon porte un numéro supérieur.
+
+Traitez `agreement_unavailable`, `recipient_unavailable`, `fiscal_year_unavailable` et `draft_status_unavailable` avant d’annoncer une réussite. Actualisez l’entente, le lien du bénéficiaire, le budget actuel ou le statut Brouillon d’organisme selon le problème, puis réessayez par la même voie d’autorisation. Un échec de transaction annule l’ensemble créé. Chaque nouvel appel réussi crée une autre version : conservez le résultat et vérifiez une réponse incertaine avant d’envoyer une autre demande de création.
 
 ## Liste de vérification des tests
 

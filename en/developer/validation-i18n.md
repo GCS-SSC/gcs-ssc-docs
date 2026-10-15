@@ -14,6 +14,20 @@ Server handlers validate untrusted input with `readValidatedBodyI18n`, `getValid
 
 Every new key must exist in both locales with the same interpolation placeholders. Tests must cover the machine code, status, field path, parameters, and both locale results where locale affects behaviour.
 
+## Text, identifiers and partial updates
+
+Validate storage limits before writing. Agency labels, Workflow names, Attachment Type names, Recommendation Schema names, and Program outcome/indicator names accept at most 255 Unicode code points where their schemas apply that limit. Count with `Array.from(value).length`; JavaScript string length counts UTF-16 units. The affected text schemas and shared pagination searches reject NUL (`\u0000`) with `validation.invalid_text_character`. Do not strip invalid characters silently. Attachment Type names reject whitespace-only input while preserving nonblank authored spacing.
+
+Use canonical positive PostgreSQL bigint IDs for selections such as approval-step default users/groups and an applicant/recipient financial ID’s optional Agency. Keep IDs as decimal text. Opportunity setup lookup validates every ID in its comma-separated `stream_ids`; a valid-looking picker label does not validate an API payload.
+
+Review and recommendation authoring order must fit a signed `smallint` (−32,768 through 32,767). Blank, null and fractional supplied orders are invalid. Inline Recommendation Schema creation keeps its narrower range of 1 through 32,767. Publication still requires its own consecutive sequence from 1; accepting a draft order does not make that plan publishable.
+
+PATCH omission must preserve saved values. Remove create defaults before making defaulted booleans optional: Program Active, Stream financial-limit Active, amendment-type subtype requirements, Review member failure policy, and Funding Type stacking/cost-sharing flags must change only when supplied. Explicit `false` remains a real update. A Workflow patch containing only allowed start statuses updates those relations without issuing an empty header update. Clients must send editable Review member fields only, keeping the saved default group and excluding response metadata.
+
+Approval Template updates reject repeated supplied row IDs within steps, each step’s certifications, and additional-approval certifications, including rows marked deleted. Supplied certification IDs must belong to active rows of that parent step. Reordering or swapping names preserves retained row IDs; omitted certifications become soft-deleted history. The full-template transaction rolls back all changes on failure.
+
+Agency catalog mutations translate `PublicationLifecycleConflictError` only after the transaction rejects, returning a localized HTTP 409 with the stable publication code. Preserve unrelated database and authorization errors. Workflow metadata remains readable when its working definition has a recognized publication validation error, so administrators can correct and republish it.
+
 ## Required fields and accessible controls
 
 For example, an officer entering an Opportunity needs to know that both language names are required before saving. A required label should describe the actual name field; typing into the search box of a Stream selector does not make that search text a required business value. The implementation below keeps those requirements consistent with validation.

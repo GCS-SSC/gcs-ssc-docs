@@ -63,3 +63,5 @@ Par exemple, restaurer les dossiers d’une entente en base de données sans res
 Le vidage SQL administratif utilise un processus construit séparément. Les requêtes partagent une génération en cours, ont un délai maximal, permettent l’abandon par l’appelant et terminent le processus au nettoyage. Un export échoué ne produit aucun téléchargement réussi; vérifiez capacité et journaux avant reprise. Le vidage SQL ne contient pas les objets externes et ne remplace pas une sauvegarde coordonnée du stockage.
 
 Sondez `/api/health` et surveillez les échecs de démarrage, redémarrages, ressources, base, fournisseurs, arriéré de nettoyage et restaurations de sauvegarde. Les extensions concrètes peuvent ajouter leurs propres processus; leur documentation définit ces exigences supplémentaires.
+
+Le rapport `audit.access_queue` comprend `sent`, le nombre d’événements enregistrés avec succès pendant ce vidage, avec les statistiques de file en attente. Un nombre envoyé ne prouve pas que la file est vide; vérifiez le nombre restant et les échecs.

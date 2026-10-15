@@ -16,7 +16,7 @@ Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) s
 
 Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42, y compris son état et les renseignements sur le programme. Cette lecture n’approuve pas l’entente et ne crée pas de paiement. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (184)
+## Gestionnaires (183)
 
 | Méthode | Route | Repères d’autorisation | Repères de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -127,7 +127,7 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | GET | `/api/agreements/[id]/corrections` | requireAuthContext | CorrectionCollectionQuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/index.get.ts` |
 | POST | `/api/agreements/[id]/corrections` | — | CorrectionCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/corrections/index.post.ts` |
 | GET | `/api/agreements/[id]/corrections/lookups/commitments` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/lookups/commitments.get.ts` |
-| GET | `/api/agreements/[id]/corrections/lookups/payments` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/lookups/payments.get.ts` |
+| GET | `/api/agreements/[id]/corrections/lookups/payments` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/corrections/lookups/payments.get.ts` |
 | GET | `/api/agreements/[id]/document-templates` | — | — | `server/api/agreements/[id]/document-templates/index.get.ts` |
 | GET | `/api/agreements/[id]/documents/[documentId]/download` | — | — | `server/api/agreements/[id]/documents/[documentId]/download.get.ts` |
 | DELETE | `/api/agreements/[id]/documents/[documentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/documents/[documentId]/index.delete.ts` |
@@ -139,7 +139,6 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | POST | `/api/agreements/[id]/forecast-line-items` | — | FundingCaseAgreementForecastLineItemCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecast-line-items/index.post.ts` |
 | GET | `/api/agreements/[id]/forecasts-overview` | — | ForecastOverviewQuerySchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/[id]/forecasts-overview.get.ts` |
 | DELETE | `/api/agreements/[id]/forecasts/[forecastId]` | — | — | `server/api/agreements/[id]/forecasts/[forecastId].delete.ts` |
-| PATCH | `/api/agreements/[id]/forecasts/[forecastId]` | — | FundingCaseAgreementForecastPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecasts/[forecastId].patch.ts` |
 | POST | `/api/agreements/[id]/forecasts` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementForecastCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecasts/index.post.ts` |
 | GET | `/api/agreements/[id]/funding-subtypes` | resolveAgreementScopeContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/funding-subtypes.get.ts` |
 | DELETE | `/api/agreements/[id]/monitor-findings/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-findings/[childId].delete.ts` |
@@ -149,7 +148,7 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | PATCH | `/api/agreements/[id]/monitor-followup-updates/[childId]` | — | FundingCaseAgreementMonitorFollowupUpdatePatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-followup-updates/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-followup-updates` | executeFreshAuthorizedAgreementWrite, requireAuthContext | FundingCaseAgreementMonitorFollowupUpdateCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-followup-updates/index.post.ts` |
 | DELETE | `/api/agreements/[id]/monitor-followups/[childId]` | — | — | `server/api/agreements/[id]/monitor-followups/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-followups/[childId]` | — | FundingCaseAgreementMonitorFollowupPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-followups/[childId].patch.ts` |
+| PATCH | `/api/agreements/[id]/monitor-followups/[childId]` | — | FundingCaseAgreementMonitorFollowupBaseSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-followups/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-followups` | — | FundingCaseAgreementMonitorFollowupCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-followups/index.post.ts` |
 | DELETE | `/api/agreements/[id]/monitor-items/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-items/[childId].delete.ts` |
 | PATCH | `/api/agreements/[id]/monitor-items/[childId]` | — | FundingCaseAgreementMonitorItemsPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-items/[childId].patch.ts` |
@@ -158,7 +157,7 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | PATCH | `/api/agreements/[id]/monitor-planning/[childId]` | — | FundingCaseAgreementMonitorPlanningPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-planning/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-planning` | — | FundingCaseAgreementMonitorPlanningCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-planning/index.post.ts` |
 | DELETE | `/api/agreements/[id]/monitor-promising-practices/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-promising-practices/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-promising-practices/[childId]` | — | FundingCaseAgreementMonitorPromisingPracticePatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-promising-practices/[childId].patch.ts` |
+| PATCH | `/api/agreements/[id]/monitor-promising-practices/[childId]` | requireAuthContext | FundingCaseAgreementMonitorPromisingPracticePatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-promising-practices/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-promising-practices` | — | FundingCaseAgreementMonitorPromisingPracticeCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/monitor-promising-practices/index.post.ts` |
 | GET | `/api/agreements/[id]/monitors-overview` | — | — | `server/api/agreements/[id]/monitors-overview.get.ts` |
 | DELETE | `/api/agreements/[id]/monitors/[monitorId]` | — | — | `server/api/agreements/[id]/monitors/[monitorId].delete.ts` |

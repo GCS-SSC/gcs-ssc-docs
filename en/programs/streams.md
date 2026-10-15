@@ -236,6 +236,8 @@ Financial limits define stream-level thresholds:
 - Stacking limit.
 - Active flag.
 
+The list total includes active and inactive limit rows; the active count is separate. Changing a limit amount keeps its saved Active setting unless you change that setting too.
+
 The wizard treats financial limits as optional. If the stream has no financial limit row, downstream processes that rely on limit checks will not have stream-specific values to use.
 
 For example, a maximum allowable amount of $50,000 per recipient describes the stream’s recipient ceiling. It is separate from the stream’s total yearly allocation: configuring one does not create the other. Enter the limits approved for the program, then verify the agreement process that uses them.

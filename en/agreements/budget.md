@@ -22,9 +22,9 @@ Select a fiscal year backed by an active budget on the agreement's current strea
 
 The table preserves a fiscal-year group even when it has no lines. From that group, authorized users can add a line, change the fiscal year, or delete the group when the interface considers deletion safe.
 
-Deleting removes the year from the current list while keeping stored history (soft deletion). It is refused when the fiscal year has active budget lines, claims, payments, or claim-line use. The main tab therefore shows its fiscal-year delete action only for an empty group. There is no restore control.
+Deleting removes the year from the current list while keeping stored history (soft deletion). It is refused when the fiscal year has active budget lines, claims, payments, claim-line use or any forecast history, including deleted forecasts. The main tab therefore shows its fiscal-year delete action only for an empty group. There is no restore control.
 
-Changing a fiscal-year group repeats the authorized-assistance overlap check on the server. A group with active budget lines cannot be reassigned. An unchanged saved year can still be retained when its reference is retired; that does not make the retired year available for new allocations. Review claims and payments before any reassignment: the current reassignment guard checks active budget lines, while deletion has its own downstream-use checks.
+Changing a fiscal-year group repeats the authorized-assistance overlap check on the server. A group with active budget lines or any forecast history cannot be reassigned. Deleted forecasts still protect their year. An unchanged saved year can still be retained when its reference is retired; that does not make the retired year available for new allocations. Review claims and payments before any reassignment: the current reassignment guard checks active budget lines and forecast history, while deletion has its own downstream-use checks.
 
 ## Budget lines
 
@@ -126,8 +126,8 @@ If save fails, reload the agreement and verify your permission, the current stre
 
 Other funding is recorded by the Agency’s funding types and subtypes linked to this stream, rather than three fixed federal/government/other columns. Select each subtype once, enter its amount, and optionally describe it in both languages. A new selection must be active and available to the stream; an existing saved allocation may retain a retired subtype. Saved allocations supply the other-funding total and their type’s stacking and cost-sharing participation. The agreement currency applies to budget and downstream financial lines.
 
-Before reducing the current budget, check the financial work already recorded for that year. The system refuses a reduction that would put counted forecasts, claims or successful reconciliations above the available annual budget. It checks total costs, program funding and each other-funding type separately. Subtypes of the same funding type share one limit: two municipal subtypes do not each get the full municipal budget. This annual Agreement check is separate from the stream-wide program-funding capacity and the commitment ceiling.
+Before reducing current program funding, check counted claims and successful reconciliations for that year and currency. The budget cannot fall below their effective usage after eligible claim-recovery credits. See [Amendments](./amendments.md) for the collection-credit rules and an example. A rejected change rolls back the budget changes and dependent recalculations.
 
-For example, an annual budget of 15,000 total, 10,000 program and 5,000 municipal funding cannot support a forecast with 6,000 municipal funding, even if its total is only 14,000. Correct the funding mix or obtain and apply an authorized budget amendment; increasing another funding type does not increase municipal capacity. A failed reduction rolls back its budget changes and dependent recalculations.
+An active forecast or commitment can remain above a reduced budget. That creates a payment hold until a valid replacement is active or sufficient authorized funding is restored. Forecast checks use the payment’s year; commitment checks add all active types across the Agreement’s years. Total cost and other-funding types retain their line rules but have no separate annual ceilings. The Stream-wide program-funding capacity check remains separate.
 
 See [Financial summary](./financial-summary.md) for the annual and monthly read-only comparison.

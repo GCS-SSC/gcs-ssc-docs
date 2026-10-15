@@ -8,6 +8,8 @@ Configurez l’appel avant que le personnel commence à recevoir des demandes. S
 
 L’accès utilise la permission `transfer_payment` du programme : Lecteur consulte, Contributeur crée et modifie, Gestionnaire supprime. Les possibilités n’ont aucun registre d’affectations. Consulter une possibilité ne donne pas accès à ses dossiers ou promoteurs.
 
+Les possibilités d’une agence supprimée sont exclues de la liste. Si un appel disparaît, rechargez et demandez à l’administrateur de vérifier son agence et son programme avant d’en créer un autre.
+
 Préparez une agence, un programme et des volets actifs, ainsi que le statut Brouillon protégé de l’agence. Pour l’évaluation, publiez des ensembles d’examens et flux d’agence visant **Dossier de financement** (`fundingcaseintake`), puis liez-les aux volets concernés. Configurez les types de pièces jointes et le stockage de l’agence avant de recueillir des fichiers. Consultez [Catalogues d’agence](../admin/agency-catalogs.md) et [Volets](../programs/streams.md).
 
 ## Créer et modifier
@@ -41,6 +43,8 @@ Un statut courant en lecture seule ou final bloque la modification ordinaire et 
 ## Exemple et reprise
 
 Pour « Installations communautaires 2026 », sélectionnez les volets Immobilisations et Accessibilité du même programme, saisissez les deux langues et utilisez le 1er au 31 octobre 2026. Publiez un ensemble d’examens de dossier, liez-le au volet Immobilisations, puis sélectionnez-le sur la possibilité. Le 14 octobre, le personnel autorisé peut créer un dossier seulement après le choix d’un statut d’agence modifiable non Brouillon. Le 1er novembre, la création échoue même si ce statut est encore présent.
+
+La création vérifie que l’agence, le programme actif et les volets choisis correspondent toujours au moment de l’enregistrement. Si un autre administrateur les modifie ou les retire pendant que la fenêtre est ouverte, la création peut échouer sans enregistrer une possibilité partielle. Rechargez les choix disponibles et sélectionnez les volets actuels avant de réessayer.
 
 En cas d’échec d’enregistrement, copiez le texte non enregistré à conserver, rechargez la possibilité et les choix de volet/catalogue, puis vérifiez dates, programme commun, doublons, publication et statut. Si la création du dossier échoue, vérifiez la période et le statut plutôt que de recréer des possibilités. Si l’enregistrement échoue, les liens précédemment enregistrés restent; les liens sélectionnés ne sont pas remplacés en partie.
 

@@ -47,7 +47,13 @@ Choose the types that match the changes you need:
 
 Fiscal-year creation/update verifies active stream-budget membership and overlap with the proposed amendment dates. A fiscal year used by an active claim, payment, or claim line cannot be deleted. A stable line used by an active claim line cannot be moved or deleted. Line fields and monetary validation otherwise match [Agreement budget](./budget.md).
 
-Before applying an approved budget, the system checks this Agreement’s annual forecasts, claims and successful reconciliations against the proposed amounts. It blocks a reduction below that usage, whether the shortfall is in the annual total, program funding or a pool for another funding type. Resolve the usage or revise the proposal before approval can apply it.
+Before applying an approved budget, the system checks counted claims and successful reconciliations against the proposed annual **program funding** in the Agreement currency. Applied claim reductions reduce this usage. Posted cash collections and posted offsets on an original claim-related receivable can also lower the minimum budget, using its retained claim and original fiscal year. Pending receipts and posting the debt alone do not count. Collections already covered by an applied reduction are not counted twice. Credit cannot reduce a claim’s usage below zero or cover another claim’s usage.
+
+For example, a counted claim and its successful reconciliation are both 30,000. A posted original claim-related receivable has collected 4,000. The proposed annual program funding can fall to 26,000 even before the full reduction plan applies; 25,999.99 fails. This extra collection credit is for budget reductions only. New claims and reconciliations gain capacity from applied reductions, not from a partial receipt alone.
+
+Forecasts and commitments no longer block the budget reduction just because they exceed the proposed funding. After approval applies the budget, payments stay on hold until the active forecast and combined active commitments fit, or sufficient funding is restored. Total cost and other-funding types have line-level rules rather than separate annual ceilings. See [Payments](./payments.md).
+
+Keep every fiscal year that has forecast history in the proposed budget, even when that forecast was deleted. Such a year cannot be reassigned or removed. Correct the snapshot before approval if its year identities no longer match.
 
 ::: warning Stream capacity still requires manual reconciliation
 Check the Stream’s available program funding yourself before approval, including allocations to other Agreements and the overcommit threshold. Saving or applying an amendment does not run the cross-Agreement capacity check used for direct changes to the current budget. The annual usage check above protects this Agreement’s existing usage; it does not prove that the Stream can fund the proposal.

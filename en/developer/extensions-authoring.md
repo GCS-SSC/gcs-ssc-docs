@@ -53,7 +53,7 @@ import { defineGcsExtension } from '@gcs-ssc/extensions'
 
 export default defineGcsExtension({
   key: 'gcs-example',
-  sdkVersion: '^0.3.17',
+  sdkVersion: '^0.3.18',
   requiredHostCapabilities: [
     'stream-config-modal',
     'server-handlers',
@@ -71,7 +71,7 @@ export default defineGcsExtension({
 | Field | Rule |
 | --- | --- |
 | `key` | Stable extension key. Use lowercase kebab-case and never change it after data exists. |
-| `sdkVersion` | Required compatible SDK version range, such as `^0.3.17`. The host rejects unsupported versions. |
+| `sdkVersion` | Required compatible SDK version range, such as `^0.3.18`. The host rejects unsupported versions. |
 | `requiredHostCapabilities` | Required list of host capabilities used by the manifest or implementation. Use an empty list only when none are needed. See the discovery-inference limits below. |
 | `name` | Required bilingual display name. |
 | `description` | Optional bilingual description for admin screens. |
@@ -132,7 +132,7 @@ Completion records `not_applicable`, `no_workflow`, or `workflow_started` at cre
 
 ## Configuration scope and access
 
-The public SDK version used here is 0.3.17. Declare `configuration-access` when setting `configurationAccess` to `contributor` or `manager`; Contributor is the default. This sets the minimum role required to enable the extension and edit its JSON configuration. Permissions for everyday work and exact record assignments are checked separately.
+The public SDK version used here is 0.3.18. Declare `configuration-access` when setting `configurationAccess` to `contributor` or `manager`; Contributor is the default. This sets the minimum role required to enable the extension and edit its JSON configuration. Permissions for everyday work and exact record assignments are checked separately.
 
 An extension with `configurationScope: 'agency'` declares `agency-only-configuration`. It has Agency enablement/configuration only and cannot declare stream configuration editors. This is useful for one Agency numbering service shared across streams. An extension without that declaration retains the Agency-plus-stream enablement model.
 
@@ -599,6 +599,16 @@ L1 is the host’s background-work execution context. A scheduled handler perfor
 Declare `scheduled-agreement-import` or `scheduled-intake-import` for the corresponding host import boundary, and `l1-queue` when registering recurring work with `registerGcsExtensionL1QueueHandler`. Supply a stable `<extension-key>:<handler-name>` identity, `extensionKey`, an integer interval from 1000 to 2147483647 milliseconds, and a bounded async `run`. The host rejects duplicate IDs and mismatched namespaces and dispatches only currently enabled extensions after their migrations and Audit readiness. Scheduled plugins are lazily activated once per Nitro app; failed activation can retry.
 
 The L1 context supplies the host database, `createWriteAuthorization(extensionKey, agencyId)` and Agency Audit execution through `runForAgency`. Use the transaction-bound authorization callbacks before creating an imported Intake, Claim or Forecast. Agreement imports recheck Agency, Stream, linked recipient where required, active primary user, status and Closeout boundary. They create drafts, not approvals. A handler may run more than once for the same work. Persistent business queues must preserve the exact request to retry and its idempotency key, which identifies repeated requests for the same operation. See [Background work](../operator/background-work.md) for leases, failure delays and monitoring.
+
+### Imported Forecast versions
+
+SDK 0.3.18 changes `createAgreementForecast(trx, input)`: the host assigns the version to the Forecast record. Remove `version` from each monthly line. Supply `agreementId`, `streamId`, `fiscalYearId`, `applicantRecipientId` and `lineItems`. Each line contains `budgetLineItemId`, `month` (0–11), exact `amount` and `currency`. Use current budget line identities from the selected Agreement fiscal year and the Agreement currency. The host requires 1–2400 lines, nonnegative amounts and no repeated budget-line/month pair.
+
+The import creates an inactive Draft, assigns its primary user, and returns `{ status: 'created', forecastId, version, lineItemIds, draftStatusId }`. `version` is an exact integer string: numbering starts at `'0'` for each Agreement/fiscal year and includes deleted history, so old numbers are never reused. Preserve that returned value; do not calculate a monthly version or activate the imported record yourself. Completion and approval control activation.
+
+For example, if versions `'0'` and `'1'` already exist for an Agreement's 2026–2027 year, importing twelve monthly lines of `'1000.00'` creates version `'2'`, a separate inactive Draft totalling `'12000.00'`. It does not replace the active Forecast. Shared payment calculations use the active Forecast record and its complete monthly breakdown, even while a higher-numbered draft exists.
+
+Handle `agreement_unavailable`, `recipient_unavailable`, `fiscal_year_unavailable` and `draft_status_unavailable` before reporting success. Refresh the Agreement, recipient link, current budget or Agency Draft status as appropriate, then retry through the same authorization boundary. Transaction failures roll back the aggregate. A new successful call creates another version: retain the result and reconcile an uncertain response before issuing another create request.
 
 ## Testing Checklist
 

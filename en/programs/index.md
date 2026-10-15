@@ -46,7 +46,7 @@ The profile fields are:
 - English and French purpose.
 - Active flag: defaults to false on create.
 
-All bilingual fields are required. A program with missing French or English text will not validate.
+All bilingual fields are required. A program with missing French or English text will not validate. Two active, non-deleted Programs in the same Agency cannot share the same English/French name combination. If creating, renaming, or activating a Program reports a duplicate, check existing active Programs and correct the names before retrying. Editing another field preserves the saved Active setting.
 
 ## Program Wizard
 
@@ -111,6 +111,8 @@ Outcomes define the result areas used by program performance tracking. Each outc
 - English and French name.
 - English and French description.
 
+Outcome names are required, trimmed and limited to 255 Unicode characters in each language. Both descriptions are required and trimmed. If pasted text contains an invalid hidden character, retype the affected text and save again.
+
 Performance indicators are linked to outcomes, so changing or deleting outcomes can affect the options available when configuring indicators.
 
 For example, use “Improved access to community facilities” as an outcome and describe the change the program aims to achieve. Add the measures used to track that change under Performance Indicators.
@@ -149,6 +151,8 @@ Performance indicators are created under outcomes. Each indicator has:
 - Outcome.
 - English and French name.
 - English and French description.
+
+Indicator names follow the same 255-character limit as outcome names. Both names and descriptions are required and trimmed; invalid hidden characters are rejected.
 
 The indicator create form preselects an available outcome when possible. If there are no outcomes, create at least one outcome before adding indicators.
 

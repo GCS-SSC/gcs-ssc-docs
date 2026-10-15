@@ -12,7 +12,7 @@ Open an Agency and choose **Workflow Setups** to author and publish the design. 
 
 | Field | Meaning |
 | --- | --- |
-| English/French identity | Administrative name and description. |
+| English/French identity | Required names (up to 255 Unicode characters each) and descriptions. |
 | Entity type | Kind of record the workflow handles, such as an Agreement or Claim. |
 | Start behavior | Determined by the target’s declared capabilities: standard workflows are explicitly selected; Agreement approval is explicit; child approval submission starts with Completion. |
 | Purpose | `standard`, `approval_submission`, or Agreement/amendment `risk_rating`. |

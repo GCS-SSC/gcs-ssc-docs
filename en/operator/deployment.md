@@ -48,21 +48,44 @@ The GitHub Pages/WebContainer workflow is a browser-hosted demo. Its in-browser 
 
 ## Shared demo image and deployments
 
-The application repository has a manually triggered GitHub workflow that builds and verifies one public `linux/amd64` demo image, then records its immutable GHCR digest in `deployment/demo-image.json`. The AWS CDK stack and Railway IaC can consume that same pin. An image publication or manifest edit alone does not apply either deployment. Verify `/api/health`, localized login, and a seeded document download after each platform update. Retain the prior digest and a compatible database backup; rolling back an image does not undo migrations.
+Run **Run workflow** in `.github/workflows/publish-demo-image.yml` to build the shared public `linux/amd64` demo image. A push to `main` does not build an image. The workflow tests the image with disposable PostgreSQL, publishes a unique tag and digest, checks anonymous pulling, and uploads a `demo-image` artifact. Download that artifact to promote its immutable digest into `deployment/demo-image.json`; AWS CDK and Railway IaC can use the same pin.
+
+Successful runs on `main` also publish `ghcr.io/gcs-ssc/gcs-ssc-demo:latest`. Branch runs leave `latest` unchanged. This moving tag means the last verified image published from `main`, not the newest source commit. Deployment manifests still require an immutable digest. Publishing an image or changing a manifest does not deploy either platform. Verify `/api/health`, localized login, and a seeded document download after each update. Retain the prior digest and a compatible database backup; rolling back an image does not undo migrations.
 
 The AWS demo CDK app in `infra/aws` targets Canada Central (`ca-central-1`): CloudFront with a private load-balancer origin, one Fargate task, single-AZ PostgreSQL RDS, and encrypted EFS for the local attachment provider. A separate private S3 bucket is provisioned for future use, but is not selected as the attachment provider. The CDK budget is an alert, not a spending cap. The AWS runbook in the application source specifies bootstrap, credentials, deployment, and recovery; this is a demo architecture, not a production availability model.
 
 The checked-in `.railway/railway.ts` manages the existing GCS Demo environment, preserves its secrets, domain, database, and volumes, and uses the pinned image when the manifest contains a digest. Operators review `railway config plan` before `railway config apply`; committing IaC alone does not apply it. The old `railway.json` remains a legacy Dockerfile default for other deployments.
 
+## Refresh the AWS demo
+
+Use the application checkout with Bun 1.3.13, AWS CLI v2, and an AWS profile allowed to operate the existing demo. Set `AWS_PROFILE` in the environment or the ignored `infra/aws/.env`. From the application root:
+
+```sh
+bun run aws:demo:refresh --preview
+bun run aws:demo:refresh
+# Explicitly wipe and reseed the GCS demo database:
+bun run aws:demo:refresh --reset-db
+```
+
+Publish the intended image from `main` first. Preview reads the account, service and resolved `latest` digest without deployment changes. The ordinary command keeps the database. `--reset-db` permanently removes GCS records, users, audit history, extension configuration and migration journals by dropping the `public`, `extensions` and `audit` schemas. It preserves EFS attachment files, but removes their database references; the seed restores its standard templates. Portal and Metabase services and databases are untouched.
+
+The helper is restricted to the existing `GcsSscDemo` stack in `ca-central-1`. It requires one stable completed GCS deployment with desired count 1. It checks the new image's RDS connection and TLS before deployment. For reset, it stops GCS and waits for all old tasks to stop before changing the database, causing downtime. It verifies deployment completion, the running digest and public readiness before saving the local `deployment/demo-image.json` pin. Promote that pin separately and keep it aligned before later CDK deployments: a direct ECS refresh does not update CloudFormation's stored template. Run only one deployment or refresh at a time.
+
+If the identity check finds expired SSO credentials, the helper starts `aws sso login` for the configured profile and retries once. Complete the browser or device-code prompt. Other credential errors require fixing the profile or permissions. No deployment changes occur before identity verification succeeds.
+
+If refresh fails, inspect the printed task ARN and GCS CloudWatch logs. After a reset, the helper does not automatically restart the old revision, and deployment rollback is disabled to keep an incompatible baseline from starting. Resolve the failure, deploy the printed new task definition with desired count 1, verify readiness, then restore the usual circuit breaker (`enable: true`, `rollback: true`). A second refresh requires a stable service with desired count 1.
+
 ## Companion services and clean cutovers
 
 The AWS demo stack now provisions a persistent Portal service with its own RDS database and private S3 attachment bucket, plus Metabase with a separate application database. CloudFront fronts private load balancers. Metabase uses certificate-verified RDS TLS, secret-backed session/encryption keys and a private initialization sidecar; its administrator credentials remain in Secrets Manager. Reporting access to GCS does not grant GCS user permissions. Back up and monitor each service independently.
 
-The Railway IaC preserves GCS, Portal and Metabase resources. Portal uses `deployment/portal-demo-image.json` and the sealed `PORTAL_AUTH_SECRET` secret. A GCS release plan must not change the other services. Inspect the plan and live service/volume attachments before applying: the source runbook records CLI database-attachment readback limitations, so an unchanged plan alone is insufficient evidence of storage state. Keep the application file volume and companion database volumes through an application database cutover.
+The Railway IaC preserves GCS, Portal and Metabase resources. Portal uses `deployment/portal-demo-image.json` and the sealed `PORTAL_AUTH_SECRET` secret. Its image manifest may also record an optional 40-character source `commit`; this records provenance while deployment still uses the immutable image digest. A GCS release plan must not change the other services. Inspect the plan and live service/volume attachments before applying: the source runbook records CLI database-attachment readback limitations, so an unchanged plan alone is insufficient evidence of storage state. Keep the application file volume and companion database volumes through an application database cutover.
 
-The application schema uses fresh subject baselines rather than incremental upgrades. A schema-changing demo release needs an explicitly authorized clean database cutover: stop application writes, stop the database, detach and verify the old volume, attach a new uniquely named volume, verify database readiness, then deploy the exact verified image and check login, scoped records and document persistence. Record old-volume deletion or pending deletion separately. Ordinary redeploys reuse existing storage. Do not extrapolate this disposable-demo procedure into production data migration.
+The application normally changes its schema through fresh subject baselines. A release that changes those baselines needs an explicitly authorized clean database cutover: stop application writes, stop the database, detach and verify the old volume, attach a new uniquely named volume, verify database readiness, then deploy the exact verified image and check login, scoped records and document persistence. Record old-volume deletion or pending deletion separately. Ordinary redeploys reuse existing storage. Do not extrapolate this disposable-demo procedure into production data migration.
 
-The pinned image manifest is build evidence, not a claim that this documentation sync inspected a live deployment. Follow the source’s current `.railway/README.md` and AWS runbook for deployment-specific resource identities and recovery.
+The Commitment budget hotfix is an explicit incremental exception: `9999_z_commitment_budget_payment_hold` runs after an existing `9999_seed` journal entry and removes the obsolete budget-side Commitment cap triggers and functions. It preserves business records and the seed journal. Deploy it without a reset or seed replay. The later Claim recovery hotfix changes code only and adds no migration. These releases do not authorize other baseline changes on an existing database.
+
+The source runbooks record non-reset Railway and AWS deployments of the Claim recovery image built from `da9ec0568c178358a4852abbdf77d30407566198`, build `38772040704`, digest `sha256:2891db198dfafedbd0e2d284670d2ee605adf3d00e793079a86d4280a321201d`. Their before/after checks retained business records and storage. These are recorded deployment results; this documentation sync did not inspect live deployments. The pinned image manifest is build evidence. Follow the source’s current `.railway/README.md` and AWS runbook for deployment-specific resource identities and recovery.
 
 ## Dedicated Railway demo reset
 

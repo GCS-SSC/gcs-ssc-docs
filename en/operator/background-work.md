@@ -63,3 +63,5 @@ For example, restoring an Agreement’s database records without restoring its e
 The administrative SQL dump uses a separately bundled worker. Requests share one in-flight generation, have a timeout, support caller aborts, and terminate the worker during cleanup. An unsuccessful export produces no successful download; check capacity and logs before retrying. A SQL dump does not contain external attachment objects or replace coordinated storage backups.
 
 Poll `/api/health`, monitor startup failures, process restarts, resource limits, database health, provider availability, cleanup backlog, and backup restoration. Concrete extensions may add their own workers; their documentation defines those additional monitoring and recovery requirements.
+
+The `audit.access_queue` report includes `sent`, the number of events successfully persisted during that drain, alongside pending queue statistics. A successful send count does not prove the queue is empty; inspect the remaining count and failures.

@@ -8,6 +8,8 @@ Set up the call before staff begin receiving applications. If you process applic
 
 Opportunity access uses the Program's `transfer_payment` permission: Viewer reads, Contributor creates and edits, and Manager deletes. Opportunities have no assignment roster. Reading an Opportunity does not grant access to its Intakes or Proponents.
 
+Opportunities under a deleted Agency are excluded from the list. If a call disappears, reload and ask the administrator to check its Agency and Program before creating another.
+
 Prepare an active Agency, Program and Streams, and the Agency's protected Draft status. For assessment, publish Agency Review Sets and Workflows targeting **Funding Case Intake** (`fundingcaseintake`), then link them to the relevant Streams. Configure Agency Attachment Types and storage before collecting files. See [Agency catalogs](../admin/agency-catalogs.md) and [Streams](../programs/streams.md).
 
 ## Create and edit
@@ -41,6 +43,8 @@ A current status that is read-only or final blocks ordinary Opportunity edits an
 ## Worked example and recovery
 
 For a “Community facilities 2026” call, select the Capital and Accessibility Streams of the same Program, enter both language versions, and use October 1–31, 2026. Publish an Intake Review Set and link it to Capital, then select it on the Opportunity. On October 14, an authorized staff member can create an Intake only after the Opportunity has a writable non-Draft Agency status. On November 1, new Intake creation fails even if the Opportunity still has that status.
+
+Creation checks that the Agency, active Program and selected Streams still match when saving. If another administrator changes or retires one of them while the dialog is open, creation can fail without saving a partial Opportunity. Reload the available choices and select the current Streams before retrying.
 
 If saving fails, copy any unsaved text you need to keep, reload the Opportunity and its Stream/catalog selections, and check dates, same-Program ownership, duplicate names, publication and status. For an Intake creation failure, check the current opening window and status rather than repeatedly creating Opportunities. If the save fails, the previously saved links remain; the selected links are not partly replaced.
 

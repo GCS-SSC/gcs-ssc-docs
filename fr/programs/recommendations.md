@@ -10,7 +10,7 @@ Ouvrez **Agences**, choisissez l’agence, puis **Ensembles de recommandations**
 
 ## Schéma de recommandation
 
-Le schéma est le modèle du formulaire, et non la recommandation remplie par un agent. Il conserve le type de dossier visé, le nom bilingue, l’agence, l’état, la version, les questions et les règles du résultat. Un schéma créé depuis un ensemble appartient à l’agence de cet ensemble.
+Le schéma est le modèle du formulaire, et non la recommandation remplie par un agent. Il conserve le type de dossier visé, le nom bilingue, l’agence, l’état, la version, les questions et les règles du résultat. Un schéma créé depuis un ensemble appartient à l’agence de cet ensemble. Les deux noms sont obligatoires et limités à 255 caractères Unicode. Chaque nom linguistique doit être unique parmi les schémas non supprimés de cette agence. Si l’enregistrement signale un nom français ou anglais en double, changez ce nom ou utilisez le schéma existant; un échec conserve le formulaire et la publication déjà enregistrés.
 
 L’éditeur contient Général et Sections du formulaire. Une définition valide exige au moins une section, une sous-section par section et une question par sous-section. Les clés identifient les sections, sous-sections, questions, options et aides, quelle que soit la langue affichée. Gardez-les uniques lorsque cela est exigé pour que le système relie chaque réponse à la bonne question.
 
@@ -27,7 +27,7 @@ Les questions radio peuvent aussi autoriser un commentaire facultatif ou obligat
 
 Dans la page de détail de l’ensemble d’agence, **Créer un schéma** ouvre une courte fenêtre pour l’ordre du membre, un modèle facultatif d’approbation de recommandation de la même agence et **Faire échouer l’ensemble si Non recommandé**. Continuer crée un schéma brouillon appartenant à l’agence avec une question décisive bilingue minimale, l’associe à la configuration dans une transaction et ouvre l’éditeur.
 
-L’ordre doit être un entier positif inutilisé par un membre actif. Le modèle d’approbation, s’il est fourni, doit être un modèle valide appartenant à cette agence. Un échec ne crée ni membre partiel ni schéma orphelin.
+L’ordre doit être un entier de 1 à 32 767 inutilisé par un membre actif. Le modèle d’approbation, s’il est fourni, doit être un modèle valide appartenant à cette agence. Un échec ne crée ni membre partiel ni schéma orphelin.
 
 Utilisez plutôt **Associer un schéma** lorsque le schéma de l’agence existe déjà.
 

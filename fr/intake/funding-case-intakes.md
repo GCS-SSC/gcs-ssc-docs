@@ -4,6 +4,8 @@ Un dossier est le dossier de travail du personnel pour une demande. Il relie la 
 
 ## Accès et propriété
 
+Les dossiers d’une agence supprimée sont exclus de la liste. Une ligne absente ne justifie pas de créer un autre dossier; vérifiez d’abord l’agence propriétaire et vos accès actuels.
+
 Pouvoir consulter un dossier et pouvoir y travailler sont deux vérifications distinctes. Pour l’évaluer, il faut le rôle approprié dans le programme et votre nom au registre d’affectations de ce dossier. Si vous pouvez lire la demande, mais pas la modifier ou démarrer un examen, vérifiez les deux avec votre coordonnateur des affectations.
 
 Les permissions Dossier de financement (`funding_case`) s’appliquent dans le programme de la possibilité. Lecteur consulte; Contributeur crée. Modifier le dossier, ajouter ou modifier des pièces jointes, changer le statut et démarrer des examens ou flux exigent Contributeur **et l’affectation exacte à ce dossier**. La suppression exige Gestionnaire et cette affectation. Une affectation à un promoteur, une entente, un dossier lié à la possibilité ou un dossier frère ne donne aucun droit de travail ici.

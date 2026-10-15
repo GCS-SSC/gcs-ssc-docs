@@ -46,13 +46,13 @@ A fiscal-year change is refused when active allocated claim lines still referenc
 
 The **Submission** tab groups the current fiscal year's budget lines by bilingual cost category and cost subsection. It shows submitted, reconciled, and balance amounts. Search matches category, subsection, bilingual line-item name, or description.
 
-1. Enter the amount requested from the program for each required budget line. Use the Agreement currency and amounts of zero or more; submitted program amounts, total costs and other-source amounts cannot be negative.
-2. Select **Save submission**. A new cell containing zero creates no line. A new non-zero cell creates a line; changing an existing amount updates that line.
-3. If saving fails, refresh and compare every row with your intended submission. Earlier rows may already be saved because the page saves each changed line separately, in order. Retry only the missing corrections.
+1. Select the edit action on the budget line you want to change. The **Edit submitted amount** dialog opens with its saved amount.
+2. Enter the amount requested from the program and select **Save**. Use the Agreement currency and amounts of zero or more. Saving changes only this row. A new zero amount creates no line; an existing line can be set to zero.
+3. After an error, correct the amount in the dialog. If the response or refresh is uncertain, reload and check the saved row before retrying.
 
 **Technical details for integrations:** the host API also supports line description, currency, optional submitted category/subsection/line labels, reassignment to another editable claim, and soft deletion. These additional create, edit and delete controls are available through the API, rather than the current grid. The database derives each line's Agreement from its claim and uses composite foreign keys to keep any selected budget line in that Agreement.
 
-Check imported claims for duplicate lines before submission. The editable grid shows only the first line for a given budget line; a locked claim shows duplicates separately. Resolve duplicate entries while the claim is still editable.
+Imported duplicate lines appear separately, including on editable claims. Confirm the individual row before editing. Each duplicate still contributes to totals; changing one does not change the others. Resolve unintended duplicates while the claim remains editable.
 
 **Technical detail:** there is no active uniqueness constraint for `(claim, budget line)`. Direct API requests and imports can therefore create duplicates.
 
@@ -114,7 +114,7 @@ At a successful completion outcome, the reconciliation closes. If it is final, t
 
 You cannot edit a record when the Agency has made its status read-only or terminal, when Completion has been recorded, when the reconciliation is closed, or when a final reconciliation has succeeded. The server also checks the owning Agreement and active workflow boundaries; a visible button is not authority to bypass a later state change.
 
-For a submission-grid failure, reload because earlier per-line writes may have committed.
+For a submitted-amount save failure, check the selected row and reload after an uncertain response. Other rows are saved separately.
 
 For a bulk reconciliation failure, the transaction rolls back; correct validation errors or reload a stale line set before retrying.
 
@@ -138,7 +138,7 @@ Save the monthly/submitted line first, then use its funding editor to enter tota
 
 Total cost cannot be below program funding. Once other-source allocations are entered, program funding plus those allocations must equal total cost exactly.
 
-Your stream can require a funding breakdown for forecasts, claims, both, or neither. When required, every active line must have at least one saved other-source allocation and an exact balanced breakdown before Completion. This includes every authored forecast version, not just the version currently displayed.
+Your stream can require a funding breakdown for forecasts, claims, both, or neither. When required, every active line must have at least one saved other-source allocation and an exact balanced breakdown before Completion. Each forecast version has its own Completion and is checked independently.
 
 For example, equipment costing 1,000.00 could be funded by 700.00 from the program and 300.00 from another source: 700.00 + 300.00 = 1,000.00. Entering only 250.00 from that source leaves a 50.00 difference, so the breakdown cannot be saved as balanced.
 
@@ -152,8 +152,12 @@ Claims share the annual limit with other claims that currently count against it.
 
 For reconciliations, the check includes your proposed amount and successful earlier reconciliations. Claims or records with a negative outcome are excluded.
 
-The application checks separate annual limits for program funding, total cost and each other-funding type. Reconciled amounts count against the program-funding limit.
+The annual ceiling is the current program funding for that year and currency. Total cost and other sources still follow their line-level balance rules, but have no separate annual ceilings. Reconciled amounts count against the program-funding ceiling.
 
 For example, annual program funding of 10,000 with an existing counted claim of 6,000 leaves 4,000 for another claim. A 4,500 proposal fails even if it has a different proponent or cost line.
 
-Refresh the current budget and counted records, correct the amount/funding source, or apply an authorized amendment. A rejected line request rolls back that request; earlier grid requests may already be saved.
+Applied claim reductions free annual capacity for both claims and reconciliations in the original claim’s fiscal year. A draft reduction plan, posting the debt or receiving only part of its repayment does not free this capacity. The reduction applies when the posted receivable is fully cleared, and cannot reduce a claim’s counted usage below zero or transfer surplus credit to another claim.
+
+For example, with annual program funding of 120,000, a counted claim of 30,000 leaves 90,000. A fully cleared receivable with an applied reduction of 10,000 lowers that claim’s counted usage to 20,000, allowing another claim of 100,000. A proposed 100,000.01 still fails. The original submitted claim remains unchanged.
+
+Refresh the current budget, counted records and [Receivables](./receivables.md), correct the amount or apply an authorized amendment before retrying. Budget reductions use an additional rule for posted collections, explained in [Amendments](./amendments.md); it does not free new-claim capacity before the reduction applies.

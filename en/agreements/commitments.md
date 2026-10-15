@@ -32,7 +32,7 @@ The detail page displays the agreement breadcrumb and status, then the commitmen
 | --- | --- |
 | Commitment line number | Required integer from 1 through 32,767. Within one commitment, the active combination of line number and chart-of-account entry must be unique. |
 | Chart-of-account entry | Required. It must be active and belong to the Agreement's exact stream. Its fiscal year and ordered localized accounting dimensions appear in the picker and table. |
-| Amount | Required `numeric(19,2)` money value, at most two decimal places and no more than `99999999999999999.99` in absolute value, transmitted as exact decimal text. The current validator does not require a positive or non-negative amount. |
+| Amount | Required `numeric(19,2)` money value, at most two decimal places and no more than `99999999999999999.99` in absolute value, transmitted as exact decimal text. Amounts must be zero or more. |
 
 The detail search matches the line number, fiscal year, every displayed coding component, or amount. Review the declared total against all unfiltered coding lines in the agreement currency; no conversion occurs.
 
@@ -43,15 +43,15 @@ Ordinary line changes preserve the Agency business status. A PATCH can move a li
 | Guard | Exact scope |
 | --- | --- |
 | Current program-funding ceiling | For the target commitment, existing active lines plus the new or replacement amount cannot exceed the sum of `program funding` in the agreement's current budget version. This is a per-commitment ceiling, not a shared ceiling across all commitment types or versions. |
-| Database enforcement | The database checks the ceiling after changes to commitment lines, current budget lines or the current budget version. It rejects the save if any active commitment exceeds current program funding. Technical mechanism: PostgreSQL deferred constraint triggers. |
+| Database enforcement | Commitment-line changes still check the per-commitment ceiling. Budget reductions no longer run the old budget-side commitment caps; they can leave an active commitment above budget and place payments on hold. |
 | Paid-amount floor | You cannot reduce a line below the payment amounts allocated to it. Payments not deleted count unless the latest approval evidence for that payment is `denied`; changing a status label is not enough. If any active payment line refers to this line, you also cannot change its commitment or chart entry, even after approval denial. |
 | Locked lifecycle | You cannot make ordinary changes to a commitment or its lines after Completion, during protected workflow work, or when the Agency’s status makes it read-only or final. |
 
-If a budget reduction would put a commitment over the new current program-funding total, PostgreSQL rejects the transaction. Restore sufficient current program funding or reduce editable commitment lines first. Validation and constraint failures leave the transaction unchanged.
+You can reduce the budget even when an active commitment is above the new funding. Payments then check the combined active commitments of all types against current program funding across all years in the same currency. For each commitment, the check uses the larger of its declared total and active line total. Equality is allowed; historical inactive commitments do not supply capacity.
 
-::: warning Signed draft lines need review
-The commitment-line request schema permits zero and signed amounts in drafts; this is not permission to complete an unbalanced allocation. The declared commitment total must be nonnegative, Completion requires exact equality with the full line total, and a replacement must preserve prior paid coverage by coding. These aggregate checks do not impose a universal positive-only rule on each draft line. Review each coding allocation before completing.
-:::
+For example, active commitments of 6,000 and 4,000 fit total program funding of 10,000. Reducing funding to 9,000 can succeed, but payments are held until the active commitments together fit 9,000. Prepare and activate a valid replacement, or restore authorized funding, then check the payment’s selected commitment before retrying. A payment still linked to an inactive commitment must use the current one.
+
+Commitment-line amounts must be nonnegative, including in drafts. The declared total must also be nonnegative, and Completion requires it to equal all active lines exactly. A replacement must preserve paid coverage by coding; a budget reduction does not erase that floor.
 
 ## Complete a commitment
 

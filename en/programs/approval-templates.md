@@ -107,6 +107,8 @@ Certifications are checklist statements that an approver must handle when approv
 
 Certification order must be unique within a step. Certification bilingual names must also be unique within a step.
 
+To swap two certifications, change their order in the step editor, save the step, then save the full template. Reordering keeps each saved certification’s identity. Removing the first certification and moving the second to order 1 also keeps the second’s identity and retains the removed row as history. A failed full-template save leaves the previously saved template, steps and certifications unchanged; correct the error and save again. Publish the changed template when it is ready for future work.
+
 Runtime behavior:
 
 | Rule | Behaviour |
@@ -121,9 +123,8 @@ Template validation enforces:
 
 | Rule | Behaviour |
 | --- | --- |
-| Entity type is required | The type must be one of the supported runtime entity types. |
 | Template text is bilingual | English and French template name and description are required. |
-| Step fields are complete | Each step requires sequence, bilingual name, bilingual description, default user, and approver title. |
+| Step fields are complete | Each step requires sequence, bilingual name, bilingual description, exactly one default user or group, and approver title. |
 | Step sequence is unique | Non-deleted steps cannot share the same sequence. |
 | Certification fields are complete | Each certification requires order, bilingual name, bilingual description, optional flag if used, and bilingual certification text. |
 | Certification order is unique | Non-deleted certifications in the same step cannot share order. |

@@ -27,6 +27,12 @@ For example, Agency A can publish one “Standard assessment” Review Set and l
 
 The Stream **Review Setups** and **Workflow Setups** lists link back to the Agency detail editor. Removing a Stream link does not delete the shared Agency design. The Stream **Custom Fields** tab maintains sections and field assignments; change field labels, type, and options in the Agency catalog. A field definition shared by two Streams keeps one identity, but each Stream can place and require it differently.
 
+## Review member settings
+
+Open a Review Set and edit a schema member to choose its order, optional approval template, default group, checklist-failure rule and failure threshold. Reopening the member keeps its saved default group. Changing only its order or group keeps the saved checklist-failure setting. Save the member, then publish the changed set for future work. Existing reviews keep their published settings.
+
+Draft Review orders must be whole numbers from −32,768 through 32,767; an empty order is invalid. Use consecutive member numbers from 1 before publishing. If the editor rejects an update, reload the set and correct the named field before retrying.
+
 ## Data Collection catalog
 
 Open **Data Collections** on the Agency, create a definition, then open its detail editor. Agency Viewer reads. Agency Contributor (`agency:update`) can create, edit, publish, retire, and delete a draft that is eligible for deletion and has no references. This draft deletion does not require Manager access.

@@ -24838,7 +24838,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Commitment_Line"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Commitment_Line; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; forecast-record-versions and payment-holds-and-commitment-lines groups in review-groups.json. Nonnegative request/schema amounts; per-commitment current funding and paid floors remain while payment holds check combined active types. Changed declaration inspected against paired guides and net SQL diff. Application tests inspected only, not executed."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_commitment_line_egcs_fc_commitment_fkey",
@@ -25720,7 +25720,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Forecast"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Forecast; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; forecast-record-versions and payment-holds-and-commitment-lines groups in review-groups.json. Header owns immutable Agreement/year/version, nonnegative unique server numbering and independent lifecycle; deleted history retained. Changed declaration inspected against paired guides and net SQL diff. Application tests inspected only, not executed."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_forecast_l_egcs_fc_forecastlineitem_fkey",
@@ -25783,7 +25783,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Forecast_Line_Item"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Forecast_Line_Item; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; forecast-record-versions and payment-holds-and-commitment-lines groups in review-groups.json. Line-level version removed; monthly amounts/funding belong to independently versioned header. Monthly duplicate caveat remains. Changed declaration inspected against paired guides and net SQL diff. Application tests inspected only, not executed."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_forecast_line_item_funding",
@@ -28558,6 +28558,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_closeoutsnapshotversion; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_chk_commitmentlineamountnonnegative",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_commitmentlineamountnonnegative",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups forecast-record-versions, operations-sdk-and-provenance, payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_chk_correction_posting",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_correction_posting",
     "audience": [
@@ -28663,8 +28678,8 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_forecastlineitemmonth; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "data:0090_funding_case_agreement:fc_chk_forecastlineitemversion",
-    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_forecastlineitemversion",
+    "id": "data:0090_funding_case_agreement:fc_chk_forecastversion",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_forecastversion",
     "audience": [
       "developer",
       "operator"
@@ -28672,16 +28687,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0090_funding_case_agreement.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_forecastlineitemversion"
+      "server/database/migrations/0090_funding_case_agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_forecastlineitemversion; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups forecast-record-versions, operations-sdk-and-provenance, payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "data:0090_funding_case_agreement:fc_chk_generateddocument_output",
@@ -30763,6 +30772,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_unq_forecastidfundingagreement; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_unq_forecastversion",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_unq_forecastversion",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups forecast-record-versions, operations-sdk-and-provenance, payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_unq_paymentidcommitment",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_unq_paymentidcommitment",
     "audience": [
@@ -31687,27 +31711,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_enforce_budget_fiscal_year_root; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "data:0090_funding_case_agreement:trg_enforce_budget_line_commitment_program_funding_total",
-    "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_enforce_budget_line_commitment_program_funding_total",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0090_funding_case_agreement.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/migrations/0090_funding_case_agreement.ts#trg_enforce_budget_line_commitment_program_funding_total"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_enforce_budget_line_commitment_program_funding_total; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
     "id": "data:0090_funding_case_agreement:trg_enforce_budget_line_item_root",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_enforce_budget_line_item_root",
     "audience": [
@@ -31727,27 +31730,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_enforce_budget_line_item_root; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0090_funding_case_agreement:trg_enforce_budget_version_commitment_program_funding_total",
-    "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_enforce_budget_version_commitment_program_funding_total",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0090_funding_case_agreement.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/migrations/0090_funding_case_agreement.ts#trg_enforce_budget_version_commitment_program_funding_total"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_enforce_budget_version_commitment_program_funding_total; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "data:0090_funding_case_agreement:trg_enforce_commitment_line_program_funding_total",
@@ -32128,27 +32110,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_enforce_budget_fiscal_year_root; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "data:0090_funding_case_agreement:trg_fn_enforce_budget_line_commitment_program_funding_total",
-    "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_enforce_budget_line_commitment_program_funding_total",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0090_funding_case_agreement.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_enforce_budget_line_commitment_program_funding_total"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_enforce_budget_line_commitment_program_funding_total; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
     "id": "data:0090_funding_case_agreement:trg_fn_enforce_budget_line_item_root",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_enforce_budget_line_item_root",
     "audience": [
@@ -32170,27 +32131,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_enforce_budget_line_item_root; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "data:0090_funding_case_agreement:trg_fn_enforce_budget_version_commitment_program_funding_total",
-    "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_enforce_budget_version_commitment_program_funding_total",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0090_funding_case_agreement.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_enforce_budget_version_commitment_program_funding_total"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_enforce_budget_version_commitment_program_funding_total; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
     "id": "data:0090_funding_case_agreement:trg_fn_enforce_commitment_line_program_funding_total",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_enforce_commitment_line_program_funding_total",
     "audience": [
@@ -32210,6 +32150,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_enforce_commitment_line_program_funding_total; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:trg_fn_guard_forecast_identity",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_fn_guard_forecast_identity",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups forecast-record-versions, operations-sdk-and-provenance, payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "data:0090_funding_case_agreement:trg_fn_guard_payment_evidence",
@@ -32945,6 +32900,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_validate_jv; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:trg_guard_forecast_identity",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#trg_guard_forecast_identity",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups forecast-record-versions, operations-sdk-and-provenance, payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "data:0090_funding_case_agreement:trg_guard_payment_evidence",
@@ -36397,6 +36367,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: security_event_ownership; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "migration:9999_z_commitment_budget_payment_hold",
+    "source": "server/database/migrations/9999_z_commitment_budget_payment_hold.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/9999_z_commitment_budget_payment_hold.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
     "id": "schema:account-receivable-adjustment",

@@ -107,6 +107,8 @@ Les certifications sont des énoncés de vérification qu’un approbateur doit 
 
 L’ordre des certifications doit être unique dans une étape. Les noms bilingues des certifications doivent aussi être uniques dans une étape.
 
+Pour échanger deux certifications, changez leur ordre dans l’éditeur d’étape, enregistrez l’étape, puis le modèle complet. Chaque certification enregistrée garde son identité. Retirer la première et déplacer la seconde à l’ordre 1 conserve aussi l’identité de la seconde et l’historique de la ligne retirée. Un échec d’enregistrement du modèle complet conserve le modèle, les étapes et les certifications précédemment enregistrés; corrigez l’erreur et réessayez. Publiez le modèle modifié lorsqu’il est prêt pour le travail futur.
+
 Comportement d’exécution :
 
 | Règle | Comportement |
@@ -121,9 +123,8 @@ La validation du modèle applique les règles suivantes :
 
 | Règle | Comportement |
 | --- | --- |
-| Le type d’entité est obligatoire | Le type doit être un type d’entité d’exécution pris en charge. |
 | Le texte du modèle est bilingue | Nom et description anglais/français sont obligatoires. |
-| Les champs d’étape sont complets | Chaque étape exige séquence, nom bilingue, description bilingue, utilisateur par défaut et titre d’approbateur. |
+| Les champs d’étape sont complets | Chaque étape exige séquence, nom bilingue, description bilingue, exactement un utilisateur ou groupe par défaut et titre d’approbateur. |
 | La séquence d’étape est unique | Les étapes non supprimées ne peuvent pas partager la même séquence. |
 | Les champs de certification sont complets | Chaque certification exige un ordre, un nom bilingue, une description bilingue, un indicateur du caractère facultatif si utilisé et un texte bilingue. |
 | L’ordre de certification est unique | Les certifications non supprimées d’une même étape ne peuvent pas partager l’ordre. |

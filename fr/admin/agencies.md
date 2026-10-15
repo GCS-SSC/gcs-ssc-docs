@@ -32,7 +32,7 @@ Le formulaire d'agence contient :
 | Abréviations française et anglaise | Obligatoires, espaces périphériques retirés, maximum de 255 caractères Unicode chacune |
 | Actif | Réglage de disponibilité activé ou désactivé; une nouvelle agence commence inactive |
 
-L'onglet Général affiche ces valeurs. Une modification du profil remplace uniquement les champs soumis. La combinaison de l’identifiant du système financier, des deux noms et de l’indicateur actif doit être unique parmi les profils non supprimés.
+L'onglet Général affiche ces valeurs. Une modification du profil remplace uniquement les champs soumis. La combinaison de l’identifiant du système financier, des deux noms et de l’indicateur actif doit être unique parmi les profils non supprimés. La comparaison des noms ignore la casse et les espaces périphériques.
 
 ## Navigation de la fiche
 
@@ -61,6 +61,8 @@ Les programmes contiennent des volets. Configurez les exercices financiers, les 
 | Approbation au nom d'autrui | Noms français et anglais obligatoires et indicateur `require actual`; les noms sont uniques parmi les valeurs actives de l'agence | Lister, créer, modifier, supprimer logiquement | Règles d'approbation déléguée et exigence des renseignements sur l'approbateur réel |
 | Types d'entente | Valeur d'énumération du type d'entente et noms français et anglais obligatoires; les noms sont uniques pour la combinaison agence/type active | Lister, créer, modifier, supprimer logiquement | Classement des ententes créées pour l'agence |
 
+Les noms des catégories de coûts, lignes de coûts, types d’approbation au nom d’autrui et états sont limités à 255 caractères Unicode, après retrait des espaces périphériques. Les noms de catégories, de lignes et de types d’approbation doivent rester uniques dans leur portée même si seule la casse ou les espaces périphériques diffèrent. Désactiver une catégorie ou une ligne ne libère pas son nom; suppression et disponibilité sont des réglages distincts.
+
 Les références peuvent être modifiées en place. Utilisez **Modifier** pour corriger un libellé tout en conservant l’identifiant des dossiers existants; supprimez seulement pour retirer une valeur. Si vous modifiez une seule date de l’exercice, l’application la compare à l’autre date enregistrée. Par exemple, la nouvelle date de début ne peut pas suivre la date de fin enregistrée. Un doublon ou une sélection périmée laisse le formulaire disponible pour correction.
 
 ### Disponibilité et calculs par défaut
@@ -75,17 +77,17 @@ Une ligne de coûts peut définir un calcul par défaut pour le budget d’enten
 | Catégorie | Choisir une autre catégorie du même organisme contenant seulement des lignes manuelles; saisir un pourcentage de 0 à 100 avec au plus deux décimales. |
 | Toutes les autres | Calculer un pourcentage des autres lignes admissibles; laisser la catégorie source vide. |
 
-Une catégorie utilisée comme source ne peut pas recevoir de lignes calculées. Une ligne ne peut dépendre de sa propre catégorie ni d’une catégorie d’un autre organisme. **Autoriser le remplacement du pourcentage** permet à l’utilisateur de l’entente de modifier le pourcentage par défaut capturé. Modifier la valeur de l’organisme ne réécrit pas les lignes d’entente existantes.
+Une catégorie utilisée comme source ne peut pas recevoir de lignes calculées. Vous ne pouvez pas non plus la supprimer tant qu’une ligne conservée l’utilise comme source, même si cette ligne est inactive. Modifiez ou retirez d’abord le calcul dépendant; désactiver son indicateur Actif ne libère pas la référence. Une ligne ne peut dépendre de sa propre catégorie ni d’une catégorie d’un autre organisme. **Autoriser le remplacement du pourcentage** permet à l’utilisateur de l’entente de modifier le pourcentage par défaut capturé. Modifier la valeur de l’organisme ne réécrit pas les lignes d’entente existantes.
 
 Par exemple, configurez « Avantages sociaux » à 10 % de la catégorie manuelle « Salaires », puis rendez la ligne disponible dans les éléments de catégorie de coûts du volet. Un salaire soutenu de 10 000,00 produit 1 000,00 d’avantages. Consultez [Budget](../agreements/budget.md) pour le regroupement, l’arrondissement au dollar, le calcul sur toutes les autres lignes et les contrôles transactionnels de capacité.
 
 ### Types de pièces jointes
 
-Créez les classifications bilingues sélectionnées lors du téléversement de [pièces jointes](../concepts/attachments.md). Elles appartiennent à l’organisme, et non à un catalogue global d’administration commune. Créer, modifier ou supprimer exige la permission correspondante pour cet organisme précis. Les types retirés sont exclus des nouveaux choix; les métadonnées historiques restent liées au type enregistré.
+Créez les classifications bilingues sélectionnées lors du téléversement de [pièces jointes](../concepts/attachments.md). Elles appartiennent à l’organisme, et non à un catalogue global d’administration commune. Créer, modifier ou supprimer exige la permission correspondante pour cet organisme précis. Les noms sont obligatoires dans les deux langues, limités à 255 caractères Unicode et ne peuvent contenir seulement des espaces. Les types retirés sont exclus des nouveaux choix; les métadonnées historiques restent liées au type enregistré.
 
 ### Types et sous-types de financement
 
-Créez les types de financement sur l’agence, puis leurs sous-types. Les noms dans les deux langues sont obligatoires et limités à 255 caractères. Les types commencent actifs; **Inclus dans le cumul** et **Inclus dans le partage des coûts** sont désactivés par défaut. Les sous-types commencent actifs et utilisent les réglages de cumul et de partage des coûts de leur type parent. Ces réglages déterminent le financement inclus dans ces calculs. Contributeur d’agence crée/modifie; Gestionnaire effectue une suppression admissible.
+Créez les types de financement sur l’agence, puis leurs sous-types. Les noms dans les deux langues sont obligatoires et limités à 255 caractères. Les types commencent actifs; **Inclus dans le cumul** et **Inclus dans le partage des coûts** sont désactivés par défaut. Modifier le nom d’un type de financement conserve ses réglages de cumul et de partage des coûts. Les sous-types commencent actifs et utilisent les réglages de cumul et de partage des coûts de leur type parent. Ces réglages déterminent le financement inclus dans ces calculs. Contributeur d’agence crée/modifie; Gestionnaire effectue une suppression admissible.
 
 Ouvrez **Sous-types de financement** du volet et liez des sous-types actifs dont le parent actif appartient à la même agence. Supprimer un type ou sous-type est bloqué tant que des liens de volet actifs l’utilisent. Retirez d’abord ces liens; supprimer le type retire logiquement ses sous-types. Les preuves de financement déjà capturées gardent leur classification enregistrée. Corrigez un libellé en place plutôt que de recréer son identité. Consultez [Volets](../programs/streams.md).
 

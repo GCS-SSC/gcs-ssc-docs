@@ -4,6 +4,8 @@ An Intake is the staff file for one application. It connects the Funding Opportu
 
 ## Access and ownership
 
+Intakes under a deleted Agency are excluded from the list. A missing row is not a reason to create another Intake; check the owning Agency and your current access first.
+
 Being able to see a file and being allowed to work on it are separate checks. To assess an Intake, you need the appropriate Program role and your name on that Intake’s assignment roster. If you can read an application but cannot edit it or start a Review, check both with your assignment coordinator.
 
 Funding Case permissions (`funding_case`) apply within the Opportunity's Program. Viewer reads; Contributor creates. Editing the Intake, adding or changing attachments, changing status and starting Reviews or Workflows require Contributor **and exact assignment to this Intake**. Deletion requires Manager and that assignment. Assignment to a Proponent, Agreement, Opportunity-related record or sibling Intake grants no work rights here.

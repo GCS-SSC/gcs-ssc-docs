@@ -10,7 +10,7 @@ Open **Agencies**, choose the Agency, then **Recommendation Sets**. The grouped 
 
 ## Recommendation schema
 
-The schema is the form design, not an officer’s completed recommendation. It stores the kind of record it applies to, bilingual name, Agency, status, version, questions, and result rules. A schema created from a set belongs to that set’s Agency.
+The schema is the form design, not an officer’s completed recommendation. It stores the kind of record it applies to, bilingual name, Agency, status, version, questions, and result rules. A schema created from a set belongs to that set’s Agency. Both names are required and limited to 255 Unicode characters. Each language name must be unique among non-deleted schemas in that Agency. If saving reports a duplicate English or French name, change that name or use the existing schema; a failed save leaves the saved form and publication unchanged.
 
 The editor contains General and Form Sections. A valid definition needs at least one section, one subsection per section, and one question per subsection. Keys identify sections, subsections, questions, options, and help regardless of the displayed language. Keep them unique where required so the system can match answers to the correct question.
 
@@ -27,7 +27,7 @@ Radio questions can also allow an optional or required comment, including for th
 
 On an Agency set detail page, **Create schema** opens a short modal for member order, optional same-Agency recommendation approval template, and **Fail set on Not Recommended**. Continue creates a draft, agency-owned schema with a minimal bilingual deciding question, associates it to the setup in one transaction, and opens the schema editor.
 
-The order must be a positive integer unused by an active member. The approval template, when supplied, must be a valid template owned by that Agency. A failure creates neither a partial member nor an orphaned schema.
+The order must be an integer from 1 through 32,767 unused by an active member. The approval template, when supplied, must be a valid template owned by that Agency. A failure creates neither a partial member nor an orphaned schema.
 
 Use **Associate schema** instead when the agency schema already exists.
 

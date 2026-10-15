@@ -32,7 +32,7 @@ La page de détails affiche le fil d’Ariane de l’entente et l’état, puis 
 | --- | --- |
 | Numéro de ligne d’engagement | Nombre entier obligatoire de 1 à 32 767. Dans un engagement, la combinaison active du numéro de ligne et de l’entrée du plan comptable doit être unique. |
 | Entrée du plan comptable | Obligatoire. Elle doit être active et appartenir au volet exact de l’entente. Son exercice et ses dimensions comptables ordonnées et localisées figurent dans le sélecteur et le tableau. |
-| Montant | Valeur monétaire `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas `99999999999999999.99`, transmis en texte décimal exact. Le validateur actuel n’exige pas un montant positif ou non négatif. |
+| Montant | Valeur monétaire `numeric(19,2)` obligatoire, comportant au plus deux décimales et dont la valeur absolue ne dépasse pas `99999999999999999.99`, transmis en texte décimal exact. Les montants doivent être de zéro ou plus. |
 
 La recherche de la page de détails correspond au numéro de ligne, à l’exercice, à chaque composante de codage affichée ou au montant. Comparez le total déclaré à toutes les lignes de codage non filtrées dans la devise de l’entente; aucune conversion n’est effectuée.
 
@@ -43,15 +43,15 @@ Les changements ordinaires de lignes conservent le statut métier de l’organis
 | Protection | Portée exacte |
 | --- | --- |
 | Plafond du financement de programme courant | Pour l’engagement visé, les lignes actives existantes plus le montant nouveau ou de remplacement ne peuvent pas dépasser la somme du `financement de programme` de la version budgétaire courante de l’entente. Il s’agit d’un plafond par engagement, et non d’un plafond partagé entre tous les types ou toutes les versions d’engagement. |
-| Contrôle par la base de données | La base vérifie le plafond après les changements aux lignes d’engagement, aux lignes budgétaires courantes ou à la version budgétaire courante. Elle refuse l’enregistrement si un engagement actif dépasse le financement de programme courant. Mécanisme technique : déclencheurs de contrainte différés PostgreSQL. |
+| Contrôle par la base de données | Les changements aux lignes d’engagement vérifient encore le plafond par engagement. Les réductions budgétaires n’exécutent plus les anciens plafonds d’engagement côté budget; elles peuvent laisser un engagement actif au-dessus du budget et suspendre les paiements. |
 | Plancher du montant payé | Vous ne pouvez pas réduire une ligne sous les montants de paiement qui lui sont affectés. Les paiements non supprimés comptent sauf si leur dernière preuve d’approbation est `denied`; changer un libellé d’état ne suffit pas. Si une ligne de paiement active vise cette ligne, vous ne pouvez pas non plus changer son engagement ou son entrée comptable, même après un refus d’approbation. |
 | Cycle de vie verrouillé | Vous ne pouvez pas modifier normalement un engagement ou ses lignes après Achèvement, pendant le travail protégé d’un flux, ou lorsque le statut de l’organisme le rend en lecture seule ou final. |
 
-Si une réduction budgétaire place un engagement au-dessus du nouveau financement de programme courant, PostgreSQL refuse la transaction. Rétablissez un financement courant suffisant ou réduisez d’abord les lignes d’un engagement encore modifiable. Les échecs de validation ou de contrainte ne laissent aucune modification partielle.
+Vous pouvez réduire le budget même si un engagement actif dépasse le nouveau financement. Les paiements comparent alors l’ensemble des engagements actifs de tous les types au financement courant du programme, tous exercices confondus dans la même devise. Pour chaque engagement, le contrôle utilise le plus élevé du total déclaré et du total des lignes actives. L’égalité est permise; les engagements historiques inactifs ne fournissent pas de capacité.
 
-::: warning Les lignes brouillons signées exigent un examen
-Le schéma des lignes d’engagement permet des montants nuls et signés dans les brouillons; cela n’autorise pas l’achèvement d’une allocation déséquilibrée. Le total déclaré doit être non négatif, Achèvement exige son égalité exacte avec le total des lignes, et un remplacement doit préserver la couverture des montants déjà payés par codage. Ces contrôles agrégés n’imposent pas une règle universelle de positivité à chaque ligne brouillon. Examinez chaque allocation avant l’achèvement.
-:::
+Par exemple, des engagements actifs de 6 000 et 4 000 respectent un financement total du programme de 10 000. Réduire ce financement à 9 000 peut réussir, mais les paiements sont suspendus jusqu’à ce que l’ensemble des engagements actifs respecte 9 000. Préparez et activez un remplacement valide, ou rétablissez le financement autorisé, puis vérifiez l’engagement choisi du paiement avant de réessayer. Un paiement encore lié à un engagement inactif doit utiliser l’engagement courant.
+
+Les montants des lignes d’engagement doivent être non négatifs, même en brouillon. Le total déclaré doit aussi être non négatif et égaler exactement toutes les lignes actives à l’achèvement. Un remplacement doit préserver la couverture payée par codage; une réduction budgétaire n’efface pas ce plancher.
 
 ## Achever un engagement
 

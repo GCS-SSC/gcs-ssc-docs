@@ -1,5 +1,382 @@
 [
   {
+    "id": "catalog-text-and-partial-inputs",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "admin/agency-catalogs.md",
+      "programs/index.md",
+      "programs/recommendations.md",
+      "programs/streams.md",
+      "concepts/workflows.md",
+      "developer/validation-i18n.md"
+    ],
+    "final_contract": "Bilingual paired guidance covers Unicode 255-character/NUL checks, canonical optional agency IDs, signed smallint authoring order versus consecutive publication, explicit-false versus omitted PATCH flags, Program and financial-limit Active preservation. Financial forecast/commitment portions of funding-case-agreement.ts remain parent financial scope.",
+    "source_evidence": [
+      "shared/types/schemas/admin-common.ts",
+      "shared/types/schemas/agency.ts",
+      "shared/types/schemas/common.ts",
+      "shared/types/schemas/user.ts",
+      "shared/types/schemas/applicant-recipient.ts",
+      "shared/types/schemas/funding-sources.ts",
+      "shared/types/schemas/transfer-payment.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/server-route-authoring-order-boundaries.test.ts",
+      "tooling/gcs-ssc/tests/unit/server-route-partial-default-retention.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "approval-template-certification-save",
+    "documentation_pairs": [
+      "programs/approval-templates.md",
+      "developer/validation-i18n.md"
+    ],
+    "final_contract": "Bilingual certification reorder/remove example and rollback recovery; duplicate supplied IDs including deleted rows rejected; active parent-owned certification IDs only; no historical resurrection. Removed stale entity-type header validation and corrected default user/group row.",
+    "source_evidence": [
+      "shared/types/schemas/approval-template.ts",
+      "server/utils/approval-templates.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/server-route-approval-certification-reorder.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "agency-review-set-and-member-roundtrip",
+    "documentation_pairs": [
+      "admin/agency-catalogs.md",
+      "developer/validation-i18n.md"
+    ],
+    "final_contract": "Saved default groups now included in list/detail and editable-field payloads; retained when reopening. Invalid setup ID uses not found and fresh read authorization reinforces existing exact Agency permission boundary.",
+    "source_evidence": [
+      "app/components/TransferPayment/TransferPaymentReviewSetupItemModal.vue",
+      "server/api/agency/[agencyId]/review-sets/[reviewSetId]/groups.get.ts",
+      "server/api/agency/[agencyId]/review-sets/[reviewSetId]/index.get.ts",
+      "server/api/agency/[agencyId]/review-sets/index.get.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/server-route-review-set-default-group.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "agency-publication-error-recovery",
+    "documentation_pairs": [
+      "developer/validation-i18n.md",
+      "concepts/workflows.md",
+      "admin/agency-catalogs.md"
+    ],
+    "final_contract": "Localized publication lifecycle conflicts mapped only after rollback; recognized invalid working definitions retain readable metadata for correction; allowed-status-only PATCH avoids empty SQL header write. Existing workflow and catalog guidance already covers publication dependencies, allowed start statuses and recovery. New text documents exact technical contract.",
+    "source_evidence": [
+      "server/utils/agency-auth.ts",
+      "server/utils/publication-errors.ts",
+      "server/utils/workflow-setup-versioning.ts",
+      "server/api/agency/[agencyId]/workflows/[workflowId]/index.patch.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/server-route-publication-conflict-contract.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "duplicate-name-errors",
+    "documentation_pairs": [
+      "admin/agencies.md",
+      "programs/recommendations.md",
+      "programs/index.md"
+    ],
+    "final_contract": "Existing canonical indexes now mapped to localized duplicate errors; docs cover normalized Agency/cost/behalf uniqueness and exact active Program bilingual combination; schema duplicate save leaves evidence unchanged and offers correction/retry.",
+    "source_evidence": [
+      "server/utils/agency-unique-constraint-errors.ts",
+      "server/utils/recommendation-schema-agency-routes.ts",
+      "server/utils/transfer-payment-unique-constraint-errors.ts",
+      "server/api/transfer-payments/index.post.ts",
+      "server/api/transfer-payments/[id].patch.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/integration/recommendation-schema-duplicates-postgres.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "calculation-source-category-delete",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "final_contract": "Deletion blocked by retained calculation-source references even from inactive cost lines. Availability off does not release relation; change/remove calculation first.",
+    "source_evidence": [
+      "server/utils/cost-configuration-integrity.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "deleted-agency-group-boundary",
+    "documentation_pairs": [
+      "admin/groups.md"
+    ],
+    "final_contract": "Deleted Agency groups excluded from lists/pickers and cannot be read/mutated; fresh principal locks and parent/share rechecks reinforce current scoped permissions. Recovery says reload and inspect Agency.",
+    "source_evidence": [
+      "server/api/groups/index.get.ts",
+      "server/api/groups/lookups.get.ts",
+      "server/utils/groups.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "opportunity-and-intake-current-source",
+    "documentation_pairs": [
+      "intake/opportunities.md",
+      "intake/funding-case-intakes.md",
+      "developer/validation-i18n.md"
+    ],
+    "final_contract": "Deleted Agency entries hidden. Create Opportunity locks/rechecks Agency active Program and exact selected Stream chain before saving; changed selection fails atomically. Setup IDs validated individually. Intake create authorizes before unavailable-Opportunity error; this reinforces existing role/selection boundary with no new user feature.",
+    "source_evidence": [
+      "server/api/funding-opportunities/index.get.ts",
+      "server/api/funding-opportunities/index.post.ts",
+      "server/api/funding-opportunities/lookups/setups.get.ts",
+      "server/api/funding-case-intakes/index.get.ts",
+      "server/api/funding-case-intakes/index.post.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "stream-child-read-and-patch-hardening",
+    "documentation_pairs": [
+      "programs/index.md",
+      "programs/streams.md",
+      "admin/agency-catalogs.md",
+      "developer/validation-i18n.md"
+    ],
+    "final_contract": "Snapshot reads and same-agency parent checks enforce existing scoped configuration access; no new feature or setup step. Financial-limit pagination total now includes inactive rows, Active count distinct. Patches preserve omitted flags and invalid document-template path IDs rejected.",
+    "source_evidence": [
+      "server/api/transfer-payments/[id]/performance-indicators/index.get.ts",
+      "server/api/transfer-payments/[id]/streams/[streamId]/amendment-types/[amendmentTypeId]/index.patch.ts",
+      "server/api/transfer-payments/[id]/streams/[streamId]/amendment-types/index.get.ts",
+      "server/api/transfer-payments/[id]/streams/[streamId]/document-templates/index.get.ts",
+      "server/api/transfer-payments/[id]/streams/[streamId]/document-templates/index.post.ts",
+      "server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/[financialLimitId].patch.ts",
+      "server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/index.get.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "commitment-type-delete-role",
+    "documentation_pairs": [
+      "admin/agencies.md"
+    ],
+    "final_contract": "Fresh transaction now uses delete action, matching existing exact Agency Manager requirement. No additional prose needed; permissions table already states corresponding exact-agency delete permission.",
+    "source_evidence": [
+      "server/api/agency/[agencyId]/commitment-types/[typeId]/index.delete.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "forecast-record-versions",
+    "documentation_pairs": [
+      "agreements/forecasts.md",
+      "agreements/budget.md",
+      "agreements/amendments.md",
+      "agreements/financial-summary.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md"
+    ],
+    "final_contract": "Each server-numbered forecast version is an independent header with immutable year/version, assignments and lifecycle. Add version copies active amounts/funding unless over budget. Deleted history reserves numbering and protects fiscal years. Current active version alone supplies summary/payment inputs; line versions/header PATCH removed.",
+    "source_evidence": [
+      "app/components/Agreement/AgreementForecastsTab.vue",
+      "app/pages/agreements/[id]/forecasts/[forecastId].vue",
+      "server/api/agreements/[id]/financial-summary.get.ts",
+      "server/api/agreements/[id]/forecast-line-items/[lineId].patch.ts",
+      "server/api/agreements/[id]/forecast-line-items/index.post.ts",
+      "server/api/agreements/[id]/forecasts-overview.get.ts",
+      "server/api/agreements/[id]/forecasts/[forecastId].delete.ts",
+      "server/api/agreements/[id]/forecasts/index.post.ts",
+      "server/utils/agreement-financial-summary.ts",
+      "server/utils/agreement-forecast-import.ts",
+      "server/utils/agreement-forecast-versions.ts",
+      "server/utils/agreement-forecast.ts",
+      "shared/types/schemas/funding-case-agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/utils/agreement-budget.ts",
+      "server/api/agreements/[id]/budget-fiscal-years/[childId].delete.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/agreement-forecast-record-versions.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+    "removed_source_reviewed_in_baseline_diff": [
+      "server/api/agreements/[id]/forecasts/[forecastId].patch.ts"
+    ]
+  },
+  {
+    "id": "program-budget-and-recovery",
+    "documentation_pairs": [
+      "agreements/budget.md",
+      "agreements/amendments.md",
+      "agreements/claims.md",
+      "agreements/forecasts.md",
+      "agreements/receivables.md",
+      "developer/data-model.md"
+    ],
+    "final_contract": "Annual controls use current program funding only. Applied AR claim reductions free claim/reconciliation capacity by original year and per-claim zero floor. Budget reduction floors additionally credit posted original-claim AR collections/offsets without double counting; no draft/partial receipt capacity for new claims. Original claim-related AR Completion requires a positive full-principal plan. Forecast/commitment excess can remain after a reduction; shared Stream amendment gap remains.",
+    "source_evidence": [
+      "app/components/AccountReceivable/ClaimReductions.vue",
+      "app/pages/agreements/[id]/account-receivables/[accountReceivableId].vue",
+      "server/utils/account-receivable-claim-reductions.ts",
+      "server/utils/account-receivable-source.ts",
+      "server/utils/account-receivable.ts",
+      "server/utils/agreement-accounting-projection.ts",
+      "server/utils/agreement-budget-recovery-credit.ts",
+      "server/utils/agreement-financial-budget-controls.ts",
+      "server/utils/agreement-financial-budget-errors.ts",
+      "shared/types/schemas/funding-case-agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "payment-holds-and-commitment-lines",
+    "documentation_pairs": [
+      "agreements/payments.md",
+      "agreements/commitments.md",
+      "agreements/forecasts.md",
+      "developer/data-model.md"
+    ],
+    "final_contract": "Payment Completion, workflow start, positive approval and successful processing recheck active forecast by payment year and current selected commitment plus combined active types across all years/currency, using max(declared,live lines). Replace/activate or restore funding then retry. Nonnegative commitment lines; per-commitment write cap and paid floors remain; old budget-side triggers removed.",
+    "source_evidence": [
+      "server/api/agreements/[id]/commitments/[childId].delete.ts",
+      "server/api/agreements/[id]/commitments/[childId].patch.ts",
+      "server/utils/agreement-payment-calculation.ts",
+      "server/utils/agreement-payment-commitment-controls.ts",
+      "server/utils/agreement-payment-completion.ts",
+      "server/utils/review-approval-runtime.ts",
+      "server/utils/workflow-runtime.ts",
+      "shared/types/schemas/funding-case-agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/unit/agreement-payment-commitment-controls.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "claim-editor-and-summary-default",
+    "documentation_pairs": [
+      "agreements/claims.md",
+      "agreements/financial-summary.md"
+    ],
+    "final_contract": "Submitted amounts save one selected row through a modal; duplicates shown separately while editable. Reconciliations retain atomic bulk writes. Financial summary initially selects Forecast and uses the active header version.",
+    "source_evidence": [
+      "app/components/Agreement/AgreementFinancialSummaryTab.vue",
+      "app/pages/agreements/[id]/claims/[claimId].vue"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "exact-target-and-input-hardening",
+    "documentation_pairs": [
+      "agreements/amendments.md",
+      "agreements/monitors.md",
+      "agreements/corrections.md",
+      "proponents/agency-financial-ids.md",
+      "developer/validation-i18n.md"
+    ],
+    "final_contract": "Amendment writes authorize exact amendment assignment; monitor child IDs/empty PATCH validated and omitted receivable flag retained; correction/agency/subtype/approval IDs canonical before SQL. Reinforces existing exact permissions and localized validation; no new workflow or eligibility is inferred.",
+    "source_evidence": [
+      "app/components/ApplicantRecipient/ApplicantRecipientAgencyFinancialIdsTab.vue",
+      "server/api/agreements/[id]/amendments/[amendmentId].delete.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].delete.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].patch.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/activities/index.post.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/activity-snapshot.post.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/budget-fiscal-years/[childId].delete.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/budget-fiscal-years/[childId].patch.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].delete.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].patch.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/index.post.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/budget-snapshot.post.ts",
+      "server/api/agreements/[id]/amendments/[amendmentId]/cancel.post.ts",
+      "server/api/agreements/[id]/corrections/lookups/payments.get.ts",
+      "server/api/agreements/[id]/monitor-findings/[childId].patch.ts",
+      "server/api/agreements/[id]/monitor-followup-updates/[childId].patch.ts",
+      "server/api/agreements/[id]/monitor-followups/[childId].delete.ts",
+      "server/api/agreements/[id]/monitor-followups/[childId].patch.ts",
+      "server/api/agreements/[id]/monitor-planning/[childId].patch.ts",
+      "server/api/agreements/[id]/monitor-promising-practices/[childId].patch.ts",
+      "server/api/agreements/lookups/agreement-subtypes.get.ts",
+      "server/api/applicant-recipients/[id]/agency-financial-ids/lookups/agencies.get.ts",
+      "server/api/approvals/approve.post.ts",
+      "server/api/approvals/deny.post.ts",
+      "server/api/approvals/reassign.post.ts",
+      "server/utils/agreement-amendment.ts",
+      "server/utils/agreement-budget.ts",
+      "server/utils/funding-case.ts"
+    ],
+    "regression_evidence_inspected_not_executed": [],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
+    "id": "operations-sdk-and-provenance",
+    "documentation_pairs": [
+      "operator/deployment.md",
+      "operator/background-work.md",
+      "developer/data-model.md",
+      "developer/extensions-authoring.md"
+    ],
+    "final_contract": "Manual image workflow publishes commit/latest tags; AWS refresh preview, preserve/reset/SSO and recovery documented. Portal source-commit provenance is optional and validated. Explicit ordered incremental commitment-cap hotfix preserves data; source deployment receipts are attributed history, not live verification. SDK 0.3.18 forecast header versions/import result replace line-version inputs. Access queue reports sent count; extension implementation and private tooling are owner-local.",
+    "source_evidence": [
+      ".github/workflows/publish-demo-image.yml",
+      ".railway/README.md",
+      ".railway/railway.ts",
+      "Dockerfile",
+      "README.md",
+      "app/components/Common/Completions/Section.vue",
+      "app/composables/useCompletionWorkflowStart.ts",
+      "app/utils/route-locations.ts",
+      "bun.lock",
+      "deployment/demo-image.json",
+      "deployment/portal-demo-image.json",
+      "deployment/portal-demo-image.ts",
+      "docs/container-images.md",
+      "docs/deployment-aws.md",
+      "extensions/gcs-automated-payments",
+      "extensions/gcs-ssc-portal-connector",
+      "i18n/locales/en.json",
+      "i18n/locales/fr.json",
+      "infra/aws/package.json",
+      "infra/aws/src/demo-refresh.ts",
+      "package.json",
+      "packages/gcs-ssc-extensions",
+      "scripts/test-production-artifact.ts",
+      "scripts/test-webcontainer-artifact.ts",
+      "server/api/agreements/[id]/budget-fiscal-years/[childId].delete.ts",
+      "server/api/journal-vouchers/index.get.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/database/migrations/9999_z_commitment_budget_payment_hold.ts",
+      "server/database/production-core-migrations.ts",
+      "server/database/seeds/maple-demo.json",
+      "server/database/seeds/ncia-demo.json",
+      "server/utils/access-log-queue.ts",
+      "shared/types/database.d.ts",
+      "shared/types/funding-case-agreement-ui.ts",
+      "tooling/gcs-ssc"
+    ],
+    "regression_evidence_inspected_not_executed": [
+      "tooling/gcs-ssc/tests/aws/demo-refresh.test.ts",
+      "tooling/gcs-ssc/tests/integration/commitment-budget-hotfix-migration-postgres.test.ts"
+    ],
+    "verified_target": "a50e1429bf634145a6a933f0faa3d20907a7ca6b"
+  },
+  {
     "id": "opportunity",
     "documentation_pairs": [
       "intake/opportunities.md",
@@ -16,7 +393,8 @@
       "app/components/FundingOpportunity/SetupRelationshipsTab.vue"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "intake",
@@ -36,7 +414,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/submitted-application.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "budget",
@@ -57,7 +436,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "payments",
@@ -79,7 +459,8 @@
       "tooling/gcs-ssc/tests/unit/agreement-payment-evidence.test.ts",
       "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "summary",
@@ -93,7 +474,8 @@
       "server/utils/agreement-accounting-projection.ts"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "correction",
@@ -111,7 +493,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/correction-accounting.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "journal",
@@ -129,7 +512,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/journal-voucher-accounting.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "receivable",
@@ -150,7 +534,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/account-receivable-host-payment-completion.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "credit",
@@ -167,7 +552,8 @@
       "server/utils/credit-memo-queue-authority.ts"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "workflow",
@@ -190,7 +576,8 @@
       "tooling/gcs-ssc/tests/unit/workflow-two-assessment-risk-outcome.test.ts",
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "collection",
@@ -208,7 +595,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/data-collection-runtime.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "documents",
@@ -230,7 +618,8 @@
       "tooling/gcs-ssc/tests/unit/document-rendering.test.ts",
       "tooling/gcs-ssc/tests/unit/amendment-document-context.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "identity",
@@ -256,7 +645,8 @@
     "regression_evidence_inspected_not_executed": [
       "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "navigation",
@@ -278,7 +668,8 @@
       "tooling/gcs-ssc/tests/unit/search-records.test.ts",
       "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "agency",
@@ -296,7 +687,8 @@
       "server/utils/agency-finance-catalog.ts"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "sdk",
@@ -320,7 +712,8 @@
       "packages/gcs-ssc-diagrams/src/FlowDiagram.vue"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "background",
@@ -341,7 +734,8 @@
       "tooling/gcs-ssc/tests/unit/l1-queue.test.ts",
       "tooling/gcs-ssc/tests/unit/l1-queue-plugin.test.ts"
     ],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "audit",
@@ -356,7 +750,8 @@
       "server/utils/audit-runtime.ts"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "database",
@@ -372,7 +767,8 @@
       "server/database/schema/commitment-coding.ts"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   },
   {
     "id": "operations",
@@ -394,6 +790,7 @@
       "server/utils/auth.ts"
     ],
     "regression_evidence_inspected_not_executed": [],
-    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b"
+    "verified_target": "4ccf2f7880349aa3eb94a46c74f591c42a4bb73b",
+    "review_scope": "Prior baseline evidence retained for unchanged coverage rows; current changes are described in the groups above."
   }
 ]

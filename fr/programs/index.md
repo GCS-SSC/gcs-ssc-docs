@@ -46,7 +46,7 @@ Les champs du profil sont :
 - Objectif anglais et objectif français.
 - Indicateur Actif : faux par défaut à la création.
 
-Tous les champs bilingues sont obligatoires. Le formulaire refuse un programme dont le texte français ou anglais manque.
+Tous les champs bilingues sont obligatoires. Le formulaire refuse un programme dont le texte français ou anglais manque. Deux programmes actifs non supprimés de la même agence ne peuvent partager la même combinaison de noms français et anglais. Si créer, renommer ou activer un programme signale un doublon, vérifiez les programmes actifs existants et corrigez les noms avant de réessayer. Modifier un autre champ conserve le réglage Actif enregistré.
 
 ## Assistant De Programme
 
@@ -111,6 +111,8 @@ Les résultats décrivent les changements attendus qui servent au suivi du rende
 - Nom anglais et nom français.
 - Description anglaise et description française.
 
+Les noms de résultat sont obligatoires, limités à 255 caractères Unicode par langue et sans espaces périphériques. Les deux descriptions sont obligatoires et leurs espaces périphériques sont retirés. Si du texte collé contient un caractère invisible invalide, ressaisissez le texte concerné et enregistrez de nouveau.
+
 Les indicateurs de rendement sont liés aux résultats; modifier ou supprimer des résultats peut donc changer les options disponibles lors de la configuration des indicateurs.
 
 Par exemple, utilisez « Meilleur accès aux installations communautaires » comme résultat et décrivez le changement attendu. Ajoutez les mesures de ce changement dans Indicateurs de rendement.
@@ -149,6 +151,8 @@ Les indicateurs de rendement sont créés sous les résultats. Chaque indicateur
 - Résultat.
 - Nom anglais et nom français.
 - Description anglaise et description française.
+
+Les noms d’indicateur respectent la même limite de 255 caractères que les noms de résultat. Noms et descriptions sont obligatoires et leurs espaces périphériques sont retirés; les caractères invisibles invalides sont refusés.
 
 Le formulaire de création présélectionne un résultat disponible lorsque possible. S’il n’y a aucun résultat, créez au moins un résultat avant d’ajouter des indicateurs.
 

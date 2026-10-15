@@ -103,7 +103,7 @@ Consultez [Engagements](./commitments.md), [Budget de l’entente](./budget.md),
 
 ## Aperçu, recouvrement et preuves conservées
 
-Choisissez le bénéficiaire, le type d’engagement, l’exercice et la période avant d’examiner les **Données financières** et les soldes des lignes d’engagement. Les données de l’hôte utilisent la devise de l’entente, le budget courant, la dernière version des prévisions actives, les rapprochements finaux admissibles et les effets comptables. Les réclamations postérieures à la période choisie sont exclues. Un dernier exercice budgétaire vide appartient encore à l’horizon de retenue. Le droit au paiement, la réserve/libération de retenue et le montant calculé appartiennent à l’extension de calcul activée; examinez son détail et sa provenance conservée.
+Choisissez le bénéficiaire, le type d’engagement, l’exercice et la période avant d’examiner les **Données financières** et les soldes des lignes d’engagement. Les données de l’hôte utilisent la devise de l’entente, le budget courant, les montants mensuels des versions actives de prévision, les rapprochements finaux admissibles et les effets comptables. Les réclamations postérieures à la période choisie sont exclues. Un dernier exercice budgétaire vide appartient encore à l’horizon de retenue. Le droit au paiement, la réserve/libération de retenue et le montant calculé appartiennent à l’extension de calcul activée; examinez son détail et sa provenance conservée.
 
 Les données de paiements à ce jour comprennent les décaissements et les effets signés effectifs des pièces de journal/corrections, séparément des crédits. Les crédits comptabilisés et ceux attribuables aux périodes sources entièrement rapprochées de façon finale sont des données distinctes. Un crédit reçu plus tard peut encore appartenir à l’exercice source conservé. Ne soustrayez pas deux fois un recouvrement et ne déduisez pas de totaux convertis depuis une autre devise.
 
@@ -118,3 +118,16 @@ Utilisez **Preuves** pour voir l’information utilisée lors de l’enregistrem
 ## Capacité comptable
 
 Les soldes restants comprennent les changements de codage de journal réussis, les corrections comptabilisées et les recouvrements effectifs. Les allocations payées directes restent rattachées à leurs lignes exactes d’engagement. Les effets entrants partagent l’enveloppe de codage de l’organisme plutôt que rendre le même argent disponible sur chaque ligne de codage en double. L’enveloppe par type d’engagement empêche aussi de réutiliser l’argent en remplaçant simplement un engagement actif du même type. Examinez les capacités individuelles et partagées lors d’un solde insuffisant.
+
+## Suspensions après un changement de budget ou d’engagement
+
+Avant l’achèvement, le démarrage d’un flux, une approbation positive ou un traitement réussi, le serveur vérifie de nouveau la prévision active et les engagements courants. Un paiement enregistré ou une étape déjà approuvée ne contourne pas une réduction ultérieure du financement.
+
+| Suspension | Comment la résoudre |
+| --- | --- |
+| Révision de prévision requise | Le montant du programme de la prévision active dépasse le financement annuel courant de l’exercice du paiement. Créez un remplacement dans **Prévisions**, terminez son approbation et confirmez son activation, ou rétablissez un financement autorisé suffisant. Un remplacement en brouillon ne lève pas la suspension. |
+| Révision d’engagement requise | L’engagement choisi est inactif, ou l’ensemble des engagements actifs dépasse le financement courant du programme, tous exercices de l’entente confondus dans cette devise. Activez des remplacements valides en préservant les planchers payés par codage, puis choisissez l’engagement courant sur un paiement modifiable. Vous pouvez aussi rétablir un financement autorisé suffisant. |
+
+Le contrôle additionne tous les types actifs et utilise le plus élevé du total déclaré et du total des lignes actives de chacun. Par exemple, des engagements actifs de 6 000 et 4 000 dépassent un budget réduit à 9 000, même si chacun est inférieur à 9 000. L’égalité est permise. Un paiement d’un autre exercice peut encore être suspendu par ce total d’engagement pour toute l’entente; la suspension de prévision vise l’exercice du paiement.
+
+Après correction, actualisez et réessayez l’action du paiement existant. Si le paiement est verrouillé, suivez les actions de reprise offertes par le flux au lieu de modifier son historique. Les dettes à recouvrer et les limites de codage restent des contrôles supplémentaires. Consultez [Prévisions](./forecasts.md) et [Engagements](./commitments.md).

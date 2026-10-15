@@ -1,17 +1,17 @@
 # Source verification receipt
 
-The authoritative continuation marker is maintained only in `.agents/skills/gcs-docs-sync/SKILL.md`. This receipt records the completed synchronization and evidence.
+The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.md`. This receipt records the completed review and executed checks.
 
-- Verified at: `2026-10-14T15:20:51+00:00`
+- Verified at: `2026-10-15T22:29:18+00:00`
 - Application repository: `https://github.com/GCS-SSC/gcs-ssc.git`
 - Branch: `main`
-- Verified application commit: `4ccf2f7880349aa3eb94a46c74f591c42a4bb73b`
-- Application committer datetime: `2026-10-14T07:06:18-04:00`
-- Previous verified source: `c02d847de7078a2110f54c298ed3ef7f3e1b620b`
-- Review range: 145 commits and 825 net changed paths; all have dispositions in `incremental-changes.json` and `changed-source-dispositions.json`, with source contracts in `review-groups.json`.
-- Isolated checkout: `.reference-repos/gcs-ssc`, clean and detached at the target. Initialized submodules match the gitlinks below. Baseline existence and ancestry passed.
-- Final fetched `origin/main`: `4ccf2f7880349aa3eb94a46c74f591c42a4bb73b`; no drift.
-- Docs starting HEAD: `f8052ab4cd62bf5847075340eba39e25f3caa682`; starting worktree clean. Final edits intentionally uncommitted.
+- Verified application commit: `a50e1429bf634145a6a933f0faa3d20907a7ca6b`
+- Application committer datetime: `2026-10-15T13:08:07-04:00`
+- Previous verified source: `4ccf2f7880349aa3eb94a46c74f591c42a4bb73b`
+- Range: 43 commits and 134 net changed paths; all have dispositions in `incremental-changes.json` and `changed-source-dispositions.json`. Final contracts and inspected regression sources are in `review-groups.json`; prior groups remain for unchanged coverage evidence.
+- Isolated checkout: `.reference-repos/gcs-ssc`, clean and detached at the exact target. Baseline existence and ancestry passed. Initialized gitlinks match the target below.
+- Final fetched `origin/main`: `a50e1429bf634145a6a933f0faa3d20907a7ca6b`; no drift.
+- Docs starting HEAD: `9640482faf57ed6bdcf011ba2a60ef6d1828bade`; starting worktree clean. Final edits are uncommitted.
 - Sibling `../gcs-ssc`: untouched.
 
 ## Source gitlinks
@@ -19,48 +19,51 @@ The authoritative continuation marker is maintained only in `.agents/skills/gcs-
 | Workspace | Commit |
 | --- | --- |
 | `extensions/gcs-agreement-number` | `854531d05c1a43881073ce8e42297eab0e398c5d` |
-| `extensions/gcs-automated-payments` | `836c8bcb62abe8c3207298dba487272db6bc09bc` |
+| `extensions/gcs-automated-payments` | `b22814640292d44169a4068b094306d0bcbc4972` |
 | `extensions/gcs-gcforms-integration` | `bf6402a9777da62eef32af18a50f19b424ee38d5` |
 | `extensions/gcs-machine-translation` | `c1819d3353041455cad0081bfb011b480f828f05` |
 | `extensions/gcs-narrative-quality` | `1fcd7329ab0e5ae3bdf77da8f72b8d5729de643e` |
 | `extensions/gcs-narrative-tags` | `b2b1e897d2f880a8585a6a3446600f0086996982` |
 | `extensions/gcs-outcome-cost-allocation` | `69d5af19451dfe6f9fab7a1a7aa5470abec0bebe` |
-| `extensions/gcs-ssc-portal-connector` | `1eb39bd659b2273980c90a80d93273607d833b59` |
+| `extensions/gcs-ssc-portal-connector` | `e0b9f998e23b23c34a331fcd4a5a46111f45098c` |
 | `extensions/gcs-storage-local` | `933e55267a04ab757e472831b373a21f9a693f1d` |
 | `extensions/gcs-storage-s3` | `7f021314c9d430f2ed831c5cfe5cd3ac98cc714d` |
-| `packages/gcs-ssc-extensions` | `38d2dbaf5d0ca94a7e8be94de22a323dd059add0` |
-| `tooling/gcs-ssc` | `9eff17dad86db6560cc6ac9ccc75b5da9c7e132d` |
+| `packages/gcs-ssc-extensions` | `940f507a13df41d19324c271d689af00e8917c4a` |
+| `tooling/gcs-ssc` | `5c48b96d51aed51aa3d08970ae1c1f66deaa1120` |
 
-Concrete extension pins make the snapshot reproducible. Their independent implementation guidance remains outside host-documentation scope.
+Concrete extensions own their implementation documentation. Their pins make the inspected source snapshot reproducible; host/public SDK changes are covered here.
 
-## Verification results
+## Executed verification
 
-Bun version: `1.3.13`. Source-dependent commands ran from the docs root against the pinned ignored clone.
+Bun version: `1.3.13`. All source-dependent commands ran from the documentation root against the pinned ignored clone.
 
-| Executed command/check | Actual result |
+| Command or check | Actual result |
 | --- | --- |
-| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:inventory` | Passed; 421 page/shell/component, 677 API, 1,749 data, 1 extension, 20 domain, 12 configuration and 0 historical audit-impact rows. |
-| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:references` | Passed; 677 handlers in ten paired API groups. |
-| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:audit-impact` | Passed; zero historical dossier entries; runtime Audit covered separately. |
-| `python3 /tmp/check-gcs-inventory.py` | Passed isolated scanner/merger fixtures: preserved curated metadata/status, removed source entries, raw SQL helper and inline constraint discovery, no keyword pseudo-row, distinct case-sensitive enums, deterministic repeat generation. |
-| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check` | Passed after correcting initial SQL enum ID collision/status-command-label failures; terminal coverage, parity, destinations, links, anchors, navigation, redirects, source reconciliation and production build. |
+| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:inventory` | Passed: 421 page/shell/component, 676 API, 1,750 data, 1 extension, 20 domain, 12 configuration and 0 historical audit-impact rows. |
+| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:references` | Passed: 676 routes in ten bilingual groups; removed Forecast header PATCH and changed validation/authorization references reconciled. |
+| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:audit-impact` | Passed: no historical dossier rows. Runtime Audit remains separately documented. |
+| `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check` | Passed: terminal source coverage, locale structure, navigation, destinations, links, anchors, redirects, source reconciliation and production build. |
 | `git diff --check` | Passed. |
 | `VITEPRESS_BASE=/gcs-ssc-docs/ bun run docs:build` | Passed with the deployment base. |
-| Repeat all three generators plus SHA-256 comparison | Passed; all 29 generated coverage/API/audit-reference files were byte-for-byte stable after evidence reconciliation and serialization normalization. |
-| `git -C .reference-repos/gcs-ssc fetch origin main` and target comparison | Passed; `origin/main` remains the verified target. |
+| Repeat all three generators and SHA-256 comparison | Passed: all 29 generated files unchanged after evidence reconciliation. |
+| `git -C .reference-repos/gcs-ssc fetch origin main` and target comparison | Passed: `origin/main` still matches the reviewed target. |
 
-Metadata was advanced after these successful checks. The required checker, whitespace check and deployment-base build passed again after the marker/receipt edits; final generator output remained stable. Builds emit the existing nonfatal warning for chunks larger than 500 kB. Application runtime/unit/PostgreSQL/browser suites and CodeRabbit were not executed. The listed application test bodies were inspected as source evidence only. No live deployment or external service mutation was performed.
+The marker was advanced only after the checks above passed. The post-marker documentation checker, whitespace check and deployment-base build passed again. Final receipt and evidence corrections are included in the concluding verification rerun.
+
+Builds emitted the existing nonfatal warning for chunks larger than 500 kB. Documentation tooling scripts were unchanged. Application runtime/unit/PostgreSQL/browser tests, CodeRabbit and live-deployment checks were not executed. Application test bodies listed in review groups were inspected only. Source deployment receipts are attributed historical evidence, not checks executed by this documentation run.
 
 ## Coverage totals
 
 | Ledger | Entries |
 | --- | ---: |
-| api | 677 |
+| api | 676 |
 | audit-impact | 0 |
 | config | 12 |
-| data | 1749 |
+| data | 1750 |
 | domain | 20 |
 | extension | 1 |
 | page | 421 |
 
-All 2,880 entries have terminal source-backed documentation dispositions, with zero remaining items. Nine new bilingual guide pairs cover Opportunity, Intake, Portal host boundary, Data Collection, financial summary, Corrections, Journal vouchers, Receivables and Credit Memos. Existing application limitations remain in [findings](./documentation-findings.md), including the cross-Agreement Amendment Stream capacity gap. See [review scope](./sync-review.md).
+All 2,880 entries have terminal source-backed documentation dispositions, with zero remaining items. Six new schema/migration entries were reviewed; removed mechanisms/routes were dropped. Unchanged evidence retains its earlier baseline review. `DOCUMENTED_VERIFIED` describes documentation coverage, not application test execution.
+
+The simpler English and French guide language is preserved. The cross-Agreement Amendment Stream-capacity gap and remaining duplicate-coordinate/import caveats are documented in [findings](./documentation-findings.md). See [review scope](./sync-review.md) and [status](./status.md).

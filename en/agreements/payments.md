@@ -103,7 +103,7 @@ See [Commitments](./commitments.md), [Agreement Budget](./budget.md), [Approvals
 
 ## Preview, recovery and retained evidence
 
-Select the payee, commitment type, fiscal year and period before reviewing **Financial inputs** and the commitment-line balances. Host inputs use the agreement currency, current budget, latest version of active forecasts, eligible final reconciliations and accounting effects. Later claims beyond the selected period are excluded. An empty final budget fiscal year still belongs to the holdback horizon. Entitlement, holdback reserve/release and the calculated payment amount belong to the enabled calculator extension; inspect its breakdown and retained provenance.
+Select the payee, commitment type, fiscal year and period before reviewing **Financial inputs** and the commitment-line balances. Host inputs use the agreement currency, current budget, the monthly amounts of active forecast versions, eligible final reconciliations and accounting effects. Later claims beyond the selected period are excluded. An empty final budget fiscal year still belongs to the holdback horizon. Entitlement, holdback reserve/release and the calculated payment amount belong to the enabled calculator extension; inspect its breakdown and retained provenance.
 
 Payments-to-date inputs include cash and effective signed journal-voucher/correction effects separately from credits. Posted credits and credits attributable to fully finally reconciled source periods are separate inputs. A credit received later can still belong to its retained source fiscal year. Do not subtract the same recovery twice or infer converted totals from another currency.
 
@@ -118,3 +118,16 @@ Use **Evidence** to see the information used when the payment was saved: your se
 ## Accounting capacity
 
 Remaining balances include successful journal-voucher coding changes, posted corrections and effective receivable recovery. Direct paid allocations stay attached to their exact commitment lines. Incoming effects share the Agency coding pool rather than appearing as newly available money on every duplicate coding line. The commitment-type pool also prevents reusing money simply by replacing an active commitment of the same type. Inspect both line and shared coding capacity when a save reports insufficient balance.
+
+## Holds after a budget or commitment change
+
+Before Completion, workflow start, positive approval or successful processing, the server checks the current active forecast and commitments again. A saved payment or earlier approval step does not bypass a later funding reduction.
+
+| Hold | How to resolve it |
+| --- | --- |
+| Forecast revision required | The active forecast’s program amount exceeds current annual program funding for the payment’s year. Create a replacement in **Forecasts**, complete its approval and confirm it is active, or restore sufficient authorized funding. A draft replacement does not clear the hold. |
+| Commitment revision required | The selected commitment is inactive, or the combined active commitments exceed current program funding across all Agreement years in this currency. Activate valid replacements while preserving paid coding floors, then select the current commitment on an editable payment. Alternatively, restore sufficient authorized funding. |
+
+The commitment check adds every active type and uses the larger of each declared total and active line total. For example, 6,000 plus 4,000 in active commitments exceeds a reduced budget of 9,000 even though each commitment alone is below 9,000. Equality is allowed. A payment for another year can still be held by this Agreement-wide commitment total; the forecast hold uses the payment’s own year.
+
+After resolving the hold, refresh and retry the existing payment action. If the payment is locked, follow its available workflow recovery actions rather than trying to edit its history. Recovery debts and coding limits remain additional checks. See [Forecasts](./forecasts.md) and [Commitments](./commitments.md).

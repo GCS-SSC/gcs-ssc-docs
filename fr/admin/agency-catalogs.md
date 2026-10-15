@@ -27,6 +27,12 @@ Par exemple, l’agence A peut publier un ensemble d’examens « Évaluation st
 
 Les listes **Configurations d’examen** et **Configurations de flux de travail** du volet mènent à l’éditeur détaillé de l’agence. Retirer un lien ne supprime pas la définition d’agence partagée. L’onglet **Champs personnalisés** du volet gère les sections et les affectations; modifiez les libellés, le type et les options dans le catalogue d’agence. Un champ partagé conserve une seule identité, mais chaque volet peut le placer et l’exiger différemment.
 
+## Réglages des membres d’examen
+
+Ouvrez un ensemble d’examens et modifiez un schéma membre pour choisir son ordre, son modèle d’approbation facultatif, son groupe par défaut, sa règle d’échec de liste de contrôle et son seuil d’échec. Rouvrir le membre conserve son groupe enregistré. Modifier seulement son ordre ou son groupe conserve son réglage d’échec de liste de contrôle. Enregistrez le membre, puis publiez l’ensemble modifié pour le travail futur. Les examens existants gardent leurs réglages publiés.
+
+Les ordres d’examen en brouillon doivent être des entiers de −32 768 à 32 767; un ordre vide est invalide. Utilisez des numéros consécutifs à partir de 1 avant de publier. Si l’éditeur refuse une modification, rechargez l’ensemble et corrigez le champ indiqué avant de réessayer.
+
 ## Catalogue de collectes de données
 
 Ouvrez **Collectes de données** de l’agence, créez une définition, puis ouvrez son éditeur. Lecteur d’agence consulte. Contributeur (`agency:update`) peut créer, modifier, publier, retirer et supprimer un brouillon admissible sans référence. Cette suppression de brouillon n’exige pas le niveau Gestionnaire.

@@ -238,6 +238,8 @@ Les limites financières définissent les seuils du volet :
 - Limite de cumul.
 - Indicateur Actif.
 
+Le total de la liste comprend les limites actives et inactives; le nombre de limites actives est distinct. Modifier un montant conserve le réglage Actif enregistré, sauf si vous changez aussi ce réglage.
+
 L’assistant traite les limites financières comme optionnelles. Si le volet n’a aucune ligne de limites financières, les processus qui dépendent de ces contrôles ne disposeront pas de valeurs propres au volet.
 
 Par exemple, un montant maximal admissible de 50 000 $ par destinataire décrit le plafond du volet pour un destinataire. Il est distinct de l’allocation annuelle totale du volet : configurer l’un ne crée pas l’autre. Saisissez les limites approuvées pour le programme, puis vérifiez le processus d’entente qui les utilise.
