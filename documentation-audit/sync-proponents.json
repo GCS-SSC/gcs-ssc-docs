@@ -1,0 +1,137 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "owner": "proponents sync worker",
+  "groups": [
+    {
+      "contract": "Profile edit/delete actions and General form follow role visibility; activation and saves still require current exact assignment. Profile deletion rejects live agreement/external funding links.",
+      "sources": [
+        "app/pages/proponents/index.vue",
+        "app/pages/proponents/edit/[id].vue",
+        "server/api/applicant-recipients/[id].delete.ts",
+        "server/utils/applicant-recipient-auth.ts"
+      ],
+      "docs": [
+        "en/proponents/index.md",
+        "fr/proponents/index.md"
+      ]
+    },
+    {
+      "contract": "Shared profile roster management and candidate eligibility are independent of lead tracking agency. Reader/manager role access and exact assignment remain distinct. Corrected stale lead-agency claims.",
+      "sources": [
+        "server/utils/entity-assignment.ts",
+        "server/utils/applicant-recipient-auth.ts"
+      ],
+      "docs": [
+        "en/proponents/team.md",
+        "fr/proponents/team.md"
+      ]
+    },
+    {
+      "contract": "External funding history action visibility follows role, activation checks current assignments. Agreement view filters appear only for readers of Agreements. Edits validate complete merged dates and bilingual fields; start and end remain calendar dates without time-zone shifts.",
+      "sources": [
+        "app/components/ApplicantRecipient/ApplicantRecipientFundingHistoryTab.vue",
+        "server/api/applicant-recipients/[id]/funding-history/[historyId].patch.ts",
+        "server/api/applicant-recipients/[id]/funding-history/index.get.ts"
+      ],
+      "docs": [
+        "en/proponents/funding-history.md",
+        "fr/proponents/funding-history.md"
+      ]
+    },
+    {
+      "contract": "Other names have a 255-character limit and reject NUL. Registry number and other-comment reject NUL.",
+      "sources": [
+        "shared/types/schemas/applicant-recipient.ts"
+      ],
+      "docs": [
+        "en/proponents/other-names.md",
+        "fr/proponents/other-names.md",
+        "en/proponents/registries.md",
+        "fr/proponents/registries.md"
+      ]
+    },
+    {
+      "contract": "Agency Financial ID actions refresh prerequisites; Agency lookup supports exact ID search. Simplified integer input and lifecycle descriptions without changing boundaries.",
+      "sources": [
+        "app/components/ApplicantRecipient/ApplicantRecipientAgencyFinancialIdsTab.vue",
+        "server/api/applicant-recipients/[id]/agency-financial-ids/lookups/agencies.get.ts"
+      ],
+      "docs": [
+        "en/proponents/agency-financial-ids.md",
+        "fr/proponents/agency-financial-ids.md"
+      ]
+    },
+    {
+      "contract": "Review Add and cancellation role-visible actions still require assignments and prerequisites.",
+      "sources": [
+        "app/components/Common/ReviewsTab.vue"
+      ],
+      "docs": [
+        "en/proponents/reviews.md",
+        "fr/proponents/reviews.md"
+      ]
+    },
+    {
+      "contract": "Credit memo creation and deletion role-visible actions refresh current prerequisites before proceeding.",
+      "sources": [
+        "app/components/ApplicantRecipient/ApplicantRecipientCreditMemosTab.vue"
+      ],
+      "docs": [
+        "en/proponents/credit-memos.md",
+        "fr/proponents/credit-memos.md"
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "sources": [
+        "server/api/applicant-recipients/[id]/contacts/index.get.ts",
+        "server/api/applicant-recipients/[id]/contacts/[childId].patch.ts"
+      ],
+      "reason": "Fresh read snapshot and translated duplicate-constraint handling retain existing documented contact search, permission, uniqueness and shared-contact behavior. Both locale contact pages read; no content change needed."
+    },
+    {
+      "sources": [
+        "server/api/applicant-recipients/[id]/other-names/index.get.ts",
+        "server/api/applicant-recipients/[id]/registries/index.get.ts"
+      ],
+      "reason": "Fresh read snapshots retain existing search and pagination contracts."
+    },
+    {
+      "sources": [
+        "server/api/applicant-recipients/[id]/addresses/index.post.ts",
+        "server/utils/applicant-recipient-address-columns.ts"
+      ],
+      "reason": "Internal GC address ID column rename; UI field purpose and behavior unchanged. Both locale address pages read."
+    },
+    {
+      "sources": [
+        "server/utils/proponent-notes.ts",
+        "server/utils/applicant-recipient-auth.ts"
+      ],
+      "reason": "Common user auth identity column rename fixes internal joins. Existing notes Agency isolation and profile shared-catalog user contracts remain covered."
+    },
+    {
+      "sources": [
+        "app/components/ApplicantRecipient/ApplicantRecipientAgreementsTab.vue",
+        "app/components/ApplicantRecipient/ApplicantRecipientProfilesTable.vue",
+        "app/components/ApplicantRecipient/ApplicantRecipientContactsTab.vue",
+        "app/components/ApplicantRecipient/ApplicantRecipientAddressesTab.vue"
+      ],
+      "reason": "Common action button and input component changes do not alter documented list/field tasks."
+    }
+  ],
+  "tests_inspected_not_executed": [
+    "tests/unit/proponent-role-assignment-matrix.test.ts",
+    "tests/e2e/proponent-role-responsibility-shift.spec.ts",
+    "tests/unit/applicant-recipient-schema.test.ts",
+    "tests/unit/components/applicant-recipient-funding-history.test.ts"
+  ],
+  "commands_executed": [],
+  "verification": "Read both locales before editing and inspected paired changed paragraphs. No app tests, generators, docs checks, commits or deployment executed by this worker. Root owns final checks.",
+  "out_of_scope_needs": [
+    "Developer API documentation should reflect canonical egcs_cn_gcaddressid and egcs_cn_authuserid column rename where old names are documented.",
+    "Admin assignment and RBAC guides should be checked for stale claims that shared Proponent access/roster eligibility follows its lead agency. Runtime review access and roster authority can instead follow the published schema Agency."
+  ]
+}

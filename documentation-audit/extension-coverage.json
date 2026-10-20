@@ -23,9 +23,13 @@
       "server/utils/agreement-coding-allocator.ts",
       "modules/../shared/utils/extensions.ts",
       "modules/../shared/utils/abilities.ts",
-      "modules/../shared/utils/extension-sdk-aliases.ts"
+      "modules/../shared/utils/extension-sdk-aliases.ts",
+      "server/utils/extension-entity-assignment.ts",
+      "packages/gcs-ssc-extensions/package.json",
+      "server/utils/extension-dispatch-route.ts",
+      "server/utils/extensions.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; receipts sync-dev-extensions.json, sync-concept-misc.json and sync-technical.json. SDK 0.3.19 uses compiled exports and generated workspace bridges. Agency workspaces require both navigation capability declarations, category and signed safe-integer order; the host groups authorized enabled destinations. Scoped Manager roster changes do not require an exact assignee, while terminal/Completion protections and ordinary write assignments remain. Localized extension errors and JSONB KV serialization preserve documented public contracts. Concrete extension implementation remains extension-owned. Tests in receipts were inspected only, not executed."
   }
 ]

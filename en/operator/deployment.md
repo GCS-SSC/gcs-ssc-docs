@@ -1,12 +1,12 @@
 # Deployment and recovery
 
-This page is for the technical team that installs, updates and restores GCS-SSC. Grants and contributions officers can use it to understand service interruptions and what must be protected: agreement records, private attachments and access settings. Ask the operator to confirm that both records and attachments are recoverable before a release or restoration.
+Use this guide to deploy, update, and restore GCS-SSC. Before a release or restoration, verify that you can recover agreement records, private attachments, and access settings.
 
 ## Supported artifacts
 
 `bun run build` builds the public extension SDK, the Nuxt/Nitro node-server artifact, and the administrative SQL-dump and storage-cleanup workers. The result is a browser application plus a Node API, not a static-only site.
 
-The root `Dockerfile` packages the authorization, diagram and connector survey workspaces and pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Demo builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
+The root `Dockerfile` packages the authorization, diagram, guided-help, and connector survey workspaces and pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Demo builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
 
 For legacy Dockerfile deployments, `railway.json` selects this Dockerfile, probes `/api/health` with a 300-second health-check timeout, and uses an on-failure restart policy with at most ten retries. Docker Compose exposes host port 8995 by default. These are checked-in defaults; deployment-specific overrides must be recorded separately.
 
@@ -28,11 +28,11 @@ For example, restoring an agreement’s database record without its signed PDF r
 
 Back up the database, provider objects, provider configuration, and required secret keys as one recovery set. Attachment metadata contains the saved provider ID, object identity, opaque locator, MIME type, size, and bilingual metadata; bytes remain external. Include the cleanup outbox and audit records under their retention policy. A database-only backup cannot restore documents.
 
-`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It is a migration-derived bootstrap, **not a dump of the live application database**: an isolated worker creates scratch in-memory PGlite, applies the ordered non-seed core migrations, and emits schema/migration SQL with no owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `9999_seed`.
+`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It contains schema and migration SQL for initializing a database. An isolated worker creates a temporary in-memory PGlite database, applies the ordered non-seed core migrations, and exports SQL without owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `9999_seed`.
 
-The worker is bounded to 30 seconds, one generation is shared process-wide by concurrent callers, and each disconnected caller stops waiting without cancelling work still needed by another caller. Invalid worker responses, early exit, timeout, or generation failure return localized `ADMIN_DUMP_FAILED` with HTTP 500. This endpoint is not a platform-level PostgreSQL backup or a storage backup. Treat the artifact as controlled deployment material, restrict access and retention, and test it only in an isolated environment.
+The worker has a 30-second timeout. Concurrent callers in one server process share a single generation. A disconnected caller stops waiting without cancelling work still needed by another caller. Invalid worker responses, early exit, timeout, or generation failure return localized `ADMIN_DUMP_FAILED` with HTTP 500. This endpoint is not a platform-level PostgreSQL backup or a storage backup. Treat the artifact as controlled deployment material, restrict access and retention, and test it only in an isolated environment.
 
-For PGlite, stop or quiesce writes before copying the persistent database and provider objects. For PostgreSQL, use the platform’s transactionally consistent backup tooling, then capture the corresponding provider objects. Restore into an isolated instance, verify migrations and ownership, exercise authenticated reads and document downloads, and only then switch traffic.
+For PGlite, stop or pause writes before copying the persistent database and provider objects. For PostgreSQL, use the platform’s transactionally consistent backup tooling, then capture the corresponding provider objects. Restore into an isolated instance, verify migrations and ownership, exercise authenticated reads and document downloads, and only then switch traffic.
 
 ## Release procedure
 
@@ -48,7 +48,7 @@ The GitHub Pages/WebContainer workflow is a browser-hosted demo. Its in-browser 
 
 ## Shared demo image and deployments
 
-Run **Run workflow** in `.github/workflows/publish-demo-image.yml` to build the shared public `linux/amd64` demo image. A push to `main` does not build an image. The workflow tests the image with disposable PostgreSQL, publishes a unique tag and digest, checks anonymous pulling, and uploads a `demo-image` artifact. Download that artifact to promote its immutable digest into `deployment/demo-image.json`; AWS CDK and Railway IaC can use the same pin.
+Select **Run workflow** in `.github/workflows/publish-demo-image.yml` to build the shared public `linux/amd64` demo image. A push to `main` does not build an image. The workflow tests the image with disposable PostgreSQL, publishes a unique tag and digest, checks anonymous pulling, and uploads a `demo-image` artifact. Download that artifact to promote its immutable digest into `deployment/demo-image.json`; AWS CDK and Railway IaC can use the same pin.
 
 Successful runs on `main` also publish `ghcr.io/gcs-ssc/gcs-ssc-demo:latest`. Branch runs leave `latest` unchanged. This moving tag means the last verified image published from `main`, not the newest source commit. Deployment manifests still require an immutable digest. Publishing an image or changing a manifest does not deploy either platform. Verify `/api/health`, localized login, and a seeded document download after each update. Retain the prior digest and a compatible database backup; rolling back an image does not undo migrations.
 
@@ -77,15 +77,27 @@ If refresh fails, inspect the printed task ARN and GCS CloudWatch logs. After a 
 
 ## Companion services and clean cutovers
 
-The AWS demo stack now provisions a persistent Portal service with its own RDS database and private S3 attachment bucket, plus Metabase with a separate application database. CloudFront fronts private load balancers. Metabase uses certificate-verified RDS TLS, secret-backed session/encryption keys and a private initialization sidecar; its administrator credentials remain in Secrets Manager. Reporting access to GCS does not grant GCS user permissions. Back up and monitor each service independently.
+The AWS demo stack provisions a persistent Portal service with its own RDS database and private S3 attachment bucket, plus Metabase with a separate application database. CloudFront fronts private load balancers. Metabase uses certificate-verified RDS TLS, secret-backed session/encryption keys and a private initialization sidecar; its administrator credentials remain in Secrets Manager. Reporting access to GCS does not grant GCS user permissions. Back up and monitor each service independently.
 
 The Railway IaC preserves GCS, Portal and Metabase resources. Portal uses `deployment/portal-demo-image.json` and the sealed `PORTAL_AUTH_SECRET` secret. Its image manifest may also record an optional 40-character source `commit`; this records provenance while deployment still uses the immutable image digest. A GCS release plan must not change the other services. Inspect the plan and live service/volume attachments before applying: the source runbook records CLI database-attachment readback limitations, so an unchanged plan alone is insufficient evidence of storage state. Keep the application file volume and companion database volumes through an application database cutover.
 
-The application normally changes its schema through fresh subject baselines. A release that changes those baselines needs an explicitly authorized clean database cutover: stop application writes, stop the database, detach and verify the old volume, attach a new uniquely named volume, verify database readiness, then deploy the exact verified image and check login, scoped records and document persistence. Record old-volume deletion or pending deletion separately. Ordinary redeploys reuse existing storage. Do not extrapolate this disposable-demo procedure into production data migration.
+The application normally changes its schema through fresh subject baselines. A release that changes those baselines needs an explicitly authorized clean database cutover:
+
+1. Stop application writes and the database.
+2. Detach the old volume and verify that it is detached.
+3. Attach a new volume with a unique name and verify database readiness.
+4. Deploy the exact verified image.
+5. Check login, scoped records, and document persistence.
+
+Record old-volume deletion or pending deletion separately. Ordinary redeploys reuse existing storage. Do not extrapolate this disposable-demo procedure into production data migration.
 
 The Commitment budget hotfix is an explicit incremental exception: `9999_z_commitment_budget_payment_hold` runs after an existing `9999_seed` journal entry and removes the obsolete budget-side Commitment cap triggers and functions. It preserves business records and the seed journal. Deploy it without a reset or seed replay. The later Claim recovery hotfix changes code only and adds no migration. These releases do not authorize other baseline changes on an existing database.
 
-The source runbooks record non-reset Railway and AWS deployments of the Claim recovery image built from `da9ec0568c178358a4852abbdf77d30407566198`, build `38772040704`, digest `sha256:2891db198dfafedbd0e2d284670d2ee605adf3d00e793079a86d4280a321201d`. Their before/after checks retained business records and storage. These are recorded deployment results; this documentation sync did not inspect live deployments. The pinned image manifest is build evidence. Follow the source’s current `.railway/README.md` and AWS runbook for deployment-specific resource identities and recovery.
+The current clean baseline removes obsolete financial ledger and core compatibility structures. Existing migration journal entries do not replay edited baseline migrations. An ordinary image update cannot convert an older database to this baseline. For a disposable demo, use the authorized clean cutover. For retained production records, prepare and verify a separate data migration before deployment. Never delete migration journal entries to force seed replay.
+
+The Railway source runbook records the 2026-10-20 clean cutover to source `ad6193c9ed649bd2d3c40ce2e6922894c4893147`, build `39409972545`, image digest `sha256:8f1d8e7d0ead3f3a9ef7ff34ef3529a34f97878a5ce211115df0bdef210c63db`. It records a new database volume, `gcs-db-volume-core-cutover-reset-20261020`, and retained application, Portal, and Metabase volumes. Recorded checks include health, login, thirteen NCIA Agreements, Payments 168/172, fourteen bilingual template downloads, and Receivable draft creation. These are source-runbook results, not live checks performed by this documentation update. Follow the current `.railway/README.md` and AWS runbook for resource identities and recovery. The application source revision documented here can be newer than the published demo image.
+
+Current persisted-data validation also rejects malformed pinned Assessment definitions with `ASSESSMENT_DEFINITION_INVALID` and malformed relational Agreement custom-field selections with `AGREEMENT_CUSTOM_FIELDS_INVALID`. Relational selections must be arrays of option IDs. If these errors appear after an upgrade or restore, preserve the failing record and logs, compare the saved data with the deployed contract, and prepare a reviewed repair or restore a compatible recovery set. Repeated submissions and document generation do not repair stored data.
 
 ## Dedicated Railway demo reset
 

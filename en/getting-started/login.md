@@ -1,28 +1,28 @@
 # Login
 
-The localized login page is `/en/login`. Anonymous users are redirected to the localized login page whenever they request an authenticated page. If an authenticated user opens `/en/login`, they are redirected back to Home.
+Open the login page supplied by your administrator. The English page is `/en/login`. If you open a page that requires sign-in, the application sends you to Login. If you are already signed in, Login sends you to Home.
 
 ## Credential sign-in
 
-The app supports email and password sign-in through Better Auth. In development and test data, `root@example.com` with `password123` may exist, but production deployments should treat that only as seed-data documentation. A clean production installation needs a root account provisioned by deployment or bootstrap procedures.
+Use the email and password supplied for your installation. Ask your administrator for an account if you do not have one.
 
 1. Open the login page supplied by your administrator.
 2. Enter your work email and password.
 3. Select **Login**. Successful sign-in opens Home. If the credentials are invalid, the page shows an error in your chosen language; check the email and password and try again.
 
-Use the account provided for your installation. The example development credentials above are not a production account.
+Development and test installations may include `root@example.com` with `password123`. These example credentials are not a production account. The person setting up a new production installation must create its initial administrator account.
 
 ## Session behavior
 
-The app uses the signed-in user's session and role assignments to decide which pages and actions are visible. A stale or missing session causes authenticated pages to redirect back to login.
+The app uses the signed-in user's session and role assignments to decide which pages and actions are visible. If your session expires or is missing, the application asks you to sign in again.
 
 ## GitHub entry
 
-GitHub sign-in is available only when the deployment configures both its client ID and secret. If the option does not appear, use the credentials supplied by your administrator; it is not enabled by default.
+GitHub sign-in appears only when the person managing your installation has configured it with both a client ID and secret. If the option does not appear, use the email and password supplied by your administrator.
 
 ## After login
 
-Home opens after sign-in. The other destinations depend on your active roles: a **role** sets what you may do, and its **scope** limits where you may do it (for example, within one Agency or Program). See [Navigation](./navigation.md) for the complete destination rules.
+Home opens after sign-in. The other destinations depend on your active roles: a **role** sets what you may do, and its **scope** limits where you may do it, such as within one Agency or Program. See [Navigation](./navigation.md) for the complete destination rules.
 
 - Agreements requires an active Agreement Viewer role at an allowed scope; Proponents requires global or Agency Proponent Viewer access.
 - Assignment Management requires an active `manage_assignments` permission for Agreement, Proponent, Funding Case, Journal Voucher or Correction.

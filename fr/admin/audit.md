@@ -1,72 +1,77 @@
-# Journaux d’audit et d’accès
+# Journaux d'audit et d'accès
 
-Utilisez **Administration → Audit** pour examiner les changements enregistrés, les événements de sécurité et les requêtes applicatives. L’espace est en lecture seule. Il aide à déterminer qui a modifié une fiche et quelle requête était concernée; il ne constitue pas un relevé complet de tout ce qu’une personne a vu ou fait hors de l’application.
+Utilisez **Administration → Audit** pour examiner les changements enregistrés, les événements de sécurité et les requêtes applicatives. Audit est en lecture seule. Il permet de trouver qui a modifié une fiche et quelle requête a effectué le changement. Il ne consigne pas tout ce qu'une personne a vu ou fait.
 
 ## Accès
 
-Un rôle doit accorder explicitement `audit:read` à portée globale ou d’agence. Une permission globale permet de lire les preuves de toutes les agences; une permission d’agence retourne seulement les événements attribués à cette agence. La règle de visibilité s’applique avant la recherche, les comptes, la pagination et la lecture des détails. Une permission Système, une permission métier ou une affectation exacte ne donne pas accès à Audit. L’espace est en lecture seule, sans création, modification ni suppression.
+Un rôle doit accorder explicitement `audit:read` à portée globale ou d'agence. Une permission globale permet de lire les preuves de toutes les agences; une permission d'agence retourne seulement les événements attribués à cette agence. Les résultats de recherche, les comptes et les détails contiennent seulement les événements que vous pouvez lire. L'application vérifie vos permissions Audit actuelles à chaque chargement d'une liste. Une permission Système, une permission métier ou une affectation exacte ne donne pas accès à Audit. Vous ne pouvez ni créer, ni modifier, ni supprimer des événements Audit.
 
-Les valeurs d’entrée capturées des requêtes exigent la capacité distincte `audit:view_audit_inputs`. Un lecteur Audit sans cette capacité voit l’événement et l’état de visibilité des entrées, mais pas les valeurs capturées. Une permission d’entrée d’agence ne révèle que les preuves attribuées à cette agence; les entrées attribuées globalement exigent une permission globale. Les valeurs sont assainies et peuvent être indisponibles pour un événement. Réservez ces permissions aux personnes dont les fonctions exigent ces preuves.
+Les valeurs d'entrée capturées des requêtes exigent la capacité distincte `audit:view_audit_inputs`. Un lecteur Audit sans cette capacité voit l'événement et l'état de visibilité des entrées, mais pas les valeurs capturées. La permission de voir les entrées d'une agence révèle seulement les preuves attribuées à cette agence. Les entrées attribuées globalement exigent une permission globale. L'application retire les valeurs sensibles avant la capture. Certains événements n'ont aucune entrée disponible. Réservez ces permissions aux personnes dont les fonctions exigent ces preuves.
 
-Un événement est attribué à une agence selon les règles de propriété courantes de l’application. Une agence liée ou l’agence de suivi affichée sur un dossier n’est pas nécessairement celle dont les lecteurs Audit peuvent voir l’événement. Pour les profils partagés de promoteur et l’historique du financement, l’événement est visible dans les agences couvertes par les rôles actifs d’agence de la personne. Les dossiers enfants suivent cette règle sauf s’ils ont leur propre agence propriétaire explicite. Notes de promoteur et identifiants financiers utilisent leur agence explicite. L’agence principale seule ne définit pas le public d’audit du profil partagé. Un acteur sans rôle actif d’agence a une attribution globale; une écriture sans acteur sur ces dossiers exige une attribution de création explicite plutôt qu’une agence déduite d’un libellé.
+L'agence d'un événement détermine qui peut le lire. Une agence liée ou l'agence de suivi affichée sur un dossier peut différer de celle de l'événement. Les principales règles sont les suivantes :
 
-Possibilités et dossiers suivent Possibilité → volet d’ancrage → programme → agence, y compris les liens de volets sélectionnés. Un volet secondaire fournit l’admissibilité, pas un autre propriétaire d’audit. Pour les approbations, les collectes et les autres dossiers pouvant appartenir à différents types de travail, l’application vérifie le propriétaire du dossier source réel. Visibilité du profil, affectation opérationnelle et public Audit peuvent donc différer; les permissions Audit restent indépendantes.
+- Les profils partagés de promoteur et l'historique du financement utilisent les agences couvertes par les rôles actifs d'agence de l'acteur. Leurs dossiers enfants suivent la même règle sauf s'ils ont une agence propriétaire explicite. Les notes de promoteur et les identifiants financiers d'agence utilisent leur agence explicite. L'agence principale seule ne détermine pas qui peut lire ces événements.
+- Les possibilités et les dossiers utilisent l'agence du volet d'ancrage et du programme de la possibilité. La sélection d'un autre volet n'ajoute pas de propriétaire Audit.
+- Les approbations, les collectes de données et les autres dossiers utilisés dans plusieurs espaces suivent le propriétaire du dossier source réel.
+- Les événements d'aide guidée du système sont attribués globalement. L'aide guidée d'agence et les entrées du catalogue d'agence appartiennent à leur agence, y compris leurs fiches de publication.
 
-Par exemple, une affectation à une entente peut permettre à un agent de traiter cette entente, mais pas d’examiner ses événements Audit. Si vous devez expliquer un changement budgétaire et que vous n’avez pas accès à Audit, demandez à un lecteur Audit autorisé d’enquêter avec la référence du dossier et l’heure approximative de l’enregistrement.
+Pour les dossiers partagés, les événements sont attribués globalement si la personne qui fait le changement n'a aucun rôle actif d'agence. Les changements effectués sans personne doivent préciser leur attribution. L'application ne choisit pas une agence à partir d'un libellé affiché.
+
+Par exemple, une affectation à une entente peut permettre à un agent de traiter cette entente, mais pas d'examiner ses événements Audit. Si vous devez expliquer un changement budgétaire et que vous n'avez pas accès à Audit, demandez à un lecteur Audit autorisé d'enquêter avec la référence du dossier et l'heure approximative de l'enregistrement.
 
 ## Trouver un événement
 
-1. Ouvrez Audit et choisissez la vue des événements d’audit ou des accès dans la navigation verticale.
-2. Restreignez l’intervalle de date et heure, puis ajoutez une table, un acteur, une opération, un identifiant de fiche ou de requête connu.
-3. Recherchez du texte dans les tables, identifiants de requête, opérations et identifiants d’acteur. La recherche est littérale; `%` et `_` ne sont pas des caractères génériques.
+1. Ouvrez Audit et choisissez la vue des événements d'audit ou des accès dans la navigation verticale.
+2. Restreignez l'intervalle de date et heure. Ajoutez une table, un acteur, une opération, un identifiant de fiche ou de requête si vous le connaissez.
+3. Recherchez du texte dans les tables, identifiants de requête, opérations et identifiants d'acteur. La recherche est littérale; `%` et `_` ne sont pas des caractères génériques.
 4. Ouvrez les détails de la ligne pour consulter la preuve capturée.
-5. Reprenez son identifiant de requête dans le filtre correspondant pour corréler les changements et requêtes de la même demande.
+5. Copiez son identifiant de requête dans le filtre correspondant pour trouver les changements et requêtes de la même demande.
 
-Les résultats sont paginés côté serveur, du plus récent au plus ancien. Une page contient initialement 20 lignes; l’API accepte de 1 à 100. Les filtres exacts correspondent aux valeurs exactes; les bornes temporelles sont inclusives. L’API exige des dates-heures ISO et un début qui ne suit pas la fin. Le navigateur convertit ses valeurs locales en ISO. Changer de vue ou de filtre ferme le détail et retourne à la première page.
+Les résultats apparaissent du plus récent au plus ancien, avec 20 lignes par page par défaut. Les filtres exacts cherchent la valeur saisie. L'intervalle de dates inclut ses deux bornes. Saisissez les dates à votre heure locale, avec un début antérieur ou égal à la fin. Les filtres textuels acceptent au plus 200 caractères et refusent les caractères nuls. Si un filtre collé échoue, effacez-le et saisissez de nouveau l'identifiant. Changer de vue ou de filtre ferme le détail et retourne à la première page.
 
-L’acteur est le `user.id` du compte authentifié, non l’identifiant Common User des affectations. Les requêtes d’authentification peuvent être anonymes, les tâches de fond attribuées au système et les mutations directes attribuées à la base. L’absence d’identifiant utilisateur ne signifie donc pas à elle seule un défaut d’autorisation.
+L'acteur identifie le compte de connexion, et non l'identifiant Common User utilisé pour les affectations. Les requêtes de connexion peuvent être anonymes. Les tâches de fond peuvent être attribuées au système, et les changements directs dans la base peuvent être attribués à la base. L'absence d'identifiant utilisateur ne signifie donc pas à elle seule qu'une action était non autorisée.
 
 ## Comprendre les preuves
 
 | Preuve | Contenu | Limite importante |
 | --- | --- | --- |
-| Changement | Valeurs initiales d’insertion; paires ancienne/nouvelle des colonnes modifiées; valeurs conservées de suppression et de restauration. | Capture dans la transaction métier. Une mise à jour inchangée ne produit pas d’événement; un échec de capture annule la mutation. |
-| Sécurité | Action enregistrée de sécurité d’identité ou de rôle, cible et métadonnées. | Enregistré séparément des événements de changement; ne les remplace pas. |
-| Accès | SQL expurgé, durée, résultats de requête et de transaction, nombre de lignes, corrélation et identités prises en charge. | Preuve de requête, non copie complète des résultats ni preuve que l’utilisateur les a tous lus. |
+| Changement | Valeurs initiales des nouveaux dossiers, anciennes et nouvelles valeurs des colonnes modifiées, et valeurs conservées des suppressions et restaurations. | Enregistré avec le changement du dossier. Enregistrer des valeurs inchangées ne produit aucun événement. Si la capture échoue, le changement du dossier est annulé. |
+| Sécurité | Une action de sécurité sur un utilisateur ou un rôle, le dossier concerné et les détails connexes. | Enregistré séparément des événements de changement. Ne les remplace pas. |
+| Accès | SQL sans détails sensibles, durée, résultat de la requête et de la transaction, nombre de lignes, liens de requête et identifiants capturés des dossiers retournés. | Preuve d'une requête plutôt qu'une copie complète de ses résultats. Ne prouve pas que l'utilisateur les a tous lus. |
 
-Les nombres dans la preuve de changement conservent le texte décimal afin d’éviter l’arrondissement des grands identifiants et montants exacts. Les colonnes JSON sont comparées comme valeurs complètes. Les exclusions de secrets et les politiques de capture restreinte omettent volontairement les données sensibles.
+Les preuves de changement conservent les montants exacts et les grands identifiants. Les changements d'un champ JSON montrent sa valeur complète. Les règles de capture excluent les identifiants de connexion, les secrets et les autres valeurs restreintes.
 
-Les littéraux SQL et commentaires sont expurgés. Les entrées assainies des requêtes apparaissent seulement avec la permission distincte de voir les entrées; elles ne copient pas tout le corps de la demande. Une requête simple sur une table peut enregistrer les identifiants des dossiers retournés (clés primaires, y compris les alias et les clés composées de plusieurs valeurs). Les requêtes plus complexes qui combinent des tables, résument les résultats, utilisent du SQL brut ou omettent les identifiants peuvent ne pas enregistrer ces identités. Lisez les limites affichées; une projection indisponible n’est pas un résultat vide. Le filtre d’identifiant de fiche des accès cherche les valeurs de clés capturées et ne retrouve pas les identités non capturées.
+Les valeurs SQL et les commentaires sont retirés. Les entrées capturées des requêtes apparaissent seulement avec la permission distincte de voir les entrées, après le retrait des valeurs sensibles. Elles ne copient pas tout le corps de la demande. Une requête simple sur une table peut enregistrer les identifiants des dossiers retournés. Ces identifiants proviennent des clés primaires de la base, y compris les clés retournées sous un autre nom ou composées de plusieurs valeurs. Les requêtes plus complexes qui combinent des tables, résument les résultats, utilisent du SQL brut ou omettent les identifiants peuvent ne pas enregistrer ces identités. Lisez les limites affichées dans les détails. L'absence d'identifiants de dossier ne signifie pas que la requête n'a retourné aucun résultat. Le filtre d'identifiant de fiche des accès cherche les valeurs de clés capturées et ne retrouve pas les identités non capturées.
 
-## Exemple d’enquête
+## Exemple d'enquête
 
 Supposons que le soutien doive comprendre un changement de ligne budgétaire signalé à 14 h 10.
 
-1. Dans les événements d’audit, choisissez un intervalle étroit et indiquez la table ou l’identifiant pertinent.
-2. Ouvrez le changement et comparez les anciennes et nouvelles valeurs, l’acteur et l’opération.
+1. Dans les événements d'audit, choisissez un intervalle étroit et indiquez la table ou l'identifiant pertinent.
+2. Ouvrez le changement et comparez les anciennes et nouvelles valeurs, l'acteur et l'opération.
 3. Filtrez sur son identifiant de requête pour voir les autres changements du même enregistrement. Un budget en pourcentage peut modifier plusieurs lignes dépendantes dans une transaction.
-4. Ouvrez Accès avec cet identifiant pour examiner les preuves persistées et le résultat transactionnel.
-5. Si Accès est d’abord vide, attendez l’enregistrement des événements en attente, puis rechargez. Vérifiez la conservation et la capture avant de conclure qu’une preuve devrait exister.
+4. Ouvrez Accès avec cet identifiant pour examiner les preuves de requête enregistrées. Vérifiez si la transaction s'est terminée ou si ses changements ont été annulés.
+5. Si Accès est d'abord vide, attendez l'enregistrement des événements en attente, puis rechargez. Vérifiez la conservation et la capture avant de conclure qu'une preuve devrait exister.
 
-Cette procédure ne reconstruit pas le corps complet d’une demande ni les résultats indisponibles. Utilisez les preuves conservées et le dossier métier dans le cadre de vos fonctions autorisées.
+Cette procédure ne reconstruit pas le corps complet d'une demande ni les résultats indisponibles. Utilisez les preuves conservées et le dossier métier dans le cadre de vos fonctions autorisées.
 
 ## Conservation et accès différés
 
-La page affiche les durées configurées sans les modifier. Les valeurs initiales sont **365 jours** pour l’audit et la sécurité et **30 jours** pour les accès. Les opérateurs les configurent au déploiement puis redémarrent. L’expiration s’exécute au démarrage et chaque heure, retirant au plus 1 000 lignes expirées par table et passage; un grand retard nécessite plusieurs passages.
+La page affiche les durées configurées sans les modifier. Les valeurs par défaut sont de 365 jours pour l'audit et la sécurité et de 30 jours pour les accès. Les opérateurs modifient ces paramètres au déploiement et redémarrent l'application. L'expiration s'exécute au démarrage et chaque heure. Chaque passage retire au plus 1 000 lignes expirées par table de preuves. Un grand nombre de lignes en attente peut donc nécessiter plusieurs passages.
 
-Les accès utilisent une file bornée en mémoire par processus. Une preuve devient admissible après la libération de sa transaction/connexion et la fin ou déconnexion de sa réponse HTTP. Un minuteur de dix secondes écrit des lots d’au plus 100. Le navigateur affiche seulement les lignes persistées; leur visibilité immédiate n’est pas garantie.
+Les événements d'accès attendent dans une file de chaque processus de l'application. Ils sont prêts à être enregistrés après la libération de la transaction ou de la connexion et la fin ou la déconnexion de la réponse HTTP. Toutes les dix secondes, l'application enregistre au plus 100 événements prêts. Le navigateur affiche seulement les événements enregistrés. Une requête récente peut donc ne pas apparaître immédiatement.
 
-La file est limitée à 2 000 événements et 32 Mio de charge sérialisée estimée. Les pannes déclenchent des reprises espacées; une file pleine abandonne les nouveaux événements avec un signalement structuré. Un arrêt brutal ou déploiement peut perdre les éléments en attente; l’arrêt normal tente une vidange bornée. `GCS_ACCESS_LOG_ENABLED=false` désactive la capture d’accès tout en conservant les changements et la sécurité. Les anciennes lignes d’accès restent lisibles jusqu’à expiration.
+La file contient au plus 2 000 événements et une estimation de 32 Mio de données d'événement. Après un échec, l'application attend avant de réessayer. Lorsque la file est pleine, l'application abandonne les nouveaux événements et signale la perte aux opérateurs. Un arrêt brutal ou un déploiement peut perdre les événements en attente. À l'arrêt normal, l'application tente de les enregistrer dans un délai limité. Les opérateurs peuvent désactiver la capture d'accès avec `GCS_ACCESS_LOG_ENABLED=false`. La capture des changements et de la sécurité continue. Les anciennes lignes d'accès restent lisibles jusqu'à expiration.
 
 ## Échecs et reprise
 
 | Symptôme | Action |
 | --- | --- |
-| Navigation Audit absente ou accès refusé | Vérifiez `audit:read` explicite, global ou pour l’agence correspondante; Système ne suffit pas. |
-| Événement ou entrée capturée absent | Vérifiez l’agence propriétaire et `audit:view_audit_inputs`; une entrée restreinte ou indisponible ne prouve pas qu’aucune requête n’a eu lieu. |
-| Échec de chargement de liste, détail ou conservation | Utilisez l’action de reprise visible. Un échec n’est pas un ensemble vide. |
-| Aucune ligne d’accès pour une demande récente réussie | Attendez le lot, rechargez et demandez à l’opérateur de vérifier l’activation, le retard et les événements de perte ou d’échec. |
+| Navigation Audit absente ou accès refusé | Vérifiez `audit:read` explicite, global ou pour l'agence correspondante; Système ne suffit pas. |
+| Événement ou entrée capturée absent | Vérifiez l'agence propriétaire et `audit:view_audit_inputs`; une entrée restreinte ou indisponible ne prouve pas qu'aucune requête n'a eu lieu. |
+| Échec de chargement de liste, détail ou conservation | Utilisez l'action de reprise visible. Un échec n'est pas un ensemble vide. |
+| Aucune ligne d'accès pour une demande récente réussie | Attendez l'enregistrement des événements, puis rechargez. Demandez à l'opérateur de vérifier si la capture est activée, si des événements attendent ou si des échecs ou pertes sont signalés. |
 | Preuve ancienne absente | Comparez son âge à la conservation. Un filtre ne recrée pas une preuve expirée ou non capturée. |
-| API indisponible au démarrage | L’audit fait partie de la disponibilité. L’opérateur doit rétablir le démarrage plutôt que poursuivre sans capture initialisée. |
+| API indisponible au démarrage | L'audit fait partie de la disponibilité. L'opérateur doit rétablir le démarrage plutôt que poursuivre sans capture initialisée. |
 
-Les preuves refusent les mises à jour, suppressions et troncatures ordinaires. La conservation utilise une voie d’expiration restreinte. Le propriétaire de la base peut néanmoins changer les politiques ou déclencheurs; ce mécanisme ne protège pas contre lui. Les lectures directes de la base et le contenu du stockage objet échappent à la capture d’accès applicative. Consultez la [configuration d’exploitation](../operator/configuration.md) et le [modèle de données](../developer/data-model.md).
+Les opérations ordinaires de base de données ne peuvent ni modifier, ni supprimer, ni vider les preuves Audit. Seul le processus d'expiration restreint retire les preuves expirées. Le propriétaire de la base peut néanmoins changer les règles qui les protègent. La capture d'accès applicative ne couvre ni les lectures directes de la base ni le contenu des fichiers du stockage objet. Consultez la [configuration d'exploitation](../operator/configuration.md) pour les paramètres de déploiement et le [modèle de données](../developer/data-model.md) pour le stockage.

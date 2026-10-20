@@ -1,8 +1,9 @@
-# Agreement Child Workflows
+# Agreement child workflows
 
-An agreement is the main funding file. Its tabs hold related records, such as a budget, payment, claim, or monitoring visit. These related records are called **children** in this guide. Some, such as addresses and activities, are edited directly in the agreement tab. Others open their own workspace, where you manage their lines, attachments, assigned users, and approval steps.
+An agreement is the main funding file. Its tabs hold related records, such as a budget, payment, claim, or monitoring visit. Some, such as addresses and activities, are edited directly in the agreement tab. Others open their own workspace, where you manage their lines, attachments, assigned users, and approval steps.
 
 For example, open **Payments** on an agreement to find a payment, then open that payment to work on its payment lines. You are still working under the same agreement, but the payment has its own record and access checks.
+
 ## Workflow pages
 
 | Workflow | Documentation |
@@ -27,23 +28,29 @@ Your role determines which actions you may perform within the agency or program.
 
 - Viewer access lets you read records within your permitted scope without being assigned.
 - For ordinary records such as addresses or activities, Contributor access plus assignment to the agreement lets you create or edit. Manager access plus that assignment is required to delete.
-- Claims, reconciliations, payments, forecasts, monitors, amendments, commitments, reviews, and recommendations have their own assigned users. For business records created from the agreement, the required parent assignment allows creation and the creator becomes the child's primary user. Later changes require assignment to that particular child as well as the applicable role. Runtime review and recommendation work follows its own owner rules; see [Assigned users](./team.md).
+- To create a claim, payment, forecast, monitor, amendment, or commitment directly from the agreement, you need the required role permission and assignment to the agreement. You become the new record's primary assigned user. Later changes require assignment to that particular record as well as the applicable role.
+- To create a claim reconciliation, you need Contributor access and assignment to the claim. You become the reconciliation's primary assigned user. Later changes require assignment to the reconciliation. See [Claims](./claims.md).
+- Reviews and recommendations use their configured owners. A group-owned task starts unclaimed, and the person who started the workflow is not automatically assigned to it. An eligible group member must claim the task before editing and still needs the required role permission. See [Workflows](../concepts/workflows.md) and [Assigned users](./team.md).
 
 For example, being assigned to an agreement lets an eligible officer add an activity. It does not automatically let that officer edit a payment created by a colleague: check the payment's own assigned users.
 
 Selection lists respect the access required by the open create or edit form. Being named as a reviewer or approver allows the assigned workflow action; it does not give ordinary read access to the underlying file.
 
+Before opening a form, saving, or deleting, the application checks the current assignment and whether the agreement allows the action. A button that was available when you opened the tab may become unavailable after a status or assignment changes. If an action is refused, keep your draft text, reload the record, and check its status and assigned users.
+
+To edit activities or budget data within an amendment, you need assignment to that amendment. It must be an editable draft and include the relevant change type. It must also have a saved copy of the activities or budget you want to change. Use the amendment's tabs for those changes. See [Amendments](./amendments.md).
+
 Most deletes remove the record from normal lists and selection lists while preserving its history. This is called a soft delete.
 
 ## Business status, completion, and workflow
 
-The Agency defines business statuses, such as draft or approved. Saving your edits normally keeps the current status. A status marked read-only or terminal, a completed record, an active workflow, or protection on the parent agreement can prevent editing. An “Approved” label alone does not prove that the approval steps succeeded.
+The Agency defines business statuses, such as draft or approved. Saving your edits normally keeps the current status. A status marked read-only or terminal, a completed record, an active workflow, or protection on the parent agreement can prevent editing. An "Approved" label alone does not prove that the approval steps succeeded.
 
 To submit a supported record for completion:
 
 1. Open that record's workspace and check its required information using the linked guide above.
 2. Use **Complete** when the record is ready. The application checks the record and starts its published approval-submission workflow when configured.
-3. Follow the workflow to its outcome. When approval is required, wait for successful completion before treating the record as effective. For example, a replacement Forecast or Commitment becomes active only after the workflow succeeds.
+3. Follow the workflow to its outcome. When approval is required, wait for successful completion before treating the record as effective. For example, a replacement forecast or commitment becomes active only after the workflow succeeds.
 
 Amendments, Closeouts, Corrections, Receivables, receivable adjustments, and Credit Memos require an approval-submission workflow. Other supported records use their configured optional workflow. Corrections and recoveries also have their own role permissions and assignments. Saving completion is not the same as receiving approval.
 

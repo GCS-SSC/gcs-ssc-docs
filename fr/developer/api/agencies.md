@@ -2,23 +2,22 @@
 
 Ces requêtes servent aux profils d’agence et aux listes partagées des formulaires, comme les types d’entente et les exercices financiers. Les agents utilisent ces listes dans leurs dossiers de financement. Consultez les [agences](../../admin/agencies.md) et les [catalogues d’agence](../../admin/agency-catalogs.md).
 
-Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
+Cet index associe les requêtes serveur aux fichiers qui les traitent. Les guides liés expliquent les étapes à l'écran. Le serveur vérifie l'accès aux dossiers protégés même si un écran propose une action.
 
-- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
-- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
-- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
-- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
-- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+- La méthode indique le type de requête. `GET` lit des renseignements. `POST` crée généralement un dossier ou exécute une action. `PATCH` et `PUT` enregistrent des modifications. `DELETE` retire un dossier. `ANY` signifie que le nom du fichier ne déclare aucune méthode unique.
+- La route est l'adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l'identifiant réel du dossier.
+- Les noms d'autorisation et de validation sont des correspondances trouvées dans le code du gestionnaire. Ils aident à repérer les vérifications d'accès et celles des champs soumis ou des options de requête.
+- La source est le fichier de l'application qui traite la requête.
 
-Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun nom correspondant. Il ne prouve pas l'absence de vérification. Un nom indiqué peut provenir d'un champ ou d'un commentaire. Suivez le gestionnaire et ses fonctions partagées pour confirmer les règles d'accès, la validation et les réponses. Le registre de couverture consigne les preuves correspondantes.
 
 ## Exemple de lecture seule
 
-Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
+Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (127)
+## Gestionnaires (137)
 
-| Méthode | Route | Repères d’autorisation | Repères de validation | Source |
+| Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/agency/[agencyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/agency/[agencyId].delete.ts` |
 | GET | `/api/agency/[agencyId]` | requireAuthContext | — | `server/api/agency/[agencyId].get.ts` |
@@ -84,6 +83,16 @@ Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Ell
 | POST | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes` | — | AgencyFundingSubtypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/index.post.ts` |
 | GET | `/api/agency/[agencyId]/funding-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/funding-types/index.get.ts` |
 | POST | `/api/agency/[agencyId]/funding-types` | — | AgencyFundingTypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/index.post.ts` |
+| GET | `/api/agency/[agencyId]/guided-help/[catalogId]` | — | — | `server/api/agency/[agencyId]/guided-help/[catalogId].get.ts` |
+| PATCH | `/api/agency/[agencyId]/guided-help/[catalogId]` | requireAuthContext | GuidedHelpCatalogSettingsSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/[catalogId].patch.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/[catalogId]/launch` | requireAuthContext | GuidedHelpLaunchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/[catalogId]/launch.post.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/[catalogId]/publish` | — | — | `server/api/agency/[agencyId]/guided-help/[catalogId]/publish.post.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/[catalogId]/unpublish` | — | — | `server/api/agency/[agencyId]/guided-help/[catalogId]/unpublish.post.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/clone` | requireAuthContext | GuidedHelpCloneSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/clone.post.ts` |
+| GET | `/api/agency/[agencyId]/guided-help/discovery` | — | — | `server/api/agency/[agencyId]/guided-help/discovery.get.ts` |
+| GET | `/api/agency/[agencyId]/guided-help` | — | — | `server/api/agency/[agencyId]/guided-help/index.get.ts` |
+| POST | `/api/agency/[agencyId]/guided-help` | requireAuthContext | GuidedHelpAdoptSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/index.post.ts` |
+| GET | `/api/agency/[agencyId]/guided-help/roles` | — | — | `server/api/agency/[agencyId]/guided-help/roles.get.ts` |
 | GET | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/holdback-bases.get.ts` |
 | POST | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisWriteSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/holdback-bases.post.ts` |
 | GET | `/api/agency/[agencyId]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/line-items.get.ts` |

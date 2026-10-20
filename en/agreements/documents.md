@@ -1,20 +1,22 @@
 # Agreement documents
 
-Use **Documents** to produce an Agreement file from a stream template, then review and download it for use. The tab also keeps previously generated files. Each file is a snapshot of the data at generation: correcting the Agreement or changing the template does not update it. Generate a new file after corrections.
+Use **Documents** to generate an agreement file from a stream template, then review and download it. The tab also keeps previously generated files. Each file keeps the data used to generate it. Correcting the agreement or changing the template does not update an existing file. Generate a new file after corrections.
 
 ## Required setup and access
 
 | Requirement | What you need |
 | --- | --- |
-| Stream template | It must be active, non-deleted, target `fundingcaseagreement`, belong to the agreement's current stream, and have active English and French source attachments. |
+| Stream template | Your administrator must assign an active agreement template to the stream, with English and French source files. |
 | Template kind | `docx` or `html`. The configured output list can include the native kind and `pdf`; incompatible native formats are rejected. |
 | Conversion tools | DOCX-to-PDF requires LibreOffice. HTML-to-PDF requires Puppeteer's browser. See [Document generation](../developer/document-generation.md). |
-| Persistent storage | The Agency must select a registered storage provider. Back up its objects and the database metadata needed to locate them. See [Operator configuration](../operator/configuration.md). |
-| Agreement authorization | Viewer lists templates/files and downloads; Contributor plus the exact Agreement assignment generates; Manager plus that assignment removes an artifact. |
+| File storage | Your administrator must configure storage for generated files. See [Operator configuration](../operator/configuration.md). |
+| Agreement access | Viewer can list and download files. Contributor plus assignment to this agreement can generate files. Manager plus that assignment can delete files. |
 
-If the Generate window offers no template, generation is disabled. Ask your administrator to check the template’s stream, target, active status and English/French source attachments. The tab loads available templates when opened, and generation checks that the selected template is still eligible.
+If the **Generate** window offers no template, you cannot generate a document. Ask your administrator to check that the template is active, belongs to the stream, targets agreements, and has both language attachments. The tab loads available templates when opened, and generation checks that the selected template is still eligible.
 
 ## Generate a document
+
+The application checks your current assignment and the agreement status before opening **Generate** and again before saving. If the agreement becomes read-only or you lose your assignment, the dialog keeps your choices. Ask the responsible manager to resolve the restriction before trying again.
 
 Select **Generate**, then choose:
 
@@ -24,58 +26,52 @@ Select **Generate**, then choose:
 | Language | `eng` or `fra`; defaults from the current interface locale and selects the matching source attachment. |
 | Output format | Resets to the first format allowed by the selected template if the previous choice is incompatible. DOCX can produce `docx` or `pdf`; HTML can produce `html` or `pdf` when configured. |
 
-Generation uses the Agreement and template as they stood when the request began. Before saving the file, the system checks your access and whether the source data changed. If someone changed those inputs during generation, `DOCUMENT_RENDER_INPUT_CHANGED` (409) prevents saving an outdated file. Reload the Agreement and generate again. The filename includes the Agreement number, localized template name, language and extension, with unsafe characters replaced.
+Generation uses the agreement and template as they stood when the request began. Before saving, the system checks your access and whether the source data or template changed. If either changed, `DOCUMENT_RENDER_INPUT_CHANGED` (409) prevents saving an outdated file. Reload the agreement and generate again. The filename includes the Agreement number, localized template name, language and extension, with unsafe characters replaced.
 
-At most two renders per Agency/user can run concurrently in one server process. If generation returns `DOCUMENT_RENDER_BUSY` (429), wait for an existing request to finish before retrying. Browser and office conversions also have time limits; a timeout does not mean a usable document was saved. Refresh the list before repeating an uncertain request.
+You can have at most two document generations running at once for the same agency. If generation returns `DOCUMENT_RENDER_BUSY` (429), wait for an existing request to finish before retrying. Browser and office conversions also have time limits; a timeout does not mean a usable document was saved. Refresh the list before repeating an uncertain request.
 
 Review every generated document before using it. Generation does not check legal readiness or whether you completed every field. Missing or empty values appear as `To be confirmed` in English and `A confirmer` in French.
 
-For example, generate an English PDF for a contribution agreement. Check the recipient’s address, authorized dates and budget totals. If an address is missing, correct the source record and generate a replacement; the earlier PDF keeps its original contents.
+For example, generate an English PDF for a contribution agreement. Check the recipient's address, authorized dates and budget totals. If an address is missing, correct the source record and generate a replacement; the earlier PDF keeps its original contents.
 
-Check any department name, legal name and address in the result. The built-in data does not supply invented values for `department.name`, `department.legalName` or `department.address`; without data from an authorized integration, those fields show the missing-value text. Ask your template administrator to include the correct legal wording or arrange for the integration to supply it before issuing the document.
+Check any department name, legal name and address in the result. If the template or an integration does not supply the department details, those fields show the missing-value text. Ask your template administrator to include the correct legal wording or arrange for the integration to supply it before issuing the document.
 
 ## Data captured in the snapshot
 
-The built-in context includes localized agreement, agency, program and stream data; the first linked recipient and its first active address; all recipients; current activities, responsible parties and outcomes; current budget years and lines with formatted totals; commitments; payments; claims; and forecasts. It also provides schedule-style budget summaries and CAD formatting.
+Templates can use the following data in the selected language:
 
-“Primary recipient” means the first active agreement-recipient link by database ID; it is not selected through a separate primary-recipient field. Current activity and budget versions are used, while operational collections such as commitments, payments, claims, and forecasts include non-deleted records without filtering them to terminal status.
+- Agreement, agency, program, and stream details.
+- All linked recipients, with the first recipient and its first active address used as the primary recipient.
+- Current activities, responsible parties, and outcomes.
+- Current budget years and lines, formatted totals, and budget summaries for schedules.
+- Commitments, payments, claims, and forecasts.
 
-DOCX sources support dotted Docxtemplater tags and array sections. HTML sources support `&#123;&#123; dotted.path &#125;&#125;` and `&#123;&#123;# collection&#125;&#125;...&#123;&#123;/ collection&#125;&#125;`; substituted values are HTML-escaped. HTML-to-PDF disables JavaScript and blocks network requests other than `data:` and `about:` resources. Native HTML output preserves trusted template markup and is downloaded as HTML.
+Amounts can use Canadian dollar formatting.
+
+The document uses the first saved active recipient link as its primary recipient. There is no separate primary-recipient selector. The document uses current activity and budget versions. Commitments, payments, claims, and forecasts include all records that have not been deleted, including records still in progress.
+
+For template syntax and integration fields, see [Document generation](../developer/document-generation.md).
 
 ## Amendment documents
 
-Open a draft amendment’s **Documents** tab to generate an amendment-specific artifact. The tab requires parent Agreement read access because the document includes parent business data. Generation requires Contributor plus the exact amendment assignment; deletion requires Manager plus that assignment. Only a draft amendment whose parent remains amendable accepts generation/deletion. Historical files remain readable and downloadable with parent Viewer access.
+Open a draft amendment's **Documents** tab to generate a document for that amendment. You need read access to the agreement because the document includes its data. To generate a file, you need Contributor access and assignment to the amendment. To delete one, you need Manager access and the same assignment. Both actions require a draft amendment whose agreement still allows amendments. Viewer access to the agreement lets you read and download historical files.
 
-Configure an active Stream-linked template targeting `fundingcaseamendment`, with both language attachments. The same Generate dialog, native/PDF formats and converter requirements apply. Its parent Agreement fields continue to describe the current Agreement. The separate `amendment` fields describe the proposal, selected types/subtypes, proposed dates, snapshot budget/activities and captured risk. Before completion, risk is the draft proposal; after completion it comes from the immutable submission packet. If no domain snapshot exists, the corresponding amendment budget/activity context falls back to the current parent domain.
+Ask your administrator to configure an active template for the stream that targets `fundingcaseamendment` and has both language attachments. The same Generate dialog, output formats, and conversion requirements apply.
 
-For example, a draft proposes a later end date and a new budget. Generate using the amendment template, check both proposed dates and proposed line amounts, and compare them with the current Agreement fields. Save corrections in the draft and generate a new artifact; existing files never update. If the source changes during rendering, `DOCUMENT_RENDER_INPUT_CHANGED` rejects saving the stale result: reload both parent and amendment and generate again. Agreement and Closeout templates/files are excluded from this list.
+Agreement fields describe the current agreement. The separate `amendment` fields describe the proposed changes, selected types and subtypes, proposed dates, saved budget and activity copies, and risk. Before completion, risk comes from the draft proposal. After completion, it comes from the fixed submission record. If the amendment has no saved budget or activity copy, the document uses the corresponding current agreement data.
+
+For example, a draft proposes a later end date and a new budget. Generate using the amendment template, check both proposed dates and proposed line amounts, and compare them with the current Agreement fields. Save corrections in the draft and generate a new document; existing files never update. If the source changes during rendering, `DOCUMENT_RENDER_INPUT_CHANGED` prevents saving the outdated result. Reload both the agreement and amendment, then generate again. This list excludes agreement and closeout templates and files.
 
 ## List and download
 
-The newest generated document appears first. The table displays the localized saved template name, requested language, output format, generation timestamp, and actions. Search and pagination run on the server; searching either saved bilingual document name resets the page. Agreement, amendment and Closeout lists remain separate, and an artifact from another scope cannot be downloaded by changing its URL.
+The newest generated document appears first. The table displays the localized saved template name, requested language, output format, generation timestamp, and actions. Search either saved English or French document name. A new search starts at the first page. Agreement, amendment and closeout documents have separate lists.
 
 You need Agreement read access to download an active file belonging to that Agreement. The download returns the saved contents and filename, not a newly generated version. Files stay in their original storage location even if the Agency changes the provider used for new files. If an older file cannot be downloaded, ask your administrator to check access to that storage.
 
 ## Delete and recovery
 
-Deleting a generated document removes it and its attachment from normal lists and downloads (`_deleted = true`). It never deletes the stream template. The system also attempts to remove the stored file. If storage cleanup fails, deletion can still succeed in the application; the failure is logged as `storage_cleanup_failed` for operators to investigate.
-
-::: warning Backing-file cleanup is best effort
-A successful delete can therefore leave orphaned bytes in the provider’s storage. They are no longer listable or downloadable through the document routes. Operators should monitor cleanup errors and reconcile storage against active attachment metadata using an approved administrative procedure; do not restore access by manually clearing `_deleted` flags.
-:::
+Deleting a generated document removes it and its attachment from normal lists and downloads. It never deletes the stream template. The system also attempts to remove the stored file. If storage cleanup fails, deletion can still succeed in the application; the failure is logged as `storage_cleanup_failed` for operators to investigate.
 
 There is no restore action in the core interface. After an uncertain generation result, refresh the list before retrying to avoid creating another snapshot. After an uncertain deletion result, refresh before repeating the action.
 
-## API summary
-
-This section is for integrations and support. Use **Generate** and the document list for ordinary document work.
-
-| Route | Permission and result |
-| --- | --- |
-| `GET /api/agreements/{id}/document-templates` | `read`; active compatible stream templates and both attachment summaries. |
-| `GET /api/agreements/{id}/documents` | `read`; paginated active Agreement-only rows, with literal-safe bilingual saved-name search. |
-| `POST /api/agreements/{id}/documents/generate` | `create`; localized validation of `templateId`, `language`, and `outputFormat`, then a freshly authorized snapshot. |
-| `GET /api/agreements/{id}/documents/{documentId}/download` | `read`; stored bytes only when both row and attachment are active and agreement-owned. |
-| `DELETE /api/agreements/{id}/documents/{documentId}` | `delete`; transactional metadata soft deletion followed by best-effort object cleanup. |
-
-Failures include localized missing-ID, agreement/template/document-not-found, disallowed-output, validation, storage, rendering, and `LIBREOFFICE_UNAVAILABLE` responses. A generation or download failure does not produce a success toast; correct the source data, template, storage permissions, or converter dependency before retrying.
+For generation errors, ask your administrator to check the source data, template, storage access, and conversion tools. Integration routes and rendering details are described in [Document generation](../developer/document-generation.md).

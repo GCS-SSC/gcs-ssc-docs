@@ -1,11 +1,11 @@
-# Proponent Funding History
+# Proponent funding history
 
 The **Funding History** tab combines two sources:
 
 - **System** rows are live GCS-SSC agreements linked to the proponent. Manage them in the agreement workspace.
 - **External** rows are manually recorded funding from outside GCS-SSC. They provide history without creating an agreement, budget workflow, review, or payment record.
 
-Open **Proponents**, select a profile, and choose **Funding History**. Search covers readable agency and program names in both languages, agreement number, and title. The combined results are sorted and paginated after both sources are loaded.
+Open **Proponents**, select a profile, and choose **Funding History**. Search covers agency and program names in both languages, agreement number, and title, where your permissions allow you to read them. The combined results are sorted and paginated after both sources are loaded.
 
 ## Visibility and actions
 
@@ -22,27 +22,29 @@ Reading the tab requires read access to the current proponent. A linked system a
 
 Permissions are checked for each affected proponent. Viewer access lets you read its history. To add or edit history, your role must allow Contributor actions; to unlink history, it must allow Manager actions. You also need an assignment to each proponent affected by the action. The recipient selector shows only active profiles you can use for that action. Before saving, the system locks the profiles and checks your permissions again.
 
-**All** combines both sources and preserves restricted relationship placeholders. **Mine** includes only readable system Agreements with your exact Agreement assignment. An **Agency** view includes readable system Agreements owned by that program Agency. External records appear only in All because their agency/program names are free text, not ownership links. Switching to Mine or an Agency view also removes restricted placeholders.
+Actions may remain visible because your role permits them. Before opening a form or unlinking a record, the application checks your current assignments and permissions again. If the action is unavailable, check the assignments for all affected recipients before retrying.
+
+The Agreement view selector appears only when you have Agreement read permission. **All** combines both sources and preserves restricted relationship placeholders. **Mine** includes only readable system Agreements with your exact Agreement assignment. An **Agency** view includes readable system Agreements owned by that program Agency. External records appear only in All because their agency/program names are free text, not ownership links. Switching to Mine or an Agency view also removes restricted placeholders.
 
 For example, use All to compare an external award with an existing Agreement before adding a duplicate. Use Mine to focus on Agreements assigned to you; an external award disappearing from that view has not been deleted.
 
-The system reads both sources and your permissions from the same database snapshot, so the list is consistent while it is being loaded. Each source is bounded at 5,000 candidate rows before search and pagination; exceeding the bound returns `FUNDING_HISTORY_TOO_LARGE` (413), not an incomplete history. A narrower system view can help, but changing the page size or search text cannot bypass this candidate limit.
+The list loads both sources together with your current permissions. Each source allows up to 5,000 records before search and pagination. If this limit is exceeded, loading stops with `FUNDING_HISTORY_TOO_LARGE` (413). A narrower system view can help, but changing the page size or search text cannot bypass this candidate limit.
 
 ## Add external funding
 
 Select **Add external funding**. The full-screen wizard has five steps: recipients, agency, program, agreement, and review.
 
-The profile from which you opened the wizard is the primary recipient and cannot be removed. You may add other active proponents only when you have create access to all of them. Recipient IDs must be unique.
+The profile from which you opened the wizard is the primary recipient and cannot be removed. You may add other active proponents only when you have create access to all of them. Select each recipient only once.
 
 | Field | Rule |
 | --- | --- |
 | Agency name | Provide at least one of English or French; each value is limited to 255 characters. These are text fields, not configured-agency selections. |
 | Program name | Provide at least one of English or French; each value is limited to 255 characters. |
-| Agreement number | Required, trimmed, and limited to 255 characters. |
+| Agreement number | Required and limited to 255 characters. The application removes leading and trailing spaces. |
 | Title | Provide at least one language; each value is limited to 255 characters. |
 | Description | Provide at least one language. |
-| Start and end dates | Both required; the end cannot precede the start. |
-| Funding amount | Required, non-negative exact decimal text, at most two decimal places, and no greater than `99999999999999999.99`. It is stored as `numeric(19,2)`; preserve the string in API clients instead of converting it to a floating-point number. |
+| Start and end dates | Both required; the end cannot precede the start. These are calendar dates and do not shift with your time zone. |
+| Funding amount | Required, non-negative exact decimal text, at most two decimal places, and no greater than `99999999999999999.99`. Enter the amount without currency symbols or grouping separators. |
 | Currency | Required supported currency code; new records default to CAD in the wizard. |
 
 The review step summarizes the entry before save. User-facing validation and API errors follow the request language.
@@ -63,13 +65,13 @@ Similarity is a warning, not an automatic merge. Review the warning, go back to 
 
 ## Edit recipients or details
 
-Editing loads the external row and all active linked recipients. You must have update access to every currently linked proponent. Adding a recipient also requires create access to that profile; removing one requires delete access to it. The proponent in the current URL must remain linked during an edit.
+Editing loads the external row and all active linked recipients. You must have update access to every currently linked proponent. Adding a recipient also requires create access to that profile; removing one requires delete access to it. The proponent whose profile you opened must remain linked during an edit.
 
-Identity changes rerun exact-conflict and similarity checks. Details and recipient changes are committed together. Concurrent deletion, an inactive recipient, lost permission, or a duplicate recipient causes the whole transaction to fail rather than partially updating the record.
+Every edit must leave a valid complete record. For example, moving the start date after the saved end date fails unless you also correct the end date. You cannot clear the only populated language of a required bilingual field. Changes to agency names, program names, or agreement number rerun duplicate and similarity checks. Details and recipient changes are committed together. Concurrent deletion, an inactive recipient, lost permission, or a duplicate recipient causes the whole transaction to fail rather than partially updating the record.
 
 ## Unlink and soft deletion
 
-**Unlink** removes only the active link between the external history and the current proponent. It does not remove links held by other proponents. When the last active recipient link is soft-deleted, a database trigger also soft-deletes the now-unlinked funding-history row.
+**Unlink** removes only the active link between the external history and the current proponent. It does not remove links held by other proponents. When you remove the last active recipient link, the application also removes the funding-history record from active lists and keeps its history.
 
 There is no restore command in this tab. If the wrong link was removed and the history still exists through another recipient, an authorized editor can add the recipient again. If the last link was removed, create a new external record. System agreement rows cannot be edited or unlinked here.
 

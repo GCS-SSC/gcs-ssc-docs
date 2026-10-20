@@ -2,23 +2,22 @@
 
 These requests support shared services such as attachments, audit logs, groups, searches and system health. This group also contains intake and financial records whose routes are outside the agreement and proponent groups. See [Audit and access logs](../../admin/audit.md), [Attachments](../../concepts/attachments.md) and [Funding case intakes](../../intake/funding-case-intakes.md).
 
-An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
+This index maps server requests to their handler files. The linked guides explain the on-screen steps. The server checks access to protected records even when a screen offers an action.
 
-- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
-- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
-- **Authorization landmarks**: names found in the source that help a developer locate access checks.
-- **Validation landmarks**: names that help locate checks on submitted fields or query options.
-- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+- The method identifies the request type. `GET` reads information. `POST` usually creates a record or runs an action. `PATCH` and `PUT` save changes. `DELETE` removes a record. `ANY` means the handler has no single method declared in its filename.
+- The route is the request address. Replace bracketed names such as `[id]` with the actual record ID.
+- Authorization names and validation names are matches found in the handler source. They help locate access checks and checks on submitted fields or query options.
+- The source is the application file that handles the request.
 
-This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+A dash in the names columns means the generator found no matching name. It does not prove that a check is absent. A listed name may come from a field or comment. Follow the handler and its shared helpers to confirm access rules, validation and responses. The coverage ledger records the supporting evidence.
 
 ## Read-only example
 
-`GET /api/health` checks whether the application is ready and can reach its database. A successful response is `{ "status": "ok" }`. This public check does not return funding-file data. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
+`GET /api/health` checks whether the application is ready and can reach its database. A successful response is `{ "status": "ok" }`. This public check does not return funding-file data.
 
-## Handlers (95)
+## Handlers (105)
 
-| Method | Route | Authorization landmarks | Validation landmarks | Source |
+| Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
 | ANY | `/api/[...path]` | — | — | `server/api/[...path].ts` |
 | DELETE | `/api/account-receivable-credit-memos/[id]` | — | — | `server/api/account-receivable-credit-memos/[id].delete.ts` |
@@ -102,6 +101,16 @@ This table is generated from source names. A dash (`—`) means no matching name
 | GET | `/api/groups` | — | PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/groups/index.get.ts` |
 | POST | `/api/groups` | — | GroupCreateSchema, readValidatedBodyI18n | `server/api/groups/index.post.ts` |
 | GET | `/api/groups/lookups` | resolveApprovalTemplateScopeContextFromTemplateId | PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/groups/lookups.get.ts` |
+| DELETE | `/api/guided-help/[id]` | — | — | `server/api/guided-help/[id].delete.ts` |
+| GET | `/api/guided-help/[id]` | — | — | `server/api/guided-help/[id].get.ts` |
+| PATCH | `/api/guided-help/[id]` | requireAuthContext | GuidedHelpCreateSchema, readValidatedBodyI18n | `server/api/guided-help/[id].patch.ts` |
+| POST | `/api/guided-help/[id]/publish` | — | — | `server/api/guided-help/[id]/publish.post.ts` |
+| POST | `/api/guided-help/[id]/retire` | — | — | `server/api/guided-help/[id]/retire.post.ts` |
+| GET | `/api/guided-help/contexts` | — | — | `server/api/guided-help/contexts.get.ts` |
+| GET | `/api/guided-help/discovery` | — | — | `server/api/guided-help/discovery.get.ts` |
+| GET | `/api/guided-help` | — | — | `server/api/guided-help/index.get.ts` |
+| POST | `/api/guided-help` | requireAuthContext | GuidedHelpCreateSchema, readValidatedBodyI18n | `server/api/guided-help/index.post.ts` |
+| GET | `/api/guided-help/shared` | — | — | `server/api/guided-help/shared.get.ts` |
 | GET | `/api/health` | — | — | `server/api/health.get.ts` |
 | DELETE | `/api/journal-vouchers/[id]` | — | — | `server/api/journal-vouchers/[id].delete.ts` |
 | GET | `/api/journal-vouchers/[id]` | — | — | `server/api/journal-vouchers/[id].get.ts` |

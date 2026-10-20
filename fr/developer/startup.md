@@ -1,8 +1,8 @@
 # Demarrage
 
-Cette page s’adresse aux développeurs et au personnel de soutien technique qui préparent une copie locale de l’application ou de la documentation. Les agents de subventions et contributions n’ont pas à exécuter ces commandes pour utiliser un service GCS-SSC existant. Une démonstration locale peut aider le soutien à reproduire un problème ou à présenter un flux sans modifier les dossiers d’entente en production.
+Préparez une copie locale de GCS-SSC ou de sa documentation pour le développement, le soutien ou les démonstrations. Une démonstration locale permet de reproduire un problème sans modifier les dossiers d’entente en production.
 
-Le dépôt de documentation et le dépôt source de l’application sont des espaces de travail séparés. La documentation se trouve dans `gcs-ssc-docs`; la source de l’application est `gcs-ssc`.
+La documentation se trouve dans `gcs-ssc-docs`. La source de l’application se trouve dans le dépôt distinct `gcs-ssc`.
 
 ## Prerequis de l application
 
@@ -37,15 +37,19 @@ bun run dev
 
 Utilisez `bun run repos:update` pour mettre à jour le dépôt de l’application et tous les sous-modules enregistrés en une seule étape. Le script récupère les changements du dépôt principal, synchronise les URL des sous-modules et met à jour récursivement les sous-modules depuis leurs dépôts distants configurés.
 
-Le script de l’application est `scripts/dev.ts`, et pas une simple invocation de `nuxt dev`; utilisez les scripts du package, sauf si vous avez besoin directement des commandes Nuxt de bas niveau.
+Utilisez les scripts du paquet pour démarrer l’application. Ils exécutent `scripts/dev.ts`, qui prépare l’environnement avant de démarrer Nuxt.
 
 Si la génération de documents d’entente doit produire des PDF localement, exécutez `bun run bun:docgen:install` avant de démarrer l’application. Consultez [Génération de documents](./document-generation.md) pour les détails des outils nécessaires.
 
 `bun run dev:clean` supprime la base `.data/pglite` par défaut et le cache `.nuxt/dev` avant reconstruction. Les fichiers restent conservés et aucune base PostgreSQL externe n’est réinitialisée; choisissez explicitement le mode de base. La démonstration neuve utilise `9999_seed`, le cycle NCIA et la configuration de test Portail de développement.
 
+`bun run tooling:setup` répare les liens manquants sans copier les fichiers privés dans l’hôte. Il relie `tests`, `architecture` et `.agents/skills/gcs-ssc` à la copie privée figée. Il relie aussi les sources hôtes et la configuration des tests à cette copie. Ne commettez pas ces liens générés. Si le sous-module privé est inaccessible, vérifiez que votre compte GitHub peut lire `GCS-SSC/gcs-ssc-tooling`, puis réessayez.
+
+Le SDK exporte les fichiers compilés sous `dist`. Si un point d’entrée manque après une récupération manuelle ou une modification du SDK, exécutez `bun run --cwd packages/gcs-ssc-extensions build`. Démarrer Nuxt régénère les métadonnées des extensions, mais ne remplace pas cette compilation du SDK.
+
 ## Metadonnees d extension
 
-Les extensions ajoutent des fonctions enregistrées à l’application. Le système d’extension génère des métadonnées (les renseignements nécessaires pour trouver ces fonctions) sous `.nuxt/gcs-extensions`. Les utilitaires serveur exigent ces métadonnées pour les appels au registre. Si les API d’extension échouent parce que des métadonnées manquent, exécutez l’application Nuxt pour que le module les régénère.
+Le système d’extension génère des métadonnées sous `.nuxt/gcs-extensions` pour que l’application puisse trouver les fonctions d’extension enregistrées. Les utilitaires serveur exigent ces métadonnées pour les appels au registre. Si les API d’extension échouent parce que des métadonnées manquent, exécutez l’application Nuxt pour que le module les régénère.
 
 ## Outils de generation de documents
 
@@ -61,7 +65,7 @@ Utilisez `DOCGEN_ENV_FILE` pour cibler un autre fichier d’environnement. Les o
 
 ## Amorcage de l authentification
 
-Seules les données de développement et de test peuvent créer `root@example.com` avec `password123`. Ce compte et ce mot de passe ne doivent jamais être déployés en production; supprimez-les ou renouvelez les identifiants lors du provisionnement de la production. Une fois que l’utilisateur racine existe, créez les rôles et les attributions par l’interface utilisateur (UI), puis vérifiez que la réponse des permissions a la structure attendue `{ grants }` de `/api/auth/permissions`.
+Les données de développement et de test peuvent créer `root@example.com` avec `password123`. Ce compte et ce mot de passe ne doivent jamais être déployés en production; supprimez-les ou renouvelez les identifiants lors du provisionnement de la production. Une fois que l’utilisateur racine existe, créez les rôles et les attributions dans l’interface, puis vérifiez que la réponse des permissions a la structure attendue `{ grants }` de `/api/auth/permissions`.
 
 ## Demarrage de la documentation
 

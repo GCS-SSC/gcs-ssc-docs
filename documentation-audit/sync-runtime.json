@@ -1,0 +1,108 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "source_root": ".reference-repos/gcs-ssc",
+  "scope": "runtime review, workflow and completion user guides, with separate evidence for delegated proponents, intake and miscellaneous concepts",
+  "changes": [
+    {
+      "source": [
+        "server/utils/review-runtime-access.ts",
+        "server/api/recommendations/[recommendationId].get.ts",
+        "server/api/review-sets/index.get.ts"
+      ],
+      "contract": "Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies.",
+      "docs": [
+        "en/concepts/runtime-reviews.md",
+        "fr/concepts/runtime-reviews.md",
+        "en/concepts/workflows.md",
+        "fr/concepts/workflows.md"
+      ]
+    },
+    {
+      "source": [
+        "server/utils/additional-reviewer-runtime.ts",
+        "server/api/reviews/[reviewId]/additional-reviewers/lookups/users.get.ts",
+        "server/api/reviews/[reviewId]/additional-reviewers/lookups/groups.get.ts"
+      ],
+      "contract": "General reviewer lookup requires save authority; own-row reassignment lookup requires matching incomplete row, current read, row assignee, and unlocked review.",
+      "docs": [
+        "en/concepts/runtime-reviews.md",
+        "fr/concepts/runtime-reviews.md"
+      ]
+    },
+    {
+      "source": [
+        "server/api/workflows/resume.post.ts",
+        "server/api/workflows/runtime.get.ts",
+        "server/utils/review-runtime-access.ts",
+        "server/utils/workflow-runtime.ts"
+      ],
+      "contract": "Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover.",
+      "docs": [
+        "en/concepts/workflows.md",
+        "fr/concepts/workflows.md"
+      ]
+    },
+    {
+      "source": [
+        "app/components/Common/ReviewsTab.vue",
+        "app/components/Common/Workflow/Section.vue",
+        "app/components/Common/Completions/Section.vue",
+        "app/composables/useCompletionWorkflowStart.ts"
+      ],
+      "contract": "Role-permitted actions can remain visible when status, assignment or another prerequisite blocks action; choosing them warns without executing. Repeated recommendation definitions resolve by workflow occurrence and sequence.",
+      "docs": [
+        "en/concepts/runtime-reviews.md",
+        "fr/concepts/runtime-reviews.md",
+        "en/concepts/workflows.md",
+        "fr/concepts/workflows.md",
+        "en/concepts/approvals-completions.md",
+        "fr/concepts/approvals-completions.md"
+      ]
+    },
+    {
+      "source": [
+        "app/utils/review-navigation.ts"
+      ],
+      "contract": "Agreement review return stays on owning Agreement and defaults to its risk workspace; named route preserves localization and query state.",
+      "docs": [
+        "en/concepts/runtime-reviews.md",
+        "fr/concepts/runtime-reviews.md"
+      ]
+    }
+  ],
+  "inspected_tests_not_executed": [
+    "tests/unit/review-runtime-access.test.ts",
+    "tests/unit/review-navigation.test.ts",
+    "tests/unit/workflow-recommendation-revision-ui.test.ts"
+  ],
+  "application_tests_executed": [],
+  "no_impact_exclusions": [
+    {
+      "source": [
+        "server/api/completions/runtime.get.ts"
+      ],
+      "reason": "Fresh-read transaction wrapper refactor preserves documented completion contract."
+    },
+    {
+      "source": [
+        "server/utils/approval-runtime-common.ts",
+        "server/utils/approval-runtime.ts",
+        "server/utils/review-approval-runtime.ts"
+      ],
+      "reason": "Column-name correction restores documented approver and on-behalf fields; no new user procedure."
+    },
+    {
+      "source": [
+        "server/utils/workflow-routing-capture.ts"
+      ],
+      "reason": "Rejects malformed non-array stored relational values instead of silently routing; valid user-entered selections unchanged. Custom-field and developer owners informed."
+    }
+  ],
+  "delegated_evidence": [
+    "documentation-audit/sync-proponents.json",
+    "documentation-audit/sync-intake.json",
+    "documentation-audit/sync-concept-misc.json"
+  ],
+  "local_verification": "Scoped git diff --check only. Root coordinator owns final generators and full checks."
+}

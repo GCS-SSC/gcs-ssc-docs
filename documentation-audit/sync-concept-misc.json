@@ -1,0 +1,122 @@
+{
+  "source_baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "source_target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "scope": "Incremental source synchronization for attachments, data collections, extensions, soft deletion, and bilingualism concept pairs. General readability review follows separately.",
+  "groups": [
+    {
+      "name": "Attachment actions and record identity",
+      "sources": [
+        "app/components/Common/AttachmentsTab.vue",
+        "server/api/attachments/[entityType]/[entityId]/index.get.ts"
+      ],
+      "docs": [
+        "en/concepts/attachments.md",
+        "fr/concepts/attachments.md"
+      ],
+      "contract": "Role-visible actions can warn when exact assignment, lifecycle, agreement protection or storage prerequisites prevent execution. Record or Agency changes close and clear the draft. Provider metadata read errors fail the full list rather than report no attachments. Existing partial-save recovery remains accurate.",
+      "disposition": "DOCUMENTED_VERIFIED"
+    },
+    {
+      "name": "Intake attachment type edits",
+      "sources": [
+        "server/api/attachments/[entityType]/[entityId]/[attachmentId]/index.patch.ts"
+      ],
+      "docs": [
+        "en/concepts/attachments.md",
+        "fr/concepts/attachments.md"
+      ],
+      "contract": "An explicitly changed Intake attachment type must have an active association with its Opportunity as well as remain an active Agency type.",
+      "disposition": "DOCUMENTED_VERIFIED"
+    },
+    {
+      "name": "Extension workspace navigation",
+      "sources": [
+        "modules/gcs-extensions.ts",
+        "server/api/extensions/workspaces.get.ts",
+        "app/composables/useNavigationCatalog.ts"
+      ],
+      "docs": [
+        "en/concepts/extensions.md",
+        "fr/concepts/extensions.md"
+      ],
+      "contract": "The workspace declaration chooses management or administration and a safe integer order; the host uses it to group and order authorized enabled workspace entries. User concepts name the menu groups without SDK internals.",
+      "disposition": "DOCUMENTED_VERIFIED"
+    },
+    {
+      "name": "Data collection presentation",
+      "sources": [
+        "app/components/Agency/AgencyDataCollectionDetailPage.vue",
+        "app/components/Agency/AgencyDataCollections.vue"
+      ],
+      "docs": [
+        "en/concepts/data-collections.md",
+        "fr/concepts/data-collections.md"
+      ],
+      "contract": "Localized toast helper and common action button migrations preserve existing publication and answering behavior. No source-sync content change required.",
+      "disposition": "NOT_APPLICABLE_VERIFIED"
+    },
+    {
+      "name": "Soft deletion and bilingualism",
+      "sources": [
+        "server/utils/extensions.ts",
+        "shared/utils/zod-i18n.ts",
+        "i18n/locales/en.json",
+        "i18n/locales/fr.json"
+      ],
+      "docs": [
+        "en/concepts/soft-deletion.md",
+        "fr/concepts/soft-deletion.md",
+        "en/concepts/bilingualism.md",
+        "fr/concepts/bilingualism.md"
+      ],
+      "contract": "JSON persistence and localization changes do not change the documented user meaning of deletion or language switching. Existing bilingual drafts, translation suggestions and retained-history guidance remain applicable.",
+      "disposition": "NOT_APPLICABLE_VERIFIED"
+    }
+  ],
+  "tests_inspected_not_executed": [
+    {
+      "path": "tests/unit/attachment-list-routes.test.ts",
+      "evidence": "Read provider metadata failures, operation timeout and abort signal, recorded-provider absence, and non-workable target cases."
+    },
+    {
+      "path": "tests/unit/common-attachments-tab.test.ts",
+      "evidence": "Read partial-success preservation test body; saved host patch and failed provider draft remain available."
+    },
+    {
+      "path": "tests/unit/extensions-agency-workspaces-route.test.ts",
+      "evidence": "Read enabled-and-authorized Agency filtering cases. Fixture predates the navigation member; source navigation declaration and catalog establish current group/order contract."
+    }
+  ],
+  "tests_executed": [],
+  "out_of_scope": [
+    {
+      "sources": [
+        "server/utils/file-storage.ts",
+        "server/utils/document-generation.ts",
+        "server/utils/document-template-routes.ts"
+      ],
+      "reason": "Generated-file transaction compensation applies to Documents, operator cleanup and developer contracts. Existing attachment upload cleanup paragraph remains accurate; notify owning agent rather than edit its pages."
+    },
+    {
+      "sources": [
+        "modules/gcs-extensions.ts",
+        "packages/gcs-ssc-extensions"
+      ],
+      "reason": "Public SDK now requires agency-workspace-navigation capability and navigation category/order for workspace declarations; developer reference owners must cover exact schema."
+    },
+    {
+      "sources": [
+        "server/api/attachments/[entityType]/[entityId]/[attachmentId]/index.patch.ts"
+      ],
+      "reason": "Provider-managed metadata operations now receive abort signal; developer storage contract owns cancellation details."
+    },
+    {
+      "sources": [
+        "extensions/gcs-machine-translation",
+        "extensions/gcs-storage-s3",
+        "extensions/gcs-ssc-portal-connector"
+      ],
+      "reason": "Concrete extension product and implementation documentation remains extension-owned; host-only behavior documented here."
+    }
+  ]
+}

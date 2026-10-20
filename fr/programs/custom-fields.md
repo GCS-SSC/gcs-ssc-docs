@@ -4,14 +4,14 @@ Les champs personnalisés recueillent les renseignements d’entente que les cha
 
 ## Accès et ordre de configuration
 
-Le rôle Lecteur de l’agence permet de consulter les définitions; Contributeur permet de les créer ou de les modifier; Gestionnaire est nécessaire pour une suppression autorisée. L’affectation au volet et les changements de section exigent Contributeur pour `transfer_payment` dans le programme; retirer une affectation admissible exige Gestionnaire. La modification des valeurs exige toujours le rôle Contributeur et une affectation à l’entente précise, si son état permet la modification.
+Vous devez avoir le rôle Lecteur de l’agence pour consulter les définitions, Contributeur pour les créer ou les modifier et Gestionnaire pour les supprimer lorsque la suppression est permise. Pour ajouter, modifier ou retirer les affectations ou les sections d’un volet, vous devez avoir le rôle Contributeur pour `transfer_payment` dans le programme. Pour modifier les valeurs d’une entente, vous devez avoir le rôle Contributeur et une affectation à cette entente précise. Son état doit aussi permettre la modification.
 
 1. Ouvrez **Agences**, choisissez l’agence et créez les champs bilingues et leurs options dans **Champs personnalisés**. Choisissez texte, nombre ou sélection; préparez les options avant l’usage opérationnel.
 2. Ouvrez **Champs personnalisés** du volet d’un programme. Créez les sections bilingues du volet, puis ajoutez les champs d’agence. Réglez la section, l’ordre, le caractère obligatoire et l’état actif propres au volet.
 3. Ouvrez une entente du volet et vérifiez les libellés, l’ordre et les champs obligatoires dans les deux langues.
 4. Pour l’acheminement, configurez les conditions du flux d’agence après la création des options; liez le flux publié au volet et vérifiez chaque parcours.
 
-Les identifiants de champ et d’option d’agence sont partagés entre les volets; la section et le caractère obligatoire appartiennent à chaque volet. Un champ d’agence peut être placé différemment dans deux volets. La recherche couvre les libellés bilingues et catégories d’options. Consultez [Catalogues d’agence](../admin/agency-catalogs.md).
+Les volets partagent les identifiants des champs et des options de l’agence. Chaque volet définit ses propres sections et champs obligatoires. Un champ d’agence peut être placé différemment dans deux volets. La recherche couvre les libellés bilingues et catégories d’options. Pour affecter un champ, recherchez son nom français ou anglais d’agence. Les champs déjà affectés au volet ne figurent pas parmi les nouveaux choix. Le formulaire de modification change seulement les paramètres du champ propres au volet. Pour remplacer le champ, retirez l’affectation si cela est permis, puis ajoutez le bon champ. Consultez [Catalogues d’agence](../admin/agency-catalogs.md).
 
 ## Définition des champs
 
@@ -50,24 +50,11 @@ Ajoutez **Direct delivery / Réalisation directe** et **Partner delivery / Réal
 
 ## Saisir et effacer les valeurs d’entente
 
-À la création, remplissez tous les champs actifs obligatoires. Les anciennes ententes ne sont pas remplies automatiquement lorsqu’un champ devient obligatoire. Une modification de profil sans rapport peut être enregistrée sans transmettre les champs personnalisés; dès qu’ils sont transmis, le serveur vérifie les valeurs existantes et les modifications ensemble pour s’assurer que tous les champs actifs obligatoires sont remplis.
+À la création, remplissez tous les champs actifs obligatoires. Les anciennes ententes ne sont pas remplies automatiquement lorsqu’un champ devient obligatoire. Vous pouvez enregistrer d’autres modifications du profil sans remplir les champs personnalisés. Lorsque vous enregistrez des modifications des champs personnalisés, l’application vérifie les valeurs existantes et modifiées. Tous les champs actifs obligatoires doivent alors avoir une valeur.
 
 L’action **Effacer la valeur**, lorsqu’elle est disponible, modifie seulement le brouillon local. Enregistrez l’entente pour conserver ce changement. Effacer un champ actif obligatoire est refusé. Un responsable autorisé peut effacer un champ inactif renseigné, même s’il était auparavant obligatoire. Une entente en lecture seule ne permet pas d’effacer une valeur.
 
-Les mises à jour partielles de l’API conservent les clés omises. Exemple avec des identifiants fictifs de champs et d’options :
-
-```json
-{
-  "egcs_fc_customfields": {
-    "101": ["201"],
-    "102": "Réalisation par deux bureaux régionaux.\nDes rapports trimestriels sont prévus.",
-    "103": null,
-    "104": 0
-  }
-}
-```
-
-Cette requête sélectionne l’option `201` du champ `101`, enregistre le texte multiligne de `102`, efface `103` et conserve zéro dans `104`. Les sélections sont stockées en tableaux d’identifiants d’options, même pour une sélection unique. Les identifiants doivent provenir des définitions du volet; les libellés ne les remplacent pas. `null`, un texte vide et un tableau de sélection vide retirent la clé correspondante. Les champs omis conservent leur valeur. L’autorisation, les verrous et les règles obligatoires s’appliquent aussi aux appels directs.
+Modifier un champ personnalisé conserve les autres valeurs enregistrées. Effacez une valeur facultative pour la retirer, puis enregistrez l’entente. Sélectionnez les options parmi les choix du volet. Saisir le libellé d’une option dans un champ texte ne sélectionne pas cette option.
 
 ## Acheminement conditionnel des flux
 
@@ -94,4 +81,4 @@ Avant de retirer un champ d’acheminement, examinez les définitions et publica
 | Impossible de supprimer une section | Déplacez ou supprimez d’abord ses champs restants. |
 | Champ ou option utilisés | Examinez les valeurs d’entente et les références de flux courants, publiés et historiques. La suppression et la désactivation ont des règles différentes. |
 | Démarrage ou nouvelle tentative refusés | Vérifiez les réponses utilisées dans les conditions et la présence des approbations obligatoires, de l’évaluation du risque et d’une fin valide. |
-| Échec après changement de permissions ou d’état | Rechargez l’entente ou le volet et vérifiez les permissions et le cycle de vie actuels; le serveur les revérifie sous verrou. |
+| Échec après changement de permissions ou d’état | Rechargez l’entente ou le volet et vérifiez vos permissions actuelles et l’état du dossier. L’application les vérifie à nouveau lors de l’enregistrement. |

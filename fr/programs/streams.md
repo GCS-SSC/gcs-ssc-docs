@@ -6,13 +6,13 @@ Le volet regroupe les types d'entente, budgets, lignes de coûts, engagements, e
 
 Commencez par l'identité du volet, son budget, ses destinataires et ses types d'entente. Configurez ensuite les éléments utilisés par les agents, comme les réclamations, examens et documents. Enregistrer le volet ne signifie pas que tous ces éléments sont prêts.
 
-## Liste Des Volets Et Navigation
+## Liste des volets et navigation
 
-Les volets sont gérés dans l’onglet Volets de la page de détail du programme. Le tableau montre les volets du programme courant et permet la création, la modification, la suppression et la création par assistant lorsque l’utilisateur peut modifier la configuration enfant du programme.
+Ouvrez le programme, puis sélectionnez **Volets**. Le tableau montre les volets de ce programme. Si vous pouvez modifier sa configuration, vous pouvez créer, modifier ou supprimer des volets, ou utiliser l’assistant de volet.
 
-Ouvrir un volet mène à une page de détail de volet avec son propre sommaire repliable, son fil d’Ariane et ses onglets verticaux. La page de volet hérite toujours de la portée du programme parent et de l’agence pour l’autorisation.
+Ouvrez un volet pour voir son sommaire repliable, son fil de navigation et ses onglets de configuration. Votre accès au volet découle de son programme parent et de son agence.
 
-## Modale Rapide De Volet
+## Modale rapide de volet
 
 La modale standard crée ou modifie seulement l’enregistrement de volet. Elle contient :
 
@@ -22,13 +22,13 @@ La modale standard crée ou modifie seulement l’enregistrement de volet. Elle 
 - Objectif anglais et objectif français.
 - Indicateur "permet la redistribution".
 - Description anglaise et description française.
-- Indicateur Actif, faux initialement.
+- Actif, désactivé par défaut.
 
-Le volet parent doit appartenir au même programme. Utilisez les volets parents pour modéliser la structure du programme; les configurations d’exécution restent configurées sur le volet où les ententes et examens seront créés.
+Le volet parent doit appartenir au même programme. Utilisez les volets parents pour représenter la structure du programme. Configurez les ententes et examens sur le volet où les agents les créeront.
 
-## Assistant De Volet
+## Assistant de volet
 
-L’assistant de volet crée le volet et plusieurs ensembles de configuration associés en une seule opération. Il est utile pour une première configuration, car il applique les règles entre enregistrements avant toute sauvegarde partielle.
+Utilisez l’assistant pour enregistrer ensemble le volet et ses réglages de base. Il vérifie leur compatibilité avant l’enregistrement. Une soumission qui échoue ne laisse donc pas de configuration partielle.
 
 Les étapes de l’assistant sont :
 
@@ -49,7 +49,7 @@ Les étapes de l’assistant sont :
 
 L’assistant couvre la configuration de base du volet. Après l’enregistrement, liez les ensembles d’examens et les flux et configurez les extensions depuis les onglets de détail. Créez et publiez les définitions de recommandation, modèles d’approbation et schémas d’évaluation à l’agence avant de les utiliser dans ces définitions partagées.
 
-## Validation De L Assistant
+## Validation de l assistant
 
 L’assistant empêche les conflits courants :
 
@@ -68,7 +68,7 @@ L’assistant empêche les conflits courants :
 | Les configurations d’examen et de recommandation ne doivent pas se contredire | Une configuration active ne peut répéter l’ordre ou le nom bilingue dans un même type d’entité. |
 | Les dossiers choisis doivent appartenir au bon parent | Les volets parents et budgets appartiennent au programme; les choix appartenant à l’agence appartiennent à l’agence du programme. |
 
-## Onglets De Detail Du Volet
+## Onglets de detail du volet
 
 La page de détail du volet présente ces onglets :
 
@@ -77,6 +77,7 @@ La page de détail du volet présente ces onglets :
 - Budgets.
 - Destinataires admissibles.
 - Éléments de ligne de catégorie de coûts.
+- Sous-types de financement.
 - Types de modification.
 - Sous-types de modification.
 - Sous-types d’entente.
@@ -94,9 +95,9 @@ La page de détail du volet présente ces onglets :
 
 Configurez les [Champs personnalisés](./custom-fields.md) pour les données additionnelles d’entente et le routage conditionnel.
 
-Chaque onglet utilise le même fonctionnement : tableau de dossiers, modale ou éditeur, validation et suppression logique lorsque la suppression est permise.
+Utilisez chaque onglet pour ajouter, modifier ou retirer les dossiers que vos permissions permettent de gérer.
 
-## Onglet General
+## Onglet general
 
 L’onglet Général affiche l’identité et les champs descriptifs du volet :
 
@@ -110,7 +111,7 @@ L’onglet Général affiche l’identité et les champs descriptifs du volet :
 
 Modifiez ces champs depuis l’action de la page de volet ou depuis l’onglet Volets du programme parent.
 
-## Onglet Bases De Retenue
+## Onglet bases de retenue
 
 Cet onglet rend une base de retenue active de l'agence disponible dans le volet et lui donne des libellés français et anglais. La base doit appartenir à l'agence du programme. Une seule association active est permise par base dans le volet. Configurez-la avant qu'une entente ait besoin d'une règle de retenue.
 
@@ -118,7 +119,7 @@ Par exemple, choisissez la base d'agence appropriée à la politique de retenue 
 
 Vous pouvez corriger le libellé bilingue d'une association. Vous ne pouvez pas changer sa base d'agence tant qu'une entente non supprimée l'utilise. Le code de la base d'agence est aussi protégé tant qu'il est référencé. Réglez la dépendance avant de changer la base; les nouveaux choix doivent appartenir à l'agence courante.
 
-## Onglet Budgets
+## Onglet budgets
 
 Un budget de volet attribue à ce volet une partie de l'enveloppe annuelle du programme. Créez d'abord le budget de programme, puis ajoutez une ligne de budget de volet avec :
 
@@ -128,7 +129,7 @@ Un budget de volet attribue à ce volet une partie de l'enveloppe annuelle du pr
 
 Le financement des ententes et les engagements exigent cette structure d'exercice. Le sélecteur recherche uniquement les budgets du programme courant et affiche leur libellé d'exercice. Une ligne existante conserve le libellé de son budget enregistré même hors de la page de résultats courante.
 
-La somme des allocations aux volets pour l'exercice cible doit respecter le budget de programme sélectionné. Par exemple, un budget de programme de 100 000 $, dont 70 000 $ sont déjà alloués aux autres volets, laisse 30 000 $ pour ce volet. Enregistrer 35 000 $ est refusé. Les montants sont stockés sous forme de chaînes décimales exactes : `"100000.00"`, `"70000.00"` et `"30000.00"` dans cet exemple.
+La somme des allocations aux volets pour l'exercice cible doit respecter le budget de programme sélectionné. Par exemple, un budget de programme de 100 000 $, dont 70 000 $ sont déjà alloués aux autres volets, laisse 30 000 $ pour ce volet. Enregistrer 35 000 $ est refusé. Saisissez le montant dans le champ monétaire du formulaire.
 
 Par exemple, un budget de volet de 100 000 $ avec un seuil de 10 % permet jusqu’à 110 000 $ de financement de programme des ententes. Cela n’augmente ni l’enveloppe de programme disponible pour les allocations aux volets ni la capacité réelle de paiement des engagements.
 
@@ -154,7 +155,7 @@ Une [Possibilité](../intake/opportunities.md) peut utiliser ce volet et d'autre
 
 Par exemple, lier un ensemble d'examens d'admission à « Petits projets communautaires » le rend admissible pour une possibilité qui utilise ce volet. La possibilité doit encore faire son propre choix avant l'utilisation de l'ensemble. Retirer ces liens ne change pas les preuves d'évaluation déjà créées.
 
-## Onglet Destinataires Admissibles
+## Onglet destinataires admissibles
 
 Choisissez les sous-types de destinataires demandeurs de l'agence que les agents peuvent utiliser dans ce volet. Chaque ligne rend un sous-type disponible sur le lien entre une entente et un promoteur. Le profil du promoteur ne conserve pas lui-même de sous-type.
 
@@ -164,35 +165,35 @@ Si **Exiger un type de promoteur cohérent** est activé, un promoteur qui revie
 
 Les associations historiques conservent le libellé du sous-type après son retrait par l'agence. Vous pouvez conserver la même référence, mais un remplacement doit être actuellement admissible et appartenir à l'agence. Les références conservées dans les relations d'entente ou l'admissibilité peuvent bloquer la suppression ou le retrait d'un sous-type d'agence.
 
-## Onglet Elements De Ligne De Categorie De Couts
+## Onglet elements de ligne de categorie de couts
 
-Les éléments de ligne de catégorie de coûts rendent les lignes de coûts de l’agence disponibles dans le volet. Chaque ligne contient :
+Utilisez cet onglet pour rendre les lignes de coûts de l’agence disponibles dans le volet. Chaque ligne contient :
 
 - Élément de ligne de catégorie de coûts de l’agence.
 - Ratio de partage des coûts.
 
-L’élément sélectionné doit appartenir à une catégorie de coûts de l’agence du programme. Ces lignes contrôlent les éléments de coûts utilisables dans les budgets d’entente et les réclamations du volet.
+L’élément sélectionné doit appartenir à une catégorie de coûts de l’agence du programme. Recherchez son nom français ou anglais dans le sélecteur s’il manque à la première page. Ces lignes contrôlent les éléments de coûts utilisables dans les budgets d’entente et les réclamations du volet.
 
 La correspondance du volet, la ligne source et sa catégorie possèdent des indicateurs Actif distincts. Le tableau expose les sources inactives pour diagnostiquer la disponibilité; une correspondance existante ne contourne pas une source désactivée. Les lignes d’entente enregistrées conservent leurs références et leurs paramètres de calcul. Activez les niveaux sources nécessaires avant d’ajouter des lignes budgétaires.
 
 Par exemple, liez la ligne d’agence « Matériaux de construction » pour que les agents puissent la sélectionner pour les coûts du volet. Si elle manque pour une nouvelle ligne budgétaire d’entente, vérifiez les trois réglages Actif : l’association au volet, la ligne d’agence et sa catégorie de coûts.
 
-## Types Et Sous-Types De Modification
+## Types et sous-types de modification
 
-Un type de modification identifie la catégorie de dossier modifié et donne un nom bilingue à ce genre de changement. Choisissez la catégorie parmi les catégories prises en charge pour les modifications de paiements de transfert; un sous-type décrit un changement plus précis dans cette catégorie.
+Un type de modification identifie la catégorie de dossier modifié et donne un nom bilingue à ce genre de changement. Choisissez une catégorie de dossier disponible; un sous-type décrit un changement plus précis dans cette catégorie.
 
 Les sous-types de modification sont liés à un type de modification et ajoutent :
 
 - Nom anglais et nom français.
 - Description anglaise et description française.
 
-Les sous-types ne peuvent pas être configurés utilement avant leur type parent. Dans l’assistant, supprimer un type de modification supprime aussi ses sous-types temporaires.
+Créez le type de modification avant d’ajouter ses sous-types. Dans l’assistant, supprimer un type de modification supprime aussi ses sous-types temporaires.
 
-## Onglet Sous-Types D Entente
+## Onglet sous-types d entente
 
 Les sous-types d’entente associent les types d’entente de l’agence au volet. Chaque ligne sélectionne un type d’entente de l’agence.
 
-Cette configuration classe les ententes du volet et limite les types d’entente valides dans la création d’ententes. Les types d’entente de l’agence doivent exister avant de remplir cet onglet.
+Ces liens déterminent les types d’entente d’agence que les agents peuvent choisir en créant des ententes dans ce volet. Créez les types d’entente d’agence avant d’ajouter des liens ici.
 
 Changer le type d’entente d’agence associé à un sous-type doit préserver la classification des ententes existantes. Le serveur refuse un remplacement incompatible avec leur type enregistré. Corrigez les libellés ou créez une configuration distincte au lieu de reclasser silencieusement les ententes.
 
@@ -206,29 +207,29 @@ Retirer un lien de volet est une suppression logique, refusée tant qu'une ligne
 
 Créez les types d'engagement bilingues sur la page Agence, puis choisissez un type disponible dans **Types d'engagement** du volet. Il devient disponible pour les nouveaux engagements d'entente. Un Contributeur du volet peut ajouter un lien; un retrait admissible exige Gestionnaire. Vous ne pouvez pas retirer un lien utilisé ni supprimer un type d'agence référencé. Le serveur verrouille et revérifie l'agence, le programme, le volet et les références actuelles avant l'enregistrement.
 
-## Onglet Types De Surveillance
+## Onglet types de surveillance
 
 Créez les types de surveillance bilingues sur la page Agence, puis associez ici les types admissibles. La sélection du volet détermine les types offerts aux nouvelles surveillances. Les dossiers existants conservent leur référence lorsque le type d’agence ou le lien est retiré. Si un type manque au sélecteur, rechargez les deux catalogues et vérifiez la propriété d’agence et l’état actif avant de réessayer.
 
-## Onglet Cotes De Risque
+## Onglet cotes de risque
 
 Les cotes de risque définissent les libellés et pointages disponibles pour le volet. Chaque ligne contient :
 
 - Pointage de risque numérique. Le pointage doit être fini et non négatif.
 - Nom anglais et nom français.
 
-Ces cotes servent à un flux d’entente dont l’objet est `risk_rating`. À sa publication, les valeurs maximales des résultats d’évaluation sont associées aux cotes actives du volet. Terminer ce flux avec succès applique le score obtenu à l’entente. Les agents ne définissent pas ce score dans la modification ordinaire du profil d’entente. Consultez [Flux de travail](../concepts/workflows.md) pour ordonner les bandes et reprendre le travail après un changement de configuration.
+Ces cotes servent à un flux de cote de risque d’entente. À sa publication, les valeurs maximales des résultats d’évaluation sont associées aux cotes actives du volet. Terminer ce flux avec succès applique le score obtenu à l’entente. Les agents ne définissent pas ce score dans la modification ordinaire du profil d’entente. Consultez [Flux de travail](../concepts/workflows.md) pour ordonner les bandes et reprendre le travail après un changement de configuration.
 
-## Onglet Domaines D Expertise
+## Onglet domaines d expertise
 
-Les domaines d’expertise soutiennent l’affectation et la classification du travail d’examen. Chaque ligne contient :
+Les domaines d’expertise aident à affecter et à classer le travail d’examen. Chaque ligne contient :
 
 - Nom anglais et nom français.
 - Description anglaise et description française.
 
-Utilisez ces lignes lorsque le volet exige un routage d’examen par spécialité ou des étiquettes d’expertise dans les processus d’évaluation.
+Ajoutez des domaines lorsque les agents doivent affecter les examens par spécialité ou préciser l’expertise requise pour une évaluation.
 
-## Onglet Limites Financieres
+## Onglet limites financieres
 
 Les limites financières définissent les seuils du volet :
 
@@ -240,35 +241,35 @@ Les limites financières définissent les seuils du volet :
 
 Le total de la liste comprend les limites actives et inactives; le nombre de limites actives est distinct. Modifier un montant conserve le réglage Actif enregistré, sauf si vous changez aussi ce réglage.
 
-L’assistant traite les limites financières comme optionnelles. Si le volet n’a aucune ligne de limites financières, les processus qui dépendent de ces contrôles ne disposeront pas de valeurs propres au volet.
+Les limites financières sont facultatives dans l’assistant. Sans ligne de limites financières, les processus qui vérifient les limites ne disposent pas de valeurs propres au volet.
 
 Par exemple, un montant maximal admissible de 50 000 $ par destinataire décrit le plafond du volet pour un destinataire. Il est distinct de l’allocation annuelle totale du volet : configurer l’un ne crée pas l’autre. Saisissez les limites approuvées pour le programme, puis vérifiez le processus d’entente qui les utilise.
 
-## Onglet Configurations D Examen
+## Onglet configurations d examen
 
-Utilisez **Ajouter** pour lier un ensemble d'examens publié admissible de la même agence. Un ensemble regroupe les définitions d'examen utilisées par les agents. Par exemple, l'agence peut publier un ensemble d'évaluation d'entente et le rendre disponible à plusieurs volets qui suivent le même processus d'évaluation.
+Utilisez **Ajouter** pour lier un ensemble d’examens publié admissible de la même agence. Recherchez son nom publié français ou anglais. Le chargement des choix exige la permission de modifier le programme; lire le volet ne suffit pas. Un ensemble regroupe les définitions d'examen utilisées par les agents. Par exemple, l'agence peut publier un ensemble d'évaluation d'entente et le rendre disponible à plusieurs volets qui suivent le même processus d'évaluation.
 
 Ouvrez une ligne pour modifier la définition d'agence, ses schémas membres, sa publication et son comportement d'examen direct ou à l'achèvement. Vous modifiez la définition partagée d'agence, qui peut aussi être liée à d'autres volets de cette agence.
 
 Retirer le lien de volet conserve l'ensemble d'agence et les examens historiques. Chaque examen déjà créé conserve la publication utilisée à sa création. Consultez [Examens en exécution](../concepts/runtime-reviews.md).
 
-## Onglet Configurations De Recommandation
+## Onglet configurations de recommandation
 
-Les schémas et ensembles de recommandations sont créés sur la page **Agence**. Ils sont référencés par les flux d’agence et leurs membres publiés; le volet n’a plus d’onglet distinct de configuration des recommandations. La définition contient des questions bilingues, une question décisive, des membres ordonnés, des étapes d’approbation facultatives et la politique d’échec. Consultez [Schémas et ensembles de recommandations](./recommendations.md).
+Les schémas et ensembles de recommandations sont créés sur la page **Agence**. Ils sont référencés par les flux d’agence et leurs membres publiés; le volet n’a pas d’onglet distinct de configuration des recommandations. La définition contient des questions bilingues, une question décisive, des membres ordonnés, des étapes d’approbation facultatives et la politique d’échec. Consultez [Schémas et ensembles de recommandations](./recommendations.md).
 
-## Onglet Modeles D Approbation
+## Onglet modeles d approbation
 
-Les modèles d’approbation sont créés et publiés sur la page **Agence**. Le volet n’a plus d’onglet distinct Modèles d’approbation. Les ensembles d’examens, ensembles de recommandations et flux référencent un modèle d’agence admissible; chaque bordereau d’exécution conserve ses étapes et attestations figées. Consultez [Modèles d’approbation](./approval-templates.md).
+Les modèles d’approbation sont créés et publiés sur la page **Agence**. Le volet n’a pas d’onglet distinct Modèles d’approbation. Les ensembles d’examens, ensembles de recommandations et flux référencent un modèle d’agence admissible; chaque dossier d’approbation conserve les étapes et attestations copiées à sa création. Consultez [Modèles d’approbation](./approval-templates.md).
 
-## Onglet Configurations De Flux De Travail
+## Onglet configurations de flux de travail
 
-Cet onglet rend un flux d'agence publié disponible dans le volet. Ajoutez un flux de la même agence; ouvrez sa ligne pour modifier la définition partagée sur la page Agence.
+Cet onglet rend un flux d’agence publié disponible dans le volet. Recherchez son nom publié français ou anglais. Le sélecteur exige la permission de modifier le programme. Ajoutez un flux de la même agence; ouvrez sa ligne pour modifier la définition partagée sur la page Agence.
 
 Par exemple, un flux d'entente peut prévoir un examen, puis une recommandation et une approbation. La définition d'agence précise l'entité visée, l'objet, les états de départ permis, l'ordre des membres, les conditions et la politique de reprise. Le lien au volet fournit les valeurs propres au volet, comme les cotes de risque. Des champs requis ou des références locales manquants ou incompatibles bloquent l'utilisation; le système ne saute pas l'étape concernée.
 
 Retirer le lien empêche les nouveaux usages dans ce volet et conserve la définition partagée et les tentatives historiques. Consultez [Flux de travail](../concepts/workflows.md) et [Catalogues d'agence](../admin/agency-catalogs.md).
 
-## Onglet Modeles De Documents
+## Onglet modeles de documents
 
 Créez un modèle dans **Modèles de documents** de l'agence, puis liez un modèle admissible à ce volet. Par exemple, préparez les fichiers sources français et anglais d'une lettre d'entente à l'agence, puis liez le modèle aux volets qui utilisent cette lettre.
 
@@ -278,29 +279,29 @@ La validation utilise l'extension du nom du fichier téléversé pour détermine
 
 ## Schémas d’évaluation
 
-Les schémas d’évaluation et de liste de vérification sont créés depuis l’éditeur d’ensemble d’examens de l’agence et publiés à cet endroit. Ils définissent les questions, calculs, dépendances, résultats et règles figés utilisés par les examens d’exécution. Consultez [Schémas d’évaluation](./assessment-schemas.md) et [Schémas de listes de vérification](./checklist-schemas.md).
+Les schémas d’évaluation et de liste de vérification sont créés depuis l’éditeur d’ensemble d’examens de l’agence et publiés à cet endroit. Ils définissent les questions, calculs, dépendances, résultats et règles publiés qui sont copiés dans chaque examen. Consultez [Schémas d’évaluation](./assessment-schemas.md) et [Schémas de listes de vérification](./checklist-schemas.md).
 
-## Onglet Extensions
+## Onglet extensions
 
-Les extensions contrôlent les paramètres d’extension propres au volet. La configuration des extensions est séparée de la configuration de base des paiements de transfert, mais elle hérite du même contexte volet, programme et agence.
+Utilisez cet onglet pour configurer les extensions du volet. Les réglages des extensions sont distincts des réglages de base du programme et s’appliquent au même volet, programme et agence.
 
 ![Configuration des extensions de volet](/screenshots/fr/stream-extensions.png)
 
-_Capture réelle de l’environnement de développement avec des données de démonstration. Les enregistrements montrés sont seulement des exemples et ne sont pas créés dans une nouvelle installation._
+_Cette capture montre des données de démonstration. Une nouvelle installation ne contient pas ces dossiers._
 
-## Cycle De Vie, Échec Et Reprise
+## Cycle de vie, échec et reprise
 
 Supprimer un volet ou une ligne de configuration la masque normalement de l'utilisation courante sans l'effacer physiquement. Une section spécialisée peut décrire une exception. Les anciennes configurations enfants restent enregistrées, mais les pages exigeant un volet non supprimé ne les exposent plus.
 
-Avant la suppression, le système verrouille le volet et les portées d'entente des extensions, vérifie la permission actuelle de suppression dans la chaîne active programme-agence et permet aux extensions enregistrées de bloquer la suppression. Si la propriété change à répétition pendant ces vérifications, l'opération s'arrête plutôt que d'utiliser une vérification de permission périmée.
+La suppression exige la permission actuelle de supprimer le volet. Une extension installée peut la bloquer pour protéger le travail associé aux ententes. Si un autre administrateur change la propriété pendant les vérifications, rechargez le volet avant de réessayer.
 
-Chaque enregistrement de volet ou de dossier enfant vérifie ensemble les permissions et les parents propriétaires actuels, dans une transaction. Un volet parent doit être un volet frère actif du même programme; un volet ne peut pas être son propre parent. Les choix d'agence, budgets de programme et dossiers imbriqués doivent appartenir à la bonne chaîne agence-programme-volet.
+Chaque enregistrement vérifie vos permissions actuelles ainsi que le programme et l’agence propriétaires du volet. Un volet parent doit être un volet frère actif du même programme; un volet ne peut pas être son propre parent. Les choix d'agence doivent appartenir à l'agence propriétaire, les budgets de programme au programme propriétaire et les réglages du volet au volet courant.
 
 Si un dossier semble absent, vérifiez son identifiant et votre accès : le système donne volontairement des erreurs semblables pour les dossiers absents et inaccessibles. Après un conflit, un choix invalide, une allocation qui dépasse la capacité ou un changement simultané de portée, rechargez l'onglet, corrigez le dossier référencé et réessayez.
 
-## Dependances D Execution
+## Dependances d execution
 
-Les flux en aval lisent la configuration du volet de différentes façons :
+Vérifiez ces réglages avant que les agents commencent chaque type de travail :
 
 - La création d’entente dépend des sous-types d’entente, destinataires admissibles, budgets, limites financières et identité du volet.
 - Les flux de réclamation et de coûts dépendent des lignes de catégorie de coûts et des ratios de partage.
@@ -308,12 +309,12 @@ Les flux en aval lisent la configuration du volet de différentes façons :
 - Les examens dépendent des configurations d’examen actives et des schémas d’évaluation actifs/publiés.
 - Les approbations dépendent des modèles d’approbation référencés et de leurs utilisateurs par défaut.
 - La génération de documents d’entente dépend des modèles de documents actifs du volet et des outils de génération configurés pour la sortie PDF.
-- Les recommandations dépendent des configurations actives et des schémas.
+- Les recommandations dépendent des schémas et ensembles publiés référencés par les flux.
 - La surveillance dépend des types de surveillance et, si le processus le prévoit, des examens ou approbations.
 
-Comme la configuration est modulaire, un volet peut être sauvegardé avant d’être complet sur le plan opérationnel. Les administrateurs devraient vérifier le processus complet qui sera utilisé avant de créer des ententes de production.
+Vous pouvez enregistrer un volet avant que tous ses réglages soient prêts. Vérifiez le processus complet utilisé par les agents avant de créer des ententes de production.
 
-## Volet Minimal Utile
+## Volet minimal utile
 
 Dans une nouvelle installation, un volet minimal pratique contient habituellement :
 
@@ -322,10 +323,10 @@ Dans une nouvelle installation, un volet minimal pratique contient habituellemen
 - Lignes de sous-types de destinataire admissible.
 - Lignes de sous-types d’entente.
 - Lignes d’éléments de catégorie de coûts si les coûts ou réclamations sont utilisés.
-- Codage financier des engagements si les engagements ou paiements sont utilisés.
-- Cotes de risque si le risque ou le pointage d’évaluation les utilise.
+- Liens de plan comptable et types d’engagement si les engagements ou paiements sont utilisés.
+- Cotes de risque si les flux d’entente calculent le risque à partir des évaluations.
 - Configurations d’examen et schémas d’évaluation si des examens sont générés.
 - Modèles d’approbation si les approbations sont requises.
 - Modèles de documents si les utilisateurs généreront des documents d’entente.
-- Configurations de recommandation si des recommandations sont générées.
+- Schémas et ensembles de recommandations publiés liés par les flux si des recommandations sont générées.
 - Paramètres d’extension requis par le déploiement.

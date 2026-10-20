@@ -1,12 +1,12 @@
 # Background work and failure handling
 
-This page is for operators supporting officers who use agreements, approvals and attachments. Approval, review and Completion actions are recorded in the database and advance through application requests. A general notification or email service does not automatically finish abandoned work. If an officer is waiting for approval, inspect the recorded workflow and its available actions. Storage cleanup and audit maintenance run separately, with the recovery rules below.
+Approval, review, and Completion actions advance through application requests and are recorded in the database. A notification or email does not finish abandoned work. If an officer is waiting for approval, inspect the recorded workflow and its available actions. Storage cleanup and audit maintenance run separately, with the recovery rules below.
 
 ## Durable storage cleanup
 
 When an officer deletes an attachment, the application records a cleanup job in `storage_cleanup_outbox` in the same transaction that retires the attachment metadata. The request tries one cleanup batch, but success of the user’s deletion does not require immediate external-object deletion. Failed upload finalization and provider-metadata compensation can also create cleanup work.
 
-The running application now drains one due storage-cleanup operation every five seconds through its durable L1 scheduler and prunes completed jobs hourly. The one-shot drain remains available for catch-up or a separately operated worker with the same database access, provider code, Agency configuration and extension secret key.
+The running application drains one due storage-cleanup operation every five seconds through its durable L1 scheduler and prunes completed jobs hourly. The one-shot drain remains available for catch-up or a separately operated worker with the same database access, provider code, Agency configuration and extension secret key.
 
 From a prepared source checkout:
 
@@ -28,7 +28,7 @@ Both commands are one-shot drains. They process currently eligible work and exit
 | `GCS_STORAGE_CLEANUP_BATCH_SIZE` | 20; clamped to 1–100. |
 | `GCS_STORAGE_CLEANUP_RETENTION_DAYS` | 30; minimum 1. Applies only to completed cleanup jobs. |
 
-Workers claim pending jobs whose retry time has arrived and reclaim processing jobs with expired leases. Row locking with `SKIP LOCKED` coordinates concurrent workers. A normal processing lease is 60 seconds: this is the period during which one worker reserves the job, so another worker does not normally take it. Provider deletion must be safe to repeat because a worker can stop after external deletion but before recording success.
+Workers claim pending jobs whose retry time has arrived and reclaim processing jobs with expired leases. Row locking with `SKIP LOCKED` coordinates concurrent workers. A normal processing lease reserves a job for one worker for 60 seconds. Provider deletion must be safe to repeat because a worker can stop after external deletion but before recording success.
 
 Failures retry after 30 seconds, then exponentially longer delays. The eighth failed attempt places the job in `dead_letter`; ordinary drains no longer claim it. The output reports `claimed`, `completed`, `retried`, `deadLettered`, and `pruned`. A drain can exit successfully while reporting retried or dead-lettered jobs: monitor those counts and queue age, not just process exit status.
 
@@ -60,7 +60,7 @@ Audit initialization is part of startup readiness. Retention runs at startup and
 
 For example, restoring an Agreement’s database records without restoring its externally stored claim documents leaves an incomplete case file. Plan and verify recovery of both the database and attachment storage.
 
-The administrative SQL dump uses a separately bundled worker. Requests share one in-flight generation, have a timeout, support caller aborts, and terminate the worker during cleanup. An unsuccessful export produces no successful download; check capacity and logs before retrying. A SQL dump does not contain external attachment objects or replace coordinated storage backups.
+The administrative SQL dump uses a separately bundled worker. Concurrent requests share one generation with a timeout. Callers can stop waiting, and cleanup terminates the worker. If the export fails, check capacity and logs before retrying. This export contains schema and migration SQL, not live business records or external attachments. See [Backup and restore](deployment.md#backup-and-restore) for its limits and the required backups.
 
 Poll `/api/health`, monitor startup failures, process restarts, resource limits, database health, provider availability, cleanup backlog, and backup restoration. Concrete extensions may add their own workers; their documentation defines those additional monitoring and recovery requirements.
 

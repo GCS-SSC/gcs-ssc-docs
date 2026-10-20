@@ -1,0 +1,113 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "source": ".reference-repos/gcs-ssc",
+  "reviewed_pages": [
+    "en/developer/data-model.md",
+    "fr/developer/data-model.md",
+    "en/developer/validation-i18n.md",
+    "fr/developer/validation-i18n.md",
+    "en/developer/routes.md",
+    "fr/developer/routes.md",
+    "en/developer/audit-impact.md",
+    "fr/developer/audit-impact.md"
+  ],
+  "contracts": [
+    {
+      "sources": [
+        "server/database/migrations/0040_agency.ts",
+        "server/database/migrations/0050_common.ts",
+        "server/database/migrations/0090_funding_case_agreement.ts",
+        "server/database/schema/account-receivable-adjustment.ts",
+        "shared/types/database.d.ts",
+        "server/utils/account-receivable-recovery.ts",
+        "server/database/production-core-migrations.ts"
+      ],
+      "docs": [
+        "en/developer/data-model.md",
+        "fr/developer/data-model.md"
+      ],
+      "disposition": "Current persisted namespace names, compact SQL constraint names, subject-owned raw-SQL integrity, Forecast foreign-key ownership, clean pool-only recovery ledger, required Payment attribution, current clean-cutover and explicit hotfix exception documented."
+    },
+    {
+      "sources": [
+        "server/utils/api-errors.ts",
+        "shared/types/schemas/api-error.ts",
+        "shared/utils/zod-i18n.ts",
+        "app/composables/useApiErrorToast.ts",
+        "server/utils/assessment-runtime-schema.ts",
+        "server/utils/assessment-runtime-persistence.ts",
+        "server/utils/agreement-custom-fields.ts"
+      ],
+      "docs": [
+        "en/developer/validation-i18n.md",
+        "fr/developer/validation-i18n.md"
+      ],
+      "disposition": "Optional validated host translation metadata supports live locale rendering with display-ready server fallback. Generic validation fallbacks and strict persisted assessment/custom-field failures documented."
+    },
+    {
+      "sources": [
+        "package.json",
+        "scripts/data-model-spreadsheet-row.ts",
+        "tooling/gcs-ssc/references/data-model-workbook.md"
+      ],
+      "docs": [
+        "en/developer/data-model.md",
+        "fr/developer/data-model.md"
+      ],
+      "disposition": "Public bounded workbook commands retained; private incremental/full reconciliation checkpoint distinct from migrations and docs verification. Bounded row reads, explicit format command, separate legacy colour request documented."
+    },
+    {
+      "sources": [
+        "server/utils/extension-dispatch-route.ts"
+      ],
+      "docs": [
+        "en/developer/routes.md",
+        "fr/developer/routes.md"
+      ],
+      "disposition": "Reviewed existing extension routing/authorization documentation; authorizeCurrentEntity compatibility alias remains in final source, existing text retained."
+    },
+    {
+      "sources": [
+        "server/database/audit-ownership-registry.ts"
+      ],
+      "docs": [
+        "en/developer/audit-impact.md",
+        "fr/developer/audit-impact.md"
+      ],
+      "disposition": "Generated historical impact register retained; runtime Audit feature remains present. Generator owner handles regeneration."
+    },
+    {
+      "sources": [
+        "app/components/Extensions/AgencyFormPage.vue",
+        "app/pages/extension/[id]/agencies/[agencyId]/forms/[formId]/index.vue",
+        "app/pages/extension/[id]/agencies/[agencyId]/forms/[formId]/flow.vue",
+        "app/utils/route-locations.ts"
+      ],
+      "docs": [
+        "en/developer/extensions-authoring.md",
+        "fr/developer/extensions-authoring.md"
+      ],
+      "disposition": "Verified host Agency form detail/flow wrappers, enabled accessible forms-tab gate, Retry/unavailable, extension props and edit/test/publish query views, form-flow/close-form/breadcrumb events, formId=new collection redirect. Concrete form behavior and server authorization remain extension-owned."
+    }
+  ],
+  "tests_inspected_not_run": [
+    "tooling/gcs-ssc/tests/unit/assessment-runtime-schema.test.ts",
+    "tooling/gcs-ssc/tests/unit/zod-i18n.test.ts",
+    "tooling/gcs-ssc/tests/unit/use-api-error-toast.test.ts"
+  ],
+  "verification": {
+    "command": "git diff --check -- en/developer/data-model.md fr/developer/data-model.md en/developer/validation-i18n.md fr/developer/validation-i18n.md",
+    "result": "passed"
+  },
+  "related_evidence": [
+    "documentation-audit/sync-operator.json",
+    "documentation-audit/sync-dev-extensions.json"
+  ],
+  "exclusions": [
+    "Private workbook audit checkpoints do not establish a new host runtime feature or documentation verification. No live workbook accessed or modified.",
+    "Concrete extension implementation changes remain owned by those extensions; this work documents public host/SDK and operational contracts."
+  ],
+  "source_limitations": [],
+  "provenance_note": "An early concurrent read saw pre-initialization private tests. Re-read after tooling gitlink 17d95e682b74de3364ead5e1afd7392daa064767 initialization confirms omitted authored assessment arrays are rejected, matching final host. No outstanding inconsistency."
+}

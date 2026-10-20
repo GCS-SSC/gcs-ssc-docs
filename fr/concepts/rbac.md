@@ -1,13 +1,13 @@
 # Permissions de rôle et affectations exactes
 
-Pour comprendre pourquoi vous pouvez consulter un dossier sans pouvoir le modifier, vérifiez deux éléments. GCS-SSC utilise le **contrôle d’accès fondé sur les rôles (RBAC)** : votre rôle définit vos permissions, et votre affectation désigne le dossier précis sur lequel vous travaillez.
+Si vous pouvez consulter un dossier sans pouvoir le modifier, vérifiez votre rôle et votre affectation. Votre rôle définit vos permissions. Votre affectation désigne le dossier précis sur lequel vous travaillez. Il s’agit du contrôle d’accès fondé sur les rôles, ou RBAC.
 
-1. Une **permission de rôle** fixe les actions permises pour une catégorie de dossiers (le **sujet**), dans toute l’application ou dans une agence ou un programme (la **portée**). Ce maximum est appelé le plafond du rôle ci-dessous.
+1. Une permission de rôle fixe les actions permises pour une catégorie de dossiers, appelée le sujet. Elle s’applique dans toute l’application ou dans une agence ou un programme. Le niveau auquel elle s’applique est appelé la portée. Ce maximum est appelé le plafond du rôle ci-dessous.
 2. Une **affectation à une entité exacte** désigne le promoteur, l’entente, l’examen, la recommandation, la réclamation, le rapprochement, le paiement, la prévision, la surveillance, la modification ou l’engagement enregistré sur lequel l’utilisateur peut travailler.
 
 Lecteur permet de consulter les dossiers dans la portée de votre rôle sans affectation à chacun. Pour modifier ou supprimer un dossier existant qui possède sa propre liste d’affectations, vous devez normalement avoir la permission de rôle appropriée et une affectation à ce dossier. Une affectation n’augmente jamais vos permissions de rôle. Un rôle couvrant tout un programme ne place pas tous ses dossiers dans votre file de travail.
 
-Les affectations d’approbateur et de réviseur sont des responsabilités de flux distinctes. Elles peuvent autoriser l’action d’approbation ou d’examen attribuée, mais elles ne remplacent pas l’accès ordinaire à l’entité métier propriétaire.
+Les affectations d’approbateur et de réviseur sont des responsabilités de flux distinctes. Elles peuvent autoriser l’action d’approbation ou d’examen attribuée sans donner un accès général au dossier propriétaire. Une affectation à une approbation précise peut aussi permettre de consulter les preuves nécessaires à cette approbation. Les affectations de travail ordinaires exigent toujours la permission de lecture du propriétaire. Les examens de dossiers de financement conservent aussi cette exigence. Consultez [Approbations et achèvements](approvals-completions.md).
 
 ## Niveaux d’accès
 
@@ -23,12 +23,13 @@ Chaque permission de rôle possède un niveau d’accès cumulatif :
 
 ## Sujets et portées
 
-Les sujets pris en charge sont `system`, `audit`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction` et `journal_voucher`.
+Les sujets pris en charge sont `system`, `audit`, `guided_help`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction` et `journal_voucher`.
 
 | Sujet | Rôle global | Rôle d’agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
 | `audit` | Oui | Oui | Non |
+| `guided_help` | Oui | Oui | Non |
 | `group` | Oui | Oui | Non |
 | `agency` | Oui | Oui | Non |
 | `transfer_payment` | Oui | Oui | Oui |
@@ -43,7 +44,9 @@ Les sujets pris en charge sont `system`, `audit`, `group`, `agency`, `transfer_p
 
 Un rôle global n’a pas d’agence. Un rôle d’agence est lié à une agence et n’a aucun lien de programme. Un rôle de programme est lié à une agence et à un ou plusieurs programmes actifs de cette agence. Des contraintes de base de données rejettent les combinaisons incompatibles de permissions et de portées.
 
-La ressource détermine la portée utilisée par la vérification. Une entente est résolue par son volet et son programme; un dossier, par sa possibilité et son programme. Les promoteurs forment un catalogue partagé : une permission Promoteur globale ou une permission d’action dans toute agence active fournit ce plafond pour tous les profils. L’agence principale est un contexte de suivi, pas la frontière d’autorisation du profil. Les notes d’agence conservent leur visibilité indépendante.
+Le dossier détermine la portée applicable. Une entente utilise son volet et son programme. Un dossier de financement utilise sa possibilité et son programme. Les promoteurs forment un catalogue partagé. Une permission Promoteur globale, ou une permission pour l’action dans une agence active, s’applique à tous les profils de promoteur. L’agence principale permet de suivre la responsabilité, mais ne limite pas l’accès au profil. Les notes d’agence conservent leurs règles de visibilité distinctes.
+
+L’administration de l’aide guidée utilise `guided_help` à la portée globale ou d’agence. Un rôle de programme ne peut pas l’accorder, et elle n’exige aucune affectation exacte à un dossier.
 
 La lecture Audit et la gestion des groupes administratifs utilisent leurs propres sujets plutôt que les affectations exactes aux ententes. Les valeurs d’entrée d’audit exigent aussi `audit:view_audit_inputs`; l’appartenance à un groupe ne donne pas accès aux dossiers métier. Consultez [Audit](../admin/audit.md) et [Groupes](../admin/groups.md).
 
@@ -78,9 +81,9 @@ Le registre d’affectation exacte s’applique aux éléments suivants :
 - dossiers de financement et collectes de données des flux;
 - comptes débiteurs, corrections et pièces de journal sous leurs sujets financiers indépendants.
 
-Une entité ordinaire active exige un utilisateur actif et exactement un principal. Un examen, une recommandation, une collecte ou un dossier avec groupe non réclamé peut n’avoir aucun utilisateur; tout registre non vide exige un principal. Le marqueur principal désigne le responsable; il ne confère pas de permissions métier supplémentaires. Tous les utilisateurs affectés actifs partagent la même frontière d’entité et demeurent limités par leur propre plafond de rôle.
+Un dossier ordinaire actif pouvant être affecté exige au moins un utilisateur actif affecté, dont exactement un utilisateur principal. Un examen, une recommandation, une collecte ou un dossier de financement affecté à un groupe et non réclamé peut n’avoir aucun utilisateur. Dès que des utilisateurs sont affectés, exactement un doit être principal. L’utilisateur principal dirige le travail sans avoir de permissions supplémentaires. Chaque utilisateur affecté reste limité par ses propres permissions de rôle.
 
-La modification du registre exige une cible exacte modifiable : promoteur actif; état métier normal sans achèvement pour le travail d’entente; ou examen/recommandation actif ou en pause sans achèvement. Les cibles en lecture seule, terminales, achevées ou supprimées sont protégées. Voir [Gestion des affectations](../admin/assignments.md).
+Vous pouvez modifier les affectations seulement si le dossier permet encore le travail. Un promoteur doit être actif. Le travail d’entente exige un état métier normal de l’agence et aucun achèvement. Un examen ou une recommandation doit être actif ou en pause, sans être achevé. Les dossiers en lecture seule, dans un état final, achevés ou supprimés sont protégés. Voir [Gestion des affectations](../admin/assignments.md).
 
 Supprimer un dossier ayant des affectations marque aussi ses affectations actives comme supprimées, tout en conservant leur historique. Les changements de liste sont traités un à la fois. La base de données exige une liste non vide avec un seul principal à la fin de la transaction, sous réserve de l’exception des groupes non réclamés ci-dessus.
 
@@ -90,15 +93,15 @@ Supprimer un dossier ayant des affectations marque aussi ses affectations active
 
 Elle **n’accorde pas** l’accès au contenu métier, personnel, financier, documentaire ou de flux. Elle n’affecte pas non plus l’administrateur à l’entité. Consultez [Gestion des affectations](../admin/assignments.md) pour le déroulement de la tâche.
 
-Une personne admissible doit être un utilisateur actif qui possède la permission Contributeur ou Gestionnaire pour le sujet propriétaire à la portée actuelle de l’entité. Un utilisateur devenu inactif ou inadmissible demeure visible dans le registre historique, mais ne peut être ajouté, promu ni servir à satisfaire une nouvelle écriture. Les changements de rôle ne réécrivent pas silencieusement l’historique des affectations.
+Une personne admissible doit être un utilisateur actif qui possède la permission Contributeur ou Gestionnaire pour le sujet propriétaire à la portée actuelle de l’entité. Pour un profil de promoteur partagé, une permission globale ou dans toute agence active suffit. Pour un examen ou une recommandation de promoteur associé à une agence, la permission doit couvrir cette agence. Un utilisateur devenu inactif ou inadmissible demeure visible dans le registre historique, mais ne peut être ajouté, promu ni servir à satisfaire une nouvelle écriture. Les changements de rôle ne réécrivent pas silencieusement l’historique des affectations.
 
 ## Visibilité et mutations du registre
 
-L’onglet Utilisateurs affectés d’un promoteur ou d’une entente accessible peut être lu par une personne qui possède le plafond Lecteur pour ce propriétaire. Les gestionnaires d’affectations peuvent aussi lire le registre minimal grâce à leur capacité de gestion indépendante. Une affectation exacte seule ne suffit pas puisqu’elle ne crée jamais de plafond de rôle.
+Pour consulter l’onglet **Utilisateurs affectés** d’un promoteur ou d’une entente, vous devez avoir l’accès Lecteur à ce propriétaire. Les gestionnaires d’affectations peuvent aussi consulter une liste limitée grâce à leur permission de gestion distincte. Une affectation seule ne donne pas l’accès Lecteur.
 
 Les actions du registre exigent la permission `manage_assignments` actuelle; l’accès métier ordinaire Contributeur ou Gestionnaire ne la remplace pas. Le serveur résout à nouveau le graphe des rôles et la portée de l’entité dans la transaction d’écriture.
 
-| Action | Invariant |
+| Action | Règle |
 | --- | --- |
 | Ajouter | L’utilisateur est actif, admissible et pas déjà affecté activement. |
 | Rendre principal | L’utilisateur est déjà affecté activement et admissible; l’ancien principal perd ce marqueur dans la même transaction. |
@@ -106,24 +109,24 @@ Les actions du registre exigent la permission `manage_assignments` actuelle; l�
 
 ## Travail affecté
 
-La file Travail affecté de la page d’accueil contient seulement les affectations exactes de l’utilisateur qui sont encore ouvertes selon la politique d’état de chaque entité et pour lesquelles il conserve au moins la permission Lecteur. Elle couvre les types d’entités affectables pris en charge, trie d’abord le travail principal et fournit un lien direct vers la page de détail appropriée.
+L’accueil affiche vos affectations exactes encore ouvertes selon les règles d’état de chaque dossier et pour lesquelles vous conservez au moins la permission Lecteur. **Travail attribué** présente les dossiers dont vous êtes le responsable principal. **Affectations partagées** présente ceux auxquels vous êtes affecté comme responsable supplémentaire. Les promoteurs et les ententes attribués figurent dans des listes distinctes. Chaque liste affiche cinq dossiers par page, possède ses propres commandes de pagination et donne accès au dossier correspondant.
 
-La recherche correspond aux identifiants anglais et français, aux types et états bruts, aux libellés de type et d’état localisés et aux libellés des dossiers. Le filtre de type d’entité et la pagination s’appliquent au jeu complet admissible; le composant d’accueil demande dix lignes à la fois.
+Si vous appartenez à un groupe administratif, **Travail de groupe disponible** présente le travail que vous pouvez réclamer, à raison de dix éléments par page. L’appartenance au groupe ne remplace pas les permissions nécessaires pour réclamer une tâche. Consultez [Navigation](../getting-started/navigation.md) pour le tableau de bord d’accueil et [Groupes](../admin/groups.md) pour la réclamation du travail.
 
-## Autorisation actualisée
+## Vérifications d’accès avant l’enregistrement
 
 Par exemple, si votre affectation est retirée pendant que vous modifiez une réclamation, garder la page ouverte ne conserve pas votre permission d’enregistrer. Rechargez la page et demandez au gestionnaire d’affectations de vérifier votre accès actuel.
 
 Avant d’enregistrer une modification protégée, l’application vérifie à nouveau vos rôles, la portée, l’affectation, le statut et le propriétaire actuels du dossier. Elle verrouille les renseignements concernés et vérifie quelle liste d’affectations s’applique dans la même transaction. Une page ouverte avant un changement d’accès ne conserve pas une permission retirée depuis.
 
-## Conséquences pour la navigation
+## Éléments affichés dans la navigation
 
 - Ententes et Promoteurs apparaissent lorsque l’utilisateur possède une permission de rôle pouvant lire ce sujet; l’affectation seule n’accorde pas la navigation.
 - La navigation Gestion des affectations vérifie `manage_assignments` sur Entente, Promoteur, Dossier de financement, Pièce de journal ou Correction. Une permission de gestion uniquement Compte débiteur est acceptée par l’API, sans cette entrée latérale; ouvrez directement `/assignment-management` si c’est votre seule permission.
 - Les programmes, rôles, utilisateurs, agences et l’administration Commune utilisent leurs propres sujets et portées; les affectations exactes ne s’y étendent pas.
 - Les tâches d’approbation et d’examen demeurent affectées séparément et n’élargissent pas la barre latérale.
 
-## Non-fonctionnalités délibérées
+## Options d’accès non offertes par l’application
 
 L’application ne fournit pas :
 
@@ -134,4 +137,4 @@ L’application ne fournit pas :
 - d’héritage d’un parent vers les enfants affectés indépendamment ou les dossiers frères;
 - de contournement d’autorisation pour un utilisateur initial ou racine.
 
-Les anciennes routes et les anciens onglets Équipe ont été retirés. Pour diagnostiquer l’accès à une entité enregistrée, vérifiez le plafond du rôle, la portée de la ressource, la racine d’affectation exacte, l’état de l’entité et toute affectation de flux distincte.
+Les anciennes routes et les anciens onglets Équipe ont été retirés. En cas de refus d’accès, vérifiez la permission de rôle, la portée et l’état du dossier, l’affectation requise et toute affectation de flux distincte.

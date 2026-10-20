@@ -2,23 +2,22 @@
 
 Extensions add features to the core system. These requests let the application find those features, read agency and stream settings, and call extension services. See [Extensions](../../concepts/extensions.md) to understand how they affect an officer’s workspace.
 
-An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
+This index maps server requests to their handler files. The linked guides explain the on-screen steps. The server checks access to protected records even when a screen offers an action.
 
-- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
-- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
-- **Authorization landmarks**: names found in the source that help a developer locate access checks.
-- **Validation landmarks**: names that help locate checks on submitted fields or query options.
-- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+- The method identifies the request type. `GET` reads information. `POST` usually creates a record or runs an action. `PATCH` and `PUT` save changes. `DELETE` removes a record. `ANY` means the handler has no single method declared in its filename.
+- The route is the request address. Replace bracketed names such as `[id]` with the actual record ID.
+- Authorization names and validation names are matches found in the handler source. They help locate access checks and checks on submitted fields or query options.
+- The source is the application file that handles the request.
 
-This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+A dash in the names columns means the generator found no matching name. It does not prove that a check is absent. A listed name may come from a field or comment. Follow the handler and its shared helpers to confirm access rules, validation and responses. The coverage ledger records the supporting evidence.
 
 ## Read-only example
 
-An authorized request for `GET /api/extensions/agency/12` lists registered extensions and their enablement and configuration for agency 12. It does not enable an extension or run its migrations. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
+An authorized request for `GET /api/extensions/agency/12` lists registered extensions and their enablement and configuration for agency 12. It does not enable an extension or run its migrations. The IDs are examples. Use existing records you are allowed to read.
 
 ## Handlers (13)
 
-| Method | Route | Authorization landmarks | Validation landmarks | Source |
+| Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
 | ANY | `/api/extensions/[extensionKey]/[...route]` | — | — | `server/api/extensions/[extensionKey]/[...route].ts` |
 | GET | `/api/extensions/agency/[agencyId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/agency/[agencyId]/index.get.ts` |

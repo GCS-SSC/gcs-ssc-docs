@@ -1,4 +1,4 @@
-# GCS-SSC Documentation
+# GCS-SSC documentation
 
 English and French guides for using GCS-SSC to manage grants and contributions. The site also includes setup instructions for administrators and technical references for developers and operators.
 
@@ -6,7 +6,7 @@ Start with [the English guide](en/index.md) or [le guide français](fr/index.md)
 
 Use Bun 1.3.13 to run these commands.
 
-## Local Development
+## Local development
 
 ```sh
 bun install
@@ -27,7 +27,7 @@ For wording changes, run the complete documentation check against the applicatio
 GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check
 ```
 
-This checks English/French page structure, coverage, navigation, links and headings, then builds the site. After application-driven updates, regenerate the source inventory and API reference before checking:
+This checks matching English and French page structure, coverage, navigation, links and headings, then builds the site. After application-driven updates, regenerate the source inventory and API reference before checking:
 
 ```sh
 GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:inventory

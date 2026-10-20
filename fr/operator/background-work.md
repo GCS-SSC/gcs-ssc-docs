@@ -1,12 +1,12 @@
 # Travail en arrière-plan et gestion des échecs
 
-Cette page s’adresse aux opérateurs qui soutiennent les agents utilisant les ententes, les approbations et les pièces jointes. Les actions d’approbation, d’examen et d’Achèvement sont consignées en base de données et progressent par les requêtes de l’application. Aucun service général de notification ou de courriel ne termine automatiquement le travail abandonné. Lorsqu’un agent attend une approbation, examinez le flux enregistré et ses actions disponibles. Le nettoyage du stockage et la maintenance d’audit s’exécutent séparément, selon les règles de reprise ci-dessous.
+Les actions d’approbation, d’examen et d’Achèvement progressent par les requêtes de l’application et sont consignées en base de données. Une notification ou un courriel ne termine pas le travail abandonné. Lorsqu’un agent attend une approbation, examinez le flux enregistré et ses actions disponibles. Le nettoyage du stockage et la maintenance d’audit s’exécutent séparément, selon les règles de reprise ci-dessous.
 
 ## Nettoyage durable du stockage
 
-La suppression d’une pièce joint un travail dans `storage_cleanup_outbox` à la transaction qui retire ses métadonnées. La requête tente un lot de nettoyage, mais sa réussite n’exige pas la suppression immédiate de l’objet externe. Une finalisation de téléversement échouée ou la compensation de métadonnées peuvent aussi créer du travail.
+Quand un agent supprime une pièce jointe, l’application crée un travail dans `storage_cleanup_outbox` au sein de la transaction qui retire les métadonnées. La requête tente un lot de nettoyage, mais sa réussite n’exige pas la suppression immédiate de l’objet externe. Une finalisation de téléversement échouée ou la compensation de métadonnées peuvent aussi créer du travail.
 
-L’application en cours traite maintenant une opération de nettoyage admissible toutes les cinq secondes par son ordonnanceur durable L1 et purge l’historique terminé chaque heure. Le drainage ponctuel demeure disponible pour le rattrapage ou un processus distinct ayant les mêmes accès à la base, au fournisseur, à la configuration d’organisme et à la clé de secrets.
+L’application en cours traite une opération de nettoyage admissible toutes les cinq secondes par son ordonnanceur durable L1 et purge l’historique terminé chaque heure. Le drainage ponctuel demeure disponible pour le rattrapage ou un processus distinct ayant les mêmes accès à la base, au fournisseur, à la configuration d’organisme et à la clé de secrets.
 
 Depuis une extraction source préparée :
 
@@ -28,7 +28,7 @@ Les deux commandes traitent les travaux actuellement admissibles puis se termine
 | `GCS_STORAGE_CLEANUP_BATCH_SIZE` | 20; ramené à l’intervalle 1–100. |
 | `GCS_STORAGE_CLEANUP_RETENTION_DAYS` | 30; minimum 1. Concerne seulement les travaux achevés. |
 
-Les processus prennent les travaux en attente dont l’heure est arrivée et reprennent ceux dont le bail a expiré. Les verrous avec `SKIP LOCKED` coordonnent les processus concurrents. Un bail ordinaire dure 60 secondes : pendant cette période, un processus réserve le travail pour qu’un autre ne le prenne pas normalement. La suppression du fournisseur doit supporter la répétition : un processus peut s’arrêter après la suppression externe, avant de consigner sa réussite.
+Les processus prennent les travaux en attente dont l’heure est arrivée et reprennent ceux dont le bail a expiré. Les verrous avec `SKIP LOCKED` coordonnent les processus concurrents. Un bail ordinaire réserve un travail à un processus pendant 60 secondes. La suppression du fournisseur doit supporter la répétition : un processus peut s’arrêter après la suppression externe, avant de consigner sa réussite.
 
 Les échecs sont repris après 30 secondes, puis selon des délais exponentiels. Le huitième échec place le travail à `dead_letter`; les traitements ordinaires ne le reprennent plus. La sortie indique `claimed`, `completed`, `retried`, `deadLettered` et `pruned`. Une commande peut réussir tout en signalant des reprises ou des échecs définitifs : surveillez ces compteurs et l’âge de la file, pas seulement le code de sortie.
 
@@ -40,7 +40,7 @@ Chaque traitement purge au plus 500 travaux achevés plus anciens que le seuil d
 
 ## Ordonnancement durable L1
 
-Nitro propose du travail aux gestionnaires de l’hôte et des extensions toutes les cinq secondes après les migrations et la préparation d’Audit. `l1_queue` conserve prochaine exécution, tentatives, dernière erreur et bail. Les files métier conservent leurs propres charges utiles et preuves de livraison; L1 ne contient ni identifiants secrets ni requêtes métier.
+Nitro propose du travail aux gestionnaires de l’hôte et des extensions toutes les cinq secondes après les migrations et la préparation d’Audit. `l1_queue` conserve la prochaine date d’exécution, le nombre de tentatives, la dernière erreur et le bail de chaque gestionnaire. Les files métier conservent leurs propres charges utiles et preuves de livraison; L1 ne contient ni identifiants secrets ni requêtes métier.
 
 Une réservation en base coordonne les réplicas. Le bail dure deux minutes et se renouvelle toutes les 30 secondes. Une réussite planifie la prochaine exécution à partir de la fin; les intervalles manqués ne s’accumulent pas. Les échecs reprennent sans limite de tentatives, avec délai exponentiel plafonné à 30 minutes ou à l’intervalle configuré s’il est plus long. Une application arrêtée ou en veille reprend le travail admissible à son retour. Un gestionnaire lent ne bloque pas les autres.
 
@@ -60,7 +60,7 @@ L’initialisation de l’audit fait partie de la préparation au démarrage. La
 
 Par exemple, restaurer les dossiers d’une entente en base de données sans restaurer les documents de réclamation stockés à l’extérieur laisse un dossier incomplet. Planifiez et vérifiez la restauration de la base de données et du stockage des pièces jointes.
 
-Le vidage SQL administratif utilise un processus construit séparément. Les requêtes partagent une génération en cours, ont un délai maximal, permettent l’abandon par l’appelant et terminent le processus au nettoyage. Un export échoué ne produit aucun téléchargement réussi; vérifiez capacité et journaux avant reprise. Le vidage SQL ne contient pas les objets externes et ne remplace pas une sauvegarde coordonnée du stockage.
+Le vidage SQL administratif utilise un processus construit séparément. Les requêtes concurrentes partagent une génération avec un délai maximal. Les appelants peuvent cesser d’attendre et le nettoyage termine le processus. Si l’export échoue, vérifiez la capacité et les journaux avant de réessayer. Cet export contient le SQL du schéma et des migrations, sans dossiers métier actifs ni pièces jointes externes. Consultez [Sauvegarde et restauration](deployment.md#sauvegarde-et-restauration) pour ses limites et les sauvegardes requises.
 
 Sondez `/api/health` et surveillez les échecs de démarrage, redémarrages, ressources, base, fournisseurs, arriéré de nettoyage et restaurations de sauvegarde. Les extensions concrètes peuvent ajouter leurs propres processus; leur documentation définit ces exigences supplémentaires.
 

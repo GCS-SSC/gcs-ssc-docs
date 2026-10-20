@@ -2,23 +2,22 @@
 
 Ici, paiement de transfert désigne le programme de financement et ses volets. Ces requêtes servent à la conception des programmes, aux bénéficiaires admissibles, aux budgets, aux règles financières, aux formulaires publiés et aux paramètres des flux. Les paiements individuels d’une entente figurent dans l’[API des ententes](./agreements.md). Pour les consignes à l’écran, consultez les [programmes](../../programs/index.md) et les [volets](../../programs/streams.md).
 
-Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
+Cet index associe les requêtes serveur aux fichiers qui les traitent. Les guides liés expliquent les étapes à l'écran. Le serveur vérifie l'accès aux dossiers protégés même si un écran propose une action.
 
-- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
-- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
-- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
-- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
-- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+- La méthode indique le type de requête. `GET` lit des renseignements. `POST` crée généralement un dossier ou exécute une action. `PATCH` et `PUT` enregistrent des modifications. `DELETE` retire un dossier. `ANY` signifie que le nom du fichier ne déclare aucune méthode unique.
+- La route est l'adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l'identifiant réel du dossier.
+- Les noms d'autorisation et de validation sont des correspondances trouvées dans le code du gestionnaire. Ils aident à repérer les vérifications d'accès et celles des champs soumis ou des options de requête.
+- La source est le fichier de l'application qui traite la requête.
 
-Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun nom correspondant. Il ne prouve pas l'absence de vérification. Un nom indiqué peut provenir d'un champ ou d'un commentaire. Suivez le gestionnaire et ses fonctions partagées pour confirmer les règles d'accès, la validation et les réponses. Le registre de couverture consigne les preuves correspondantes.
 
 ## Exemple de lecture seule
 
-Une requête autorisée `GET /api/transfer-payments/6` lit le profil du programme de financement 6. Elle ne verse pas de paiement à un bénéficiaire. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
+Une requête autorisée `GET /api/transfer-payments/6` lit le profil du programme de financement 6. Elle ne verse pas de paiement à un bénéficiaire. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (113)
+## Gestionnaires (119)
 
-| Méthode | Route | Repères d’autorisation | Repères de validation | Source |
+| Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
 | GET | `/api/roles/lookups/transfer-payments/[id]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | PositivePostgresBigintIdSchema, RoleIdSchema, RoleTransferPaymentDetailLookupQuerySchema, getValidatedQueryI18n, parseI18n | `server/api/roles/lookups/transfer-payments/[id].get.ts` |
 | DELETE | `/api/transfer-payments/[id]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/transfer-payments/[id].delete.ts` |
@@ -106,8 +105,14 @@ Une requête autorisée `GET /api/transfer-payments/6` lit le profil du programm
 | GET | `/api/transfer-payments/[id]/streams/[streamId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/index.get.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]` | executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentStreamPatchSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/index.patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types` | — | AgreementTypeLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/cost-category-line-items` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/cost-category-line-items.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/custom-fields` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/custom-fields.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/document-templates` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/document-templates.get.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/funding-subtypes` | — | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/funding-subtypes.get.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/holdback-bases` | — | HoldbackBasisLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/holdback-bases.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/monitor-types` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/monitor-types.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/review-sets` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/review-sets.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/workflows` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/workflows.get.ts` |
 | DELETE | `/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId].delete.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentMonitorTypeSchema | `server/api/transfer-payments/[id]/streams/[streamId]/monitor-types/[monitorTypeId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/monitor-types` | createTransferPaymentScopedAuthorizeHandler | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/monitor-types/index.get.ts` |

@@ -1,0 +1,89 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "pages": [
+    "en/developer/extensions-authoring.md",
+    "en/developer/architecture.md",
+    "en/developer/startup.md",
+    "en/developer/testing.md",
+    "en/developer/document-generation.md",
+    "fr/developer/extensions-authoring.md",
+    "fr/developer/architecture.md",
+    "fr/developer/startup.md",
+    "fr/developer/testing.md",
+    "fr/developer/document-generation.md"
+  ],
+  "contracts": [
+    {
+      "topic": "SDK package boundary",
+      "sources": [
+        "packages/gcs-ssc-extensions/package.json",
+        "packages/gcs-ssc-extensions/tsconfig.build.json",
+        "scripts/setup-workspaces.ts",
+        "scripts/setup-private-tooling.ts"
+      ],
+      "disposition": "SDK 0.3.19 compiled dist exports, separate SDK build and Nuxt metadata recovery; private tooling root and reverse source bridges remain generated uncommitted links."
+    },
+    {
+      "topic": "Workspace navigation",
+      "sources": [
+        "modules/gcs-extensions.ts",
+        "packages/gcs-ssc-extensions/README.md"
+      ],
+      "disposition": "Both workspace capabilities; mandatory management/administration navigation category and signed safe integer order; stable destination ID tie-break."
+    },
+    {
+      "topic": "Lifecycle assignment management",
+      "sources": [
+        "server/utils/extension-entity-assignment.ts"
+      ],
+      "disposition": "Scoped Manager roster management requires no exact assignee; Completion evidence and read-only/terminal state prevent mutation. Ordinary record writes retain exact assignment requirements."
+    },
+    {
+      "topic": "Generated documents",
+      "sources": [
+        "server/api/agreements/[id]/documents/generate.post.ts",
+        "server/api/agreements/[id]/documents/[documentId]/index.delete.ts",
+        "server/utils/document-generation.ts",
+        "server/utils/file-storage.ts",
+        "server/utils/agreement-custom-fields.ts"
+      ],
+      "disposition": "Current template and core context fingerprints rechecked under template locks; upload tracked before metadata and compensated after rollback with durable cleanup on deletion failure; ordinary deletion remains logged best-effort cleanup. Relational scalar stored values return HTTP500; inactive retained option label support preserved."
+    },
+    {
+      "topic": "Verification commands",
+      "sources": [
+        "package.json",
+        "scripts/test-e2e-pglite-shards.ts",
+        "scripts/test-e2e-fresh-reset.ts"
+      ],
+      "disposition": "Guided Help gates and package tests; lint UI/database rules; locked private typecheck runner; ordinary and per-file lifecycle/browser separation, focused filter restrictions and partial shard coverage."
+    },
+    {
+      "topic": "Shared packages",
+      "sources": [
+        "packages/gcs-ssc-authorization/package.json",
+        "shared/utils/abilities.ts",
+        "packages/gcs-ssc-guided-help/package.json"
+      ],
+      "disposition": "Host adapters consume shared authorization; Guided Help package owns editor/reader/checking while host authorizes and persists."
+    }
+  ],
+  "tests_inspected_not_executed": [
+    "tooling/gcs-ssc/tests/unit/document-generation-rollback-cleanup.test.ts",
+    "tooling/gcs-ssc/tests/unit/test-e2e-pglite-shards.test.ts",
+    "tooling/gcs-ssc/tests/integration/closeout-document-persistence-postgres.test.ts"
+  ],
+  "executed_checks": [
+    {
+      "command": "git diff --check -- en/developer fr/developer",
+      "result": "passed"
+    }
+  ],
+  "exclusions": [
+    "Concrete extension implementation changes are owned by extension repositories.",
+    "Workbook automation remains a public host command; private workbook workflow orchestration belongs to pinned tooling. No spreadsheet access or write was performed.",
+    "No application unit, PostgreSQL, browser, SDK build or runtime tests were executed by this worker. Global docs generation and validation belong to coordinating worker."
+  ],
+  "provenance_limitations": []
+}

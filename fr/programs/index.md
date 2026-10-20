@@ -2,24 +2,24 @@
 
 Un programme est l'initiative globale de financement, par exemple « Amélioration des installations communautaires ». Il appartient à une agence et précise les dates, les modalités, le financement annuel, les objectifs et les résultats attendus de cette initiative.
 
-Un **volet** est une voie de financement du programme, par exemple « Petits projets communautaires ». Il fournit les choix et les règles utilisés pour l'admission, les ententes, les examens, les approbations, les réclamations, les prévisions, les paiements, la surveillance et les modifications. Configurez le programme, puis ses volets. L'agence, les dates, le réglage Actif, les budgets, les résultats, les objectifs et les indicateurs du programme servent de point de départ.
+Un volet est une voie de financement du programme, par exemple « Petits projets communautaires ». Il fournit les choix et les règles utilisés pour l'admission, les ententes, les examens, les approbations, les réclamations, les prévisions, les paiements, la surveillance et les modifications. Configurez le programme, puis ses volets. L'agence, les dates, le réglage Actif, les budgets, les résultats, les objectifs et les indicateurs du programme servent de point de départ.
 
-## Prerequis Dans Une Installation Vide
+## Prerequis dans une installation vide
 
 Avant de créer des programmes de production, configurez l’agence propriétaire et les données de référence dont les formulaires de programme et de volet dépendent :
 
 | Configuration | Utilité |
 | --- | --- |
-| Profil d’agence et permissions structurelles de rôle | Les administrateurs de programme ont besoin d’un contexte d’agence et d’une permission de rôle `transfer_payment` de portée appropriée. Les affectations exactes visent seulement les 11 types de dossiers d’exécution attribuables; elles ne s’attachent pas aux dossiers de configuration d’agence, de programme ou de volet. |
+| Profil d’agence et permissions structurelles de rôle | Les administrateurs doivent avoir accès à l’agence propriétaire et la permission de gérer ses programmes. Une affectation à une entente ou à un autre dossier ne donne pas accès à la configuration du programme. |
 | Exercices financiers de l’agence | Les budgets de programme sont liés à ces enregistrements. |
 | Sous-types de destinataires demandeurs, types d’entente, catégories de coûts et éléments de ligne de coûts | Les volets utilisent ces données d’agence. |
 | Utilisateurs communs, types "au nom de", schémas d’examen, schémas de recommandation et modèles d’approbation | Requis lorsque le premier volet doit générer des examens, recommandations ou approbations. |
 
 Si l’administrateur travaille dans un contexte d’agence actif, le choix de l’agence est verrouillé. Sinon, le flux de création permet de choisir une agence que l’utilisateur est autorisé à administrer.
 
-## Page De Liste
+## Page de liste
 
-La page Programmes affiche seulement les enregistrements que l’utilisateur courant peut lire grâce à une permission structurelle de rôle `transfer_payment` globale, propre à une agence ou limitée aux programmes liés. Les affectations exactes de promoteur ou d’entente ne donnent aucun accès aux programmes, et l’accès à la configuration ne découle jamais d’une autre affectation d’exécution.
+Ouvrez **Programmes** pour trouver les programmes que vous pouvez consulter. Votre rôle doit donner accès aux programmes globalement, pour une agence ou pour des programmes liés. Une affectation à un promoteur, à une entente ou à un autre dossier ne donne pas accès à la configuration des programmes. Consultez [Rôles](../admin/roles.md) pour configurer les rôles.
 
 La liste prend en charge :
 
@@ -29,11 +29,11 @@ La liste prend en charge :
 - Compteurs de sommaire pour le total des programmes et les programmes actifs lorsque la donnée est disponible.
 - Actions créer, modifier, supprimer et assistant lorsque l’utilisateur a la permission de paiement de transfert correspondante.
 
-La suppression utilise le flux commun de confirmation et supprime logiquement le profil. Les administrateurs devraient l'utiliser comme correction de configuration, et non comme action normale de fin de vie pour un programme ayant un historique opérationnel.
+La suppression demande une confirmation et masque le profil dans l'utilisation courante. Utilisez-la pour corriger une erreur de configuration. Examinez l'historique du programme avant de le supprimer.
 
-## Modale De Creation Rapide
+## Modale de creation rapide
 
-La modale standard crée ou modifie seulement le profil de paiement de transfert. Elle est utile lorsque l’administrateur veut créer le profil du programme d’abord, puis configurer les résultats, objectifs, budgets, indicateurs et volets plus tard.
+Utilisez le formulaire de programme pour enregistrer le profil, puis ajoutez les résultats, objectifs, budgets, indicateurs et volets.
 
 Les champs du profil sont :
 
@@ -44,13 +44,13 @@ Les champs du profil sont :
 - Liens français et anglais des modalités : les deux sont obligatoires et doivent être des URL valides.
 - Description anglaise et description française.
 - Objectif anglais et objectif français.
-- Indicateur Actif : faux par défaut à la création.
+- Actif : désactivé par défaut pour un nouveau programme.
 
-Tous les champs bilingues sont obligatoires. Le formulaire refuse un programme dont le texte français ou anglais manque. Deux programmes actifs non supprimés de la même agence ne peuvent partager la même combinaison de noms français et anglais. Si créer, renommer ou activer un programme signale un doublon, vérifiez les programmes actifs existants et corrigez les noms avant de réessayer. Modifier un autre champ conserve le réglage Actif enregistré.
+Tous les champs bilingues sont obligatoires. Les noms et abréviations peuvent contenir jusqu’à 255 caractères par langue. Chaque lien des modalités peut contenir jusqu’à 2 000 caractères. Le formulaire retire les espaces au début et à la fin. Si un texte collé contient un caractère invisible invalide, ressaisissez le champ concerné et enregistrez de nouveau. Deux programmes actifs non supprimés de la même agence ne peuvent partager la même combinaison de noms français et anglais. Si créer, renommer ou activer un programme signale un doublon, vérifiez les programmes actifs existants et corrigez les noms avant de réessayer. Modifier un autre champ conserve le réglage Actif enregistré.
 
-## Assistant De Programme
+## Assistant de programme
 
-L’assistant crée le profil et les enregistrements enfants sélectionnés ensemble. Si un champ obligatoire, une règle de doublon ou une règle de données de référence échoue, toute la soumission échoue et aucun programme partiel n’est créé.
+L’assistant enregistre ensemble le profil et les résultats, objectifs, budgets et indicateurs que vous saisissez. Si un champ obligatoire, une règle de doublon ou une règle de données de référence échoue, toute la soumission échoue et aucun programme partiel n’est créé.
 
 Les étapes de l’assistant sont :
 
@@ -61,7 +61,7 @@ Les étapes de l’assistant sont :
 - Rendement : zéro ou plusieurs indicateurs de rendement, chacun lié à un résultat de l’assistant.
 - Révision : sommaire en lecture seule des données qui seront soumises.
 
-## Regles De L Assistant
+## Regles de l assistant
 
 | Règle | Comportement |
 | --- | --- |
@@ -75,17 +75,17 @@ Les étapes de l’assistant sont :
 
 À la soumission, l’assistant crée le profil, les résultats, les objectifs, les budgets et les indicateurs de rendement liés aux résultats créés.
 
-## Page De Detail
+## Page de detail
 
-L’ouverture d’un programme affiche un sommaire repliable avec le nom et la description bilingues. Le bouton de modification ouvre la même modale de profil que la liste, avec les dates normalisées pour les champs de date.
+L’ouverture d’un programme affiche un sommaire repliable avec le nom et la description bilingues. Le bouton de modification ouvre la même modale de profil que la liste, avec les dates civiles enregistrées.
 
-La page de détail utilise six onglets verticaux pouvant être liés directement : Général, Volets, Résultats, Objectifs, Budgets et Indicateurs de rendement. L'onglet sélectionné est conservé dans le paramètre de requête `section`; un administrateur peut donc ajouter une zone de configuration précise à ses favoris.
+La page de détail utilise six onglets verticaux pouvant être liés directement : Général, Volets, Résultats, Objectifs, Budgets et Indicateurs de rendement. Ajoutez l’onglet sélectionné aux favoris pour revenir à cette configuration.
 
-## Onglet General
+## Onglet general
 
 L’onglet Général affiche les champs du profil en lecture seule :
 
-- Identité du profil de paiement de transfert portée par l’agence.
+- Agence et identité du programme.
 - Date de début et date de fin.
 - Nom anglais et nom français.
 - Abréviation anglaise et abréviation française.
@@ -96,15 +96,15 @@ L’onglet Général affiche les champs du profil en lecture seule :
 
 Utilisez l’action de modification au niveau de la page pour changer ces champs.
 
-## Onglet Volets
+## Onglet volets
 
-L’onglet Volets liste les volets opérationnels du programme. Les ententes et la plupart des configurations d’exécution sont pilotées par le volet; au moins un volet est donc normalement requis avant la création d’ententes de production.
+L’onglet Volets liste les volets opérationnels du programme. Les ententes utilisent les réglages du volet. Il faut donc normalement au moins un volet avant de créer des ententes de production.
 
 Le tableau des volets permet la création, la modification, la suppression et l’utilisation d’un assistant de configuration lorsque l’utilisateur peut modifier les enregistrements enfants. Un volet contient un nom, une abréviation, une description et un objectif bilingues, ainsi qu’un volet parent facultatif, un indicateur de redistribution et un statut.
 
-Ouvrez un volet pour configurer les budgets, destinataires admissibles, lignes de coûts, sous-types d’entente, engagements, cotes de risque, configurations d’examen, configurations de recommandation, modèles d’approbation, modèles de documents et extensions.
+Ouvrez un volet pour configurer les budgets, destinataires admissibles, lignes de coûts, sous-types d’entente, engagements, cotes de risque, examens, flux de travail, modèles de documents et extensions. Créez les recommandations et modèles d’approbation partagés sur la page Agence, puis référencez-les dans les examens et flux concernés.
 
-## Onglet Resultats
+## Onglet resultats
 
 Les résultats décrivent les changements attendus qui servent au suivi du rendement du programme. Chaque résultat contient :
 
@@ -117,7 +117,7 @@ Les indicateurs de rendement sont liés aux résultats; modifier ou supprimer de
 
 Par exemple, utilisez « Meilleur accès aux installations communautaires » comme résultat et décrivez le changement attendu. Ajoutez les mesures de ce changement dans Indicateurs de rendement.
 
-## Onglet Objectifs
+## Onglet objectifs
 
 Les objectifs décrivent en français et en anglais ce que le programme vise à accomplir. Chaque ligne contient :
 
@@ -128,7 +128,7 @@ Les objectifs sont au niveau du programme. Ils ne remplacent pas les objectifs d
 
 Par exemple, « Soutenir la rénovation d'espaces communautaires accessibles » décrit ce que le programme vise à soutenir. Un volet peut avoir un objectif plus précis, comme soutenir les petits projets de rénovation.
 
-## Onglet Budgets
+## Onglet budgets
 
 Créez un budget de programme pour chaque exercice financier d'agence utilisé par les volets. Chaque ligne contient :
 
@@ -144,7 +144,7 @@ Vous pouvez conserver un exercice enregistré après son retrait par l'agence, a
 
 Le sélecteur recherche les exercices d'agence et garde le libellé de l'exercice enregistré visible même hors de la page de résultats courante. Il ne permet jamais un exercice d'une autre agence. Dans l'assistant d'un nouveau programme, changer l'agence efface les budgets incompatibles. Si un choix échoue, rechargez les options avant de réessayer plutôt que de soumettre un ancien identifiant.
 
-## Onglet Indicateurs De Rendement
+## Onglet indicateurs de rendement
 
 Les indicateurs de rendement sont créés sous les résultats. Chaque indicateur contient :
 
@@ -158,33 +158,33 @@ Le formulaire de création présélectionne un résultat disponible lorsque poss
 
 Pour le résultat « Meilleur accès aux installations communautaires », un indicateur pourrait être « Nombre d'installations améliorées ». Précisez dans la description ce qui compte comme installation améliorée. Vous créez ainsi la définition de l'indicateur, sans saisir un résultat mesuré.
 
-## Statut Et Cycle De Vie
+## Statut et cycle de vie
 
-La disponibilité du programme utilise l’indicateur booléen **Actif**, désactivé initialement. Il est distinct des états métier de l’organisme utilisés par les ententes. Activer le programme n’active pas automatiquement ses volets et ne publie pas leur configuration; terminez chaque dépendance explicitement.
+Un nouveau programme a le réglage **Actif** désactivé. Ce réglage est distinct des états métier de l’agence utilisés par les ententes. Activer un programme n’active pas ses volets et ne publie pas leur configuration. Terminez séparément la configuration des volets.
 
-## Permissions Et Portee
+## Permissions et portee
 
-Les actions lire, créer, modifier et supprimer sont autorisées par le sujet de rôle `transfer_payment`. La portée est dérivée de la structure du rôle et est globale, propre à une agence ou limitée aux programmes liés au rôle :
+Votre rôle détermine si vous pouvez lire, créer, modifier ou supprimer des programmes. Les administrateurs configurent ces permissions sous `transfer_payment`. L’accès peut couvrir tous les programmes, une agence ou les programmes liés au rôle :
 
-- La création vérifie l’agence sélectionnée et exige donc un accès global ou d’agence `transfer_payment:create` applicable.
-- La visibilité de la liste est résolue par un accès global, un accès d’agence et les programmes liés aux rôles à portée de programme.
-- Le détail et les actions sur les enfants évaluent l’action CRUD demandée par rapport à l’agence et au programme propriétaires.
-- Les pages de volet et de configuration enfant demeurent dans la portée dérivée du rôle qui couvre le programme propriétaire.
-- Les affectations exactes d’entité ne sont jamais évaluées pour les agences, les programmes ou les volets.
+- Pour créer un programme, vous devez avoir accès à `transfer_payment:create` globalement ou pour l’agence sélectionnée.
+- La liste montre les programmes couverts par votre accès global, d’agence ou de programmes liés.
+- Chaque action sur un programme ou sa configuration vérifie votre permission pour cette action dans l’agence et le programme propriétaires.
+- Votre accès aux volets et à leur configuration découle du programme propriétaire.
+- Les affectations à des dossiers individuels ne donnent pas accès aux agences, programmes ou volets.
 
 Si un utilisateur peut lire un programme sans pouvoir le modifier, la page de détail reste accessible, mais les actions de modification et d’ajout sont masquées ou désactivées.
 
-## Suppression, Échec Et Reprise
+## Suppression, échec et reprise
 
 La suppression retire le programme de l'utilisation courante sans effacer physiquement ses volets ni ses anciennes configurations. Les pages qui exigent un profil non supprimé ne montrent plus ces dossiers. Utilisez la suppression pour corriger une erreur de configuration; examinez l'historique du programme avant de le supprimer.
 
-Le système vérifie la permission actuelle de suppression et verrouillé le programme et ses volets actifs pendant la vérification des dépendances. Les extensions enregistrées peuvent bloquer la suppression pour protéger le travail associé à un volet. Si les volets changent à répétition pendant ces vérifications, une erreur localisée de changement de portée arrête la suppression. Rechargez et examinez les volets actuels avant de réessayer.
+Le système vérifie la permission actuelle de suppression et verrouille le programme et ses volets actifs pendant la vérification des dépendances. Les extensions enregistrées peuvent bloquer la suppression pour protéger le travail associé à un volet. Si les volets changent à répétition pendant ces vérifications, une erreur localisée de changement de portée arrête la suppression. Rechargez et examinez les volets actuels avant de réessayer.
 
-Chaque enregistrement, soumission d'assistant et modification de dossier enfant vérifie ensemble les permissions et l'agence et le programme propriétaires, dans une transaction. Vous ne pouvez pas changer l'agence d'un programme existant. Un dossier absent et un dossier inaccessible peuvent produire des erreurs semblables : vérifiez l'identifiant et votre portée de permission globale, d'agence ou de programme lié.
+Chaque enregistrement, soumission d'assistant et modification de configuration vérifie ensemble vos permissions actuelles ainsi que le programme et l'agence propriétaires avant l'enregistrement. Le formulaire de modification garde l’agence du programme verrouillée. Un dossier absent et un dossier inaccessible peuvent produire des erreurs semblables : vérifiez l'identifiant et votre portée de permission globale, d'agence ou de programme lié.
 
-En cas d'erreur de validation, corrigez le champ indiqué. Les causes courantes sont les valeurs bilingues en double, les dates ou URL invalides, un exercice d'une autre agence ou des valeurs financières non sûres. Après une modification par un autre administrateur, rechargez avant de soumettre de nouveau. Une erreur d'API ordinaire laisse les valeurs saisies dans la fenêtre disponibles.
+En cas d'erreur de validation, corrigez le champ indiqué. Les causes courantes sont les valeurs bilingues en double, les dates ou URL invalides, un exercice d'une autre agence ou des valeurs financières non sûres. Après une modification par un autre administrateur, rechargez avant de soumettre de nouveau. Si une demande d'enregistrement échoue, le formulaire conserve normalement vos valeurs pour que vous puissiez les corriger ou réessayer.
 
-## Ordre De Configuration Operationnelle
+## Ordre de configuration operationnelle
 
 Un ordre pratique dans une installation vide est :
 

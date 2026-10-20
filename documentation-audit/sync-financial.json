@@ -1,0 +1,226 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "source_clone": ".reference-repos/gcs-ssc",
+  "scope": "All 19 agreement documentation page pairs, disjoint parallel ownership.",
+  "groups": [
+    {
+      "contracts": [
+        "Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices.",
+        "Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback.",
+        "Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics."
+      ],
+      "source_paths": [
+        "app/composables/useAgreementChildActionPrerequisites.ts",
+        "app/components/Agreement/AgreementAddressesTab.vue",
+        "app/components/Agreement/AgreementApplicantRecipientsTab.vue",
+        "app/components/Agreement/AgreementNotesTab.vue",
+        "app/components/Agreement/AgreementDocumentsTab.vue",
+        "app/components/Agreement/Fields/AgreementProfileFields.vue",
+        "server/api/agreements/[id]/documents/generate.post.ts",
+        "server/utils/document-generation.ts",
+        "server/api/agreements/[id].patch.ts",
+        "server/api/agreements/index.post.ts",
+        "server/utils/agreement.ts"
+      ],
+      "tests_inspected": [
+        "tests/unit/agreement-documents-tab.test.ts",
+        "tests/unit/document-generation-rollback-cleanup.test.ts",
+        "tests/unit/agreement-generated-documents-route.test.ts",
+        "tests/unit/agreement-document-custom-fields.test.ts"
+      ],
+      "documentation_pairs": [
+        [
+          "en/agreements/index.md",
+          "fr/agreements/index.md"
+        ],
+        [
+          "en/agreements/addresses.md",
+          "fr/agreements/addresses.md"
+        ],
+        [
+          "en/agreements/applicant-recipients.md",
+          "fr/agreements/applicant-recipients.md"
+        ],
+        [
+          "en/agreements/documents.md",
+          "fr/agreements/documents.md"
+        ]
+      ]
+    },
+    {
+      "contracts": [
+        "Forecast changed-cell saves are atomic, compare expected saved identities/amounts, and apply annual validation after all edits. Unchanged cells/funding remain intact and totals recalculate.",
+        "Historical forecast/claim lines remain visible and read-only after budget amendment; current stable counterparts remain editable where eligible."
+      ],
+      "source_paths": [
+        "server/utils/agreement-forecast-breakdown.ts",
+        "server/api/agreements/[id]/forecasts/[forecastId]/breakdown.patch.ts",
+        "server/utils/agreement-forecast.ts",
+        "server/utils/agreement-budget-lineage.ts",
+        "server/utils/agreement-claim.ts",
+        "server/api/agreements/[id]/forecasts-overview.get.ts",
+        "server/api/agreements/[id]/claims-overview.get.ts",
+        "app/pages/agreements/[id]/forecasts/[forecastId].vue",
+        "app/pages/agreements/[id]/claims/[claimId].vue"
+      ],
+      "tests_inspected": [
+        "tooling/gcs-ssc/tests/unit/agreement-forecast-detail-page-layout.test.ts",
+        "tooling/gcs-ssc/tests/unit/agreement-claim-detail-page-layout.test.ts"
+      ],
+      "documentation_pairs": [
+        [
+          "en/agreements/forecasts.md",
+          "fr/agreements/forecasts.md"
+        ],
+        [
+          "en/agreements/claims.md",
+          "fr/agreements/claims.md"
+        ]
+      ]
+    },
+    {
+      "contracts": [
+        "Amendments search all pages by exact amendment number or bilingual name. Snapshot actions require fresh assignment, editable draft, applicable selected types and no existing snapshot.",
+        "Budget protections include earlier approved version financial references; activity date updates validate against the saved other date. Activity deletion removes responsible-party/outcome links.",
+        "Closeout document persistence allows own active workflow, but not competing or terminal state. Template/core changes require reload/retry; busy rendering requires waiting. Pending recoveries are checked through offset memo applications.",
+        "Monitor required text rejects blanks/null characters. Actual dates can clear when unmonitored; updates validate the merged saved record.",
+        "Assignment/child guides explain exact owner assignment and fresh checks; corrections prose retains financial lifecycle requirements."
+      ],
+      "source_paths": [
+        "app/pages/agreements/[id]/amendments/[amendmentId].vue",
+        "server/api/agreements/[id]/amendments/index.get.ts",
+        "server/api/agreements/[id]/amendments/[amendmentId]/cancel.post.ts",
+        "server/api/agreements/[id]/amendments/[amendmentId]/documents/generate.post.ts",
+        "app/components/Agreement/AgreementActivitiesTab.vue",
+        "server/utils/entity-assignment.ts",
+        "server/utils/entity-assignment-write.ts",
+        "server/utils/agreement-write-transaction.ts",
+        "server/utils/agreement-monitor-validation.ts",
+        "server/api/agreements/[id]/monitor-items/[childId].patch.ts",
+        "shared/types/schemas/funding-case-agreement.ts",
+        "server/utils/agreement-closeout.ts",
+        "server/utils/document-generation.ts",
+        "app/components/Agreement/AgreementCloseoutDocuments.vue",
+        "server/utils/correction.ts",
+        "server/utils/correction-completion.ts",
+        "shared/types/schemas/correction.ts"
+      ],
+      "tests_inspected": [
+        "amendment-scope-type-resolution.test.ts",
+        "agreement-amendment-budget-fiscal-year-route-coverage.test.ts",
+        "agreement-amendment-activity-branch-coverage.test.ts",
+        "correction-ui-financials.test.ts",
+        "agreement-activity-readonly-lock.spec.ts",
+        "agreement-activity-partial-date.test.ts",
+        "agreement-child-tabs.test.ts",
+        "closeout-document-render-pipeline-postgres.test.ts",
+        "agreement-closeout-documents.test.ts",
+        "agreement-closeout-detail-page-layout.test.ts"
+      ],
+      "documentation_pairs": [
+        [
+          "en/agreements/amendments.md",
+          "fr/agreements/amendments.md"
+        ],
+        [
+          "en/agreements/activities.md",
+          "fr/agreements/activities.md"
+        ],
+        [
+          "en/agreements/team.md",
+          "fr/agreements/team.md"
+        ],
+        [
+          "en/agreements/child-workflows.md",
+          "fr/agreements/child-workflows.md"
+        ],
+        [
+          "en/agreements/closeouts.md",
+          "fr/agreements/closeouts.md"
+        ],
+        [
+          "en/agreements/monitors.md",
+          "fr/agreements/monitors.md"
+        ],
+        [
+          "en/agreements/corrections.md",
+          "fr/agreements/corrections.md"
+        ]
+      ]
+    },
+    {
+      "documentation_pairs": [
+        [
+          "en/agreements/payments.md",
+          "fr/agreements/payments.md"
+        ],
+        [
+          "en/agreements/receivables.md",
+          "fr/agreements/receivables.md"
+        ],
+        [
+          "en/agreements/journal-vouchers.md",
+          "fr/agreements/journal-vouchers.md"
+        ],
+        [
+          "en/agreements/commitments.md",
+          "fr/agreements/commitments.md"
+        ],
+        [
+          "en/agreements/financial-summary.md",
+          "fr/agreements/financial-summary.md"
+        ],
+        [
+          "en/agreements/budget.md",
+          "fr/agreements/budget.md"
+        ]
+      ],
+      "contracts": [
+        "Payment and commitment actions check fresh exact assignment and status before opening, deleting, and saving. Pending duplicate actions are blocked; Cancel does not undo a sent save and uncertain results require refreshing before retrying.",
+        "Journal voucher editable drafts survive background refresh; changing to read-only restores the saved entry. Dirty/saving/load-failed state prevents completion. Failed save keeps the draft for correction.",
+        "Financial summary starts with All selected and quarters collapsed, and empty-year displays use agreement currency.",
+        "Historical claims referencing copied budget years/lines protect current counterparts from deletion or fiscal-year moves.",
+        "Clean ledger removal deletes legacy source fallbacks, while current user-facing memo and gross/offset/net behavior remains. No feature invented for removed historical compatibility."
+      ],
+      "source_paths": [
+        "app/components/Agreement/AgreementPaymentsTab.vue",
+        "app/components/Agreement/AgreementPaymentFields.vue",
+        "app/components/Agreement/AgreementCommitmentsTab.vue",
+        "app/components/Agreement/PaymentRecoverySummary.vue",
+        "app/components/Agreement/AgreementFinancialSummaryTab.vue",
+        "app/pages/journal-vouchers/[id].vue",
+        "server/utils/account-receivable-recovery.ts",
+        "server/utils/account-receivable-cash-balance.ts",
+        "server/utils/account-receivable-claim-reductions.ts",
+        "server/utils/account-receivable-pool-ledger.ts",
+        "server/utils/agreement-commitment-line-balance.ts",
+        "server/utils/agreement-budget-lineage.ts",
+        "server/utils/agreement-financial-summary.ts",
+        "server/utils/payment-recovery-controls.ts",
+        "server/api/agreements/[id]/payment-lines/lookups/commitment-lines.get.ts",
+        "server/api/agreements/[id]/payments/lookups/commitments.get.ts",
+        "server/api/agreements/[id]/budget-fiscal-years/[childId].delete.ts",
+        "server/api/agreements/[id]/budget-line-items/[childId].patch.ts",
+        "server/api/agreements/[id]/financial-summary.get.ts"
+      ],
+      "tests_inspected": [
+        "tests/unit/journal-voucher-editor.test.ts",
+        "tests/e2e/agreement-payments.spec.ts",
+        "tests/unit/agreement-financial-summary.test.ts",
+        "tests/unit/agreement-financial-summary-quarter-layout.test.ts",
+        "tests/e2e/agreement-financial-summary-lineage.spec.ts",
+        "tooling/gcs-ssc/tests/integration/agreement-budget-retained-reference-postgres.test.ts",
+        "tooling/gcs-ssc/tests/integration/claim-physical-budget-reference-retention-postgres.test.ts"
+      ]
+    }
+  ],
+  "application_tests_executed": [],
+  "verification": "Scoped diff checks performed; final repository generators/build/check owned by parent sync agent.",
+  "omissions": [
+    "No application runtime tests executed for documentation-only changes.",
+    "API-only document routes/template syntax and address storage types removed from user guides; existing developer reference remains linked.",
+    "Concrete extension behavior is outside host documentation scope."
+  ],
+  "status": "All 38 agreement pages reviewed and updated. Scoped git diff --check passed. Final repository verification owned by parent sync agent."
+}

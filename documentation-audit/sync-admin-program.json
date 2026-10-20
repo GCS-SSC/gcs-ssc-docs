@@ -1,0 +1,62 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "source": ".reference-repos/gcs-ssc",
+  "scope": "Agency catalogs and profile; program/access/audit subscopes have separate sync-program.json, sync-access.json and sync-audit-gwcoa.json receipts",
+  "docsPairs": [
+    [
+      "en/admin/agencies.md",
+      "fr/admin/agencies.md"
+    ],
+    [
+      "en/admin/agency-catalogs.md",
+      "fr/admin/agency-catalogs.md"
+    ]
+  ],
+  "reviewedSourcePaths": [
+    "app/components/Agency/AgencyModal.vue",
+    "app/components/Agency/AgencyDetailGeneralTab.vue",
+    "app/components/Agency/AgencyAddressTypes.vue",
+    "app/components/Agency/AgencyDocumentTemplates.vue",
+    "app/components/Agency/AgencyWorkflowSetupDetailPage.vue",
+    "app/pages/agencies/[id]/index.vue",
+    "app/pages/agencies/[id]/workflows/[workflowSetupId]/index.vue",
+    "app/pages/agencies/[id]/workflows/[workflowSetupId]/flow.vue",
+    "server/api/agency/[agencyId]/document-templates/[templateId]/index.patch.ts",
+    "server/utils/document-template-routes.ts",
+    "server/utils/agency-unique-constraint-errors.ts",
+    "server/utils/status-administration.ts",
+    "server/utils/workflow-setup-versioning.ts",
+    "server/utils/recommendation-setup-versioning.ts",
+    "server/database/migrations/0040_agency.ts",
+    "shared/types/schemas/admin-common.ts",
+    "shared/types/schemas/agency.ts",
+    "shared/types/schemas/transfer-payment.ts",
+    "server/api/agency/[agencyId]/review-sets/[reviewSetId]/index.delete.ts",
+    "server/api/agency/[agencyId]/recommendation-sets/[recommendationSetId]/index.delete.ts",
+    "server/api/agency/[agencyId]/workflows/[workflowId]/index.delete.ts",
+    "server/utils/review-runtime.ts"
+  ],
+  "finalContracts": [
+    "Attachment type names and descriptions are required bilingually; descriptions preserve whitespace and reject null characters.",
+    "Document templates support Agreement, Amendment and Closeout record types, bilingual names/descriptions and language files, DOCX or HTML kind, compatible native/PDF output, 10 MiB per-file limit and same-Agency/type per-language name uniqueness.",
+    "Document template kind is immutable; edits can replace either language file. Failed replacement transactions preserve saved files, while failed post-save reload must be retried before creating another record.",
+    "Agency Workflow Flow is a separate read-only diagram route. Unsaved changes or a pending mutation block switching between editor and diagram; draft save and publication remain distinct.",
+    "Agency Contributor can delete eligible draft Review Sets, Recommendation Sets, Workflows and Data Collections; general catalog Manager wording was narrowed to avoid denying supported actions.",
+    "Review member checklist-failure setting makes Fail negative; assessment numeric results strictly below a configured threshold are negative. Equality is not a threshold failure."
+  ],
+  "testsInspected": [
+    "tests/unit/agency-document-template-upload-rollback.test.ts",
+    "tests/unit/document-template-schema-storage.test.ts",
+    "tests/unit/agency-workflow-authoring-ui.test.ts"
+  ],
+  "testsExecuted": [],
+  "omissions": [
+    "GWCOA and Approval Behalf database column renames preserve existing user behavior; user guide labels avoid internal column names.",
+    "Agency guided-help catalog storage and new UI help targets belong to the guided-help worker.",
+    "Status constraint/table corrections preserve documented lifecycle rules; no additional behavior claim added.",
+    "Localized toast and shared button refactors do not change documented operations.",
+    "Program, schema, access and audit/GWCOA changes are delegated to nonoverlapping workers and recorded separately."
+  ],
+  "verification": "Source and paired-doc review only. Required repository generators, docs:check and builds are owned by the coordinator and have not been run by this worker."
+}

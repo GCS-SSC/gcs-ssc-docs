@@ -1,0 +1,563 @@
+{
+  "version": 2,
+  "source_docs_head": "7090538257d74a1a1cfdde3a4382204b77ae903a",
+  "source_snapshot_note": "Reconciled after application-source authors completed updates for dcbe779afa3c89adb9f0f798dd1b274e92a50939. Filesystem discovery includes untracked new pages. All 20 initial batch path assignments remain unchanged. Added batches 21 and 22 for the new admin and developer guided-help page pairs.",
+  "published_definition": "Every tracked Markdown file outside hidden directories is a VitePress page candidate because no srcExclude is configured. Product documentation comprises locale pages, the root landing page and legacy redirects. README is maintainer documentation. AGENTS and existing audit Markdown are included for an exhaustive account, but are review-only maintenance records, not user guides. Hidden .agents Markdown is operational instruction.",
+  "total_pages": 181,
+  "locale_pairs": 85,
+  "non_locale_pages": [
+    "AGENTS.md",
+    "README.md",
+    "agreements/commitments.md",
+    "agreements/payments.md",
+    "concepts/extensions.md",
+    "developer/extensions-authoring.md",
+    "documentation-audit/documentation-findings.md",
+    "documentation-audit/source-baseline.md",
+    "documentation-audit/status.md",
+    "documentation-audit/sync-review.md",
+    "index.md"
+  ],
+  "generated_page_count": 22,
+  "environment_improvement": "Use this explicit path manifest and one report per batch to prevent omitted pages and concurrent writes. Reconcile the manifest against git ls-files before editing and final verification. Preserve existing documentation tooling.",
+  "generated_edit_policy": "Batch 19 owns scripts/generate-api-reference.ts and all resulting API regeneration. Batch 20 reviews its assigned API pages and sends requested generator wording changes to batch 19. Batch 20 owns only scripts/generate-audit-impact-reference.ts. Do not hand-edit generated reference pages. Run generation only after sync completes and notify coordinator first.",
+  "new_review_artifacts": "The editorial brief and subsequent review reports are audit support, not product guides; coordinator reviews these as part of final evidence. Do not recursively create review batches for the review reports themselves.",
+  "batches": [
+    {
+      "id": "01-start-and-entry-pages",
+      "title": "Getting started and site entry points",
+      "audience": "user",
+      "paths": [
+        "en/index.md",
+        "fr/index.md",
+        "en/getting-started/login.md",
+        "fr/getting-started/login.md",
+        "en/getting-started/navigation.md",
+        "fr/getting-started/navigation.md",
+        "en/getting-started/empty-system-setup.md",
+        "fr/getting-started/empty-system-setup.md",
+        "README.md",
+        "agreements/commitments.md",
+        "agreements/payments.md",
+        "concepts/extensions.md",
+        "developer/extensions-authoring.md",
+        "index.md"
+      ],
+      "page_count": 14,
+      "english_word_count": 4059,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/01-start-and-entry-pages.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "02-agency-setup",
+      "title": "Agencies and shared catalogues",
+      "audience": "user",
+      "paths": [
+        "en/admin/agencies.md",
+        "fr/admin/agencies.md",
+        "en/admin/agency-catalogs.md",
+        "fr/admin/agency-catalogs.md",
+        "en/admin/common-admin.md",
+        "fr/admin/common-admin.md"
+      ],
+      "page_count": 6,
+      "english_word_count": 4563,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/02-agency-setup.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "03-access-administration",
+      "title": "Users, roles, assignments and audit",
+      "audience": "user",
+      "paths": [
+        "en/admin/assignments.md",
+        "fr/admin/assignments.md",
+        "en/admin/groups.md",
+        "fr/admin/groups.md",
+        "en/admin/roles.md",
+        "fr/admin/roles.md",
+        "en/admin/users.md",
+        "fr/admin/users.md",
+        "en/admin/audit.md",
+        "fr/admin/audit.md"
+      ],
+      "page_count": 10,
+      "english_word_count": 5103,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/03-access-administration.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "04-program-structure",
+      "title": "Programs and streams",
+      "audience": "user",
+      "paths": [
+        "en/programs/index.md",
+        "fr/programs/index.md",
+        "en/programs/streams.md",
+        "fr/programs/streams.md"
+      ],
+      "page_count": 4,
+      "english_word_count": 5894,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/04-program-structure.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "05-program-fields-and-reviews",
+      "title": "Program fields and review schemas",
+      "audience": "user",
+      "paths": [
+        "en/programs/custom-fields.md",
+        "fr/programs/custom-fields.md",
+        "en/programs/assessment-schemas.md",
+        "fr/programs/assessment-schemas.md",
+        "en/programs/checklist-schemas.md",
+        "fr/programs/checklist-schemas.md"
+      ],
+      "page_count": 6,
+      "english_word_count": 4851,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/05-program-fields-and-reviews.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "06-program-approvals",
+      "title": "Approval templates and recommendations",
+      "audience": "user",
+      "paths": [
+        "en/programs/approval-templates.md",
+        "fr/programs/approval-templates.md",
+        "en/programs/recommendations.md",
+        "fr/programs/recommendations.md"
+      ],
+      "page_count": 4,
+      "english_word_count": 3754,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/06-program-approvals.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "07-intake-and-proponent-finance",
+      "title": "Application intake and proponent financial identity",
+      "audience": "user",
+      "paths": [
+        "en/intake/opportunities.md",
+        "fr/intake/opportunities.md",
+        "en/intake/funding-case-intakes.md",
+        "fr/intake/funding-case-intakes.md",
+        "en/intake/portal.md",
+        "fr/intake/portal.md",
+        "en/proponents/index.md",
+        "fr/proponents/index.md",
+        "en/proponents/agency-financial-ids.md",
+        "fr/proponents/agency-financial-ids.md",
+        "en/proponents/credit-memos.md",
+        "fr/proponents/credit-memos.md"
+      ],
+      "page_count": 12,
+      "english_word_count": 5816,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/07-intake-and-proponent-finance.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "08-proponent-records",
+      "title": "Proponent details and related records",
+      "audience": "user",
+      "paths": [
+        "en/proponents/addresses.md",
+        "fr/proponents/addresses.md",
+        "en/proponents/agreements.md",
+        "fr/proponents/agreements.md",
+        "en/proponents/contacts.md",
+        "fr/proponents/contacts.md",
+        "en/proponents/funding-history.md",
+        "fr/proponents/funding-history.md",
+        "en/proponents/other-names.md",
+        "fr/proponents/other-names.md",
+        "en/proponents/registries.md",
+        "fr/proponents/registries.md",
+        "en/proponents/reviews.md",
+        "fr/proponents/reviews.md",
+        "en/proponents/team.md",
+        "fr/proponents/team.md"
+      ],
+      "page_count": 16,
+      "english_word_count": 5139,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/08-proponent-records.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "09-agreement-records",
+      "title": "Agreement setup, people and activities",
+      "audience": "user",
+      "paths": [
+        "en/agreements/index.md",
+        "fr/agreements/index.md",
+        "en/agreements/team.md",
+        "fr/agreements/team.md",
+        "en/agreements/addresses.md",
+        "fr/agreements/addresses.md",
+        "en/agreements/applicant-recipients.md",
+        "fr/agreements/applicant-recipients.md",
+        "en/agreements/activities.md",
+        "fr/agreements/activities.md"
+      ],
+      "page_count": 10,
+      "english_word_count": 5571,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/09-agreement-records.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "10-agreement-budget",
+      "title": "Budget, commitments and financial summary",
+      "audience": "user",
+      "paths": [
+        "en/agreements/budget.md",
+        "fr/agreements/budget.md",
+        "en/agreements/commitments.md",
+        "fr/agreements/commitments.md",
+        "en/agreements/financial-summary.md",
+        "fr/agreements/financial-summary.md"
+      ],
+      "page_count": 6,
+      "english_word_count": 5124,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/10-agreement-budget.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "11-claims-and-payments",
+      "title": "Claims and payments",
+      "audience": "user",
+      "paths": [
+        "en/agreements/claims.md",
+        "fr/agreements/claims.md",
+        "en/agreements/payments.md",
+        "fr/agreements/payments.md"
+      ],
+      "page_count": 4,
+      "english_word_count": 4917,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/11-claims-and-payments.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "12-financial-changes",
+      "title": "Amendments, forecasts and financial adjustments",
+      "audience": "user",
+      "paths": [
+        "en/agreements/amendments.md",
+        "fr/agreements/amendments.md",
+        "en/agreements/forecasts.md",
+        "fr/agreements/forecasts.md",
+        "en/agreements/corrections.md",
+        "fr/agreements/corrections.md",
+        "en/agreements/receivables.md",
+        "fr/agreements/receivables.md",
+        "en/agreements/journal-vouchers.md",
+        "fr/agreements/journal-vouchers.md"
+      ],
+      "page_count": 10,
+      "english_word_count": 5899,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/12-financial-changes.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "13-agreement-follow-up",
+      "title": "Documents, monitoring, closeouts and child workflows",
+      "audience": "user",
+      "paths": [
+        "en/agreements/documents.md",
+        "fr/agreements/documents.md",
+        "en/agreements/monitors.md",
+        "fr/agreements/monitors.md",
+        "en/agreements/closeouts.md",
+        "fr/agreements/closeouts.md",
+        "en/agreements/child-workflows.md",
+        "fr/agreements/child-workflows.md"
+      ],
+      "page_count": 8,
+      "english_word_count": 5026,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/13-agreement-follow-up.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "14-work-and-decisions",
+      "title": "Workflows, approvals and running reviews",
+      "audience": "user",
+      "paths": [
+        "en/concepts/workflows.md",
+        "fr/concepts/workflows.md",
+        "en/concepts/approvals-completions.md",
+        "fr/concepts/approvals-completions.md",
+        "en/concepts/runtime-reviews.md",
+        "fr/concepts/runtime-reviews.md"
+      ],
+      "page_count": 6,
+      "english_word_count": 6488,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/14-work-and-decisions.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "15-shared-concepts",
+      "title": "Access, extensions, attachments and shared concepts",
+      "audience": "user",
+      "paths": [
+        "en/concepts/rbac.md",
+        "fr/concepts/rbac.md",
+        "en/concepts/extensions.md",
+        "fr/concepts/extensions.md",
+        "en/concepts/attachments.md",
+        "fr/concepts/attachments.md",
+        "en/concepts/data-collections.md",
+        "fr/concepts/data-collections.md",
+        "en/concepts/bilingualism.md",
+        "fr/concepts/bilingualism.md",
+        "en/concepts/soft-deletion.md",
+        "fr/concepts/soft-deletion.md"
+      ],
+      "page_count": 12,
+      "english_word_count": 7175,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/15-shared-concepts.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "16-extension-authoring",
+      "title": "Extension authoring reference",
+      "audience": "technical",
+      "paths": [
+        "en/developer/extensions-authoring.md",
+        "fr/developer/extensions-authoring.md"
+      ],
+      "page_count": 2,
+      "english_word_count": 7346,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/16-extension-authoring.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "17-developer-contracts",
+      "title": "Architecture, data, validation and document generation",
+      "audience": "technical",
+      "paths": [
+        "en/developer/architecture.md",
+        "fr/developer/architecture.md",
+        "en/developer/data-model.md",
+        "fr/developer/data-model.md",
+        "en/developer/validation-i18n.md",
+        "fr/developer/validation-i18n.md",
+        "en/developer/document-generation.md",
+        "fr/developer/document-generation.md"
+      ],
+      "page_count": 8,
+      "english_word_count": 5530,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/17-developer-contracts.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "18-development-and-operations",
+      "title": "Development and operations",
+      "audience": "technical",
+      "paths": [
+        "en/developer/startup.md",
+        "fr/developer/startup.md",
+        "en/developer/routes.md",
+        "fr/developer/routes.md",
+        "en/developer/testing.md",
+        "fr/developer/testing.md",
+        "en/operator/background-work.md",
+        "fr/operator/background-work.md",
+        "en/operator/configuration.md",
+        "fr/operator/configuration.md",
+        "en/operator/deployment.md",
+        "fr/operator/deployment.md"
+      ],
+      "page_count": 12,
+      "english_word_count": 7005,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/18-development-and-operations.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "19-api-core",
+      "title": "Generated agency, agreement and platform API reference",
+      "audience": "technical",
+      "paths": [
+        "en/developer/api/agencies.md",
+        "fr/developer/api/agencies.md",
+        "en/developer/api/agreements.md",
+        "fr/developer/api/agreements.md",
+        "en/developer/api/platform.md",
+        "fr/developer/api/platform.md"
+      ],
+      "page_count": 6,
+      "english_word_count": 5771,
+      "generated_pages": [
+        "en/developer/api/agencies.md",
+        "fr/developer/api/agencies.md",
+        "en/developer/api/agreements.md",
+        "fr/developer/api/agreements.md",
+        "en/developer/api/platform.md",
+        "fr/developer/api/platform.md"
+      ],
+      "report_path": "documentation-audit/editorial-reviews/19-api-core.md",
+      "source_edits": [
+        "scripts/generate-api-reference.ts"
+      ],
+      "review_only_paths": []
+    },
+    {
+      "id": "20-api-specialized-and-maintenance",
+      "title": "Other generated API groups, historical audit impact and maintenance pages",
+      "audience": "technical",
+      "paths": [
+        "en/developer/api/applicant-recipients.md",
+        "fr/developer/api/applicant-recipients.md",
+        "en/developer/api/approvals.md",
+        "fr/developer/api/approvals.md",
+        "en/developer/api/extensions.md",
+        "fr/developer/api/extensions.md",
+        "en/developer/api/identity.md",
+        "fr/developer/api/identity.md",
+        "en/developer/api/reviews.md",
+        "fr/developer/api/reviews.md",
+        "en/developer/api/transfer-payments.md",
+        "fr/developer/api/transfer-payments.md",
+        "en/developer/api/workflows.md",
+        "fr/developer/api/workflows.md",
+        "en/developer/audit-impact.md",
+        "fr/developer/audit-impact.md",
+        "AGENTS.md",
+        "documentation-audit/documentation-findings.md",
+        "documentation-audit/source-baseline.md",
+        "documentation-audit/status.md",
+        "documentation-audit/sync-review.md"
+      ],
+      "page_count": 21,
+      "english_word_count": 5877,
+      "generated_pages": [
+        "en/developer/api/applicant-recipients.md",
+        "fr/developer/api/applicant-recipients.md",
+        "en/developer/api/approvals.md",
+        "fr/developer/api/approvals.md",
+        "en/developer/api/extensions.md",
+        "fr/developer/api/extensions.md",
+        "en/developer/api/identity.md",
+        "fr/developer/api/identity.md",
+        "en/developer/api/reviews.md",
+        "fr/developer/api/reviews.md",
+        "en/developer/api/transfer-payments.md",
+        "fr/developer/api/transfer-payments.md",
+        "en/developer/api/workflows.md",
+        "fr/developer/api/workflows.md",
+        "en/developer/audit-impact.md",
+        "fr/developer/audit-impact.md"
+      ],
+      "report_path": "documentation-audit/editorial-reviews/20-api-specialized-and-maintenance.md",
+      "source_edits": [
+        "scripts/generate-audit-impact-reference.ts"
+      ],
+      "review_only_paths": [
+        "AGENTS.md",
+        "documentation-audit/documentation-findings.md",
+        "documentation-audit/source-baseline.md",
+        "documentation-audit/status.md",
+        "documentation-audit/sync-review.md"
+      ]
+    },
+    {
+      "id": "21-admin-guided-help",
+      "title": "Guided help for administrators",
+      "audience": "user",
+      "paths": [
+        "en/admin/guided-help.md",
+        "fr/admin/guided-help.md"
+      ],
+      "page_count": 2,
+      "english_word_count": 1471,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/21-admin-guided-help.md",
+      "source_edits": [],
+      "review_only_paths": []
+    },
+    {
+      "id": "22-developer-guided-help",
+      "title": "Guided help developer reference",
+      "audience": "technical",
+      "paths": [
+        "en/developer/guided-help.md",
+        "fr/developer/guided-help.md"
+      ],
+      "page_count": 2,
+      "english_word_count": 978,
+      "generated_pages": [],
+      "report_path": "documentation-audit/editorial-reviews/22-developer-guided-help.md",
+      "source_edits": [],
+      "review_only_paths": []
+    }
+  ],
+  "product_page_count": 175,
+  "maintainer_readme_count": 1,
+  "review_only_maintenance_count": 5,
+  "excluded_new_support_artifacts": {
+    "count": 18,
+    "paths": [
+      "documentation-audit/current-sync-report.md",
+      "documentation-audit/editorial-review-brief.md",
+      "documentation-audit/editorial-review-plan.json",
+      "documentation-audit/sync-access.json",
+      "documentation-audit/sync-admin-program.json",
+      "documentation-audit/sync-audit-gwcoa.json",
+      "documentation-audit/sync-concept-misc.json",
+      "documentation-audit/sync-coverage.json",
+      "documentation-audit/sync-dev-extensions.json",
+      "documentation-audit/sync-financial.json",
+      "documentation-audit/sync-guided-help.json",
+      "documentation-audit/sync-intake.json",
+      "documentation-audit/sync-operator.json",
+      "documentation-audit/sync-program-schemas.json",
+      "documentation-audit/sync-program.json",
+      "documentation-audit/sync-proponents.json",
+      "documentation-audit/sync-runtime.json",
+      "documentation-audit/sync-technical.json"
+    ],
+    "reason": "Synchronization receipts, review instructions and assignment manifests are support records, not product documentation. Sync owns its receipts. Coordinator reviews new editorial evidence without adding recursive product-page assignments."
+  },
+  "coverage_verification": {
+    "unassigned_product_pages": [],
+    "overlapping_assignments": [],
+    "locale_page_count": 170,
+    "legacy_redirect_page_count": 4,
+    "root_landing_page_count": 1,
+    "discovery": "Filesystem *.md enumeration under en/ and fr/, including untracked files, plus root landing and the four tracked legacy redirect pages. Existing maintenance-only assignments retained."
+  }
+}

@@ -1,8 +1,8 @@
 # Tests
 
-Cette page s’adresse aux développeurs qui vérifient les changements de GCS-SSC. Les agents de subventions et de contributions n’ont pas à exécuter ces commandes dans leur travail quotidien. Les tests protègent notamment l’affectation d’un agent, les restrictions d’accès aux dossiers d’une autre agence et la soumission d’un examen.
+Utilisez ces commandes pour vérifier les changements de GCS-SSC. Les tests couvrent notamment l’affectation d’un agent, les restrictions d’accès aux dossiers d’une autre agence et la soumission d’un examen.
 
-Vitest vérifie des éléments individuels de logique applicative (tests unitaires). Playwright vérifie des tâches complètes dans un navigateur (tests de bout en bout). Construisez le site après les modifications documentaires pour détecter les problèmes de métadonnées de page, de liens ou de Markdown.
+Vitest exécute les tests unitaires de la logique applicative. Playwright exécute les tests de bout en bout de tâches complètes dans un navigateur. Construisez le site après les modifications documentaires pour détecter les problèmes de métadonnées de page, de liens ou de Markdown.
 
 Les tests et ressources d’architecture proviennent du sous-module privé figé `tooling/gcs-ssc`. `bun run tooling:setup` l’initialise et crée les liens ignorés `tests`, `architecture` et de compétence; ne recopiez pas les suites privées dans le dépôt hôte.
 
@@ -25,9 +25,23 @@ bun run quality:pr
 
 `bun run test` exécute les suites unitaires et de bout en bout. `test:all:manual` exécute aussi l’analyse statique, la vérification des types, la couverture, l’agrégat PostgreSQL facultatif et les tests de bout en bout.
 
-L’intégration continue automatique des demandes de tirage n’est pas configurée. Les contributeurs exécutent `quality:pr` comme vérification locale de référence : elle consigne le diff de la branche, exécute l’analyse statique et la vérification des types, compile le SDK d’extensions, vérifie l’artefact de production sur les hôtes POSIX non racines pris en charge et exécute les suites unitaires et de couverture de l’hôte, la vérification des types des extensions et les suites unitaires/couverture des fournisseurs de stockage local et S3. Elle n’exécute pas les suites PostgreSQL facultatives ni les tests Playwright de bout en bout ; exécutez-les séparément lorsque le changement dépend du verrouillage réel de la base de données ou d’une interaction dans le navigateur.
+L’intégration continue automatique des demandes de tirage n’est pas configurée. Exécutez `quality:pr` comme vérification locale obligatoire. Cette commande consigne le diff de la branche et effectue les vérifications suivantes :
 
-`test:unit` et `test:coverage` exécutent d’abord `forms:check`, qui vérifie les contrats des champs requis. `test:e2e:light` exécute une suite PGlite gérée. Une exécution complète de `test:e2e:fast` lance huit partitions PGlite gérées neuves en série; `--spec`, `--shard` ou `E2E_SPEC` choisit une seule invocation. Un échec de partition fait échouer l’agrégat. Les suites ciblées couvrent les pièces jointes, statuts d’organisme, actualisations et modifications d’entente, clôtures, recommandations, configurations de flux retirées et réinitialisations. Utilisez le script `:spec` correspondant pour choisir un fichier; `test:all:manual` comprend la séquence configurée.
+- Analyse statique et vérification des types de l’hôte.
+- Compilation du SDK et vérification des types de toutes les extensions.
+- Vérification de l’artéfact de production sur les hôtes POSIX non racines pris en charge.
+- Suites unitaires et de couverture de l’hôte.
+- Suites unitaires et de couverture des fournisseurs de stockage local et S3.
+
+Exécutez les suites PostgreSQL facultatives et les tests Playwright de bout en bout séparément lorsque le changement dépend du verrouillage réel de la base ou d’une interaction dans le navigateur. `quality:pr` ne les exécute pas.
+
+`lint` exécute les contrôles de politique d’interface bilingue et de noms de base de données avant ESLint. `typecheck` utilise l’outil privé sous le verrou des artefacts Nuxt.
+
+`test:unit` et `test:coverage` vérifient d’abord les champs requis avec `forms:check` et le contenu d’aide guidée avec `guided-help:check`. Ces commandes exécutent aussi la suite unitaire ou de couverture du paquet d’aide guidée avant la suite hôte.
+
+`test:e2e`, `test:e2e:pglite` et `test:e2e:light` exécutent la suite PGlite ordinaire, puis chaque scénario du groupe de cycle de vie dans un processus neuf distinct. `test:e2e:fast` répartit la suite ordinaire en huit partitions exécutées en série avant le même groupe isolé. Un `--spec` exact ou `E2E_SPEC` choisit l’outil du fichier. Un `--shard` explicite choisit une partition ordinaire sans les scénarios de cycle de vie, donc une couverture partielle. Les filtres comme `--grep` exigent un fichier exact. Tout échec fait échouer l’agrégat.
+
+Les suites ciblées couvrent les pièces jointes, statuts d’organisme, actualisations et modifications d’entente, clôtures, recommandations, configurations de flux retirées et réinitialisations. Utilisez le script `:spec` correspondant pour choisir un fichier. `test:all:manual` comprend la séquence configurée, le groupe autonome de réinitialisation, les tests PostgreSQL de navigateur par fichier et le scénario de profil d’extension.
 
 ### Vérification des artefacts de production
 

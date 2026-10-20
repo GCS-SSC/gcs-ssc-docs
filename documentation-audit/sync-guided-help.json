@@ -1,0 +1,69 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "group": "guided-help-navigation-diagrams",
+  "sourcePathsReviewed": [
+    "app/components/GuidedHelp/Manager.vue",
+    "app/components/GuidedHelp/Launcher.vue",
+    "app/components/GuidedHelp/Contextual.vue",
+    "app/components/GuidedHelp/PublisherFields.vue",
+    "app/components/GuidedHelp/PublisherFlow.vue",
+    "app/components/GuidedHelp/PublisherBranches.vue",
+    "app/composables/useNavigationCatalog.ts",
+    "app/components/Common/NavbarSide.vue",
+    "app/components/Common/NavigationMenu.vue",
+    "app/components/Common/FlowDiagram.vue",
+    "app/utils/guided-help-publisher.ts",
+    "server/utils/guided-help.ts",
+    "server/utils/system-publication.ts",
+    "server/api/guided-help/index.post.ts",
+    "server/api/guided-help/[id]/publish.post.ts",
+    "shared/types/schemas/guided-help.ts",
+    "shared/guided-help/catalog.ts",
+    "shared/guided-help/journeys.ts",
+    "packages/gcs-ssc-guided-help/src/contracts.ts",
+    "packages/gcs-ssc-guided-help/src/session.ts",
+    "packages/gcs-ssc-guided-help/src/markdown.ts",
+    "packages/gcs-ssc-authorization/src/abilities.ts",
+    "packages/gcs-ssc-diagrams/README.md",
+    "i18n/locales/en.json",
+    "i18n/locales/fr.json"
+  ],
+  "docsPairs": [
+    ["en/getting-started/navigation.md", "fr/getting-started/navigation.md"],
+    ["en/admin/guided-help.md", "fr/admin/guided-help.md"],
+    ["en/developer/guided-help.md", "fr/developer/guided-help.md"]
+  ],
+  "navigation": ".vitepress/config.mts adds matching administration and developer entries for both locales",
+  "finalContracts": [
+    "Guided Help management has independent global and Agency permissions, without Program scope or record-assignment authority.",
+    "Source drafts may be incomplete; publication requires bilingual complete content and host-compatible registered screens, controls and journeys.",
+    "Source publication and Agency audience publication are separate immutable-version lifecycles. Saving draft settings does not change the live audience.",
+    "Agency adoption pins a published source version. New source versions require explicit selection and Agency publication.",
+    "Retired or unshared sources do not remove already-retained Agency versions. Agency unpublish stops new discovery; source copies remain independent.",
+    "Discovery and launch require current screen access plus an active published audience role, and launch rechecks eligibility.",
+    "Preview uses real business controls and can change live data; the authoring guide states this beside preview instructions.",
+    "Branches compare registered choice or boolean fields in order, support a fallback or end, and require forward destinations. Reader Previous follows actual history.",
+    "Progression follows successful trusted actions, not raw clicks, and preserves accepted evidence during loading and unrelated Help dialogs.",
+    "Risk workflow journeys bind the selected Agency Agreement and exact execution tasks, provide recovery for wrong record/task, and never complete business work by finishing instructions.",
+    "Tab-local sessions pin source content and progress to the user, validate restored paths, clear on exit/logout/user change, and fall back to memory when storage is blocked.",
+    "Management and Administration group permitted sidebar entries; theme toggle replaces the outdated documented bell button.",
+    "Host shared diagrams support branch layout, zoom 25-200 percent, full-window keyboard recovery, complete SVG export and 4x PNG export independent of zoom/pan. Public extension diagram contract remains read-only."
+  ],
+  "regressionInspectedNotRun": [
+    "packages/gcs-ssc-guided-help/tests/unit/flow.test.ts: publication rejects backwards, missing and duplicate conditions; reader tests chosen paths, terminal branches, hidden conditions and real-history Previous.",
+    "packages/gcs-ssc-guided-help/tests/unit/native-runtime.test.ts: inspected successful Save evidence, sibling/visit/attempt isolation, manual instructions, loading, final Save, and canceled-modal bodies.",
+    "packages/gcs-ssc-guided-help/tests/unit/journey-session.test.ts: inspected typed cursor persistence, user isolation, binding changes, forged references, task-specific templates and ordinary-guide exclusions.",
+    "packages/gcs-ssc-guided-help/tests/unit/session.test.ts: inspected pinned restore, malformed state, exit and storage-failure cases.",
+    "packages/gcs-ssc-guided-help/tests/unit/markdown.test.ts: inspected limited formatting, HTML escaping and unsafe-link rejection.",
+    "packages/gcs-ssc-authorization/tests/unit/guided-help.test.ts: inspected supported scopes and cross-Agency permission isolation.",
+    "packages/gcs-ssc-guided-help/tests/unit/journey-reader.test.ts: inspected case descriptions for exact sibling recovery, pinned tasks during loading and final instructions without business completion."
+  ],
+  "unchangedExclusions": [
+    "No application runtime, unit, browser or PostgreSQL tests were executed by this worker.",
+    "No global generators or documentation builds were run by this worker; the coordinator owns final verification.",
+    "Public extension read-only diagram SDK is unchanged; no editable extension API is claimed.",
+    "Test-only rendering, native focus positioning and package fixture changes are evidence for documented reader behavior, not additional end-user features."
+  ],
+  "result": "Detailed paired authoring and developer guides plus reader navigation, menu and diagram updates are written. Examples cover Agency address-type publication and Agreement-type branching. Paired recovery and lifecycle instructions were manually compared. Edits remain uncommitted for coordinator verification."
+}

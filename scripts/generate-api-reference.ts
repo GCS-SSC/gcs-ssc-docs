@@ -76,7 +76,7 @@ const names: Record<string, { en: string, fr: string, enSummary: string, frSumma
     "enSummary": "These requests support agency profiles and the shared lists used in forms, such as agreement types and fiscal years. Officers use these lists when working on funding files. See [Agencies](../../admin/agencies.md) and [Agency catalogues](../../admin/agency-catalogs.md).",
     "frSummary": "Ces requêtes servent aux profils d’agence et aux listes partagées des formulaires, comme les types d’entente et les exercices financiers. Les agents utilisent ces listes dans leurs dossiers de financement. Consultez les [agences](../../admin/agencies.md) et les [catalogues d’agence](../../admin/agency-catalogs.md).",
     "exampleRoute": "/api/agency/[agencyId]",
-    "enExample": "An authorized request for `GET /api/agency/12` reads agency 12’s profile. It does not change the profile or its reference lists.",
+    "enExample": "An authorized request for `GET /api/agency/12` reads the profile for agency 12. It does not change the profile or its reference lists.",
     "frExample": "Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence."
   },
   "agreements": {
@@ -85,7 +85,7 @@ const names: Record<string, { en: string, fr: string, enSummary: string, frSumma
     "enSummary": "These requests support funding agreements and their related records: budgets, claims, payments, amendments, assigned users and documents. For the work an officer performs on screen, start with [Agreements](../../agreements/index.md).",
     "frSummary": "Ces requêtes servent aux ententes de financement et à leurs dossiers liés : budgets, réclamations, paiements, modifications, utilisateurs affectés et documents. Pour le travail effectué à l’écran par un agent, commencez par les [ententes](../../agreements/index.md).",
     "exampleRoute": "/api/agreements/[id]",
-    "enExample": "An authorized request for `GET /api/agreements/42` reads agreement 42’s profile, including its status and program information. Reading the profile does not approve the agreement or create a payment.",
+    "enExample": "An authorized request for `GET /api/agreements/42` reads the profile for agreement 42, including its status and program information. Reading the profile does not approve the agreement or create a payment.",
     "frExample": "Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42, y compris son état et les renseignements sur le programme. Cette lecture n’approuve pas l’entente et ne crée pas de paiement."
   },
   "applicant-recipients": {
@@ -169,20 +169,23 @@ for (const [group, rows] of [...groups].sort(([a], [b]) => a.localeCompare(b))) 
     const title = name[locale]
     const summary = locale === 'en' ? name.enSummary : name.frSummary
     const notice = locale === 'en'
-      ? 'An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.'
-      : 'Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.'
+      ? "This index maps server requests to their handler files. The linked guides explain the on-screen steps. The server checks access to protected records even when a screen offers an action."
+      : "Cet index associe les requêtes serveur aux fichiers qui les traitent. Les guides liés expliquent les étapes à l'écran. Le serveur vérifie l'accès aux dossiers protégés même si un écran propose une action."
     const columns = locale === 'en'
-      ? '- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.\n- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.\n- **Authorization landmarks**: names found in the source that help a developer locate access checks.\n- **Validation landmarks**: names that help locate checks on submitted fields or query options.\n- **Source**: the application file that handles the request. A handler is the code that receives and answers it.\n\nThis table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.'
-      : '- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.\n- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.\n- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.\n- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.\n- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.\n\nCe tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.'
+      ? "- The method identifies the request type. `GET` reads information. `POST` usually creates a record or runs an action. `PATCH` and `PUT` save changes. `DELETE` removes a record. `ANY` means the handler has no single method declared in its filename.\n- The route is the request address. Replace bracketed names such as `[id]` with the actual record ID.\n- Authorization names and validation names are matches found in the handler source. They help locate access checks and checks on submitted fields or query options.\n- The source is the application file that handles the request.\n\nA dash in the names columns means the generator found no matching name. It does not prove that a check is absent. A listed name may come from a field or comment. Follow the handler and its shared helpers to confirm access rules, validation and responses. The coverage ledger records the supporting evidence."
+      : "- La méthode indique le type de requête. `GET` lit des renseignements. `POST` crée généralement un dossier ou exécute une action. `PATCH` et `PUT` enregistrent des modifications. `DELETE` retire un dossier. `ANY` signifie que le nom du fichier ne déclare aucune méthode unique.\n- La route est l'adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l'identifiant réel du dossier.\n- Les noms d'autorisation et de validation sont des correspondances trouvées dans le code du gestionnaire. Ils aident à repérer les vérifications d'accès et celles des champs soumis ou des options de requête.\n- La source est le fichier de l'application qui traite la requête.\n\nUn tiret dans les colonnes de noms signifie que le générateur ne trouve aucun nom correspondant. Il ne prouve pas l'absence de vérification. Un nom indiqué peut provenir d'un champ ou d'un commentaire. Suivez le gestionnaire et ses fonctions partagées pour confirmer les règles d'accès, la validation et les réponses. Le registre de couverture consigne les preuves correspondantes."
     if (!rows.some(row => row.method === 'GET' && row.route === name.exampleRoute)) {
       throw new Error(`Read-only example route missing from ${group}: ${name.exampleRoute}`)
     }
-    const example = locale === 'en'
-      ? `${name.enExample} Any numbers shown are illustrative: use IDs for existing records you are allowed to read.`
-      : `${name.frExample} Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.`
+    const exampleText = locale === 'en' ? name.enExample : name.frExample
+    const example = name.exampleRoute.includes('[')
+      ? `${exampleText} ${locale === 'en'
+        ? 'The IDs are examples. Use existing records you are allowed to read.'
+        : "Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter."}`
+      : exampleText
     const headers = locale === 'en'
-      ? '| Method | Route | Authorization landmarks | Validation landmarks | Source |\n| --- | --- | --- | --- | --- |'
-      : '| Méthode | Route | Repères d’autorisation | Repères de validation | Source |\n| --- | --- | --- | --- | --- |'
+      ? '| Method | Route | Authorization names | Validation names | Source |\n| --- | --- | --- | --- | --- |'
+      : "| Méthode | Route | Noms d'autorisation | Noms de validation | Source |\n| --- | --- | --- | --- | --- |"
     const table = rows.map(row => `| ${row.method} | \`${escapeCell(row.route)}\` | ${escapeCell(row.authorization)} | ${escapeCell(row.validation)} | \`${row.source}\` |`).join('\n')
     const content = `# ${title}\n\n${summary}\n\n${notice}\n\n${columns}\n\n## ${locale === 'en' ? 'Read-only example' : 'Exemple de lecture seule'}\n\n${example}\n\n## ${locale === 'en' ? 'Handlers' : 'Gestionnaires'} (${rows.length})\n\n${headers}\n${table}\n`
     const directory = join(docsRoot, locale, 'developer', 'api')

@@ -1,6 +1,6 @@
 # Routes
 
-Une route est l’adresse qui ouvre une page ou envoie une demande à l’application. Cette référence s’adresse surtout aux équipes de développement et de soutien. Les agents peuvent utiliser la liste pour reconnaître les adresses anglaises et françaises; naviguer dans l’application n’exige aucun changement de code. Ouvrir un lien n’accorde jamais l’accès à son dossier.
+Une route est l’adresse qui ouvre une page ou envoie une demande à l’application. Cette référence présente les adresses des pages dans chaque langue et les règles d’autorisation des routes de page et d’API. Ouvrir un lien n’accorde jamais l’accès à son dossier.
 
 Les pages Nuxt définissent les routes et Nuxt i18n fournit leurs versions linguistiques. Utilisez les noms de route de `app/utils/route-locations.ts` avec `localePath` pour construire les liens.
 
@@ -77,7 +77,11 @@ Les pages de détail complexes conservent l’onglet choisi dans les paramètres
 
 Les gestionnaires serveur d’extension sont accessibles sous `/api/extensions/{extensionKey}/...`. L’hôte lit les paramètres de route et appelle le gestionnaire de l’extension correspondante.
 
-Pour les gestionnaires avec RBAC, l’hôte résout le paramètre d’entité, de volet ou d’agence déclaré avant d’exécuter le code de l’extension. Il vérifie l’authentification et le contrôle d’accès, l’activation pour l’agence et le volet ainsi que la configuration résolue de l’extension, puis joint le contexte stable pour `defineGcsExtensionRouteHandler` : paramètres, contexte d’authentification, configuration, contexte d’entité, de volet ou d’agence, portée autorisée, `writeAuthorization` et aides filtrées `agreementAccess`.
+Pour les gestionnaires avec RBAC, l’hôte résout le paramètre d’entité, de volet ou d’agence déclaré avant d’exécuter le code de l’extension. Il vérifie l’authentification, les permissions, l’activation pour l’agence et le volet et la configuration résolue de l’extension. Il joint ensuite le contexte pour `defineGcsExtensionRouteHandler` :
+
+- Les paramètres de route, le contexte d’authentification et la configuration.
+- Le contexte d’entité, de volet ou d’agence et la portée autorisée.
+- `writeAuthorization` et les aides filtrées `agreementAccess`.
 
 Les transactions d’écriture d’une extension appellent `writeAuthorization.lockAuthState(trx)` avant les verrous du cycle de vie, puis `authorizeCurrentScope(trx)` ou la solution de compatibilité `authorizeCurrentEntity(trx)` après ces verrous. Les routes qui présentent des choix d’entente utilisent `agreementAccess.listVisibleOptions(...)`; les écritures visant l’entente sélectionnée doivent aussi utiliser `lockAndAuthorizeAgreement(...)` dans la même transaction.
 
@@ -85,4 +89,4 @@ Les gestionnaires avec `auth: "manual"` ne reçoivent pas le contexte de contrô
 
 La configuration d’extension d’un volet utilise une page complète : `/en/extension/[id]/config` ou `/fr/extension/[id]/configuration`, avec les paramètres de requête `streamId`, `transferPaymentId` et `agencyId`.
 
-Possibilités et réceptions exigent des sujets distincts (`transfer_payment` et `funding_case`). Corrections/créances d’entente et notes de crédit de promoteur suivent leurs domaines financiers dédiés. Les sections conservent sélection d’URL et états de reprise. Espaces d’extension d’organisme et détails d’extension d’entente utilisent les composants enregistrés dans le cadre hôte; leur URL imbriquée ne donne aucune autorité. Voir [Contrats du SDK](./extensions-authoring.md).
+Les routes de possibilité exigent le sujet `transfer_payment`; les routes de réception exigent `funding_case`. Les pages de correction et de créance d’entente et de note de crédit de promoteur utilisent leurs domaines financiers dédiés. Les sections conservent leur sélection dans l’URL et gèrent les états de chargement et de reprise. Les espaces d’extension d’organisme et les pages de détail d’extension d’entente utilisent les composants enregistrés dans le cadre hôte. Leurs URL imbriquées n’accordent aucune permission. Consultez les [contrats du SDK](./extensions-authoring.md).

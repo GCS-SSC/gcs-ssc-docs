@@ -2,23 +2,22 @@
 
 These requests support agency profiles and the shared lists used in forms, such as agreement types and fiscal years. Officers use these lists when working on funding files. See [Agencies](../../admin/agencies.md) and [Agency catalogues](../../admin/agency-catalogs.md).
 
-An API is the set of requests the application sends to its server when you open or save a record. Officers normally use the screens; developers use this index to find the code behind them. The server checks access to protected records even when a screen shows an action as available.
+This index maps server requests to their handler files. The linked guides explain the on-screen steps. The server checks access to protected records even when a screen offers an action.
 
-- **Method**: `GET` reads information; `POST` usually creates a record or performs an action; `PATCH` and `PUT` save changes; `DELETE` removes a record. `ANY` delegates requests without a single method listed here.
-- **Route**: the request address. Replace names in brackets, such as `[id]`, with the actual record ID.
-- **Authorization landmarks**: names found in the source that help a developer locate access checks.
-- **Validation landmarks**: names that help locate checks on submitted fields or query options.
-- **Source**: the application file that handles the request. A handler is the code that receives and answers it.
+- The method identifies the request type. `GET` reads information. `POST` usually creates a record or runs an action. `PATCH` and `PUT` save changes. `DELETE` removes a record. `ANY` means the handler has no single method declared in its filename.
+- The route is the request address. Replace bracketed names such as `[id]` with the actual record ID.
+- Authorization names and validation names are matches found in the handler source. They help locate access checks and checks on submitted fields or query options.
+- The source is the application file that handles the request.
 
-This table is generated from source names. A dash (`—`) means no matching name was found; it does not prove there is no access or data check. A listed name may also be a field or comment, rather than a check. Developers must follow the handler and its shared helpers to confirm the rules, response and tests; the coverage ledger tracks that evidence.
+A dash in the names columns means the generator found no matching name. It does not prove that a check is absent. A listed name may come from a field or comment. Follow the handler and its shared helpers to confirm access rules, validation and responses. The coverage ledger records the supporting evidence.
 
 ## Read-only example
 
-An authorized request for `GET /api/agency/12` reads agency 12’s profile. It does not change the profile or its reference lists. Any numbers shown are illustrative: use IDs for existing records you are allowed to read.
+An authorized request for `GET /api/agency/12` reads the profile for agency 12. It does not change the profile or its reference lists. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (127)
+## Handlers (137)
 
-| Method | Route | Authorization landmarks | Validation landmarks | Source |
+| Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
 | DELETE | `/api/agency/[agencyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | — | `server/api/agency/[agencyId].delete.ts` |
 | GET | `/api/agency/[agencyId]` | requireAuthContext | — | `server/api/agency/[agencyId].get.ts` |
@@ -84,6 +83,16 @@ An authorized request for `GET /api/agency/12` reads agency 12’s profile. It d
 | POST | `/api/agency/[agencyId]/funding-types/[typeId]/subtypes` | — | AgencyFundingSubtypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/[typeId]/subtypes/index.post.ts` |
 | GET | `/api/agency/[agencyId]/funding-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/funding-types/index.get.ts` |
 | POST | `/api/agency/[agencyId]/funding-types` | — | AgencyFundingTypeBaseSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/funding-types/index.post.ts` |
+| GET | `/api/agency/[agencyId]/guided-help/[catalogId]` | — | — | `server/api/agency/[agencyId]/guided-help/[catalogId].get.ts` |
+| PATCH | `/api/agency/[agencyId]/guided-help/[catalogId]` | requireAuthContext | GuidedHelpCatalogSettingsSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/[catalogId].patch.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/[catalogId]/launch` | requireAuthContext | GuidedHelpLaunchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/[catalogId]/launch.post.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/[catalogId]/publish` | — | — | `server/api/agency/[agencyId]/guided-help/[catalogId]/publish.post.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/[catalogId]/unpublish` | — | — | `server/api/agency/[agencyId]/guided-help/[catalogId]/unpublish.post.ts` |
+| POST | `/api/agency/[agencyId]/guided-help/clone` | requireAuthContext | GuidedHelpCloneSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/clone.post.ts` |
+| GET | `/api/agency/[agencyId]/guided-help/discovery` | — | — | `server/api/agency/[agencyId]/guided-help/discovery.get.ts` |
+| GET | `/api/agency/[agencyId]/guided-help` | — | — | `server/api/agency/[agencyId]/guided-help/index.get.ts` |
+| POST | `/api/agency/[agencyId]/guided-help` | requireAuthContext | GuidedHelpAdoptSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/guided-help/index.post.ts` |
+| GET | `/api/agency/[agencyId]/guided-help/roles` | — | — | `server/api/agency/[agencyId]/guided-help/roles.get.ts` |
 | GET | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/holdback-bases.get.ts` |
 | POST | `/api/agency/[agencyId]/holdback-bases` | — | AgencyHoldbackBasisWriteSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/holdback-bases.post.ts` |
 | GET | `/api/agency/[agencyId]/line-items` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/line-items.get.ts` |

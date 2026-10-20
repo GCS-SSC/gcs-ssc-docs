@@ -88,18 +88,18 @@ const render = (locale: 'en' | 'fr'): string => {
   return `# ${en ? 'Historical audit documentation impact' : 'Incidence documentaire de l’audit historique'}
 
 ${en
-    ? 'This page records how historical audit findings affected the documentation. It helps maintainers explain the current behaviour and remove outdated advice. The current source may no longer contain the historical audit files, so the register can be empty. This does **not** mean the application has no audit logs; see [Audit and access logs](../admin/audit.md).'
-    : 'Cette page consigne l’effet des constats d’audit historiques sur la documentation. Elle aide les responsables de la documentation à expliquer le comportement actuel et à retirer les conseils périmés. Les sources actuelles peuvent ne plus contenir les anciens dossiers d’audit; le registre peut donc être vide. Cela ne signifie **pas** que l’application n’a aucun journal d’audit; consultez les [journaux d’audit et d’accès](../admin/audit.md).'}
+    ? 'This register records documentation changes related to historical audit findings. It can be empty when the current source no longer contains those findings. Application audit logs are documented separately in [Audit and access logs](../admin/audit.md).'
+    : 'Ce registre consigne les modifications documentaires liées aux constats d’audit historiques. Il peut être vide lorsque les sources actuelles ne contiennent plus ces constats. Les journaux de l’application sont documentés dans les [journaux d’audit et d’accès](../admin/audit.md).'}
 
 ${en
-    ? 'For example, if an old finding described an access problem that has since been fixed, the guide should explain the current access rule. It should not tell an officer to repeat the old workaround. Maintainers check current source and regression tests before treating an item as fully verified. Sensitive security details, raw diagnostics, credentials and obsolete unsafe steps are omitted.'
-    : 'Par exemple, si un ancien constat décrivait un problème d’accès qui a été corrigé, le guide doit expliquer la règle d’accès actuelle. Il ne doit pas demander à un agent de répéter l’ancienne solution de contournement. Les responsables vérifient les sources actuelles et les tests de régression avant de considérer un élément comme entièrement vérifié. Les détails sensibles de sécurité, les diagnostics bruts, les identifiants et les anciennes étapes dangereuses sont omis.'}
+    ? 'The documentation describes current behaviour and removes workarounds for fixed defects. This register omits sensitive security details, raw diagnostics, credentials and obsolete unsafe steps.'
+    : 'La documentation décrit le comportement actuel et retire les solutions de contournement des anomalies corrigées. Ce registre omet les détails sensibles de sécurité, les diagnostics bruts, les identifiants et les anciennes étapes dangereuses.'}
 
 ## ${en ? 'Disposition rules' : 'Règles de disposition'}
 
 - ${en ? 'Explain what the application does now and what that means for the officer.' : 'Expliquer ce que l’application fait maintenant et ce que cela signifie pour l’agent.'}
 - ${en ? 'Remove old workarounds that depended on a defect; do not present them as supported steps.' : 'Retirer les anciennes solutions de contournement qui dépendaient d’une anomalie; ne pas les présenter comme des étapes prises en charge.'}
-- ${en ? 'Confirm the behaviour using current executable code, database migrations, running-service connections and regression tests.' : 'Confirmer le comportement à l’aide du code exécutable actuel, des migrations de base de données, des connexions entre services en cours d’exécution et des tests de régression.'}
+- ${en ? 'Check current code, database migrations, service configuration and relevant regression tests to confirm the behaviour. Record which tests you inspected and which you ran.' : 'Vérifier le code actuel, les migrations de base de données, la configuration des services et les tests de régression pertinents pour confirmer le comportement. Indiquer les tests consultés et ceux exécutés.'}
 - ${en ? 'Mark an item as fully verified only after the current rule is documented in English and French, or after recording evidence that it no longer applies.' : 'Marquer un élément comme entièrement vérifié seulement après avoir documenté la règle actuelle en anglais et en français, ou après avoir consigné la preuve qu’elle ne s’applique plus.'}
 
 ## ${en ? 'Impact register' : 'Registre des incidences'} (${impacts.length})

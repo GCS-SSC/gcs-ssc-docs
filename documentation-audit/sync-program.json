@@ -1,0 +1,76 @@
+{
+  "scope": "Program profiles, stream setup and Agreement custom-field configuration; schema/approval/recommendation review is in sync-program-schemas.json",
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "pages_reviewed": [
+    "en/programs/index.md",
+    "en/programs/streams.md",
+    "en/programs/custom-fields.md",
+    "fr/programs/index.md",
+    "fr/programs/streams.md",
+    "fr/programs/custom-fields.md"
+  ],
+  "dispositions": [
+    {
+      "group": "Program text and calendar dates",
+      "result": "Documented required bilingual text, trimmed text and invalid hidden-character recovery, 255-character names/abbreviations and 2000-character terms links. Calendar-date behavior described without storage implementation detail. Program edit form locks Agency, while server transfer support is not denied globally.",
+      "source": [
+        "shared/types/schemas/transfer-payment.ts",
+        "app/components/TransferPayment/TransferPaymentModal.vue",
+        "app/components/TransferPayment/Fields/TransferPaymentProfileFields.vue",
+        "server/api/transfer-payments/[id].patch.ts",
+        "server/api/transfer-payments/index.post.ts",
+        "server/api/transfer-payments/wizard.post.ts"
+      ]
+    },
+    {
+      "group": "Stream lookup contracts",
+      "result": "Documented bilingual search for cost lines, published review sets and published workflows; published-definition pickers require Program update permission. Existing same-Agency, publication, target-entity and active-source rules retained. Search avoids assuming the initial page includes all options.",
+      "source": [
+        "server/utils/stream-definition-lookups.ts",
+        "server/utils/stream-reference-definition-lookups.ts",
+        "app/components/TransferPayment/TransferPaymentStreamCostLineItemsTab.vue",
+        "app/components/TransferPayment/TransferPaymentReviewSetupsTab.vue",
+        "app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue"
+      ]
+    },
+    {
+      "group": "Custom field assignment authoring and access",
+      "result": "Corrected stale Manager requirement: eligible Stream assignment and section removal require Program update, like other assignment/section writes. Documented bilingual search, exclusion of already assigned fields, immutable underlying Agency field in edit and remove/add recovery. User page now explains saved values without API payload internals.",
+      "source": [
+        "app/components/TransferPayment/CustomFieldsTab.vue",
+        "server/utils/stream-field-assignment-routes.ts",
+        "server/utils/stream-custom-field-routes.ts",
+        "server/utils/stream-definition-lookups.ts"
+      ]
+    },
+    {
+      "group": "Other TransferPayment changes",
+      "result": "Reviewed net range. Localized toasts, accessible named icon actions and form controls do not change setup policy. Existing program budget allocation, fiscal-year retention and stream dependency descriptions remain applicable. Amendment type deletion now ignores deleted subtype association rows; guide already describes dependency-sensitive removal and no new workflow is introduced.",
+      "source": [
+        "server/api/transfer-payments/[id]/streams/[streamId]/amendment-types/[amendmentTypeId]/index.delete.ts",
+        "app/components/TransferPayment/TransferPaymentStreamWizardModal.vue",
+        "server/api/transfer-payments/[id]/budgets/index.get.ts",
+        "server/api/transfer-payments/[id]/objectives/index.get.ts"
+      ]
+    },
+    {
+      "group": "Plain-language review",
+      "result": "Read both locales of each owned page. Converted headings to sentence case without changing words/anchors, removed stored-money examples and custom-field API payload detail from user guidance, corrected stream navigation references to Agency-owned templates/recommendations, simplified locked-transaction/deletion descriptions and French grammar. Practical examples and recovery steps retained."
+    }
+  ],
+  "tests_inspected": [
+    "tests/unit/transfer-payment-profile.test.ts",
+    "tests/unit/transfer-payment-stream-storage-schema.test.ts",
+    "tests/unit/transfer-payment-stream-agency-lookups.test.ts",
+    "tests/integration/program-stream-reference-lookups-review-postgres.test.ts"
+  ],
+  "tests_executed": [],
+  "verification_executed": [
+    {
+      "command": "git diff --check -- en/programs/index.md fr/programs/index.md en/programs/streams.md fr/programs/streams.md en/programs/custom-fields.md fr/programs/custom-fields.md",
+      "result": "passed"
+    }
+  ],
+  "limits": "Source review only; no application tests or browser interaction executed. Parent owns full docs generators, locale/link checker and site builds. No global ledgers or authoritative baseline marker modified."
+}

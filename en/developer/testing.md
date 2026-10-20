@@ -1,8 +1,8 @@
 # Testing
 
-This page is for developers who check changes to GCS-SSC. Grants and contributions officers do not need to run these commands for daily work. The tests help protect activities such as assigning an officer, limiting access to another agency’s records, and submitting a review.
+Use these commands to check changes to GCS-SSC. Tests cover activities such as assigning an officer, restricting access to another agency’s records, and submitting a review.
 
-Vitest checks individual pieces of application logic (unit tests). Playwright checks complete tasks in a browser (end-to-end tests). Build the documentation site after documentation edits to catch problems with page metadata, links, or Markdown.
+Vitest runs unit tests of application logic. Playwright runs end-to-end tests of complete tasks in a browser. Build the documentation site after documentation edits to catch problems with page metadata, links, or Markdown.
 
 Tests and architecture resources come from the pinned private `tooling/gcs-ssc` submodule. Run `bun run tooling:setup` to initialize it and create the ignored `tests`, `architecture` and skill links; do not copy private suites back into the host repository.
 
@@ -25,9 +25,23 @@ bun run quality:pr
 
 `bun run test` runs unit and e2e suites. `test:all:manual` also runs lint, typecheck, coverage, the opt-in PostgreSQL aggregate, and e2e.
 
-Automatic pull-request CI is not configured. Contributors run `quality:pr` as the authoritative local gate: it records the branch diff, runs lint and type checking, builds the extension SDK, verifies the production artifact on supported POSIX non-root hosts, and runs the host unit/coverage suites, all extension typechecks, and the local/S3 storage-provider unit/coverage suites. It does not run the opt-in PostgreSQL or Playwright e2e suites, so run those separately when the changed behavior depends on real database locking or browser interaction.
+Automatic pull-request CI is not configured. Run `quality:pr` as the required local check. It records the branch diff and runs these checks:
 
-`test:unit` and `test:coverage` first run `forms:check`, which checks the required-field contracts. `test:e2e:light` runs one managed PGlite suite. A full `test:e2e:fast` runs eight fresh managed PGlite shards serially; an explicit `--spec`, `--shard` or `E2E_SPEC` selects one managed invocation. Any failed shard fails the aggregate. Focused one-worker suites cover attachments, Agency statuses, Amendment refresh, Agreement amendments and Closeouts, workflow recommendations, retired workflow setups and fresh resets. Use the matching `:spec` script to select a file; `test:all:manual` includes the configured suite sequence.
+- Lint and host type checking.
+- Extension SDK build and all extension type checks.
+- Production artifact verification on supported POSIX non-root hosts.
+- Host unit and coverage suites.
+- Local and S3 storage-provider unit and coverage suites.
+
+Run the opt-in PostgreSQL and Playwright e2e suites separately when the change depends on real database locking or browser interaction. `quality:pr` does not run them.
+
+`lint` runs bilingual UI-policy and database-name checks before ESLint. `typecheck` uses the private tooling runner under the Nuxt artifact lock.
+
+`test:unit` and `test:coverage` first check required-field contracts with `forms:check` and Guided Help content with `guided-help:check`. They also run the Guided Help package unit or coverage suite before the host suite.
+
+`test:e2e`, `test:e2e:pglite` and `test:e2e:light` run the ordinary managed PGlite suite, then run each lifecycle fixture in its own fresh process. `test:e2e:fast` splits the ordinary suite into eight serial shards before the same isolated lifecycle group. An exact `--spec` or `E2E_SPEC` routes to the file’s owning runner. An explicit `--shard` selects an ordinary partition and omits lifecycle fixtures, so it is partial coverage. Filters such as `--grep` require one exact spec. Any failed invocation fails the aggregate.
+
+Focused one-worker suites cover attachments, Agency statuses, Amendment refresh, Agreement amendments and Closeouts, workflow recommendations, retired workflow setups and fresh resets. Use the matching `:spec` script to select a file; `test:all:manual` includes the configured suite sequence, the standalone fresh-reset group, per-file PostgreSQL browser tests, and the extension-profile fixture.
 
 ### Production artifact checks
 
@@ -78,7 +92,7 @@ For agency setup changes, run agency route, agency schema, agency lookup, agency
 
 For proponents, run applicant-recipient auth, routes, assignment routes, child routes, review routes, and applicant-recipient e2e tests.
 
-For GWCOA and audit changes, select the dedicated route, schema, access-control and browser tests for the affected surface. For shared attachments, include provider compensation, cleanup and metadata recovery cases.
+For GWCOA and audit changes, select the dedicated route, schema, access-control, and browser tests for the affected area. For shared attachments, include provider compensation, cleanup and metadata recovery cases.
 
 For example, changing proponent assignment rules can affect whether an officer may edit a file. Check the assignment and authorization unit tests, then use a browser test to confirm that an assigned officer can perform the action and an unassigned officer is denied. RBAC means role-based access control: it combines roles, their permitted scope, and the required record assignments.
 

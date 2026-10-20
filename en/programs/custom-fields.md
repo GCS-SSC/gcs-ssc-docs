@@ -4,14 +4,14 @@ Custom fields collect Agreement information that the standard fields do not cove
 
 ## Access and setup order
 
-Agency Viewer can read definitions; Agency Contributor can create or edit them; eligible deletion needs Agency Manager. Stream assignment and section changes need `transfer_payment` Contributor in the Program scope; removing an eligible assignment needs Manager. Agreement values still require Contributor and the exact Agreement assignment, provided the Agreement’s current status allows editing.
+You need Agency Viewer to read definitions, Agency Contributor to create or edit them, and Agency Manager to delete them when deletion is allowed. To add, edit, or remove Stream assignments or sections, you need `transfer_payment` Contributor for the Program. To edit Agreement values, you need Contributor and an assignment to that specific Agreement. Its current status must also allow editing.
 
 1. Open **Agencies**, select the Agency, and create bilingual fields and options under **Custom Fields**. Choose text, number, or selection; selection options must exist before caseworkers use them.
 2. Open a Program Stream's **Custom Fields** tab. Create bilingual Stream sections, then add Agency fields. Set section, display order, required, and active separately for this Stream.
 3. Open an Agreement in the Stream and check labels, order, and required fields in both languages.
 4. For routing fields, configure Agency Workflow conditions after creating options; link a published workflow to the Stream and verify each route.
 
-The Agency field and option IDs are shared across assigned Streams; section and required settings belong to each Stream. An Agency field can be placed differently in two Streams. Search covers bilingual labels and option categories. See [Agency catalogs](../admin/agency-catalogs.md).
+Assigned Streams share the Agency's field and option identifiers. Each Stream has its own section and required settings. An Agency field can be placed differently in two Streams. Search covers bilingual labels and option categories. When assigning a field, search its English or French Agency name. Fields already assigned to this Stream are excluded from new choices. The edit form changes only the field's Stream settings. To replace the field itself, remove the assignment if allowed, then add the correct field. See [Agency catalogs](../admin/agency-catalogs.md).
 
 ## Field definitions
 
@@ -50,24 +50,11 @@ Add **Direct delivery / Réalisation directe** and **Partner delivery / Réalisa
 
 ## Entering and clearing Agreement values
 
-On Agreement creation, fill every active required field. Existing Agreements are not automatically backfilled when a new required field is introduced. An unrelated profile edit can still be saved without supplying custom fields; when custom fields are submitted, the server checks the merged set of existing and changed values against all active required definitions.
+On Agreement creation, fill every active required field. Existing Agreements are not automatically backfilled when a new required field is introduced. You can save unrelated profile changes without filling in custom fields. When you save custom-field changes, the application checks both existing and changed values. All active required fields must then have a value.
 
 An available **Clear value** action changes the local draft only. Save the Agreement to persist it. Clearing an active required field is rejected. An inactive populated field may be cleared by an authorized updater, including when it was previously required. Read-only Agreements do not expose a writable clearing action.
 
-Partial API updates preserve omitted keys. For example, using illustrative field and option IDs:
-
-```json
-{
-  "egcs_fc_customfields": {
-    "101": ["201"],
-    "102": "Delivered through two regional offices.\nQuarterly reporting is planned.",
-    "103": null,
-    "104": 0
-  }
-}
-```
-
-This selects option `201` for field `101`, saves multiline text for `102`, clears `103`, and stores numeric zero for `104`. Selection answers are stored as lists (arrays) of option IDs, including single selections. IDs must come from the current stream's definitions; labels are not accepted as IDs. `null`, blank text, and an empty selection array remove the relevant key. Omitted fields retain their values. Authorization, Agreement locks, and requiredness still apply to direct API calls.
+Changing one custom field keeps the other saved values. Clear an optional value to remove it, then save the Agreement. Select options from the current Stream’s choices; typing an option label into a text field does not select that option.
 
 ## Conditional workflow routing
 
@@ -94,4 +81,4 @@ Before retiring a routing field, review current workflow definitions and publica
 | A section cannot be deleted | Move or delete its remaining fields first. |
 | A field or option is in use | Inspect saved Agreement values and working, published, and historical workflow references. Deletion and deactivation have different reference rules. |
 | Workflow start or retry is rejected | Check the answers used in conditions and that the selected steps include required approvals, risk assessment, and a valid ending. |
-| A save fails after permissions or state change | Reload the Agreement or stream and reassess current permissions and lifecycle state; the server repeats these checks under locks. |
+| A save fails after permissions or state change | Reload the Agreement or Stream and check your current permissions and the record's status. The application checks both again when saving. |

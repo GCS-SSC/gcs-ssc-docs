@@ -1,0 +1,74 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "pages": [
+    "en/admin/audit.md",
+    "fr/admin/audit.md",
+    "en/admin/common-admin.md",
+    "fr/admin/common-admin.md"
+  ],
+  "summary": "Reviewed both locales against the final Audit browser, ownership registry, filter schemas and GWCOA routes. Simplified instructions and recovery guidance without changing permission boundaries.",
+  "dispositions": [
+    {
+      "source": [
+        "server/utils/audit-browser.ts",
+        "shared/types/schemas/audit.ts"
+      ],
+      "result": "Documented fresh current Audit permissions on list load, literal exact filters, maximum 200-character text filters and null-character rejection with a recovery instruction. Preserved per-Agency evidence and separate captured-input visibility."
+    },
+    {
+      "source": [
+        "server/database/audit-ownership-registry.ts"
+      ],
+      "result": "Added global attribution for system-owned Guided Help and Agency attribution for Agency-owned Guided Help, Agency catalogue and associated publication records. Removed financial tables are absent from final registry; existing general source-owner explanation remains valid."
+    },
+    {
+      "source": [
+        "server/api/agency/lookups/gwcoa/[number].get.ts"
+      ],
+      "result": "The renamed Agency GWCOA column now retains the displayed retired organization for the authorized existing Agency. Documented retained reference and label while requiring active choices for new or replacement selections."
+    },
+    {
+      "source": [
+        "shared/types/schemas/admin-common.ts",
+        "server/api/admin/gwcoa/index.post.ts"
+      ],
+      "result": "GWCOA validation itself is unchanged in this range. Corrected inherited claim that names are trimmed/nonblank: final schema requires 1 to 255 Unicode characters, rejects null characters, and preserves whitespace."
+    },
+    {
+      "source": [
+        "app/pages/admin/audit.vue",
+        "app/pages/admin/gwcoa.vue"
+      ],
+      "result": "Shared action-button component replacement preserves actions; no new user behavior required."
+    }
+  ],
+  "editorial": [
+    "Read all four complete pages, kept English and French aligned, rewrote dense Agency ownership paragraphs as specific rules, clarified delayed access evidence and retry behavior, and removed obsolete migration wording from GWCOA.",
+    "Removed the enum metadata endpoint explanation from the user guide. The endpoint remains covered by the generated bilingual developer API platform reference."
+  ],
+  "source_inspected": [
+    "server/utils/audit-browser.ts",
+    "server/database/audit-ownership-registry.ts",
+    "shared/types/schemas/audit.ts",
+    "shared/types/schemas/admin-common.ts",
+    "server/api/agency/lookups/gwcoa/[number].get.ts",
+    "server/api/admin/gwcoa/index.post.ts"
+  ],
+  "application_tests_inspected_not_executed": [
+    "tests/unit/audit-browser-query.test.ts",
+    "tests/unit/agency-gwcoa-retirement-sql.test.ts",
+    "tests/e2e/admin-audit.spec.ts",
+    "tests/e2e/gwcoa-storage-validation-recovery.spec.ts"
+  ],
+  "limitations": [
+    "Some inspected older GWCOA retirement unit-test fixtures retain the previous underscored Agency column name. Final current route/schema, rather than that stale fixture, is the documentation contract.",
+    "Application tests were inspected only. No runtime/unit/PostgreSQL/browser tests were executed by this worker. Parent owns generators and full documentation verification."
+  ],
+  "verification": [
+    {
+      "command": "git diff --check -- en/admin/audit.md fr/admin/audit.md en/admin/common-admin.md fr/admin/common-admin.md",
+      "result": "passed"
+    }
+  ]
+}

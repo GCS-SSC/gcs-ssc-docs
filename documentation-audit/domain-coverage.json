@@ -22,10 +22,16 @@
       "app/components/Common/DetailWorkspace.vue",
       "app/components/Common/CurrencyInput.vue",
       "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts",
+      "server/utils/guided-help.ts",
+      "app/components/GuidedHelp/Launcher.vue",
+      "app/components/GuidedHelp/Manager.vue",
+      "app/composables/useGuidedHelpDiscovery.ts",
+      "shared/guided-help/catalog.ts",
+      "packages/gcs-ssc-guided-help"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-access.json; sync-dev-extensions.json; sync-guided-help.json. Guided Help is role-gated in Management, while contextual discovery requires both the actual screen read permission and a published Agency audience. Reader progress uses successful actions, exact task context and tab-local state; it does not grant business authority or complete tasks. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:identity-rbac-assignments",
@@ -69,10 +75,12 @@
       "server/utils/extension-entity-assignment.ts",
       "server/utils/agreement-financial-ids.ts",
       "server/utils/agreement-applicant-recipient.ts",
-      "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts"
+      "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts",
+      "server/utils/guided-help.ts",
+      "packages/gcs-ssc-authorization/src/role-scopes.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-access.json; sync-runtime.json. Proponent profile eligibility accepts global or any active Agency Contributor access; Agency-pinned tasks still require their owner scope. Runtime reads and recovery keep their separate role and exact-target authority checks. Guided Help is an independent global/Agency role subject. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:agency-administration",
@@ -92,10 +100,13 @@
       "shared/types/schemas/transfer-payment.ts",
       "server/utils/agency-credit-memo-chart.ts",
       "server/utils/funding-source-configuration.ts",
-      "server/utils/agency-finance-catalog.ts"
+      "server/utils/agency-finance-catalog.ts",
+      "server/utils/document-template-routes.ts",
+      "server/utils/workflow-setup-versioning.ts",
+      "app/pages/agencies/[id]/workflows/[workflowSetupId]/flow.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-admin-program.json. Agency templates retain bilingual required metadata and files, immutable kind and transactional replacement. Workflow Flow is a separate read-only route blocked by unsaved or pending edits. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:transfer-payment-design",
@@ -106,8 +117,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/admin/agencies.md",
-    "fr": "fr/admin/agencies.md",
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
     "evidence": [
       "server/api/transfer-payments",
       "app/pages/transfer-payments",
@@ -115,10 +126,14 @@
       "shared/types/schemas/transfer-payment.ts",
       "server/utils/agency-credit-memo-chart.ts",
       "server/utils/funding-source-configuration.ts",
-      "server/utils/agency-finance-catalog.ts"
+      "server/utils/agency-finance-catalog.ts",
+      "server/utils/stream-definition-lookups.ts",
+      "server/utils/stream-reference-definition-lookups.ts",
+      "server/utils/stream-field-assignment-routes.ts",
+      "server/utils/stream-custom-field-routes.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-program.json; sync-program-schemas.json. Program text/date validation, scoped searchable Stream definitions, custom-field assignment update authority and immutable field identity are documented. Agency-owned schema publication and authoring remain distinct from Stream selection. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:applicant-recipients",
@@ -129,8 +144,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/concepts/rbac.md",
-    "fr": "fr/concepts/rbac.md",
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
     "evidence": [
       "server/api/applicant-recipients",
       "app/pages/proponents",
@@ -140,10 +155,11 @@
       "server/utils/agreement-financial-ids.ts",
       "server/utils/agreement-applicant-recipient.ts",
       "shared/utils/abilities.ts",
-      "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts"
+      "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts",
+      "server/api/applicant-recipients/[id]/funding-history/[historyId].patch.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group identity in review-groups.json. Shared Proponent visibility via any effective active Agency/global Proponent grant, exact rosters and preserved group primary, dedicated financial subjects, mandatory same-Agency Financial ID with historical references and independent source reads. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-proponents.json; sync-access.json. Shared Proponent profile access and roster eligibility do not follow lead Agency alone. Role-visible actions still require current assignments and lifecycle eligibility. Funding history validates merged calendar dates, and historical references retain explicit ownership. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:agreements-financial-lifecycle",
@@ -154,8 +170,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/agreements/payments.md",
-    "fr": "fr/agreements/payments.md",
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
     "evidence": [
       "server/api/agreements",
       "app/pages/agreements",
@@ -166,10 +182,14 @@
       "server/utils/agreement-payment-offset-plan.ts",
       "server/utils/agreement-closeout.ts",
       "tooling/gcs-ssc/tests/unit/agreement-payment-evidence.test.ts",
-      "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
+      "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts",
+      "app/composables/useAgreementChildActionPrerequisites.ts",
+      "server/utils/agreement-forecast-breakdown.ts",
+      "server/utils/agreement-monitor-validation.ts",
+      "server/utils/agreement-budget-lineage.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-financial.json. Agreement child actions recheck exact assignments and status. Forecast changed-cell saves are atomic and validate expected saved cells. Historical Claim/Forecast lines remain visible and read-only after budget amendments. Monitor updates validate merged saved dates and required text. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:reviews-assessments-checklists",
@@ -180,8 +200,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
+    "en": "en/concepts/runtime-reviews.md",
+    "fr": "fr/concepts/runtime-reviews.md",
     "evidence": [
       "server/api/reviews",
       "server/api/review-sets",
@@ -192,10 +212,14 @@
       "server/utils/agreement-approval-submission.ts",
       "server/utils/workflow-runtime.ts",
       "tooling/gcs-ssc/tests/unit/workflow-two-assessment-risk-outcome.test.ts",
-      "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
+      "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts",
+      "server/utils/review-runtime-access.ts",
+      "server/utils/additional-reviewer-runtime.ts",
+      "server/utils/assessment-runtime-schema.ts",
+      "server/utils/assessment-runtime-persistence.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-runtime.json; sync-program-schemas.json. Owning-scope Viewer access is required for ordinary runtime reads. Additional reviewer lookup distinguishes general save authority from eligible own-row reassignment. Stored Assessment definitions fail explicitly rather than being repaired silently. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:approvals-recommendations-completions-workflows",
@@ -219,10 +243,14 @@
       "server/utils/agreement-approval-submission.ts",
       "server/utils/workflow-runtime.ts",
       "tooling/gcs-ssc/tests/unit/workflow-two-assessment-risk-outcome.test.ts",
-      "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
+      "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts",
+      "server/api/workflows/resume.post.ts",
+      "server/utils/review-runtime-access.ts",
+      "app/composables/useCompletionWorkflowStart.ts",
+      "server/utils/canonical-approval-runtime.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups payment-holds-and-commitment-lines in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-runtime.json; sync-program-schemas.json. Workflow recovery first requires exact-target work authority. Recommendation occurrences resolve separately; role-permitted controls can warn without execution when prerequisites fail. Approval/on-behalf column fixes preserve the intended policy. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:common-administration",
@@ -233,18 +261,20 @@
       "operator",
       "developer"
     ],
-    "en": "en/admin/agencies.md",
-    "fr": "fr/admin/agencies.md",
+    "en": "en/admin/common-admin.md",
+    "fr": "fr/admin/common-admin.md",
     "evidence": [
       "server/api/admin/gwcoa",
       "shared/types/schemas/agency.ts",
       "shared/types/schemas/transfer-payment.ts",
       "server/utils/agency-credit-memo-chart.ts",
       "server/utils/funding-source-configuration.ts",
-      "server/utils/agency-finance-catalog.ts"
+      "server/utils/agency-finance-catalog.ts",
+      "server/api/agency/lookups/gwcoa/[number].get.ts",
+      "shared/types/schemas/admin-common.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-audit-gwcoa.json. GWCOA retains a retired organization only for an authorized existing Agency. New choices must be active; names preserve whitespace while rejecting null characters. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:audit-evidence",
@@ -267,10 +297,12 @@
       "server/database/migrations/0140_audit.ts",
       "server/database/audit-ownership-functions.ts",
       "server/database/audit-ownership-capture.ts",
-      "server/database/audit-ownership-registry.ts"
+      "server/database/audit-ownership-registry.ts",
+      "server/utils/audit-browser.ts",
+      "shared/types/schemas/audit.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group audit in review-groups.json. Concrete owner-attributed Audit for new/renamed subjects, actor Agency attribution for shared Proponents, separate sanitized input grant and bounded access queue. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-audit-gwcoa.json. Audit list loads recheck current permissions, exact filters accept at most 200 characters and reject null characters. System-owned Guided Help has global attribution; Agency guides and catalogs have Agency attribution. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:database-integrity-concurrency",
@@ -289,10 +321,15 @@
       "server/database/migrations/0130_integrity.ts",
       "server/database/schema/account-receivable-adjustment.ts",
       "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts"
+      "server/database/schema/commitment-coding.ts",
+      "server/database/migrations/0040_agency.ts",
+      "server/database/migrations/0050_common.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "shared/types/database.d.ts",
+      "server/utils/account-receivable-recovery.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-technical.json; sync-operator.json. Canonical persisted names, compact constraints, subject-owned raw SQL integrity, single Forecast-line FK ownership, pool-only recovery ledger and required Payment attribution are documented. Fresh-baseline cutover is distinguished from the explicit incremental hotfix. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:i18n-validation-errors",
@@ -303,8 +340,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
+    "en": "en/developer/validation-i18n.md",
+    "fr": "fr/developer/validation-i18n.md",
     "evidence": [
       "i18n",
       "shared/types/schemas",
@@ -318,10 +355,15 @@
       "app/components/Common/DetailWorkspace.vue",
       "app/components/Common/CurrencyInput.vue",
       "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts",
+      "shared/types/schemas/api-error.ts",
+      "shared/utils/zod-i18n.ts",
+      "app/composables/useApiErrorToast.ts",
+      "server/utils/assessment-runtime-schema.ts",
+      "server/utils/agreement-custom-fields.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-technical.json. Validated optional host translation metadata supports locale changes with a display-ready server fallback. Invalid persisted Assessment definitions and relational custom-field values fail explicitly; generic errors do not expose unsupported translated metadata. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:files-documents",
@@ -332,8 +374,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/agreements/documents.md",
-    "fr": "fr/agreements/documents.md",
+    "en": "en/developer/document-generation.md",
+    "fr": "fr/developer/document-generation.md",
     "evidence": [
       "server/utils/file-storage.ts",
       "server/utils/audit-context.ts",
@@ -355,10 +397,12 @@
       "server/utils/amendment-document-generation.ts",
       "tooling/gcs-ssc/tests/unit/document-word-conditions.test.ts",
       "tooling/gcs-ssc/tests/unit/document-rendering.test.ts",
-      "tooling/gcs-ssc/tests/unit/amendment-document-context.test.ts"
+      "tooling/gcs-ssc/tests/unit/amendment-document-context.test.ts",
+      "server/api/agreements/[id]/documents/generate.post.ts",
+      "server/utils/document-template-routes.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups program-budget-and-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-financial.json; sync-dev-extensions.json. Generated document persistence rechecks current template/core fingerprints under locks. Uploaded objects are tracked before metadata and compensated after rollback, with durable cleanup on deletion failure. Ordinary deletion remains best-effort and logged; closeout generation distinguishes own and competing workflows. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:extensions",
@@ -385,10 +429,14 @@
       "server/utils/agreement-coding-allocator.ts",
       "modules/../shared/utils/extensions.ts",
       "modules/../shared/utils/abilities.ts",
-      "modules/../shared/utils/extension-sdk-aliases.ts"
+      "modules/../shared/utils/extension-sdk-aliases.ts",
+      "server/api/extensions/workspaces.get.ts",
+      "app/composables/useNavigationCatalog.ts",
+      "server/utils/extension-entity-assignment.ts",
+      "packages/gcs-ssc-extensions/package.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-concept-misc.json; sync-operator.json. Agency workspace navigation declares management/administration category and safe integer order; host catalogs group authorized enabled workspaces accordingly. Concrete extensions retain their implementation documentation. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed. Public SDK 0.3.19 compiled exports and lifecycle roster authority are covered by sync-dev-extensions.json."
   },
   {
     "id": "domain:funding-opportunity-intake",
@@ -416,10 +464,12 @@
       "shared/types/schemas/form-input.ts",
       "server/api/funding-opportunities/index.post.ts",
       "server/api/funding-opportunities/[id].patch.ts",
-      "app/components/FundingOpportunity/SetupRelationshipsTab.vue"
+      "app/components/FundingOpportunity/SetupRelationshipsTab.vue",
+      "server/api/funding-opportunities/[id].delete.ts",
+      "app/components/FundingCaseIntake/IntakeModal.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs, deleted-agency-group-boundary, exact-target-and-input-hardening, opportunity-and-intake-current-source in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-intake.json. Opportunity writes lock and recheck Agency, Program and selected Streams. Role-visible actions warn when status, dates or assignments block them; staged attachment failures retain the saved Intake. Imported identity and source evidence remain immutable across retries. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:data-collections",
@@ -447,10 +497,12 @@
       "server/utils/system-runtime.ts",
       "shared/types/schemas/common.ts",
       "server/utils/approval-template-versioning.ts",
-      "tooling/gcs-ssc/tests/unit/data-collection-runtime.test.ts"
+      "tooling/gcs-ssc/tests/unit/data-collection-runtime.test.ts",
+      "app/components/Agency/AgencyDataCollectionDetailPage.vue",
+      "server/utils/review-runtime-access.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-concept-misc.json; sync-runtime.json. Shared action and toast changes preserve publication and answering contracts. Runtime reads and exact-target work checks remain separate; no new Data Collection workflow is inferred from presentation refactors. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:financial-adjustments-recoveries",
@@ -504,10 +556,11 @@
       "server/utils/account-receivable-recovery.ts",
       "server/utils/account-receivable-claim-reductions.ts",
       "server/utils/payment-recovery-controls.ts",
-      "tooling/gcs-ssc/tests/unit/account-receivable-host-payment-completion.test.ts"
+      "tooling/gcs-ssc/tests/unit/account-receivable-host-payment-completion.test.ts",
+      "app/pages/journal-vouchers/[id].vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups catalog-text-and-partial-inputs, program-budget-and-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-financial.json; sync-technical.json. The clean receivable ledger removes legacy allocation/posting/source fallbacks while retaining Proponent credit pools, Credit Memo and Offset Memo lines and required Payment attribution. Payment/commitment actions recheck assignments and status; uncertain saves require refresh before retrying. Journal vouchers retain editable drafts on refresh and block completion while dirty, saving or failed. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:workers-background-processing",
@@ -536,7 +589,7 @@
       "tooling/gcs-ssc/tests/unit/l1-queue-plugin.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group background in review-groups.json. Durable L1 post-readiness handlers, two-minute renewing leases, unlimited schedule retry and independent domain queue evidence; in-app storage drain and transaction/capability-bound scheduled drafts. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json. L1 and storage cleanup contracts remain unchanged. The scheduled import uses the canonical Common_User auth identity column; it retains active assignee and Agency-service authorization checks. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:build-deployment-operations",
@@ -547,8 +600,8 @@
       "operator",
       "developer"
     ],
-    "en": "en/operator/configuration.md",
-    "fr": "fr/operator/configuration.md",
+    "en": "en/operator/deployment.md",
+    "fr": "fr/operator/deployment.md",
     "evidence": [
       "package.json",
       "nuxt.config.ts",
@@ -560,10 +613,14 @@
       "scripts/dev.ts",
       "scripts/test-e2e-pglite-shards.ts",
       "packages/gcs-ssc-diagrams/src/index.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      "scripts/setup-private-tooling.ts",
+      "packages/gcs-ssc-guided-help",
+      "server/database/migrations/0050_common.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json. Private tooling setup precedes workspace setup, Docker includes the repository-owned Guided Help workspace, and current quality commands check guided help and naming policy. Clean-baseline deployment evidence is attributed to the source runbook, not a live verification by this run. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "domain:accessibility-ui-states",
@@ -586,9 +643,17 @@
       "app/components/Common/DetailWorkspace.vue",
       "app/components/Common/CurrencyInput.vue",
       "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts",
+      "app/components/Common/ActionButton.vue",
+      "app/components/Common/DateInput.vue",
+      "app/components/Common/DateSegment.vue",
+      "app/components/Common/NavigationMenu.vue",
+      "app/components/Common/Pagination.vue",
+      "app/components/GuidedHelp/Contextual.vue",
+      "packages/gcs-ssc-guided-help",
+      "packages/gcs-ssc-diagrams"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-admin-program.json; sync-runtime.json; sync-guided-help.json. Shared named actions, date inputs and navigation retain accessible controls. Role-visible actions can warn without execution when current prerequisites fail. Guided Help tracks successful actions and exact workflow tasks; branch diagrams retain visited paths, keyboard access, zoom and export controls. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   }
 ]

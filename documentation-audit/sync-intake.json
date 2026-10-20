@@ -1,0 +1,113 @@
+{
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "scope": [
+    "en/intake/funding-case-intakes.md",
+    "fr/intake/funding-case-intakes.md",
+    "en/intake/opportunities.md",
+    "fr/intake/opportunities.md",
+    "en/intake/portal.md",
+    "fr/intake/portal.md"
+  ],
+  "source_paths": [
+    "app/pages/funding-case-intakes/[id].vue",
+    "app/pages/funding-case-intakes/index.vue",
+    "app/pages/funding-opportunities/[id].vue",
+    "app/pages/funding-opportunities/index.vue",
+    "app/components/FundingCaseIntake/ApplicationsTable.vue",
+    "app/components/FundingCaseIntake/IntakeModal.vue",
+    "app/components/FundingOpportunity/OpportunityModal.vue",
+    "app/components/FundingOpportunity/AttachmentTypesTab.vue",
+    "app/components/FundingOpportunity/SetupRelationshipsTab.vue",
+    "server/api/funding-opportunities/[id].patch.ts",
+    "server/api/funding-opportunities/[id].delete.ts",
+    "server/api/funding-case-intakes/[id].delete.ts",
+    "server/utils/funding-case-exchange.ts",
+    "server/utils/extension-scheduled-import.ts",
+    "server/utils/entity-assignment.ts",
+    "i18n/locales/en.json",
+    "i18n/locales/fr.json"
+  ],
+  "contracts": [
+    {
+      "change": "Role-visible actions can warn about missing assignment or locked Intake. Deletion refreshes Intake and assignment before confirmation.",
+      "pairs": [
+        "funding-case-intakes"
+      ]
+    },
+    {
+      "change": "Role-visible Opportunity edit/delete and Add application actions warn when current status or opening window blocks them. Eligibility still rechecked when saving.",
+      "pairs": [
+        "opportunities"
+      ]
+    },
+    {
+      "change": "Intake and Opportunity dialogs prevent editing and closing during save; staged attachment failure preserves the saved Intake.",
+      "pairs": [
+        "funding-case-intakes",
+        "opportunities"
+      ]
+    },
+    {
+      "change": "Opportunity PATCH/DELETE now lock and recheck Agency, Program and selected Streams before changing data. Reload current choices after concurrent configuration changes.",
+      "pairs": [
+        "opportunities"
+      ]
+    },
+    {
+      "change": "Read-only submitted evidence, exact assignment requirements, independent approval assignment, group claiming, immutable import identities and retries retained after source review. Portal guide now describes staff setup in plain language.",
+      "pairs": [
+        "funding-case-intakes",
+        "portal"
+      ]
+    }
+  ],
+  "tests_inspected_not_executed": [
+    {
+      "path": "tests/e2e/funding-opportunity-intake-create.spec.ts",
+      "evidence": "Manual Intake creation with generated identity and empty answers; attachment upload and fallback; bilingual submitted evidence."
+    },
+    {
+      "path": "tests/unit/funding-opportunity-patch-route.test.ts",
+      "evidence": "Authentication, fresh permission recheck, locked status, dates, names, setup and attachment validations. Existing unit mock fixture does not include new scope-lock plumbing; no runtime pass claimed."
+    },
+    {
+      "path": "tests/unit/extension-scheduled-intake-import.test.ts",
+      "evidence": "Locked transaction, independent scheduled Intake capability and Agency enablement."
+    },
+    {
+      "path": "tests/integration/funding-opportunity-intake-postgres.test.ts",
+      "evidence": "Inspected cases for removed-Stream import race and Agency service import ownership, active Proponent, immutable retry, group-only queue. Inspected test names for exact assignments, source tombstones and claim concurrency."
+    }
+  ],
+  "exclusions": [
+    {
+      "path": "extensions/gcs-ssc-portal-connector",
+      "reason": "Concrete connector gitlink e0b9f998e23b23c34a331fcd4a5a46111f45098c to 92bab8b2be225a0c6af034d05801a132c8ba7be2. Concrete form design, publication and delivery implementation docs belong to connector."
+    },
+    {
+      "path": "server/database/migrations/0080_funding_opportunity.ts",
+      "reason": "Foreign-key constraint renamed to fo_fk_attachment_type_fundingopportunity; no user behavior change."
+    },
+    {
+      "path": "server/utils/extension-scheduled-import.ts",
+      "reason": "Diff changes Common_User auth column spelling in Agreement primary-assignee helper, not Intake import behavior."
+    }
+  ],
+  "out_of_scope_followups": [
+    "Navigation owner can rename Portal host boundary labels to Receive Portal applications and Recevoir les demandes du Portail if desired. No inbound heading-anchor references found.",
+    "Developer extension reference should retain exact scheduled-intake-import capability and optional Opportunity application-schema object/null contract; user guides now explain them without SDK identifiers."
+  ],
+  "verification": {
+    "executed": [
+      "Read both locale pages before editing",
+      "Read net source diffs and final source/test excerpts",
+      "Search found no inbound Portal/intake heading-anchor links"
+    ],
+    "not_executed": [
+      "Application tests",
+      "Global documentation generators/checks/builds"
+    ],
+    "note": "Final documentation checks and ledger reconciliation are owned by coordinating agent."
+  }
+}

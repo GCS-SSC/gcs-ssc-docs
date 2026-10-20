@@ -1,6 +1,6 @@
-# Proponent Addresses
+# Proponent addresses
 
-Use the **Addresses** tab for the proponent’s mailing, operating, headquarters, or other organizational locations. Agreement-specific address records are managed separately on an agreement.
+Use the **Addresses** tab for the proponent's mailing, operating, headquarters, or other organizational locations. Agreement-specific address records are managed separately on an agreement.
 
 Open **Proponents**, select a saved profile, and choose **Addresses**. The active list shows street line 1, city, and postal or ZIP code. Search matches city, subdivision, postal or ZIP code, and any of the three street lines.
 
@@ -34,15 +34,15 @@ You do not enter latitude or longitude in this tab. Integrations can supply thos
 
 Saving a new address saves both its details and its connection to this Proponent together. The list shows only active addresses with an active connection to this profile.
 
-An address may also be referenced by another proponent or an agreement. To avoid silently changing another record, the server refuses an edit when another active reference exists. Review the other record and separate the addresses before trying again.
+An address may also be referenced by another proponent or an agreement. If another active record uses the address, the application blocks edits to protect that record. Review the other record and separate the addresses before trying again.
 
-Deleting an address removes its connection to this Proponent from the active list while preserving history. The address itself is marked deleted only when no other active Proponent or agreement still uses it. There is no restore control in this tab; add the address again after an accidental deletion. Deleting it here does not delete an agreement or another proponent’s link.
+Deleting an address removes its connection to this Proponent from the active list while preserving history. The address itself is marked deleted only when no other active Proponent or agreement still uses it. There is no restore control in this tab; add the address again after an accidental deletion. Deleting it here does not delete an agreement or another proponent's link.
 
-For example, record Harbour Community Services’ mailing address as `125 Harbour Road`, `Halifax`, country Canada, province Nova Scotia, and postal code `B3H 2Y5`. Enter the main phone as digits, such as `9025550142`, and the federal riding identifier supplied for the file. If the organization later moves, edit this address; if an agreement also uses the same address record, the application blocks the edit until the shared address issue is resolved.
+For example, record Harbour Community Services' mailing address as `125 Harbour Road`, `Halifax`, country Canada, province Nova Scotia, and postal code `B3H 2Y5`. Enter the main phone as digits, such as `9025550142`, and the federal riding identifier supplied for the file. If the organization later moves, edit this address; if an agreement also uses the same address record, the application blocks the edit until the shared address issue is resolved.
 
 ## Recovery
 
-Validation errors are returned in the request language. Correct missing required fields or an invalid Canadian subdivision and retry. If the address is reported as shared, do not repeatedly overwrite it; resolve the other active reference or add a distinct address. Refresh after a concurrent change or a not-found response.
+The application shows validation errors in the request language. Correct missing required fields or an invalid Canadian subdivision and retry. If the address is reported as shared, do not repeatedly overwrite it; resolve the other active reference or add a distinct address. Refresh after a concurrent change or a not-found response.
 
 ## Related guides
 
@@ -52,6 +52,8 @@ Validation errors are returned in the request language. Correct missing required
 
 ## Exact values and partial updates
 
-For officers entering an address, the main limit is 255 characters per street, city, subdivision or postal field. These fields reject the NUL control character. The following storage details are for developers and integrations. Main phone and optional GC address ID preserve signed PostgreSQL bigint values as decimal strings; do not round a long identifier through a spreadsheet or JavaScript number. The phone extension is a signed small integer and the riding ID a signed 32-bit integer. Coordinates, when supplied through the API, must fit `numeric(10,7)`.
+Each street, city, subdivision, and postal field accepts up to 255 characters and rejects the NUL control character. When copying a long phone number or GC address ID, preserve every digit. A spreadsheet can round long numbers.
 
-A partial update validates the resulting country/subdivision pair, not just the submitted field. For example, changing the country to Canada while retaining an invalid subdivision fails until a valid province or territory is supplied. Sending unchanged physical values does not count as modifying a shared address.
+For integrations, the main phone and optional GC address ID are decimal strings that preserve signed PostgreSQL bigint values. Do not convert them to JavaScript numbers. The phone extension is a signed small integer and the riding ID is a signed 32-bit integer. API coordinates must fit `numeric(10,7)`.
+
+When you change the country or subdivision, the application checks that the two values are valid together. For example, changing the country to Canada while retaining an invalid subdivision fails until a valid province or territory is supplied. Sending unchanged physical values does not count as modifying a shared address.

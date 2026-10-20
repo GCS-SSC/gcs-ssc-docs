@@ -1,8 +1,8 @@
 # Workflows
 
-A **workflow** is an ordered process for one record: for example, an eligibility review, a recommendation, then approval. It uses the reviews, recommendations, Data Collections, and approvals published by the Agency. A **setup** is the process design; a **run** or **attempt** is the process started for a particular record. Each run keeps the published versions it started with, called its **pinned configuration**.
+A **workflow** takes one record through an ordered process, such as an eligibility review, a recommendation, then approval. It uses the reviews, recommendations, Data Collections, and approvals published by the Agency. A **setup** is the process design. A **run** or **attempt** is that process started for a particular record. Each run keeps the published versions it started with, called its **pinned configuration**.
 
-Choose a `standard` workflow explicitly for optional process work. Use `approval_submission` for the record’s approval process or `risk_rating` to calculate an Agreement risk rating. Closeout uses approval submission; it has no separate `close_out` purpose. The record’s Agency business status, the setup’s draft/published state, and the run’s progress state describe different things.
+Choose a `standard` workflow explicitly for optional process work. Use `approval_submission` for the record’s approval process or `risk_rating` to calculate an Agreement risk rating. Closeout uses approval submission; it has no separate `close_out` purpose. Keep these separate: the record’s Agency business status, whether the setup is draft or published, and the run’s progress.
 
 ## Configure a workflow setup
 
@@ -17,12 +17,12 @@ Open an Agency and choose **Workflow Setups** to author and publish the design. 
 | Start behavior | Determined by the target’s declared capabilities: standard workflows are explicitly selected; Agreement approval is explicit; child approval submission starts with Completion. |
 | Purpose | `standard`, `approval_submission`, or Agreement/amendment `risk_rating`. |
 | Allowed start statuses | Source statuses from which the workflow may start. |
-| Cancellation/execution-failure status | Workflow-level fallback transition for cancellation or deterministic engine failure. |
-| Ordered members | Any linear sequence of published review sets, recommendation sets, Data Collections, and root approval templates. Each has materialization, success, and failure target transitions. |
+| Cancellation/execution-failure status | Status change applied when the run is cancelled or the workflow engine detects a failure. |
+| Ordered members | Any linear sequence of published review sets, recommendation sets, Data Collections, and root approval templates. Each can change the record’s status when it starts, succeeds, or fails. |
 | Default owners | A mapping per nested review/recommendation member and at most one per Data Collection; eligible user or group defaults, with optional owner redirection. |
 | Allow retry | Allows the latest failed attempt to retry its pinned setup. |
 
-A design belongs to the exact Agency in its URL. Authoring and publication require the matching Agency role ceiling; adding or removing a Stream link requires the matching `transfer_payment` role ceiling. Exact business assignments do not grant configuration access.
+A design belongs to the Agency shown in its URL. To create or publish it, you need the required role permission for that Agency. To add or remove a Stream link, you need the required `transfer_payment` role permission for that scope. An assignment to a business record does not grant configuration access.
 
 Start an Agreement’s approval submission explicitly. For an amendment or Closeout, Complete requires a published approval-submission workflow with a successful route that ends in a terminal Agency business status. Claims, reconciliations, commitments, forecasts, payments, and monitors can complete with an optional approval-submission workflow. Administrators must provide complete, unique sequence numbers and default-owner mappings for the reviews and recommendations within sets. Status changes use the Agency’s configured status IDs; they do not assume status names such as `inreview` or `complete`.
 
@@ -53,13 +53,13 @@ Runtime states are `pending`, `active`, `awaiting_action`, `paused`, `succeeded`
 
 Completion records that ordinary editing is finished; it is not an editable business status. An active workflow blocks Completion. For a supported child record, Completion either starts the selected approval-submission workflow or records `no_workflow`, as one transaction. Amendments and Closeouts refuse Completion when their required approval workflow is missing. If workflow creation fails, Completion rolls back too.
 
-When no workflow applies, positive completion effects run immediately. With a workflow, they wait until its positive terminal outcome. A successful commitment becomes the active commitment for its Agreement/type, replacing the prior active one; a forecast similarly becomes active for its Agreement/year. A successful reconciliation closes its open work; a final one prevents additional reconciliation and can apply the Agency's configured final claim status. A failed or cancelled approval attempt does not produce those positive effects. Adding configuration later does not retroactively change an already recorded `no_workflow` completion.
+When no workflow applies, the changes triggered by successful completion happen immediately. With a workflow, they wait until the run succeeds. A successful commitment replaces the active commitment of the same type for that Agreement. A successful forecast replaces the active forecast for that Agreement and fiscal year. A successful reconciliation closes its open work; a final one prevents additional reconciliation and can apply the Agency's configured final claim status. A failed or cancelled approval attempt does not make those changes. Adding configuration later does not retroactively change an already recorded `no_workflow` completion.
 
-For example, configure a commitment approval-submission workflow with a review set followed by a root approval template. The caseworker saves the lines and completes the commitment. Completion locks ordinary edits and starts the published review. Completing the review progresses to the assigned approver. Approval of the final step makes the new commitment active and retires the previous active commitment of the same type. If the reviewer or approver rejects the work, inspect the failed attempt and use its permitted recovery/retry path; do not try to complete the same record again.
+For example, configure a commitment approval-submission workflow with a review set followed by a root approval template. The caseworker saves the lines and completes the commitment. Completion locks ordinary edits and starts the published review. Completing the review progresses to the assigned approver. Approval of the final step makes the new commitment active and retires the previous active commitment of the same type. If the reviewer or approver rejects the work, inspect the failed attempt and use its permitted recovery or retry action. Do not try to complete the same record again.
 
 ## Conditions and Risk Rating
 
-Workflow member conditions can use Agency custom-field options and Agreement profile values: Agreement subtype, Further distribution (yes/no), and recipient subtype. Choose **Any** or **All** when matching the Agreement's selected recipient subtypes. Conditions for different fields are combined with AND; alternatives selected for one field are combined with OR. The editor displays each condition in a dedicated modal and preserves its selected labels. Start captures the Agreement values and member eligibility, and skipped members retain their published positions without creating tasks. A retry keeps the original published versions but captures current Agreement values for its new attempt; it does not rewrite the prior attempt's evidence. A missing required field or unavailable Stream value blocks a new deployment. See [custom fields](../programs/custom-fields.md) for examples and definition-retirement constraints.
+Workflow member conditions can use Agency custom-field options and Agreement profile values: Agreement subtype, Further distribution (yes/no), and recipient subtype. Choose **Any** or **All** when matching the Agreement's selected recipient subtypes. Conditions for different fields are combined with AND; alternatives selected for one field are combined with OR. The editor displays each condition in a dedicated modal and preserves its selected labels. Starting the run saves the Agreement values and determines which stages apply. Skipped stages keep their published positions but create no tasks. A retry keeps the original published versions but captures current Agreement values for its new attempt; it does not rewrite the prior attempt's evidence. A missing required field or unavailable Stream value blocks deployment of a new configuration. See [custom fields](../programs/custom-fields.md) for examples and definition-retirement constraints.
 
 An Agreement Risk Rating workflow is selected independently from approval submission. Its published configuration identifies one assessment as the source and maps each ordered maximum score to one active Stream risk rating. A successful run maps the assessment score to the first applicable maximum and applies the captured risk score. Invalid or stale evidence follows the execution-failure path without overwriting the prior Agreement score. The chosen conditional route must still contain that risk assessment.
 
@@ -71,7 +71,7 @@ A risk workflow supports Agreements and amendments. In its review-set member, en
 
 For example, a review set contains Eligibility first and Financial risk second. Select Financial risk as the source and map its score maxima to Stream ratings. Finishing Eligibility produces no risk result. Even finishing Financial risk does not apply its score until the entire workflow succeeds. A missing designated assessment or skipped conditional route blocks scoring rather than silently using Eligibility. On an amendment, the result updates only its proposal; approval later applies the captured proposal to the Agreement. See [Amendment risk](../agreements/amendments.md).
 
-Review, recommendation and Data Collection owner mappings can choose an eligible user or an Agency group. A group occurrence starts unclaimed, with no automatic initiator assignment. Its eligible member must claim it before editing; membership does not grant the source-owner role ceiling. Unavailable defaults pause through the owner recovery mechanism. A recovery choice must identify the exact nested occurrence; repeated definitions remain independent work.
+Review, recommendation and Data Collection owner mappings can choose an eligible user or an Agency group. A group-owned task starts unclaimed. The person who started the workflow is not assigned automatically. An eligible group member must claim the task before editing and still needs the required role permission for its owning record. An unavailable default owner pauses the workflow. When choosing a replacement, identify the exact task within its set. Repeated uses of the same definition remain separate tasks.
 
 ## Data Collection members
 
@@ -81,9 +81,9 @@ Add a published Agency Data Collection directly as an ordered workflow member in
 
 For an Agreement, start approval submission explicitly; for an amendment, completing the amendment starts its required approval submission in the same transaction. The Workflow section shows the resulting attempt. The application saves an approval packet: a fixed copy of the information being submitted, so approvers can see exactly what they are deciding on.
 
-Technical details: starting submission locks the current source, creates the run, and saves one unchangeable `Funding_Case_Agreement_Approval_Submission` packet in a single transaction. The packet records schema version 3, submission time, and a lowercase canonical SHA-256 hash (a fingerprint used to check that its contents have not changed).
+Starting submission locks the source record, creates the run, and saves the fixed packet together. If any part fails, none of these changes is saved. The stored record, `Funding_Case_Agreement_Approval_Submission`, includes schema version 3, the submission time, and a lowercase canonical SHA-256 hash. This fingerprint lets the application check that the packet has not changed.
 
-An Agreement packet includes its profile with resolved bilingual reference labels, linked Proponents and registry values, current budget, and current activities. Its version-3 risk section preserves enabled/apply decisions, score, bilingual rating labels, exact calculation source and readiness. An amendment packet also includes its selected amendment types/subtypes and only the domains being changed: budget for a budget amendment, activities for an activity amendment, and proposed dates for a duration amendment. Unchanged Agreement profile and Proponent data are omitted from an amendment packet.
+An Agreement packet includes its profile with resolved bilingual reference labels, linked Proponents and registry values, current budget, and current activities. Its version-3 risk section records whether risk is enabled and will be applied, the score, bilingual rating labels, the calculation source, and whether the risk requirements were met. An amendment packet also includes its selected amendment types and subtypes and only the domains being changed: budget for a budget amendment, activities for an activity amendment, and proposed dates for a duration amendment. Unchanged Agreement profile and Proponent data are omitted from an amendment packet.
 
 The packet keeps the IDs of the budget and activity versions used. It also saves the bilingual names of referenced values so later renaming does not change what approvers saw. The UI presents the saved packet in grouped, collapsible sections and does not rebuild it from live values.
 
@@ -95,7 +95,7 @@ Before the approval process finishes successfully, the application locks the Agr
 
 1. applies only the amendment changes approved in the packet when the target is an amendment;
 2. closes the amendment and assigns its revision number when applicable;
-3. writes exactly one `Funding_Case_Agreement_Revision` linked to the approval submission; and
+3. saves exactly one Agreement revision, `Funding_Case_Agreement_Revision`, linked to the approval submission; and
 4. applies the configured success status and completes the run.
 
 The initial Agreement approval writes revision 0. Approved amendments increment from the latest revision. The unique link to the approval submission prevents a repeated advancement attempt from creating another revision.
@@ -104,19 +104,21 @@ Before applying the approved budget, the application checks this Agreement’s a
 
 ## Work with a run
 
-For day-to-day work, open the source record’s Workflow section and check the current stage. Open the assigned review, recommendation, or Data Collection and finish its required work. If the stage is an approval, the assigned approver decides it. Returning to the Workflow section shows whether the process has moved to the next stage, is waiting for someone, or needs recovery.
+For day-to-day work, open the source record’s Workflow section and check the current stage. Open the assigned review, recommendation, or Data Collection and finish its required work. If the stage is an approval, the assigned approver decides it. Return to the Workflow section to see whether the process has moved to the next stage, is waiting for someone, or needs recovery.
 
 For example, if a Claim is waiting for a financial review assigned to a colleague, being assigned to the Claim does not let you complete that colleague’s review. Check the separate review assignment. If the configured reviewer is unavailable and the run is paused, use the permitted owner-recovery action described below.
 
-The source Workflow section shows start/retry/cancel actions, the pinned sequence, statuses, recommendation questions, approval steps, previous unsuccessful attempts, and any unchangeable approval packet. Saving a recommendation retains its editable runtime state; submitting validates required responses and derives the outcome from its published deciding question.
+The source Workflow section shows start, retry, and cancel actions, the pinned sequence, statuses, recommendation questions, approval steps, previous unsuccessful attempts, and any unchangeable approval packet. Saving a recommendation keeps it in progress. Submitting checks required answers and calculates the outcome from its published deciding question. When a setup appears more than once, each occurrence has its own answers and status. Select the occurrence at the intended stage before answering.
 
-You can open a recommendation directly from Assigned Work. To change it, you must be actively assigned to that specific recommendation, have current Contributor permission for its owning record, and the recommendation’s workflow item must be active and editable. An assigned approver can read the approval-submission packet needed for the decision, even without ordinary read access to the Agreement.
+You can open a recommendation directly from Assigned Work. Reading still requires Viewer access in its owning scope, unless you have an approval assignment for that exact recommendation. A work assignment alone does not grant read access. To change it, you must be actively assigned to that specific recommendation, have current Contributor permission for its owning record, and the recommendation’s workflow item must be active and editable. An assigned approver can read the approval-submission packet needed for the decision, even without ordinary read access to the Agreement.
 
-Exact recommendation, review, and approval assignments are separate. They do not grant parent or sibling access. See [Role permissions and exact assignments](./rbac.md).
+Start, retry, cancel, and completion actions can remain visible when your role permits them but the record is not ready. Selecting one shows the missing prerequisite, such as an assignment, required information, or an eligible status. A visible action does not mean the work can proceed.
+
+Exact recommendation, review, and approval assignments are separate. They do not grant access to the parent record or other related records. See [Role permissions and exact assignments](./rbac.md).
 
 ## Cancel, retry, and recover
 
-Choose the action for the situation: cancellation ends an active run; retry creates a new attempt after an unsuccessful run; recovery resumes paused work after its assignment problem is resolved. These actions depend on your current access and the rules below. A **terminal** state means the attempt has ended, whether successfully, unsuccessfully, or by cancellation. It is separate from the record’s Agency business status and from Completion.
+Cancel to end an active run. Retry to create a new attempt after an unsuccessful run. Recover to resume paused work after resolving its assignment problem. These actions depend on your current access and the rules below. A **terminal** state means the attempt has ended, whether successfully, unsuccessfully, or by cancellation. It is separate from the record’s Agency business status and from Completion.
 
 Cancellation is available only for an active run. It cancels active runtime children and workflow items, marks the run cancelled, and applies the configured failure status in one transaction.
 
@@ -133,7 +135,7 @@ If the setup names no default user or group, the person who started the workflow
 
 To recover paused work:
 
-1. If the setup allows a replacement owner, the person who started the workflow or triggered task creation can choose a replacement. An assignment manager with the separate required permission can also recover the work.
+1. You need current Contributor permission and an assignment to the exact record whose workflow is paused. With that access, the person who started the workflow or triggered task creation can choose replacements if the setup permits it. An assignment manager also needs that work access; the assignment-management permission alone cannot resume the workflow.
 2. Choose an active user who currently has Contributor permission for the particular record that owns the task. Supply a replacement for each unresolved assignment problem, exactly once.
 3. Resume the workflow. The application checks your current access, locks the record, checks every problem and replacement, saves the choices, and continues. It does not recreate a review or recommendation set that was already created.
 

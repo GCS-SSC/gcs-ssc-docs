@@ -160,6 +160,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: labels.agencies, link: `${p}admin/agencies` },
         { text: locale === 'fr' ? 'Catalogues d’agence' : 'Agency catalogs', link: `${p}admin/agency-catalogs` },
         { text: labels.common, link: `${p}admin/common-admin` },
+        { text: locale === 'fr' ? 'Publier de l’aide guidée' : 'Publish guided help', link: `${p}admin/guided-help` },
         { text: labels.assignments, link: `${p}admin/assignments` },
         { text: locale === 'fr' ? 'Groupes' : 'Groups', link: `${p}admin/groups` },
         { text: labels.roles, link: `${p}admin/roles` },
@@ -245,6 +246,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
       text: labels.developer,
       items: [
         { text: labels.architecture, link: `${p}developer/architecture` },
+        { text: locale === 'fr' ? 'Contrats de l’aide guidée' : 'Guided help contracts', link: `${p}developer/guided-help` },
         { text: labels.routes, link: `${p}developer/routes` },
         { text: labels.extensionAuthoring, link: `${p}developer/extensions-authoring` },
         { text: labels.documentGeneration, link: `${p}developer/document-generation` },

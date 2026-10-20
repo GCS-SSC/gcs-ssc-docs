@@ -1,0 +1,82 @@
+{
+  "area": "access administration and role permissions",
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "source": ".reference-repos/gcs-ssc",
+  "pages_reviewed": [
+    "en/admin/assignments.md",
+    "en/admin/groups.md",
+    "en/admin/roles.md",
+    "en/admin/users.md",
+    "en/concepts/rbac.md",
+    "fr/admin/assignments.md",
+    "fr/admin/groups.md",
+    "fr/admin/roles.md",
+    "fr/admin/users.md",
+    "fr/concepts/rbac.md"
+  ],
+  "change_groups": [
+    {
+      "contract": "Guided Help is an independent role subject at global or Agency scope only. Viewer reads; Contributor authors and publishes; Manager retires and deletes eligible drafts. No exact assignment or assignment-management capability.",
+      "source_paths": [
+        "packages/gcs-ssc-authorization/src/role-scopes.ts",
+        "packages/gcs-ssc-authorization/src/grants.ts",
+        "server/utils/guided-help.ts",
+        "shared/utils/abilities.ts",
+        "server/database/migrations/0030_rbac.ts"
+      ],
+      "disposition": "Added subject matrices and practical role-level explanation in both languages."
+    },
+    {
+      "contract": "Shared Proponent profile assignment eligibility accepts global or any active Agency Proponent Contributor grant. Agency-pinned runtime sources require a grant covering that Agency. Candidate listing and locked write now use the same helper.",
+      "source_paths": [
+        "server/utils/entity-assignment.ts",
+        "server/utils/entity-assignment-write.ts",
+        "server/api/assignment-management/index.get.ts"
+      ],
+      "disposition": "Explained profile versus task ownership, eligibility, and recovery after intervening role changes in paired assignment guides and RBAC concepts."
+    },
+    {
+      "contract": "Application-user joins now use the canonical Common_User column for assignment identity, group membership, and Agency user pickers. Group membership requires an active role owned by its Agency.",
+      "source_paths": [
+        "server/utils/groups.ts",
+        "server/api/groups/lookups.get.ts",
+        "server/api/users/lookups/index.get.ts",
+        "server/utils/entity-assignment.ts",
+        "server/utils/entity-assignment-write.ts"
+      ],
+      "disposition": "Existing workflow remains valid; simplified group permission setup and clarified that a global role alone does not qualify for membership. Omitted internal column names from administrator task guides."
+    },
+    {
+      "contract": "Assignment context supplies separate Agreement role capabilities for claims, forecasts, monitors, amendments and closeouts; assignment still does not grant a role permission.",
+      "source_paths": [
+        "server/api/entity-assignments/[entityType]/[entityId]/context.get.ts"
+      ],
+      "disposition": "Existing two-key explanation remains applicable. No invented authorization expansion."
+    },
+    {
+      "contract": "Role names and descriptions reject null characters; role table uses shared action buttons.",
+      "source_paths": [
+        "shared/types/schemas/rbac.ts",
+        "app/components/Role/RoleTable.vue"
+      ],
+      "disposition": "Added invalid-character recovery guidance. Shared button implementation has no separate task or permission change."
+    }
+  ],
+  "tests_inspected_not_executed": [
+    "packages/gcs-ssc-authorization/tests/unit/guided-help.test.ts",
+    "tooling/gcs-ssc/tests/unit/entity-assignment-owner-policy.test.ts",
+    "tooling/gcs-ssc/tests/unit/entity-assignment-context-route.test.ts",
+    "tooling/gcs-ssc/tests/unit/users-lookups-route.test.ts",
+    "tooling/gcs-ssc/tests/integration/entity-assignment-promote-remove-review-postgres.test.ts"
+  ],
+  "verification": {
+    "application_tests_executed": false,
+    "documentation_checks": "Parent coordinator runs required inventory, references, impact, check, whitespace, and base-path build after all workers finish.",
+    "manual_review": "Read both languages of every owned page, traced changed source contracts, reviewed paired edits, and searched for references to renamed section anchors. No references to those renamed anchors found."
+  },
+  "limitations": [
+    "Inspected application tests provide contract context only; no application runtime or PostgreSQL test execution is claimed.",
+    "Documentation remains uncommitted for parent integration."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "scope": "operator pages only",
+  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "pages_reviewed": [
+    "en/operator/configuration.md",
+    "en/operator/deployment.md",
+    "en/operator/background-work.md",
+    "fr/operator/configuration.md",
+    "fr/operator/deployment.md",
+    "fr/operator/background-work.md"
+  ],
+  "changes": [
+    {
+      "contract": "Private tooling setup precedes workspace setup; conflicts preserve unrelated paths; guided-help workspace is required in container build; current commands include UI and database naming policy and guided-help checks",
+      "source": [
+        "scripts/setup-workspaces.ts",
+        "scripts/setup-private-tooling.ts",
+        "package.json",
+        "Dockerfile"
+      ],
+      "docs": [
+        "en/operator/configuration.md",
+        "fr/operator/configuration.md"
+      ]
+    },
+    {
+      "contract": "Agency extension workspace navigation requires management/administration category and safe integer order",
+      "source": [
+        "modules/gcs-extensions.ts"
+      ],
+      "docs": [
+        "en/operator/configuration.md",
+        "fr/operator/configuration.md"
+      ]
+    },
+    {
+      "contract": "Clean baseline removes obsolete compatibility structures; do not confuse previous incremental hotfix with current clean cutover; source-runbook deployment evidence is not current live verification",
+      "source": [
+        "server/database/migrations/0090_funding_case_agreement.ts",
+        "server/database/migrations/0050_common.ts",
+        ".railway/README.md",
+        ".railway/railway.ts",
+        "server/utils/account-receivable-pool-ledger.ts"
+      ],
+      "docs": [
+        "en/operator/deployment.md",
+        "fr/operator/deployment.md"
+      ]
+    },
+    {
+      "contract": "Malformed pinned Assessment definitions and relational Agreement selections fail explicitly; preserve evidence and repair or restore compatible data",
+      "source": [
+        "server/utils/assessment-runtime-persistence.ts",
+        "server/utils/assessment-runtime-schema.ts",
+        "server/utils/agreement-custom-fields.ts",
+        "server/utils/document-generation.ts",
+        "server/utils/workflow-routing-capture.ts"
+      ],
+      "docs": [
+        "en/operator/deployment.md",
+        "fr/operator/deployment.md"
+      ]
+    }
+  ],
+  "tests_inspected_not_executed": [
+    "tooling/gcs-ssc/tests/unit/account-receivable-pool-ledger.test.ts",
+    "tooling/gcs-ssc/tests/unit/extensions-registry-build.test.ts",
+    "tooling/gcs-ssc/tests/unit/assessment-runtime-persistence.test.ts"
+  ],
+  "checks_executed": [
+    {
+      "command": "git diff --check -- en/operator fr/operator",
+      "result": "passed"
+    }
+  ],
+  "exclusions": [
+    "No application runtime tests or live deployment checks performed.",
+    "Background-work pages reviewed in both locales; storage cleanup, L1 scheduling, audit retention contracts unchanged by range, retained.",
+    "No changed runtime environment declarations in inspected range. Existing settings retained.",
+    "Concrete extension implementation and private tooling internals remain outside host operations coverage."
+  ],
+  "language_review": "Reviewed all six pages using unslop and plain-speech rules; edits preserve equivalent bilingual contracts, exact symbols, commands, and release evidence."
+}

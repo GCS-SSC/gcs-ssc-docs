@@ -1,0 +1,58 @@
+{
+  "source_baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
+  "source_target": "dcbe779",
+  "pages_reviewed": [
+    "en/programs/assessment-schemas.md",
+    "en/programs/checklist-schemas.md",
+    "en/programs/approval-templates.md",
+    "en/programs/recommendations.md",
+    "fr/programs/assessment-schemas.md",
+    "fr/programs/checklist-schemas.md",
+    "fr/programs/approval-templates.md",
+    "fr/programs/recommendations.md"
+  ],
+  "disposition": "Reviewed every assigned page against the net change and final related source. Updated bilingual names and error recovery, corrected Agency authorization claims, documented member deletion/recreation, and simplified internal runtime details. Existing substantive examples, numeric limits, publication behavior, and historical response protections retained.",
+  "source_evidence": [
+    {
+      "paths": [
+        "server/utils/agency-review-schema-routes.ts",
+        "shared/types/schemas/agency.ts",
+        "server/database/migrations/0050_common.ts"
+      ],
+      "finding": "Agency read/update authorization, active Agency, bilingual names and outcome names limited to 255 Unicode code points. Unique schema names are Agency+entitytype+language, across review types. Mapped duplicate constraints and invalid persisted assessment definition error documented."
+    },
+    {
+      "paths": [
+        "server/utils/assessment-runtime-schema.ts",
+        "app/composables/useAssessmentSchemaDetailPage.ts",
+        "app/components/ChecklistSchema/ChecklistSchemaDetailPage.vue"
+      ],
+      "finding": "Strict stored-definition validation and localized editor validation. No new scoring or result-policy contract in range."
+    },
+    {
+      "paths": [
+        "server/utils/recommendation-set-agency-routes.ts",
+        "server/utils/recommendation-setup-versioning.ts",
+        "app/components/Agency/AgencyRecommendationSetDetailPage.vue"
+      ],
+      "finding": "Deletion renumbers remaining members; new schema uses independently unique temporary names so reusing an order creates a separate schema. Nullable approval selection validated as optional. Publication actor column corrected, with no new user-visible publication lifecycle."
+    },
+    {
+      "paths": [
+        "app/components/Common/ApprovalTemplates/DetailPage.vue",
+        "app/components/Common/ApprovalTemplates/StepFields.vue",
+        "app/utils/approval-template-detail-save.ts",
+        "server/api/agency/[agencyId]/approval-templates/[templateId]/index.patch.ts",
+        "server/utils/canonical-approval-runtime.ts"
+      ],
+      "finding": "Agency authorization, preserved draft/save-refresh warning behavior and localized certification heading. On-behalf required detail lookup corrected with unchanged intended user behavior. Simplified UI description and route insertion details."
+    }
+  ],
+  "verification": {
+    "source_review": "Inspected net diffs and final source, no application runtime tests executed.",
+    "page_review": "English and French meaning, headings, examples, errors, and recovery compared.",
+    "scoped_diff_check": "Passed, see command in agent report.",
+    "global_checks": "Parent coordinator runs final inventory, references, audit-impact, docs:check and production build after all agents finish."
+  },
+  "uncertainties": []
+}

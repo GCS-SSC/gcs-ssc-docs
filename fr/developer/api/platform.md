@@ -2,23 +2,22 @@
 
 Ces requêtes servent aux services partagés comme les pièces jointes, les journaux d’audit, les groupes, les recherches et l’état du système. Ce groupe comprend aussi des dossiers de réception et de finances dont les routes sont hors des groupes des ententes et des promoteurs. Consultez les [journaux d’audit et d’accès](../../admin/audit.md), les [pièces jointes](../../concepts/attachments.md) et les [dossiers de réception](../../intake/funding-case-intakes.md).
 
-Une API est l’ensemble des requêtes que l’application envoie à son serveur lorsque vous ouvrez ou enregistrez un dossier. Les agents utilisent normalement les écrans; les développeurs utilisent cet index pour trouver le code correspondant. Le serveur vérifie l’accès aux dossiers protégés même si un écran affiche une action comme disponible.
+Cet index associe les requêtes serveur aux fichiers qui les traitent. Les guides liés expliquent les étapes à l'écran. Le serveur vérifie l'accès aux dossiers protégés même si un écran propose une action.
 
-- **Méthode** : `GET` lit des renseignements; `POST` crée généralement un dossier ou réalise une action; `PATCH` et `PUT` enregistrent des modifications; `DELETE` retire un dossier. `ANY` délègue les requêtes sans méthode unique indiquée ici.
-- **Route** : l’adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l’identifiant réel du dossier.
-- **Repères d’autorisation** : des noms trouvés dans les sources qui aident le développeur à repérer les vérifications d’accès.
-- **Repères de validation** : des noms qui aident à repérer les vérifications des champs soumis ou des options de requête.
-- **Source** : le fichier de l’application qui traite la requête. Un gestionnaire est le code qui la reçoit et y répond.
+- La méthode indique le type de requête. `GET` lit des renseignements. `POST` crée généralement un dossier ou exécute une action. `PATCH` et `PUT` enregistrent des modifications. `DELETE` retire un dossier. `ANY` signifie que le nom du fichier ne déclare aucune méthode unique.
+- La route est l'adresse de la requête. Remplacez les noms entre crochets, comme `[id]`, par l'identifiant réel du dossier.
+- Les noms d'autorisation et de validation sont des correspondances trouvées dans le code du gestionnaire. Ils aident à repérer les vérifications d'accès et celles des champs soumis ou des options de requête.
+- La source est le fichier de l'application qui traite la requête.
 
-Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) signifie qu’aucun nom correspondant n’a été trouvé; il ne prouve pas l’absence de vérification d’accès ou de données. Un nom indiqué peut aussi être un champ ou un commentaire plutôt qu’une vérification. Les développeurs doivent suivre le gestionnaire et ses fonctions partagées pour confirmer les règles, la réponse et les tests; le registre de couverture suit ces preuves.
+Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun nom correspondant. Il ne prouve pas l'absence de vérification. Un nom indiqué peut provenir d'un champ ou d'un commentaire. Suivez le gestionnaire et ses fonctions partagées pour confirmer les règles d'accès, la validation et les réponses. Le registre de couverture consigne les preuves correspondantes.
 
 ## Exemple de lecture seule
 
-`GET /api/health` vérifie si l’application est prête et peut joindre sa base de données. Une réponse réussie est `{ "status": "ok" }`. Cette vérification publique ne renvoie pas les données des dossiers de financement. Les numéros indiqués sont des exemples : utilisez les identifiants de dossiers existants que vous avez le droit de consulter.
+`GET /api/health` vérifie si l’application est prête et peut joindre sa base de données. Une réponse réussie est `{ "status": "ok" }`. Cette vérification publique ne renvoie pas les données des dossiers de financement.
 
-## Gestionnaires (95)
+## Gestionnaires (105)
 
-| Méthode | Route | Repères d’autorisation | Repères de validation | Source |
+| Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
 | ANY | `/api/[...path]` | — | — | `server/api/[...path].ts` |
 | DELETE | `/api/account-receivable-credit-memos/[id]` | — | — | `server/api/account-receivable-credit-memos/[id].delete.ts` |
@@ -102,6 +101,16 @@ Ce tableau est généré à partir des noms dans les sources. Un tiret (`—`) s
 | GET | `/api/groups` | — | PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/groups/index.get.ts` |
 | POST | `/api/groups` | — | GroupCreateSchema, readValidatedBodyI18n | `server/api/groups/index.post.ts` |
 | GET | `/api/groups/lookups` | resolveApprovalTemplateScopeContextFromTemplateId | PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/groups/lookups.get.ts` |
+| DELETE | `/api/guided-help/[id]` | — | — | `server/api/guided-help/[id].delete.ts` |
+| GET | `/api/guided-help/[id]` | — | — | `server/api/guided-help/[id].get.ts` |
+| PATCH | `/api/guided-help/[id]` | requireAuthContext | GuidedHelpCreateSchema, readValidatedBodyI18n | `server/api/guided-help/[id].patch.ts` |
+| POST | `/api/guided-help/[id]/publish` | — | — | `server/api/guided-help/[id]/publish.post.ts` |
+| POST | `/api/guided-help/[id]/retire` | — | — | `server/api/guided-help/[id]/retire.post.ts` |
+| GET | `/api/guided-help/contexts` | — | — | `server/api/guided-help/contexts.get.ts` |
+| GET | `/api/guided-help/discovery` | — | — | `server/api/guided-help/discovery.get.ts` |
+| GET | `/api/guided-help` | — | — | `server/api/guided-help/index.get.ts` |
+| POST | `/api/guided-help` | requireAuthContext | GuidedHelpCreateSchema, readValidatedBodyI18n | `server/api/guided-help/index.post.ts` |
+| GET | `/api/guided-help/shared` | — | — | `server/api/guided-help/shared.get.ts` |
 | GET | `/api/health` | — | — | `server/api/health.get.ts` |
 | DELETE | `/api/journal-vouchers/[id]` | — | — | `server/api/journal-vouchers/[id].delete.ts` |
 | GET | `/api/journal-vouchers/[id]` | — | — | `server/api/journal-vouchers/[id].get.ts` |

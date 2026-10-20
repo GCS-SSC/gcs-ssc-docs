@@ -1,39 +1,39 @@
 # Programs
 
-A program is the overall funding initiative, such as “Community Facilities Improvement.” It belongs to one agency and records the dates, terms and conditions, yearly funding, objectives, and expected results for that initiative.
+A program is the overall funding initiative, such as "Community Facilities Improvement." It belongs to one agency and records the dates, terms and conditions, yearly funding, objectives, and expected results for that initiative.
 
-A **stream** is a funding route within the program, such as “Small Community Projects.” It supplies the choices and rules officers use for intake, agreements, reviews, approvals, claims, forecasts, payments, monitoring, and amendments. Set up the program first, then its streams. The program's agency, dates, Active setting, budgets, outcomes, objectives, and indicators provide the starting information for that work.
+A stream is a funding route within the program, such as "Small Community Projects." It supplies the choices and rules officers use for intake, agreements, reviews, approvals, claims, forecasts, payments, monitoring, and amendments. Set up the program first, then its streams. The program's agency, dates, Active setting, budgets, outcomes, objectives, and indicators provide the starting information for that work.
 
-## Empty-System Prerequisites
+## Empty-system prerequisites
 
 Before creating production programs, configure the owning agency and the agency reference data that program and stream forms depend on:
 
 | Setup | Why it matters |
 | --- | --- |
-| Agency profile and structural role permissions | Program administrators need an agency context and a scoped `transfer_payment` role permission. Exact assignments apply only to the 11 assignable runtime casework types; they do not attach to agency, Program, or stream configuration records. |
+| Agency profile and structural role permissions | Program administrators need access to the owning agency and permission to manage its programs. Assignment to an Agreement or other casework does not grant program setup access. |
 | Agency fiscal years | Program budgets are tied to agency fiscal-year rows. |
-| Applicant recipient subtypes, agreement types, cost categories, and cost category line items | Streams consume those agency records. |
+| Applicant recipient subtypes, agreement types, cost categories, and cost category line items | Streams use these agency records. |
 | Common users, behalf types, review schemas, recommendation schemas, and approval templates | Required when the first stream will also generate runtime reviews, recommendations, or approvals. |
 
 If an administrator works inside an active agency context, the agency selector is locked to that agency. Otherwise, the create flow allows selecting any agency the user is authorized to administer.
 
-## List Page
+## List page
 
-The Programs page shows only records the current user can read through a global, agency, or linked-program structural `transfer_payment` role permission. Exact Proponent and Agreement assignments do not grant Program access, and configuration access never derives from another runtime assignment.
+Open **Programs** to find the programs you can read. Your role must grant program access globally, within an agency, or for specific linked programs. An assignment to a Proponent, Agreement, or other case does not grant access to program setup. See [Roles](../admin/roles.md) for role configuration.
 
 The list supports:
 
 - Search across English and French program name, English and French abbreviation, agency name, and program ID.
 - Status filtering, including all statuses.
 - Pagination and table column controls.
-- Hero counts for total programs and active programs when active-count data is available.
+- Summary counts for all programs and, when available, active programs.
 - Create, edit, delete, and wizard actions when the user has the corresponding transfer payment permission.
 
-Deleting a program uses the shared confirmation flow and soft-deletes the profile. Administrators should treat deletion as a setup correction, not as a normal end-of-life action for a program with operational history.
+Deleting a program asks for confirmation and hides the profile from normal use. Use deletion to correct setup mistakes. Review the program's history before deleting it.
 
-## Quick Create Modal
+## Quick create modal
 
-The standard program modal creates or edits only the transfer payment profile record. It is useful when the administrator wants to create the shell first and configure outcomes, objectives, budgets, indicators, and streams later.
+Use the program form to save the profile first, then add outcomes, objectives, budgets, indicators, and streams.
 
 The profile fields are:
 
@@ -44,13 +44,13 @@ The profile fields are:
 - English and French terms-and-conditions links: both required and each must be a valid URL.
 - English and French description.
 - English and French purpose.
-- Active flag: defaults to false on create.
+- Active: off by default for a new program.
 
-All bilingual fields are required. A program with missing French or English text will not validate. Two active, non-deleted Programs in the same Agency cannot share the same English/French name combination. If creating, renaming, or activating a Program reports a duplicate, check existing active Programs and correct the names before retrying. Editing another field preserves the saved Active setting.
+All bilingual fields are required. Names and abbreviations can contain up to 255 characters per language. Terms-and-conditions links can contain up to 2,000 characters each. The form removes leading and trailing spaces. If pasted text contains an invalid hidden character, retype the affected field and save again. Two active, non-deleted programs in the same agency cannot share the same combination of English and French names. If creating, renaming, or activating a program reports a duplicate, check existing active programs and correct the names before retrying. Editing another field preserves the saved Active setting.
 
-## Program Wizard
+## Program wizard
 
-The wizard creates the profile and selected child records together. If any required field, duplicate rule, or reference-data rule fails, the whole wizard submission fails and no partial program is created.
+The wizard saves the profile and the outcomes, objectives, budgets, and indicators you enter together. If any required field, duplicate rule, or reference-data rule fails, the whole wizard submission fails and no partial program is created.
 
 The wizard steps are:
 
@@ -61,7 +61,7 @@ The wizard steps are:
 - Performance: zero or more performance indicators, each linked to one wizard outcome.
 - Review: read-only summary of the entries that will be submitted.
 
-## Wizard Business Rules
+## Wizard business rules
 
 | Rule | Behaviour |
 | --- | --- |
@@ -75,17 +75,17 @@ The wizard steps are:
 
 On submit, the wizard creates the profile, outcomes, objectives, budgets, and performance indicators linked to the created outcomes.
 
-## Detail Page
+## Detail page
 
-Opening a program displays a collapsible hero with the bilingual program name and description. The edit button opens the same profile modal used from the list, with date values normalized for date inputs.
+Open a program to see a collapsible summary with its bilingual name and description. The edit button opens the same profile modal used from the list, with the saved calendar dates.
 
-The detail page uses six linkable vertical tabs: General, Streams, Outcomes, Objectives, Budgets, and Performance Indicators. The selected tab is stored in the `section` query parameter, so administrators can bookmark a specific configuration area.
+The detail page uses six linkable vertical tabs: General, Streams, Outcomes, Objectives, Budgets, and Performance Indicators. Bookmark the selected tab to return to that configuration area.
 
-## General Tab
+## General tab
 
-The General tab is read-only display of the profile fields:
+The General tab shows these profile fields in read-only form:
 
-- Agency-scoped transfer payment profile identity.
+- The program's agency and identity.
 - Start and end date.
 - English and French name.
 - English and French abbreviation.
@@ -96,39 +96,39 @@ The General tab is read-only display of the profile fields:
 
 Use the page-level edit action to change these fields.
 
-## Streams Tab
+## Streams tab
 
-The Streams tab lists the operational streams under the program. Agreements and most runtime setup are stream-driven, so at least one stream is normally required before production agreements can be created.
+The Streams tab lists the operational streams under the program. Agreements use the stream's settings, so normally you need at least one stream before creating production agreements.
 
 The stream table supports create, edit, delete, and a stream setup wizard when the user can update child records. Stream records include bilingual name, bilingual abbreviation, bilingual description, bilingual objective, optional parent stream, further-distribution flag, and status.
 
-Open a stream to configure budgets, eligible recipients, cost lines, agreement subtypes, commitments, risk ratings, review setups, recommendation setups, approval templates, document templates, and extensions.
+Open a stream to configure budgets, eligible recipients, cost lines, agreement subtypes, commitments, risk ratings, reviews, workflows, document templates, and extensions. Create shared recommendations and approval templates on the Agency page, then reference them in the relevant reviews and workflows.
 
-## Outcomes Tab
+## Outcomes tab
 
-Outcomes define the result areas used by program performance tracking. Each outcome has:
+Outcomes describe the changes the program aims to achieve. Each outcome has:
 
 - English and French name.
 - English and French description.
 
-Outcome names are required, trimmed and limited to 255 Unicode characters in each language. Both descriptions are required and trimmed. If pasted text contains an invalid hidden character, retype the affected text and save again.
+Outcome names are required and limited to 255 Unicode characters in each language. Both descriptions are required. The form removes leading and trailing spaces from names and descriptions. If pasted text contains an invalid hidden character, retype the affected text and save again.
 
 Performance indicators are linked to outcomes, so changing or deleting outcomes can affect the options available when configuring indicators.
 
-For example, use “Improved access to community facilities” as an outcome and describe the change the program aims to achieve. Add the measures used to track that change under Performance Indicators.
+For example, use "Improved access to community facilities" as an outcome and describe the change the program aims to achieve. Add the measures used to track that change under Performance Indicators.
 
-## Objectives Tab
+## Objectives tab
 
-Objectives capture bilingual objective statements for the program. Each row stores:
+Objectives state what the program aims to do. Each row has:
 
 - English objective text.
 - French objective text.
 
 Objectives are program-level statements. They do not replace stream-level objectives, which are configured on each stream.
 
-For example, “Support renovations to accessible community spaces” states what the program intends to support. A stream may have a narrower objective, such as supporting small renovation projects.
+For example, "Support renovations to accessible community spaces" states what the program intends to support. A stream may have a narrower objective, such as supporting small renovation projects.
 
-## Budgets Tab
+## Budgets tab
 
 Create a program budget for each agency fiscal year the streams will use. Each row contains:
 
@@ -144,7 +144,7 @@ You can keep a saved fiscal year after the agency retires it, allowing an amount
 
 The selector searches the agency's fiscal years and keeps the saved year's label visible even when it is outside the current results page. It never permits a year from another agency. In a new-program wizard, changing agency clears incompatible budgets. If a choice fails, reload the options before retrying instead of submitting an old identifier.
 
-## Performance Indicators Tab
+## Performance indicators tab
 
 Performance indicators are created under outcomes. Each indicator has:
 
@@ -152,39 +152,39 @@ Performance indicators are created under outcomes. Each indicator has:
 - English and French name.
 - English and French description.
 
-Indicator names follow the same 255-character limit as outcome names. Both names and descriptions are required and trimmed; invalid hidden characters are rejected.
+Indicator names follow the same 255-character limit as outcome names. Both names and descriptions are required. The form removes leading and trailing spaces and rejects invalid hidden characters.
 
 The indicator create form preselects an available outcome when possible. If there are no outcomes, create at least one outcome before adding indicators.
 
-For the outcome “Improved access to community facilities,” an indicator could be “Number of facilities improved.” Use the description to explain what counts as an improved facility. This creates the indicator definition; it does not record a measured result.
+For the outcome "Improved access to community facilities," an indicator could be "Number of facilities improved." Use the description to explain what counts as an improved facility. This creates the indicator definition; it does not record a measured result.
 
-## Status and Lifecycle
+## Status and lifecycle
 
-Program availability uses the Boolean **Active** flag and starts inactive. It is separate from the Agency business statuses used by Agreements. Activating a program does not automatically activate its streams or publish runtime configuration; complete each dependency deliberately.
+A new program starts with **Active** off. This setting is separate from the agency business statuses used by Agreements. Activating a program does not activate its streams or publish their configuration. Complete the stream setup separately.
 
-## Permission and Scope Behavior
+## Permission and scope behavior
 
-Program read, create, update, and delete actions are authorized through the `transfer_payment` role subject. Scope is derived from the role structure and is global, agency-wide, or limited to the role's linked Programs:
+Your role controls whether you can read, create, update, or delete programs. Administrators configure these permissions under `transfer_payment`. Access can cover all programs, one agency, or programs linked to the role:
 
-- Create checks the selected agency and therefore requires applicable global or agency `transfer_payment:create` access.
-- List visibility is resolved from global access, agency access, and the Programs linked to program-scoped roles.
-- Detail and child actions check the owning agency and Program against the requested CRUD action.
-- Stream and child setup pages remain under the owning Program's derived role scope.
-- Exact entity assignments are never evaluated for agencies, Programs, or streams.
+- To create a program, you need `transfer_payment:create` access globally or for the selected agency.
+- The list shows programs covered by your global, agency, or linked-program access.
+- Each action on a program or its setup checks your permission for that action in the owning agency and program.
+- Your access to streams and their setup comes from the owning program.
+- Assignments to individual cases do not grant access to agencies, programs, or streams.
 
 If a user can read a program but cannot update it, the detail page still loads but edit and add actions are hidden or disabled.
 
-## Deletion, Failure, and Recovery
+## Deletion, failure, and recovery
 
 Deletion removes a program from normal use without physically erasing its streams or historical setup. Pages that require a non-deleted profile will no longer show those records. Use deletion to correct setup mistakes; consider the program's history before deleting it.
 
 The system checks current delete permission and locks the program and its active streams while it checks dependencies. Registered extensions can block deletion to protect work attached to a stream. If streams keep changing during these checks, deletion stops with a localized scope-change error. Reload and review the current streams before trying again.
 
-Every save, wizard submission, and child-record change checks permission and the current agency/program ownership together in a transaction. You cannot change the agency of an existing program. A missing record and one you cannot access may produce similar errors: check the identifier and your global, agency, or linked-program permission scope.
+Every save, wizard submission, and setup change checks your current permissions and the owning program and agency together before saving. The edit form keeps the program's agency locked. A missing record and one you cannot access may produce similar errors: check the identifier and your global, agency, or linked-program permission scope.
 
-For a validation error, correct the field identified in the message. Common causes are duplicate bilingual values, invalid dates or URLs, a fiscal year from another agency, or unsafe financial values. After another administrator changes the setup, reload before resubmitting. Ordinary API failures leave the modal's entered values available.
+For a validation error, correct the field identified in the message. Common causes are duplicate bilingual values, invalid dates or URLs, a fiscal year from another agency, or unsafe financial values. After another administrator changes the setup, reload before resubmitting. If a save request fails, the form normally keeps your entered values so you can correct them or try again.
 
-## Operational Setup Order
+## Operational setup order
 
 A practical empty-system setup order is:
 

@@ -48,10 +48,12 @@
       "infra/aws/src/demo-stack.ts",
       "scripts/test-e2e-pglite-shards.ts",
       "packages/gcs-ssc-diagrams/src/index.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      "scripts/setup-private-tooling.ts",
+      "packages/gcs-ssc-guided-help"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Private tooling setup precedes workspace setup, which preserves unrelated conflicting paths. Current commands include Guided Help content checks and UI/database naming policy. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "config:database-modes",
@@ -87,10 +89,12 @@
       "server/plugins/../utils/extensions.ts",
       "server/plugins/../utils/migration-readiness.ts",
       "server/plugins/../utils/db.ts",
-      "server/plugins/../utils/startup-recovery.ts"
+      "server/plugins/../utils/startup-recovery.ts",
+      "server/database/migrations/0050_common.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Clean-baseline cutover removes compatibility structures. Existing production data requires a migration/recovery plan; the earlier explicit hotfix is not a substitute for this baseline. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "config:authentication-providers",
@@ -152,7 +156,7 @@
       "server/utils/auth.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance, program-budget-and-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; receipts sync-dev-extensions.json, sync-financial.json and sync-operator.json. Generated document uploads register compensation before metadata writes, then clean up after rollback with durable cleanup on deletion failure. Current template and core context fingerprints are checked before persistence. Existing storage environment settings and provider boundaries remain; supporting evidence retains prior baseline review. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "config:docker-railway",
@@ -172,10 +176,12 @@
       "scripts/dev.ts",
       "scripts/test-e2e-pglite-shards.ts",
       "packages/gcs-ssc-diagrams/src/index.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      "packages/gcs-ssc-guided-help",
+      ".railway/README.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Docker includes the repository-owned Guided Help workspace before frozen installation. Railway clean-cutover source evidence is historical, not a live deployment check by this run. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "config:ci-demo-webcontainer",
@@ -279,10 +285,13 @@
       "scripts/dev.ts",
       "scripts/test-e2e-pglite-shards.ts",
       "packages/gcs-ssc-diagrams/src/index.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      "app/pages/agencies/[id]/workflows/[workflowSetupId]/flow.vue",
+      "app/components/GuidedHelp/PublisherFlow.vue",
+      "packages/gcs-ssc-guided-help"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; paired developer/guided-help.md, getting-started/navigation.md and admin/agencies.md. Shared diagrams support ordered and branch layouts, 25% to 200% zoom, full-window display and whole-diagram SVG/PNG export independent of current zoom. Workflow editor/Flow routes block switching during pending or unsaved edits; extension diagrams retain the read-only SDK contract. Source and paired documents inspected, no runtime/SDK tests executed."
   },
   {
     "id": "config:quality-testing",
@@ -303,10 +312,12 @@
       "scripts/dev.ts",
       "scripts/test-e2e-pglite-shards.ts",
       "packages/gcs-ssc-diagrams/src/index.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      "packages/gcs-ssc-guided-help/package.json",
+      "scripts/check-guided-help.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Unit/coverage commands run forms and Guided Help checks plus Guided Help package tests. PGlite suites use isolated serialized shards, while PostgreSQL reset and integration commands remain explicit. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   },
   {
     "id": "config:extension-packaging",
@@ -332,9 +343,10 @@
       "server/utils/auth.ts",
       "modules/../shared/utils/extensions.ts",
       "modules/../shared/utils/abilities.ts",
-      "modules/../shared/utils/extension-sdk-aliases.ts"
+      "modules/../shared/utils/extension-sdk-aliases.ts",
+      "packages/gcs-ssc-extensions/src/ui.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Agency workspaces declare a management/administration category and safe integer order; invalid declarations fail build validation. Docker gitlink pins align the initialized SDK and extensions. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
   }
 ]
