@@ -62,6 +62,10 @@ Gardez dans le budget proposé chaque exercice ayant un historique de prévision
 Vérifiez vous-même le financement de programme disponible du volet avant l'approbation, en incluant les allocations aux autres ententes et le seuil de surengagement. Enregistrer ou appliquer une modification ne lance pas le contrôle de capacité entre ententes utilisé pour les changements directs du budget courant. Le contrôle annuel ci-dessus protège l'utilisation existante de cette entente; il ne prouve pas que le volet peut financer la proposition.
 :::
 
+La copie conserve le promoteur choisi sur chaque ligne budgétaire. Les [limites financières](./budget.md#limites-financières-du-volet) actives du volet s'appliquent à toute la version de brouillon à l'enregistrement, à la soumission et à l'application de l'approbation. Si une limite change pendant l'approbation, l'application peut échouer même après une soumission réussie. Vérifiez la configuration courante et l'historique d'approbation avant de réessayer. Ces limites ne remplacent pas la vérification manuelle de capacité décrite plus haut.
+
+Si une action de copie indique que le budget ou les activités ne sont pas activés, ouvrez Général et sélectionnez le type de modification correspondant. La copie du budget exige un type budget ou durée; celle des activités exige un type activités. Enregistrez la portée, puis réessayez la copie.
+
 ## Instantané des activités
 
 Sélectionnez un type activités, puis copiez une fois les activités courantes, y compris leurs résultats et responsables. L'onglet Activités de la modification offre ensuite les mêmes champs bilingues obligatoires, la même plage de dates, les mêmes résultats actifs du programme et les mêmes responsables disponibles de l'entente que ceux décrits dans [Activités de l'entente](./activities.md), mais tous les changements demeurent dans l'instantané. Si vous changez une seule date, comparez-la à l'autre date enregistrée. La fin doit rester égale ou postérieure au début.

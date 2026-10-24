@@ -12,8 +12,8 @@ Run from the documentation repository. Read its `AGENTS.md`, `package.json`, `do
 - Application repository: `https://github.com/GCS-SSC/gcs-ssc.git`
 - Branch: `main`
 - Ignored reference clone: `.reference-repos/gcs-ssc`
-- Baseline commit: `dcbe779afa3c89adb9f0f798dd1b274e92a50939`
-- Baseline committer datetime: `2026-10-20T09:13:18-04:00`
+- Baseline commit: `51ba383408ba6cd5eab40d55c9504af50916e2b6`
+- Baseline committer datetime: `2026-10-23T19:14:04-04:00`
 - Authoritative marker: this skill’s Source and baseline record.
 - Verification receipt: `documentation-audit/source-baseline.md`.
 

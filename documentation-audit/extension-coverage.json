@@ -30,6 +30,6 @@
       "server/utils/extensions.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; receipts sync-dev-extensions.json, sync-concept-misc.json and sync-technical.json. SDK 0.3.19 uses compiled exports and generated workspace bridges. Agency workspaces require both navigation capability declarations, category and signed safe-integer order; the host groups authorized enabled destinations. Scoped Manager roster changes do not require an exact assignee, while terminal/Completion protections and ordinary write assignments remain. Localized extension errors and JSONB KV serialization preserve documented public contracts. Concrete extension implementation remains extension-owned. Tests in receipts were inspected only, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. extension:host-platform: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   }
 ]

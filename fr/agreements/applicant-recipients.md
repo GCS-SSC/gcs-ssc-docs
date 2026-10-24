@@ -42,9 +42,11 @@ Un lien conserve le libellé enregistré du promoteur même si son organisme pri
 
 L'organisme principal du promoteur peut différer de l'organisme de l'entente. Par exemple, un programme peut financer un promoteur lisible dirigé par un autre organisme. Vous devez toujours avoir accès à l'entente et y être affecté, en plus de pouvoir lire le promoteur dans le catalogue partagé.
 
-Vous ne pouvez pas remplacer ou retirer un promoteur lié tant que des activités, réclamations, paiements ou comptes débiteurs utilisent le lien. L'application retourne `AGREEMENT_APPLICANT_RECIPIENT_IN_USE` avec le statut 409. Vérifiez les dossiers qui utilisent le lien avant de réessayer. Modifiez la partie responsable d'une activité dans l'entente courante ou la modification, selon le cas. Vous ne pouvez pas ajouter le même promoteur deux fois à une entente.
+Vous ne pouvez pas remplacer ou retirer un promoteur lié tant que des lignes budgétaires actives dans une version quelconque, des activités, des réclamations, des paiements ou des comptes débiteurs utilisent le lien. L'application retourne `AGREEMENT_APPLICANT_RECIPIENT_IN_USE` avec le statut 409. Vérifiez les dossiers qui utilisent le lien avant de réessayer. Modifiez la partie responsable d'une activité dans l'entente courante ou la modification, selon le cas. Vous ne pouvez pas ajouter le même promoteur deux fois à une entente.
 
 Après la création, le système n'exige pas de conserver un lien. Bien que l'assistant exige au moins un promoteur, une suppression autorisée peut ne laisser aucun lien si aucun n'est utilisé. Ne retirez pas le dernier promoteur utile sauf si une entente sans lien est intentionnelle.
+
+Avant de retirer un promoteur utilisé par le budget, vérifiez le budget courant et les copies de modification. Réattribuez ou retirez ses lignes actives seulement si le financement proposé et les références en aval le permettent. Changer uniquement le sous-type de bénéficiaire ne remplace pas le promoteur lié.
 
 ## Effets en aval
 

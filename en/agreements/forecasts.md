@@ -25,11 +25,13 @@ For example, active version 0 has 2,000 in April and 3,000 in May. Add version 1
 
 ## Edit the monthly breakdown
 
-Open the version you intend to change. Its fiscal year and version number cannot be edited. The grid groups current budget lines by cost category and subsection, with quarterly totals from April through March. Select a quarter heading to show its monthly inputs. Search matches the category, subsection, bilingual line name or description.
+Open the version you intend to change. Its fiscal year and version number cannot be edited. The grid groups current budget lines by cost category and subsection, with quarterly totals from April through March. Select a quarter heading to show its monthly amounts. Expand a cost line to see program funding and its other sources separately. Search matches the category, subsection, bilingual line name or description.
 
-1. Enter expected program amounts of zero or more in the Agreement currency, with at most two decimal places.
-2. Select **Save breakdown**. A new zero cell creates no line. Setting an existing cell to zero keeps the line with a zero amount.
-3. Check the saved amounts after the page refreshes. All changed cells save together. If validation fails, none of those changes are saved.
+1. Select the cost line's edit action to open its twelve monthly program amounts, grouped by quarter.
+2. Enter amounts of zero or more in the agreement currency, with at most two decimal places.
+3. Select **Update** to apply the amounts to the page. This does not save them to the server. **Cancel** discards the dialog changes.
+4. Select **Save breakdown** to save all changed cells together. A new zero cell creates no line unless you also enter other funding. Setting an existing cell to zero keeps its line.
+5. Check the saved amounts after the page refreshes. If validation fails, none of the submitted changes are saved.
 
 You can move an amount between months in one save. For example, with an annual budget of 5,000, change April from 5,000 to zero and May from zero to 5,000, then save once. The system checks the final annual total.
 
@@ -49,9 +51,9 @@ You cannot repeat or undo completion here. Use a new version when a completed fo
 
 ## Funding breakdown and annual budget checks
 
-Save a monthly line before opening its funding editor. Enter total cost and any other sources using the Stream's configured funding subtypes. Select each subtype once; an existing allocation may retain its retired subtype. Total cost cannot be below program funding. When other sources are entered, program funding plus those sources must equal total cost exactly.
+Expand the cost line and select an other-source row's edit action to enter its twelve monthly amounts. Source rows come from the current budget line and saved forecast allocations. To offer a new source here, add it to the agreement budget first. A saved forecast allocation can retain its retired subtype. Select **Update**, then **Save breakdown**, to save program amounts and other sources together. The page calculates each month's total cost as program funding plus its other sources. The program-funding child row displays the same amount as the main cost line; use the main line's edit action to change it.
 
-If the Stream requires forecast funding details, each active line in this version needs at least one saved other-source allocation and a balanced breakdown before Completion. For equipment costing 1,000, enter 700 from the program and 300 from another source. An allocation of only 250 leaves a 50 difference to correct.
+If the Stream requires forecast funding details, each active line in this version needs at least one saved other-source allocation and a balanced breakdown before Completion. For equipment costing 1,000, enter 700 from the program and 300 from another source. With only 250 from that source, the page calculates a total cost of 950. Enter the full 300 before saving if the planned cost is 1,000.
 
 When you save or complete a forecast, the application checks its annual program amount against current program funding for the same year and currency. Versions are checked separately. Total cost and other sources must obey their line rules, but do not have separate annual budget ceilings.
 

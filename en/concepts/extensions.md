@@ -97,7 +97,7 @@ Enabled extensions can expose an Agency workspace under **Management** or **Admi
 
 Agreement extension sections can link to host-framed detail pages. Bilingual field actions may propose translated draft values; review both languages and save the owning form. Payment evidence extensions show the calculation details saved with the Payment rather than recalculating them using today’s data. For example, when checking how an earlier Payment amount was calculated, use its retained evidence even if the calculator’s settings have since changed. Extension financial reads and coding allocation use host currency, capacity and authorization rules.
 
-Scheduled imports activate after enabled migrations and run through durable L1 scheduling, the background-work queue that preserves jobs for later processing. They create eligible draft records and retain their own retry/conflict evidence. See [Portal](../intake/portal.md), [Background work](../operator/background-work.md) and the [SDK contracts](../developer/extensions-authoring.md). Consult each extension’s own guide for its connector, calculator or translation settings.
+Scheduled imports activate after enabled migrations and run through shared background queues at host-defined levels. They create eligible draft records and retain their own retry/conflict evidence. See [Portal](../intake/portal.md), [Background work](../operator/background-work.md) and the [SDK contracts](../developer/extensions-authoring.md). Consult each extension’s own guide for its connector, calculator or translation settings.
 
 ## Operational checklist
 

@@ -1,16 +1,22 @@
-# Completed source synchronization handoff
+# Current synchronization report
 
-The source synchronization is complete. The authoritative skill marker advanced from `a50e1429bf634145a6a933f0faa3d20907a7ca6b` to application `main` commit `dcbe779afa3c89adb9f0f798dd1b274e92a50939`, committed `2026-10-20T09:13:18-04:00`.
+This run reviews application `main` from `dcbe779afa3c89adb9f0f798dd1b274e92a50939` exclusive to `51ba383408ba6cd5eab40d55c9504af50916e2b6` inclusive, committed `2026-10-23T19:14:04-04:00`. All 13 commits and 124 net paths without rename detection have dispositions in [incremental changes](./incremental-changes.json) and [source dispositions](./changed-source-dispositions.json).
 
-- Documentation starting HEAD was `7090538257d74a1a1cfdde3a4382204b77ae903a`, with a clean worktree.
-- Reviewed 89 commits and 677 net paths without rename detection. The rename-collapsed summary has 675 paths. All changes have dispositions in 58 final-source groups.
-- The ignored reference clone is clean and detached at the target. All twelve initialized gitlinks match. Baseline ancestry passed, and the final fetch still matched the target. The sibling application workspace was untouched.
-- All 2,927 coverage rows have terminal evidence: 438 page/component, 703 API, 1,753 data, 20 domain, 12 configuration, and one extension entry. The review includes 27 new API rows, 20 new page/component rows, and 238 new SQL declaration IDs.
-- Bun `1.3.13` ran inventory, API reference, audit-impact generation, `docs:check`, whitespace, and deployment-base build checks successfully. Repeat generators left 30 compared artifacts unchanged. The post-marker documentation checker passed again. Builds retain the existing nonfatal warning for chunks larger than 500 kB.
-- No application runtime, unit, PostgreSQL or browser tests, CodeRabbit, or live deployment checks were executed during this phase. Listed tests were inspected only.
+The documentation started at `668abb6b48b5e06f0ce69fc315171bc91416091f` with a clean worktree. The ignored reference clone had the expected origin and no local changes before fetching. Baseline existence and ancestry passed. All twelve initialized gitlinks now match the detached target. The sibling application workspace was untouched.
 
-Nonoverlapping agents updated final behavior for Guided Help, navigation, Agreements, administration, program design, runtime reviews, Intake, Proponents, developer contracts, and operations. Separate workers reconciled coverage, all source changes, and findings. Existing verification commands and per-area evidence receipts provided the common review framework. Documentation tooling was unchanged.
+## Final behavior
 
-New pages are `en/admin/guided-help.md`, `fr/admin/guided-help.md`, `en/developer/guided-help.md`, and `fr/developer/guided-help.md`. They need inclusion in the whole-site editorial plan. All source authoring and generated-file writes are complete. The requested editorial pass and its final checks subsequently passed. Commit, push to main, and the GitHub Pages rebuild remain with the root coordinator. See `final-verification.md`. Source synchronization verification ran before commit and publication.
+- Agreement guides explain per-version financial limits, linked Proponents, source editing, monthly forecast drafts, and Amendment scope requirements. The worked example separates support, stacking, and the per-Proponent cap.
+- The new queue administration guide explains global system access, read-only state, leases, retries, stale snapshots, and recovery. Operator and SDK guides describe fixed levels and the replacement queue API.
+- Audit guides describe independent access storage, shared filters, seven-day default searches, cursor navigation, persistence limits, and unavailable-history recovery.
+- Deployment guides cover separate database storage and backups, preserved companion services, and the source-attributed October 23 release. Source-owned setup workbooks and concrete extension internals have supported omissions.
 
-Existing documented application gaps remain: shared Stream capacity, imported duplicate monthly coordinates, payment picker eligibility, duplicate Claim lines, generated-file cleanup, document context-provider registration, and the Account-Receivable-only assignment menu omission. No source-contract blockers remain. See `sync-review.md`, `source-baseline.md`, `sync-coverage.json`, and the other per-area `sync-*.json` receipts. `sync-coverage.json` is a report object rather than a coverage-row array.
+Independent financial and queue reviewers had exclusive page ownership. The coordinator reviewed access, infrastructure, generated coverage, and the combined result. Every revised passage received the requested bro plain-language pass, plus technical-writing and unslop review. Exact API identifiers, amounts, limits, and errors remain intact in both languages.
+
+## Coverage and verification
+
+All 2,950 entries have source-backed terminal dispositions, with zero remaining items: 443 page/component, 706 API, 1768 data, 20 domain, 12 configuration, and one extension entry. New rows were reviewed against current source; unchanged mechanisms in large baseline files keep their prior evidence. Historical audit-impact remains empty; runtime Audit remains documented.
+
+The inventory now discovers shared root `*-schema.ts` files. An isolated fixture passed schema and SQL table/function discovery, curated-evidence preservation, deterministic regeneration, and removed-source cleanup. Existing scheduler source paths were replaced. Generators passed. The documentation checker, whitespace verification, deployment-base build, and source-drift comparison passed. The first repeat normalized the queue configuration source list; the next repeat preserved all 29 generator-owned coverage/reference artifacts byte-for-byte. Both builds emitted the existing nonfatal chunk-size warning. The marker advanced after these checks; the post-marker documentation checker, whitespace verification, and deployment-base build passed again.
+
+Application regression files were inspected only. No application unit, runtime, PostgreSQL, browser, CodeRabbit, or live-application checks ran. Screenshots were not regenerated. See the three `sync-oct23-*.json` receipts and [coverage](./sync-coverage.json).

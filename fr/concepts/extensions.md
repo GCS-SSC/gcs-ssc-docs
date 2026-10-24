@@ -97,7 +97,7 @@ Une extension activée peut proposer un espace d’organisme sous **Gestion** ou
 
 Les sections d’extension d’entente peuvent ouvrir un détail dans le cadre hôte. Les actions bilingues peuvent proposer une traduction de brouillon; examinez les deux langues et enregistrez le formulaire propriétaire. Les extensions de preuve de paiement affichent les détails du calcul enregistrés avec le paiement plutôt que de le recalculer avec les données actuelles. Par exemple, pour vérifier le calcul d’un ancien paiement, utilisez ses preuves conservées même si les réglages du calculateur ont changé depuis. Lectures financières et imputation suivent devise, capacité et autorisation de l’hôte.
 
-Les importations planifiées s’activent après les migrations et passent par L1 durable, la file de travail en arrière-plan qui conserve les tâches pour leur traitement ultérieur. Elles créent des brouillons admissibles et conservent leurs preuves de reprise/conflit. Voir [Portail](../intake/portal.md), [Travail en arrière-plan](../operator/background-work.md) et [contrats du SDK](../developer/extensions-authoring.md). Consultez le guide de chaque extension pour connaître ses réglages de connecteur, de calculateur ou de traduction.
+Les importations planifiées s’activent après les migrations et passent par les files partagées aux niveaux définis par l'hôte. Elles créent des brouillons admissibles et conservent leurs preuves de reprise/conflit. Voir [Portail](../intake/portal.md), [Travail en arrière-plan](../operator/background-work.md) et [contrats du SDK](../developer/extensions-authoring.md). Consultez le guide de chaque extension pour connaître ses réglages de connecteur, de calculateur ou de traduction.
 
 ## Liste de contrôle opérationnelle
 

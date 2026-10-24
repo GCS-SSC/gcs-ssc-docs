@@ -22,7 +22,7 @@
       "app/pages/admin/gwcoa.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Documented fresh current Audit permissions on list load, literal exact filters, maximum 200-character text filters and null-character rejection with a recovery instruction. Preserved per-Agency evidence and separate captured-input visibility. Scoped evidence: documentation-audit/sync-audit-gwcoa.json. Added global attribution for system-owned Guided Help and Agency attribution for Agency-owned Guided Help, Agency catalogue and associated publication records. Removed financial tables are absent from final registry; existing general source-owner explanation remains valid. Scoped evidence: documentation-audit/sync-audit-gwcoa.json. Shared action-button component replacement preserves actions; no new user behavior required. Scoped evidence: documentation-audit/sync-audit-gwcoa.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/admin/audit.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "page:app/pages/admin/gwcoa.vue",
@@ -47,7 +47,22 @@
       "tests/e2e/gwcoa-storage-validation-recovery.spec.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Shared action-button component replacement preserves actions; no new user behavior required. Scoped evidence: documentation-audit/sync-audit-gwcoa.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/admin/gwcoa.vue: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "page:app/pages/admin/queues.vue",
+    "source": "app/pages/admin/queues.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/queues.md",
+    "fr": "fr/admin/queues.md",
+    "evidence": [
+      "app/pages/admin/queues.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/admin/queues.vue: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "page:app/pages/agencies/[id]/approval-templates/[templateId].vue",
@@ -445,8 +460,8 @@
       "end-user",
       "administrator"
     ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
+    "en": "en/agreements/amendments.md",
+    "fr": "fr/agreements/amendments.md",
     "evidence": [
       "app/pages/agreements/[id]/amendments/[amendmentId].vue",
       "app/composables/usePageResourceError.ts",
@@ -491,7 +506,7 @@
       "shared/types/schemas/correction.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Amendments search all pages by exact amendment number or bilingual name. Snapshot actions require fresh assignment, editable draft, applicable selected types and no existing snapshot. Budget protections include earlier approved version financial references; activity date updates validate against the saved other date. Activity deletion removes responsible-party/outcome links. Closeout document persistence allows own active workflow, but not competing or terminal state. Template/core changes require reload/retry; busy rendering requires waiting. Pending recoveries are checked through offset memo applications. Monitor required text rejects blanks/null characters. Actual dates can clear when unmonitored; updates validate the merged saved record. Assignment/child guides explain exact owner assignment and fresh checks; corrections prose retains financial lifecycle requirements. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/agreements/[id]/amendments/[amendmentId].vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "page:app/pages/agreements/[id]/claims/[claimId].vue",
@@ -744,7 +759,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-claim-detail-page-layout.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Forecast changed-cell saves are atomic, compare expected saved identities/amounts, and apply annual validation after all edits. Unchanged cells/funding remain intact and totals recalculate. Historical forecast/claim lines remain visible and read-only after budget amendment; current stable counterparts remain editable where eligible. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/agreements/[id]/forecasts/[forecastId].vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "page:app/pages/agreements/[id]/monitors/[monitorId].vue",
@@ -1867,23 +1882,19 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit global audit permission, filters, exact evidence values, SQL redaction, buffered access events and retention limits. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
-    "id": "page:app/middleware/admin-gwcoa.ts",
-    "source": "app/middleware/admin-gwcoa.ts",
+    "id": "page:app/middleware/admin-system.ts",
+    "source": "app/middleware/admin-system.ts",
     "audience": [
       "end-user",
       "administrator"
     ],
-    "en": "en/admin/common-admin.md",
-    "fr": "fr/admin/common-admin.md",
+    "en": "en/admin/queues.md",
+    "fr": "fr/admin/queues.md",
     "evidence": [
-      "app/middleware/admin-gwcoa.ts",
-      "app/utils/fetch-error.ts",
-      "app/utils/client-request-url.ts",
-      "shared/types/auth.ts",
-      "app/utils/route-locations.ts"
+      "app/middleware/admin-system.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: dedicated GWCOA catalogue, bounded bilingual names/numbers and referenced-number conflicts. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/middleware/admin-system.ts: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "page:app/middleware/auth.global.ts",
@@ -2205,6 +2216,66 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group receivable in review-groups.json. Claim/paid-Advance eligibility and coding, posted original/adjustment balances, independent permissions/rosters, approved recovery, reservations/holds, Claim reductions only at full clearance. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "component:app/components/Admin/AuditAccessHistory.vue",
+    "source": "app/components/Admin/AuditAccessHistory.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "app/components/Admin/AuditAccessHistory.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Admin/AuditAccessHistory.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "component:app/components/Admin/AuditActorFilter.vue",
+    "source": "app/components/Admin/AuditActorFilter.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "app/components/Admin/AuditActorFilter.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Admin/AuditActorFilter.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "component:app/components/Admin/AuditOperationFilter.vue",
+    "source": "app/components/Admin/AuditOperationFilter.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "app/components/Admin/AuditOperationFilter.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Admin/AuditOperationFilter.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "component:app/components/Admin/AuditTableFilter.vue",
+    "source": "app/components/Admin/AuditTableFilter.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "app/components/Admin/AuditTableFilter.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Admin/AuditTableFilter.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/AdminCommon/AdminCommonLookupField.vue",
@@ -3359,7 +3430,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Agreement/AgreementBudgetTab.vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/Agreement/AgreementClaimReconciliationLinesTable.vue",
@@ -7038,7 +7109,7 @@
       "app/components/Common/Pagination.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. First, previous, next and last controls expose translated labels. The paired navigation guide documents pagination and resetting to the first page after filters change. Direct source and both locale guides inspected. No application tests executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/Pagination.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/Common/PaymentCalculationBreakdown.vue",
@@ -7316,7 +7387,7 @@
       "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/ResourceLayoutCard.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/Common/ResourceLayoutPage.vue",
@@ -7342,7 +7413,7 @@
       "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/ResourceLayoutPage.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/Common/ResourceTableFeedback.vue",
@@ -7919,7 +7990,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/Workflow/ApprovalPacket.vue: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/Common/Workflow/Packet.vue",
@@ -9376,8 +9447,8 @@
       "end-user",
       "administrator"
     ],
-    "en": "en/admin/agencies.md",
-    "fr": "fr/admin/agencies.md",
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
     "evidence": [
       "app/components/TransferPayment/Fields/TransferPaymentFinancialLimitFields.vue",
       "shared/types/transfer-payment-ui.ts",
@@ -9388,7 +9459,7 @@
       "server/utils/agency-finance-catalog.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/TransferPayment/Fields/TransferPaymentFinancialLimitFields.vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/TransferPayment/Fields/TransferPaymentMonitorTypeFields.vue",
@@ -9746,7 +9817,7 @@
       "shared/utils/money.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/TransferPayment/TransferPaymentFinancialLimitsTab.vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentGeneralTab.vue",

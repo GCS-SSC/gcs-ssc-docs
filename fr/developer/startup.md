@@ -9,6 +9,8 @@ La documentation se trouve dans `gcs-ssc-docs`. La source de l’application se 
 L’application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou Postgres. Les variables d’environnement fournissent la connexion à la base de données, les paramètres d’authentification et la clé de chiffrement des extensions au démarrage :
 
 - `DATABASE_URL`
+- `GCS_ACCESS_DATABASE_URL`
+- `PGLITE_ACCESS_DATA_DIR`
 - `PGLITE_DATA_DIR`
 - `NUXT_GITHUB_CLIENT_ID`
 - `NUXT_GITHUB_CLIENT_SECRET`
@@ -19,6 +21,8 @@ L’application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite o
 - `GCS_EXTENSION_SECRETS_KEY`
 
 Si `DATABASE_URL` est absent, le développement local peut utiliser le répertoire PGlite configuré.
+
+PostgreSQL exige une instance distincte pour les accès avec `GCS_ACCESS_DATABASE_URL`. PGlite local utilise un second répertoire, par défaut le chemin métier suivi de `-access`. Consultez [Configuration](../operator/configuration.md).
 
 `GCS_EXTENSION_SECRETS_KEY` est requis en production lorsque les extensions stockent des identifiants chiffrés. La valeur doit être une clé de 32 octets encodée en base64. Les données d’amorçage du développement peuvent fournir une clé fixe de démonstration pour des identifiants locaux non réels uniquement.
 

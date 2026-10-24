@@ -1,53 +1,27 @@
 {
-  "baseline": "a50e1429bf634145a6a933f0faa3d20907a7ca6b",
-  "target": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "baseline": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "target": "51ba383408ba6cd5eab40d55c9504af50916e2b6",
   "source": ".reference-repos/gcs-ssc",
-  "scope": "All generated coverage ledgers. Disjoint API/page and data reviewers plus domain/config/extension reconciliation. No generators run by coverage reviewers.",
-  "review": {
-    "data": "1753 entries. 312 changed/new entries explicitly reviewed, including all238 new declarations,49 changed tables,8 changed baseline roots,12 changed functions and raw-SQL receivable/Credit Memo helpers. Each new SQL declaration retains its exact source symbol/contract; Guided Help storage maps to paired developer and authoring guides.",
-    "api_page": "New Forecast changed-cell route, six Stream lookup routes, Guided Help API/UI and extension form wrappers traced to final source and paired documentation. Corrected old feature destination drift for Claims/Forecasts/Commitments/Monitors/Closeouts, Program pages and extension forms. Applicable changed entries reference the source author receipts. All27 new API and20 new page/component entries have terminal source-backed dispositions, including the fixed extension wrapper paragraph.",
-    "domain": "All20 primary domain destinations reviewed. Corrected broad or unrelated destinations for program design, Proponents, Agreements, runtime reviews, common administration, validation, document generation and deployment. Added source-specific contracts and pointers for Guided Help, authorization, final schema, recoveries, documents, UI and operations.",
-    "config_extension": "Updated source-specific setup, clean baseline, Docker Guided Help workspace, current checks, diagram and SDK navigation contracts. Existing unchanged runtime environment settings retain their earlier evidence. Concrete extensions own implementation documentation."
-  },
-  "evidence_receipts": [
-    "documentation-audit/sync-access.json",
-    "documentation-audit/sync-admin-program.json",
-    "documentation-audit/sync-audit-gwcoa.json",
-    "documentation-audit/sync-concept-misc.json",
-    "documentation-audit/sync-dev-extensions.json",
-    "documentation-audit/sync-financial.json",
-    "documentation-audit/sync-guided-help.json",
-    "documentation-audit/sync-intake.json",
-    "documentation-audit/sync-operator.json",
-    "documentation-audit/sync-program-schemas.json",
-    "documentation-audit/sync-program.json",
-    "documentation-audit/sync-proponents.json",
-    "documentation-audit/sync-runtime.json",
-    "documentation-audit/sync-technical.json"
-  ],
-  "verification": {
-    "executed": [
-      "JSON parse and unique ID checks for all ledgers",
-      "All paired documentation destinations exist",
-      "All source evidence files exist after separating #symbol fragments",
-      "git diff --check on owned domain/config/extension ledgers"
-    ],
-    "not_executed": [
-      "Application unit/runtime/PostgreSQL/browser tests",
-      "Global docs generators/check/build; coordinator owns final verification"
-    ]
-  },
-  "disposition_rule": "DOCUMENTED_VERIFIED means source-to-documentation coverage, not application test execution. Unchanged supporting evidence retains its prior baseline. New and materially changed rows use actual source contracts and paired guides; no blanket re-certification of unchanged entries.",
-  "limitations": [],
   "counts": {
-    "api": 703,
-    "page": 438,
-    "data": 1753,
+    "page": 443,
+    "api": 706,
+    "data": 1768,
     "domain": 20,
     "config": 12,
     "extension": 1,
     "audit-impact": 0
   },
-  "total": 2927,
-  "remaining": 0
+  "total": 2950,
+  "remaining": 0,
+  "scope": "Changed rows reopened and reconciled against three October 23 source receipts; unchanged mechanisms retain previous review.",
+  "evidence_receipts": [
+    "documentation-audit/sync-oct23-financial.json",
+    "documentation-audit/sync-oct23-queues.json",
+    "documentation-audit/sync-oct23-access-operations.json"
+  ],
+  "verification": {
+    "generator_fixture": "Passed discovery, curated preservation, determinism, and removed-source behavior.",
+    "final_checks": "Documentation checker, whitespace, deployment-base build, generator stability and final source fetch passed. Post-marker checker, whitespace and deployment-base build passed again."
+  },
+  "disposition_rule": "DOCUMENTED_VERIFIED means documentation coverage, not application test execution."
 }

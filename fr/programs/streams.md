@@ -44,7 +44,7 @@ Les étapes de l’assistant sont :
 - Types d’engagement : classifications d’engagement disponibles déjà créées à l’agence.
 - Types de surveillance : types admissibles déjà créés à l’agence.
 - Domaines : domaines d’expertise bilingues pour l’affectation d’examens/évaluations.
-- Limites financières : montant maximal par destinataire, pourcentage de soutien, pourcentage de coûts rétroactifs, limite de cumul et statut.
+- Limites financières : montant maximal par destinataire, pourcentage de soutien, limite de cumul et statut. Le contrôle des coûts rétroactifs est indisponible.
 - Révision : sommaire de la configuration du volet.
 
 L’assistant couvre la configuration de base du volet. Après l’enregistrement, liez les ensembles d’examens et les flux et configurez les extensions depuis les onglets de détail. Créez et publiez les définitions de recommandation, modèles d’approbation et schémas d’évaluation à l’agence avant de les utiliser dans ces définitions partagées.
@@ -141,7 +141,7 @@ Si l'enregistrement réussit, mais que le rafraîchissement du tableau échoue, 
 
 Utilisez **Sous-types de financement** pour choisir les sources d'autre financement que les agents peuvent sélectionner dans ce volet. Créez d'abord les types de financement et leurs sous-types sur la page Agence. Liez ensuite un sous-type actif de la même agence dont le type parent est aussi actif.
 
-Par exemple, créez « Autre financement public », inclus dans le cumul, et le sous-type « Contribution municipale ». Liez ce sous-type au volet pour que les agents puissent le choisir en enregistrant une source municipale. Ce lien rend la source disponible; il ne saisit aucun montant de financement d'entente. Le tableau montre les classifications de cumul et de partage des coûts du parent. Une source enregistrée conserve sa classification capturée si le catalogue change ensuite.
+Par exemple, créez « Autre financement public », inclus dans le cumul, et le sous-type « Contribution municipale ». Liez ce sous-type au volet pour que les agents puissent le choisir en enregistrant une source municipale. Ce lien rend la source disponible; il ne saisit aucun montant de financement d'entente. Le tableau montre les classifications de cumul et de partage des coûts du parent. Les dossiers d'approbation conservent leur classification capturée. Les limites du budget courant utilisent les réglages courants du type de financement.
 
 Un Contributeur `transfer_payment` à la portée du programme peut ajouter un lien; son retrait exige Gestionnaire. Les doublons actifs sont refusés. Ajouter un sous-type déjà retiré rétablit son association. Retirer un lien empêche les nouveaux choix et conserve les preuves de financement enregistrées. Vous ne pouvez pas supprimer le type ou sous-type d'agence tant qu'un lien actif de volet reste.
 
@@ -231,19 +231,13 @@ Ajoutez des domaines lorsque les agents doivent affecter les examens par spécia
 
 ## Onglet limites financieres
 
-Les limites financières définissent les seuils du volet :
+Configurez le montant maximal par destinataire, le pourcentage maximal de soutien, la limite de cumul et le réglage Actif. Le montant doit être non négatif, avec au plus deux décimales. Le soutien et le cumul utilisent des ratios de `0` à `1`, avec au plus deux décimales : `0.50` signifie 50 %. Zéro est une vraie limite. Le montant s'applique dans la devise de chaque entente, sans devise CAD fixe ni conversion.
 
-- Montant maximal admissible par destinataire.
-- Pourcentage maximal de soutien disponible par destinataire.
-- Pourcentage maximal de coûts rétroactifs admissibles.
-- Limite de cumul.
-- Indicateur Actif.
+Le champ des coûts rétroactifs est désactivé, car l'application ne calcule pas cette limite. Les requêtes API de création, de modification et d'assistant doivent omettre ce champ, même zéro ou null. Les nouveaux dossiers enregistrent zéro; les lectures peuvent encore retourner une valeur historique.
 
-Le total de la liste comprend les limites actives et inactives; le nombre de limites actives est distinct. Modifier un montant conserve le réglage Actif enregistré, sauf si vous changez aussi ce réglage.
+Le total de la liste comprend les lignes actives et inactives; le nombre actif est distinct. Modifier un montant conserve son réglage Actif, sauf si vous le changez aussi. Sans configuration active, les trois contrôles de limites financières budgétaires ne s'appliquent pas. L'allocation annuelle du volet et le seuil de surengagement restent des contrôles distincts.
 
-Les limites financières sont facultatives dans l’assistant. Sans ligne de limites financières, les processus qui vérifient les limites ne disposent pas de valeurs propres au volet.
-
-Par exemple, un montant maximal admissible de 50 000 $ par destinataire décrit le plafond du volet pour un destinataire. Il est distinct de l’allocation annuelle totale du volet : configurer l’un ne crée pas l’autre. Saisissez les limites approuvées pour le programme, puis vérifiez le processus d’entente qui les utilise.
+Une configuration active limite le programme de chaque promoteur sur une version budgétaire d'entente, le soutien par ligne et le cumul sur la version. Consultez [Budget de l'entente](../agreements/budget.md#limites-financières-du-volet) pour les formules, l'exemple et la reprise. Changer les limites ou les indicateurs des types de financement peut faire échouer le prochain changement ou contrôle d'approbation d'un budget existant. Vérifiez les ententes touchées avant d'activer des limites plus strictes.
 
 ## Onglet configurations d examen
 

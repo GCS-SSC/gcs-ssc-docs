@@ -1,0 +1,76 @@
+{
+  "baseline": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "target": "51ba383408ba6cd5eab40d55c9504af50916e2b6",
+  "scope": "Agreement budget, forecasts, amendments, proponent links, and stream financial limits",
+  "source_files_reviewed": [
+    "app/components/Agreement/AgreementBudgetTab.vue",
+    "app/pages/agreements/[id]/forecasts/[forecastId].vue",
+    "app/pages/agreements/[id]/amendments/[amendmentId].vue",
+    "app/components/TransferPayment/Fields/TransferPaymentFinancialLimitFields.vue",
+    "shared/types/schemas/transfer-payment.ts",
+    "server/utils/agreement-budget-financial-limits.ts",
+    "server/utils/agreement-budget-proponent.ts",
+    "server/utils/agreement-budget.ts",
+    "server/utils/agreement-budget-calculation.ts",
+    "server/utils/agreement-budget-funding.ts",
+    "server/utils/agreement-forecast-breakdown.ts",
+    "server/utils/agreement-applicant-recipient.ts",
+    "server/utils/agreement-amendment.ts",
+    "server/utils/agreement-approval-submission.ts",
+    "server/utils/agreement-financial-budget-errors.ts",
+    "server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/index.post.ts",
+    "server/api/agreements/[id]/budget-line-items/[childId].patch.ts",
+    "server/api/agreements/[id]/budget-line-items/[childId].delete.ts",
+    "server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].patch.ts",
+    "server/api/agreements/[id]/amendments/[amendmentId]/budget-fiscal-years/[childId].delete.ts",
+    "tooling/gcs-ssc/architecture/agreement-budget-financial-limits.md"
+  ],
+  "final_contracts": [
+    "An active stream financial-limit configuration applies to active lines in active years of one budget version. Current and amendment versions are independent. No active configuration skips these three limits; active zero is enforced.",
+    "Each proponent cap sums its program funding across all fiscal years in the version, including calculated charges. It is not a combined cross-agreement allowance. The numeric cap is in each agreement native currency without conversion.",
+    "Support is checked per line: program <= ratio * (program + other funding whose current funding-type flag includes cost sharing). Stacking is checked for the whole version: program plus other funding whose current type flag includes stacking <= ratio * total costs. Flags are independent, including for retained retired sources. Arithmetic is exact without rounding a ceiling upward.",
+    "Every budget line identifies an existing linked proponent. A sole link defaults automatically, multiple links need a selection, and omitted PATCH input preserves the saved selection. Percentage groups still span proponents. Amendment copies and approval packets retain attribution.",
+    "Budget writes, source changes, recalculation and deletion check the complete proposed version transactionally. Approval submission and amendment application recheck current limits. Initiating writes and derived changes roll back on failure. Existing annual controls and direct-current-budget stream capacity remain separate; amendment cross-agreement capacity still needs manual review.",
+    "Active budget references in any version prevent replacing or removing the proponent relationship. Recipient subtype-only edits do not replace the proponent.",
+    "Budget rows expand into program and individual other funding sources. Individual source edits save immediately; main-line edits preserve sources. UI source deletion uses delete permission.",
+    "Forecast edit dialogs expose twelve months in four quarters. Update changes local drafts, Cancel discards dialog changes, and Save breakdown persists all changed cells. Main rows edit program amounts; other-source child rows edit their own amounts; program child rows have no edit action. Definitions come from current budget and persisted forecast sources. Totals are program plus other funding. Source-only months may create a saved zero-program line.",
+    "Financial-limit maximum is nonnegative. Support and stacking are ratios 0..1 with at most two decimals. Retroactive cost control is disabled; supplied API values including zero and null are rejected, creation stores zero, reads retain historical field.",
+    "Amendment copy warns when the selected types do not enable the domain. Save budget or duration type for a budget copy, and activities type for an activity copy."
+  ],
+  "documentation_pairs": [
+    [
+      "en/agreements/budget.md",
+      "fr/agreements/budget.md"
+    ],
+    [
+      "en/agreements/forecasts.md",
+      "fr/agreements/forecasts.md"
+    ],
+    [
+      "en/agreements/amendments.md",
+      "fr/agreements/amendments.md"
+    ],
+    [
+      "en/agreements/applicant-recipients.md",
+      "fr/agreements/applicant-recipients.md"
+    ],
+    [
+      "en/programs/streams.md",
+      "fr/programs/streams.md"
+    ]
+  ],
+  "plain_language_review": "Applied bro to every new or revised passage, followed by technical-writing and unslop review. Replaced obsolete forecast funding-editor instructions and corrected the worked example because monthly total cost is now calculated.",
+  "regression_files_inspected_not_executed": [
+    "tooling/gcs-ssc/tests/unit/agreement-budget-financial-limits.test.ts",
+    "tooling/gcs-ssc/tests/unit/retroactive-financial-limit.test.ts",
+    "tooling/gcs-ssc/tests/unit/agreement-budget-proponent.test.ts",
+    "tooling/gcs-ssc/tests/unit/agreement-forecast-detail-page-layout.test.ts",
+    "tooling/gcs-ssc/tests/integration/agreement-budget-proponent-postgres.test.ts"
+  ],
+  "tests_executed": [],
+  "limitations": [
+    "No application runtime, unit, integration, or browser tests executed by this scope owner.",
+    "Parent owns inventory generation, ledger reconciliation, build, final checks, and marker advancement.",
+    "Existing screenshots were not regenerated."
+  ]
+}

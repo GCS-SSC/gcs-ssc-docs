@@ -36,12 +36,17 @@ For a manual line, choose the year and cost line, identify the cost in the subse
 | Cost line | Required active stream cost-category line item. Its English/French configured name is displayed. |
 | Cost subsection | Required non-empty text, maximum 255 characters. |
 | Description | Required non-empty text; this agreement-specific description is not bilingual. |
-| Total amount | Required amount with at most two decimals. |
-| Program funding | Enter an exact amount for manual lines. The form calculates it for percentage lines. |
+| Proponent | Required linked proponent. The sole linked proponent is selected automatically; choose one when several are linked. |
+| Total amount | Required nonnegative amount with at most two decimals. |
+| Program funding | Enter an exact nonnegative amount for manual lines. The form calculates it for percentage lines. |
 | Other funding sources | Select configured funding subtypes and exact amounts, with optional English/French descriptions. Each subtype appears once per line. |
 | Currency | The agreement's currency. You cannot change it here. |
 
 The total must be at least the program funding plus all configured other-funding amounts. For example, 1,000 from the program plus 500 from another source requires a total of at least 1,500. A total of 1,400 is rejected. If recalculating a percentage leaves any affected line's total below its combined funding, the system cancels the entire change. Total amount and other funding remain manually entered even on calculated lines.
+
+Every line assigns its full program funding to one linked proponent, including calculated lines. Changing that selection rechecks the proponent's limit across all years of this budget version. The proponent does not divide the percentage-calculation group. Amendment copies keep the selection.
+
+Expand a saved cost line to see program funding and each other source separately. Use the line's add action to add a source, or a source row's edit or delete action to change it. These actions save immediately. Editing the main line preserves its saved other sources. Source removal requires the delete permission described above and must still satisfy the budget limits.
 
 ## Percentage-based lines
 
@@ -83,6 +88,24 @@ Adding, editing, moving or deleting a line recalculates the affected budget vers
 ## Retired cost definitions
 
 A cost line is available for new selections only when the agency category, agency line item and stream mapping are all available. You can still read existing lines and keep a retired selection when editing one. If you replace it, choose a currently available cost line. Ask your administrator to check all three settings when an expected option is missing.
+
+## Stream financial limits
+
+An active financial-limit record on the stream adds three checks. They use all active lines and years in one budget version. Current and amendment budgets are checked separately.
+
+| Limit | What must fit |
+| --- | --- |
+| Maximum allowable per recipient | Each proponent's combined program funding across all years of this version must fit the amount. This is not a shared allowance across agreements. |
+| Maximum support percentage | On each line, program funding must fit the percentage of program funding plus other sources marked for cost sharing. Unallocated total cost does not count as cost sharing. |
+| Stacking limit | Program funding plus other sources marked for stacking, across the whole version, must fit the percentage of total costs. |
+
+The funding type's current cost-sharing and stacking settings determine which sources count, including retained retired sources. The two settings are independent. Comparisons use exact amounts without rounding the permitted ceiling upward. An active zero is a real zero limit. Without an active record, these three checks do not apply. Stream capacity and annual usage checks still apply separately.
+
+For example, the stream allows 50,000 per proponent, 50% support, and 75% stacking. A line with 10,000 total cost, 4,000 program funding, 4,000 qualifying cost sharing, and 2,000 unallocated cost meets the support rule: 4,000 ÷ 8,000 = 50%. If that other source also counts for stacking, the line alone fails stacking: 8,000 ÷ 10,000 = 80%. A total cost of 11,000 reduces stacking to about 72.73%, provided that total reflects the actual project cost. A second year with 47,000 of program funding for the same proponent would exceed the 50,000 cap because 4,000 + 47,000 = 51,000.
+
+The maximum amount uses each agreement's own currency. A configured 50,000 means CAD 50,000 for a CAD agreement and USD 50,000 for a USD agreement. The system does not convert currencies.
+
+Saving a line, changing a source, recalculating percentages, or deleting budget data rechecks the complete proposed version. Approval submission and amendment application check the current limits again. A failed check leaves the change and its recalculations unsaved. Review the affected proponent, qualifying sources, and totals before retrying. Deleting a line can also fail if it removes costs needed to satisfy stacking.
 
 ## Program-funding capacity
 

@@ -6,7 +6,7 @@ Approval, review, and Completion actions advance through application requests an
 
 When an officer deletes an attachment, the application records a cleanup job in `storage_cleanup_outbox` in the same transaction that retires the attachment metadata. The request tries one cleanup batch, but success of the user’s deletion does not require immediate external-object deletion. Failed upload finalization and provider-metadata compensation can also create cleanup work.
 
-The running application drains one due storage-cleanup operation every five seconds through its durable L1 scheduler and prunes completed jobs hourly. The one-shot drain remains available for catch-up or a separately operated worker with the same database access, provider code, Agency configuration and extension secret key.
+The running application processes up to 60 due storage-cleanup operations every five minutes on Level 1 and prunes completed jobs every 30 minutes on Level 2. The one-shot drain remains available for catch-up or a separately operated worker with the same database access, provider code, Agency configuration and extension secret key.
 
 From a prepared source checkout:
 
@@ -28,33 +28,50 @@ Both commands are one-shot drains. They process currently eligible work and exit
 | `GCS_STORAGE_CLEANUP_BATCH_SIZE` | 20; clamped to 1–100. |
 | `GCS_STORAGE_CLEANUP_RETENTION_DAYS` | 30; minimum 1. Applies only to completed cleanup jobs. |
 
-Workers claim pending jobs whose retry time has arrived and reclaim processing jobs with expired leases. Row locking with `SKIP LOCKED` coordinates concurrent workers. A normal processing lease reserves a job for one worker for 60 seconds. Provider deletion must be safe to repeat because a worker can stop after external deletion but before recording success.
+Workers claim pending jobs whose retry time has arrived and reclaim processing jobs with expired leases. Row locking with `SKIP LOCKED` coordinates concurrent workers. The batch processor claims one operation at a time with a 610-second lease, so waiting operations do not lose their leases during slow provider calls. Provider deletion must be safe to repeat because a worker can stop after external deletion but before recording success.
 
-Failures retry after 30 seconds, then exponentially longer delays. The eighth failed attempt places the job in `dead_letter`; ordinary drains no longer claim it. The output reports `claimed`, `completed`, `retried`, `deadLettered`, and `pruned`. A drain can exit successfully while reporting retried or dead-lettered jobs: monitor those counts and queue age, not just process exit status.
+Failures remain pending and retry without an attempt limit. Delays start at 30 seconds and double to a 30-minute cap. The scheduled processor attempts them on the next eligible five-minute cycle; the one-shot command can process them as soon as their retry time arrives. Its output reports `claimed`, `completed`, `retried`, `deadLettered`, and `pruned`; the current processor always reports `deadLettered: 0`. Monitor repeated failures and queue age as well as process exit status.
 
-For example, if a storage service is unavailable during deletion, the user-visible attachment remains deleted and the pending job waits for its next attempt. Restore service access, then run the drain after that time. If it has already reached `dead_letter`, investigate the recorded provider, Agency, operation, attempt count, and `last_error` before controlled repair; the application supplies no general user requeue screen. Do not delete the job merely to clear an alert while the object or compensation remains unresolved.
+For example, if a storage service is unavailable during deletion, the attachment remains deleted for the user and the cleanup job waits. Restore provider access, then allow the next eligible cycle or run the one-shot drain after the retry time. Inspect the recorded provider, Agency, operation, attempt count, and `last_error` if failures continue. Historical `dead_letter` jobs are retained but are not claimed automatically. Investigate them before controlled repair. Do not delete unresolved jobs to clear an alert.
 
 A provider-owned metadata update reserves a restoration job before changing the external metadata. Its request lease is five minutes. A successful database transaction completes the reservation; a failure releases it for restoration of the previous metadata. Treat `restore_metadata` jobs as compensation work, not as object deletions.
 
 Each drain prunes at most 500 completed jobs older than its retention threshold. Pending, processing, and dead-letter jobs are retained. Back up the outbox with the database. If logs report that orphan-cleanup persistence itself failed, there may be no durable job: reconcile the logged object identity against provider storage and application metadata.
 
-## Durable L1 scheduling
+## Shared background scheduling
 
-Nitro offers registered host and extension handlers work every five seconds after migration and Audit readiness. `l1_queue` retains each handler’s next-run time, attempt count, last error and lease. Domain queues retain their own payloads and delivery evidence; L1 contains no credentials or business request payloads.
+The host checks for due work every five seconds. Handlers select a host-defined level rather than their own interval. Cycles align to UTC time boundaries.
 
-A database claim coordinates replicas. A lease lasts two minutes and renews every 30 seconds. Successful work schedules its next run from completion; missed intervals do not accumulate. Failed handlers retry indefinitely, using exponential delay capped at 30 minutes or their longer configured interval. A stopped or sleeping application resumes due work when it runs again. A slow handler does not block unrelated handlers.
+| Level | Cadence | Failure delay after completion |
+| --- | --- | --- |
+| 0 | 10 seconds | Starts at 10 seconds, doubles to a 5-minute cap. |
+| 1 | 5 minutes | Starts at 5 minutes, doubles to a 1-hour cap. |
+| 2 | 30 minutes | Next scheduled cycle. |
+| 3 | 1 hour | Next scheduled cycle. |
 
-A handler may run more than once. For example, a crash after an external service accepts a delivery, but before the application records success, can cause the same delivery to be attempted again. This is called at-least-once execution. Extension handlers must use their domain’s persisted idempotency and replay rules. Scheduled imports require the declared capability, current Agency enablement and transaction-bound host authorization. Agreement imports additionally recheck the exact Stream, any verified recipient link, business status, Closeout boundary and active primary assignee. Imports create drafts; officers must still check the imported information and follow the required completion and approval steps. Receiving external data does not approve it.
+A new handler joins the next future cycle. After a slow run or downtime, missed cycles do not accumulate. Levels 0 and 1 retry on the first cycle at or after their retry deadline. All levels keep retrying without an attempt limit. A success clears consecutive failures, the last error, and the retry deadline.
 
-For example, after a connector outage, restore its credentials and network access, inspect the connector’s queued-operation screen, and allow its delivery/import schedule to resume. Check both `l1_queue.last_error` and the domain queue’s conflict/retry state. A successful L1 run may leave a domain operation in conflict; recurring scheduling does not repair invalid business data. Do not clear a lease or delete retained evidence just to hide an alert. See the [Portal host boundary](../intake/portal.md).
+For example, a Level 1 run that fails at `12:00:01 UTC` has its first retry deadline at `12:05:01 UTC`. The next aligned five-minute cycle is `12:10:00 UTC`. The five-second poll can dispatch it after that boundary; it does not promise execution at the exact deadline.
+
+Shared handlers use database schedules and independent two-minute leases, renewed every 30 seconds. An expired lease allows another server to reclaim unfinished work. A slow handler does not block unrelated handlers. The schedule contains handler IDs and execution evidence, without credentials or business payloads. Domain queues retain their own requests and delivery evidence.
+
+A handler may run more than once, such as after a crash between external delivery and recording success. Extensions must retain requests and keys that prevent duplicate business effects. Scheduled imports still require the declared capability, current Agency enablement, and transaction-bound host authorization. Agreement imports also recheck the exact Stream, recipient link where required, business status, Closeout boundary, and active primary assignee. Imports create drafts that still require officer review, Completion, and approval.
+
+Access-log flush and retention handlers run separately in each server process. Their scheduling state stays in memory and resets on restart. They do not take a shared database lease or wait for business-database readiness. Access events remain subject to the loss limits below.
+
+Use [Background queues](../admin/queues.md) to inspect registrations, eligibility, retries, and leases. After a connector outage, restore its credentials and network access, then check both its handler error and its domain queue's conflict state. A successful handler run does not resolve invalid business data. Keep leases and delivery evidence intact while investigating. See the [Portal host boundary](../intake/portal.md).
 
 ## Audit maintenance
 
 For officers, audit evidence helps explain who changed a record and when. Operators must distinguish saved change/security evidence from access events that may still be waiting to be written. For example, immediately after an officer opens an Agreement, its access event may not yet appear in a search; a delay alone does not prove that no access occurred.
 
-Database change and security evidence and queued access events have different failure guarantees; see [Audit](../admin/audit.md). Access events use a bounded, in-memory queue, flushed in batches. Process loss or saturation can lose queued access events. They are not recoverable jobs in the storage outbox.
+Change and security evidence stays in the business database. Access history uses a separate store and a bounded, in-memory buffer before persistence. The buffer holds at most 2,000 events or 32 MiB. Process loss or saturation can lose events. These events are not recoverable storage-outbox jobs. See [Audit](../admin/audit.md).
 
-Audit initialization is part of startup readiness. Retention runs at startup and periodically, deleting expired records in bounded batches. Configure `GCS_AUDIT_RETENTION_DAYS` and `GCS_ACCESS_RETENTION_DAYS` to match the deployment’s retention requirements. `GCS_ACCESS_LOG_ENABLED=false` disables access capture, not change/security capture. Watch queue-drop, flush-failure, and retention-failure logs and account for persistence delay when investigating recent activity.
+The access store uses a separate PostgreSQL instance or a separate PGlite `-access` directory. It initializes when needed. An access-store outage does not block business-database readiness. Access-history reads return `503 ACCESS_HISTORY_UNAVAILABLE` when the store is unavailable; they do not fall back to the business database.
+
+Each process flushes its access buffer on Level 0. By default, a flush permits ten persistence attempts of up to 100 rows each. `GCS_ACCESS_LOG_MAX_BATCHES_PER_FLUSH` accepts 1–100 attempts. Splitting or dropping a malformed batch also consumes this budget. Transient failures retain buffered work for a later attempt, subject to buffer limits and process survival.
+
+Retention runs hourly on Level 3, without a startup retention pass. Each run deletes at most ten batches of 1,000 records. Access retention runs in each process against the separate store; change and security retention uses a shared handler against the business database. Configure `GCS_AUDIT_RETENTION_DAYS` and `GCS_ACCESS_RETENTION_DAYS` for the required retention periods. `GCS_ACCESS_LOG_ENABLED=false` disables access capture, not change or security capture. Watch dropped events, flush failures, store outages, and retention failures when investigating recent activity.
 
 ## Administrative export and monitoring
 

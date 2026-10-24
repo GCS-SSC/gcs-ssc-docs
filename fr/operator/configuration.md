@@ -12,6 +12,8 @@ Choisissez où l’application conserve sa base de données : PostgreSQL avec `D
 | --- | --- | --- |
 | `DATABASE_URL` | Chaîne de connexion PostgreSQL | A priorité sur PGlite. Le bassin du serveur utilise au plus 20 connexions. |
 | `PGLITE_DATA_DIR` | Répertoire ou URI PGlite | Utilisé seulement en l’absence de `DATABASE_URL`. La valeur par défaut du conteneur est `/app/.data/pglite`. |
+| `GCS_ACCESS_DATABASE_URL` | URL PostgreSQL distincte pour les accès | Obligatoire avec la base métier PostgreSQL, même si la capture des accès est désactivée. Utilisez une autre instance, pas une autre base sur le même hôte et port. |
+| `PGLITE_ACCESS_DATA_DIR` | Répertoire PGlite distinct pour les accès | Le répertoire métier suivi de `-access` par défaut. Il doit différer du répertoire métier. Une base d'accès PostgreSQL ne peut accompagner une base métier PGlite. |
 
 L’application refuse de s’initialiser si aucune valeur n’est résolue. Les valeurs de repli de Nuxt (`NUXT_DATABASE_URL` et `NUXT_PGLITE_DATA_DIR`) demeurent prises en charge, mais les variables sans préfixe ont priorité.
 
@@ -38,10 +40,13 @@ Sauvegardez ensemble la base, les fichiers stockés, les réglages des fournisse
 
 | Variable | Valeur par défaut et règle |
 | --- | --- |
+| `GCS_ACCESS_LOG_MAX_BATCHES_PER_FLUSH` | 10; entier de 1 à 100. Limite les tentatives de lots par exécution, avec au plus 100 événements par lot. |
 | `GCS_ACCESS_LOG_ENABLED` | `true`; seules les valeurs littérales `true` et `false` sont acceptées. Concerne les accès, pas les changements ni la sécurité. |
 | `GCS_AUDIT_RETENTION_DAYS` | 365; entier positif dans la plage des entiers PostgreSQL. |
 | `GCS_ACCESS_RETENTION_DAYS` | 30; entier positif dans la plage des entiers PostgreSQL. |
 | `GCS_EXTENSION_OPERATION_TIMEOUT_MS` | 10000; minimum de 100 millisecondes pour les opérations d’extension bornées. |
+
+La base des accès se connecte et s'initialise au premier besoin. Une panne ne bloque ni la disponibilité métier ni l'audit des changements. Les recherches d'accès renvoient `503 ACCESS_HISTORY_UNAVAILABLE`; rétablissez la base, puis réessayez. Les écritures attendent dans la file bornée du processus et peuvent être perdues lors d'une panne prolongée. Les anciens accès de la base métier ne sont pas migrés automatiquement.
 
 Des réglages d’audit invalides empêchent l’application d’être prête à traiter les requêtes. Les événements d’accès attendent en mémoire avant leur enregistrement. Certains peuvent être perdus si cette mémoire se remplit ou si le processus s’arrête; ils ne garantissent pas la trace de chaque requête. Voir [Audit](../admin/audit.md) pour les permissions, les preuves et les limites d’enquête.
 
@@ -85,7 +90,7 @@ L’artéfact WebContainer est une démonstration empaquetée qui fonctionne dan
 
 ## Ordre de démarrage
 
-Au démarrage, Nitro initialise la base, applique les migrations ordonnées du noyau et des extensions activées, vérifie les fournisseurs de stockage référencés et initialise la capture et la rétention d’audit. Les modules planifiés des extensions s’activent seulement après les migrations de leurs organismes activés; la boucle L1 propose ensuite leur travail enregistré. L’application est prête seulement après la réussite de toute cette séquence. Les API ordinaires, y compris la connexion et les métadonnées, renvoient HTTP 503 (service indisponible) jusque-là. Les fichiers du navigateur peuvent quand même se charger : voir la page ne prouve pas que le serveur est prêt.
+Au démarrage, Nitro initialise la base, applique les migrations ordonnées du noyau et des extensions activées, vérifie les fournisseurs de stockage référencés et initialise la capture des changements et de la sécurité. Les modules planifiés des extensions s’activent seulement après les migrations de leurs organismes activés; les files de travail proposent ensuite leur travail enregistré. L’application est prête seulement après la réussite de toute cette séquence. Les API ordinaires, y compris la connexion et les métadonnées, renvoient HTTP 503 (service indisponible) jusque-là. Les fichiers du navigateur peuvent quand même se charger : voir la page ne prouve pas que le serveur est prêt.
 
 Les erreurs de connexion transitoires sont reprises en série après 1, 2, 4, puis au plus 5 secondes, dans un délai maximal de démarrage de deux minutes. Les erreurs de schéma ou d’identifiants ne bénéficient pas de ces reprises. En production, une initialisation échouée ou expirée rend la génération de base indisponible et termine le processus pour permettre son redémarrage par le superviseur. Examinez les événements `startup.retry`, `startup.failed` et `startup.ready`. Un port réseau ouvert ne signifie pas à lui seul que le démarrage a réussi.
 

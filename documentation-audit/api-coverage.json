@@ -691,6 +691,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: . Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/admin/audit/actors.get.ts",
+    "source": "server/api/admin/audit/actors.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "server/api/admin/audit/actors.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/admin/audit/actors.get.ts: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
     "id": "api:server/api/admin/audit/config.get.ts",
     "source": "server/api/admin/audit/config.get.ts",
     "audience": [
@@ -740,6 +755,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: . Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/admin/audit/tables.get.ts",
+    "source": "server/api/admin/audit/tables.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "server/api/admin/audit/tables.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/admin/audit/tables.get.ts: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/admin/dump.get.ts",
@@ -842,6 +872,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. GWCOA validation itself is unchanged in this range. Corrected inherited claim that names are trimmed/nonblank: final schema requires 1 to 255 Unicode characters, rejects null characters, and preserves whitespace. Scoped evidence: documentation-audit/sync-audit-gwcoa.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "api:server/api/admin/queues.get.ts",
+    "source": "server/api/admin/queues.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/queues.md",
+    "fr": "fr/admin/queues.md",
+    "evidence": [
+      "server/api/admin/queues.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/admin/queues.get.ts: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agency/[agencyId].delete.ts",
@@ -5235,8 +5280,8 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/agreements.md",
-    "fr": "fr/developer/api/agreements.md",
+    "en": "en/agreements/budget.md",
+    "fr": "fr/agreements/budget.md",
     "evidence": [
       "server/api/agreements/[id]/amendments/[amendmentId]/budget-fiscal-years/[childId].delete.ts",
       "server/utils/api-errors.ts",
@@ -5247,7 +5292,7 @@
       "shared/utils/database-id.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-fiscal-years/[childId].delete.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/budget-fiscal-years/[childId].patch.ts",
@@ -5324,8 +5369,8 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/agreements.md",
-    "fr": "fr/developer/api/agreements.md",
+    "en": "en/agreements/budget.md",
+    "fr": "fr/agreements/budget.md",
     "evidence": [
       "server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].delete.ts",
       "server/utils/agreement-budget-calculation.ts",
@@ -5337,7 +5382,7 @@
       "shared/utils/database-id.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].delete.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].patch.ts",
@@ -5370,7 +5415,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/[childId].patch.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/index.post.ts",
@@ -5402,7 +5447,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-line-items/index.post.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/budget-overview.get.ts",
@@ -5429,7 +5474,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-overview.get.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/budget-snapshot.post.ts",
@@ -6087,7 +6132,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/budget-line-items/[childId].delete.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/budget-line-items/[childId].patch.ts",
@@ -6122,7 +6167,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/budget-line-items/[childId].patch.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/budget-line-items/index.post.ts",
@@ -6189,7 +6234,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/budget-overview.get.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/agreements/[id]/claim-line-items/[lineId].delete.ts",
@@ -15031,7 +15076,7 @@
       "server/utils/database-money.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: createTransferPaymentScopedAuthorizeHandler, TransferPaymentFinancialLimitsSchema, executeFreshAuthorizedTransferPaymentStreamWrite. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/transfer-payments/[id]/streams/[streamId]/financial-limits/index.post.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/funding-subtypes/[linkId].delete.ts",

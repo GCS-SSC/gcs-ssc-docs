@@ -25,6 +25,7 @@ Les pages Nuxt définissent les routes et Nuxt i18n fournit leurs versions lingu
 - Détail utilisateur : `/en/users/[id]`, `/fr/utilisateurs/[id]`
 - GWCOA : `/en/admin/gwcoa`, `/fr/admin/gwcoa`
 - Audit : `/en/admin/audit`, `/fr/admin/audit`
+- Files de travail : `/en/admin/queues`, `/fr/admin/queues`
 
 Des routes d’entente et de dossiers liés aux programmes existent aussi pour les engagements, paiements, prévisions, réclamations, surveillances, documents générés, schémas d’évaluation, modèles d’approbation, modèles de documents et évaluations.
 
@@ -90,3 +91,5 @@ Les gestionnaires avec `auth: "manual"` ne reçoivent pas le contexte de contrô
 La configuration d’extension d’un volet utilise une page complète : `/en/extension/[id]/config` ou `/fr/extension/[id]/configuration`, avec les paramètres de requête `streamId`, `transferPaymentId` et `agencyId`.
 
 Les routes de possibilité exigent le sujet `transfer_payment`; les routes de réception exigent `funding_case`. Les pages de correction et de créance d’entente et de note de crédit de promoteur utilisent leurs domaines financiers dédiés. Les sections conservent leur sélection dans l’URL et gèrent les états de chargement et de reprise. Les espaces d’extension d’organisme et les pages de détail d’extension d’entente utilisent les composants enregistrés dans le cadre hôte. Leurs URL imbriquées n’accordent aucune permission. Consultez les [contrats du SDK](./extensions-authoring.md).
+
+Les files utilisent `admin-system.ts` et `GET /api/admin/queues`, avec `system:read` global. Cette administration est en lecture seule. Consultez [Files de travail](../admin/queues.md).

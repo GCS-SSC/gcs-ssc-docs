@@ -44,7 +44,7 @@ The wizard steps are:
 - Commitment Types: available commitment classifications already created at the agency.
 - Monitor types: eligible monitoring types already created at the agency.
 - Areas: bilingual areas of expertise for review/assessment assignment.
-- Financial limits: optional max-per-recipient, support percentage, retroactive-cost percentage, stacking limit, and status.
+- Financial limits: optional max-per-recipient, support percentage, stacking limit, and status. The retroactive-cost control is unavailable.
 - Review: summary of the configured stream setup.
 
 The wizard covers the stream's core setup. After saving it, link Review Sets and Workflows and configure extensions from its detail tabs. Create and publish recommendation definitions, approval templates, and assessment schemas at the agency before using them in those shared designs.
@@ -141,7 +141,7 @@ If saving succeeds but refreshing the table fails, reload the table before submi
 
 Use **Funding Subtypes** to choose which sources of other funding officers can select for this stream. First create Funding Types and their subtypes on the Agency page. Then link an active subtype from the same agency whose parent type is also active.
 
-For example, create "Other public funding" with stacking enabled and the subtype "Municipal contribution." Link that subtype to the stream so officers can choose it when recording a municipal funding source. This link makes the source available; it does not enter an agreement funding amount. The table shows the parent type's stacking and cost-sharing classifications. A saved funding source keeps its captured classification if the catalog later changes.
+For example, create "Other public funding" with stacking enabled and the subtype "Municipal contribution." Link that subtype to the stream so officers can choose it when recording a municipal funding source. This link makes the source available; it does not enter an agreement funding amount. The table shows the parent type's stacking and cost-sharing classifications. Approval records keep their captured classification. Current budget limits use the funding type's current settings.
 
 A Program-scoped `transfer_payment` Contributor can add a link; removal requires Manager. Duplicate active links are refused. Adding a previously removed subtype restores its association. Removing a link stops new selection and preserves saved funding evidence. You cannot delete the agency type or subtype while an active stream link remains.
 
@@ -229,19 +229,13 @@ Add areas when officers need to assign reviews by specialty or label the experti
 
 ## Financial limits tab
 
-Financial limits define stream-level thresholds:
+Configure the maximum amount per recipient, maximum support percentage, stacking limit, and Active setting. The maximum amount must be nonnegative, with at most two decimals. Support and stacking use ratios from `0` to `1`, with at most two decimals: `0.50` means 50%. Zero is a real limit. The amount applies in each agreement's currency; it has no fixed CAD currency or exchange-rate conversion.
 
-- Maximum allowable per recipient.
-- Maximum percent of support available per recipient.
-- Maximum percent of retroactive costs allowable.
-- Stacking limit.
-- Active flag.
+The retroactive-cost field is disabled because the application does not calculate this limit. API create, update, and wizard requests must omit it, including zero and null. New records store zero; reads can still return a historical value.
 
-The list total includes active and inactive limit rows; the active count is separate. Changing a limit amount keeps its saved Active setting unless you change that setting too.
+The list total includes active and inactive rows; the active count is separate. Changing an amount preserves its saved Active setting unless you change it too. Without an active record, the three budget financial-limit checks do not apply. The stream's annual allocation and overcommit threshold remain separate controls.
 
-Financial limits are optional in the wizard. Without a financial limit row, processes that check limits have no stream-specific values to use.
-
-For example, a maximum allowable amount of $50,000 per recipient describes the stream's recipient ceiling. It is separate from the stream's total yearly allocation: configuring one does not create the other. Enter the limits approved for the program, then verify the agreement process that uses them.
+An active record limits each proponent's program funding across one agreement budget version, support on each line, and stacking across the version. See [Agreement budget](../agreements/budget.md#stream-financial-limits) for the formulas, worked example, and recovery steps. Changes to limits or funding-type flags can make an existing budget fail its next edit or approval check. Check affected agreements before activating tighter limits.
 
 ## Review setups tab
 

@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 `GET /api/health` vérifie si l’application est prête et peut joindre sa base de données. Une réponse réussie est `{ "status": "ok" }`. Cette vérification publique ne renvoie pas les données des dossiers de financement.
 
-## Gestionnaires (105)
+## Gestionnaires (108)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -50,14 +50,17 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 | POST | `/api/additional-reviewers/[additionalReviewerId]/complete` | executeFreshAuthorizedReviewAdditionalReviewerWrite, requireAuthContext | — | `server/api/additional-reviewers/[additionalReviewerId]/complete.post.ts` |
 | GET | `/api/admin/audit/access/[id]` | — | — | `server/api/admin/audit/access/[id].get.ts` |
 | GET | `/api/admin/audit/access` | — | — | `server/api/admin/audit/access/index.get.ts` |
+| GET | `/api/admin/audit/actors` | — | ActorLookupQuerySchema, AdminCommonListQuerySchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/admin/audit/actors.get.ts` |
 | GET | `/api/admin/audit/config` | — | — | `server/api/admin/audit/config.get.ts` |
 | GET | `/api/admin/audit/events/[kind]/[id]` | — | — | `server/api/admin/audit/events/[kind]/[id].get.ts` |
 | GET | `/api/admin/audit/events` | — | — | `server/api/admin/audit/events/index.get.ts` |
+| GET | `/api/admin/audit/tables` | — | — | `server/api/admin/audit/tables.get.ts` |
 | GET | `/api/admin/dump` | — | — | `server/api/admin/dump.get.ts` |
 | GET | `/api/admin/gwcoa/[id]` | — | — | `server/api/admin/gwcoa/[id].get.ts` |
 | PATCH | `/api/admin/gwcoa/[id]` | executeFreshAuthorizedGwcoaWrite | CommonGwcoaPatchSchema, readValidatedBodyI18n | `server/api/admin/gwcoa/[id].patch.ts` |
 | GET | `/api/admin/gwcoa` | — | AdminCommonListQuerySchema, GwcoaListQuerySchema, getValidatedQueryI18n | `server/api/admin/gwcoa/index.get.ts` |
 | POST | `/api/admin/gwcoa` | executeFreshAuthorizedGwcoaWrite | CommonGwcoaCreateSchema, readValidatedBodyI18n | `server/api/admin/gwcoa/index.post.ts` |
+| GET | `/api/admin/queues` | — | — | `server/api/admin/queues.get.ts` |
 | GET | `/api/attachments/[entityType]/[entityId]/[attachmentId]/download` | — | — | `server/api/attachments/[entityType]/[entityId]/[attachmentId]/download.get.ts` |
 | DELETE | `/api/attachments/[entityType]/[entityId]/[attachmentId]` | executeFreshAuthorizedAttachmentWrite | — | `server/api/attachments/[entityType]/[entityId]/[attachmentId]/index.delete.ts` |
 | PATCH | `/api/attachments/[entityType]/[entityId]/[attachmentId]` | executeFreshAuthorizedAttachmentWrite | AttachmentPatchSchema, readValidatedBodyI18n | `server/api/attachments/[entityType]/[entityId]/[attachmentId]/index.patch.ts` |

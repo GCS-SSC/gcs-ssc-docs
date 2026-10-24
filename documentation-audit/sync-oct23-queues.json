@@ -1,0 +1,100 @@
+{
+  "source_target": "51ba383408ba6cd5eab40d55c9504af50916e2b6",
+  "previous_baseline": "dcbe779afa3c89adb9f0f798dd1b274e92a50939",
+  "scope": "Central background queues, storage cleanup scheduling, public extension queue API, queue administration and related schema.",
+  "plain_language_review": "Applied bro, technical-writing and unslop to each new passage in both locales. Kept exact API identifiers and UI labels.",
+  "paired_destinations": [
+    [
+      "en/operator/background-work.md",
+      "fr/operator/background-work.md"
+    ],
+    [
+      "en/developer/extensions-authoring.md",
+      "fr/developer/extensions-authoring.md"
+    ],
+    [
+      "en/developer/data-model.md",
+      "fr/developer/data-model.md"
+    ],
+    [
+      "en/admin/queues.md",
+      "fr/admin/queues.md"
+    ]
+  ],
+  "final_contracts": [
+    {
+      "contract": "Host owns fixed UTC-aligned levels 0=10s, 1=5m, 2=30m, 3=1h. L0 retries double 10s..5m; L1 doubles 5m..1h; L2/L3 next scheduled cycle. No attempt limit. New handlers join future cycles, elapsed cycles skipped; per-handler shared leases 120s renewed 30s.",
+      "source": [
+        "shared/utils/queue-levels.ts",
+        "server/utils/queue.ts",
+        "server/plugins/queue.ts"
+      ]
+    },
+    {
+      "contract": "Public SDK requires background-queue and registerGcsExtensionQueueHandler with package-local kebab-case id, extensionKey, queueLevel, async run; SDK prefixes identity. Host rejects duplicate/undeclared/unsupported registrations; failed activation discarded; only cluster execution exposed to extensions.",
+      "source": [
+        "packages/gcs-ssc-extensions/src/server.ts",
+        "packages/gcs-ssc-extensions/src/index.ts",
+        "server/utils/queue-registry.ts",
+        "server/utils/extension-nitro-plugins.ts"
+      ]
+    },
+    {
+      "contract": "Admin queue page read only; global system read; filters/search/manual refresh/details, retained evidence and current process registrations, no partial successful snapshot; access loss clears data; no execution/repair controls.",
+      "source": [
+        "app/pages/admin/queues.vue",
+        "server/api/admin/queues.get.ts",
+        "app/middleware/admin-system.ts",
+        "shared/types/queues.ts",
+        "i18n/locales/en.json",
+        "i18n/locales/fr.json"
+      ]
+    },
+    {
+      "contract": "Storage L1 batch up to 60, L2 retention 30 minutes; process claims one operation at a time with 610-second lease; unlimited pending retries 30s..30m, historical dead_letter untouched, deadLettered output always zero. CLI loops current eligible batches, flushes audit before release.",
+      "source": [
+        "server/plugins/storage-cleanup.ts",
+        "server/utils/storage-cleanup-outbox.ts",
+        "server/workers/storage-cleanup-drain.ts"
+      ]
+    },
+    {
+      "contract": "0125_background_queue replaces old baseline; schedule and handler tables, level FK, all-or-none lease owner/expiry/cycle, global audit ownership; no incremental conversion. Separate access schema owned by access-log-schema.ts.",
+      "source": [
+        "server/database/migrations/0125_background_queue.ts",
+        "server/database/production-core-migrations.ts",
+        "server/database/audit-ownership-registry.ts",
+        "server/database/access-log-schema.ts"
+      ]
+    },
+    {
+      "contract": "Access flush/retention process local at L0/L3; business audit retention shared L3, ten batches <=1000; access buffer <=2000 or 32MiB, normal flush default ten attempts <=100 events; independent access store does not block business readiness.",
+      "source": [
+        "server/utils/audit-queue.ts",
+        "server/utils/access-log-queue.ts",
+        "server/utils/access-log-store.ts",
+        "server/utils/access-log-storage.ts",
+        "server/utils/access-log-read.ts"
+      ]
+    }
+  ],
+  "regression_evidence": {
+    "executed": false,
+    "inspected": [
+      "tooling/gcs-ssc/tests/unit/queue.test.ts",
+      "tooling/gcs-ssc/tests/integration/queue-postgres.test.ts",
+      "tooling/gcs-ssc/tests/unit/queue-process.test.ts",
+      "tooling/gcs-ssc/tests/unit/queue-registry.test.ts",
+      "tooling/gcs-ssc/tests/unit/queue-admin-route.test.ts",
+      "tooling/gcs-ssc/tests/integration/storage-cleanup-queue-postgres.test.ts",
+      "packages/gcs-ssc-extensions/type-tests/queue.type-test.ts",
+      "packages/gcs-ssc-extensions/tests/unit/queue.test.ts"
+    ],
+    "evidence": "Inspected schedule alignment, future registration, leases/claim replay, retry cooldown and caps, process independence, public API validation, read-only snapshots, global authorization and PostgreSQL cleanup 60-operation bound."
+  },
+  "limitations": [
+    "No application regression suites executed by this worker. Parent performs required documentation verification and navigation wiring.",
+    "Concrete connector implementation remains extension-owned; host scheduled authorization requirements retained.",
+    "No screenshots or live application session used."
+  ]
+}

@@ -42,9 +42,11 @@ An existing link retains its saved Proponent label even when the Proponent's lea
 
 The Proponent's lead Agency does not need to match the Agreement's owning Agency. For example, a program can fund a readable Proponent led by another agency. You still need access and assignment to the agreement, plus permission to read the proponent in the shared catalogue.
 
-You cannot replace or remove a linked proponent while activities, claims, payments, or accounts receivable use the link. The application returns `AGREEMENT_APPLICANT_RECIPIENT_IN_USE` with status 409. Check the records that use the link before retrying. Update an activity's responsible party in the current agreement or amendment, as appropriate. You cannot add the same proponent twice to one agreement.
+You cannot replace or remove a linked proponent while active budget lines in any version, activities, claims, payments, or accounts receivable use the link. The application returns `AGREEMENT_APPLICANT_RECIPIENT_IN_USE` with status 409. Check the records that use the link before retrying. Update an activity's responsible party in the current agreement or amendment, as appropriate. You cannot add the same proponent twice to one agreement.
 
 After creation, the system does not require you to keep one link. Although the wizard requires at least one Proponent, an authorized deletion can leave no links when none are in use. Do not remove the last meaningful Proponent unless an unlinked Agreement is intentional.
+
+Before removing a proponent used by the budget, review the current budget and amendment copies. Reassign or remove its active lines only when the proposed funding and downstream references allow it. Changing the recipient subtype alone does not replace the linked proponent.
 
 ## Downstream effects
 

@@ -28,7 +28,7 @@
       "packages/gcs-ssc-diagrams/src/index.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:runtime-environment: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "config:local-setup-commands",
@@ -53,7 +53,7 @@
       "packages/gcs-ssc-guided-help"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Private tooling setup precedes workspace setup, which preserves unrelated conflicting paths. Current commands include Guided Help content checks and UI/database naming policy. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:local-setup-commands: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "config:database-modes",
@@ -94,7 +94,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Clean-baseline cutover removes compatibility structures. Existing production data requires a migration/recovery plan; the earlier explicit hotfix is not a substitute for this baseline. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:database-modes: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "config:authentication-providers",
@@ -181,7 +181,7 @@
       ".railway/README.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Docker includes the repository-owned Guided Help workspace before frozen installation. Railway clean-cutover source evidence is historical, not a live deployment check by this run. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:docker-railway: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "config:ci-demo-webcontainer",
@@ -236,8 +236,8 @@
     "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
   },
   {
-    "id": "config:durable-l1-scheduling",
-    "source": "server/plugins/l1-queue.ts; server/utils/l1-queue.ts; server/utils/extension-scheduled-import.ts",
+    "id": "config:background-queues",
+    "source": "server/plugins/queue.ts; server/utils/queue.ts; server/utils/extension-scheduled-import.ts",
     "audience": [
       "operator",
       "developer"
@@ -245,27 +245,13 @@
     "en": "en/operator/background-work.md",
     "fr": "fr/operator/background-work.md",
     "evidence": [
-      "server/plugins/l1-queue.ts",
-      "server/utils/db.ts",
-      "server/utils/migration-readiness.ts",
-      "server/utils/extension-nitro-plugins.ts",
-      "server/utils/extensions.ts",
-      "server/utils/extension-scheduled-import.ts",
-      "server/utils/audit-context.ts",
-      "server/utils/l1-queue.ts",
-      "server/utils/agreement.ts",
-      "server/utils/transfer-payment-stream-lock.ts",
-      "server/utils/business-status-runtime.ts",
-      "server/utils/agreement-closeout.ts",
-      "server/utils/agreement-claim.ts",
-      "server/utils/agreement-forecast-import.ts",
-      "server/utils/funding-case-exchange.ts",
-      "server/plugins/storage-cleanup.ts",
-      "tooling/gcs-ssc/tests/unit/l1-queue.test.ts",
-      "tooling/gcs-ssc/tests/unit/l1-queue-plugin.test.ts"
+      "server/plugins/queue.ts",
+      "server/utils/queue.ts",
+      "server/utils/queue-registry.ts",
+      "shared/utils/queue-levels.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups forecast-record-versions in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:background-queues: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "config:host-diagrams",
@@ -317,7 +303,7 @@
       "scripts/check-guided-help.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Unit/coverage commands run forms and Guided Help checks plus Guided Help package tests. PGlite suites use isolated serialized shards, while PostgreSQL reset and integration commands remain explicit. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:quality-testing: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "config:extension-packaging",
@@ -347,6 +333,6 @@
       "packages/gcs-ssc-extensions/src/ui.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json, sync-admin-program.json and sync-technical.json. Agency workspaces declare a management/administration category and safe integer order; invalid declarations fail build validation. Docker gitlink pins align the initialized SDK and extensions. Unchanged environment values and supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:extension-packaging: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   }
 ]

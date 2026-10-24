@@ -165,6 +165,8 @@ const migrationNames = [...migrationRegistry.matchAll(/'(?<name>\d{4}_[^']+)':/g
 const dataRows: CoverageRow[] = []
 const dataSources = [
   ...migrationNames.map(name => ({ name, source: `server/database/migrations/${name}.ts`, kind: 'migration' })),
+  ...(await readdir(join(appRoot, 'server/database'))).filter(name => name.endsWith('-schema.ts')).sort()
+    .map(filename => ({ name: filename.replace(/\.ts$/, ''), source: `server/database/${filename}`, kind: 'schema' })),
   ...(await walk(join(appRoot, 'server/database/schema'), path => path.endsWith('.ts')))
     .map(path => ({ name: relative(join(appRoot, 'server/database/schema'), path).replace(/\.ts$/, ''), source: relative(appRoot, path), kind: 'schema' }))
 ]
@@ -232,7 +234,7 @@ const domains = [
   ['funding-opportunity-intake', 'server/utils/funding-opportunity-links.ts; server/utils/funding-case-exchange.ts; shared/types/schemas/funding-opportunity-intake.ts', 'intake/opportunities.md'],
   ['data-collections', 'server/utils/data-collection-runtime.ts; server/utils/data-collection-setup-versioning.ts; shared/types/schemas/data-collection.ts', 'concepts/data-collections.md'],
   ['financial-adjustments-recoveries', 'server/utils/correction.ts; server/utils/journal-voucher.ts; server/utils/account-receivable.ts', 'agreements/receivables.md'],
-  ['workers-background-processing', 'server/workers; server/plugins/l1-queue.ts; server/plugins/storage-cleanup.ts', 'operator/background-work.md'],
+  ['workers-background-processing', 'server/workers; server/plugins/queue.ts; server/plugins/storage-cleanup.ts', 'operator/background-work.md'],
   ['build-deployment-operations', 'package.json; nuxt.config.ts; Dockerfile; railway.json; .github/workflows', 'operator/deployment.md'],
   ['accessibility-ui-states', 'app/components; app/pages', 'getting-started/navigation.md']
 ] as const
@@ -249,7 +251,7 @@ const configItems = [
   ['docker-railway', 'Dockerfile; docker-compose.yml; railway.json'],
   ['ci-demo-webcontainer', '.github/workflows; scripts/webcontainer.ts'],
   ['health-readiness', 'server/api/health.get.ts'],
-  ['durable-l1-scheduling', 'server/plugins/l1-queue.ts; server/utils/l1-queue.ts; server/utils/extension-scheduled-import.ts'],
+  ['background-queues', 'server/plugins/queue.ts; server/utils/queue.ts; server/utils/extension-scheduled-import.ts'],
   ['host-diagrams', 'packages/gcs-ssc-diagrams; app/components/Common/FlowDiagram.vue'],
   ['quality-testing', 'package.json; tooling/gcs-ssc; vitest*.ts; playwright.config.ts'],
   ['extension-packaging', 'modules/gcs-extensions.ts; Dockerfile; package.json']

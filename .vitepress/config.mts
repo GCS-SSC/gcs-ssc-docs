@@ -165,7 +165,8 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
         { text: locale === 'fr' ? 'Groupes' : 'Groups', link: `${p}admin/groups` },
         { text: labels.roles, link: `${p}admin/roles` },
         { text: labels.users, link: `${p}admin/users` },
-        { text: locale === 'fr' ? 'Journaux d’audit et d’accès' : 'Audit and access logs', link: `${p}admin/audit` }
+        { text: locale === 'fr' ? 'Journaux d’audit et d’accès' : 'Audit and access logs', link: `${p}admin/audit` },
+        { text: locale === 'fr' ? 'Files de travail' : 'Background queues', link: `${p}admin/queues` }
       ]
     },
     {

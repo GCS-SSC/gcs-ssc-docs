@@ -12,6 +12,8 @@ Choose where the application stores its database: PostgreSQL through `DATABASE_U
 | --- | --- | --- |
 | `DATABASE_URL` | PostgreSQL connection string | Takes precedence over PGlite. The server pool uses at most 20 connections. |
 | `PGLITE_DATA_DIR` | PGlite directory or URI | Used only when `DATABASE_URL` is absent. The container default is `/app/.data/pglite`. |
+| `GCS_ACCESS_DATABASE_URL` | Separate access-history PostgreSQL URL | Required with PostgreSQL business storage, even when access capture is disabled. Use a different instance, not another database on the same host and port. |
+| `PGLITE_ACCESS_DATA_DIR` | Separate PGlite access-history directory | Defaults to the business directory plus `-access`. It must differ from the business directory. PostgreSQL access storage cannot be paired with PGlite business storage. |
 
 The application refuses to initialize if neither value resolves. Nuxt runtime fallbacks (`NUXT_DATABASE_URL` and `NUXT_PGLITE_DATA_DIR`) remain supported, but the plain variables take precedence.
 
@@ -38,10 +40,13 @@ Back up the database, stored files, provider settings, and required secrets toge
 
 | Variable | Default and rule |
 | --- | --- |
+| `GCS_ACCESS_LOG_MAX_BATCHES_PER_FLUSH` | 10; integer from 1 to 100. Caps batch attempts per access-flush run, with at most 100 events per batch. |
 | `GCS_ACCESS_LOG_ENABLED` | `true`; only literal `true` or `false` is accepted. Controls access events, not change/security evidence. |
 | `GCS_AUDIT_RETENTION_DAYS` | 365; positive integer within PostgreSQL integer range. |
 | `GCS_ACCESS_RETENTION_DAYS` | 30; positive integer within PostgreSQL integer range. |
 | `GCS_EXTENSION_OPERATION_TIMEOUT_MS` | 10000; minimum 100 milliseconds for bounded extension operations. |
+
+The access store connects and initializes when first needed. An outage does not block business readiness or change auditing. Access searches return `503 ACCESS_HISTORY_UNAVAILABLE`; restore the access database and retry. Writes remain best effort in the bounded process queue and can be lost during a prolonged outage. Existing access rows in the business database are not automatically migrated.
 
 Invalid audit settings prevent the application from becoming ready to serve requests. Access events wait in memory before being written. Some can be lost if the buffer fills or the process stops; they are not a guaranteed record of every request. See [Audit](../admin/audit.md) for permissions, evidence, and investigative limits.
 
@@ -85,7 +90,7 @@ The WebContainer artifact is a packaged demo that runs inside the browser. Its t
 
 ## Startup order
 
-On startup, Nitro initializes the database, applies ordered core and enabled-extension migrations, verifies that referenced storage providers are registered, and initializes audit capture and retention. Scheduled extension plugins activate only after their enabled Agency migrations; the L1 loop then offers their registered work. The application is ready only after this whole sequence succeeds. Ordinary API requests, including sign-in and metadata, receive HTTP 503 (service unavailable) until then. Browser files can still load, so seeing the page does not prove the server is ready.
+On startup, Nitro initializes the database, applies ordered core and enabled-extension migrations, verifies that referenced storage providers are registered, and initializes change and security audit capture. Scheduled extension plugins activate only after their enabled Agency migrations; the background queues then offer their registered work. The application is ready only after this whole sequence succeeds. Ordinary API requests, including sign-in and metadata, receive HTTP 503 (service unavailable) until then. Browser files can still load, so seeing the page does not prove the server is ready.
 
 Transient connection failures retry serially after 1, 2, 4, then at most 5 seconds within a two-minute startup deadline. Schema and credential errors do not receive the transient retry treatment. In production, failed or expired initialization marks the database generation unavailable and exits the process so the deployment supervisor can restart it. Inspect `startup.retry`, `startup.failed`, and `startup.ready` events. An open network port alone does not mean startup succeeded.
 

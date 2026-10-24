@@ -139,6 +139,12 @@ for (const path of await walk(join(appRoot, 'server/database/schema'), path => p
   if (!dataRows.has(`schema:${name}`)) errors.push(`Schema helper missing from inventory: ${name}`)
 }
 
+for (const filename of await readdir(join(appRoot, 'server/database'))) {
+  if (!filename.endsWith('-schema.ts')) continue
+  const name = filename.replace(/\.ts$/, '')
+  if (!dataRows.has(`schema:${name}`)) errors.push(`Shared schema helper missing from inventory: ${name}`)
+}
+
 const extensionRows = new Set((coverage.get('extension-coverage.json') ?? []).map(row => row.id))
 if (!extensionRows.has('extension:host-platform')) {
   errors.push('Host extension framework and public SDK missing from inventory')

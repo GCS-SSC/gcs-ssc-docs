@@ -27,7 +27,9 @@ For example, assignment to an Agreement may let an officer work on that Agreemen
 4. Open the row's details action to inspect the captured evidence.
 5. Copy its request ID into the request filter to find changes and queries from the same request.
 
-Results appear newest first, with 20 rows per page by default. Exact filters match the value you enter. The date interval includes both endpoints. Enter dates in your local time, with the start before or equal to the end. Text filters accept at most 200 characters and reject null characters. If a pasted filter fails, clear it and type the identifier again. Switching views or filters clears the selected detail and returns to the first page.
+Results appear newest first, with 20 rows per page by default. Choose an actor by sign-in name or identifier, a table from the available list, and an operation or outcome. Actor choices can include deleted accounts retained in history. If a lookup fails, use its retry action. Exact filters match the selected value. The date interval includes both endpoints. Enter dates in your local time, with the start before or equal to the end. Text filters accept at most 200 characters and reject null characters. If a pasted filter fails, clear it and type the identifier again. Switching views or filters clears the selected detail and returns to the first page.
+
+Access opens with the last seven days. Set an explicit interval to search older retained events. Its time window stays fixed while you browse the next page or return to a visited page. Access shows the current page count, without a total or a jump to the last page. Change a filter or reopen the view to start a fresh search. Audit events keep numbered pages and a total count.
 
 The actor identifies the sign-in account, not the Common User ID used for assignments. Sign-in queries can be anonymous. Background work can be attributed to the system, and direct database changes can be attributed to the database. A missing user ID therefore does not by itself mean that an action was unauthorized.
 
@@ -57,11 +59,13 @@ This procedure does not reconstruct a full request body or unavailable query res
 
 ## Retention and delayed access records
 
-The page displays configured retention periods; it does not edit them. Defaults are 365 days for audit and security evidence and 30 days for access evidence. Operators change these settings at deployment and restart the application. Expiry runs at startup and every hour. Each pass removes at most 1,000 expired rows from each evidence table, so a large backlog can take several passes.
+The page displays configured retention periods; it does not edit them. Defaults are 365 days for audit and security evidence and 30 days for access evidence. Operators change these settings at deployment and restart the application. Expiry runs hourly through background queues. Each run processes at most ten batches of 1,000 expired rows; large backlogs may need several runs. Access retention runs separately from change and security retention.
 
-Access events wait in a queue in each application process. They become ready to save after the database transaction or connection is released and the HTTP response finishes or disconnects. Every ten seconds, the application saves up to 100 ready events. The browser shows only saved events, so a recent request may not appear immediately.
+Access events wait in a queue in each application process. They become ready to save after the database transaction or connection is released and the HTTP response finishes or disconnects. At the ten-second queue level, the application attempts up to ten batches of 100 ready events by default. Failed batches and invalid-record isolation also consume that limit. Operators can change the batch limit. The browser shows only saved events, so a recent request may not appear immediately.
 
 The queue holds at most 2,000 events and an estimated 32 MiB of event data. After a failure, the application waits before retrying. When the queue is full, the application discards new events and reports the loss to operators. A crash or deployment can lose pending events. During shutdown, the application tries to save them within a time limit. Operators can disable access capture with `GCS_ACCESS_LOG_ENABLED=false`. Change and security capture continue. Existing access rows remain readable until retention removes them.
+
+Access history uses a separate database. Its outage can delay capture or make Access unavailable while business work and change auditing continue. It does not fall back to the business database. If Access reports unavailable, ask an operator to restore its database, then retry. Existing access rows in an older business database are not moved automatically.
 
 ## Failure and recovery
 

@@ -16199,7 +16199,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_agreement_subtype",
@@ -16409,7 +16409,7 @@
       "server/database/migrations/0060_transfer_payment.ts#Transfer_Payment_Financial_Limits"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Transfer_Payment_Financial_Limits; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. Transfer_Payment_Financial_Limits: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_financial_limits_pkey",
@@ -17745,6 +17745,38 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: protect_workflow_amendment_conditions; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_financial_limit_nonnegative",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_financial_limit_nonnegative",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts",
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_financial_limit_nonnegative"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Maximum allowable per recipient is nonnegative. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. tp_chk_financial_limit_nonnegative: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_financial_limit_ratios",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_financial_limit_ratios",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts",
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_financial_limit_ratios"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Support and stacking ratios are between zero and one inclusive. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. tp_chk_financial_limit_ratios: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_profiledatestartdateend",
@@ -20924,7 +20956,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_account_receivable_credit_memo",
@@ -22070,7 +22102,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Budget_Line_Item"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Budget_Line_Item; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. Funding_Case_Agreement_Budget_Line_Item: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_budget_line_item_funding",
@@ -25617,6 +25649,22 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_budgetfiscalyearoriginalnotself; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_chk_budgetline_nonnegative",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_budgetline_nonnegative",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_budgetline_nonnegative"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Budget total and program funding are nonnegative. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. fc_chk_budgetline_nonnegative: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_chk_budgetlineitemoriginalnotself",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_budgetlineitemoriginalnotself",
     "audience": [
@@ -28287,6 +28335,22 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_fk_ar_typed_entity; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_fk_budgetline_proponent",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_budgetline_proponent",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_budgetline_proponent"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Budget proponent references an existing Applicant_Recipient_Profile. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. fc_fk_budgetline_proponent: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_fk_correction_adjustment_line",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_correction_adjustment_line",
     "audience": [
@@ -30535,6 +30599,38 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: guard_agreement_stream_proponent_types; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:guard_budget_line_proponent",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#guard_budget_line_proponent",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts#guard_budget_line_proponent"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Locks the owning Agreement and requires an active linked Proponent for active budget lines. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. guard_budget_line_proponent: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:guard_budget_proponent_reference",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#guard_budget_proponent_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts#guard_budget_proponent_reference"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Prevents relationship removal or replacement while any active budget line references it. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. guard_budget_proponent_reference: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0090_funding_case_agreement:guard_future_agreement_proponent_types",
@@ -33714,6 +33810,22 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: zz_guard_agreement_financial_currency; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:zz_guard_budget_line_proponent",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#zz_guard_budget_line_proponent",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts",
+      "server/database/migrations/0090_funding_case_agreement.ts#zz_guard_budget_line_proponent"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Runs the budget-line linked-Proponent guard on insert and update. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. zz_guard_budget_line_proponent: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
     "id": "migration:0100_funding_case_intake",
     "source": "server/database/migrations/0100_funding_case_intake.ts",
     "audience": [
@@ -34593,8 +34705,8 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: storage_cleanup_outbox_status_check; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "migration:0125_l1_queue",
-    "source": "server/database/migrations/0125_l1_queue.ts",
+    "id": "migration:0125_background_queue",
+    "source": "server/database/migrations/0125_background_queue.ts",
     "audience": [
       "developer",
       "operator"
@@ -34602,19 +34714,14 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0125_l1_queue.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts"
+      "server/database/migrations/0125_background_queue.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0125_background_queue: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
-    "id": "data:0125_l1_queue:l1_queue",
-    "source": "server/database/migrations/0125_l1_queue.ts#l1_queue",
+    "id": "data:0125_background_queue:background_queue_handler",
+    "source": "server/database/migrations/0125_background_queue.ts#background_queue_handler",
     "audience": [
       "developer",
       "operator"
@@ -34622,16 +34729,43 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0125_l1_queue.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0125_l1_queue.ts#l1_queue"
+      "server/database/migrations/0125_background_queue.ts",
+      "server/database/migrations/0125_background_queue.ts#background_queue_handler"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: l1_queue; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "A unique handler references a known level and retains its cycles, bounded lease identity, retry deadline and error. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. background_queue_handler: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:0125_background_queue:background_queue_handler_lease_check",
+    "source": "server/database/migrations/0125_background_queue.ts#background_queue_handler_lease_check",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0125_background_queue.ts",
+      "server/database/migrations/0125_background_queue.ts#background_queue_handler_lease_check"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Lease owner, expiration and claimed cycle must be all absent or all present. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. background_queue_handler_lease_check: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:0125_background_queue:background_queue_schedule",
+    "source": "server/database/migrations/0125_background_queue.ts#background_queue_schedule",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0125_background_queue.ts",
+      "server/database/migrations/0125_background_queue.ts#background_queue_schedule"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "One unique nonnegative level stores its shared current cycle and next run. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. background_queue_schedule: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "migration:0130_integrity",
@@ -34682,99 +34816,7 @@
       "server/database/schema/commitment-coding.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0140_audit:access_event_check",
-    "source": "server/database/migrations/0140_audit.ts#access_event_check",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0140_audit.ts",
-      "server/database/audit-ownership-functions.ts",
-      "server/database/audit-ownership-capture.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0140_audit.ts#access_event_check"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: access_event_check; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0140_audit:access_event_inputs_check",
-    "source": "server/database/migrations/0140_audit.ts#access_event_inputs_check",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0140_audit.ts",
-      "server/database/audit-ownership-functions.ts",
-      "server/database/audit-ownership-capture.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0140_audit.ts#access_event_inputs_check"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: access_event_inputs_check; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0140_audit:access_event_pkey",
-    "source": "server/database/migrations/0140_audit.ts#access_event_pkey",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0140_audit.ts",
-      "server/database/audit-ownership-functions.ts",
-      "server/database/audit-ownership-capture.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0140_audit.ts#access_event_pkey"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: access_event_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0140_audit:access_event_scope_type_check",
-    "source": "server/database/migrations/0140_audit.ts#access_event_scope_type_check",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0140_audit.ts",
-      "server/database/audit-ownership-functions.ts",
-      "server/database/audit-ownership-capture.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0140_audit.ts#access_event_scope_type_check"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: access_event_scope_type_check; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0140_audit: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0140_audit:append_only",
@@ -34798,29 +34840,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: append_only; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0140_audit:audit.access_event",
-    "source": "server/database/migrations/0140_audit.ts#audit.access_event",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0140_audit.ts",
-      "server/database/audit-ownership-functions.ts",
-      "server/database/audit-ownership-capture.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0140_audit.ts#audit.access_event"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: audit.access_event; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "data:0140_audit:audit.capture_policy",
@@ -34935,7 +34954,7 @@
       "server/database/migrations/0140_audit.ts#audit.expire_events"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: audit.expire_events; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. audit.expire_events: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "data:0140_audit:audit.installed_extension_ownership",
@@ -35457,6 +35476,181 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+  },
+  {
+    "id": "schema:access-log-schema",
+    "source": "server/database/access-log-schema.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. schema:access-log-schema: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:access_event_check",
+    "source": "server/database/access-log-schema.ts#access_event_check",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#access_event_check"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Agency scope and non-null primary Agency attribution must agree. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. access_event_check: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:access_event_inputs_check",
+    "source": "server/database/access-log-schema.ts#access_event_inputs_check",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#access_event_inputs_check"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Captured inputs are bounded to 32 KiB. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. access_event_inputs_check: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:access_event_pkey",
+    "source": "server/database/access-log-schema.ts#access_event_pkey",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#access_event_pkey"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "UUID uniquely identifies access evidence; replay persistence ignores already-saved IDs. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. access_event_pkey: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:access_event_scope_type_check",
+    "source": "server/database/access-log-schema.ts#access_event_scope_type_check",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#access_event_scope_type_check"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Only historical, global, agency and unresolved scopes are valid. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. access_event_scope_type_check: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:append_only",
+    "source": "server/database/access-log-schema.ts#append_only",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#append_only"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Row trigger protects access evidence against updates and ordinary deletions. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. append_only: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:audit.access_event",
+    "source": "server/database/access-log-schema.ts#audit.access_event",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#audit.access_event"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Immutable UUID access evidence retains redacted SQL, outcomes, input bounds and Agency attribution in the independent store. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. audit.access_event: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:audit.access_store_schema",
+    "source": "server/database/access-log-schema.ts#audit.access_store_schema",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#audit.access_store_schema"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Version 1 marker certifies the independent store; existing mismatched or incomplete stores are rejected. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. audit.access_store_schema: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:audit.expire_access_events",
+    "source": "server/database/access-log-schema.ts#audit.expire_access_events",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#audit.expire_access_events"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Validates retention and batch bounds, serializes expiry with an advisory lock, and permits only expired-row deletion. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. audit.expire_access_events: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:audit.protect_access_event",
+    "source": "server/database/access-log-schema.ts#audit.protect_access_event",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#audit.protect_access_event"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Blocks update, delete and truncate except expiry-guarded deletion before the cutoff. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. audit.protect_access_event: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "data:schema/access-log-schema:no_truncate",
+    "source": "server/database/access-log-schema.ts#no_truncate",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/access-log-schema.ts",
+      "server/database/access-log-schema.ts#no_truncate"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Statement trigger prevents access evidence truncation. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. no_truncate: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "schema:account-receivable-adjustment",

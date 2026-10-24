@@ -9,6 +9,8 @@ The documentation lives in `gcs-ssc-docs`. The application source lives in the s
 The app uses Bun scripts, Nuxt 4, Better Auth, Kysely, and either PGlite or Postgres. Environment variables supply the database connection, authentication settings and extension encryption key at startup:
 
 - `DATABASE_URL`
+- `GCS_ACCESS_DATABASE_URL`
+- `PGLITE_ACCESS_DATA_DIR`
 - `PGLITE_DATA_DIR`
 - `NUXT_GITHUB_CLIENT_ID`
 - `NUXT_GITHUB_CLIENT_SECRET`
@@ -19,6 +21,8 @@ The app uses Bun scripts, Nuxt 4, Better Auth, Kysely, and either PGlite or Post
 - `GCS_EXTENSION_SECRETS_KEY`
 
 If `DATABASE_URL` is absent, local development can use the configured PGlite data directory.
+
+PostgreSQL needs a separate access-history instance through `GCS_ACCESS_DATABASE_URL`. Local PGlite uses a second directory, defaulting to the business path plus `-access`. See [Runtime configuration](../operator/configuration.md).
 
 `GCS_EXTENSION_SECRETS_KEY` is required in production when extensions store encrypted credentials. It must be a base64-encoded 32-byte key. Development seed data may provide a fixed demo key for non-real local credentials only.
 

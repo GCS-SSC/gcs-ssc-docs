@@ -25,11 +25,13 @@ Par exemple, la version active 0 prévoit 2 000 en avril et 3 000 en mai. Ajoute
 
 ## Modifier la ventilation mensuelle
 
-Ouvrez la version à modifier. Son exercice et son numéro de version ne sont pas modifiables. La grille regroupe les lignes du budget courant par catégorie et sous-section de coûts, avec des totaux trimestriels d'avril à mars. Sélectionnez l'en-tête d'un trimestre pour afficher ses champs mensuels. La recherche porte sur la catégorie, la sous-section, le nom bilingue ou la description.
+Ouvrez la version à modifier. Son exercice et son numéro de version ne sont pas modifiables. La grille regroupe les lignes du budget courant par catégorie et sous-section de coûts, avec des totaux trimestriels d'avril à mars. Sélectionnez l'en-tête d'un trimestre pour afficher ses montants mensuels. Développez une ligne pour voir le programme et ses autres sources séparément. La recherche porte sur la catégorie, la sous-section, le nom bilingue ou la description.
 
-1. Saisissez les montants attendus du programme, de zéro ou plus, dans la devise de l'entente, avec au plus deux décimales.
-2. Sélectionnez **Enregistrer la ventilation**. Une nouvelle cellule à zéro ne crée aucune ligne. Mettre une cellule existante à zéro conserve sa ligne avec un montant nul.
-3. Vérifiez les montants enregistrés après l'actualisation de la page. Toutes les cellules modifiées sont enregistrées ensemble. Si la validation échoue, aucune de ces modifications n'est enregistrée.
+1. Sélectionnez l'action de modification de la ligne pour ouvrir ses douze montants mensuels du programme, regroupés par trimestre.
+2. Saisissez des montants de zéro ou plus dans la devise de l'entente, avec au plus deux décimales.
+3. Sélectionnez **Mettre à jour** pour reporter les montants sur la page. Cela ne les enregistre pas sur le serveur. **Annuler** abandonne les changements de la boîte de dialogue.
+4. Sélectionnez **Enregistrer la ventilation** pour enregistrer toutes les cellules modifiées ensemble. Une nouvelle cellule à zéro ne crée aucune ligne, sauf si vous saisissez aussi un autre financement. Une cellule existante mise à zéro conserve sa ligne.
+5. Vérifiez les montants enregistrés après l'actualisation de la page. Si la validation échoue, aucun des changements soumis n'est enregistré.
 
 Vous pouvez déplacer un montant entre deux mois en un seul enregistrement. Par exemple, avec un budget annuel de 5 000, passez avril de 5 000 à zéro et mai de zéro à 5 000, puis enregistrez une seule fois. Le système vérifie le total annuel final.
 
@@ -49,9 +51,9 @@ L'achèvement ne peut être répété ni annulé ici. Utilisez une nouvelle vers
 
 ## Ventilation du financement et contrôles budgétaires annuels
 
-Enregistrez une ligne mensuelle avant d'ouvrir son éditeur de financement. Saisissez le coût total et les autres sources avec les sous-types configurés du volet. Choisissez chaque sous-type une fois; une allocation existante peut garder son sous-type retiré. Le coût total ne peut être inférieur au financement du programme. Lorsque d'autres sources sont saisies, leur somme avec le programme doit égaler exactement le coût total.
+Développez la ligne de coûts et sélectionnez l'action de modification d'une autre source pour saisir ses douze montants mensuels. Les sources proviennent de la ligne budgétaire courante et des allocations enregistrées de la prévision. Pour offrir une nouvelle source ici, ajoutez-la d'abord au budget de l'entente. Une allocation enregistrée peut conserver son sous-type retiré. Sélectionnez **Mettre à jour**, puis **Enregistrer la ventilation**, pour enregistrer ensemble le programme et les autres sources. La page calcule le coût total mensuel comme leur somme. La sous-ligne du programme affiche le même montant que la ligne principale; utilisez l'action de modification de la ligne principale pour le changer.
 
-Si le volet exige des détails de financement pour les prévisions, chaque ligne active de cette version doit avoir au moins une allocation d'autres fonds enregistrée et une ventilation équilibrée avant l'achèvement. Pour un équipement de 1 000, saisissez 700 du programme et 300 d'une autre source. Une allocation de seulement 250 laisse un écart de 50 à corriger.
+Si le volet exige des détails de financement pour les prévisions, chaque ligne active de cette version doit avoir au moins une allocation d'autres fonds enregistrée et une ventilation équilibrée avant l'achèvement. Pour un équipement de 1 000, saisissez 700 du programme et 300 d'une autre source. Avec seulement 250 de cette source, la page calcule un coût total de 950. Saisissez les 300 prévus avant d'enregistrer si le coût prévu est de 1 000.
 
 Lorsque vous enregistrez ou achevez une prévision, l'application compare son montant annuel du programme au financement courant du même exercice et de la même devise. Les versions sont vérifiées séparément. Le coût total et les autres sources doivent respecter les règles de ligne, mais n'ont pas de plafonds budgétaires annuels distincts.
 

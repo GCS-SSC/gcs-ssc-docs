@@ -62,6 +62,10 @@ Keep every fiscal year that has forecast history in the proposed budget, even wh
 Check the Stream's available program funding yourself before approval, including allocations to other Agreements and the overcommit threshold. Saving or applying an amendment does not run the cross-Agreement capacity check used for direct changes to the current budget. The annual usage check above protects this Agreement's existing usage; it does not prove that the Stream can fund the proposal.
 :::
 
+The copy keeps each budget line's selected proponent. The stream's active [financial limits](./budget.md#stream-financial-limits) apply to the whole draft version when you save changes, submit for approval, and apply approval. If a limit changes during approval, application can fail even though submission succeeded. Check the current configuration and approval history before retrying. These limits do not replace the manual stream-capacity review above.
+
+If a copy action warns that the budget or activities are not enabled, open General and select the matching amendment type. Budget copies require a budget or duration type; activity copies require an activities type. Save the scope, then retry the copy.
+
 ## Activity snapshot
 
 Select an activities type, then copy the current activities once, including their outcomes and responsible parties. The amendment's Activities tab then supports the same required bilingual fields, date range, active program outcomes, and available responsible proponents described in [Agreement activities](./activities.md), but all changes remain inside the amendment snapshot. When changing one date, check it against the other saved date. The end must remain on or after the start.

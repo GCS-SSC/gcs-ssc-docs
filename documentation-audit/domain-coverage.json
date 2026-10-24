@@ -133,7 +133,7 @@
       "server/utils/stream-custom-field-routes.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-program.json; sync-program-schemas.json. Program text/date validation, scoped searchable Stream definitions, custom-field assignment update authority and immutable field identity are documented. Agency-owned schema publication and authoring remain distinct from Stream selection. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:transfer-payment-design: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "domain:applicant-recipients",
@@ -189,7 +189,7 @@
       "server/utils/agreement-budget-lineage.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-financial.json. Agreement child actions recheck exact assignments and status. Forecast changed-cell saves are atomic and validate expected saved cells. Historical Claim/Forecast lines remain visible and read-only after budget amendments. Monitor updates validate merged saved dates and required text. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:agreements-financial-lifecycle: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "domain:reviews-assessments-checklists",
@@ -302,7 +302,7 @@
       "shared/types/schemas/audit.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-audit-gwcoa.json. Audit list loads recheck current permissions, exact filters accept at most 200 characters and reject null characters. System-owned Guided Help has global attribution; Agency guides and catalogs have Agency attribution. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:audit-evidence: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "domain:database-integrity-concurrency",
@@ -436,7 +436,7 @@
       "packages/gcs-ssc-extensions/package.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-concept-misc.json; sync-operator.json. Agency workspace navigation declares management/administration category and safe integer order; host catalogs group authorized enabled workspaces accordingly. Concrete extensions retain their implementation documentation. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed. Public SDK 0.3.19 compiled exports and lifecycle roster authority are covered by sync-dev-extensions.json."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:extensions: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "domain:funding-opportunity-intake",
@@ -564,7 +564,7 @@
   },
   {
     "id": "domain:workers-background-processing",
-    "source": "server/workers; server/plugins/l1-queue.ts; server/plugins/storage-cleanup.ts",
+    "source": "server/workers; server/plugins/queue.ts; server/plugins/storage-cleanup.ts",
     "audience": [
       "end-user",
       "administrator",
@@ -574,22 +574,11 @@
     "en": "en/operator/background-work.md",
     "fr": "fr/operator/background-work.md",
     "evidence": [
-      "server/workers",
-      "server/plugins/l1-queue.ts",
-      "server/utils/db.ts",
-      "server/utils/migration-readiness.ts",
-      "server/utils/extension-nitro-plugins.ts",
-      "server/utils/extensions.ts",
-      "server/utils/extension-scheduled-import.ts",
-      "server/utils/audit-context.ts",
-      "server/utils/l1-queue.ts",
-      "server/plugins/storage-cleanup.ts",
-      "server/utils/storage-cleanup-outbox.ts",
-      "tooling/gcs-ssc/tests/unit/l1-queue.test.ts",
-      "tooling/gcs-ssc/tests/unit/l1-queue-plugin.test.ts"
+      "server/plugins/queue.ts",
+      "server/plugins/storage-cleanup.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json. L1 and storage cleanup contracts remain unchanged. The scheduled import uses the canonical Common_User auth identity column; it retains active assignee and Agency-service authorization checks. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:workers-background-processing: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "domain:build-deployment-operations",
@@ -620,7 +609,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-operator.json. Private tooling setup precedes workspace setup, Docker includes the repository-owned Guided Help workspace, and current quality commands check guided help and naming policy. Clean-baseline deployment evidence is attributed to the source runbook, not a live verification by this run. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:build-deployment-operations: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
     "id": "domain:accessibility-ui-states",

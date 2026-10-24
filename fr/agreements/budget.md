@@ -36,12 +36,17 @@ Pour une ligne manuelle, choisissez l'exercice et la ligne de coûts, précisez 
 | Ligne de coûts | Ligne active obligatoire d'une catégorie de coûts du volet. Son nom anglais ou français configuré est affiché. |
 | Sous-section de coûts | Texte non vide obligatoire d'au plus 255 caractères. |
 | Description | Texte non vide obligatoire; cette description propre à l'entente n'est pas bilingue. |
-| Montant total | Montant obligatoire comportant au plus deux décimales. |
-| Financement du programme | Saisissez un montant exact pour une ligne manuelle. Le formulaire calcule celui des lignes en pourcentage. |
+| Promoteur | Promoteur lié obligatoire. Le seul promoteur lié est choisi automatiquement; choisissez-en un si plusieurs sont liés. |
+| Montant total | Montant obligatoire non négatif comportant au plus deux décimales. |
+| Financement du programme | Saisissez un montant exact non négatif pour une ligne manuelle. Le formulaire calcule celui des lignes en pourcentage. |
 | Autres sources de financement | Sous-types configurés et montants exacts, avec descriptions française/anglaise facultatives; chaque sous-type apparaît une seule fois par ligne. |
 | Devise | Devise de l'entente. Vous ne pouvez pas la changer ici. |
 
 Le total doit être au moins égal au financement du programme plus les montants des autres sources configurées. Par exemple, 1 000 du programme plus 500 d'une autre source exigent un total d'au moins 1 500. Un total de 1 400 est refusé. Si le recalcul d'un pourcentage laisse le total d'une ligne touchée inférieur à ses financements combinés, le système annule tout le changement. Le montant total et les autres financements restent saisis manuellement, même pour une ligne calculée.
+
+Chaque ligne attribue tout son financement du programme à un seul promoteur lié, même si elle est calculée. Changer ce choix revérifie le plafond du promoteur sur tous les exercices de cette version. Le promoteur ne divise pas le groupe de calcul en pourcentage. Les copies de modification conservent ce choix.
+
+Développez une ligne enregistrée pour voir le programme et chaque autre source séparément. Utilisez l'action d'ajout de la ligne pour ajouter une source, ou les actions de la source pour la modifier ou la supprimer. Ces actions enregistrent immédiatement le changement. Modifier la ligne principale conserve ses autres sources. Retirer une source exige la permission de suppression décrite plus haut et doit encore respecter les limites budgétaires.
 
 ## Lignes calculées en pourcentage
 
@@ -83,6 +88,24 @@ L'ajout, la modification, le déplacement ou la suppression d'une ligne recalcul
 ## Définitions de coûts retirées
 
 Une ligne de coûts est offerte pour de nouvelles sélections seulement si la catégorie de l'organisme, la ligne de l'organisme et son association au volet sont toutes disponibles. Vous pouvez toujours consulter les lignes existantes et conserver une sélection retirée lors d'une modification. Pour la remplacer, choisissez une ligne de coûts actuellement disponible. Demandez à votre administrateur de vérifier les trois paramètres si une option attendue est absente.
+
+## Limites financières du volet
+
+Une configuration active de limites financières du volet ajoute trois contrôles. Ils portent sur toutes les lignes et tous les exercices actifs d'une version budgétaire. Les budgets courant et de modification sont vérifiés séparément.
+
+| Limite | Valeur à respecter |
+| --- | --- |
+| Montant maximal admissible par destinataire | Le financement du programme de chaque promoteur, sur tous les exercices de cette version, doit respecter le montant. Ce plafond n'est pas partagé entre ententes. |
+| Pourcentage maximal de soutien | Pour chaque ligne, le programme doit respecter le pourcentage de la somme du programme et des sources incluses dans le partage des coûts. Le coût total non financé ne compte pas comme partage. |
+| Limite de cumul | Le programme et les sources incluses dans le cumul, sur toute la version, doivent respecter le pourcentage des coûts totaux. |
+
+Les réglages courants de partage des coûts et de cumul du type de financement déterminent les sources comptées, même pour une source retirée conservée. Les deux réglages sont indépendants. Les comparaisons utilisent les montants exacts, sans arrondir le plafond vers le haut. Un zéro actif est une vraie limite de zéro. Sans configuration active, ces trois contrôles ne s'appliquent pas. Les contrôles de capacité du volet et d'utilisation annuelle restent distincts.
+
+Par exemple, le volet permet 50 000 par promoteur, 50 % de soutien et 75 % de cumul. Une ligne comprend 10 000 de coût total, 4 000 du programme, 4 000 de partage admissible et 2 000 de coût non financé. Elle respecte le soutien : 4 000 ÷ 8 000 = 50 %. Si l'autre source compte aussi dans le cumul, cette ligne seule dépasse le cumul : 8 000 ÷ 10 000 = 80 %. Un coût total de 11 000 ramène le cumul à environ 72,73 %, si ce total représente le coût réel du projet. Un deuxième exercice de 47 000 du programme pour le même promoteur dépasserait le plafond de 50 000, car 4 000 + 47 000 = 51 000.
+
+Le montant maximal utilise la devise de chaque entente. Un réglage de 50 000 signifie 50 000 CAD pour une entente en CAD et 50 000 USD pour une entente en USD. Le système ne convertit pas les devises.
+
+Enregistrer une ligne, changer une source, recalculer les pourcentages ou supprimer des données revérifie toute la version proposée. La soumission d'approbation et l'application d'une modification revérifient les limites courantes. Un échec laisse le changement et ses recalculs non enregistrés. Vérifiez le promoteur, les sources admissibles et les totaux avant de réessayer. Supprimer une ligne peut aussi échouer si cela retire des coûts nécessaires au respect du cumul.
 
 ## Capacité du financement de programme
 
