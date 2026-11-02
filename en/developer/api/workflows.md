@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12/workflows/9` reads workflow definition 9, including its steps and owners. It does not start a workflow on an agreement. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (27)
+## Handlers (28)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -36,6 +36,7 @@ An authorized request for `GET /api/agency/12/workflows/9` reads workflow defini
 | GET | `/api/recommendations/[recommendationId]` | resolveAgreementScopeContext | — | `server/api/recommendations/[recommendationId].get.ts` |
 | PUT | `/api/recommendations/[recommendationId]` | executeFreshAuthorizedReviewRuntimeWrite, requireAuthContext, unauthorized | RecommendationSaveQuerySchema, WorkflowRecommendationSaveSchema, getValidatedQueryI18n, readValidatedBodyI18n | `server/api/recommendations/[recommendationId].put.ts` |
 | POST | `/api/recommendations/[recommendationId]/claim` | executeFreshAuthorizedRuntimeGroupClaim, requireAuthContext | — | `server/api/recommendations/[recommendationId]/claim.post.ts` |
+| GET | `/api/workflows/approval-runtime` | requireAuthContext | WorkflowRuntimeQuerySchema, getValidatedQueryI18n | `server/api/workflows/approval-runtime.get.ts` |
 | GET | `/api/workflows/available` | — | WorkflowSourceSchema, getValidatedQueryI18n | `server/api/workflows/available.get.ts` |
 | POST | `/api/workflows/cancel` | executeFreshAuthorizedReviewRuntimeWrite, unauthorized | WorkflowCancelSchema, readValidatedBodyI18n | `server/api/workflows/cancel.post.ts` |
 | GET | `/api/workflows/owner-candidates` | canAuthorizeWorkflowOwnerRecovery | WorkflowOwnerCandidatesQuerySchema, getValidatedQueryI18n | `server/api/workflows/owner-candidates.get.ts` |

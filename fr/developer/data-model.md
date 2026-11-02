@@ -71,7 +71,9 @@ Les lignes budgétaires exigent `egcs_fc_applicantrecipient`, lié à un promote
 
 ## Frontières financières exactes
 
-Les montants utilisent du texte décimal canonique et des calculs exacts en cents. `numeric(19,2)` accepte une valeur absolue maximale de `99999999999999999.99`. Conservez par exemple l'identifiant `"9007199254740993"` et le montant `"10000000000000000.01"` comme chaînes. Signes et limites de total dépendent du domaine; un analyseur monétaire générique ne garantit pas un montant métier positif. La devise de l'entente est immuable et les enfants financiers doivent la respecter. Les contrôles utilisent cette devise et la langue avec deux décimales.
+L'API échange les montants sous forme d'objets contenant un entier dans la plus petite unité de la devise. Par exemple, `{"amount":"12345","currency":"CAD"}` représente 123,45 CAD. Conservez le montant comme texte. N'envoyez pas un nombre décimal et ne supposez pas que toutes les devises ont deux décimales. Utilisez les fonctions du SDK `@gcs-ssc/extensions/money` pour lire, calculer et présenter les montants.
+
+La base stocke des unités mineures entières. Lisez les valeurs numériques comme texte avant de les convertir avec la devise du propriétaire. Les montants enregistrés doivent respecter `MoneySchema`; les totaux peuvent utiliser `CanonicalMoneySchema`. Les limites positives et non négatives restent des vérifications distinctes. La devise de l'entente est immuable et ses dossiers financiers enfants doivent la respecter. Une devise différente est refusée plutôt que convertie.
 
 Le financement annuel courant du programme gouverne les écritures et achèvements des prévisions et réclamations sous le verrou de l'entente. Le coût total et les autres types gardent leurs règles par ligne sans plafonds annuels distincts.
 

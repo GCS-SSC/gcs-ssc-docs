@@ -60,13 +60,13 @@ Des réglages d’audit invalides empêchent l’application d’être prête à
 
 `bun run setup` prépare d’abord les outils privés, puis initialise les sous-modules d’extension et du SDK consignés dans `.gitmodules`, installe l’espace de travail et construit le SDK public des extensions. Votre compte GitHub doit avoir accès en lecture à `GCS-SSC/gcs-ssc-tooling`. `bun run tooling:setup` rétablit les outils à leur commit fixé et les liens attendus pour les tests, les documents d’architecture et les scripts hôtes. La commande refuse de remplacer des fichiers sans lien symbolique ou de modifier la cible de liens existants. Si un chemin bloque la préparation, examinez et préservez son contenu avant de rétablir le lien attendu.
 
-Le SDK est la trousse de développement utilisée par les extensions pour fonctionner avec l’application. `bun run dev` regroupe le processus de vidage administratif, dérive les origines Better Auth de l’hôte et du port choisis, puis démarre Nuxt; `--host` et `--port` sont transmis.
+Le SDK est la trousse de développement utilisée par les extensions pour fonctionner avec l’application. `bun run dev` dérive les origines Better Auth de l’hôte et du port choisis, puis démarre Nuxt; `--host` et `--port` sont transmis.
 
 `bun run dev:clean` supprime d’abord la base locale `.data/pglite` par défaut et le cache Nitro `.nuxt/dev`, afin qu’un ancien processus ne réinitialise pas la nouvelle base. Cette commande détruit cette base locale, mais ne supprime pas les fichiers stockés.
 
 | Commande | Fonction vérifiée |
 | --- | --- |
-| `bun run build` | Construit le SDK des extensions, l’application Nuxt `node-server` et les processus de vidage SQL administratif et de nettoyage du stockage. |
+| `bun run build` | Construit le SDK des extensions, l’application Nuxt `node-server` et le processus de nettoyage du stockage. |
 | `bun run lint` / `bun run typecheck` | Vérifie les règles bilingues de l’interface, les noms en base, le style des sources et les types Nuxt/Vue. |
 | `bun run test:unit` / `bun run test:coverage` | Vérifie les formulaires et l’aide guidée, puis exécute les tests Vitest du paquet d’aide guidée et de l’hôte; la couverture applique les seuils configurés. |
 | `bun run test:integration:postgres` | Exécute le banc géré d’intégration PostgreSQL avec ses préalables externes. |

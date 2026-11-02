@@ -1,3 +1,5 @@
+> Historical report for the previous verified sync. The current draft is incomplete. See [current status](./status.md).
+
 # Incremental application review
 
 This run reviews application `main` from `dcbe779afa3c89adb9f0f798dd1b274e92a50939` exclusive to `51ba383408ba6cd5eab40d55c9504af50916e2b6` inclusive, committed `2026-10-23T19:14:04-04:00`. All 13 commits and 124 net paths without rename detection have dispositions in [incremental changes](./incremental-changes.json) and [source dispositions](./changed-source-dispositions.json).

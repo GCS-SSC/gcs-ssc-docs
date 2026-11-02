@@ -25,7 +25,9 @@ bun run quality:pr
 
 `bun run test` runs unit and e2e suites. `test:all:manual` also runs lint, typecheck, coverage, the opt-in PostgreSQL aggregate, and e2e.
 
-Automatic pull-request CI is not configured. Run `quality:pr` as the required local check. It records the branch diff and runs these checks:
+The Quality workflow runs for pull requests, pushes, and manual launches. It checks out the pinned private tooling and uses Node.js 24.22.1 and Bun 1.3.13. Configure `PRIVATE_TOOLING_READ_TOKEN` with read access to the private tooling repository. Fork pull requests fail before private access. A maintainer must review and test them on a trusted repository branch.
+
+Run `quality:pr` as the local check. It records the branch diff and runs these checks:
 
 - Lint and host type checking.
 - Extension SDK build and all extension type checks.
@@ -52,7 +54,7 @@ bun run quality:artifact
 bun run quality:webcontainer
 ```
 
-`quality:artifact` creates a fresh production build, migrates a blank database without demo seed data, restores the packaged admin dump, checks database URL precedence, and verifies that the deployed output runs from a read-only artifact tree. It is unsupported on Windows and when run as UID 0 because those environments cannot validate the required POSIX permission boundary.
+`quality:artifact` creates a fresh production build, migrates a blank database without demo seed data, checks database URL precedence, and verifies that the deployed output runs from a read-only artifact tree. It is unsupported on Windows and when run as UID 0 because those environments cannot validate the required POSIX permission boundary.
 
 `quality:webcontainer` installs the matching Playwright Chromium binary, builds the standalone server, and stages a source-free WebContainer payload. Chromium verifies the generated wrapper and mount behavior with a mocked WebContainer runtime; a separate Node smoke test boots the reconstructed source-free server. The browser install downloads Chromium when it is not already cached.
 

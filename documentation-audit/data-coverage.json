@@ -1580,6 +1580,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Agency_Approval_Behalf_Type_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:agency_catalog_revision",
+    "source": "server/database/migrations/0040_agency.ts#Agency_Catalog_Revision",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#Agency_Catalog_Revision"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0040_agency:agency_chart_of_account",
     "source": "server/database/migrations/0040_agency.ts#Agency_Chart_of_Account",
     "audience": [
@@ -2099,6 +2114,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Agency_Document_Template_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:agency_field_tooltip",
+    "source": "server/database/migrations/0040_agency.ts#Agency_Field_Tooltip",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#Agency_Field_Tooltip"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0040_agency:agency_fiscal_year",
     "source": "server/database/migrations/0040_agency.ts#Agency_Fiscal_Year",
     "audience": [
@@ -2535,6 +2565,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: agency_calculation_source; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:agency_chart_is_in_use",
+    "source": "server/database/migrations/0040_agency.ts#agency_chart_is_in_use",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#agency_chart_is_in_use"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0040_agency:agency_line_calculation",
     "source": "server/database/migrations/0040_agency.ts#agency_line_calculation",
     "audience": [
@@ -2596,6 +2641,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_ar_type_source; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_catalogrevisionactive",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_catalogrevisionactive",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_catalogrevisionactive"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_catalogrevisionformat",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_catalogrevisionformat",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_catalogrevisionformat"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0040_agency:ay_chk_chart_kind",
@@ -2862,6 +2937,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_documenttemplate_outputs; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:ay_chk_fieldtooltipbilingual",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_fieldtooltipbilingual",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_fieldtooltipbilingual"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0040_agency:ay_chk_fiscalyear_dates",
     "source": "server/database/migrations/0040_agency.ts#ay_chk_fiscalyear_dates",
     "audience": [
@@ -2998,6 +3088,21 @@
     "notes": "Reviewed foreign key ay_fk_applicant_recipient_subtype_agency at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: ALTER TABLE \"Agency_Applicant_Recipient_Subtype\" ADD CONSTRAINT \"ay_fk_applicant_recipient_subtype_agency\" FOREIGN KEY (egcs_ay_organizationagency) REFERENCES \"Agency_Profile\"(id) ON DELETE RESTRICT; Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
   },
   {
+    "id": "data:0040_agency:ay_fk_catalogrevisionagency",
+    "source": "server/database/migrations/0040_agency.ts#ay_fk_catalogrevisionagency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_fk_catalogrevisionagency"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0040_agency:ay_fk_cost_category_lineitem_costcategory",
     "source": "server/database/migrations/0040_agency.ts#ay_fk_cost_category_lineitem_costcategory",
     "audience": [
@@ -3035,6 +3140,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_fk_creditmemo_commitmentchart; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:ay_fk_fieldtooltipagency",
+    "source": "server/database/migrations/0040_agency.ts#ay_fk_fieldtooltipagency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_fk_fieldtooltipagency"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0040_agency:ay_ref_guidedhelppublication",
@@ -3094,6 +3214,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_ref_profilegwcoanumber; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:ay_uq_catalogrevisionagencygroup",
+    "source": "server/database/migrations/0040_agency.ts#ay_uq_catalogrevisionagencygroup",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_uq_catalogrevisionagencygroup"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0040_agency:ay_uq_funding_subtype_id_type",
@@ -3283,6 +3418,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: protect_chart_fiscal_year_owner; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:protect_used_agency_chart",
+    "source": "server/database/migrations/0040_agency.ts#protect_used_agency_chart",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#protect_used_agency_chart"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0040_agency:protect_workflow_profile_conditions",
@@ -5516,6 +5666,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed Common_Guided_Help at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Source document is a JSON object owned by System with no Agency, or by one required Agency. Owner identity is immutable, authoring follows publication guards, and published versions remain immutable. Exact declaration: CREATE TABLE \"Common_Guided_Help\" ( Paired Guided Help developer contract and administration guide document source publication, Agency publication, audience, retained versions, cloning and retirement. The demo seed publishes System address-type, Agreement-type and risk-assessment guides for Agency 21; it is excluded from production migrations. Source and paired guides inspected; no application tests executed."
+  },
+  {
+    "id": "data:0050_common:common_notification",
+    "source": "server/database/migrations/0050_common.ts#Common_Notification",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#Common_Notification"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0050_common:common_publication",
@@ -9026,6 +9191,66 @@
     "notes": "Reviewed cn_chk_guidedhelpowner at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Source document is a JSON object owned by System with no Agency, or by one required Agency. Owner identity is immutable, authoring follows publication guards, and published versions remain immutable. Exact declaration: CONSTRAINT cn_chk_guidedhelpowner CHECK ((egcs_cn_ownertype = 'system' AND egcs_cn_agency IS NULL) OR (egcs_cn_ownertype = 'agency' AND egcs_cn_agency IS NOT NULL)) Paired Guided Help developer contract and administration guide document source publication, Agency publication, audience, retained versions, cloning and retirement. The demo seed publishes System address-type, Agreement-type and risk-assessment guides for Agency 21; it is excluded from production migrations. Source and paired guides inspected; no application tests executed."
   },
   {
+    "id": "data:0050_common:cn_chk_notification_attempts",
+    "source": "server/database/migrations/0050_common.ts#cn_chk_notification_attempts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_chk_notification_attempts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_chk_notification_lease",
+    "source": "server/database/migrations/0050_common.ts#cn_chk_notification_lease",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_chk_notification_lease"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_chk_notification_recipientkind",
+    "source": "server/database/migrations/0050_common.ts#cn_chk_notification_recipientkind",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_chk_notification_recipientkind"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_chk_notification_status",
+    "source": "server/database/migrations/0050_common.ts#cn_chk_notification_status",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_chk_notification_status"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0050_common:cn_chk_pub_version_definition",
     "source": "server/database/migrations/0050_common.ts#cn_chk_pub_version_definition",
     "audience": [
@@ -10038,6 +10263,66 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_fk_entityattachment_entity; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:cn_fk_notification_agency",
+    "source": "server/database/migrations/0050_common.ts#cn_fk_notification_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_fk_notification_agency"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_fk_notification_approval",
+    "source": "server/database/migrations/0050_common.ts#cn_fk_notification_approval",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_fk_notification_approval"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_fk_notification_runtimeitem",
+    "source": "server/database/migrations/0050_common.ts#cn_fk_notification_runtimeitem",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_fk_notification_runtimeitem"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_fk_notification_stream",
+    "source": "server/database/migrations/0050_common.ts#cn_fk_notification_stream",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_fk_notification_stream"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0050_common:cn_fk_recommendationset_setup",
@@ -11479,6 +11764,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_uq_gwcoa_number; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:cn_uq_notification_activation",
+    "source": "server/database/migrations/0050_common.ts#cn_uq_notification_activation",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_uq_notification_activation"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0050_common:cn_uq_notification_reference",
+    "source": "server/database/migrations/0050_common.ts#cn_uq_notification_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_uq_notification_reference"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0050_common:cn_uq_publicationidkind",
@@ -17579,6 +17894,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: guard_eligible_proponent_types; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0060_transfer_payment:guard_program_agency_immutable",
+    "source": "server/database/migrations/0060_transfer_payment.ts#guard_program_agency_immutable",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#guard_program_agency_immutable"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0060_transfer_payment:guard_program_financial_id_agency",
     "source": "server/database/migrations/0060_transfer_payment.ts#guard_program_financial_id_agency",
     "audience": [
@@ -17779,6 +18109,21 @@
     "notes": "Support and stacking ratios are between zero and one inclusive. Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. tp_chk_financial_limit_ratios: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
+    "id": "data:0060_transfer_payment:tp_chk_maxrecipient_decimal_range",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_maxrecipient_decimal_range",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_maxrecipient_decimal_range"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0060_transfer_payment:tp_chk_profiledatestartdateend",
     "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_profiledatestartdateend",
     "audience": [
@@ -17798,6 +18143,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: tp_chk_profiledatestartdateend; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_program_budget_nonnegative",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_program_budget_nonnegative",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_program_budget_nonnegative"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_stream_budget_nonnegative",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_nonnegative",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_nonnegative"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_stream_field_assignment_displayorder",
@@ -30675,6 +31050,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: guard_future_proponent_type; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:guard_reconciliation_claim_immutable",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#guard_reconciliation_claim_immutable",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#guard_reconciliation_claim_immutable"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0090_funding_case_agreement:protect_agreement_stream",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#protect_agreement_stream",
     "audience": [
@@ -34349,6 +34739,36 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: agency_enablement_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0110_extensions:agency_notification_selection_agency_id_fkey",
+    "source": "server/database/migrations/0110_extensions.ts#agency_notification_selection_agency_id_fkey",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0110_extensions.ts#agency_notification_selection_agency_id_fkey"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:0110_extensions:agency_notification_selection_pkey",
+    "source": "server/database/migrations/0110_extensions.ts#agency_notification_selection_pkey",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0110_extensions.ts#agency_notification_selection_pkey"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "data:0110_extensions:agency_storage_selection_agency_id_fkey",
     "source": "server/database/migrations/0110_extensions.ts#agency_storage_selection_agency_id_fkey",
     "audience": [
@@ -34410,6 +34830,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: extensions.agency_enablement; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0110_extensions:extensions.agency_notification_selection",
+    "source": "server/database/migrations/0110_extensions.ts#extensions.agency_notification_selection",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0110_extensions.ts#extensions.agency_notification_selection"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   },
   {
     "id": "data:0110_extensions:extensions.agency_storage_selection",
@@ -35463,21 +35898,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: security_event_ownership; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "migration:9999_z_commitment_budget_payment_hold",
-    "source": "server/database/migrations/9999_z_commitment_budget_payment_hold.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/9999_z_commitment_budget_payment_hold.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
-  },
-  {
     "id": "schema:access-log-schema",
     "source": "server/database/access-log-schema.ts",
     "audience": [
@@ -35804,6 +36224,126 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_validate_ar_claim_reduction; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "schema:amendment-catalog-integrity",
+    "source": "server/database/schema/amendment-catalog-integrity.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Registered subject baseline or schema helper and its PostgreSQL/PGlite behavior."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_new_amendment_catalog_selection",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_catalog_selection",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_catalog_selection"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_new_amendment_subtype_selection",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_subtype_selection",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_subtype_selection"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_new_amendment_type_selection",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_type_selection",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_type_selection"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_catalog",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_catalog",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_catalog"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_subtype",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_subtype",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_subtype"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_subtype_mapping",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_subtype_mapping",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_subtype_mapping"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_type",
+    "source": "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_type"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
     "id": "schema:commitment-coding",
     "source": "server/database/schema/commitment-coding.ts",
     "audience": [
@@ -36092,5 +36632,110 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Current pool Credit Memo schema has no egcs_fc_ledgerkind discriminator. Parent and line guards check open outcome, workable active status and absence of lifecycle evidence. Completed evidence remains immutable; source pool/accounting dimensions, positive totals and exact allocations remain enforced. Paired data-model and Proponent Credit Memo guides describe the current ledger and completion. Source inspected only; no application tests executed."
+  },
+  {
+    "id": "schema:currency-money",
+    "source": "server/database/schema/currency-money.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Registered subject baseline or schema helper and its PostgreSQL/PGlite behavior."
+  },
+  {
+    "id": "data:schema/currency-money:money_amount_is_persistable",
+    "source": "server/database/schema/currency-money.ts#money_amount_is_persistable",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts#money_amount_is_persistable"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/currency-money:money_amount_matches_currency",
+    "source": "server/database/schema/currency-money.ts#money_amount_matches_currency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts#money_amount_matches_currency"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/currency-money:money_minor_unit_factor",
+    "source": "server/database/schema/currency-money.ts#money_minor_unit_factor",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts#money_minor_unit_factor"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/currency-money:trg_fn_validate_currency_money",
+    "source": "server/database/schema/currency-money.ts#trg_fn_validate_currency_money",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts#trg_fn_validate_currency_money"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/currency-money:trg_validate_currency_money",
+    "source": "server/database/schema/currency-money.ts#trg_validate_currency_money",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts#trg_validate_currency_money"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+  },
+  {
+    "id": "data:schema/currency-money:validate_currency_money_row",
+    "source": "server/database/schema/currency-money.ts#validate_currency_money_row",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/schema/currency-money.ts#validate_currency_money_row"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
   }
 ]

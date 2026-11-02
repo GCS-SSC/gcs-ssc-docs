@@ -56,7 +56,7 @@ Utilisez le commutateur EN/FR pour changer de langue. Si une page équivalente e
 
 Utilisez le bouton soleil ou lune pour passer du mode clair au mode sombre. Consultez l'accueil pour voir votre travail affecté.
 
-Le menu utilisateur présente votre nom, votre courriel et **Déconnexion**. Les utilisateurs ayant un accès Lecteur Système global ou supérieur voient aussi **Télécharger le vidage SQL**. La déconnexion termine votre session et ouvre la page de connexion dans votre langue. En cas d'échec, vous restez sur la page courante et voyez une erreur.
+Le menu utilisateur présente votre nom, votre courriel et **Déconnexion**. La déconnexion termine votre session et ouvre la page de connexion dans votre langue. En cas d'échec, vous restez sur la page courante et voyez une erreur.
 
 ## Utiliser un guide
 

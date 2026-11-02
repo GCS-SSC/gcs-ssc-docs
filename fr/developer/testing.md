@@ -25,7 +25,9 @@ bun run quality:pr
 
 `bun run test` exécute les suites unitaires et de bout en bout. `test:all:manual` exécute aussi l’analyse statique, la vérification des types, la couverture, l’agrégat PostgreSQL facultatif et les tests de bout en bout.
 
-L’intégration continue automatique des demandes de tirage n’est pas configurée. Exécutez `quality:pr` comme vérification locale obligatoire. Cette commande consigne le diff de la branche et effectue les vérifications suivantes :
+Le flux Quality s'exécute pour les demandes de tirage, les envois et les lancements manuels. Il récupère les outils privés au commit fixé et utilise Node.js 24.22.1 et Bun 1.3.13. Configurez `PRIVATE_TOOLING_READ_TOKEN` avec accès en lecture au dépôt des outils privés. Les demandes provenant d'un dépôt dérivé échouent avant l'accès privé. Un responsable doit les examiner et les tester sur une branche de confiance du dépôt.
+
+Exécutez `quality:pr` comme vérification locale. Cette commande consigne le diff de la branche et effectue les vérifications suivantes :
 
 - Analyse statique et vérification des types de l’hôte.
 - Compilation du SDK et vérification des types de toutes les extensions.

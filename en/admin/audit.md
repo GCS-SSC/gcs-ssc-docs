@@ -21,7 +21,7 @@ For example, assignment to an Agreement may let an officer work on that Agreemen
 
 ## Find an event
 
-1. Open Audit and choose the Audit events or Access view in the vertical navigation.
+1. Open **Administration > Audit** for changes and security events, or **Administration > Access** for queries. The pages use separate routes, `/admin/audit` and `/admin/access`.
 2. Narrow the date and time interval. Add a table, actor, operation, record ID, or request ID if you know it.
 3. Use search for text within table names, request IDs, operations, and actor identifiers. Search is literal; `%` and `_` do not act as wildcards.
 4. Open the row's details action to inspect the captured evidence.

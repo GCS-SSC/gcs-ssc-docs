@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12` reads the profile for agency 12. It does not change the profile or its reference lists. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (137)
+## Handlers (141)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -125,6 +125,10 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | POST | `/api/agency/[agencyId]/review-schemas/[schemaId]/retire` | — | — | `server/api/agency/[agencyId]/review-schemas/[schemaId]/retire.post.ts` |
 | GET | `/api/agency/[agencyId]/statuses` | — | — | `server/api/agency/[agencyId]/statuses.get.ts` |
 | POST | `/api/agency/[agencyId]/statuses` | — | StatusDefinitionCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/statuses.post.ts` |
+| DELETE | `/api/agency/[agencyId]/tooltips/[id]` | — | — | `server/api/agency/[agencyId]/tooltips/[id].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/tooltips/[id]` | — | FieldTooltipSaveSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/tooltips/[id].patch.ts` |
+| GET | `/api/agency/[agencyId]/tooltips` | — | — | `server/api/agency/[agencyId]/tooltips/index.get.ts` |
+| POST | `/api/agency/[agencyId]/tooltips` | — | FieldTooltipSaveSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/tooltips/index.post.ts` |
 | GET | `/api/agency/[agencyId]/workflow-condition-choices` | — | — | `server/api/agency/[agencyId]/workflow-condition-choices.get.ts` |
 | DELETE | `/api/agency/address-types/[id]` | — | — | `server/api/agency/address-types/[id].delete.ts` |
 | PATCH | `/api/agency/address-types/[id]` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/address-types/[id].patch.ts` |

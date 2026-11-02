@@ -4,6 +4,24 @@ Utilisez **Gestion > Aide guidée** pour rédiger des instructions qui s'affiche
 
 Publiez le guide pour enregistrer une version de son contenu. Publiez ensuite les paramètres de l'agence pour rendre cette version accessible au public choisi. Effectuez les deux étapes.
 
+## Rédiger l'aide aux champs
+
+Ouvrez **Gestion > Aide aux champs** et choisissez l'agence. Vous pouvez aussi ouvrir **Aide aux champs** dans l'agence. Votre rôle doit accorder `help:read` pour cette agence. La création, la modification et la suppression exigent respectivement `help:create`, `help:update` et `help:delete`.
+
+1. Sélectionnez **Ajouter une aide de champ**.
+2. Choisissez l'écran et le champ.
+3. Saisissez le texte anglais et français. Chaque langue accepte 4 000 caractères.
+4. Laissez **Activée** décochée pour enregistrer une ébauche incomplète. Pour activer l'aide, remplissez les deux langues.
+5. Sélectionnez **Enregistrer**.
+
+L'aide activée s'affiche pour les lecteurs autorisés des dossiers de l'agence. Aucune publication distincte n'est requise. Fermer sans enregistrer conserve l'entrée enregistrée. L'aide ne donne pas accès au dossier.
+
+Par exemple, choisissez un champ d'entente pris en charge et expliquez quelle référence le personnel doit saisir. Rédigez la même instruction en anglais, activez l'entrée et enregistrez. Vérifiez le champ dans les deux langues sur un dossier de cette agence.
+
+Chaque champ accepte une seule entrée par agence, même désactivée. Si le champ cible a déjà une aide, modifiez ou supprimez cette entrée avant d'y déplacer une autre entrée. Le déplacement conserve le texte.
+
+Utilisez les filtres d'écran et d'état pour trouver les entrées enregistrées. Un champ indisponible conserve son texte. Choisissez un autre champ pris en charge ou supprimez l'entrée. L'aide d'une extension désactivée reste enregistrée et revient après sa réactivation. Si le chargement échoue, sélectionnez **Réessayer**. Si l'enregistrement signale un conflit, rechargez la liste et vérifiez l'entrée existante avant de réessayer.
+
 ## Vérifier l'accès
 
 Votre rôle doit fournir les permissions d'aide guidée pour le système ou l'agence propriétaire du guide. Les guides du système exigent une portée globale. Les guides et paramètres d'une agence exigent la portée de cette agence. Une portée de programme ou une affectation à un dossier ne donne pas accès à la gestion des guides.

@@ -141,23 +141,23 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | PATCH | `/api/agreements/[id]/forecasts/[forecastId]/breakdown` | resolveAgreementScopeContext | FundingCaseAgreementForecastBreakdownPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecasts/[forecastId]/breakdown.patch.ts` |
 | POST | `/api/agreements/[id]/forecasts` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementForecastCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/forecasts/index.post.ts` |
 | GET | `/api/agreements/[id]/funding-subtypes` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/funding-subtypes.get.ts` |
-| DELETE | `/api/agreements/[id]/monitor-findings/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-findings/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-findings/[childId]` | — | FundingCaseAgreementMonitorFindingPatchSchema | `server/api/agreements/[id]/monitor-findings/[childId].patch.ts` |
+| DELETE | `/api/agreements/[id]/monitor-findings/[childId]` | requireAuthContext, resolveAgreementScopeContext | — | `server/api/agreements/[id]/monitor-findings/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/monitor-findings/[childId]` | resolveAgreementScopeContext | FundingCaseAgreementMonitorFindingPatchSchema | `server/api/agreements/[id]/monitor-findings/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-findings` | — | FundingCaseAgreementMonitorFindingCreateSchema | `server/api/agreements/[id]/monitor-findings/index.post.ts` |
-| DELETE | `/api/agreements/[id]/monitor-followup-updates/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-followup-updates/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-followup-updates/[childId]` | — | FundingCaseAgreementMonitorFollowupUpdatePatchSchema | `server/api/agreements/[id]/monitor-followup-updates/[childId].patch.ts` |
-| POST | `/api/agreements/[id]/monitor-followup-updates` | executeFreshAuthorizedAgreementWrite, requireAuthContext | FundingCaseAgreementMonitorFollowupUpdateCreateSchema | `server/api/agreements/[id]/monitor-followup-updates/index.post.ts` |
-| DELETE | `/api/agreements/[id]/monitor-followups/[childId]` | — | — | `server/api/agreements/[id]/monitor-followups/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-followups/[childId]` | — | FundingCaseAgreementMonitorFollowupBaseSchema | `server/api/agreements/[id]/monitor-followups/[childId].patch.ts` |
+| DELETE | `/api/agreements/[id]/monitor-followup-updates/[childId]` | requireAuthContext, resolveAgreementScopeContext | — | `server/api/agreements/[id]/monitor-followup-updates/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/monitor-followup-updates/[childId]` | resolveAgreementScopeContext | FundingCaseAgreementMonitorFollowupUpdatePatchSchema | `server/api/agreements/[id]/monitor-followup-updates/[childId].patch.ts` |
+| POST | `/api/agreements/[id]/monitor-followup-updates` | executeFreshAuthorizedAgreementWrite, resolveAgreementScopeContext | FundingCaseAgreementMonitorFollowupUpdateCreateSchema | `server/api/agreements/[id]/monitor-followup-updates/index.post.ts` |
+| DELETE | `/api/agreements/[id]/monitor-followups/[childId]` | resolveAgreementScopeContext | — | `server/api/agreements/[id]/monitor-followups/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/monitor-followups/[childId]` | resolveAgreementScopeContext | FundingCaseAgreementMonitorFollowupBaseSchema | `server/api/agreements/[id]/monitor-followups/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-followups` | — | FundingCaseAgreementMonitorFollowupCreateSchema | `server/api/agreements/[id]/monitor-followups/index.post.ts` |
-| DELETE | `/api/agreements/[id]/monitor-items/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-items/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-items/[childId]` | — | FundingCaseAgreementMonitorItemsCreateSchema, FundingCaseAgreementMonitorItemsPatchSchema, parseI18n | `server/api/agreements/[id]/monitor-items/[childId].patch.ts` |
+| DELETE | `/api/agreements/[id]/monitor-items/[childId]` | requireAuthContext, resolveAgreementScopeContext | — | `server/api/agreements/[id]/monitor-items/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/monitor-items/[childId]` | resolveAgreementScopeContext | FundingCaseAgreementMonitorItemsCreateSchema, FundingCaseAgreementMonitorItemsPatchSchema, parseI18n | `server/api/agreements/[id]/monitor-items/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-items` | — | FundingCaseAgreementMonitorItemsCreateSchema | `server/api/agreements/[id]/monitor-items/index.post.ts` |
-| DELETE | `/api/agreements/[id]/monitor-planning/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-planning/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-planning/[childId]` | — | FundingCaseAgreementMonitorPlanningPatchSchema | `server/api/agreements/[id]/monitor-planning/[childId].patch.ts` |
+| DELETE | `/api/agreements/[id]/monitor-planning/[childId]` | requireAuthContext, resolveAgreementScopeContext | — | `server/api/agreements/[id]/monitor-planning/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/monitor-planning/[childId]` | resolveAgreementScopeContext | FundingCaseAgreementMonitorPlanningPatchSchema | `server/api/agreements/[id]/monitor-planning/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-planning` | — | FundingCaseAgreementMonitorPlanningCreateSchema | `server/api/agreements/[id]/monitor-planning/index.post.ts` |
-| DELETE | `/api/agreements/[id]/monitor-promising-practices/[childId]` | requireAuthContext | — | `server/api/agreements/[id]/monitor-promising-practices/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/monitor-promising-practices/[childId]` | requireAuthContext | FundingCaseAgreementMonitorPromisingPracticePatchSchema | `server/api/agreements/[id]/monitor-promising-practices/[childId].patch.ts` |
+| DELETE | `/api/agreements/[id]/monitor-promising-practices/[childId]` | requireAuthContext, resolveAgreementScopeContext | — | `server/api/agreements/[id]/monitor-promising-practices/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/monitor-promising-practices/[childId]` | requireAuthContext, resolveAgreementScopeContext | FundingCaseAgreementMonitorPromisingPracticePatchSchema | `server/api/agreements/[id]/monitor-promising-practices/[childId].patch.ts` |
 | POST | `/api/agreements/[id]/monitor-promising-practices` | — | FundingCaseAgreementMonitorPromisingPracticeCreateSchema | `server/api/agreements/[id]/monitor-promising-practices/index.post.ts` |
 | GET | `/api/agreements/[id]/monitors-overview` | — | — | `server/api/agreements/[id]/monitors-overview.get.ts` |
 | DELETE | `/api/agreements/[id]/monitors/[monitorId]` | — | — | `server/api/agreements/[id]/monitors/[monitorId].delete.ts` |
@@ -196,7 +196,7 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | GET | `/api/agreements/lookups/risk-ratings` | — | — | `server/api/agreements/lookups/risk-ratings.get.ts` |
 | GET | `/api/agreements/lookups/streams` | resolveAgreementScopeContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/lookups/streams.get.ts` |
 | GET | `/api/agreements/number-mode` | resolveAgreementStreamScopeContext | PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/agreements/number-mode.get.ts` |
-| POST | `/api/agreements/similarity` | requireAuthContext, resolveAgreementScopeContext, resolveAgreementStreamScopeContext | BodySchema, PositivePostgresBigintIdSchema, readValidatedBodyI18n | `server/api/agreements/similarity.post.ts` |
+| POST | `/api/agreements/similarity` | requireAuthContext, resolveAgreementScopeContext, resolveAgreementStreamScopeContext | BodySchema, FundingCaseAgreementProfileBaseSchema, PositivePostgresBigintIdSchema, readValidatedBodyI18n | `server/api/agreements/similarity.post.ts` |
 | GET | `/api/applicant-recipients/[id]/agreements` | authorizeWithFreshAuthContext, egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireFreshAuthContext, resolveApplicantRecipientAuthorization | AssignedListViewSchema, PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/agreements/index.get.ts` |
 | GET | `/api/claim-reconciliations/[reconcileId]` | resolveAgreementScopeContext | — | `server/api/claim-reconciliations/[reconcileId].get.ts` |
 | PATCH | `/api/claim-reconciliations/[reconcileId]` | resolveAgreementScopeContext | — | `server/api/claim-reconciliations/[reconcileId].patch.ts` |

@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 `GET /api/health` checks whether the application is ready and can reach its database. A successful response is `{ "status": "ok" }`. This public check does not return funding-file data.
 
-## Handlers (108)
+## Handlers (109)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -55,7 +55,6 @@ A dash in the names columns means the generator found no matching name. It does 
 | GET | `/api/admin/audit/events/[kind]/[id]` | — | — | `server/api/admin/audit/events/[kind]/[id].get.ts` |
 | GET | `/api/admin/audit/events` | — | — | `server/api/admin/audit/events/index.get.ts` |
 | GET | `/api/admin/audit/tables` | — | — | `server/api/admin/audit/tables.get.ts` |
-| GET | `/api/admin/dump` | — | — | `server/api/admin/dump.get.ts` |
 | GET | `/api/admin/gwcoa/[id]` | — | — | `server/api/admin/gwcoa/[id].get.ts` |
 | PATCH | `/api/admin/gwcoa/[id]` | executeFreshAuthorizedGwcoaWrite | CommonGwcoaPatchSchema, readValidatedBodyI18n | `server/api/admin/gwcoa/[id].patch.ts` |
 | GET | `/api/admin/gwcoa` | — | AdminCommonListQuerySchema, GwcoaListQuerySchema, getValidatedQueryI18n | `server/api/admin/gwcoa/index.get.ts` |
@@ -67,6 +66,7 @@ A dash in the names columns means the generator found no matching name. It does 
 | GET | `/api/attachments/[entityType]/[entityId]` | — | AttachmentListQuerySchema, getValidatedQueryI18n | `server/api/attachments/[entityType]/[entityId]/index.get.ts` |
 | POST | `/api/attachments/[entityType]/[entityId]` | executeFreshAuthorizedAttachmentWrite | — | `server/api/attachments/[entityType]/[entityId]/index.post.ts` |
 | GET | `/api/attachments/[entityType]/[entityId]/types` | — | AttachmentTypeLookupQuerySchema, getValidatedQueryI18n | `server/api/attachments/[entityType]/[entityId]/types.get.ts` |
+| GET | `/api/catalog-versions` | unauthorized | — | `server/api/catalog-versions.get.ts` |
 | DELETE | `/api/corrections/[id]` | — | — | `server/api/corrections/[id].delete.ts` |
 | GET | `/api/corrections/[id]` | — | — | `server/api/corrections/[id].get.ts` |
 | PATCH | `/api/corrections/[id]` | — | CorrectionEditSchema, readValidatedBodyI18n | `server/api/corrections/[id].patch.ts` |
@@ -74,6 +74,7 @@ A dash in the names columns means the generator found no matching name. It does 
 | GET | `/api/data-collections/[dataCollectionId]` | canAuthorizeReviewRuntimeAction, requireAuthContext | — | `server/api/data-collections/[dataCollectionId].get.ts` |
 | PUT | `/api/data-collections/[dataCollectionId]` | executeFreshAuthorizedReviewRuntimeWrite, requireAuthContext, unauthorized | DataCollectionSaveQuerySchema, DataCollectionSaveSchema, getValidatedQueryI18n, readValidatedBodyI18n | `server/api/data-collections/[dataCollectionId].put.ts` |
 | POST | `/api/data-collections/[dataCollectionId]/claim` | executeFreshAuthorizedRuntimeGroupClaim, requireAuthContext | — | `server/api/data-collections/[dataCollectionId]/claim.post.ts` |
+| GET | `/api/field-tooltips/runtime` | requireAuthContext | FieldTooltipRuntimeQuerySchema, getValidatedQueryI18n | `server/api/field-tooltips/runtime.get.ts` |
 | DELETE | `/api/funding-case-intakes/[id]` | requireAuthContext, requireFreshAuthContext | — | `server/api/funding-case-intakes/[id].delete.ts` |
 | GET | `/api/funding-case-intakes/[id]` | requireAuthContext | — | `server/api/funding-case-intakes/[id].get.ts` |
 | PATCH | `/api/funding-case-intakes/[id]` | requireAuthContext, requireFreshAuthContext | FundingCaseIntakePatchSchema, readValidatedBodyI18n | `server/api/funding-case-intakes/[id].patch.ts` |

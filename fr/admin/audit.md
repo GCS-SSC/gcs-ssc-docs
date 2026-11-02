@@ -21,7 +21,7 @@ Par exemple, une affectation à une entente peut permettre à un agent de traite
 
 ## Trouver un événement
 
-1. Ouvrez Audit et choisissez la vue des événements d'audit ou des accès dans la navigation verticale.
+1. Ouvrez **Administration > Audit** pour les changements et les événements de sécurité, ou **Administration > Accès** pour les requêtes. Les routes sont distinctes, `/admin/audit` et `/admin/access`.
 2. Restreignez l'intervalle de date et heure. Ajoutez une table, un acteur, une opération, un identifiant de fiche ou de requête si vous le connaissez.
 3. Recherchez du texte dans les tables, identifiants de requête, opérations et identifiants d'acteur. La recherche est littérale; `%` et `_` ne sont pas des caractères génériques.
 4. Ouvrez les détails de la ligne pour consulter la preuve capturée.

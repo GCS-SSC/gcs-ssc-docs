@@ -60,13 +60,13 @@ Invalid audit settings prevent the application from becoming ready to serve requ
 
 `bun run setup` first prepares the private tooling checkout, then initializes the extension and SDK submodules recorded in `.gitmodules`, installs the workspace, and builds the public extension SDK. Your GitHub account needs read access to `GCS-SSC/gcs-ssc-tooling`. `bun run tooling:setup` restores the pinned tooling checkout and the expected links for tests, architecture material, and host scripts. It refuses to replace unrelated files or retarget existing links. If setup stops at a conflicting path, inspect and preserve that content before restoring the expected link.
 
-The SDK is the development toolkit extensions use to work with the application. `bun run dev` bundles the administrative dump worker, derives Better Auth origins from the selected host/port, and starts Nuxt; `--host` and `--port` are forwarded.
+The SDK is the development toolkit extensions use to work with the application. `bun run dev` derives Better Auth origins from the selected host/port, and starts Nuxt; `--host` and `--port` are forwarded.
 
 `bun run dev:clean` first removes the default local `.data/pglite` database and cached `.nuxt/dev` Nitro output, preventing an old worker from reseeding the new database. It is destructive to that local database and does not remove stored files.
 
 | Command | Verified purpose |
 | --- | --- |
-| `bun run build` | Build the extension SDK, Nuxt node-server application, and administrative SQL-dump and storage-cleanup workers. |
+| `bun run build` | Build the extension SDK, Nuxt node-server application, and storage-cleanup worker. |
 | `bun run lint` / `bun run typecheck` | Check bilingual UI policy, database naming, source style, and Nuxt/Vue types. |
 | `bun run test:unit` / `bun run test:coverage` | Check forms and guided help, then run guided-help package and root-owned Vitest tests; coverage enforces configured thresholds. |
 | `bun run test:integration:postgres` | Run the managed PostgreSQL integration harness with its external prerequisites. |

@@ -2,6 +2,14 @@
 
 Use **Complete** when you have finished entering and checking a record’s information. Completion saves evidence of who finished the work and freezes ordinary editing. **Approval** is a separate decision. Assigned approvers review the record in order and confirm any required certifications. Both can advance a [workflow](workflows.md). Access is checked against the particular record being handled; an assignment or a visible button alone does not give you access to that record.
 
+## Approval email
+
+An enabled notification provider can email the assigned user or group when an approval needs action. Administrators must enable and configure the provider for the Agency, select it as the Agency's notification provider, and enable its Stream configuration with an `approval.action_required` template mapping. Selecting the Agency provider requires `agency:delete` permission for that Agency. Provider-specific credentials and template setup belong to the provider's documentation.
+
+The message uses the assigned user's email or the assigned group's email. A link does not grant permission to approve. Open the record and check the current approval step before acting. Reassignment, cancellation, or a completed step can make an unsent message obsolete.
+
+If no message arrives, check the current assignment and email address, Agency provider selection, Stream mapping, and enabled background queue levels. You can still open authorized approval work in the application. Ask an operator to inspect delivery failures before requesting another message.
+
 ## Supported runtime records
 
 Here, **runtime** means the actual work created for a record, rather than the template an administrator designed. For example, a published checklist is a design; the checklist you fill in for a particular Claim is a runtime review.

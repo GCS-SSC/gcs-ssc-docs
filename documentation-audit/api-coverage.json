@@ -772,24 +772,6 @@
     "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/admin/audit/tables.get.ts: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
   },
   {
-    "id": "api:server/api/admin/dump.get.ts",
-    "source": "server/api/admin/dump.get.ts",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/api/platform.md",
-    "fr": "fr/developer/api/platform.md",
-    "evidence": [
-      "server/api/admin/dump.get.ts",
-      "server/utils/admin-dump.ts",
-      "server/utils/authorize.ts",
-      "server/utils/api-errors.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: . User/domain contract: artifact topology, provider-aware backups, SQL bootstrap export and deployment/reset boundaries. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "api:server/api/admin/gwcoa/[id].get.ts",
     "source": "server/api/admin/gwcoa/[id].get.ts",
     "audience": [
@@ -3662,6 +3644,66 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/statuses.post.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, withActiveAgencyMutationTransaction(; schema landmarks: StatusDefinitionCreateSchema. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/tooltips/[id].delete.ts",
+    "source": "server/api/agency/[agencyId]/tooltips/[id].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/tooltips/[id].delete.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "DELETE /api/agency/[agencyId]/tooltips/[id]; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/agency/[agencyId]/tooltips/[id].delete.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/tooltips/[id].patch.ts",
+    "source": "server/api/agency/[agencyId]/tooltips/[id].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/tooltips/[id].patch.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "PATCH /api/agency/[agencyId]/tooltips/[id]; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: FieldTooltipSaveSchema, readValidatedBodyI18n; request/response/error implementation: server/api/agency/[agencyId]/tooltips/[id].patch.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/tooltips/index.get.ts",
+    "source": "server/api/agency/[agencyId]/tooltips/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/tooltips/index.get.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "GET /api/agency/[agencyId]/tooltips/; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/agency/[agencyId]/tooltips/index.get.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/tooltips/index.post.ts",
+    "source": "server/api/agency/[agencyId]/tooltips/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/agencies.md",
+    "fr": "fr/developer/api/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/tooltips/index.post.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "POST /api/agency/[agencyId]/tooltips/; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: FieldTooltipSaveSchema, readValidatedBodyI18n; request/response/error implementation: server/api/agency/[agencyId]/tooltips/index.post.ts. Direct domain-helper and test evidence remains required."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflow-condition-choices.get.ts",
@@ -10743,6 +10785,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: . Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/catalog-versions.get.ts",
+    "source": "server/api/catalog-versions.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/catalog-versions.get.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "GET /api/catalog-versions; authorization landmarks: unauthorized; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/catalog-versions.get.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
     "id": "api:server/api/claim-reconciliations/[reconcileId].get.ts",
     "source": "server/api/claim-reconciliations/[reconcileId].get.ts",
     "audience": [
@@ -11318,6 +11375,36 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: ExtensionMigrationRunSchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/extensions/agency/[agencyId]/notification-provider.get.ts",
+    "source": "server/api/extensions/agency/[agencyId]/notification-provider.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/extensions.md",
+    "fr": "fr/developer/api/extensions.md",
+    "evidence": [
+      "server/api/extensions/agency/[agencyId]/notification-provider.get.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "GET /api/extensions/agency/[agencyId]/notification-provider; authorization landmarks: authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/extensions/agency/[agencyId]/notification-provider.get.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
+    "id": "api:server/api/extensions/agency/[agencyId]/notification-provider.patch.ts",
+    "source": "server/api/extensions/agency/[agencyId]/notification-provider.patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/extensions.md",
+    "fr": "fr/developer/api/extensions.md",
+    "evidence": [
+      "server/api/extensions/agency/[agencyId]/notification-provider.patch.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "PATCH /api/extensions/agency/[agencyId]/notification-provider; authorization landmarks: authorizeWithFreshAuthContext, requireFreshAuthContext; validation landmarks: AgencyNotificationProviderSelectionSchema, readValidatedBodyI18n; request/response/error implementation: server/api/extensions/agency/[agencyId]/notification-provider.patch.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
     "id": "api:server/api/extensions/agency/[agencyId]/storage-provider.get.ts",
     "source": "server/api/extensions/agency/[agencyId]/storage-provider.get.ts",
     "audience": [
@@ -11496,6 +11583,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: ExtensionStreamConfigurationSchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/extensions/streams/[streamId]/notifiers.get.ts",
+    "source": "server/api/extensions/streams/[streamId]/notifiers.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/extensions.md",
+    "fr": "fr/developer/api/extensions.md",
+    "evidence": [
+      "server/api/extensions/streams/[streamId]/notifiers.get.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "GET /api/extensions/streams/[streamId]/notifiers; authorization landmarks: authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/extensions/streams/[streamId]/notifiers.get.ts. Direct domain-helper and test evidence remains required."
+  },
+  {
     "id": "api:server/api/extensions/workspaces.get.ts",
     "source": "server/api/extensions/workspaces.get.ts",
     "audience": [
@@ -11519,6 +11621,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; scoped evidence in documentation-audit/sync-concept-misc.json. The workspace declaration chooses management or administration and a safe integer order; the host uses it to group and order authorized enabled workspace entries. User concepts name the menu groups without SDK internals. Source and paired guides inspected; named regression sources were inspected only, not executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "api:server/api/field-tooltips/runtime.get.ts",
+    "source": "server/api/field-tooltips/runtime.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/platform.md",
+    "fr": "fr/developer/api/platform.md",
+    "evidence": [
+      "server/api/field-tooltips/runtime.get.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "GET /api/field-tooltips/runtime; authorization landmarks: requireAuthContext; validation landmarks: FieldTooltipRuntimeQuerySchema, getValidatedQueryI18n; request/response/error implementation: server/api/field-tooltips/runtime.get.ts. Direct domain-helper and test evidence remains required."
   },
   {
     "id": "api:server/api/funding-case-intakes/[id].delete.ts",
@@ -16268,6 +16385,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Application-user joins now use the canonical Common_User column for assignment identity, group membership, and Agency user pickers. Group membership requires an active role owned by its Agency. Scoped evidence: documentation-audit/sync-access.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "api:server/api/workflows/approval-runtime.get.ts",
+    "source": "server/api/workflows/approval-runtime.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api/workflows.md",
+    "fr": "fr/developer/api/workflows.md",
+    "evidence": [
+      "server/api/workflows/approval-runtime.get.ts"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "GET /api/workflows/approval-runtime; authorization landmarks: requireAuthContext; validation landmarks: WorkflowRuntimeQuerySchema, getValidatedQueryI18n; request/response/error implementation: server/api/workflows/approval-runtime.get.ts. Direct domain-helper and test evidence remains required."
   },
   {
     "id": "api:server/api/workflows/available.get.ts",

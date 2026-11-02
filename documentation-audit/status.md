@@ -2,14 +2,23 @@
 
 ## Current phase
 
-`COMPLETE`. Bilingual coverage for application `51ba383408ba6cd5eab40d55c9504af50916e2b6` is authored and reconciled after baseline `dcbe779afa3c89adb9f0f798dd1b274e92a50939`. All 2,950 coverage entries have terminal dispositions, with zero remaining items. The authoritative marker advanced after successful verification.
+`IN_PROGRESS`. The current draft targets application `7caaabb657ae69039077674d81962e1c622f5bb0`, committed `2026-11-01T13:50:20-05:00`. The last verified baseline remains `51ba383408ba6cd5eab40d55c9504af50916e2b6`. The skill marker and source receipt have not advanced.
+
+## Draft changes
+
+English and French drafts cover field help, approval email, queue level switches, separate Audit and Access pages, removal of SQL dump downloads, the new money format, and Quality CI. Generated inventories and route references use the pinned target. These drafts do not yet establish full coverage of the application range.
 
 ## Verification
 
-- Bun 1.3.13; isolated clone detached at the target; baseline ancestry and twelve initialized gitlinks checked. Sibling application untouched.
-- All 13 commits and 124 net paths have dispositions. Paired examples and recovery instructions received the requested bro plain-language review.
-- Inventory, API reference, and audit-impact generation passed. Isolated generator fixtures passed discovery, preservation, determinism, and removal cases.
-- `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check`, `git diff --check`, and `VITEPRESS_BASE=/gcs-ssc-docs/ bun run docs:build` passed. All 29 generator-owned coverage/reference artifacts remained unchanged on regeneration after source-list normalization. The final fetch matched the target. Builds emitted the existing nonfatal warning for chunks larger than 500 kB. Post-marker documentation checking, whitespace verification, and the deployment-base build passed again.
-- Application tests, CodeRabbit, and live application validation were not run. Source deployment results are attributed history.
+- Bun 1.3.13. Documentation started clean at `5a82f3222f529793121e44ec04c199eef043ef0c`.
+- Baseline ancestry passed. The isolated clone is clean and detached at the target. All thirteen initialized gitlinks match. The sibling application repository was untouched.
+- Inventory, API reference, and audit-impact generation passed.
+- The first `GCS_SSC_SOURCE=.reference-repos/gcs-ssc bun run docs:check` failed with 65 pending coverage entries. This is an intermediate result, not a successful verification.
+- `git diff --check` and `VITEPRESS_BASE=/gcs-ssc-docs/ bun run docs:build` passed before this status edit. The build emitted the existing nonfatal warning for chunks larger than 500 kB.
+- Application tests, CodeRabbit, and live application checks were not run.
 
-See [review scope](./sync-review.md), [findings](./documentation-findings.md), and [source receipt](./source-baseline.md). Publication is authorized after successful verification.
+## Outstanding work
+
+Finish the source review for every commit and changed path, including security fixes, SDK changes, document rendering limits, catalog caching, editing behavior, financial constraints, guided-help controls, and deployment changes. Check relevant user examples and recovery instructions in both languages. Reconcile the 65 new entries and reopen affected existing entries. Then rerun generators and final checks, check source drift, and advance the marker only after success.
+
+See [current progress](./sync-nov01-progress.json). Other completed audit reports and the source receipt describe the previous verified run.

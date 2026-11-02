@@ -77,7 +77,6 @@ Retention runs hourly on Level 3, without a startup retention pass. Each run del
 
 For example, restoring an Agreement’s database records without restoring its externally stored claim documents leaves an incomplete case file. Plan and verify recovery of both the database and attachment storage.
 
-The administrative SQL dump uses a separately bundled worker. Concurrent requests share one generation with a timeout. Callers can stop waiting, and cleanup terminates the worker. If the export fails, check capacity and logs before retrying. This export contains schema and migration SQL, not live business records or external attachments. See [Backup and restore](deployment.md#backup-and-restore) for its limits and the required backups.
 
 Poll `/api/health`, monitor startup failures, process restarts, resource limits, database health, provider availability, cleanup backlog, and backup restoration. Concrete extensions may add their own workers; their documentation defines those additional monitoring and recovery requirements.
 

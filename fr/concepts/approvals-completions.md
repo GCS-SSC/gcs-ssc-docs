@@ -2,6 +2,14 @@
 
 Utilisez **Achever** après avoir saisi et vérifié les renseignements d’un dossier. L’achèvement conserve la preuve de qui a terminé le travail et bloque les modifications ordinaires. L’**approbation** est une décision distincte. Les approbateurs affectés examinent le dossier dans l’ordre et confirment les certifications requises. Les deux peuvent faire avancer un [flux de travail](workflows.md). L’accès est vérifié pour le dossier précis traité; une affectation ou un bouton visible ne donne pas à lui seul accès à ce dossier.
 
+## Courriel d'approbation
+
+Un fournisseur de notifications activé peut envoyer un courriel à la personne ou au groupe affecté lorsqu'une approbation exige une action. Les administrateurs doivent activer et configurer le fournisseur pour l'agence, le choisir comme fournisseur de notifications de l'agence et activer sa configuration de volet avec un modèle associé à `approval.action_required`. Le choix du fournisseur exige `agency:delete` pour cette agence. Consultez la documentation du fournisseur pour ses identifiants et modèles.
+
+Le message utilise le courriel de la personne ou du groupe affecté. Un lien ne donne pas la permission d'approuver. Ouvrez le dossier et vérifiez l'étape courante avant d'agir. Une réaffectation, une annulation ou une étape terminée peut rendre un message non envoyé périmé.
+
+Si aucun message n'arrive, vérifiez l'affectation et le courriel actuels, le fournisseur choisi pour l'agence, le modèle du volet et les niveaux de file activés. Vous pouvez toujours ouvrir le travail d'approbation autorisé dans l'application. Demandez à un opérateur d'examiner les échecs d'envoi avant de demander un autre message.
+
 ## Enregistrements d'exécution pris en charge
 
 Ici, **exécution** désigne le travail créé pour un dossier, plutôt que le modèle conçu par un administrateur. Par exemple, une liste de vérification publiée est un modèle; celle que vous remplissez pour une réclamation précise est un examen d’exécution.

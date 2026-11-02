@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/extensions/agency/12` lists registered extensions and their enablement and configuration for agency 12. It does not enable an extension or run its migrations. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (13)
+## Handlers (16)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -23,6 +23,8 @@ An authorized request for `GET /api/extensions/agency/12` lists registered exten
 | GET | `/api/extensions/agency/[agencyId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/agency/[agencyId]/index.get.ts` |
 | PATCH | `/api/extensions/agency/[agencyId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionToggleSchema, readValidatedBodyI18n | `server/api/extensions/agency/[agencyId]/index.patch.ts` |
 | POST | `/api/extensions/agency/[agencyId]/migrations` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionMigrationRunSchema, readValidatedBodyI18n | `server/api/extensions/agency/[agencyId]/migrations.post.ts` |
+| GET | `/api/extensions/agency/[agencyId]/notification-provider` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/agency/[agencyId]/notification-provider.get.ts` |
+| PATCH | `/api/extensions/agency/[agencyId]/notification-provider` | authorizeWithFreshAuthContext, requireFreshAuthContext | AgencyNotificationProviderSelectionSchema, readValidatedBodyI18n | `server/api/extensions/agency/[agencyId]/notification-provider.patch.ts` |
 | GET | `/api/extensions/agency/[agencyId]/storage-provider` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/agency/[agencyId]/storage-provider.get.ts` |
 | PATCH | `/api/extensions/agency/[agencyId]/storage-provider` | authorizeWithFreshAuthContext, requireFreshAuthContext | AgencyStorageProviderSelectionSchema, readValidatedBodyI18n | `server/api/extensions/agency/[agencyId]/storage-provider.patch.ts` |
 | GET | `/api/extensions/create-actions` | requireAuthContext | CreateActionsQuerySchema, parseI18n | `server/api/extensions/create-actions/index.get.ts` |
@@ -31,4 +33,5 @@ An authorized request for `GET /api/extensions/agency/12` lists registered exten
 | GET | `/api/extensions/runtime` | — | RuntimeSlotQuerySchema, parseI18n | `server/api/extensions/runtime/index.get.ts` |
 | GET | `/api/extensions/streams/[streamId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/streams/[streamId]/index.get.ts` |
 | PATCH | `/api/extensions/streams/[streamId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionStreamConfigurationSchema, readValidatedBodyI18n | `server/api/extensions/streams/[streamId]/index.patch.ts` |
+| GET | `/api/extensions/streams/[streamId]/notifiers` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/streams/[streamId]/notifiers.get.ts` |
 | GET | `/api/extensions/workspaces` | — | — | `server/api/extensions/workspaces.get.ts` |

@@ -56,7 +56,7 @@ Use the EN/FR switch to change language. When an equivalent page exists, the swi
 
 Use the sun or moon button to switch between light and dark mode. Check Home for your assigned work.
 
-The user menu shows your name, email and **Logout**. Users with global System Viewer access or higher also see **Download SQL dump**. Logout ends your session and opens the login page in your chosen language. If logout fails, you stay on the current page and see an error.
+The user menu shows your name, email and **Logout**. Logout ends your session and opens the login page in your chosen language. If logout fails, you stay on the current page and see an error.
 
 ## Use a guide
 

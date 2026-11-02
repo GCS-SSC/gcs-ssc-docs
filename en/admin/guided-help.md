@@ -4,6 +4,24 @@ Use **Management > Guided Help** to write instructions that appear beside applic
 
 Publish the guide to save a version of its content. Then publish the Agency settings to make that version available to readers. Complete both steps.
 
+## Write field help
+
+Open **Management > Field help** and choose the Agency. You can also open **Field help** inside the Agency. Your role needs `help:read` for that Agency. Creating, changing, and deleting entries require the matching `help:create`, `help:update`, and `help:delete` permissions.
+
+1. Select **Add field help**.
+2. Choose the screen and field.
+3. Enter the English and French text. Each language allows 4,000 characters.
+4. Leave **Enabled** off to save an incomplete draft. To enable the help, complete both languages.
+5. Select **Save**.
+
+Enabled help appears for authorized readers of the Agency's records. No separate publication step is required. Closing without saving leaves the saved entry unchanged. Help does not grant access to the record.
+
+For example, choose a supported Agreement field and explain what reference staff must enter. Write the same instruction in French, enable the entry, and save. Check the field on a record belonging to that Agency in both languages.
+
+Each field can have one saved entry per Agency, including disabled entries. If the destination already has help, edit or delete that entry before moving another entry to it. Moving an entry keeps its text.
+
+Use the screen and status filters to find saved entries. An unavailable field keeps its saved text. Choose another supported field or delete the entry. Help from a disabled extension stays saved and returns when that extension is enabled again. If loading fails, select **Retry**. If saving reports a conflict, reload the list and check the existing entry before saving again.
+
 ## Check access
 
 Your role needs Guided Help permissions for the System or Agency that owns the guide. System guides require global scope. Agency guides and their publication settings require the relevant Agency scope. Program scope and record assignments do not grant guide management access.

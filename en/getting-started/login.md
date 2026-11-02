@@ -26,6 +26,6 @@ Home opens after sign-in. The other destinations depend on your active roles: a 
 
 - Agreements requires an active Agreement Viewer role at an allowed scope; Proponents requires global or Agency Proponent Viewer access.
 - Assignment Management requires an active `manage_assignments` permission for Agreement, Proponent, Funding Case, Journal Voucher or Correction.
-- GWCOA and SQL dump download require global System Viewer access. Audit requires its own global or Agency permission. Logout remains available.
+- GWCOA requires global System Viewer access. Audit requires its own global or Agency permission. Logout remains available.
 
 Being assigned to a record means that your name is listed as someone responsible for work on that particular record. This assignment does not replace your role permissions. For example, if you are assigned to Agreement AG-2026-014 but cannot see Agreements, ask your administrator to check your active Agreement role and its scope. If Agreements is visible but you cannot edit that record, ask them to check both your access level and your assignment.

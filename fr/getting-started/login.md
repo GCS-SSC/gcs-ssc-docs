@@ -26,6 +26,6 @@ Accueil s'ouvre après la connexion. Les autres destinations dépendent de vos r
 
 - Ententes exige un rôle Lecteur Entente actif dans une portée autorisée; Promoteurs exige un accès Lecteur Promoteur global ou d'agence.
 - Gestion des affectations exige une permission active `manage_assignments` pour Entente, Promoteur, Dossier de financement, Pièce de journal ou Correction.
-- GWCOA et le téléchargement SQL exigent l'accès Lecteur Système global. Audit exige sa propre permission globale ou d'agence. Déconnexion reste disponible.
+- GWCOA exige l'accès Lecteur Système global. Audit exige sa propre permission globale ou d'agence. Déconnexion reste disponible.
 
 Être affecté à un dossier signifie que votre nom figure parmi les personnes responsables du travail sur ce dossier précis. Cette affectation ne remplace pas les permissions de votre rôle. Par exemple, si vous êtes affecté à l'entente AG-2026-014 mais ne voyez pas Ententes, demandez à votre administrateur de vérifier votre rôle Entente actif et sa portée. Si Ententes est visible mais que vous ne pouvez pas modifier ce dossier, demandez-lui de vérifier votre niveau d'accès et votre affectation.

@@ -1,3 +1,5 @@
+> Historical report for the previous verified sync. The current draft is incomplete. See [current status](./status.md).
+
 # Documentation findings
 
 | ID | Category | Evidence | Impact | Remediation | Status |

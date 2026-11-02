@@ -71,7 +71,9 @@ Budget lines require `egcs_fc_applicantrecipient` referencing a linked proponent
 
 ## Exact financial boundaries
 
-Money uses canonical decimal text and exact integer-cent arithmetic. `numeric(19,2)` supports magnitude up to `99999999999999999.99`. For example, retain ID `"9007199254740993"` and amount `"10000000000000000.01"` as strings. Sign and aggregate limits are domain-specific; a generic money parser is not a positive-business-amount guarantee. Agreement currency is immutable and all financial children must match it. UI controls use that denomination and locale with two fraction digits.
+Money crosses the API as an object with an integer amount in the currency's smallest unit. For example, `{"amount":"12345","currency":"CAD"}` means CAD 123.45. Keep the amount as text. Do not send a decimal number or assume every currency has two fraction digits. Use the SDK's `@gcs-ssc/extensions/money` helpers to parse, calculate, and format amounts.
+
+The database stores integer minor units. Read numeric values as text before converting them with the owning currency. Persisted amounts must pass `MoneySchema`; totals can use `CanonicalMoneySchema`. Positive and nonnegative limits remain separate checks. The Agreement currency is immutable, and its financial children must match it. A currency mismatch is rejected rather than converted.
 
 Current annual program funding governs Forecast and Claim writes and completion under the Agreement write lock. Total cost and other-funding types retain line-level rules, without separate annual ceilings.
 

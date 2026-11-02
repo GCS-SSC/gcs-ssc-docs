@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/agency/12/workflows/9` lit la définition de flux 9, y compris ses étapes et responsables. Elle ne démarre pas de flux sur une entente. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (27)
+## Gestionnaires (28)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -36,6 +36,7 @@ Une requête autorisée `GET /api/agency/12/workflows/9` lit la définition de f
 | GET | `/api/recommendations/[recommendationId]` | resolveAgreementScopeContext | — | `server/api/recommendations/[recommendationId].get.ts` |
 | PUT | `/api/recommendations/[recommendationId]` | executeFreshAuthorizedReviewRuntimeWrite, requireAuthContext, unauthorized | RecommendationSaveQuerySchema, WorkflowRecommendationSaveSchema, getValidatedQueryI18n, readValidatedBodyI18n | `server/api/recommendations/[recommendationId].put.ts` |
 | POST | `/api/recommendations/[recommendationId]/claim` | executeFreshAuthorizedRuntimeGroupClaim, requireAuthContext | — | `server/api/recommendations/[recommendationId]/claim.post.ts` |
+| GET | `/api/workflows/approval-runtime` | requireAuthContext | WorkflowRuntimeQuerySchema, getValidatedQueryI18n | `server/api/workflows/approval-runtime.get.ts` |
 | GET | `/api/workflows/available` | — | WorkflowSourceSchema, getValidatedQueryI18n | `server/api/workflows/available.get.ts` |
 | POST | `/api/workflows/cancel` | executeFreshAuthorizedReviewRuntimeWrite, unauthorized | WorkflowCancelSchema, readValidatedBodyI18n | `server/api/workflows/cancel.post.ts` |
 | GET | `/api/workflows/owner-candidates` | canAuthorizeWorkflowOwnerRecovery | WorkflowOwnerCandidatesQuerySchema, getValidatedQueryI18n | `server/api/workflows/owner-candidates.get.ts` |

@@ -4,6 +4,14 @@ Utilisez **Files d’attente en arrière-plan** pour examiner le travail planifi
 
 La page est en lecture seule. Elle ne lance aucun gestionnaire, ne change aucun horaire, n’efface aucun bail et ne reprend aucune opération métier.
 
+## Vérifier les niveaux de file activés
+
+Les opérateurs choisissent les niveaux au démarrage du serveur. Définissez `GCS_QUEUE_LEVEL_0_ENABLED` à `GCS_QUEUE_LEVEL_3_ENABLED` avec exactement `true` ou `false`. Toute autre valeur bloque le démarrage des files.
+
+Sans réglage explicite, tous les niveaux fonctionnent hors de Railway. Si `RAILWAY_PROJECT_ID` est défini, les niveaux 0 et 1 sont désactivés par défaut. Les niveaux 2 et 3 restent actifs. Leurs fréquences sont de 30 minutes et d'une heure. Les niveaux 0 et 1 s'exécutent toutes les dix secondes et cinq minutes lorsqu'ils sont activés.
+
+Si le travail fréquent s'arrête après un déploiement, vérifiez ces réglages avant de modifier les données métier. Activez le niveau requis et redémarrez le serveur. Actualisez cette page pour examiner le processus qui répond.
+
 ## Trouver un gestionnaire
 
 1. Recherchez l’identifiant du gestionnaire ou le nom de l’extension.

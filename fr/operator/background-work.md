@@ -77,7 +77,6 @@ La conservation s’exécute chaque heure au niveau 3, sans traitement au démar
 
 Par exemple, restaurer les dossiers d’une entente en base de données sans restaurer les documents de réclamation stockés à l’extérieur laisse un dossier incomplet. Planifiez et vérifiez la restauration de la base de données et du stockage des pièces jointes.
 
-Le vidage SQL administratif utilise un processus construit séparément. Les requêtes concurrentes partagent une génération avec un délai maximal. Les appelants peuvent cesser d’attendre et le nettoyage termine le processus. Si l’export échoue, vérifiez la capacité et les journaux avant de réessayer. Cet export contient le SQL du schéma et des migrations, sans dossiers métier actifs ni pièces jointes externes. Consultez [Sauvegarde et restauration](deployment.md#sauvegarde-et-restauration) pour ses limites et les sauvegardes requises.
 
 Sondez `/api/health` et surveillez les échecs de démarrage, redémarrages, ressources, base, fournisseurs, arriéré de nettoyage et restaurations de sauvegarde. Les extensions concrètes peuvent ajouter leurs propres processus; leur documentation définit ces exigences supplémentaires.
 

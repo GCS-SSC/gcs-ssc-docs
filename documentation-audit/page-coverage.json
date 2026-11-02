@@ -1,5 +1,20 @@
 [
   {
+    "id": "page:app/pages/admin/access.vue",
+    "source": "app/pages/admin/access.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/pages/admin/access.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+  },
+  {
     "id": "page:app/pages/admin/audit.vue",
     "source": "app/pages/admin/audit.vue",
     "audience": [
@@ -1099,6 +1114,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: host enablement, configuration access, runtime slots, storage and numbering extension boundaries. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "page:app/pages/field-help.vue",
+    "source": "app/pages/field-help.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/pages/field-help.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+  },
+  {
     "id": "page:app/pages/funding-case-intakes/[id].vue",
     "source": "app/pages/funding-case-intakes/[id].vue",
     "audience": [
@@ -1923,33 +1953,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "component:app/components/AccountReceivable/ApprovalWorkspace.vue",
-    "source": "app/components/AccountReceivable/ApprovalWorkspace.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/agreements/receivables.md",
-    "fr": "fr/agreements/receivables.md",
-    "evidence": [
-      "app/components/AccountReceivable/ApprovalWorkspace.vue",
-      "shared/constants/system-lifecycle.ts",
-      "app/utils/account-receivable-display.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "app/composables/usePageResourceError.ts",
-      "shared/types/schemas/account-receivable.ts",
-      "server/utils/account-receivable.ts",
-      "server/utils/account-receivable-source.ts",
-      "server/utils/account-receivable-recovery.ts",
-      "server/utils/account-receivable-claim-reductions.ts",
-      "server/utils/payment-recovery-controls.ts",
-      "tooling/gcs-ssc/tests/unit/account-receivable-host-payment-completion.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group receivable in review-groups.json. Claim/paid-Advance eligibility and coding, posted original/adjustment balances, independent permissions/rosters, approved recovery, reservations/holds, Claim reductions only at full clearance. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
     "id": "component:app/components/AccountReceivable/ClaimReductions.vue",
     "source": "app/components/AccountReceivable/ClaimReductions.vue",
     "audience": [
@@ -2033,31 +2036,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group receivable in review-groups.json. Claim/paid-Advance eligibility and coding, posted original/adjustment balances, independent permissions/rosters, approved recovery, reservations/holds, Claim reductions only at full clearance. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "component:app/components/AccountReceivable/CreditMemoApprovalWorkspace.vue",
-    "source": "app/components/AccountReceivable/CreditMemoApprovalWorkspace.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/proponents/credit-memos.md",
-    "fr": "fr/proponents/credit-memos.md",
-    "evidence": [
-      "app/components/AccountReceivable/CreditMemoApprovalWorkspace.vue",
-      "shared/constants/system-lifecycle.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "app/composables/usePageResourceError.ts",
-      "app/composables/useBilingualValue.ts",
-      "server/utils/account-receivable-proponent.ts",
-      "server/utils/account-receivable-credit-memo.ts",
-      "server/utils/account-receivable-credit-memo-lines.ts",
-      "server/utils/credit-memo-scope-authority.ts",
-      "server/utils/credit-memo-queue-authority.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group credit in review-groups.json. Agency/Proponent/currency pools, cash versus offset provenance, eligible tags, manual/retained coding, exact capacity and required approval posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "component:app/components/AccountReceivable/CreditMemoCreateModal.vue",
@@ -2246,6 +2224,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Admin/AuditActorFilter.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+  },
+  {
+    "id": "component:app/components/Admin/AuditLogFilters.vue",
+    "source": "app/components/Admin/AuditLogFilters.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "app/components/Admin/AuditLogFilters.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+  },
+  {
+    "id": "component:app/components/Admin/AuditLogPage.vue",
+    "source": "app/components/Admin/AuditLogPage.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
+    "evidence": [
+      "app/components/Admin/AuditLogPage.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
   },
   {
     "id": "component:app/components/Admin/AuditOperationFilter.vue",
@@ -2721,6 +2729,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; scoped evidence in documentation-audit/sync-admin-program.json. Attachment type names and descriptions are required bilingually; descriptions preserve whitespace and reject null characters. Document templates support Agreement, Amendment and Closeout record types, bilingual names/descriptions and language files, DOCX or HTML kind, compatible native/PDF output, 10 MiB per-file limit and same-Agency/type per-language name uniqueness. Document template kind is immutable; edits can replace either language file. Failed replacement transactions preserve saved files, while failed post-save reload must be retried before creating another record. Agency Workflow Flow is a separate read-only diagram route. Unsaved changes or a pending mutation block switching between editor and diagram; draft save and publication remain distinct. Agency Contributor can delete eligible draft Review Sets, Recommendation Sets, Workflows and Data Collections; general catalog Manager wording was narrowed to avoid denying supported actions. Source and paired guides inspected; named regression sources were inspected only, not executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyFieldHelp.vue",
+    "source": "app/components/Agency/AgencyFieldHelp.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "app/components/Agency/AgencyFieldHelp.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
   },
   {
     "id": "component:app/components/Agency/AgencyFiscalYears.vue",
@@ -5951,6 +5974,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream-scoped reusable templates, published step/certification policies and historical runtime pins. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Common/ApprovalWorkspace.vue",
+    "source": "app/components/Common/ApprovalWorkspace.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "app/components/Common/ApprovalWorkspace.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+  },
+  {
     "id": "component:app/components/Common/Approvals/ActionModal.vue",
     "source": "app/components/Common/Approvals/ActionModal.vue",
     "audience": [
@@ -6808,6 +6846,21 @@
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Paired navigation and Guided Help developer guides cover current theme/menu controls and shared diagram branch layout, 25%-200% zoom, full-window keyboard recovery, complete SVG and 4x PNG export independent of pan/zoom. Scoped evidence: documentation-audit/sync-guided-help.json. No application tests executed."
   },
   {
+    "id": "component:app/components/Common/FormDialog.vue",
+    "source": "app/components/Common/FormDialog.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/developer/validation-i18n.md",
+    "fr": "fr/developer/validation-i18n.md",
+    "evidence": [
+      "app/components/Common/FormDialog.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+  },
+  {
     "id": "component:app/components/Common/FormFieldLabel.vue",
     "source": "app/components/Common/FormFieldLabel.vue",
     "audience": [
@@ -7049,6 +7102,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "component:app/components/Common/Notifications.vue",
+    "source": "app/components/Common/Notifications.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/Common/Notifications.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
   },
   {
     "id": "component:app/components/Common/NumberedSection.vue",
@@ -7364,8 +7432,8 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "component:app/components/Common/ResourceLayoutCard.vue",
-    "source": "app/components/Common/ResourceLayoutCard.vue",
+    "id": "component:app/components/Common/ResourceLayout.vue",
+    "source": "app/components/Common/ResourceLayout.vue",
     "audience": [
       "end-user",
       "administrator"
@@ -7373,47 +7441,10 @@
     "en": "en/getting-started/navigation.md",
     "fr": "fr/getting-started/navigation.md",
     "evidence": [
-      "app/components/Common/ResourceLayoutCard.vue",
-      "app/types/enums.ts",
-      "app/composables/useTableColumns.ts",
-      "shared/types/resource-table.ts",
-      "server/api/search.get.ts",
-      "server/utils/search-records.ts",
-      "server/utils/assigned-work-search.ts",
-      "app/components/Common/GlobalSearchPalette.vue",
-      "app/components/Common/DetailWorkspace.vue",
-      "app/components/Common/CurrencyInput.vue",
-      "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+      "app/components/Common/ResourceLayout.vue"
     ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/ResourceLayoutCard.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
-  },
-  {
-    "id": "component:app/components/Common/ResourceLayoutPage.vue",
-    "source": "app/components/Common/ResourceLayoutPage.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
-    "evidence": [
-      "app/components/Common/ResourceLayoutPage.vue",
-      "app/types/enums.ts",
-      "app/composables/useTableColumns.ts",
-      "shared/types/resource-table.ts",
-      "server/api/search.get.ts",
-      "server/utils/search-records.ts",
-      "server/utils/assigned-work-search.ts",
-      "app/components/Common/GlobalSearchPalette.vue",
-      "app/components/Common/DetailWorkspace.vue",
-      "app/components/Common/CurrencyInput.vue",
-      "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/ResourceLayoutPage.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
   },
   {
     "id": "component:app/components/Common/ResourceTableFeedback.vue",
@@ -7463,30 +7494,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Role-permitted actions can remain visible when status, assignment or another prerequisite blocks action; choosing them warns without executing. Repeated recommendation definitions resolve by workflow occurrence and sequence. Scoped evidence: documentation-audit/sync-runtime.json. Review Add and cancellation role-visible actions still require assignments and prerequisites. Scoped evidence: documentation-audit/sync-proponents.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
-  },
-  {
-    "id": "component:app/components/Common/RouteTabs.vue",
-    "source": "app/components/Common/RouteTabs.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
-    "evidence": [
-      "app/components/Common/RouteTabs.vue",
-      "shared/types/ui.ts",
-      "server/api/search.get.ts",
-      "server/utils/search-records.ts",
-      "server/utils/assigned-work-search.ts",
-      "app/components/Common/GlobalSearchPalette.vue",
-      "app/components/Common/DetailWorkspace.vue",
-      "app/components/Common/CurrencyInput.vue",
-      "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "component:app/components/Common/SaveButton.vue",
@@ -7553,32 +7560,6 @@
       "app/components/Common/CurrencyInput.vue",
       "tooling/gcs-ssc/tests/unit/search-records.test.ts",
       "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "component:app/components/Common/ServerLookupMultiSelect.vue",
-    "source": "app/components/Common/ServerLookupMultiSelect.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
-    "evidence": [
-      "app/components/Common/ServerLookupMultiSelect.vue",
-      "app/components/Common/ServerLookupSelect.vue",
-      "server/api/search.get.ts",
-      "server/utils/search-records.ts",
-      "server/utils/assigned-work-search.ts",
-      "app/components/Common/GlobalSearchPalette.vue",
-      "app/components/Common/DetailWorkspace.vue",
-      "app/components/Common/CurrencyInput.vue",
-      "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts",
-      "shared/types/admin-common-ui.ts",
-      "app/utils/admin-common-lookup.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
@@ -8103,45 +8084,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group correction in review-groups.json. Independent Correction assignment and role, immutable eligible Payment sources, signed exact-line/shared-floor validation, required approval, posting/cancellation and aggregate locks. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "component:app/components/Correction/ApprovalWorkspace.vue",
-    "source": "app/components/Correction/ApprovalWorkspace.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/agreements/corrections.md",
-    "fr": "fr/agreements/corrections.md",
-    "evidence": [
-      "app/components/Correction/ApprovalWorkspace.vue",
-      "shared/constants/system-lifecycle.ts",
-      "shared/utils/correction.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/fetch-error.ts",
-      "app/composables/usePageResourceError.ts",
-      "shared/types/schemas/correction.ts",
-      "server/utils/correction.ts",
-      "server/utils/correction-posting.ts",
-      "server/utils/correction-completion.ts",
-      "tooling/gcs-ssc/tests/unit/correction-accounting.test.ts",
-      "app/pages/agreements/[id]/amendments/[amendmentId].vue",
-      "server/api/agreements/[id]/amendments/index.get.ts",
-      "server/api/agreements/[id]/amendments/[amendmentId]/cancel.post.ts",
-      "server/api/agreements/[id]/amendments/[amendmentId]/documents/generate.post.ts",
-      "app/components/Agreement/AgreementActivitiesTab.vue",
-      "server/utils/entity-assignment.ts",
-      "server/utils/entity-assignment-write.ts",
-      "server/utils/agreement-write-transaction.ts",
-      "server/utils/agreement-monitor-validation.ts",
-      "server/api/agreements/[id]/monitor-items/[childId].patch.ts",
-      "shared/types/schemas/funding-case-agreement.ts",
-      "server/utils/agreement-closeout.ts",
-      "server/utils/document-generation.ts",
-      "app/components/Agreement/AgreementCloseoutDocuments.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Amendments search all pages by exact amendment number or bilingual name. Snapshot actions require fresh assignment, editable draft, applicable selected types and no existing snapshot. Budget protections include earlier approved version financial references; activity date updates validate against the saved other date. Activity deletion removes responsible-party/outcome links. Closeout document persistence allows own active workflow, but not competing or terminal state. Template/core changes require reload/retry; busy rendering requires waiting. Pending recoveries are checked through offset memo applications. Monitor required text rejects blanks/null characters. Actual dates can clear when unmonitored; updates validate the merged saved record. Assignment/child guides explain exact owner assignment and fresh checks; corrections prose retains financial lifecycle requirements. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
-  },
-  {
     "id": "component:app/components/Correction/CancelModal.vue",
     "source": "app/components/Correction/CancelModal.vue",
     "audience": [
@@ -8468,6 +8410,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Paired public host extension reference documents localized form detail/flow wrappers, enabled accessible workspace/forms-tab/component requirements, Retry and unavailable states, edit/test/publish view routing, detail-form-id/form-flow-only/form-editor-view props and collection navigation. Concrete editing/publication and server authorization remain extension-owned. Direct source and paired paragraphs inspected. Scoped evidence: documentation-audit/sync-technical.json. No application tests executed."
+  },
+  {
+    "id": "component:app/components/FieldHelp/Target.vue",
+    "source": "app/components/FieldHelp/Target.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/FieldHelp/Target.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+  },
+  {
+    "id": "component:app/components/FieldHelp/Tooltip.vue",
+    "source": "app/components/FieldHelp/Tooltip.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/getting-started/navigation.md",
+    "fr": "fr/getting-started/navigation.md",
+    "evidence": [
+      "app/components/FieldHelp/Tooltip.vue"
+    ],
+    "status": "IN_PROGRESS",
+    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
   },
   {
     "id": "component:app/components/FundingCaseIntake/ApplicationsTable.vue",
@@ -8932,32 +8904,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group journal in review-groups.json. Balanced per-Commitment-line accounting changes preserve cash, protected source reading, independent roster, latest reversal/replacement sequence and fiscal-year JV-open workflow input. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "component:app/components/Recommendation/RecommendationForm.vue",
-    "source": "app/components/Recommendation/RecommendationForm.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
-    "evidence": [
-      "app/components/Recommendation/RecommendationForm.vue",
-      "shared/types/schemas/recommendation/recommendation.ts",
-      "server/utils/workflow-risk-source.ts",
-      "server/utils/risk-readiness.ts",
-      "server/utils/agreement-risk-rating.ts",
-      "server/utils/agreement-amendment-scope-removal.ts",
-      "server/utils/agreement-approval-submission.ts",
-      "server/utils/workflow-runtime.ts",
-      "tooling/gcs-ssc/tests/unit/workflow-two-assessment-risk-outcome.test.ts",
-      "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts",
-      "app/components/AssessmentSchema/AssessmentSchemaPageSection.vue",
-      "app/components/Review/ReviewRuntimeQuestionCard.vue"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "component:app/components/RecommendationSchema/RecommendationDefinitionEditor.vue",
@@ -9665,22 +9611,6 @@
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Documented required bilingual text, trimmed text and invalid hidden-character recovery, 255-character names/abbreviations and 2000-character terms links. Calendar-date behavior described without storage implementation detail. Program edit form locks Agency, while server transfer support is not denied globally. Scoped evidence: documentation-audit/sync-program.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentAmendmentSubtypeModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentAmendmentSubtypeModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentAmendmentSubtypeModal.vue",
-      "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/TransferPaymentAmendmentSubtypesTab.vue",
     "source": "app/components/TransferPayment/TransferPaymentAmendmentSubtypesTab.vue",
     "audience": [
@@ -9696,22 +9626,6 @@
       "app/utils/client-request-url.ts",
       "app/composables/useTableColumns.ts",
       "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentAmendmentTypeModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentAmendmentTypeModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentAmendmentTypeModal.vue",
-      "shared/types/schemas/transfer-payment.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
@@ -9778,23 +9692,6 @@
       "app/composables/useTableColumns.ts",
       "app/utils/document-template-form.ts",
       "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentFinancialLimitsModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentFinancialLimitsModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentFinancialLimitsModal.vue",
-      "shared/types/schemas/transfer-payment.ts",
-      "shared/types/transfer-payment-ui.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
@@ -9920,22 +9817,6 @@
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Documented required bilingual text, trimmed text and invalid hidden-character recovery, 255-character names/abbreviations and 2000-character terms links. Calendar-date behavior described without storage implementation detail. Program edit form locks Agency, while server transfer support is not denied globally. Scoped evidence: documentation-audit/sync-program.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentObjectiveModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentObjectiveModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentObjectiveModal.vue",
-      "shared/types/schemas/transfer-payment.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/TransferPaymentObjectivesTab.vue",
     "source": "app/components/TransferPayment/TransferPaymentObjectivesTab.vue",
     "audience": [
@@ -9966,22 +9847,6 @@
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Documented required bilingual text, trimmed text and invalid hidden-character recovery, 255-character names/abbreviations and 2000-character terms links. Calendar-date behavior described without storage implementation detail. Program edit form locks Agency, while server transfer support is not denied globally. Scoped evidence: documentation-audit/sync-program.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
   },
   {
-    "id": "component:app/components/TransferPayment/TransferPaymentOutcomeModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentOutcomeModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentOutcomeModal.vue",
-      "shared/types/schemas/index.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
     "id": "component:app/components/TransferPayment/TransferPaymentOutcomesTab.vue",
     "source": "app/components/TransferPayment/TransferPaymentOutcomesTab.vue",
     "audience": [
@@ -9996,23 +9861,6 @@
       "app/utils/fetch-error.ts",
       "app/utils/client-request-url.ts",
       "app/composables/useTableColumns.ts",
-      "shared/types/schemas/index.ts",
-      "shared/types/transfer-payment-ui.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentPerformanceIndicatorModal.vue",
-    "source": "app/components/TransferPayment/TransferPaymentPerformanceIndicatorModal.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentPerformanceIndicatorModal.vue",
       "shared/types/schemas/index.ts",
       "shared/types/transfer-payment-ui.ts"
     ],
@@ -10079,38 +9927,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentRecommendationSetupDetailHero.vue",
-    "source": "app/components/TransferPayment/TransferPaymentRecommendationSetupDetailHero.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/recommendations.md",
-    "fr": "fr/programs/recommendations.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentRecommendationSetupDetailHero.vue",
-      "shared/constants/system-lifecycle.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: schema/setup publication, recommendation response revision conflicts and exact runtime ownership. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupDetailHero.vue",
-    "source": "app/components/TransferPayment/TransferPaymentReviewSetupDetailHero.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/programs/streams.md",
-    "fr": "fr/programs/streams.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentReviewSetupDetailHero.vue",
-      "shared/constants/system-lifecycle.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentReviewSetupDetailPage.vue",
@@ -10652,22 +10468,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupDetailHero.vue",
-    "source": "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailHero.vue",
-    "audience": [
-      "end-user",
-      "administrator"
-    ],
-    "en": "en/concepts/workflows.md",
-    "fr": "fr/concepts/workflows.md",
-    "evidence": [
-      "app/components/TransferPayment/TransferPaymentWorkflowSetupDetailHero.vue",
-      "shared/constants/system-lifecycle.ts"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: explicit standard selection, automatic purpose dispatch, published plans, status transitions and historical retry policy. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentWorkflowSetupsTab.vue",

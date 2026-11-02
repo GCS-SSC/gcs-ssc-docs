@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (137)
+## Gestionnaires (141)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -125,6 +125,10 @@ Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Ell
 | POST | `/api/agency/[agencyId]/review-schemas/[schemaId]/retire` | — | — | `server/api/agency/[agencyId]/review-schemas/[schemaId]/retire.post.ts` |
 | GET | `/api/agency/[agencyId]/statuses` | — | — | `server/api/agency/[agencyId]/statuses.get.ts` |
 | POST | `/api/agency/[agencyId]/statuses` | — | StatusDefinitionCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/statuses.post.ts` |
+| DELETE | `/api/agency/[agencyId]/tooltips/[id]` | — | — | `server/api/agency/[agencyId]/tooltips/[id].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/tooltips/[id]` | — | FieldTooltipSaveSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/tooltips/[id].patch.ts` |
+| GET | `/api/agency/[agencyId]/tooltips` | — | — | `server/api/agency/[agencyId]/tooltips/index.get.ts` |
+| POST | `/api/agency/[agencyId]/tooltips` | — | FieldTooltipSaveSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/tooltips/index.post.ts` |
 | GET | `/api/agency/[agencyId]/workflow-condition-choices` | — | — | `server/api/agency/[agencyId]/workflow-condition-choices.get.ts` |
 | DELETE | `/api/agency/address-types/[id]` | — | — | `server/api/agency/address-types/[id].delete.ts` |
 | PATCH | `/api/agency/address-types/[id]` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/address-types/[id].patch.ts` |

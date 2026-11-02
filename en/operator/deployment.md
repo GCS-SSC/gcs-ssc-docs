@@ -4,7 +4,7 @@ Use this guide to deploy, update, and restore GCS-SSC. Before a release or resto
 
 ## Supported artifacts
 
-`bun run build` builds the public extension SDK, the Nuxt/Nitro node-server artifact, and the administrative SQL-dump and storage-cleanup workers. The result is a browser application plus a Node API, not a static-only site.
+`bun run build` builds the public extension SDK, the Nuxt/Nitro node-server artifact, and the storage-cleanup worker. The result is a browser application plus a Node API, not a static-only site.
 
 The root `Dockerfile` packages the authorization, diagram, guided-help, and connector survey workspaces and pins Bun 1.3.13 for build, Node 24 Bookworm Slim for runtime, Chromium, and LibreOffice Writer. It copies the repository-owned core authorization workspace before the frozen install. Remote builds fetch each missing submodule at its pinned gitlink SHA before the source overlay. Demo builds use the shared exact demo-migration bundler. Runtime uses the non-root `node` user.
 
@@ -30,9 +30,7 @@ For example, restoring an agreement’s database record without its signed PDF r
 
 Back up the database, provider objects, provider configuration, and required secret keys as one recovery set. Attachment metadata contains the saved provider ID, object identity, opaque locator, MIME type, size, and bilingual metadata; bytes remain external. Include the cleanup outbox and audit records under their retention policy. A database-only backup cannot restore documents.
 
-`GET /api/admin/dump` requires global `system:read` and returns `application/sql` as `migrations-YYYY-MM-DD.sql`. It contains schema and migration SQL for initializing a database. An isolated worker creates a temporary in-memory PGlite database, applies the ordered non-seed core migrations, and exports SQL without owner or privilege statements. It contains no live users, agreements, extension-owned data, or other business records and does not include demo seed migration `9999_seed`.
-
-The worker has a 30-second timeout. Concurrent callers in one server process share a single generation. A disconnected caller stops waiting without cancelling work still needed by another caller. Invalid worker responses, early exit, timeout, or generation failure return localized `ADMIN_DUMP_FAILED` with HTTP 500. This endpoint is not a platform-level PostgreSQL backup or a storage backup. Treat the artifact as controlled deployment material, restrict access and retention, and test it only in an isolated environment.
+The SQL dump download has been removed. Use your database backup tools and keep the matching attachment files and secret keys.
 
 For PGlite, stop or pause writes before copying the persistent database and provider objects. For PostgreSQL, use the platform’s transactionally consistent backup tooling, then capture the corresponding provider objects. Restore into an isolated instance, verify migrations and ownership, exercise authenticated reads and document downloads, and only then switch traffic.
 

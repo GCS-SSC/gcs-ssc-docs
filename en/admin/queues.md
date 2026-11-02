@@ -4,6 +4,14 @@ Use **Background queues** to investigate scheduled host and extension work. Open
 
 The page is read-only. It does not run a handler, change its schedule, clear a lease, or retry a business operation.
 
+## Check enabled queue levels
+
+Operators choose enabled levels when the server starts. Set `GCS_QUEUE_LEVEL_0_ENABLED` through `GCS_QUEUE_LEVEL_3_ENABLED` to exactly `true` or `false`. Other values stop queue startup.
+
+Without overrides, all levels run outside Railway. When `RAILWAY_PROJECT_ID` is set, levels 0 and 1 are off by default. Levels 2 and 3 stay on. Their cadences are 30 minutes and one hour. Levels 0 and 1 run every ten seconds and five minutes when enabled.
+
+If fast background work stops after deployment, check these settings before changing business data. Enable the required level and restart the server. Refresh this page to inspect the responding process.
+
 ## Find a handler
 
 1. Search by handler ID or extension name.
