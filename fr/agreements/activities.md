@@ -29,8 +29,8 @@ L'onglet ouvre un formulaire plein écran. Tous les champs ci-dessous sont oblig
 | --- | --- |
 | Nom anglais | Valeur non vide d'au plus 255 caractères. |
 | Nom français | Valeur non vide d'au plus 255 caractères. |
-| Date de début | Date obligatoire. |
-| Date de fin | Date obligatoire, égale ou postérieure à la date de début. |
+| Date de début | Date obligatoire dans la période d’aide autorisée, bornes incluses. |
+| Date de fin | Date obligatoire dans la même période, égale ou postérieure à la date de début. |
 | Description anglaise | Texte non vide. |
 | Description française | Texte non vide. |
 | Résultats attendus en anglais | Texte non vide. |

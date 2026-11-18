@@ -37,10 +37,12 @@ For a manual line, choose the year and cost line, identify the cost in the subse
 | Cost subsection | Required non-empty text, maximum 255 characters. |
 | Description | Required non-empty text; this agreement-specific description is not bilingual. |
 | Proponent | Required linked proponent. The sole linked proponent is selected automatically; choose one when several are linked. |
-| Total amount | Required nonnegative amount with at most two decimals. |
+| Total amount | Required nonnegative amount with precision set by the agreement currency. |
 | Program funding | Enter an exact nonnegative amount for manual lines. The form calculates it for percentage lines. |
 | Other funding sources | Select configured funding subtypes and exact amounts, with optional English/French descriptions. Each subtype appears once per line. |
 | Currency | The agreement's currency. You cannot change it here. |
+
+Enter monetary amounts with the precision of the agreement currency. For example, JPY accepts whole amounts, CAD accepts cents, and KWD accepts up to three decimal places. If an amount has too many decimal places, correct it before saving. Percentage fields have their own limits.
 
 The total must be at least the program funding plus all configured other-funding amounts. For example, 1,000 from the program plus 500 from another source requires a total of at least 1,500. A total of 1,400 is rejected. If recalculating a percentage leaves any affected line's total below its combined funding, the system cancels the entire change. Total amount and other funding remain manually entered even on calculated lines.
 

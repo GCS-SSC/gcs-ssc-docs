@@ -28,7 +28,7 @@ For example, active version 0 has 2,000 in April and 3,000 in May. Add version 1
 Open the version you intend to change. Its fiscal year and version number cannot be edited. The grid groups current budget lines by cost category and subsection, with quarterly totals from April through March. Select a quarter heading to show its monthly amounts. Expand a cost line to see program funding and its other sources separately. Search matches the category, subsection, bilingual line name or description.
 
 1. Select the cost line's edit action to open its twelve monthly program amounts, grouped by quarter.
-2. Enter amounts of zero or more in the agreement currency, with at most two decimal places.
+2. Enter amounts of zero or more in the agreement currency, using that currency’s precision.
 3. Select **Update** to apply the amounts to the page. This does not save them to the server. **Cancel** discards the dialog changes.
 4. Select **Save breakdown** to save all changed cells together. A new zero cell creates no line unless you also enter other funding. Setting an existing cell to zero keeps its line.
 5. Check the saved amounts after the page refreshes. If validation fails, none of the submitted changes are saved.

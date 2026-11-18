@@ -113,9 +113,26 @@ Les tests de schéma canonique inventorient tables, énumérations, index, contr
 
 `documentation-audit/data-coverage.json` consigne les mécanismes de sujet et aides SQL brutes découverts. Un statut documentaire terminé indique que la couverture a été examinée. Il ne confirme pas l'exécution des tests applicatifs. Le reçu de synchronisation indique les commandes réellement exécutées.
 
+## Règles de base de données des catalogues d’agence et des ententes liées
+
+- `Agency_Catalog_Revision` contient une ligne active par agence et groupe de catalogue. Son jeton de révision de 21 caractères sert à valider les données en cache. `Agency_Field_Tooltip` accepte une entrée active par agence et cible. L’activation exige du texte non vide en français et en anglais.
+- `Agency_Agreement_Relationship_Type` contient les libellés bilingues de l’agence. Chaque relation a son propre identifiant et des clés étrangères restrictives vers les deux ententes et le type. `Funding_Case_Agreement_Relationship` exige deux ententes distinctes et une agence commune aux deux ententes actives et au type actif. Un index unique traite la paire sans égard à l’ordre et ignore les liens retirés. Un lien actif empêche aussi le retrait ou la réaffectation de son type.
+- `protect_used_agency_chart` bloque la modification des dimensions comptables et de la référence au plan d’engagement, ainsi que la suppression logique lorsqu’un autre plan, le codage d’un volet ou une ligne de créance y fait référence. Désactivez le plan pour conserver les références. L’agence d’un programme et la demande d’un rapprochement sont immuables.
+- Les contrôles du catalogue des modifications préservent les types, les sous-types et leurs associations lorsqu’ils sont référencés. Un type ou sous-type utilisé peut changer d’état actif. Les nouvelles sélections exigent un type ou sous-type actif. Une sélection historique inchangée peut rester en place. Le titre proposé d’une entente doit comporter les deux versions linguistiques non vides ou laisser les deux valeurs nulles.
+
+## Règles de base de données des notifications et des montants
+
+- `Common_Notification` conserve les livraisons d’approbation avec des références restrictives à l’agence, au volet, à l’approbation et à l’élément d’exécution. Sa référence est unique, de même que la combinaison de l’approbation, de l’activation, de la catégorie de destinataire et de son identifiant. La catégorie est `user` ou `group`. L’état est `pending`, `processing`, `uncertain`, `completed`, `cancelled` ou `unresolved`. Le compteur de tentatives commence à zéro et ne peut être négatif. Le détenteur du bail et son expiration doivent être tous deux présents ou tous deux absents. `extensions.agency_notification_selection` a une clé primaire propre, une clé étrangère vers l’agence et au plus une sélection active par agence.
+- Les fonctions de devise déterminent la devise propriétaire et valident les colonnes numériques configurées à l’insertion et à la mise à jour. Le montant stocké est un entier d’échelle zéro dont la valeur absolue est inférieure à 10³⁸. Les montants qui acceptent une valeur nulle peuvent rester nuls. Une devise absente ou non prise en charge et un montant invalide déclenchent `money_currency_precision`. Le facteur de conversion provient de la liste des devises prises en charge.
+- Les budgets de programme et de volet sont non négatifs. Le maximum par bénéficiaire d’un programme est un réglage décimal de zéro à strictement moins de 10¹⁷, avec au plus quatre décimales.
+
 ## Maintenance manuelle du tableur
 
 Le processus privé `$gcs-ssc workbook` gère la réconciliation du classeur et son point de contrôle dans `tooling/gcs-ssc/workbook-sync-state.json`. La synchronisation ordinaire est incrémentale. `workbook sync full` demande une revue complète. Un point de contrôle du classeur ne constitue ni une migration de base de données ni une preuve de vérification de cette documentation. Les commandes Google Sheets bornées restent dans l'application publique.
+
+Utilisez `workbook status` pour consulter localement le point de contrôle et les changements Git en attente. Pour une synchronisation autorisée qui conserve les styles ordinaires des feuilles, utilisez `workbook sync no-highlights` ou `workbook sync full no-highlights`. Ces modes retirent les lignes obsolètes vérifiées et conservent les couleurs des feuilles et l'ombrage des titres de table et de colonne.
+
+Le classeur couvre le modèle central des subventions et contributions. Il exclut l'infrastructure d'authentification, d'autorisation, d'audit, de stockage de l'hôte d'extensions, de nettoyage du stockage et de révision des catalogues. Les possibilités et les dossiers de financement restent inclus. Consultez les fonctions et déclencheurs des migrations comme éléments de preuve pour les feuilles restantes. Le classeur ne contient aucune feuille Functions ou Triggers.
 
 Le classeur externe du modèle de données n'est plus maintenu par des scripts globaux de normalisation, comparaison ou synchronisation. Le responsable compare les preuves de la source et du classeur, puis utilise seulement les commandes bornées `data-model:sheet:read`, `data-model:sheet:cell:update` et `data-model:sheet:row:read|update|insert|delete|color|move`.
 

@@ -269,6 +269,7 @@ const sharedSidebar = (locale: 'en' | 'fr') => {
     {
       text: labels.apiReference,
       items: [
+        { text: locale === 'fr' ? 'Contrats API' : 'API contracts', link: `${p}developer/api-contracts` },
         { text: labels.agencies, link: `${p}developer/api/agencies` },
         { text: labels.agreements, link: `${p}developer/api/agreements` },
         { text: labels.proponents, link: `${p}developer/api/applicant-recipients` },

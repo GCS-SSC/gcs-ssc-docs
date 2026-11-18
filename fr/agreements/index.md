@@ -88,12 +88,30 @@ Ouvrez une entente pour voir ses onglets. **Général** affiche le profil aux le
 | Clôtures | [Clôture d'une entente](./closeouts.md) : préparation, rapprochement financier, preuve du flux, documents et fermeture. |
 | Documents | [Documents](./documents.md) |
 | Activités | [Activités](./activities.md) |
+| Ententes liées | Liens vers d’autres ententes de la même agence. Consultez [Ententes liées](#ententes-liées). |
 | Notes | Notes de travail bilingues de cette entente. |
 | Recommandation | Soumettre l'entente à l'approbation, suivre les recommandations et approbations et consulter la soumission enregistrée. |
 | Modifications | Préparer des modifications, les soumettre à l'approbation, les annuler ou appliquer les changements approuvés. |
 | Utilisateurs affectés | Personnes affectées à cette entente. Les changements exigent `manage_assignments`. |
 
 Les extensions activées peuvent ajouter des onglets et des champs au profil. Ouvrir un paiement, une réclamation ou un autre dossier enfant remplace les onglets de l'entente par l'espace de ce dossier tout en conservant le contexte de l'entente. Vérifiez quel dossier est ouvert avant d'ajouter des pièces jointes ou de changer les utilisateurs affectés.
+
+## Ententes liées
+
+Ouvrez **Ententes liées** pour consigner un lien vers une autre entente de la même agence. Le tableau affiche son numéro, son programme, son volet, son titre, le type de relation et une description facultative. Recherchez ces libellés ou la description pour retrouver un lien enregistré.
+
+1. Demandez à un administrateur d'agence de créer le [type de relation](../admin/agency-catalogs.md#types-de-relations-entre-ententes) requis.
+2. Ouvrez l'entente et sélectionnez **Ententes liées > Ajouter**.
+3. Recherchez une autre entente par numéro ou titre. Le sélecteur propose les ententes actives de la même agence que vous pouvez lire et qui ne sont pas déjà liées.
+4. Choisissez un type de relation, saisissez au besoin une description de 255 caractères au maximum, puis enregistrez.
+
+La création exige la permission de création d'entente et une affectation à l'entente ouverte, ainsi que l'accès en lecture à l'entente choisie. La modification exige la permission de modification d'entente et une affectation; le retrait exige la permission de suppression d'entente et une affectation. Le serveur vérifie de nouveau l'accès courant et les préalables d'écriture à l'enregistrement.
+
+Par exemple, liez l'entente A à l'entente B avec un type d'agence « Projet connexe » et la description « Les deux financent la même initiative de formation. » Un seul lien apparaît dans les deux ententes. Vous ne pouvez pas lier une entente à elle-même ni créer un deuxième lien actif pour la même paire, même dans l'ordre inverse ou avec un autre type.
+
+Modifiez la relation pour changer son type ou sa description. L'éditeur ne permet pas de remplacer l'entente liée. Retirez l'ancien lien et ajoutez celui voulu. Confirmer le retrait enlève le lien des deux listes et conserve son historique; cela ne supprime aucune entente.
+
+La liste affiche le sommaire de l'autre entente selon les règles d'accès de l'entente ouverte. Une relation ne donne pas la permission d'ouvrir ou de modifier l'autre entente. Si une cible manque au sélecteur, vérifiez son agence, son état actif, votre accès en lecture et l'existence du lien. Si l'enregistrement indique que les ententes sont déjà liées, rechargez la liste et modifiez la relation existante. Pour une relation invalide, choisissez de nouveau une entente admissible et un type actif de la même agence. Conservez votre description avant de recharger après un changement d'accès ou d'état.
 
 ## Notes de l'entente
 

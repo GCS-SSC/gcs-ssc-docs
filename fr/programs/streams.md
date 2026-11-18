@@ -231,7 +231,7 @@ Ajoutez des domaines lorsque les agents doivent affecter les examens par spécia
 
 ## Onglet limites financieres
 
-Configurez le montant maximal par destinataire, le pourcentage maximal de soutien, la limite de cumul et le réglage Actif. Le montant doit être non négatif, avec au plus deux décimales. Le soutien et le cumul utilisent des ratios de `0` à `1`, avec au plus deux décimales : `0.50` signifie 50 %. Zéro est une vraie limite. Le montant s'applique dans la devise de chaque entente, sans devise CAD fixe ni conversion.
+Configurez le montant maximal par destinataire, le pourcentage maximal de soutien, la limite de cumul et le réglage Actif. Le montant doit être non négatif, inférieur à 100 000 000 000 000 000 et comporter au plus quatre décimales. Le soutien et le cumul utilisent des ratios de `0` à `1`, avec au plus deux décimales : `0.50` signifie 50 %. Zéro est une vraie limite. Le montant s'applique dans la devise de chaque entente, sans devise CAD fixe ni conversion.
 
 Le champ des coûts rétroactifs est désactivé, car l'application ne calcule pas cette limite. Les requêtes API de création, de modification et d'assistant doivent omettre ce champ, même zéro ou null. Les nouveaux dossiers enregistrent zéro; les lectures peuvent encore retourner une valeur historique.
 

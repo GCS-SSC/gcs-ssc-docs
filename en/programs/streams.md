@@ -229,7 +229,7 @@ Add areas when officers need to assign reviews by specialty or label the experti
 
 ## Financial limits tab
 
-Configure the maximum amount per recipient, maximum support percentage, stacking limit, and Active setting. The maximum amount must be nonnegative, with at most two decimals. Support and stacking use ratios from `0` to `1`, with at most two decimals: `0.50` means 50%. Zero is a real limit. The amount applies in each agreement's currency; it has no fixed CAD currency or exchange-rate conversion.
+Configure the maximum amount per recipient, maximum support percentage, stacking limit, and Active setting. The maximum amount must be nonnegative, less than 100,000,000,000,000,000, and have at most four decimal places. Support and stacking use ratios from `0` to `1`, with at most two decimals: `0.50` means 50%. Zero is a real limit. The amount applies in each agreement's currency; it has no fixed CAD currency or exchange-rate conversion.
 
 The retroactive-cost field is disabled because the application does not calculate this limit. API create, update, and wizard requests must omit it, including zero and null. New records store zero; reads can still return a historical value.
 

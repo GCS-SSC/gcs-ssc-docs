@@ -4,7 +4,11 @@ Use the sidebar to open a work area, such as Agreements or Proponents. Within a 
 
 ## Find a work area
 
-Home, Agreements, Proponents, Funding Case Intakes, Funding Opportunities, and Programs appear at the top level when you have access. Expand **Management** for Agencies, Roles, Guided Help, and Journal Vouchers. Expand **Administration** for Assignment Management, Users, Groups, Audit, and GWCOA. Extension workspaces appear in their configured group. Empty groups are hidden. Search offers the same permitted pages.
+Home, Agreements, Proponents, Funding Case Intakes, Funding Opportunities, and Programs appear at the top level when you have access. Expand **Management** for Agencies, Roles, Guided Help, Field help, and Journal Vouchers. Expand **Administration** for Assignment Management, Users, Groups, Audit, Access, and GWCOA. Extension workspaces appear in their configured group. Empty groups are hidden. Search offers the same permitted pages.
+
+Lists distinguish loading, empty results, and failed requests. If a list fails, use **Retry**. Read the application message after saving before starting another change.
+
+On supported fields, select the question-mark button beside the label to read help in your current language. The button appears when the Agency has enabled text for that field. Inside a dialog, read the help without leaving the form.
 
 ## Sidebar destinations
 
@@ -23,6 +27,8 @@ Home, Agreements, Proponents, Funding Case Intakes, Funding Opportunities, and P
 | Roles | With active Role Viewer access or higher. |
 | Users | With active User Viewer access or higher. |
 | Guided Help | With active Guided Help Viewer access or higher, globally or for an Agency. |
+| Field help | With Help read access globally or for an Agency. |
+| Access | With explicit Audit read access, globally or for an Agency. |
 | GWCOA | With global System Viewer access or higher. |
 | Audit | With explicit Audit Viewer access or higher, globally or for an Agency. |
 

@@ -42,13 +42,13 @@ L'onglet Permissions affiche une ligne par sujet pris en charge. Sélectionnez `
 | Contributeur | Lecture, création, modification |
 | Gestionnaire | Lecture, création, modification, suppression |
 
-Les sujets sont `system`, `audit`, `guided_help`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction` et `journal_voucher`.
+Les sujets sont `system`, `audit`, `help`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction` et `journal_voucher`.
 
 | Sujet du rôle | Rôle global | Rôle d'agence | Rôle de programme |
 | --- | :---: | :---: | :---: |
 | `system` | Oui | Non | Non |
 | `audit` | Oui | Oui | Non |
-| `guided_help` | Oui | Oui | Non |
+| `help` | Oui | Oui | Non |
 | `group` | Oui | Oui | Non |
 | `agency` | Oui | Oui | Non |
 | `transfer_payment` | Oui | Oui | Oui |
@@ -67,7 +67,7 @@ Les sujets Compte débiteur, Correction et Pièce de journal acceptent les port�
 
 ## Permissions d'aide guidée
 
-Accordez l'aide guidée séparément de l'accès Système ou Entente. Un rôle global peut gérer les guides du système et des agences. Un rôle d'agence couvre seulement cette agence, et un rôle de programme ne peut pas inclure `guided_help`.
+Accordez l'aide guidée séparément de l'accès Système ou Entente. Un rôle global peut gérer les guides du système et des agences. Un rôle d'agence couvre seulement cette agence, et un rôle de programme ne peut pas inclure `help`.
 
 Lecteur permet de consulter les brouillons et publications. Contributeur permet de créer, adopter, cloner, modifier et publier des guides, et de modifier les paramètres du catalogue d'agence. Gestionnaire permet aussi de retirer des guides et de supprimer les brouillons non publiés admissibles. L'aide guidée n'utilise ni affectation exacte à un dossier ni commutateur Gérer les affectations.
 

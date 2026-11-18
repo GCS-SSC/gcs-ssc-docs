@@ -80,8 +80,8 @@ Désignez comme final le rapprochement qui doit terminer l’examen de la récla
 
 | Champ | Valeur à saisir |
 | --- | --- |
-| Montant rapproché | Montant obligatoire dans la devise de l’entente, avec au plus deux décimales. |
-| Montant échantillonné | Montant facultatif dans la devise de l’entente, avec au plus deux décimales. |
+| Montant rapproché | Montant obligatoire dans la devise de l’entente, selon la précision de cette devise. |
+| Montant échantillonné | Montant facultatif dans la devise de l’entente, selon la précision de cette devise. |
 | Justification | Texte facultatif expliquant l’évaluation de la ligne. |
 
 Enregistrer un rapprochement enregistre toutes ses lignes ensemble. Si l’enregistrement échoue, aucune de ses modifications n’est conservée. Si les lignes de la réclamation ont changé pendant votre examen, rechargez et comparez votre brouillon à la réclamation courante avant de réessayer. Cela s’applique même si vous modifiez une seule rangée.
@@ -109,6 +109,8 @@ L’achèvement démarre le flux d’approbation configuré pour les rapprocheme
 ## États verrouillés et reprise
 
 Vous ne pouvez pas modifier un dossier dont le statut est en lecture seule ou final, qui a été achevé, dont le rapprochement est fermé ou dont le rapprochement final a réussi. Le système vérifie aussi si l’entente ou un flux actif bloque la modification. Si le dossier a changé pendant que le formulaire était ouvert, un bouton visible peut ne plus être disponible pour vous.
+
+Une réclamation ou un rapprochement fermé peut encore suivre un flux d’approbation qui le mène à un statut final si son statut courant est non final et si l’agence a configuré un flux admissible. Utilisez l’action de démarrage disponible et suivez les étapes d’approbation affectées. L’approbation ne rouvre pas la modification. Si le flux est annulé, si son exécution échoue ou si l’approbation échoue, le dossier revient à son statut précédent. Si aucun flux ne s’affiche, demandez à l’administrateur d’agence de vérifier la configuration publiée et le statut courant.
 
 Après un échec d’enregistrement du montant soumis, vérifiez la ligne choisie et rechargez après une réponse incertaine. Les autres lignes sont enregistrées séparément.
 

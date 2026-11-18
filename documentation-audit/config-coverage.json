@@ -50,10 +50,12 @@
       "packages/gcs-ssc-diagrams/src/index.ts",
       "server/utils/auth.ts",
       "scripts/setup-private-tooling.ts",
-      "packages/gcs-ssc-guided-help"
+      "packages/gcs-ssc-guided-help",
+      ".nvmrc",
+      "README.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:local-setup-commands: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired startup guides describe pinned Node.js 24.22.1 LTS and Bun 1.3.13 plus Bash and fish activation. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
   },
   {
     "id": "config:database-modes",
@@ -115,10 +117,12 @@
       "infra/aws/src/demo-stack.ts",
       "scripts/dev.ts",
       "scripts/test-e2e-pglite-shards.ts",
-      "packages/gcs-ssc-diagrams/src/index.ts"
+      "packages/gcs-ssc-diagrams/src/index.ts",
+      "server/middleware/api-auth.ts",
+      "server/utils/request-intent.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The paired configuration guides cover origin checks on protected writes, REQUEST_ORIGIN_FORBIDDEN recovery and continuing role and session requirements. Application tests were not executed. Unchanged contracts retain their prior review."
   },
   {
     "id": "config:storage-document-generation",
@@ -178,10 +182,12 @@
       "packages/gcs-ssc-diagrams/src/index.ts",
       "server/utils/auth.ts",
       "packages/gcs-ssc-guided-help",
-      ".railway/README.md"
+      ".railway/README.md",
+      "deployment/demo-image.json",
+      "server/database/migrations/9999_seed.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:docker-railway: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired deployment guides distinguish pinned image, source seed snapshot and deployed state, and describe the business-only demo cutover and recovery. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
   },
   {
     "id": "config:ci-demo-webcontainer",
@@ -202,10 +208,12 @@
       "scripts/dev.ts",
       "scripts/test-e2e-pglite-shards.ts",
       "packages/gcs-ssc-diagrams/src/index.ts",
-      "server/utils/auth.ts"
+      "server/utils/auth.ts",
+      ".github/workflows/deploy-demo.yml",
+      "server/plugins/frame-protection.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups operations-sdk-and-provenance in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired configuration guides describe Ubuntu 24.04 and the exact WebContainer parent-origin frame policy, deny default, and recovery. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
   },
   {
     "id": "config:health-readiness",
@@ -248,10 +256,11 @@
       "server/plugins/queue.ts",
       "server/utils/queue.ts",
       "server/utils/queue-registry.ts",
-      "shared/utils/queue-levels.ts"
+      "shared/utils/queue-levels.ts",
+      "server/utils/queue-config.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:background-queues: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The paired background-work guides cover configured levels, five-second fast polling, slow-only cadence boundaries and the disabled scheduler. Process handlers remain independent from readiness of shared cluster work. Application tests were not executed. Unchanged contracts retain their prior review."
   },
   {
     "id": "config:host-diagrams",
@@ -303,7 +312,7 @@
       "scripts/check-guided-help.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:quality-testing: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired testing guides reflect removal of the hosted Quality workflow and retain local verification commands. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
   },
   {
     "id": "config:extension-packaging",
@@ -330,9 +339,10 @@
       "modules/../shared/utils/extensions.ts",
       "modules/../shared/utils/abilities.ts",
       "modules/../shared/utils/extension-sdk-aliases.ts",
-      "packages/gcs-ssc-extensions/src/ui.ts"
+      "packages/gcs-ssc-extensions/src/ui.ts",
+      "packages/gcs-ssc-extensions/package.json"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. config:extension-packaging: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired extension guides describe SDK 0.4.0 and coordinated package and UI consumer updates. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
   }
 ]

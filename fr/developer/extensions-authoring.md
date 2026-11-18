@@ -189,6 +189,14 @@ Le résultat doit être non vide, déjà nettoyé de ses espaces périphériques
 
 Par exemple, un fournisseur peut allouer une séquence d’organisme dans la transaction et former `ABC-0000123`. Il doit assurer lui-même l’allocation concurrente; compter les ententes côté client ne suffit pas. Un fournisseur `configurationScope: 'agency'` s’applique aux volets de l’organisme sans activation distincte par volet. Compteur et interface de configuration relèvent de sa documentation propre.
 
+## Fournisseurs de notifications
+
+Déclarez `notification-provider` avec `configurationAccess: 'manager'` et un chemin `notificationProvider.adapter.path` dans le paquet. Exportez l’adaptateur avec `defineGcsNotificationProviderAdapter` de `@gcs-ssc/extensions/server`. L’hôte le charge côté serveur. Lisez les identifiants avec le lecteur de secrets de l’agence. Le volet propriétaire exact fournit les correspondances de modèles.
+
+`resolveMapping` associe un déclencheur à un modèle sans appel réseau. Associez les espaces réservés obligatoires aux champs du catalogue `notificationNotifiers` de l’hôte et choisissez un champ de courriel admissible pour le destinataire. Pour le texte localisé, précisez la langue. Pour une date ou une heure, précisez la langue et le fuseau horaire. Corrigez les destinataires et langues manquants dans les anciennes correspondances avant d’enregistrer.
+
+`prepareDelivery` retourne des données JSON sans secret qui identifient la destination. L’hôte les enregistre avant d’appeler `send` avec une référence stable. L’acceptation consigne celle du fournisseur, indépendamment de la livraison finale. Si elle est incertaine, `recover` vérifie la référence et la destination d’origine et retourne `found`, `absent` ou `inconclusive`. Un nouvel envoi exige une absence certaine. Une destination modifiée, un historique indisponible ou un résultat ambigu reste non concluant.
+
 ## Configuration du volet
 
 Utilisez `admin.agency` lorsque l’extension nécessite des paramètres non secrets à l’échelle de l’agence :
@@ -317,7 +325,7 @@ Les composants d’interface du SDK sont des versions prises en charge des compo
 
 Importez les composants et les composables fournis par l’hôte depuis `@gcs-ssc/extensions/ui`. N’importez pas `~/`, `~~/`, `#imports`, `#app` ou `#gcs-*`, et n’utilisez pas directement les noms de composants de l’hôte dans un gabarit d’extension. Des composants comme `ExtensionButton`, `ExtensionFormField`, `ExtensionSaveButton` et `ExtensionTable` préservent le comportement de l’hôte derrière un contrat versionné.
 
-Les exportations courantes comprennent `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayoutCard`, `ExtensionSection`, `ExtensionSaveButton` et `ExtensionStatusBadge`.
+Les exportations courantes comprennent `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayout`, `ExtensionSection`, `ExtensionSaveButton` et `ExtensionStatusBadge`.
 
 Utilisez `useExtensionApi(extensionKey)` pour les routes de l’extension et `useHostApi()` pour les routes stables de l’hôte. Déclarez `extension-api-client` ou `host-api-client` dans `requiredHostCapabilities`, selon le cas; ne construisez pas d’URL `/api` et n’appelez pas `fetch` directement dans les composants. Le point d’entrée de l’interface fournit aussi des intégrations typées :
 
@@ -330,7 +338,11 @@ Utilisez `useExtensionApi(extensionKey)` pour les routes de l’extension et `us
 
 L’hôte installe l’environnement d’exécution concret de l’interface. Les tests autonomes peuvent installer les substituts du SDK plutôt que de monter les composants internes de l’hôte.
 
+Le SDK 0.4.0 fournit `ExtensionResourceLayout` pour les mises en page et les cartes et `ExtensionTranslatedTabs` pour les onglets traduits. Mettez à jour les imports et leurs usages ensemble. Déclarez `sdkVersion: '^0.4.0'` et une dépendance `@gcs-ssc/extensions` correspondante. Publiez le SDK avant les extensions qui en dépendent.
+
 ## Gestionnaires serveur
+
+Utilisez la méthode `readBody` du contexte ou `readGcsExtensionRequestBody` de `@gcs-ssc/extensions/server`. Les deux imposent une limite de 1 Mio avant l’analyse, y compris en flux. Un corps trop volumineux retourne HTTP 413. Réduisez sa taille avant de réessayer et validez le résultat avec le schéma de la route.
 
 Le **RBAC** est le contrôle d’accès en fonction des rôles : l’hôte vérifie si le rôle de l’utilisateur permet l’action déclarée sur le dossier concerné. Afficher un onglet ou un bouton ne remplace pas cette vérification côté serveur.
 

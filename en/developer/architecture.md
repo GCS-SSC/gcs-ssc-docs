@@ -29,6 +29,12 @@ List pages use shared resource tables, toolbar search and adjacent status filter
 
 Permission-aware UI uses `useAuth` and `useCan`. `useAuth` fetches the canonical `{ grants }` response from `/api/auth/permissions`, validates each static grant, and exposes `authorize`, `authorizeGrant`, and `hasAbility`. Static grants provide the cumulative role ceiling. Existing assignable-entity mutations separately require an exact `Common_Entity_Assignment`; this roster is returned by entity APIs rather than expanded into the static grant list.
 
+### Request and form ownership
+
+Use `useResourceRequest` for reads tied to a record or query. Changing identity clears the old result and aborts the request. A refresh of the same identity can retain the last accepted result, depending on the caller's refresh and failure policies. Only the current request can replace it.
+
+Bind `useFormSession` to the rendered form. For remote actions, give it a `useActionContext` with the record identity, role authority, and any action prerequisites. An obsolete form or a change in actor, identity, or permissions invalidates its submission. Eligibility changes block new dispatch. An already committed result may still update the originating form if its action context remains current. The server independently checks authorization and lifecycle state.
+
 ## Server patterns
 
 Server routes read validated bodies and queries through i18n-aware helpers, authorize using `authorize`, and access the database through `event.context.$db`. Route helpers resolve scopes from target records before authorization. Soft deletion updates `_deleted` to remove a record from active lists while preserving its history.

@@ -6,7 +6,7 @@ Publiez le guide pour enregistrer une version de son contenu. Publiez ensuite le
 
 ## Rédiger l'aide aux champs
 
-Ouvrez **Gestion > Aide aux champs** et choisissez l'agence. Vous pouvez aussi ouvrir **Aide aux champs** dans l'agence. Votre rôle doit accorder `help:read` pour cette agence. La création, la modification et la suppression exigent respectivement `help:create`, `help:update` et `help:delete`.
+Ouvrez **Gestion > Aide aux champs** pour voir les entrées regroupées par agence. Développez une agence pour charger ses entrées, ou utilisez les filtres d'agence, d'écran et d'état et la recherche. Utilisez l'action d'ajout de l'agence voulue. Si le chargement d'un groupe échoue, utilisez son action de reprise avant de considérer le groupe comme vide. Vous pouvez aussi ouvrir **Aide aux champs** dans l'agence. Votre rôle doit accorder `help:read` pour cette agence. La création, la modification et la suppression exigent respectivement `help:create`, `help:update` et `help:delete`.
 
 1. Sélectionnez **Ajouter une aide de champ**.
 2. Choisissez l'écran et le champ.

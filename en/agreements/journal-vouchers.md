@@ -10,7 +10,7 @@ Choose a payment, requested date and optional English and French explanations, u
 
 ## Correct coding
 
-Review the original allocations, then enter corrected allocations with a commitment line, eligible accounting code from the chart of accounts and an amount of zero or more, entered to two decimal places. Up to 500 corrected allocations can be submitted. The sum must match the original amount **for each commitment line**, not just for the whole voucher. You cannot introduce a commitment line absent from the original set. The application calculates the positive and negative adjustment lines from your allocations. You do not enter those adjustments manually.
+Review the original allocations, then enter corrected allocations with a commitment line, eligible accounting code from the chart of accounts and an amount of zero or more, using the agreement currency’s precision. Up to 500 corrected allocations can be submitted. The sum must match the original amount **for each commitment line**, not just for the whole voucher. You cannot introduce a commitment line absent from the original set. The application calculates the positive and negative adjustment lines from your allocations. You do not enter those adjustments manually.
 
 For example, 1,000 on commitment line 1 originally coded entirely to account A can be corrected to 600 on A and 400 on B. Its derived adjustment is −400 on A and +400 on B, with no change to cash paid. Moving that 400 to commitment line 2 fails even if the voucher's overall total is unchanged.
 

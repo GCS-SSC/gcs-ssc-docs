@@ -29,8 +29,8 @@ The tab opens a full-screen form. Every field below is required.
 | --- | --- |
 | English name | Non-empty; maximum 255 characters. |
 | French name | Non-empty; maximum 255 characters. |
-| Start date | Required date. |
-| End date | Required date and must be on or after the start date. |
+| Start date | Required date within the authorized assistance period, including its first and last dates. |
+| End date | Required date within the same period, on or after the start date. |
 | English description | Non-empty text. |
 | French description | Non-empty text. |
 | English expected results | Non-empty text. |

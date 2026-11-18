@@ -39,7 +39,7 @@ Prepare the request in this order:
 | Fiscal year | Required. Choose a fiscal year from the current agreement budget. |
 | Payment type | Choose reimbursement or advance. |
 | Period start and end | Choose months from April through March. The end cannot be before the start. |
-| Payment amount | Required positive amount, with no more than two decimal places. |
+| Payment amount | Required positive amount, using the agreement currency’s precision. |
 | Payee | Required active proponent linked to this agreement; recovery controls use this recipient. |
 | Currency | Required agreement currency; it must match the selected commitment. |
 | Comment | Optional. |
@@ -58,7 +58,7 @@ The detail page lists the commitment line number, fiscal year, accounting codes 
 
 | Rule | Behaviour |
 | --- | --- |
-| Positive amount | Each line must be greater than zero, with no more than two decimal places. |
+| Positive amount | Each line must be greater than zero, using the agreement currency’s precision. |
 | Exact parent | The payment must belong to this agreement and the coding line must belong to its selected commitment. |
 | Fiscal-year match | The commitment line and payment must use the same fiscal year in the current agreement budget. |
 | One coding line per payment | Only one active line may reference a particular commitment line within the same payment. |

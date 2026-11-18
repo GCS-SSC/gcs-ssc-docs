@@ -23,6 +23,8 @@ La connexion GitHub exige `NUXT_GITHUB_CLIENT_ID` et `NUXT_GITHUB_CLIENT_SECRET`
 
 Le lanceur de développement définit `BETTER_AUTH_BASE_URL` pour la compatibilité de la bibliothèque. L’application résout `BETTER_AUTH_URL` à l’exécution. Par exemple, `https://grants.example.ca` est une origine. `https://grants.example.ca/en/agreements` contient un chemin de page et ne peut pas être une origine approuvée. Les hôtes locaux privés ou de bouclage sont acceptés si leur protocole et leur port correspondent à l’origine configurée. Le développement accepte aussi une origine HTTP ou HTTPS du navigateur exactement égale à celle de l’URL de requête, ce qui permet les aperçus HTTPS de même origine. La production conserve la liste configurée.
 
+Les modifications apportées par l’API métier protégée vérifient l’origine de la requête du navigateur avant la validation de la route. Si une requête de votre client web déployé retourne `403 REQUEST_ORIGIN_FORBIDDEN`, comparez l’origine publique du navigateur avec `BETTER_AUTH_URL` et `BETTER_AUTH_TRUSTED_ORIGINS`. Corrigez la configuration et redémarrez le serveur avant de réessayer. La route exige toujours une session valide et les permissions de l’action.
+
 ## Stockage et outils documentaires
 
 | Variable | Rôle |
@@ -99,3 +101,5 @@ La sonde publique intentionnelle `GET /api/health` vérifie la préparation et e
 Par exemple, `200 {"status":"ok"}` confirme que le serveur et la base sont prêts, mais la génération PDF peut échouer si Chromium est absent. La sonde vérifie seulement le processus, l’API et la base. Elle ne vérifie pas les droits d’écriture du stockage, Chromium, LibreOffice, les services distants d’extension, les ressources des processus navigateur, les sauvegardes ni la santé des données métier. Surveillez ces dépendances séparément. Une erreur d’historique compacté de migrations locales peut être résolue avec la commande explicitement destructive `bun run dev:clean`; les données de production exigent une procédure approuvée de migration ou de reprise.
 
 Consultez [Déploiement](deployment.md) et [Travail en arrière-plan](background-work.md).
+
+Le flux Pages s’exécute sous Ubuntu 24.04. Son lanceur définit `GCS_RUNTIME_MIGRATION_MODE=webcontainer-demo` et transmet l’origine exacte de la page parente dans `GCS_WEBCONTAINER_FRAME_ORIGIN`. Dans ce mode, le serveur autorise l’intégration dans un cadre uniquement depuis cette origine HTTP ou HTTPS. Une valeur absente ou invalide, ou un mode d’exécution ordinaire, interdit l’intégration. Si l’aperçu s’ouvre sans l’application, reconstruisez-le avec le lanceur courant et vérifiez son origine et les en-têtes de réponse.

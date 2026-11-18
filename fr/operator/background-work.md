@@ -40,7 +40,7 @@ Chaque traitement purge au plus 500 travaux achevés plus anciens que le seuil d
 
 ## Ordonnancement partagé en arrière-plan
 
-L’hôte recherche le travail admissible toutes les cinq secondes. Les gestionnaires choisissent un niveau défini par l’hôte plutôt que leur propre intervalle. Les cycles s’alignent sur les limites horaires UTC.
+Les gestionnaires sélectionnent un niveau défini par l’hôte. Les cycles suivent les limites horaires UTC. Si le niveau 0 ou 1 est activé, l’hôte recherche les tâches dues toutes les cinq secondes. Si seuls les niveaux 2 ou 3 sont activés, la prochaine vérification attend la prochaine limite du niveau actif le plus rapide. Si tous les niveaux sont désactivés, le planificateur ne démarre pas. Consultez [Files d’attente](../admin/queues.md) pour les réglages de démarrage.
 
 | Niveau | Fréquence | Délai après un échec terminé |
 | --- | --- | --- |

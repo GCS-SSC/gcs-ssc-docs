@@ -88,12 +88,30 @@ Open an agreement to see its tabs. **General** displays the profile for readers 
 | Closeouts | [Agreement Closeout](./closeouts.md): readiness, financial reconciliation, workflow evidence, documents, and closure. |
 | Documents | [Documents](./documents.md) |
 | Activities | [Activities](./activities.md) |
+| Related agreements | Connections to other agreements in the same agency. See [Related agreements](#related-agreements). |
 | Notes | Bilingual working notes for this Agreement. |
 | Recommendation | Submit the agreement for approval, follow recommendations and approvals, and view the saved submission. |
 | Amendments | Prepare amendments, submit them for approval, cancel them, or apply approved changes. |
 | Assigned users | People assigned to this agreement. Changes require `manage_assignments`. |
 
 Enabled extensions may add tabs and profile fields. Opening a payment, claim, or another child detail record replaces the agreement tab area with that record's workspace while keeping the agreement context. Check which record you have open before adding attachments or changing assigned users.
+
+## Related agreements
+
+Open **Related agreements** to record a connection to another agreement in the same agency. The table shows its number, program, stream, title, relationship type, and optional description. Search these labels or the description to find a saved link.
+
+1. Ask an agency administrator to create the required [relationship type](../admin/agency-catalogs.md#agreement-relationship-types).
+2. Open the agreement and select **Related agreements > Add**.
+3. Search for another agreement by number or title. The picker offers active agreements in the same agency that you can read and that are not already linked.
+4. Choose a relationship type, optionally enter a description of at most 255 characters, and save.
+
+Creating a link requires the Agreement create permission and assignment to the agreement you have open, plus read access to the selected agreement. Editing requires Agreement update permission and assignment; removing requires Agreement delete permission and assignment. The server rechecks current access and write prerequisites when saving.
+
+For example, link agreement A to agreement B with an agency-defined “Related project” type and the description “Both fund the same training initiative.” One link appears on both agreements. You cannot link an agreement to itself or create a second active link for the same pair, even in reverse order or with a different type.
+
+Edit the relationship to change its type or description. The linked agreement cannot be replaced in the editor. Remove the old link and add the intended one. Confirming removal removes the link from both lists and preserves its historical record; it does not delete either agreement.
+
+The list displays the related agreement's summary under the access rules of the agreement you opened. A relationship does not grant permission to open or change the other agreement. If a target is missing from the picker, check its agency, active status, your read access, and whether the link already exists. If saving reports that the agreements are already related, reload the list and edit the existing relationship. For an invalid relationship, reselect an eligible agreement and active type in the same agency. Preserve your description before reloading after an access or status change.
 
 ## Agreement notes
 

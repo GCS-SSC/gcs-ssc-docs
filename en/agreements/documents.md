@@ -28,7 +28,9 @@ Select **Generate**, then choose:
 
 Generation uses the agreement and template as they stood when the request began. Before saving, the system checks your access and whether the source data or template changed. If either changed, `DOCUMENT_RENDER_INPUT_CHANGED` (409) prevents saving an outdated file. Reload the agreement and generate again. The filename includes the Agreement number, localized template name, language and extension, with unsafe characters replaced.
 
-You can have at most two document generations running at once for the same agency. If generation returns `DOCUMENT_RENDER_BUSY` (429), wait for an existing request to finish before retrying. Browser and office conversions also have time limits; a timeout does not mean a usable document was saved. Refresh the list before repeating an uncertain request.
+You can have at most two document renders running at once per agency on the same server process. If generation returns `DOCUMENT_RENDER_BUSY` (429), wait for an existing request to finish before retrying. Browser and office conversions also have time limits; a timeout does not mean a usable document was saved. Refresh the list before repeating an uncertain request.
+
+If you see `DOCUMENT_RENDER_LIMIT_EXCEEDED`, ask the template administrator to shorten the content or remove repeated sections. The same render limits apply to native formats and PDF. Once an updated template is available, select it and generate again.
 
 Review every generated document before using it. Generation does not check legal readiness or whether you completed every field. Missing or empty values appear as `To be confirmed` in English and `A confirmer` in French.
 
@@ -46,7 +48,7 @@ Templates can use the following data in the selected language:
 - Current budget years and lines, formatted totals, and budget summaries for schedules.
 - Commitments, payments, claims, and forecasts.
 
-Amounts can use Canadian dollar formatting.
+Formatted amounts use the agreement currency and the selected document language.
 
 The document uses the first saved active recipient link as its primary recipient. There is no separate primary-recipient selector. The document uses current activity and budget versions. Commitments, payments, claims, and forecasts include all records that have not been deleted, including records still in progress.
 

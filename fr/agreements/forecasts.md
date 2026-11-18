@@ -28,7 +28,7 @@ Par exemple, la version active 0 prévoit 2 000 en avril et 3 000 en mai. Ajoute
 Ouvrez la version à modifier. Son exercice et son numéro de version ne sont pas modifiables. La grille regroupe les lignes du budget courant par catégorie et sous-section de coûts, avec des totaux trimestriels d'avril à mars. Sélectionnez l'en-tête d'un trimestre pour afficher ses montants mensuels. Développez une ligne pour voir le programme et ses autres sources séparément. La recherche porte sur la catégorie, la sous-section, le nom bilingue ou la description.
 
 1. Sélectionnez l'action de modification de la ligne pour ouvrir ses douze montants mensuels du programme, regroupés par trimestre.
-2. Saisissez des montants de zéro ou plus dans la devise de l'entente, avec au plus deux décimales.
+2. Saisissez des montants de zéro ou plus dans la devise de l'entente, selon la précision de cette devise.
 3. Sélectionnez **Mettre à jour** pour reporter les montants sur la page. Cela ne les enregistre pas sur le serveur. **Annuler** abandonne les changements de la boîte de dialogue.
 4. Sélectionnez **Enregistrer la ventilation** pour enregistrer toutes les cellules modifiées ensemble. Une nouvelle cellule à zéro ne crée aucune ligne, sauf si vous saisissez aussi un autre financement. Une cellule existante mise à zéro conserve sa ligne.
 5. Vérifiez les montants enregistrés après l'actualisation de la page. Si la validation échoue, aucun des changements soumis n'est enregistré.

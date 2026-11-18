@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12` reads the profile for agency 12. It does not change the profile or its reference lists. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (141)
+## Handlers (145)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -29,6 +29,8 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | POST | `/api/agency/[agencyId]/account-receivable-types` | — | AgencyAccountReceivableTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/account-receivable-types/index.post.ts` |
 | GET | `/api/agency/[agencyId]/address-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/address-types.get.ts` |
 | POST | `/api/agency/[agencyId]/address-types` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/address-types.post.ts` |
+| GET | `/api/agency/[agencyId]/agreement-relationship-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/agreement-relationship-types.get.ts` |
+| POST | `/api/agency/[agencyId]/agreement-relationship-types` | — | AgencyAgreementRelationshipTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/agreement-relationship-types.post.ts` |
 | GET | `/api/agency/[agencyId]/agreement-types` | — | AgencyAgreementTypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/agreement-types.get.ts` |
 | POST | `/api/agency/[agencyId]/agreement-types` | — | AgencyAgreementTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/agreement-types.post.ts` |
 | GET | `/api/agency/[agencyId]/applicant-recipient-subtypes` | — | ApplicantRecipientSubtypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/applicant-recipient-subtypes.get.ts` |
@@ -132,6 +134,8 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | GET | `/api/agency/[agencyId]/workflow-condition-choices` | — | — | `server/api/agency/[agencyId]/workflow-condition-choices.get.ts` |
 | DELETE | `/api/agency/address-types/[id]` | — | — | `server/api/agency/address-types/[id].delete.ts` |
 | PATCH | `/api/agency/address-types/[id]` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/address-types/[id].patch.ts` |
+| DELETE | `/api/agency/agreement-relationship-types/[id]` | — | — | `server/api/agency/agreement-relationship-types/[id].delete.ts` |
+| PATCH | `/api/agency/agreement-relationship-types/[id]` | — | AgencyAgreementRelationshipTypeSchema, readValidatedBodyI18n | `server/api/agency/agreement-relationship-types/[id].patch.ts` |
 | DELETE | `/api/agency/agreement-types/[id]` | — | — | `server/api/agency/agreement-types/[id].delete.ts` |
 | PATCH | `/api/agency/agreement-types/[id]` | — | AgencyAgreementTypeSchema, readValidatedBodyI18n | `server/api/agency/agreement-types/[id].patch.ts` |
 | DELETE | `/api/agency/applicant-recipient-subtypes/[id]` | — | — | `server/api/agency/applicant-recipient-subtypes/[id].delete.ts` |

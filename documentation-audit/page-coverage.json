@@ -6,13 +6,13 @@
       "end-user",
       "administrator"
     ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
+    "en": "en/admin/audit.md",
+    "fr": "fr/admin/audit.md",
     "evidence": [
       "app/pages/admin/access.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Separate Access page uses Audit read permissions and access-specific query history, pagination, and recovery. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "page:app/pages/admin/audit.vue",
@@ -25,19 +25,10 @@
     "fr": "fr/admin/audit.md",
     "evidence": [
       "app/pages/admin/audit.vue",
-      "shared/types/schemas/audit.ts",
-      "server/database/audit-ownership-registry.ts",
-      "server/database/migrations/0140_audit.ts",
-      "server/utils/audit-runtime.ts",
-      "server/utils/audit-browser.ts",
-      "tests/unit/audit-browser-query.test.ts",
-      "tests/unit/agency-gwcoa-retirement-sql.test.ts",
-      "tests/e2e/admin-audit.spec.ts",
-      "tests/e2e/gwcoa-storage-validation-recovery.spec.ts",
-      "app/pages/admin/gwcoa.vue"
+      "shared/utils/audit-table-options.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/admin/audit.vue: Access evidence persists independently, with lazy initialization, bounded batch attempts and process queues. Unavailable history returns 503 without business fallback; seven-day keyset browsing and shared filters preserve Audit grants. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Audit and Access are separate pages. The Audit chooser includes Agency field help and both agreement relationship tables. No application tests executed."
   },
   {
     "id": "page:app/pages/admin/gwcoa.vue",
@@ -370,49 +361,14 @@
       "end-user",
       "administrator"
     ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
     "evidence": [
       "app/pages/agreements/[id].vue",
-      "app/composables/usePageResourceError.ts",
-      "app/utils/agreement-calendar-date.ts",
-      "app/utils/fetch-error.ts",
-      "app/utils/client-request-url.ts",
-      "app/utils/route-locations.ts",
-      "shared/types/funding-case-agreement-ui.ts",
-      "shared/constants/system-lifecycle.ts",
-      "app/components/Common/Completions/WorkflowPreAction.vue",
-      "app/components/Agreement/AgreementActivitiesTab.vue",
-      "app/components/Agreement/AgreementAddressesTab.vue",
-      "app/components/Agreement/AgreementNotesTab.vue",
-      "app/components/Agreement/AgreementApplicantRecipientsTab.vue",
-      "app/components/Agreement/AgreementBudgetTab.vue",
-      "app/components/Agreement/AgreementFinancialSummaryTab.vue",
-      "app/components/Agreement/AgreementCommitmentsTab.vue",
-      "app/components/Agreement/AgreementPaymentsTab.vue",
-      "app/components/Agreement/AgreementForecastsTab.vue",
-      "app/components/Agreement/AgreementMonitorsTab.vue",
-      "app/components/Agreement/AgreementClaimsTab.vue",
-      "app/components/Agreement/AgreementDocumentsTab.vue",
-      "app/components/Agreement/AgreementAmendmentsTab.vue",
-      "app/components/Agreement/AgreementCloseoutsTab.vue",
-      "app/composables/useExtensionEntityTabs.ts",
-      "app/composables/useBusinessStatusState.ts",
-      "app/composables/useAgreementSimilarityConfirmation.ts",
-      "app/utils/agreement-child-route.ts",
-      "app/composables/useAgreementRiskSource.ts",
-      "app/composables/useUrlTabState.ts",
-      "server/api/search.get.ts",
-      "server/utils/search-records.ts",
-      "server/utils/assigned-work-search.ts",
-      "app/components/Common/GlobalSearchPalette.vue",
-      "app/components/Common/DetailWorkspace.vue",
-      "app/components/Common/CurrencyInput.vue",
-      "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+      "app/components/Agreement/AgreementRelatedAgreementsTab.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The Agreement workspace adds bilateral relationship management. Existing profile and child permissions remain distinct. No application tests executed."
   },
   {
     "id": "page:app/pages/agreements/[id]/account-receivables/[accountReceivableId].vue",
@@ -1120,13 +1076,14 @@
       "end-user",
       "administrator"
     ],
-    "en": "en/getting-started/navigation.md",
-    "fr": "fr/getting-started/navigation.md",
+    "en": "en/admin/guided-help.md",
+    "fr": "fr/admin/guided-help.md",
     "evidence": [
-      "app/pages/field-help.vue"
+      "app/pages/field-help.vue",
+      "app/components/FieldHelp/Manager.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The Management page groups field help by Agency with filter, add and retry actions. No application tests executed."
   },
   {
     "id": "page:app/pages/funding-case-intakes/[id].vue",
@@ -2237,8 +2194,8 @@
     "evidence": [
       "app/components/Admin/AuditLogFilters.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Record ID and table selection appear beside additional filters for actor, request ID, outcome or operation, and time. Reset clears filters. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/Admin/AuditLogPage.vue",
@@ -2252,8 +2209,8 @@
     "evidence": [
       "app/components/Admin/AuditLogPage.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Shared page exposes row detail, independent retention and detail retries, and distinct list behavior for Access and Audit. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/Admin/AuditOperationFilter.vue",
@@ -2382,6 +2339,25 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; scoped evidence in documentation-audit/sync-admin-program.json. Attachment type names and descriptions are required bilingually; descriptions preserve whitespace and reject null characters. Document templates support Agreement, Amendment and Closeout record types, bilingual names/descriptions and language files, DOCX or HTML kind, compatible native/PDF output, 10 MiB per-file limit and same-Agency/type per-language name uniqueness. Document template kind is immutable; edits can replace either language file. Failed replacement transactions preserve saved files, while failed post-save reload must be retried before creating another record. Agency Workflow Flow is a separate read-only diagram route. Unsaved changes or a pending mutation block switching between editor and diagram; draft save and publication remain distinct. Agency Contributor can delete eligible draft Review Sets, Recommendation Sets, Workflows and Data Collections; general catalog Manager wording was narrowed to avoid denying supported actions. Source and paired guides inspected; named regression sources were inspected only, not executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "component:app/components/Agency/AgencyAgreementRelationshipTypes.vue",
+    "source": "app/components/Agency/AgencyAgreementRelationshipTypes.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "app/components/Agency/AgencyAgreementRelationshipTypes.vue",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
   },
   {
     "id": "component:app/components/Agency/AgencyAgreementTypes.vue",
@@ -2737,13 +2713,13 @@
       "end-user",
       "administrator"
     ],
-    "en": "en/admin/agencies.md",
-    "fr": "fr/admin/agencies.md",
+    "en": "en/admin/guided-help.md",
+    "fr": "fr/admin/guided-help.md",
     "evidence": [
       "app/components/Agency/AgencyFieldHelp.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Agency editor validates bilingual activation, supports saving disabled entries, reports conflicts, and reloads after writes. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/Agency/AgencyFiscalYears.vue",
@@ -4105,6 +4081,25 @@
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Reviewed app/components/Agreement/AgreementProponentTypeField.vue in the current UI and its paired destination guides. Contract: Agreement–Proponent relationship subtype selection. No browser or application test execution is claimed."
   },
   {
+    "id": "component:app/components/Agreement/AgreementRelatedAgreementsTab.vue",
+    "source": "app/components/Agreement/AgreementRelatedAgreementsTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "app/components/Agreement/AgreementRelatedAgreementsTab.vue",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
     "id": "component:app/components/Agreement/Fields/AgreementActivityOutcomesField.vue",
     "source": "app/components/Agreement/Fields/AgreementActivityOutcomesField.vue",
     "audience": [
@@ -4790,6 +4785,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: published setup eligibility, direct runtime launch and immutable successor retry lineage. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/ApplicantRecipient/Fields/ApplicantRecipientNoteFields.vue",
+    "source": "app/components/ApplicantRecipient/Fields/ApplicantRecipientNoteFields.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "app/components/ApplicantRecipient/Fields/ApplicantRecipientNoteFields.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Agency chosen at creation, then fixed. Subject and body inputs are available in both languages. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/ApplicantRecipient/Fields/ApplicantRecipientProfileFields.vue",
@@ -5985,8 +5995,8 @@
     "evidence": [
       "app/components/Common/ApprovalWorkspace.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Runtime approvals workspace exposes current route, step evidence, and retry after failed load under existing authorization. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/Common/Approvals/ActionModal.vue",
@@ -6857,8 +6867,8 @@
     "evidence": [
       "app/components/Common/FormDialog.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "NOT_APPLICABLE_VERIFIED",
+    "notes": "Internal shared dialog wrapper. Caller-owned schemas, localized validation and submit behavior have developer coverage. The wrapper adds no product workflow or application configuration. Final source inspected; no runtime tests executed."
   },
   {
     "id": "component:app/components/Common/FormFieldLabel.vue",
@@ -7115,8 +7125,8 @@
     "evidence": [
       "app/components/Common/Notifications.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "App-level feedback displays transient status and error messages. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/Common/NumberedSection.vue",
@@ -7443,8 +7453,8 @@
     "evidence": [
       "app/components/Common/ResourceLayout.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Shared list UI distinguishes pending, empty, and failed requests and delegates retry to the owning resource. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/Common/ResourceTableFeedback.vue",
@@ -8412,6 +8422,21 @@
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Paired public host extension reference documents localized form detail/flow wrappers, enabled accessible workspace/forms-tab/component requirements, Retry and unavailable states, edit/test/publish view routing, detail-form-id/form-flow-only/form-editor-view props and collection navigation. Concrete editing/publication and server authorization remain extension-owned. Direct source and paired paragraphs inspected. Scoped evidence: documentation-audit/sync-technical.json. No application tests executed."
   },
   {
+    "id": "component:app/components/FieldHelp/Manager.vue",
+    "source": "app/components/FieldHelp/Manager.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/guided-help.md",
+    "fr": "fr/admin/guided-help.md",
+    "evidence": [
+      "app/components/FieldHelp/Manager.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Agency groups expand to load their own entries. Shared filters, owner-specific add, and group retry are documented. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
+  },
+  {
     "id": "component:app/components/FieldHelp/Target.vue",
     "source": "app/components/FieldHelp/Target.vue",
     "audience": [
@@ -8423,8 +8448,8 @@
     "evidence": [
       "app/components/FieldHelp/Target.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Field help is selected by target and current locale. A missing entry leaves the field usable without a help button. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/FieldHelp/Tooltip.vue",
@@ -8438,8 +8463,8 @@
     "evidence": [
       "app/components/FieldHelp/Tooltip.vue"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Page, layout, middleware, tab, modal, wizard, form, table, state, action, and accessibility behavior require direct bilingual verification or a justified not-applicable disposition."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Question-mark button reads localized help and remains inside the active dialog when used in one. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
   },
   {
     "id": "component:app/components/FundingCaseIntake/ApplicationsTable.vue",

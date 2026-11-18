@@ -1110,6 +1110,44 @@
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/address-types.post.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, withActiveAgencyMutationTransaction(; schema landmarks: AgencyAddressTypeSchema. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed."
   },
   {
+    "id": "api:server/api/agency/[agencyId]/agreement-relationship-types.get.ts",
+    "source": "server/api/agency/[agencyId]/agreement-relationship-types.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/agreement-relationship-types.get.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/agreement-relationship-types.post.ts",
+    "source": "server/api/agency/[agencyId]/agreement-relationship-types.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/agreement-relationship-types.post.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
     "id": "api:server/api/agency/[agencyId]/agreement-types.get.ts",
     "source": "server/api/agency/[agencyId]/agreement-types.get.ts",
     "audience": [
@@ -3652,13 +3690,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/agencies.md",
-    "fr": "fr/developer/api/agencies.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/agency/[agencyId]/tooltips/[id].delete.ts"
+      "server/api/agency/[agencyId]/tooltips/[id].delete.ts",
+      "server/utils/field-tooltip.ts",
+      "shared/types/schemas/field-tooltip.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "DELETE /api/agency/[agencyId]/tooltips/[id]; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/agency/[agencyId]/tooltips/[id].delete.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/agency/[agencyId]/tooltips/[id].patch.ts",
@@ -3667,13 +3707,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/agencies.md",
-    "fr": "fr/developer/api/agencies.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/agency/[agencyId]/tooltips/[id].patch.ts"
+      "server/api/agency/[agencyId]/tooltips/[id].patch.ts",
+      "server/utils/field-tooltip.ts",
+      "shared/types/schemas/field-tooltip.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "PATCH /api/agency/[agencyId]/tooltips/[id]; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: FieldTooltipSaveSchema, readValidatedBodyI18n; request/response/error implementation: server/api/agency/[agencyId]/tooltips/[id].patch.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/agency/[agencyId]/tooltips/index.get.ts",
@@ -3682,13 +3724,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/agencies.md",
-    "fr": "fr/developer/api/agencies.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/agency/[agencyId]/tooltips/index.get.ts"
+      "server/api/agency/[agencyId]/tooltips/index.get.ts",
+      "server/utils/field-tooltip.ts",
+      "shared/types/schemas/field-tooltip.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "GET /api/agency/[agencyId]/tooltips/; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/agency/[agencyId]/tooltips/index.get.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/agency/[agencyId]/tooltips/index.post.ts",
@@ -3697,13 +3741,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/agencies.md",
-    "fr": "fr/developer/api/agencies.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/agency/[agencyId]/tooltips/index.post.ts"
+      "server/api/agency/[agencyId]/tooltips/index.post.ts",
+      "server/utils/field-tooltip.ts",
+      "shared/types/schemas/field-tooltip.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "POST /api/agency/[agencyId]/tooltips/; authorization landmarks: none in route; inspect delegated/domain helper and API middleware; validation landmarks: FieldTooltipSaveSchema, readValidatedBodyI18n; request/response/error implementation: server/api/agency/[agencyId]/tooltips/index.post.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflow-condition-choices.get.ts",
@@ -4108,6 +4154,44 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: AgencyAddressTypeSchema, withActiveAgencyMutationTransaction. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/agency/agreement-relationship-types/[id].delete.ts",
+    "source": "server/api/agency/agreement-relationship-types/[id].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "server/api/agency/agreement-relationship-types/[id].delete.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agency/agreement-relationship-types/[id].patch.ts",
+    "source": "server/api/agency/agreement-relationship-types/[id].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agency-catalogs.md",
+    "fr": "fr/admin/agency-catalogs.md",
+    "evidence": [
+      "server/api/agency/agreement-relationship-types/[id].patch.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
   },
   {
     "id": "api:server/api/agency/agreement-types/[id].delete.ts",
@@ -9030,6 +9114,120 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "api:server/api/agreements/[id]/related-agreements/[childId].delete.ts",
+    "source": "server/api/agreements/[id]/related-agreements/[childId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/related-agreements/[childId].delete.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/related-agreements/[childId].patch.ts",
+    "source": "server/api/agreements/[id]/related-agreements/[childId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/related-agreements/[childId].patch.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/related-agreements/index.get.ts",
+    "source": "server/api/agreements/[id]/related-agreements/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/related-agreements/index.get.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/related-agreements/index.post.ts",
+    "source": "server/api/agreements/[id]/related-agreements/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/related-agreements/index.post.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/related-agreements/lookups/agreements.get.ts",
+    "source": "server/api/agreements/[id]/related-agreements/lookups/agreements.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/related-agreements/lookups/agreements.get.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/related-agreements/lookups/relationship-types.get.ts",
+    "source": "server/api/agreements/[id]/related-agreements/lookups/relationship-types.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/related-agreements/lookups/relationship-types.get.ts",
+      "server/utils/agreement-relationship.ts",
+      "shared/types/schemas/agreement-relationship.ts",
+      "server/utils/agency-agreement-relationship-type-integrity.ts",
+      "documentation-audit/sync-nov18-progress.json"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
     "id": "api:server/api/agreements/index.get.ts",
     "source": "server/api/agreements/index.get.ts",
     "audience": [
@@ -10791,13 +10989,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/platform.md",
-    "fr": "fr/developer/api/platform.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/catalog-versions.get.ts"
+      "server/api/catalog-versions.get.ts",
+      "server/utils/catalog-versions.ts",
+      "shared/utils/catalog-cache.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "GET /api/catalog-versions; authorization landmarks: unauthorized; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/catalog-versions.get.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/claim-reconciliations/[reconcileId].get.ts",
@@ -11381,13 +11581,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/extensions.md",
-    "fr": "fr/developer/api/extensions.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/extensions/agency/[agencyId]/notification-provider.get.ts"
+      "server/api/extensions/agency/[agencyId]/notification-provider.get.ts",
+      "server/utils/notification-provider.ts",
+      "server/utils/extension-admission.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "GET /api/extensions/agency/[agencyId]/notification-provider; authorization landmarks: authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/extensions/agency/[agencyId]/notification-provider.get.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/extensions/agency/[agencyId]/notification-provider.patch.ts",
@@ -11396,13 +11598,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/extensions.md",
-    "fr": "fr/developer/api/extensions.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/extensions/agency/[agencyId]/notification-provider.patch.ts"
+      "server/api/extensions/agency/[agencyId]/notification-provider.patch.ts",
+      "server/utils/notification-provider.ts",
+      "server/utils/extension-admission.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "PATCH /api/extensions/agency/[agencyId]/notification-provider; authorization landmarks: authorizeWithFreshAuthContext, requireFreshAuthContext; validation landmarks: AgencyNotificationProviderSelectionSchema, readValidatedBodyI18n; request/response/error implementation: server/api/extensions/agency/[agencyId]/notification-provider.patch.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/extensions/agency/[agencyId]/storage-provider.get.ts",
@@ -11589,13 +11793,14 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/extensions.md",
-    "fr": "fr/developer/api/extensions.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/extensions/streams/[streamId]/notifiers.get.ts"
+      "server/api/extensions/streams/[streamId]/notifiers.get.ts",
+      "shared/utils/notification-notifiers.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "GET /api/extensions/streams/[streamId]/notifiers; authorization landmarks: authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext; validation landmarks: none in route; inspect delegated/domain helper and API middleware; request/response/error implementation: server/api/extensions/streams/[streamId]/notifiers.get.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/extensions/workspaces.get.ts",
@@ -11629,13 +11834,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/platform.md",
-    "fr": "fr/developer/api/platform.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/field-tooltips/runtime.get.ts"
+      "server/api/field-tooltips/runtime.get.ts",
+      "server/utils/field-tooltip.ts",
+      "shared/types/schemas/field-tooltip.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "GET /api/field-tooltips/runtime; authorization landmarks: requireAuthContext; validation landmarks: FieldTooltipRuntimeQuerySchema, getValidatedQueryI18n; request/response/error implementation: server/api/field-tooltips/runtime.get.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/funding-case-intakes/[id].delete.ts",
@@ -16393,13 +16600,15 @@
       "developer",
       "operator"
     ],
-    "en": "en/developer/api/workflows.md",
-    "fr": "fr/developer/api/workflows.md",
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
     "evidence": [
-      "server/api/workflows/approval-runtime.get.ts"
+      "server/api/workflows/approval-runtime.get.ts",
+      "server/utils/workflow-runtime.ts",
+      "shared/types/schemas/workflow.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "GET /api/workflows/approval-runtime; authorization landmarks: requireAuthContext; validation landmarks: WorkflowRuntimeQuerySchema, getValidatedQueryI18n; request/response/error implementation: server/api/workflows/approval-runtime.get.ts. Direct domain-helper and test evidence remains required."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
   },
   {
     "id": "api:server/api/workflows/available.get.ts",

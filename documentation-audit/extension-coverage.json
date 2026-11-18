@@ -27,9 +27,11 @@
       "server/utils/extension-entity-assignment.ts",
       "packages/gcs-ssc-extensions/package.json",
       "server/utils/extension-dispatch-route.ts",
-      "server/utils/extensions.ts"
+      "server/utils/extensions.ts",
+      "packages/gcs-ssc-extensions/src/request-body.ts",
+      "packages/gcs-ssc-extensions/README.md"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. extension:host-platform: Fixed UTC levels, separate process and cluster execution, independent handler leases, retry policy, cleanup batches and public background-queue SDK replace the old L1 interval API. Read-only administration requires global system:read. Evidence: documentation-audit/sync-oct23-queues.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired authoring guides document the SDK 0.4.0 UI changes, bounded request reads, exact Stream provider mappings, explicit recipient and localization settings, and send recovery contract. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
   }
 ]

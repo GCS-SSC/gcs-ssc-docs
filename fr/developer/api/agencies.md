@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Elle ne modifie ni le profil ni ses listes de référence. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (141)
+## Gestionnaires (145)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -29,6 +29,8 @@ Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Ell
 | POST | `/api/agency/[agencyId]/account-receivable-types` | — | AgencyAccountReceivableTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/account-receivable-types/index.post.ts` |
 | GET | `/api/agency/[agencyId]/address-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/address-types.get.ts` |
 | POST | `/api/agency/[agencyId]/address-types` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/address-types.post.ts` |
+| GET | `/api/agency/[agencyId]/agreement-relationship-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/agreement-relationship-types.get.ts` |
+| POST | `/api/agency/[agencyId]/agreement-relationship-types` | — | AgencyAgreementRelationshipTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/agreement-relationship-types.post.ts` |
 | GET | `/api/agency/[agencyId]/agreement-types` | — | AgencyAgreementTypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/agreement-types.get.ts` |
 | POST | `/api/agency/[agencyId]/agreement-types` | — | AgencyAgreementTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/agreement-types.post.ts` |
 | GET | `/api/agency/[agencyId]/applicant-recipient-subtypes` | — | ApplicantRecipientSubtypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/applicant-recipient-subtypes.get.ts` |
@@ -132,6 +134,8 @@ Une requête autorisée `GET /api/agency/12` lit le profil de l’agence 12. Ell
 | GET | `/api/agency/[agencyId]/workflow-condition-choices` | — | — | `server/api/agency/[agencyId]/workflow-condition-choices.get.ts` |
 | DELETE | `/api/agency/address-types/[id]` | — | — | `server/api/agency/address-types/[id].delete.ts` |
 | PATCH | `/api/agency/address-types/[id]` | — | AgencyAddressTypeSchema, readValidatedBodyI18n | `server/api/agency/address-types/[id].patch.ts` |
+| DELETE | `/api/agency/agreement-relationship-types/[id]` | — | — | `server/api/agency/agreement-relationship-types/[id].delete.ts` |
+| PATCH | `/api/agency/agreement-relationship-types/[id]` | — | AgencyAgreementRelationshipTypeSchema, readValidatedBodyI18n | `server/api/agency/agreement-relationship-types/[id].patch.ts` |
 | DELETE | `/api/agency/agreement-types/[id]` | — | — | `server/api/agency/agreement-types/[id].delete.ts` |
 | PATCH | `/api/agency/agreement-types/[id]` | — | AgencyAgreementTypeSchema, readValidatedBodyI18n | `server/api/agency/agreement-types/[id].patch.ts` |
 | DELETE | `/api/agency/applicant-recipient-subtypes/[id]` | — | — | `server/api/agency/applicant-recipient-subtypes/[id].delete.ts` |

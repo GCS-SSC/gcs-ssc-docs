@@ -36,7 +36,7 @@ The Stream **Review Setups** and **Workflow Setups** lists link back to the Agen
 
 ## Document templates
 
-Open **Document Templates** on the Agency to create a template for Agreements, Amendments, or Closeouts. Enter both names and descriptions, choose DOCX or HTML, and upload an English and a French file of that kind. Each file must be at most 10 MiB. Choose at least one output format. DOCX templates support DOCX and PDF; HTML templates support HTML and PDF.
+Open **Document Templates** on the Agency to create a template for Agreements, Amendments, or Closeouts. Enter both names and descriptions, choose DOCX or HTML, and upload an English and a French file of that kind. Each file must be at most 10 MiB. If a DOCX fails validation, remove unused media or export a fresh Word file and try again. The [document generation reference](../developer/document-generation.md#rendering-and-trust-boundary) lists the archive and render limits. Choose at least one output format. DOCX templates support DOCX and PDF; HTML templates support HTML and PDF.
 
 Names must be unique within the Agency and record type in each language. If a name conflicts, edit the existing template or choose a different name. You can correct the names and descriptions and replace either language file later. The template kind cannot change after creation, so create another template to move from DOCX to HTML.
 
@@ -81,3 +81,15 @@ Publishing checks referenced designs and Agency ownership. A Workflow used by a 
 If an Add, Publish, or start action fails, reload both the Agency definition and Stream links. Confirm the design is published, belongs to the same Agency, matches the entity type, and that every referenced field, approval template, status, risk rating, and owner is eligible for that Stream. Correct the dependency, republish if needed, then retry. To correct a field label, edit the existing field. Its ID connects it to saved Agreement values and historical workflow conditions.
 
 See [Streams](../programs/streams.md), [Agreement custom fields](../programs/custom-fields.md), [Approval templates](../programs/approval-templates.md), [Recommendation sets](../programs/recommendations.md), and [Workflows](../concepts/workflows.md).
+
+## Agreement relationship types
+
+Open the agency's **Agreement relationship types** tab. Agency Contributor access (`agency:update`) allows creation and editing; Agency Manager access is required for deletion. Enter both English and French names, each at most 255 Unicode characters. Each name must be unique among active relationship types in that agency.
+
+These types are available directly to agreements in the agency; no stream link or publication step is required. For example, create “Related project” and its French name before officers link agreements for a shared initiative. See [Related agreements](../agreements/index.md#related-agreements).
+
+An active relationship prevents deletion of its type, including a relationship beneath a deleted agreement. If deletion reports that the type is in use, retain the type or review and remove the relevant links where business rules permit. Renaming the existing type keeps its identity. Do not delete a type merely to correct a label.
+
+## Refresh choices after a catalog change
+
+After saving a catalog change, reopen the affected picker in the caseworker form. Supported pickers check for Agency catalog updates and refresh their choices while keeping the current draft. For example, after adding an address type, reopen the address type picker on the agreement. If the new type is still missing, check that it belongs to the agreement's Agency and meets the current picker rules. If the refresh fails, keep a copy of the draft before reloading the page. The application checks current permissions and eligibility when you save.

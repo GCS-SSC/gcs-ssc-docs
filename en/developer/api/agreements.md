@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agreements/42` reads the profile for agreement 42, including its status and program information. Reading the profile does not approve the agreement or create a payment. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (184)
+## Handlers (190)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -43,9 +43,9 @@ An authorized request for `GET /api/agreements/42` reads the profile for agreeme
 | GET | `/api/agreements/[id]/addresses/lookups/address-types` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/addresses/lookups/address-types.get.ts` |
 | DELETE | `/api/agreements/[id]/amendments/[amendmentId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId].delete.ts` |
 | GET | `/api/agreements/[id]/amendments/[amendmentId]` | freshAuthContext, requireAuthContext | — | `server/api/agreements/[id]/amendments/[amendmentId].get.ts` |
-| PATCH | `/api/agreements/[id]/amendments/[amendmentId]` | egcs_fc_proposedauthorizedassistanceenddate, egcs_fc_proposedauthorizedassistancestartdate, executeFreshAuthorizedAgreementWrite | FundingCaseAgreementAmendmentPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId].patch.ts` |
+| PATCH | `/api/agreements/[id]/amendments/[amendmentId]` | egcs_fc_proposedauthorizedassistanceenddate, egcs_fc_proposedauthorizedassistancestartdate, executeFreshAuthorizedAgreementWrite | FundingCaseAgreementAmendmentPatchSchema, FundingCaseAgreementTitleProposalSchema, parseI18n, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId].patch.ts` |
 | DELETE | `/api/agreements/[id]/amendments/[amendmentId]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].delete.ts` |
-| PATCH | `/api/agreements/[id]/amendments/[amendmentId]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementActivityPatchSchema, parseI18n, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].patch.ts` |
+| PATCH | `/api/agreements/[id]/amendments/[amendmentId]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementActivityPatchSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].patch.ts` |
 | GET | `/api/agreements/[id]/amendments/[amendmentId]/activities` | freshAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/amendments/[amendmentId]/activities/index.get.ts` |
 | POST | `/api/agreements/[id]/amendments/[amendmentId]/activities` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementActivityCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/amendments/[amendmentId]/activities/index.post.ts` |
 | POST | `/api/agreements/[id]/amendments/[amendmentId]/activity-snapshot` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/amendments/[amendmentId]/activity-snapshot.post.ts` |
@@ -185,6 +185,12 @@ An authorized request for `GET /api/agreements/42` reads the profile for agreeme
 | GET | `/api/agreements/[id]/payments/lookups/fiscal-years` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/fiscal-years.get.ts` |
 | GET | `/api/agreements/[id]/payments/lookups/proponents` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/payments/lookups/proponents.get.ts` |
 | POST | `/api/agreements/[id]/payments/preview` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementPaymentCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/payments/preview.post.ts` |
+| DELETE | `/api/agreements/[id]/related-agreements/[childId]` | executeFreshAuthorizedAgreementWrite | PositivePostgresBigintIdSchema, parseI18n | `server/api/agreements/[id]/related-agreements/[childId].delete.ts` |
+| PATCH | `/api/agreements/[id]/related-agreements/[childId]` | executeFreshAuthorizedAgreementWrite | AgreementRelationshipPatchSchema, PositivePostgresBigintIdSchema, parseI18n, readValidatedBodyI18n | `server/api/agreements/[id]/related-agreements/[childId].patch.ts` |
+| GET | `/api/agreements/[id]/related-agreements` | freshAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/related-agreements/index.get.ts` |
+| POST | `/api/agreements/[id]/related-agreements` | executeFreshAuthorizedAgreementWrite, resolveAgreementScopeContext | AgreementRelationshipCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/related-agreements/index.post.ts` |
+| GET | `/api/agreements/[id]/related-agreements/lookups/agreements` | freshAuthContext, requireAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/related-agreements/lookups/agreements.get.ts` |
+| GET | `/api/agreements/[id]/related-agreements/lookups/relationship-types` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/related-agreements/lookups/relationship-types.get.ts` |
 | GET | `/api/agreements` | egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireAuthContext | AgencyFilterSchema, AgreementsPaginationSchema, AssignedListViewSchema, PaginationSchema, getValidatedQueryI18n | `server/api/agreements/index.get.ts` |
 | POST | `/api/agreements` | authorizeWithFreshAuthContext, egcs_fc_authorizedassistanceenddate, egcs_fc_authorizedassistancestartdate, requireFreshAuthContext, resolveAgreementStreamScopeContext | FundingCaseAgreementCreateSchema, FundingCaseAgreementGeneratedCreateSchema, parseI18n, readValidatedBodyI18n | `server/api/agreements/index.post.ts` |
 | GET | `/api/agreements/lookups/agreement-subtypes` | — | — | `server/api/agreements/lookups/agreement-subtypes.get.ts` |

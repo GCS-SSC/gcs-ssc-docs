@@ -10,7 +10,7 @@ Choisissez un paiement, une date demandée et les explications facultatives en f
 
 ## Corriger le codage
 
-Examinez les allocations d'origine puis saisissez les allocations corrigées avec une ligne d'engagement, un code comptable admissible du plan comptable et un montant de zéro ou plus, saisi à deux décimales. Au plus 500 allocations corrigées peuvent être soumises. Leur somme doit correspondre au montant d'origine **pour chaque ligne d'engagement**, et pas seulement pour toute la pièce. Une ligne d'engagement absente des sources ne peut être ajoutée. L'application calcule les lignes d'ajustement positives et négatives à partir de vos allocations. Vous ne saisissez pas ces ajustements manuellement.
+Examinez les allocations d'origine puis saisissez les allocations corrigées avec une ligne d'engagement, un code comptable admissible du plan comptable et un montant de zéro ou plus, selon la précision de la devise de l’entente. Au plus 500 allocations corrigées peuvent être soumises. Leur somme doit correspondre au montant d'origine **pour chaque ligne d'engagement**, et pas seulement pour toute la pièce. Une ligne d'engagement absente des sources ne peut être ajoutée. L'application calcule les lignes d'ajustement positives et négatives à partir de vos allocations. Vous ne saisissez pas ces ajustements manuellement.
 
 Par exemple, 1 000 sur la ligne d'engagement 1 entièrement codés au compte A peuvent être corrigés en 600 sur A et 400 sur B. L'ajustement calculé est −400 sur A et +400 sur B, sans changement du décaissement. Déplacer ces 400 sur la ligne d'engagement 2 échoue même si le total global reste identique.
 

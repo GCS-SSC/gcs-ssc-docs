@@ -22,7 +22,7 @@ Examinez les paiements d'origine dans l'espace de travail et les effets des piè
 
 Par exemple, une ligne engagée de 10 000 comporte 7 000 payés à l'origine et une correction comptabilisée antérieure de −500. Un ajustement de −1 000 produit 5 500 payés corrigés et 4 500 de capacité restante. Le paiement d'origine demeure de 7 000. Un ajustement de −7 000 rendrait le montant corrigé négatif et est refusé. Incluez les effets de journal et de recouvrement affichés pour votre dossier réel.
 
-Enregistrez toutes les lignes ensemble, puis examinez les détails actualisés de la correction. Un brouillon peut contenir des ajustements nuls; Achèvement exige au moins un ajustement non nul et une justification non vide en français ou en anglais. Saisissez les montants à deux décimales. À la soumission et à la comptabilisation, l'application recalcule les totaux à partir des sources conservées et vérifie de nouveau les limites des lignes et les soldes partagés.
+Enregistrez toutes les lignes ensemble, puis examinez les détails actualisés de la correction. Un brouillon peut contenir des ajustements nuls; Achèvement exige au moins un ajustement non nul et une justification non vide en français ou en anglais. Respectez la précision de la devise de l’entente pour les montants. À la soumission et à la comptabilisation, l'application recalcule les totaux à partir des sources conservées et vérifie de nouveau les limites des lignes et les soldes partagés.
 
 ## Soumettre, annuler et reprendre
 

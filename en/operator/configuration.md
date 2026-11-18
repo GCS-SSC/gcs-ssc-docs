@@ -23,6 +23,8 @@ GitHub sign-in requires both `NUXT_GITHUB_CLIENT_ID` and `NUXT_GITHUB_CLIENT_SEC
 
 The development launcher sets `BETTER_AUTH_BASE_URL` for library compatibility. Application runtime resolution uses `BETTER_AUTH_URL`. For example, `https://grants.example.ca` is an origin. `https://grants.example.ca/en/agreements` includes a page path and cannot be a trusted origin. Local private or loopback hosts are accepted when their protocol and port match the configured auth origin. Development also accepts an HTTP or HTTPS browser Origin exactly equal to the request URL’s origin, so same-origin HTTPS previews work. Production retains the configured allow-list.
 
+Protected business API mutations check the browser request origin before route validation. If a request from your deployed web client returns `403 REQUEST_ORIGIN_FORBIDDEN`, compare the browser’s public origin with `BETTER_AUTH_URL` and `BETTER_AUTH_TRUSTED_ORIGINS`. Correct the configuration and restart the server before retrying. The route still requires a valid session and the action’s permissions.
+
 ## Storage and document tools
 
 | Variable | Purpose |
@@ -99,3 +101,5 @@ The deliberately public `GET /api/health` checks readiness and executes `SELECT 
 For example, `200 {"status":"ok"}` confirms that the server and database are ready, but PDF generation can still fail if Chromium is unavailable. The probe checks only the process, API, and database. It does not verify storage writability, Chromium, LibreOffice, remote extension services, browser-worker assets, backups, or business-data health. Monitor those dependencies separately. A compacted local migration-history error may be resolved with the explicitly destructive `bun run dev:clean`; production data requires an approved migration or recovery procedure.
 
 See [Deployment](deployment.md) and [Background work](background-work.md).
+
+The Pages workflow runs on Ubuntu 24.04. Its wrapper sets `GCS_RUNTIME_MIGRATION_MODE=webcontainer-demo` and passes the exact parent origin in `GCS_WEBCONTAINER_FRAME_ORIGIN`. In this mode the server permits framing only by that HTTP or HTTPS origin. An absent or invalid value or an ordinary runtime mode denies framing. If the preview opens without the app, rebuild with the current wrapper and check its origin and the response headers.

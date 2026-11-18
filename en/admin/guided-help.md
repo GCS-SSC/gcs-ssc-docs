@@ -6,7 +6,7 @@ Publish the guide to save a version of its content. Then publish the Agency sett
 
 ## Write field help
 
-Open **Management > Field help** and choose the Agency. You can also open **Field help** inside the Agency. Your role needs `help:read` for that Agency. Creating, changing, and deleting entries require the matching `help:create`, `help:update`, and `help:delete` permissions.
+Open **Management > Field help** to see entries grouped by Agency. Expand an Agency row to load its entries, or use the Agency, screen, and status filters and search. Use the add action on the intended Agency row. If a group's entries fail to load, use its retry action before treating the group as empty. You can also open **Field help** inside the Agency. Your role needs `help:read` for that Agency. Creating, changing, and deleting entries require the matching `help:create`, `help:update`, and `help:delete` permissions.
 
 1. Select **Add field help**.
 2. Choose the screen and field.

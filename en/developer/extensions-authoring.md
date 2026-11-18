@@ -189,6 +189,14 @@ A valid result is already trimmed, nonempty, at most 15 Unicode characters, and 
 
 For example, a provider can allocate an Agency-wide sequence inside the supplied transaction and format `ABC-0000123`. It must implement its own concurrency-safe allocation; a client-side count of existing Agreements is not an allocator. A `configurationScope: 'agency'` provider applies across that Agency’s streams without separate stream activation. Counter design and configuration UI belong to the extension’s own documentation.
 
+## Notification providers
+
+Declare `notification-provider` with `configurationAccess: 'manager'` and a package-local `notificationProvider.adapter.path`. Export the adapter with `defineGcsNotificationProviderAdapter` from `@gcs-ssc/extensions/server`. The host loads the adapter on the server. Read credentials through the Agency-scoped secret reader. The exact owning Stream supplies template mappings.
+
+`resolveMapping` matches a notifier to a template without a network call. Map required placeholders to fields from the host-owned `notificationNotifiers` catalogue and choose an eligible email field for the recipient. Set a locale for localized text. Set both locale and time zone for dates and times. Repair missing recipients and locales in older mappings before saving.
+
+`prepareDelivery` returns non-secret JSON that identifies the destination. The host saves it before calling `send` with a stable reference. Acceptance records the provider’s acceptance, separately from final delivery. If acceptance is uncertain, `recover` checks the original reference and destination and returns `found`, `absent`, or `inconclusive`. Resending requires definite absence. Changed destinations, missing history, and ambiguous results remain inconclusive.
+
 ## Stream configuration
 
 Use `admin.agency` when the extension needs agency-wide non-secret settings:
@@ -317,7 +325,7 @@ SDK UI wrappers are supported versions of the host’s interface components. Com
 
 Import host-provided wrappers and composables from `@gcs-ssc/extensions/ui`. Do not import `~/`, `~~/`, `#imports`, `#app`, or `#gcs-*`, and do not use host component names directly in an extension template. Wrappers such as `ExtensionButton`, `ExtensionFormField`, `ExtensionSaveButton`, and `ExtensionTable` preserve host behaviour behind a versioned contract.
 
-Common exports include `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayoutCard`, `ExtensionSection`, `ExtensionSaveButton`, and `ExtensionStatusBadge`.
+Common exports include `ExtensionButton`, `ExtensionFormField`, `ExtensionInput`, `ExtensionSelect`, `ExtensionTable`, `ExtensionResourceLayout`, `ExtensionSection`, `ExtensionSaveButton`, and `ExtensionStatusBadge`.
 
 Use `useExtensionApi(extensionKey)` for extension routes and `useHostApi()` for stable host routes. Declare `extension-api-client` or `host-api-client` in `requiredHostCapabilities` as applicable; do not assemble `/api` URLs or call `fetch` directly from components. The UI entry point also provides typed host integrations:
 
@@ -330,7 +338,11 @@ Use `useExtensionApi(extensionKey)` for extension routes and `useHostApi()` for 
 
 The host installs the concrete UI runtime. Standalone tests can install SDK test stubs instead of mounting host internals.
 
+SDK 0.4.0 provides `ExtensionResourceLayout` for page and card layouts and `ExtensionTranslatedTabs` for translated tabs. Update imports and callers together. Declare `sdkVersion: '^0.4.0'` and a matching `@gcs-ssc/extensions` dependency. Publish the SDK before releasing dependent extensions.
+
 ## Server handlers
+
+Use the context’s `readBody` method or `readGcsExtensionRequestBody` from `@gcs-ssc/extensions/server`. Both enforce a 1 MiB request limit before parsing, including chunked bodies. An oversized request returns HTTP 413. Send a smaller body before retrying and validate the parsed result with the route schema.
 
 **RBAC** means role-based access control: the host checks whether the user’s role allows the declared action on the relevant record. Showing a tab or button does not replace this server-side check.
 

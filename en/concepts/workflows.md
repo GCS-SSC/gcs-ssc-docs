@@ -26,6 +26,8 @@ A design belongs to the Agency shown in its URL. To create or publish it, you ne
 
 Start an Agreement’s approval submission explicitly. For an amendment or Closeout, Complete requires a published approval-submission workflow with a successful route that ends in a terminal Agency business status. Claims, reconciliations, commitments, forecasts, payments, and monitors can complete with an optional approval-submission workflow. Administrators must provide complete, unique sequence numbers and default-owner mappings for the reviews and recommendations within sets. Status changes use the Agency’s configured status IDs; they do not assume status names such as `inreview` or `complete`.
 
+To approve a closed Claim or Reconciliation into a terminal status, publish a standard workflow for that exact record type. Use one root approval template with at least one approval step and no member conditions. Include the current nonterminal status among the allowed start statuses. Use that same status for cancellation, execution failure, and approval failure. Set the approval success status to an active terminal status in the same Agency. This workflow can run after editing closes. Ordinary start permissions and assignments still apply.
+
 ## Publish and retire
 
 New setups are drafts. Publishing checks the linked configurations and saves version 1, which cannot be changed. Saving edits to a published setup changes only the working copy. Publishing those changes saves the next fixed version; publishing without any changes creates no new version.

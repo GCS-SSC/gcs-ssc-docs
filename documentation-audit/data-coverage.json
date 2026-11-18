@@ -1415,6 +1415,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Agency_Address_Type_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:agency_agreement_relationship_type",
+    "source": "server/database/migrations/0040_agency.ts#Agency_Agreement_Relationship_Type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
     "id": "data:0040_agency:agency_agreement_type",
     "source": "server/database/migrations/0040_agency.ts#Agency_Agreement_Type",
     "audience": [
@@ -1589,10 +1604,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#Agency_Catalog_Revision"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:agency_chart_of_account",
@@ -2123,10 +2138,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#Agency_Field_Tooltip"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:agency_fiscal_year",
@@ -2574,10 +2589,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#agency_chart_is_in_use"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:agency_line_calculation",
@@ -2599,6 +2614,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: agency_line_calculation; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_agreement_relationship_type_name_en",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_agreement_relationship_type_name_en",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_agreement_relationship_type_name_fr",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_agreement_relationship_type_name_fr",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_chk_ar_type_names",
@@ -2652,10 +2697,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#ay_chk_catalogrevisionactive"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_chk_catalogrevisionformat",
@@ -2667,10 +2712,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#ay_chk_catalogrevisionformat"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_chk_chart_kind",
@@ -2946,10 +2991,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#ay_chk_fieldtooltipbilingual"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_chk_fiscalyear_dates",
@@ -3070,6 +3115,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_lineitemcalculation; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:ay_fk_agreement_relationship_type_agency",
+    "source": "server/database/migrations/0040_agency.ts#ay_fk_agreement_relationship_type_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
     "id": "data:0040_agency:ay_fk_applicant_recipient_subtype_agency",
     "source": "server/database/migrations/0040_agency.ts#ay_fk_applicant_recipient_subtype_agency",
     "audience": [
@@ -3097,10 +3157,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#ay_fk_catalogrevisionagency"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_fk_cost_category_lineitem_costcategory",
@@ -3151,10 +3211,25 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#ay_fk_fieldtooltipagency"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0040_agency:ay_pk_agreement_relationship_type",
+    "source": "server/database/migrations/0040_agency.ts#ay_pk_agreement_relationship_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_ref_guidedhelppublication",
@@ -3225,10 +3300,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#ay_uq_catalogrevisionagencygroup"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:ay_uq_funding_subtype_id_type",
@@ -3429,10 +3504,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0040_agency.ts#protect_used_agency_chart"
+      "server/database/migrations/0040_agency.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0040_agency:protect_workflow_profile_conditions",
@@ -5677,10 +5752,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#Common_Notification"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:common_publication",
@@ -9200,10 +9275,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_chk_notification_attempts"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_chk_notification_lease",
@@ -9215,10 +9290,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_chk_notification_lease"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_chk_notification_recipientkind",
@@ -9230,10 +9305,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_chk_notification_recipientkind"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_chk_notification_status",
@@ -9245,10 +9320,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_chk_notification_status"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_chk_pub_version_definition",
@@ -10274,10 +10349,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_fk_notification_agency"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_fk_notification_approval",
@@ -10289,10 +10364,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_fk_notification_approval"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_fk_notification_runtimeitem",
@@ -10304,10 +10379,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_fk_notification_runtimeitem"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_fk_notification_stream",
@@ -10319,10 +10394,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_fk_notification_stream"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_fk_recommendationset_setup",
@@ -11775,10 +11850,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_uq_notification_activation"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_uq_notification_reference",
@@ -11790,10 +11865,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts#cn_uq_notification_reference"
+      "server/database/migrations/0050_common.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0050_common:cn_uq_publicationidkind",
@@ -17903,10 +17978,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0060_transfer_payment.ts#guard_program_agency_immutable"
+      "server/database/migrations/0060_transfer_payment.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0060_transfer_payment:guard_program_financial_id_agency",
@@ -18118,10 +18193,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0060_transfer_payment.ts#tp_chk_maxrecipient_decimal_range"
+      "server/database/migrations/0060_transfer_payment.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_profiledatestartdateend",
@@ -18154,10 +18229,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0060_transfer_payment.ts#tp_chk_program_budget_nonnegative"
+      "server/database/migrations/0060_transfer_payment.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_stream_budget_nonnegative",
@@ -18169,10 +18244,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_nonnegative"
+      "server/database/migrations/0060_transfer_payment.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_stream_field_assignment_displayorder",
@@ -24835,6 +24910,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Profile_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:funding_case_agreement_relationship",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Relationship",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_responsible_party_activity",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Responsible_Party_Activity",
     "audience": [
@@ -25646,6 +25736,21 @@
     "notes": "Reviewed check constraint fc_chk_agreement_receivable_recoverymethod at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: CONSTRAINT \"fc_chk_agreement_receivable_recoverymethod\" CHECK (((egcs_fc_recoverymethod)::text = ANY ((ARRAY['offset'::character varying, 'direct_repayment'::character varying])::text[]))), Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_chk_agreement_relationship_distinct",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_agreement_relationship_distinct",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_chk_amendmentauthorizedassistancedates",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_amendmentauthorizedassistancedates",
     "audience": [
@@ -25728,6 +25833,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_amendmentproposedriskscore; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_chk_amendmentproposedtitle",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_amendmentproposedtitle",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0090_funding_case_agreement:fc_chk_approvalsubmissionhash",
@@ -28464,6 +28584,51 @@
     "notes": "Reviewed foreign key fc_fk_agreement_receivable_terminalby at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: ALTER TABLE \"Funding_Case_Agreement_Account_Receivable\" ADD CONSTRAINT \"fc_fk_agreement_receivable_terminalby\" FOREIGN KEY (egcs_fc_terminalby) REFERENCES \"Common_User\"(id) ON DELETE RESTRICT; Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_fk_agreement_relationship_source",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_relationship_source",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_fk_agreement_relationship_target",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_relationship_target",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_fk_agreement_relationship_type",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_relationship_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_fk_agreement_responsibleparty_activity_activity",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_responsibleparty_activity_activity",
     "audience": [
@@ -29327,6 +29492,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed foreign key fc_fk_receivable_recovery_postingruntime at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: ALTER TABLE \"Funding_Case_Account_Receivable_Recovery\" ADD CONSTRAINT \"fc_fk_receivable_recovery_postingruntime\" FOREIGN KEY (egcs_fc_postingruntime) REFERENCES \"Common_Runtime\"(id) ON DELETE RESTRICT; Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_pk_agreement_relationship",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_pk_agreement_relationship",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0090_funding_case_agreement:fc_ref_activityversionagreement",
@@ -31059,10 +31239,25 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0090_funding_case_agreement.ts#guard_reconciliation_claim_immutable"
+      "server/database/migrations/0090_funding_case_agreement.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:protect_agreement_relationship_owner",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#protect_agreement_relationship_owner",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0090_funding_case_agreement:protect_agreement_stream",
@@ -34137,6 +34332,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_validate_jv; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:validate_agreement_relationship",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#validate_agreement_relationship",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/data-model.md",
+    "fr": "fr/developer/data-model.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
     "id": "data:0090_funding_case_agreement:zz_ar_payment_control",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#zz_ar_payment_control",
     "audience": [
@@ -34748,10 +34958,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0110_extensions.ts#agency_notification_selection_agency_id_fkey"
+      "server/database/migrations/0110_extensions.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0110_extensions:agency_notification_selection_pkey",
@@ -34763,10 +34973,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0110_extensions.ts#agency_notification_selection_pkey"
+      "server/database/migrations/0110_extensions.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0110_extensions:agency_storage_selection_agency_id_fkey",
@@ -34841,10 +35051,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/migrations/0110_extensions.ts#extensions.agency_notification_selection"
+      "server/database/migrations/0110_extensions.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:0110_extensions:extensions.agency_storage_selection",
@@ -36235,8 +36445,8 @@
     "evidence": [
       "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Registered subject baseline or schema helper and its PostgreSQL/PGlite behavior."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_new_amendment_catalog_selection",
@@ -36248,10 +36458,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_catalog_selection"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_new_amendment_subtype_selection",
@@ -36263,10 +36473,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_subtype_selection"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_new_amendment_type_selection",
@@ -36278,10 +36488,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_new_amendment_type_selection"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_catalog",
@@ -36293,10 +36503,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_catalog"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_subtype",
@@ -36308,10 +36518,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_subtype"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_subtype_mapping",
@@ -36323,10 +36533,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_subtype_mapping"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/amendment-catalog-integrity:guard_used_amendment_type",
@@ -36338,10 +36548,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/amendment-catalog-integrity.ts#guard_used_amendment_type"
+      "server/database/schema/amendment-catalog-integrity.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "schema:commitment-coding",
@@ -36645,8 +36855,8 @@
     "evidence": [
       "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Registered subject baseline or schema helper and its PostgreSQL/PGlite behavior."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/currency-money:money_amount_is_persistable",
@@ -36658,10 +36868,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/currency-money.ts#money_amount_is_persistable"
+      "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/currency-money:money_amount_matches_currency",
@@ -36673,10 +36883,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/currency-money.ts#money_amount_matches_currency"
+      "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/currency-money:money_minor_unit_factor",
@@ -36688,10 +36898,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/currency-money.ts#money_minor_unit_factor"
+      "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/currency-money:trg_fn_validate_currency_money",
@@ -36703,10 +36913,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/currency-money.ts#trg_fn_validate_currency_money"
+      "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/currency-money:trg_validate_currency_money",
@@ -36718,10 +36928,10 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/currency-money.ts#trg_validate_currency_money"
+      "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
     "id": "data:schema/currency-money:validate_currency_money_row",
@@ -36733,9 +36943,9 @@
     "en": "en/developer/data-model.md",
     "fr": "fr/developer/data-model.md",
     "evidence": [
-      "server/database/schema/currency-money.ts#validate_currency_money_row"
+      "server/database/schema/currency-money.ts"
     ],
-    "status": "IN_PROGRESS",
-    "notes": "Material table, enum, constraint, trigger, function, ownership, lifecycle, precision, or polymorphic integrity mechanism; verify exact kind and contract."
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   }
 ]

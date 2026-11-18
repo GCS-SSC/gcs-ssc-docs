@@ -32,7 +32,7 @@ The detail page displays the agreement breadcrumb and status, then the commitmen
 | --- | --- |
 | Commitment line number | Required integer from 1 through 32,767. Within one commitment, the active combination of line number and chart-of-account entry must be unique. |
 | Chart-of-account entry | Required. It must be active and belong to the Agreement's exact stream. Its fiscal year and ordered localized accounting dimensions appear in the picker and table. |
-| Amount | Required amount of zero or more, with at most two decimal places. |
+| Amount | Required amount of zero or more, using the agreement currency’s precision. |
 
 The detail search matches the line number, fiscal year, every displayed coding component, or amount. Review the declared total against all unfiltered coding lines in the agreement currency; no conversion occurs.
 

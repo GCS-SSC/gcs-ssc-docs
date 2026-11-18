@@ -39,7 +39,7 @@ Préparez la demande dans cet ordre :
 | Exercice | Requis. Choisissez un exercice du budget courant de l’entente. |
 | Type de paiement | Choisissez remboursement ou avance. |
 | Début et fin de la période | Choisissez des mois d’avril à mars. La fin ne peut précéder le début. |
-| Montant du paiement | Montant positif obligatoire, avec au plus deux décimales. |
+| Montant du paiement | Montant positif obligatoire, selon la précision de la devise de l’entente. |
 | Bénéficiaire | Promoteur actif obligatoire lié à cette entente; les contrôles de recouvrement utilisent ce bénéficiaire. |
 | Devise | Devise obligatoire de l’entente, identique à celle de l’engagement choisi. |
 | Commentaire | Facultatif. |
@@ -58,7 +58,7 @@ La page de détails présente le numéro de ligne d’engagement, l’exercice, 
 
 | Règle | Comportement |
 | --- | --- |
-| Montant positif | Chaque ligne doit être supérieure à zéro, avec au plus deux décimales. |
+| Montant positif | Chaque ligne doit être supérieure à zéro, selon la précision de la devise de l’entente. |
 | Parent exact | Le paiement doit appartenir à cette entente et la ligne de codage à son engagement sélectionné. |
 | Concordance de l’exercice | La ligne d’engagement et le paiement doivent utiliser le même exercice dans le budget courant de l’entente. |
 | Une ligne de codage par paiement | Une seule ligne active peut viser une ligne d’engagement donnée dans le même paiement. |

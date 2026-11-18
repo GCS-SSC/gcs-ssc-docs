@@ -80,8 +80,8 @@ Mark a reconciliation as final when it is intended to finish review of the claim
 
 | Field | What to enter |
 | --- | --- |
-| Reconciled amount | Required amount in the agreement currency, with at most two decimal places. |
-| Sampled amount | Optional amount in the agreement currency, with at most two decimal places. |
+| Reconciled amount | Required amount in the agreement currency, using that currency’s precision. |
+| Sampled amount | Optional amount in the agreement currency, using that currency’s precision. |
 | Rationale | Optional free text recording the assessment of the line. |
 
 Saving a reconciliation saves all its lines together. If a save fails, none of that save's changes are kept. If the claim’s lines changed while you were reviewing them, reload and compare your draft with the current claim before retrying. This applies even when you edit only one row.
@@ -109,6 +109,8 @@ At a successful completion outcome, the reconciliation closes. If it is final, t
 ## Locked states and recovery
 
 You cannot edit a record when the Agency has made its status read-only or terminal, when Completion has been recorded, when the reconciliation is closed, or when a final reconciliation has succeeded. The system also checks whether the agreement or an active workflow blocks the change. If the record changed while the form was open, a visible button may no longer be available to you.
+
+A closed Claim or Reconciliation can still enter a workflow that approves it into a terminal status if the current status is nonterminal and the Agency has configured an eligible workflow. Use the available workflow start action and follow the assigned approval steps. Approval does not reopen editing. If the workflow is cancelled, fails to execute, or the approval fails, the record returns to its previous status. If no workflow appears, ask the Agency administrator to check the published configuration and current status.
 
 For a submitted-amount save failure, check the selected row and reload after an uncertain response. Other rows are saved separately.
 

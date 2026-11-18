@@ -25,7 +25,7 @@ bun run quality:pr
 
 `bun run test` runs unit and e2e suites. `test:all:manual` also runs lint, typecheck, coverage, the opt-in PostgreSQL aggregate, and e2e.
 
-The Quality workflow runs for pull requests, pushes, and manual launches. It checks out the pinned private tooling and uses Node.js 24.22.1 and Bun 1.3.13. Configure `PRIVATE_TOOLING_READ_TOKEN` with read access to the private tooling repository. Fork pull requests fail before private access. A maintainer must review and test them on a trusted repository branch.
+The application no longer includes the hosted Quality workflow. Run the local checks below with access to the pinned private tooling. A successful documentation build does not establish that these application checks passed.
 
 Run `quality:pr` as the local check. It records the branch diff and runs these checks:
 

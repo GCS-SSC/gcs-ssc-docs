@@ -4,7 +4,11 @@ Utilisez la barre latérale pour ouvrir un espace de travail, comme Ententes ou 
 
 ## Trouver un espace de travail
 
-Accueil, Ententes, Promoteurs, Réceptions de dossiers de financement, Possibilités de financement et Programmes apparaissent au premier niveau lorsque vous y avez accès. Développez **Gestion** pour Agences, Rôles, Aide guidée et Pièces de journal. Développez **Administration** pour Gestion des affectations, Utilisateurs, Groupes, Audit et GWCOA. Les espaces d'extension apparaissent dans leur groupe configuré. Les groupes vides sont masqués. La recherche propose les mêmes pages autorisées.
+Accueil, Ententes, Promoteurs, Réceptions de dossiers de financement, Possibilités de financement et Programmes apparaissent au premier niveau lorsque vous y avez accès. Développez **Gestion** pour Agences, Rôles, Aide guidée, Aide aux champs et Pièces de journal. Développez **Administration** pour Gestion des affectations, Utilisateurs, Groupes, Audit, Accès et GWCOA. Les espaces d'extension apparaissent dans leur groupe configuré. Les groupes vides sont masqués. La recherche propose les mêmes pages autorisées.
+
+Les listes distinguent le chargement, les résultats vides et les échecs. Si une liste ne se charge pas, utilisez **Réessayer**. Après l’enregistrement, lisez le message de l’application avant d’entreprendre un autre changement.
+
+Pour les champs pris en charge, sélectionnez le point d’interrogation près du libellé pour lire l’aide dans votre langue. Le bouton apparaît si l’agence a activé le texte pour ce champ. Dans une boîte de dialogue, vous pouvez lire l’aide sans quitter le formulaire.
 
 ## Destinations de la barre latérale
 
@@ -23,6 +27,8 @@ Accueil, Ententes, Promoteurs, Réceptions de dossiers de financement, Possibili
 | Rôles | Avec un accès Lecteur Rôle actif ou supérieur. |
 | Utilisateurs | Avec un accès Lecteur Utilisateur actif ou supérieur. |
 | Aide guidée | Avec un accès Lecteur Aide guidée actif ou supérieur, globalement ou pour une agence. |
+| Aide aux champs | Avec un accès en lecture à l’aide, globalement ou pour une agence. |
+| Accès | Avec un accès en lecture explicite à l’audit, globalement ou pour une agence. |
 | GWCOA | Avec un accès Lecteur Système global ou supérieur. |
 | Audit | Avec un accès Lecteur Audit explicite ou supérieur, globalement ou pour une agence. |
 

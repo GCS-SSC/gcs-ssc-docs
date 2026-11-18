@@ -113,9 +113,26 @@ The canonical-schema tests enumerate fresh PGlite tables, enums, indexes, constr
 
 `documentation-audit/data-coverage.json` records discovered subject and raw-SQL helper mechanisms. A completed documentation status records reviewed coverage. It does not confirm that application regression suites ran. See the synchronization receipt for commands actually run.
 
+## Database rules for agency catalogs and agreement links
+
+- `Agency_Catalog_Revision` has one live row per Agency and catalog group. It holds a 21-character revision token used to validate cached catalog data. `Agency_Field_Tooltip` permits one active entry per Agency and target. Enabling an entry requires nonblank English and French text.
+- `Agency_Agreement_Relationship_Type` holds the Agency's bilingual type labels. Each relationship has its own ID and restrictive foreign keys to its two agreements and type. `Funding_Case_Agreement_Relationship` requires distinct agreements and a common Agency for both active agreements and the active type. A unique index treats the pair as unordered and ignores removed links. An active link also prevents removal or reassignment of its type.
+- `protect_used_agency_chart` blocks changing accounting dimensions or the commitment chart reference, and blocks soft deletion when a chart has references in another chart, Stream coding, or a receivable line. Deactivate the chart to retain its references. A Program's Agency and a reconciliation's Claim are immutable.
+- The amendment catalog guards preserve referenced types, subtypes, and subtype mappings. A used type or subtype can change its active flag. New selections require an active type or subtype, and unchanged historical selections can remain. A proposed agreement title must include both nonblank language versions or leave both null.
+
+## Database rules for notifications and money
+
+- `Common_Notification` stores approval delivery records with restrictive references to Agency, Stream, Approval, and Runtime Item. Its reference is unique, as is the combination of approval, activation, recipient kind, and recipient ID. Recipient kind is `user` or `group`. Status is one of `pending`, `processing`, `uncertain`, `completed`, `cancelled`, and `unresolved`. Attempts start at zero and cannot be negative. Lease owner and expiry must both be present or both absent. `extensions.agency_notification_selection` has a separate primary key, an Agency foreign key, and at most one active selection per Agency.
+- The currency helpers resolve the owning currency and validate configured numeric columns on insert and update. A stored amount uses an integer with scale zero and absolute value below 10³⁸. Nullable amounts remain null. Unsupported or missing currency and invalid amounts fail with `money_currency_precision`. The currency factor comes from the supported currency list.
+- Program and Stream budgets are nonnegative. The transfer-payment maximum per recipient is a decimal setting from zero to strictly below 10¹⁷ with at most four decimal places.
+
 ## Manual spreadsheet maintenance
 
 The private `$gcs-ssc workbook` workflow owns workbook reconciliation and its checkpoint in `tooling/gcs-ssc/workbook-sync-state.json`. Ordinary sync is incremental; `workbook sync full` requests a full review. A recorded workbook checkpoint is not a database migration or proof that this documentation was verified.
+
+Use `workbook status` to inspect the checkpoint and pending Git changes locally. For an authorized sync that preserves normal worksheet styles, use `workbook sync no-highlights` or `workbook sync full no-highlights`. These modes remove verified obsolete rows and preserve worksheet colours and table and column heading shading.
+
+The workbook covers the core grants and contributions model. It excludes authentication, authorization, audit, extension host storage, storage cleanup, and catalog revision infrastructure. Funding Opportunity and Funding Case Intake remain in scope. Review functions and triggers in the migrations as evidence for the remaining worksheets. The workbook has no Functions or Triggers worksheets.
 
 The public application retains the bounded Google Sheets commands. The external data-model workbook is no longer maintained by wholesale normalize/diff/sync scripts. The model owner compares source and workbook evidence and uses bounded commands only: `data-model:sheet:read`, `data-model:sheet:cell:update`, and `data-model:sheet:row:read|update|insert|delete|color|move`.
 

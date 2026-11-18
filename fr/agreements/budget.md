@@ -37,10 +37,12 @@ Pour une ligne manuelle, choisissez l'exercice et la ligne de coûts, précisez 
 | Sous-section de coûts | Texte non vide obligatoire d'au plus 255 caractères. |
 | Description | Texte non vide obligatoire; cette description propre à l'entente n'est pas bilingue. |
 | Promoteur | Promoteur lié obligatoire. Le seul promoteur lié est choisi automatiquement; choisissez-en un si plusieurs sont liés. |
-| Montant total | Montant obligatoire non négatif comportant au plus deux décimales. |
+| Montant total | Montant obligatoire non négatif avec la précision de la devise de l’entente. |
 | Financement du programme | Saisissez un montant exact non négatif pour une ligne manuelle. Le formulaire calcule celui des lignes en pourcentage. |
 | Autres sources de financement | Sous-types configurés et montants exacts, avec descriptions française/anglaise facultatives; chaque sous-type apparaît une seule fois par ligne. |
 | Devise | Devise de l'entente. Vous ne pouvez pas la changer ici. |
+
+Saisissez les montants selon la précision de la devise de l’entente. Par exemple, le JPY accepte les montants entiers, le CAD accepte les cents et le KWD accepte jusqu’à trois décimales. Si un montant comporte trop de décimales, corrigez-le avant d’enregistrer. Les champs de pourcentage ont leurs propres limites.
 
 Le total doit être au moins égal au financement du programme plus les montants des autres sources configurées. Par exemple, 1 000 du programme plus 500 d'une autre source exigent un total d'au moins 1 500. Un total de 1 400 est refusé. Si le recalcul d'un pourcentage laisse le total d'une ligne touchée inférieur à ses financements combinés, le système annule tout le changement. Le montant total et les autres financements restent saisis manuellement, même pour une ligne calculée.
 

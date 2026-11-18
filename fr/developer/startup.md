@@ -6,6 +6,8 @@ La documentation se trouve dans `gcs-ssc-docs`. La source de l’application se 
 
 ## Prerequis de l application
 
+Utilisez Node.js 24.22.1 LTS et Bun 1.3.13. Après avoir chargé nvm dans Bash, exécutez `nvm install` et `nvm use` à la racine de l’application. Pour fish, installez d’abord Node avec nvm dans Bash, puis exécutez `fish_add_path --universal --move "$HOME/.nvm/versions/node/v24.22.1/bin"` dans fish. Vérifiez avec `node --version`.
+
 L’application utilise des scripts Bun, Nuxt 4, Better Auth, Kysely et PGlite ou Postgres. Les variables d’environnement fournissent la connexion à la base de données, les paramètres d’authentification et la clé de chiffrement des extensions au démarrage :
 
 - `DATABASE_URL`

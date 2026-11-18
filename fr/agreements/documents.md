@@ -28,7 +28,9 @@ Sélectionnez **Générer**, puis choisissez :
 
 La génération utilise l'entente et le modèle tels qu'ils étaient au début de la demande. Avant l'enregistrement, le système vérifie votre accès et si les données sources ou le modèle ont changé. Si l'un des deux a changé, `DOCUMENT_RENDER_INPUT_CHANGED` (409) empêche l'enregistrement d'un fichier périmé. Rechargez l'entente et recommencez. Le nom du fichier comprend le numéro d'entente, le nom localisé du modèle, la langue et l'extension, avec remplacement des caractères dangereux.
 
-Vous pouvez lancer au plus deux générations de documents à la fois pour le même organisme. Si `DOCUMENT_RENDER_BUSY` (429) apparaît, attendez qu'une requête se termine avant de réessayer. Les conversions ont aussi une durée maximale; un délai dépassé ne signifie pas qu'un document utilisable a été enregistré. Actualisez la liste avant de répéter une requête incertaine.
+Vous pouvez lancer au plus deux rendus à la fois par agence sur le même processus serveur. Si `DOCUMENT_RENDER_BUSY` (429) apparaît, attendez qu'une requête se termine avant de réessayer. Les conversions ont aussi une durée maximale; un délai dépassé ne signifie pas qu'un document utilisable a été enregistré. Actualisez la liste avant de répéter une requête incertaine.
+
+Si l'erreur `DOCUMENT_RENDER_LIMIT_EXCEEDED` apparaît, demandez à l'administrateur de raccourcir le contenu ou de retirer des sections répétées du modèle. Les mêmes limites de rendu s'appliquent aux formats natifs et au PDF. Une fois le modèle mis à jour, sélectionnez-le et relancez la génération.
 
 Vérifiez chaque document produit avant de l'utiliser. La génération ne vérifie ni sa conformité juridique ni si tous les champs sont remplis. Les valeurs absentes ou vides apparaissent sous `To be confirmed` en anglais et `A confirmer` en français.
 
@@ -46,7 +48,7 @@ Les modèles peuvent utiliser les données suivantes dans la langue choisie :
 - Les exercices et lignes du budget actuel, les totaux formatés et les sommaires budgétaires pour les annexes.
 - Les engagements, paiements, réclamations et prévisions.
 
-Les montants peuvent utiliser le format des dollars canadiens.
+Les montants formatés utilisent la devise de l'entente et la langue choisie pour le document.
 
 Le document utilise le premier lien actif de bénéficiaire enregistré comme bénéficiaire principal. Aucun champ distinct ne permet de choisir ce bénéficiaire. Le document utilise les versions actuelles des activités et du budget. Les engagements, paiements, réclamations et prévisions comprennent tous les dossiers non supprimés, y compris ceux encore en cours.
 

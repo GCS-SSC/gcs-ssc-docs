@@ -42,13 +42,13 @@ The Permissions tab shows one row per supported subject. Select `None`, `Viewer`
 | Contributor | Read, create, update |
 | Manager | Read, create, update, delete |
 
-The subjects are `system`, `audit`, `guided_help`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction`, and `journal_voucher`.
+The subjects are `system`, `audit`, `help`, `group`, `agency`, `transfer_payment`, `role`, `user`, `agreement`, `funding_case`, `applicant_recipient`, `account_receivable`, `correction`, and `journal_voucher`.
 
 | Role subject | Global role | Agency role | Program role |
 | --- | :---: | :---: | :---: |
 | `system` | Yes | No | No |
 | `audit` | Yes | Yes | No |
-| `guided_help` | Yes | Yes | No |
+| `help` | Yes | Yes | No |
 | `group` | Yes | Yes | No |
 | `agency` | Yes | Yes | No |
 | `transfer_payment` | Yes | Yes | Yes |
@@ -67,7 +67,7 @@ Account Receivable, Correction and Journal Voucher subjects are valid at global,
 
 ## Guided Help permissions
 
-Grant Guided Help separately from System or Agreement access. A global role can manage System guides and Agency guides. An Agency role covers only that Agency, and a Program role cannot include `guided_help`.
+Grant Guided Help separately from System or Agreement access. A global role can manage System guides and Agency guides. An Agency role covers only that Agency, and a Program role cannot include `help`.
 
 Viewer can inspect drafts and publications. Contributor can create, adopt, clone, edit, and publish guides, and update Agency catalog settings. Manager can also retire guides and delete eligible unpublished drafts. Guided Help does not use exact work assignments or a Manage assignments switch.
 

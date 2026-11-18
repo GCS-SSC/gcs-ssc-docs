@@ -29,6 +29,12 @@ Les listes utilisent des tableaux partagés, une recherche et des filtres de sta
 
 L'interface utilisateur sensible aux permissions utilise `useAuth` et `useCan`. `useAuth` charge la réponse canonique `{ grants }` depuis `/api/auth/permissions`, valide chaque permission statique et expose `authorize`, `authorizeGrant` et `hasAbility`. Les permissions statiques constituent le plafond cumulatif du rôle. La modification d'une entité affectable existante exige séparément une ligne exacte dans `Common_Entity_Assignment`; ce registre est renvoyé par les API d'entité plutôt que d'être ajouté à la liste des permissions statiques.
 
+### Contexte des requêtes et des formulaires
+
+Utilisez `useResourceRequest` pour les lectures liées à un dossier ou à une requête. Un changement d'identité efface le résultat précédent et annule la requête. Une actualisation de la même identité peut conserver le dernier résultat accepté selon les règles d'actualisation et d'échec du composant. Seule la requête courante peut le remplacer.
+
+Liez `useFormSession` au formulaire affiché. Pour les actions à distance, fournissez un `useActionContext` avec l'identité du dossier, les droits du rôle et les préalables de l'action. Un formulaire périmé ou un changement d'utilisateur, d'identité ou de permissions invalide la soumission. Un changement d'admissibilité bloque un nouvel envoi. Un résultat déjà enregistré peut encore mettre à jour le formulaire d'origine si son contexte d'action est toujours courant. Le serveur vérifie séparément les permissions et l'état du dossier.
+
 ## Modeles serveur
 
 Les routes serveur valident les corps et paramètres des demandes avec des outils adaptés à la langue, vérifient les permissions avec `authorize` et accèdent à la base par `event.context.$db`. Les outils de route déterminent la portée à partir des dossiers visés avant de vérifier l'autorisation. La suppression logique marque `_deleted` pour retirer un dossier des listes actives sans effacer son historique.

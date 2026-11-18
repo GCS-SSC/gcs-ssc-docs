@@ -47,7 +47,7 @@ Changing the record or selected Agency closes the attachment form and clears its
 
 Provider fields may be upload-only or editable. Existing files retain the provider that stored them, even after the Agency selects a different provider for new uploads. Consequently, the fields shown while editing an old attachment can differ from those on a new upload.
 
-GCS-SSC and the storage provider may save their file information separately. If the host fields save but the provider update fails, the form reopens with the saved host values and the unsaved provider draft, and displays a partial-update warning. Correct or retry the remaining provider fields; do not assume that the earlier label changes rolled back.
+GCS-SSC and the storage provider may save their file information separately. If the host fields save but the provider update fails, the form reopens with the saved host values and the unsaved provider draft, and displays a partial-update warning. Correct or retry the remaining provider fields. The earlier label changes can remain saved. If a previous provider change still needs to be restored, a new provider edit is blocked until background recovery finishes. Keep your draft and reload the attachment before retrying. If the error persists, report the attachment and error to the operator.
 
 **Download** checks access to the exact target and retrieves the file from the storage provider recorded for that attachment. **Delete** asks for confirmation, removes the attachment from active use, and queues removal of the stored file for background processing. A successful deletion does not promise that the file has already disappeared from external storage. There is no user restore action.
 

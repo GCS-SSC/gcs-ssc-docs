@@ -36,7 +36,7 @@ Les listes **Configurations d'examen** et **Configurations de flux de travail** 
 
 ## Modèles de documents
 
-Ouvrez **Modèles de documents** de l'agence pour créer un modèle d'entente, de modification ou de clôture. Saisissez les noms et descriptions dans les deux langues, choisissez DOCX ou HTML, puis téléversez un fichier français et un fichier anglais de ce type. Chaque fichier doit faire au plus 10 Mio. Choisissez au moins un format de sortie. Les modèles DOCX permettent DOCX et PDF; les modèles HTML permettent HTML et PDF.
+Ouvrez **Modèles de documents** de l'agence pour créer un modèle d'entente, de modification ou de clôture. Saisissez les noms et descriptions dans les deux langues, choisissez DOCX ou HTML, puis téléversez un fichier français et un fichier anglais de ce type. Chaque fichier doit faire au plus 10 Mio. Si un DOCX échoue à la validation, retirez les médias inutilisés ou exportez un nouveau fichier Word, puis réessayez. La [référence de génération de documents](../developer/document-generation.md) indique les limites d'archive et de rendu. Choisissez au moins un format de sortie. Les modèles DOCX permettent DOCX et PDF; les modèles HTML permettent HTML et PDF.
 
 Les noms doivent être uniques dans chaque langue pour l'agence et le type de dossier. En cas de conflit, modifiez le modèle existant ou choisissez un autre nom. Vous pouvez corriger les renseignements et remplacer l'un des fichiers plus tard. Le type de fichier du modèle ne peut changer après sa création. Créez donc un autre modèle pour passer de DOCX à HTML.
 
@@ -82,3 +82,15 @@ La publication vérifie les définitions référencées et la propriété d'agen
 Si Ajouter, Publier ou Démarrer échoue, rechargez la définition d'agence et les liens du volet. Vérifiez sa publication, sa propriété dans la même agence, son type d'entité et l'admissibilité de chaque champ, modèle d'approbation, état, cote de risque et responsable référencé dans le volet. Corrigez la dépendance, republiez au besoin, puis réessayez. Pour corriger un libellé de champ, modifiez le champ existant. Son identifiant le relie aux valeurs d'entente et aux conditions historiques des flux.
 
 Consultez [Volets](../programs/streams.md), [Champs personnalisés](../programs/custom-fields.md), [Modèles d'approbation](../programs/approval-templates.md), [Ensembles de recommandations](../programs/recommendations.md) et [Flux de travail](../concepts/workflows.md).
+
+## Types de relations entre ententes
+
+Ouvrez l'onglet **Types de relations entre ententes** de l'agence. Le niveau Contributeur d'agence (`agency:update`) permet la création et la modification; la suppression exige le niveau Gestionnaire d'agence. Saisissez les noms français et anglais, chacun de 255 caractères Unicode au maximum. Chaque nom doit être unique parmi les types actifs de l'agence.
+
+Ces types sont directement disponibles aux ententes de l'agence; aucun lien de volet ni publication n'est requis. Par exemple, créez « Projet connexe » et son nom anglais avant que les agents lient des ententes pour une initiative commune. Consultez [Ententes liées](../agreements/index.md#ententes-liées).
+
+Une relation active empêche la suppression de son type, même sous une entente supprimée. Si la suppression indique que le type est utilisé, conservez-le ou examinez et retirez les liens concernés lorsque les règles opérationnelles le permettent. Renommer le type existant conserve son identité. Ne supprimez pas un type pour corriger un libellé.
+
+## Actualiser les choix après une modification du catalogue
+
+Après avoir enregistré une modification du catalogue, rouvrez le sélecteur concerné dans le formulaire de l'agent. Les sélecteurs pris en charge vérifient les mises à jour du catalogue d'agence et actualisent les choix tout en conservant l'ébauche. Par exemple, après avoir ajouté un type d'adresse, rouvrez le sélecteur de type d'adresse de l'entente. Si le nouveau type manque encore, vérifiez qu'il appartient à l'agence de l'entente et satisfait aux règles du sélecteur. Si l'actualisation échoue, conservez une copie de l'ébauche avant de recharger la page. L'application vérifie les permissions et l'admissibilité courantes à l'enregistrement.

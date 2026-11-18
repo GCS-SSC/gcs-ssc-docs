@@ -194,7 +194,9 @@ Les dépendances sont des règles qui affichent ou appliquent une partie de l’
 - Type de valeur: booléen, nombre ou texte.
 - Valeur attendue.
 
-Une condition sur un champ d’aide doit utiliser le type de valeur prévu pour ce champ. Pour les évaluations de demandeur ou de destinataire, les champs disponibles comprennent les identifiants, les numéros d’entreprise, le sous-type, l’agence responsable, l’agent responsable, les noms légaux, les noms d’organisme de recherche, le SCIAN et le statut.
+Une condition sur un champ d’aide utilise le type prévu pour ce champ. Les champs de promoteur comprennent l’identifiant du dossier, l’agence responsable, les noms légaux et d’organisme de recherche dans les deux langues, et l’état actif. Remplacez les champs retirés de sous-type et d’agent responsable dans les nouvelles configurations.
+
+Les évaluations d’entente et de dossiers enfants peuvent utiliser le sous-type, le type, la devise, le réglage de redistribution, les sous-types de bénéficiaire, le nombre de bénéficiaires, la valeur de l’entente et sa valeur annuelle moyenne. La valeur de l’entente additionne les lignes de financement du programme dans le budget courant, dans la devise de l’entente. La valeur annuelle moyenne divise ce total par la période d’aide autorisée exprimée en exercices de l’agence. L’application compte les deux dates d’aide et calcule les exercices partiels au prorata des jours. Par exemple, 120 000 CAD sur deux exercices complets donnent 60 000 CAD par exercice. Les seuils monétaires utilisent l’unité principale de la devise. Saisissez 60000 pour 60 000 CAD. Si les exercices de l’agence présentent des interruptions ou des chevauchements pendant la période d’aide, la moyenne est indisponible. Corrigez les dates des exercices et démarrez un nouvel examen pour obtenir les valeurs mises à jour. L’examen conserve les valeurs capturées à son démarrage. Une reprise capture les valeurs courantes tout en conservant le schéma publié d’origine.
 
 Les dépendances sur réponse utilisent les codes indépendants de la langue de section, sous-section et question. Renommez ces codes avec prudence.
 
@@ -234,6 +236,8 @@ Chaque ligne de pointage contient un seuil maximal et une valeur numérique. Cha
 ## Déroulement de l’évaluation {#flux-d-evaluation-en-execution}
 
 Lorsqu’un examen est créé à partir de la configuration du volet, sa page d’évaluation présente le contenu publié du schéma. Les examinateurs répondent aux questions. Les éléments calculés utilisent les réponses ou les champs d’aide; les dépendances déterminent les parties applicables; les matrices et les résultats résument l’évaluation.
+
+Une nouvelle évaluation enregistre les valeurs du dossier utilisées par son schéma publié à la création de l’examen. Les changements ultérieurs du dossier ne remplacent pas ces valeurs. Par exemple, si le schéma utilise le nombre de bénéficiaires, en ajouter un ne change pas ce nombre dans l’évaluation existante. Une reprise d’examen prise en charge crée un successeur avec le même schéma publié et y enregistre les valeurs d’aide courantes.
 
 Les pages d’évaluation en exécution peuvent inclure :
 

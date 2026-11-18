@@ -31,6 +31,8 @@ Results appear newest first, with 20 rows per page by default. Choose an actor b
 
 Access opens with the last seven days. Set an explicit interval to search older retained events. Its time window stays fixed while you browse the next page or return to a visited page. Access shows the current page count, without a total or a jump to the last page. Change a filter or reopen the view to start a fresh search. Audit events keep numbered pages and a total count.
 
+For agreement links, select `Funding_Case_Agreement_Relationship` in Audit. For changes to the Agency catalogue of relationship types, select `Agency_Agreement_Relationship_Type`. Select `Agency_Field_Tooltip` for changes to Field help entries.
+
 The actor identifies the sign-in account, not the Common User ID used for assignments. Sign-in queries can be anonymous. Background work can be attributed to the system, and direct database changes can be attributed to the database. A missing user ID therefore does not by itself mean that an action was unauthorized.
 
 ## Understand the evidence
@@ -40,6 +42,8 @@ The actor identifies the sign-in account, not the Common User ID used for assign
 | Change event | Initial values for new records, old and new values for changed columns, and retained values for deletions and restorations. | Saved together with the record change. Saving unchanged values produces no change event. If capture fails, the record change is undone. |
 | Security event | A security action on a user or role, the affected record, and related details. | Recorded separately from change events. It does not replace them. |
 | Access event | SQL with sensitive details removed, duration, query and transaction outcome, row count, request links, and captured IDs of returned records. | Evidence of a query, rather than a complete copy of its results. It does not prove that a user read every result. |
+
+Access capture excludes scheduler bookkeeping such as queue claims and lease renewals. Business queries performed by background handlers can still appear as system activity.
 
 Change evidence preserves exact amounts and large identifiers. Changes to a JSON field show the whole value. Capture rules exclude credentials, secrets, and other restricted values.
 
@@ -61,7 +65,11 @@ This procedure does not reconstruct a full request body or unavailable query res
 
 The page displays configured retention periods; it does not edit them. Defaults are 365 days for audit and security evidence and 30 days for access evidence. Operators change these settings at deployment and restart the application. Expiry runs hourly through background queues. Each run processes at most ten batches of 1,000 expired rows; large backlogs may need several runs. Access retention runs separately from change and security retention.
 
+Hourly expiry requires queue level 3. If an operator disables `GCS_QUEUE_LEVEL_3_ENABLED`, expired evidence may remain until that queue runs again.
+
 Access events wait in a queue in each application process. They become ready to save after the database transaction or connection is released and the HTTP response finishes or disconnects. At the ten-second queue level, the application attempts up to ten batches of 100 ready events by default. Failed batches and invalid-record isolation also consume that limit. Operators can change the batch limit. The browser shows only saved events, so a recent request may not appear immediately.
+
+Regular saves require queue level 0. If recent access events stay missing, ask an operator to check both capture and the queue level before retrying.
 
 The queue holds at most 2,000 events and an estimated 32 MiB of event data. After a failure, the application waits before retrying. When the queue is full, the application discards new events and reports the loss to operators. A crash or deployment can lose pending events. During shutdown, the application tries to save them within a time limit. Operators can disable access capture with `GCS_ACCESS_LOG_ENABLED=false`. Change and security capture continue. Existing access rows remain readable until retention removes them.
 

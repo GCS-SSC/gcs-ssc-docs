@@ -194,7 +194,9 @@ Dependencies are rules that show or apply part of the assessment only when a con
 - Value type: boolean, number, or text.
 - Expected value.
 
-Helper dependency values are type-checked against the helper definition. For applicant recipient assessments, available helper fields include identifiers, business numbers, subtype, lead agency, lead officer, legal names, research organization names, NAICS, and status.
+A helper condition uses the type defined for its field. Proponent helpers include the record ID, lead Agency, bilingual legal and research organization names, and active status. Replace retired subtype and lead officer helpers in new configurations.
+
+Agreement and Agreement child assessments can use the owning Agreement’s subtype, type, currency, further distribution setting, recipient subtypes, recipient count, agreement value, and average annual value. Agreement value sums program funding lines in the current budget in the Agreement currency. Average annual value divides that total by the authorized assistance period measured in Agency fiscal years. The application counts both assistance dates and prorates partial years by days. For example, CAD 120,000 over two full fiscal years gives CAD 60,000 per year. Monetary thresholds use major currency units, so enter 60000 for CAD 60,000. If the Agency fiscal years have gaps or overlaps in the assistance period, the average is unavailable. Correct the fiscal year dates and start new review work to capture updated values. The review keeps the helper values captured when it starts. A retry captures current values while retaining the original published schema.
 
 Dependencies on answers use the language-independent section, subsection, and question codes. Rename these codes carefully.
 
@@ -234,6 +236,8 @@ Each impactor scoring row has a max threshold and numeric value. Changing a targ
 ## Runtime assessment flow
 
 When runtime review work is generated from stream setup, the assessment runtime page presents the published schema content. Reviewers answer questions, calculated items derive values from answers or helpers, dependencies determine which portions apply, and matrices/outcomes summarize the results.
+
+A new assessment saves the record values used by its published schema when the review is created. Later changes to the record do not replace those values. For example, if the schema uses the recipient count, adding another recipient later does not change the existing assessment’s count. A supported review retry creates a successor with the same published schema and captures current helper values for that successor.
 
 Runtime assessment pages can include:
 

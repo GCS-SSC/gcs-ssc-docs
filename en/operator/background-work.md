@@ -40,7 +40,7 @@ Each drain prunes at most 500 completed jobs older than its retention threshold.
 
 ## Shared background scheduling
 
-The host checks for due work every five seconds. Handlers select a host-defined level rather than their own interval. Cycles align to UTC time boundaries.
+Handlers select a host-defined level. Cycles align to UTC time boundaries. If level 0 or 1 is enabled, the host checks for due work every five seconds. If only level 2 or 3 is enabled, the next check waits until the next boundary of the fastest enabled level. With all levels disabled, the scheduler does not start. See [Background queues](../admin/queues.md) for the startup switches.
 
 | Level | Cadence | Failure delay after completion |
 | --- | --- | --- |
@@ -57,7 +57,7 @@ Shared handlers use database schedules and independent two-minute leases, renewe
 
 A handler may run more than once, such as after a crash between external delivery and recording success. Extensions must retain requests and keys that prevent duplicate business effects. Scheduled imports still require the declared capability, current Agency enablement, and transaction-bound host authorization. Agreement imports also recheck the exact Stream, recipient link where required, business status, Closeout boundary, and active primary assignee. Imports create drafts that still require officer review, Completion, and approval.
 
-Access-log flush and retention handlers run separately in each server process. Their scheduling state stays in memory and resets on restart. They do not take a shared database lease or wait for business-database readiness. Access events remain subject to the loss limits below.
+Access-log flush and retention handlers run separately in each server process at their enabled levels. Their scheduling state stays in memory and resets on restart. They do not take a shared database lease or wait for business-database readiness. Access events remain subject to the loss limits below.
 
 Use [Background queues](../admin/queues.md) to inspect registrations, eligibility, retries, and leases. After a connector outage, restore its credentials and network access, then check both its handler error and its domain queue's conflict state. A successful handler run does not resolve invalid business data. Keep leases and delivery evidence intact while investigating. See the [Portal host boundary](../intake/portal.md).
 

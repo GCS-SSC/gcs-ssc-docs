@@ -22,7 +22,7 @@ Review the original payments in the workspace and the effects of successful jour
 
 For example, a line committed at 10,000 has 7,000 original paid and a prior posted correction of −500. An adjustment of −1,000 gives corrected paid of 5,500 and remaining capacity of 4,500. The original payment stays 7,000. An adjustment of −7,000 would make corrected paid negative and is refused. Include any displayed journal-voucher and recovery effects when checking your real record.
 
-Save all the lines together and review the refreshed correction details. Drafts may contain zero adjustments; Completion requires at least one nonzero adjustment and an explanation in English or French. Enter money to two decimal places. When you submit and when the correction posts, the application recalculates the totals from the retained sources and checks both the line limits and the shared balances again.
+Save all the lines together and review the refreshed correction details. Drafts may contain zero adjustments; Completion requires at least one nonzero adjustment and an explanation in English or French. Use the agreement currency’s precision for amounts. When you submit and when the correction posts, the application recalculates the totals from the retained sources and checks both the line limits and the shared balances again.
 
 ## Submit, cancel and recover
 

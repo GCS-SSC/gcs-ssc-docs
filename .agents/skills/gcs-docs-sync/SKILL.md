@@ -7,13 +7,19 @@ description: Synchronize this repository's English and French GCS-SSC documentat
 
 Run from the documentation repository. Read its `AGENTS.md`, `package.json`, `documentation-audit/status.md`, and `documentation-audit/source-baseline.md` first. The Source and baseline record below is the authoritative last verified baseline. Resolve a fresh target from the application branch on every run; do not assume that the recorded baseline is still its latest commit.
 
+## Continue through verification
+
+Treat an existing draft as a checkpoint. Compare its target with freshly fetched `main`, preserve its edits, and resume from its unresolved review groups. Keep a worklist covering the full range from the verified baseline. Close each group with source evidence and its paired documentation changes or a reason no documentation change is needed.
+
+A failed check or non-terminal coverage entry is work to resolve in the current run. Use its output to find the next source review, edit, or verification step. Continue while an authorized step can make progress. A progress report, a passing standalone build, and a first batch of edits are checkpoints. Finish when the full range is reconciled, required checks pass, and the marker and receipt match the verified target. If the user asks to stop or a concrete blocker prevents further progress, record the exact blocker, what passed, and the outstanding work.
+
 ## Source and baseline record
 
 - Application repository: `https://github.com/GCS-SSC/gcs-ssc.git`
 - Branch: `main`
 - Ignored reference clone: `.reference-repos/gcs-ssc`
-- Baseline commit: `51ba383408ba6cd5eab40d55c9504af50916e2b6`
-- Baseline committer datetime: `2026-10-23T19:14:04-04:00`
+- Baseline commit: `af5d8a67df7c6266e1d34641a44b8a4935ac4f09`
+- Baseline committer datetime: `2026-11-18T02:21:27-05:00`
 - Authoritative marker: this skill’s Source and baseline record.
 - Verification receipt: `documentation-audit/source-baseline.md`.
 

@@ -31,6 +31,8 @@ Les résultats apparaissent du plus récent au plus ancien, avec 20 lignes par p
 
 La vue Accès affiche les sept derniers jours par défaut. Choisissez un intervalle explicite pour chercher des événements plus anciens encore conservés. Cet intervalle reste fixe pendant la navigation vers la page suivante ou une page déjà visitée. Accès affiche le nombre de lignes de la page, sans total ni saut à la dernière page. Changez un filtre ou rouvrez la vue pour lancer une nouvelle recherche. Les événements d'audit gardent les pages numérotées et un total.
 
+Pour les liens entre ententes, sélectionnez `Funding_Case_Agreement_Relationship` dans Audit. Pour les modifications au catalogue des types de relations de l’agence, sélectionnez `Agency_Agreement_Relationship_Type`. Sélectionnez `Agency_Field_Tooltip` pour les modifications aux entrées de l’aide aux champs.
+
 L'acteur identifie le compte de connexion, et non l'identifiant Common User utilisé pour les affectations. Les requêtes de connexion peuvent être anonymes. Les tâches de fond peuvent être attribuées au système, et les changements directs dans la base peuvent être attribués à la base. L'absence d'identifiant utilisateur ne signifie donc pas à elle seule qu'une action était non autorisée.
 
 ## Comprendre les preuves
@@ -40,6 +42,8 @@ L'acteur identifie le compte de connexion, et non l'identifiant Common User util
 | Changement | Valeurs initiales des nouveaux dossiers, anciennes et nouvelles valeurs des colonnes modifiées, et valeurs conservées des suppressions et restaurations. | Enregistré avec le changement du dossier. Enregistrer des valeurs inchangées ne produit aucun événement. Si la capture échoue, le changement du dossier est annulé. |
 | Sécurité | Une action de sécurité sur un utilisateur ou un rôle, le dossier concerné et les détails connexes. | Enregistré séparément des événements de changement. Ne les remplace pas. |
 | Accès | SQL sans détails sensibles, durée, résultat de la requête et de la transaction, nombre de lignes, liens de requête et identifiants capturés des dossiers retournés. | Preuve d'une requête plutôt qu'une copie complète de ses résultats. Ne prouve pas que l'utilisateur les a tous lus. |
+
+La capture des accès exclut les opérations internes du planificateur, comme la prise en charge des tâches et le renouvellement de leurs réservations. Les requêtes métier des tâches en arrière-plan peuvent encore apparaître comme des activités du système.
 
 Les preuves de changement conservent les montants exacts et les grands identifiants. Les changements d'un champ JSON montrent sa valeur complète. Les règles de capture excluent les identifiants de connexion, les secrets et les autres valeurs restreintes.
 
@@ -61,7 +65,11 @@ Cette procédure ne reconstruit pas le corps complet d'une demande ni les résul
 
 La page affiche les durées configurées sans les modifier. Les valeurs par défaut sont de 365 jours pour l'audit et la sécurité et de 30 jours pour les accès. Les opérateurs modifient ces paramètres au déploiement et redémarrent l'application. La purge s'exécute chaque heure par les files de travail. Chaque exécution traite au plus dix lots de 1 000 lignes expirées; un grand retard peut demander plusieurs exécutions. La conservation des accès est distincte de celle des changements et de la sécurité.
 
+La purge horaire exige le niveau 3 des files. Si un exploitant désactive `GCS_QUEUE_LEVEL_3_ENABLED`, les preuves expirées peuvent rester présentes jusqu’à la reprise de la file.
+
 Les événements d'accès attendent dans une file de chaque processus de l'application. Ils sont prêts à être enregistrés après la libération de la transaction ou de la connexion et la fin ou la déconnexion de la réponse HTTP. Au niveau de file de dix secondes, l'application tente par défaut au plus dix lots de 100 événements prêts. Les lots échoués et l'isolement de données invalides comptent aussi dans cette limite. Les exploitants peuvent modifier le nombre maximal de lots. Le navigateur affiche seulement les événements enregistrés. Une requête récente peut donc ne pas apparaître immédiatement.
+
+L’enregistrement périodique exige le niveau 0 des files. Si des événements récents restent absents, demandez à un exploitant de vérifier la capture et le niveau de file avant de réessayer.
 
 La file contient au plus 2 000 événements et une estimation de 32 Mio de données d'événement. Après un échec, l'application attend avant de réessayer. Lorsque la file est pleine, l'application abandonne les nouveaux événements et signale la perte aux opérateurs. Un arrêt brutal ou un déploiement peut perdre les événements en attente. À l'arrêt normal, l'application tente de les enregistrer dans un délai limité. Les opérateurs peuvent désactiver la capture d'accès avec `GCS_ACCESS_LOG_ENABLED=false`. La capture des changements et de la sécurité continue. Les anciennes lignes d'accès restent lisibles jusqu'à expiration.
 

@@ -32,7 +32,7 @@ La page de détails affiche le fil d'Ariane de l'entente et l'état, puis les se
 | --- | --- |
 | Numéro de ligne d'engagement | Nombre entier obligatoire de 1 à 32 767. Dans un engagement, la combinaison active du numéro de ligne et de l'entrée du plan comptable doit être unique. |
 | Entrée du plan comptable | Obligatoire. Elle doit être active et appartenir au volet exact de l'entente. Son exercice et ses dimensions comptables ordonnées et localisées figurent dans le sélecteur et le tableau. |
-| Montant | Montant obligatoire de zéro ou plus, avec au plus deux décimales. |
+| Montant | Montant obligatoire de zéro ou plus, selon la précision de la devise de l’entente. |
 
 La recherche de la page de détails correspond au numéro de ligne, à l'exercice, à chaque composante de codage affichée ou au montant. Comparez le total déclaré à toutes les lignes de codage non filtrées dans la devise de l'entente; aucune conversion n'est effectuée.
 
