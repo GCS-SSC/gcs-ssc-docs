@@ -13128,6 +13128,38 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema, QuerySchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/me/table-preferences.get.ts",
+    "source": "server/api/me/table-preferences.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
+    "evidence": [
+      "server/api/me/table-preferences.get.ts",
+      "shared/types/schemas/table-preferences.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Authenticated account reads its preferences. See documentation-audit/sync-nov18-budget-management.md."
+  },
+  {
+    "id": "api:server/api/me/table-preferences.put.ts",
+    "source": "server/api/me/table-preferences.put.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/developer/api-contracts.md",
+    "fr": "fr/developer/api-contracts.md",
+    "evidence": [
+      "server/api/me/table-preferences.put.ts",
+      "shared/types/schemas/table-preferences.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Account-scoped PUT replaces the preference map. See documentation-audit/sync-nov18-budget-management.md."
+  },
+  {
     "id": "api:server/api/metadata/enums.get.ts",
     "source": "server/api/metadata/enums.get.ts",
     "audience": [

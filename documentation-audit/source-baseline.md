@@ -2,31 +2,31 @@
 
 The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.md`.
 
-- Verified at `2026-11-18T19:40:15+00:00`.
+- Verified at `2026-11-18T22:28:37+00:00`.
 - Application repository `https://github.com/GCS-SSC/gcs-ssc.git`, branch `main`.
-- Verified application commit `ee54af9e338162e2d0f3d717ab231f307504d354`, committed `2026-11-18T14:26:50-05:00`.
-- Previous verified source `70499a295a283d7810d0cd2c0ed6af26d59139d1`.
-- Range of three commits and 42 net changed paths. See the [source review and dispositions](./sync-nov18-activity-fields.md).
+- Verified application commit `66c99235e8c3bf824a40efebef5a79d26ea936b3`, committed `2026-11-18T17:23:47-05:00`.
+- Previous verified source `d9bc9540dcc31c699aa3e2913529cdc174b8b817`.
+- Range of three commits and 208 net changed paths. See the [source review and dispositions](./sync-nov18-budget-management.md).
 - Isolated checkout `.reference-repos/gcs-ssc`, clean and detached. The baseline is an ancestor of the target, all 13 initialized gitlinks match, and the final fetch confirmed that `origin/main` still matched the target.
-- Documentation checkout started clean at `d48cf342d68fc1116870b22ca22e625790dd7758`.
+- Documentation checkout started at `55c3d3523095520f535cd6e4e6071d47c3e745d1` with the verified uncommitted Profile placement update.
 
 ## Source gitlinks
 
 | Workspace | Commit |
 | --- | --- |
 | `extensions/gcs-agreement-number` | `5820c69b1cbc1be7f56471d1bb4d60b443e1b09e` |
-| `extensions/gcs-automated-payments` | `d29149d7c7ffd2319eaad051ade25acce82f6985` |
-| `extensions/gcs-gcforms-integration` | `0f5994691481450b18bb146275956905ed85007c` |
+| `extensions/gcs-automated-payments` | `ed1c74e0642965666c7f24cb0cde0febe68a35d3` |
+| `extensions/gcs-gcforms-integration` | `a42f0288d9d4377d106017800bd6e52b363d9f8d` |
 | `extensions/gcs-machine-translation` | `b2851d8832294197f1ccd4f2542ba5ae325d671a` |
 | `extensions/gcs-narrative-quality` | `3763ddeb60701b44df0e59c8141b8804bac787b2` |
 | `extensions/gcs-narrative-tags` | `393f304413603635f74e2c5695f1222f1f2aafe2` |
-| `extensions/gcs-outcome-cost-allocation` | `86dc64c1db134308f18c57e41d53521f297ab8eb` |
-| `extensions/gcs-ssc-gcnotify` | `fa63e42dbd8d42998a690b9a4afb2c13e59e9279` |
-| `extensions/gcs-ssc-portal-connector` | `a20d8e9a1b8cf0878d6bbf3b8734cf369dc9552a` |
+| `extensions/gcs-outcome-cost-allocation` | `48fd4f2d26f6e0cadadc2125e2d7eddb56ccd5a6` |
+| `extensions/gcs-ssc-gcnotify` | `e17b6db228dde4f716eaa63206f39de4046814e5` |
+| `extensions/gcs-ssc-portal-connector` | `f13f27fb43bb0ec73e8325167cbd635d442c16f6` |
 | `extensions/gcs-storage-local` | `7f46dc38d004462d2e8282932054550935a810ef` |
 | `extensions/gcs-storage-s3` | `4a428601472a912f0760fd5bf9a2f4bd6495f845` |
-| `packages/gcs-ssc-extensions` | `6ccc9cafbcd45958dac33d15f6e34028e44787ba` |
-| `tooling/gcs-ssc` | `9b580911381076a915060af01e7397cd76be38e5` |
+| `packages/gcs-ssc-extensions` | `c0b12fd3445e3a9a3adb35a35e5f0a57a4e95326` |
+| `tooling/gcs-ssc` | `dfdcb7e2e108a606fa2adf3d0893a39b3ac919a4` |
 
 ## Executed verification
 
@@ -34,8 +34,8 @@ Source-dependent commands used `GCS_SSC_SOURCE=.reference-repos/gcs-ssc` with Bu
 
 | Command or check | Result |
 | --- | --- |
-| `bun run docs:inventory` | Passed. 443 page/component, 730 API, 1,829 data, 20 domain, 12 configuration, one extension, and zero historical audit-impact entries. |
-| `bun run docs:references` | Passed. 730 routes in ten bilingual groups. |
+| `bun run docs:inventory` | Passed. 444 page/component, 732 API, 1,830 data, 20 domain, 12 configuration, one extension, and zero historical audit-impact entries. |
+| `bun run docs:references` | Passed. 732 routes in ten bilingual groups. |
 | `bun run docs:audit-impact` | Passed. Zero historical dossier rows. |
 | `bun run docs:check` | Passed. Coverage, parity, navigation, links, anchors, redirects, source reconciliation, and production build. |
 | `git diff --check` | Passed. |

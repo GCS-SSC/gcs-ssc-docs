@@ -45,7 +45,7 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %; véri
 | Programme et volet | Choisissez le programme, puis un volet disponible dans la portée de création. Le volet est immuable après la création. |
 | Sous-type d'entente | Sous-type actif obligatoire appartenant exactement au volet. Le type d'entente est dérivé du sous-type et n'est pas modifiable séparément. |
 | Numéro d'entente | En mode manuel, numéro élagué obligatoire d'au plus 15 caractères. Avec un fournisseur activé, la création génère le numéro et refuse un numéro fourni manuellement. |
-| Devise | Dénomination obligatoire choisie à la création, puis immuable. Les dossiers financiers connexes, les budgets et les plans admissibles doivent utiliser la même devise. |
+| Devise | Le formulaire de création propose CAD par défaut. Choisissez une autre devise prise en charge avant d’enregistrer si nécessaire. La devise est obligatoire à la création, puis immuable. Les dossiers financiers connexes, les budgets et les plans admissibles doivent utiliser la même devise. |
 | Numéro du système financier | Facultatif par défaut. Saisissez un entier positif ou nul. Le champ conserve tous les chiffres des grands nombres sous forme de texte. Une extension de l’agence peut rendre le numéro obligatoire ou en lecture seule, ou fournir une valeur. |
 | Dates d'aide autorisée | Toutes deux obligatoires; la fin ne peut pas précéder le début. |
 | Redistribution | Valeur oui-non obligatoire. |
@@ -135,7 +135,7 @@ Vous ne pouvez pas réduire ou déplacer la période d'aide si un exercice budg�
 
 ## Champs personnalisés et cote de risque
 
-L'onglet Général ajoute les sections configurées par le volet. Remplissez les champs actifs obligatoires, conservez ou effacez explicitement les valeurs inactives et enregistrez avec le formulaire habituel. Consultez les [champs personnalisés des ententes](../programs/custom-fields.md) pour les types, un exemple de configuration, les mises à jour partielles et l'acheminement conditionnel.
+Dans **Général**, les champs personnalisés sans section apparaissent parmi les champs standards du **Profil**. Les sections personnalisées nommées suivent les sections intégrées. Remplissez les champs actifs obligatoires, conservez ou effacez explicitement les valeurs inactives et enregistrez avec le formulaire habituel. Consultez les [champs personnalisés des ententes](../programs/custom-fields.md) pour les types, un exemple de configuration, les mises à jour partielles et l'acheminement conditionnel.
 
 Quand le volet sélectionne un flux publié d'**Évaluation du risque**, la cote est gérée par flux. Utilisez les commandes correspondantes de l'entente pour lancer l'évaluation et suivre ses étapes d'examen et d'approbation.
 

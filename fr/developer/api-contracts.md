@@ -1,5 +1,11 @@
 # Contrats API
 
+## Réglages budgétaires du volet et préférences des tableaux
+
+Les écritures du volet acceptent `egcs_tp_budgetfundingmode` avec `manual`, `automatic` ou `program_only`, ainsi que les indicateurs de ventilation et d’affichage des coûts. Le mode programme seulement exige de désactiver les deux ventilations. Un changement bloqué par des dossiers en cours renvoie `STREAM_BUDGET_FUNDING_MODE_BLOCKED`. Les écritures de lignes de réclamation et de prévision refusent un coût total fourni hors du mode manuel.
+
+`GET /api/me/table-preferences` lit les préférences du compte actif. `PUT` remplace la carte et exige que `X-GCS-Table-Preferences-User` corresponde à l’utilisateur authentifié. Chaque entrée de tableau peut contenir `order`, `visibility` et `filters`. Les réponses utilisent une mise en cache privée sans stockage.
+
 ## Champs personnalisés des activités
 
 Les routes de volet sous `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` gèrent les affectations aux activités dans le programme propriétaire. GET renvoie `items` et un tableau `sections` vide. Les écritures exigent le droit de modifier le volet. Une affectation à une activité ne peut pas comporter de section. Obtenez les définitions de l’entente via `GET /api/agreements/[id]/activities/lookups/custom-fields` avec `permission_action` à `read`, `create` ou `update`. Fournissez `amendment_id` dans une modification.

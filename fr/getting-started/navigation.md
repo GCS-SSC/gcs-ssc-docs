@@ -117,3 +117,9 @@ Si le changement de langue ne conserve pas une section, ouvrez la destination da
 ![Navigation et sélecteur de langue](/screenshots/fr/navigation.png)
 
 _Exemple de l'environnement de développement initial; les dossiers illustrés sont fictifs._
+
+## Préférences de tableau et dossiers récents
+
+Dans les tableaux compatibles, utilisez le menu des colonnes pour afficher, masquer ou réordonner les colonnes. Les filtres compatibles et les préférences de colonnes sont synchronisés avec votre compte. Réinitialisez les préférences du tableau pour rétablir les réglages par défaut du tableau courant. Si la synchronisation échoue, gardez la page ouverte et utilisez l’action de nouvelle tentative lorsqu’elle est offerte.
+
+Les ententes et les promoteurs consultés récemment peuvent apparaître en premier dans leurs listes et dans le travail affecté à l’accueil. L’historique de consultation est conservé dans ce navigateur pour votre compte, indépendamment des préférences synchronisées. La recherche, les filtres et les droits d’accès s’appliquent toujours.

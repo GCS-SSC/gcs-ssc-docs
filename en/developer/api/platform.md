@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 `GET /api/health` checks whether the application is ready and can reach its database. A successful response is `{ "status": "ok" }`. This public check does not return funding-file data.
 
-## Handlers (109)
+## Handlers (111)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -125,6 +125,8 @@ A dash in the names columns means the generator found no matching name. It does 
 | POST | `/api/journal-vouchers` | — | JournalVoucherCreateSchema, readValidatedBodyI18n | `server/api/journal-vouchers/index.post.ts` |
 | GET | `/api/journal-vouchers/lookups/payments` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/journal-vouchers/lookups/payments.get.ts` |
 | GET | `/api/list-view-agencies` | — | PaginationSchema, QuerySchema, getValidatedQueryI18n | `server/api/list-view-agencies.get.ts` |
+| GET | `/api/me/table-preferences` | requireAuthContext, unauthorized | — | `server/api/me/table-preferences.get.ts` |
+| PUT | `/api/me/table-preferences` | requireAuthContext, unauthorized | TablePreferencesSchema, readValidatedBodyI18n | `server/api/me/table-preferences.put.ts` |
 | GET | `/api/metadata/enums` | — | QuerySchema, getValidatedQueryI18n | `server/api/metadata/enums.get.ts` |
 | GET | `/api/search` | requireAuthContext | SearchQuerySchema, getValidatedQueryI18n | `server/api/search.get.ts` |
 | GET | `/api/statuses` | — | — | `server/api/statuses/index.get.ts` |

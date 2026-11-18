@@ -27,7 +27,7 @@ Assigned Streams share the Agency's field and option identifiers. Each Stream ha
 | Active | Set on the Stream assignment. Active fields accept new values. A populated inactive field remains visible and can be retained or cleared, but cannot receive a replacement value. |
 | Display order | Integer from 0 through 2,147,483,647; defaults to 0. Equal orders are resolved by identifier. |
 
-Sections appear after the Agreement's built-in sections, numbered from 04. Their order changes only the configured sections, not the core profile layout. Section names and field names are bilingual, while a text answer is one shared string and a numeric answer is one finite number. Numeric fields are not exact-money fields: use the Agreement Budget for financial amounts.
+For an Agreement assignment, leave **Section** set to **No section** to place the field among the standard **Profile** fields. Fields assigned to a named section appear after the built-in sections, numbered from 04. This placement applies when creating, editing, and viewing an Agreement. Section names and field names are bilingual, while a text answer is one shared string and a numeric answer is one finite number. Numeric fields are not exact-money fields: use the Agreement Budget for financial amounts.
 
 ## Activity assignments
 

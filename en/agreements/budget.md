@@ -50,6 +50,12 @@ Every line assigns its full program funding to one linked proponent, including c
 
 Expand a saved cost line to see program funding and each other source separately. Use the line's add action to add a source, or a source row's edit or delete action to change it. These actions save immediately. Editing the main line preserves its saved other sources. Source removal requires the delete permission described above and must still satisfy the budget limits.
 
+## Funding mode and pending lines
+
+The Stream’s [Budget Management](../programs/streams.md) settings control which totals you can enter. The manual-total instructions above apply when manual Total Cost is enabled. In automatic mode the system calculates Total Cost. In Program Funding only mode the form hides Other Funding and manages the total. The Stream may also hide category or subsection controls in the workspace.
+
+Save a new line before using **Add source**. A line marked **Pending funding** stays out of totals and cannot be selected on a claim or forecast. For example, if a line cannot meet a funding limit using Program Funding alone, save it, then add an eligible Other Funding source. Once its funding meets the applicable limits, the line activates and counts toward totals. Resolve or remove pending lines before submitting for approval.
+
 ## Percentage-based lines
 
 Your agency sets up cost lines as manual or percentage-based, and your stream determines which ones you can choose. When you create a line, it keeps that definition's calculation mode, source category, default percentage, and permission to change the percentage. Later changes to agency defaults do not change saved lines. Copies made for an Amendment keep those saved settings.

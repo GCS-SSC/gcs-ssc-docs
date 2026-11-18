@@ -117,3 +117,9 @@ If language switching does not retain a section, open the destination in the cho
 ![Navigation and language switcher](/screenshots/en/navigation.png)
 
 _Seeded development-environment example; the records shown are illustrative._
+
+## Table preferences and recent records
+
+On supported tables, use the column menu to show, hide, or reorder columns. Supported filters and column preferences sync to your signed-in account. Use **Reset table preferences** to restore defaults for the current table. If syncing fails, keep the page open and use the offered retry when available.
+
+Recently accessed Agreements and Proponents can appear first in their lists and among assigned work on Home. Recency is stored in this browser for your account, separately from synced table preferences. Search, filters, and record access still apply.

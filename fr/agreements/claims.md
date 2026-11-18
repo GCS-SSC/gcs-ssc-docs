@@ -52,7 +52,7 @@ L’onglet **Soumission** regroupe les lignes budgétaires de l’exercice coura
 
 Après une modification budgétaire, une réclamation liée à un exercice retiré ne peut être modifiée. Les lignes absentes du budget courant restent visibles en lecture seule. Les montants soumis, les coûts totaux et les autres sources restent consultables et comptent dans les totaux. Pour saisir ou modifier des montants, utilisez une ligne du budget courant. Demandez au gestionnaire de l’entente de revoir une ligne budgétaire manquante.
 
-Modifier le montant soumis du programme conserve les allocations des autres sources et recalcule le coût total comme la somme du programme et de ces allocations.
+Modifier le financement du programme conserve les autres sources. En mode automatique, le total est recalculé à partir des deux. En mode manuel, vérifiez le coût total enregistré lorsque le financement change.
 
 Les lignes importées en double s’affichent séparément, même dans une réclamation modifiable. Confirmez la ligne précise avant de la modifier. Chaque doublon compte encore dans les totaux; modifier une ligne ne change pas les autres. Corrigez les doublons involontaires pendant que la réclamation est modifiable.
 
@@ -127,6 +127,8 @@ Si Achèvement est indisponible, vérifiez attribution, lignes, affectation ind�
 Pour les routes, les identifiants et les règles d’intégration, consultez la [Référence API des ententes](../developer/api/agreements.md).
 
 Consultez aussi [Budget](./budget.md), [Prévisions](./forecasts.md), [Paiements](./payments.md), [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).
+
+Les réglages de [gestion du budget](../programs/streams.md) du volet contrôlent la saisie. En mode manuel, saisissez le coût total. En mode automatique, l’enregistrement calcule le total à partir du financement du programme et des autres fonds. En mode de financement du programme seulement, le formulaire masque le coût total et les autres fonds. Les lignes budgétaires en attente sont indisponibles pour les nouvelles répartitions. Le financement historique reste visible dans les vues historiques du dossier.
 
 ## Ventilation du financement et contrôles budgétaires annuels
 

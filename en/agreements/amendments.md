@@ -38,6 +38,8 @@ Removing the final duration type clears its proposed dates, even when a budget t
 
 ## Budget snapshot
 
+When the Stream uses Program Funding only, a new budget snapshot or copied forecast draft includes Program Funding only. The approved budget or previous forecast retains its original funding.
+
 Creating either snapshot requires Contributor access, assignment to this amendment, an editable Agency Draft status, and no recorded completion or existing snapshot for that area. The application checks these conditions again when you choose to copy. If it reports a missing prerequisite, refresh the page and confirm your amendment assignment, status, and selected types before trying again.
 
 Select a budget or duration type, then copy the current budget into the draft once. This snapshot is a separate working copy of all active fiscal years and lines. You can prepare changes without altering the current budget, and existing claim links remain traceable.

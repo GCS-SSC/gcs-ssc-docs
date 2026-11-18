@@ -52,7 +52,7 @@ The **Submission** tab groups the current fiscal year's budget lines by bilingua
 
 After a budget amendment, a claim for a retired fiscal year cannot be edited. Lines absent from the current budget remain visible as read-only history. Their submitted amounts, total costs, and other funding remain available, and their amounts still count in totals. To enter or change amounts, use a line available in the current budget. Ask the agreement manager to review a missing budget line.
 
-Changing a submitted program amount preserves the other-source allocations and recalculates total cost as program funding plus those allocations.
+Changing Program Funding preserves other-source allocations. In automatic mode, the total is recalculated from both. In manual mode, review the saved Total Cost when funding changes.
 
 Imported duplicate lines appear separately, including on editable claims. Confirm the individual row before editing. Each duplicate still contributes to totals; changing one does not change the others. Resolve unintended duplicates while the claim remains editable.
 
@@ -127,6 +127,8 @@ When completion is unavailable, check allocation, saved lines, the independent a
 For routes, identifiers, and integration rules, see the [Agreement API reference](../developer/api/agreements.md).
 
 See also [Budget](./budget.md), [Forecasts](./forecasts.md), [Payments](./payments.md), [Approvals and completions](../concepts/approvals-completions.md), and [Workflows](../concepts/workflows.md).
+
+The Stream’s [Budget Management](../programs/streams.md) settings control line entry. In manual mode, enter the Total Cost. In automatic mode, saving calculates the total from Program Funding plus Other Funding. In Program Funding only mode, the form hides Total Cost and Other Funding. Pending budget lines are unavailable for new allocations. Saved historical funding remains visible where the record supports historical review.
 
 ## Funding breakdown and annual budget checks
 

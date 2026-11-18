@@ -647,6 +647,8 @@ The `createAgreementClaim` callback returns `{ status: 'initial_approval_require
 
 ### Imported forecast versions
 
+Forecast imports accept optional `totalAmount` on each line. A supplied total is rejected in Program Funding only mode as `total_cost_hidden`. A total that violates the mode’s funding rules returns `total_cost_mismatch`. Both results identify the one-based `lineNumber` to correct before retrying.
+
 SDK 0.3.18 changes `createAgreementForecast(trx, input)`: the host assigns the version to the Forecast record. Remove `version` from each monthly line. Supply `agreementId`, `streamId`, `fiscalYearId`, `applicantRecipientId` and `lineItems`. Each line contains `budgetLineItemId`, `month` (0–11), exact `amount` and `currency`. Use current budget line identities from the selected Agreement fiscal year and the Agreement currency. The host requires 1–2400 lines, nonnegative amounts and no repeated budget-line/month pair.
 
 The import creates an inactive Draft, assigns its primary user, and returns `{ status: 'created', forecastId, version, lineItemIds, draftStatusId }`. `version` is an exact integer string: numbering starts at `'0'` for each Agreement/fiscal year and includes deleted history, so old numbers are never reused. Preserve that returned value; do not calculate a monthly version or activate the imported record yourself. Completion and approval control activation.

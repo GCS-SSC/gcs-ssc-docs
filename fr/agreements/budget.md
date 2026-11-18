@@ -50,6 +50,12 @@ Chaque ligne attribue tout son financement du programme à un seul promoteur li�
 
 Développez une ligne enregistrée pour voir le programme et chaque autre source séparément. Utilisez l'action d'ajout de la ligne pour ajouter une source, ou les actions de la source pour la modifier ou la supprimer. Ces actions enregistrent immédiatement le changement. Modifier la ligne principale conserve ses autres sources. Retirer une source exige la permission de suppression décrite plus haut et doit encore respecter les limites budgétaires.
 
+## Mode de financement et lignes en attente
+
+Les réglages de [gestion du budget](../programs/streams.md) du volet déterminent les totaux que vous pouvez saisir. Les instructions de saisie du coût total ci-dessus s’appliquent au mode manuel. En mode automatique, le système calcule le coût total. En mode de financement du programme seulement, le formulaire masque les autres fonds et gère le total. Le volet peut aussi masquer les commandes de catégorie ou de sous-section dans l’espace de travail.
+
+Enregistrez une nouvelle ligne avant d’ajouter une source. Une ligne en attente de financement est exclue des totaux et ne peut pas être choisie dans une prévision ou une réclamation. Par exemple, si le financement du programme seul ne permet pas de satisfaire une limite, enregistrez la ligne, puis ajoutez une source admissible d’autres fonds. Une fois les limites applicables satisfaites, la ligne devient active et compte dans les totaux. Traitez ou retirez les lignes en attente avant de soumettre pour approbation.
+
 ## Lignes calculées en pourcentage
 
 Votre organisme configure les lignes de coûts comme manuelles ou calculées en pourcentage, et votre volet détermine celles que vous pouvez choisir. À sa création, une ligne conserve le mode de calcul, la catégorie source, le pourcentage initial et la permission de changer ce pourcentage. Les changements ultérieurs aux valeurs par défaut ne modifient pas les lignes enregistrées. Les copies faites pour une modification conservent ces paramètres.

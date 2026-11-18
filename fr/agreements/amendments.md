@@ -38,6 +38,8 @@ Retirer le dernier type durée efface ses dates proposées, même si un type bud
 
 ## Instantané du budget
 
+Lorsque le volet utilise seulement le financement du programme, un nouvel instantané du budget ou un brouillon de prévision copié reprend seulement ce financement. Le budget approuvé ou la prévision précédente conserve son financement d’origine.
+
 La création de chaque instantané exige l'accès Contributeur, une affectation à cette modification, un état Brouillon modifiable de l'organisme, aucun achèvement enregistré et aucun instantané existant pour ce domaine. L'application revérifie ces conditions lorsque vous demandez la copie. Si elle signale un prérequis manquant, actualisez la page et confirmez votre affectation à la modification, son état et les types sélectionnés avant de réessayer.
 
 Sélectionnez un type budget ou durée, puis copiez une fois le budget courant dans le brouillon. Cet instantané est une copie de travail distincte de tous les exercices et lignes actifs. Vous pouvez préparer les changements sans modifier le budget courant, tout en conservant la traçabilité des liens aux réclamations.

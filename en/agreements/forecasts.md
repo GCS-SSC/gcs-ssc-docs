@@ -25,6 +25,8 @@ For example, active version 0 has 2,000 in April and 3,000 in May. Add version 1
 
 ## Edit the monthly breakdown
 
+When the Stream uses Program Funding only, a new budget snapshot or copied forecast draft includes Program Funding only. The approved budget or previous forecast retains its original funding.
+
 Open the version you intend to change. Its fiscal year and version number cannot be edited. The grid groups current budget lines by cost category and subsection, with quarterly totals from April through March. Select a quarter heading to show its monthly amounts. Expand a cost line to see program funding and its other sources separately. Search matches the category, subsection, bilingual line name or description.
 
 1. Select the cost line's edit action to open its twelve monthly program amounts, grouped by quarter.
@@ -37,7 +39,7 @@ You can move an amount between months in one save. For example, with an annual b
 
 If another user changes a cell you are saving, the save is rejected to protect their work. The page reloads the saved amounts and keeps your unsaved differences. Compare those differences before saving again. After a lost response or failed refresh, reload and check what was saved before retrying.
 
-Each budget line can have only one saved amount per month in a forecast version. Changing a monthly program amount preserves its other-source allocations and recalculates total cost as program funding plus those allocations.
+Each budget line can have only one saved amount per month in a forecast version. Changing Program Funding preserves other-source allocations. In automatic mode, the total is recalculated from both. In manual mode, review the saved Total Cost when funding changes.
 
 Ordinary line changes preserve the Agency's business status. Deleting an editable forecast removes it and its active lines from normal lists while retaining history. There is no restore control.
 
@@ -48,6 +50,8 @@ Save the breakdown and any required funding details before selecting Complete. Y
 Completion records the user and optional comment. It starts the configured approval-submission workflow, or records completion without a workflow. Success makes this version active and replaces the active forecast for the same Agreement and year. Without an approval workflow this happens immediately; otherwise it waits for success. Failure or cancellation leaves the earlier active forecast in place. A draft with a higher version number does not replace it.
 
 You cannot repeat or undo completion here. Use a new version when a completed forecast needs replacement. Standard workflows are selected separately and do not replace Completion. See [Approvals and completions](../concepts/approvals-completions.md) and [Workflows](../concepts/workflows.md).
+
+The Stream’s [Budget Management](../programs/streams.md) settings control line entry. In manual mode, enter the Total Cost. In automatic mode, saving calculates the total from Program Funding plus Other Funding. In Program Funding only mode, the form hides Total Cost and Other Funding. Pending budget lines are unavailable for new allocations. Saved historical funding remains visible where the record supports historical review.
 
 ## Funding breakdown and annual budget checks
 

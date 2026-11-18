@@ -3852,7 +3852,7 @@
       "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at d9bc9540dcc31c699aa3e2913529cdc174b8b817. Read-only Agreement view shows unsectioned custom fields within Profile. See documentation-audit/sync-nov18-profile-placement.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementMonitorsTab.vue",
@@ -4224,7 +4224,7 @@
       "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md. Incremental review at d9bc9540dcc31c699aa3e2913529cdc174b8b817. Agreement create and edit forms place unsectioned custom fields within Profile. See documentation-audit/sync-nov18-profile-placement.md."
   },
   {
     "id": "component:app/components/Agreement/Fields/CustomFields.vue",
@@ -4242,7 +4242,7 @@
       "shared/types/schemas/agreement-custom-fields.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: typed fields/options, sparse value updates, exact IDs, AND/OR routing capture and historical reference protection. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: typed fields/options, sparse value updates, exact IDs, AND/OR routing capture and historical reference protection. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Incremental review at d9bc9540dcc31c699aa3e2913529cdc174b8b817. Profile and named sections use separate placements with the same answers. See documentation-audit/sync-nov18-profile-placement.md."
   },
   {
     "id": "component:app/components/Agreement/PaymentCommitmentBalances.vue",
@@ -8498,7 +8498,7 @@
       "app/components/FieldHelp/Tooltip.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Question-mark button reads localized help and remains inside the active dialog when used in one. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
+    "notes": "Question-mark button reads localized help and remains inside the active dialog when used in one. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed. Incremental review at d9bc9540dcc31c699aa3e2913529cdc174b8b817. Readability improvements preserve the existing localized help interaction. See documentation-audit/sync-nov18-profile-placement.md."
   },
   {
     "id": "component:app/components/FundingCaseIntake/ApplicationsTable.vue",
@@ -10158,6 +10158,22 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Documented required bilingual text, trimmed text and invalid hidden-character recovery, 255-character names/abbreviations and 2000-character terms links. Calendar-date behavior described without storage implementation detail. Program edit form locks Agency, while server transfer support is not denied globally. Scoped evidence: documentation-audit/sync-program.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "component:app/components/TransferPayment/TransferPaymentStreamBudgetManagementTab.vue",
+    "source": "app/components/TransferPayment/TransferPaymentStreamBudgetManagementTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "app/components/TransferPayment/TransferPaymentStreamBudgetManagementTab.vue",
+      "server/utils/transfer-payment-stream-budget-management.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Stream form saves modes, breakdown requirements and display settings. See documentation-audit/sync-nov18-budget-management.md."
   },
   {
     "id": "component:app/components/TransferPayment/TransferPaymentStreamBudgetsTab.vue",

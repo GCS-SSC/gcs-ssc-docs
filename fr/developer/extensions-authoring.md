@@ -649,6 +649,8 @@ Le rappel `createAgreementClaim` renvoie `{ status: 'initial_approval_required' 
 
 ### Versions des prévisions importées
 
+Les importations de prévisions acceptent le champ facultatif `totalAmount` par ligne. Un total fourni en mode de financement du programme seulement entraîne `total_cost_hidden`. Un total contraire aux règles du mode entraîne `total_cost_mismatch`. Les deux résultats indiquent le numéro `lineNumber`, à partir de 1, à corriger avant de réessayer.
+
 Le SDK 0.3.18 change `createAgreementForecast(trx, input)` : l’hôte attribue la version au dossier de prévision. Retirez `version` de chaque ligne mensuelle. Fournissez `agreementId`, `streamId`, `fiscalYearId`, `applicantRecipientId` et `lineItems`. Chaque ligne contient `budgetLineItemId`, `month` (0–11), le montant exact `amount` et `currency`. Utilisez les identités des lignes du budget actuel pour l’exercice de l’entente sélectionné et la devise de l’entente. L’hôte exige de 1 à 2400 lignes, des montants non négatifs et aucune répétition de paire ligne budgétaire/mois.
 
 L’importation crée un brouillon inactif, affecte son utilisateur principal et retourne `{ status: 'created', forecastId, version, lineItemIds, draftStatusId }`. `version` est un entier exact sous forme de chaîne : la numérotation commence à `'0'` pour chaque entente/exercice et inclut les dossiers supprimés, donc les anciens numéros ne sont jamais réutilisés. Conservez la valeur retournée; ne calculez pas de version mensuelle et n’activez pas vous-même le dossier importé. L’achèvement et l’approbation déterminent l’activation.

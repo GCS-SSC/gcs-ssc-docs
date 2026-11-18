@@ -1,5 +1,11 @@
 # API contracts
 
+## Stream budget settings and table preferences
+
+Stream writes accept `egcs_tp_budgetfundingmode` as `manual`, `automatic`, or `program_only`, plus breakdown requirement and cost display flags. Program-only writes must clear both breakdown requirements. A mode change blocked by working records returns `STREAM_BUDGET_FUNDING_MODE_BLOCKED`. Claim and forecast line writes reject a supplied Total Cost outside manual mode.
+
+`GET /api/me/table-preferences` reads the active account’s preferences. `PUT` replaces the map and requires `X-GCS-Table-Preferences-User` to match the authenticated user. Each table entry can contain `order`, `visibility`, and `filters`. Responses use private, no-store caching.
+
 ## Activity custom fields
 
 The Stream routes under `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` manage Activity assignments under the owning Program. GET returns `items` and an empty `sections` array. Writes require Stream update authority. An Activity assignment cannot have a section. Resolve definitions for an Agreement through `GET /api/agreements/[id]/activities/lookups/custom-fields` with `permission_action` set to `read`, `create`, or `update`. Supply `amendment_id` when working in an Amendment.

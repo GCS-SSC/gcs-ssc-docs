@@ -27,7 +27,7 @@ Les volets partagent les identifiants des champs et des options de l’agence. C
 | Actif | Un champ actif accepte de nouvelles valeurs. Un champ inactif renseigné reste visible; sa valeur peut être conservée ou effacée, mais pas remplacée. |
 | Ordre d’affichage | Entier de 0 à 2 147 483 647; valeur initiale 0. Les identifiants départagent les ordres égaux. |
 
-Les sections apparaissent après les sections intégrées de l’entente, à partir du numéro 04. Leur ordre ne modifie pas la disposition du profil principal. Les noms de section et de champ sont bilingues; une réponse textuelle est un texte commun aux deux langues et une réponse numérique est un nombre fini. Les champs numériques ne sont pas des champs monétaires exacts : utilisez le Budget pour les montants financiers.
+Pour une affectation à l’entente, laissez **Section** à **Sans section** pour afficher le champ parmi les champs standards du **Profil**. Les champs affectés à une section nommée apparaissent après les sections intégrées, à partir du numéro 04. Cet emplacement s’applique à la création, à la modification et à la consultation de l’entente. Les noms de section et de champ sont bilingues; une réponse textuelle est un texte commun aux deux langues et une réponse numérique est un nombre fini. Les champs numériques ne sont pas des champs monétaires exacts : utilisez le Budget pour les montants financiers.
 
 ## Affectations aux activités
 

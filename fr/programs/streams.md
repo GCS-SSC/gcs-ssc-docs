@@ -146,7 +146,15 @@ Par exemple, créez « Autre financement public », inclus dans le cumul, et le 
 
 Un Contributeur `transfer_payment` à la portée du programme peut ajouter un lien; son retrait exige Gestionnaire. Les doublons actifs sont refusés. Ajouter un sous-type déjà retiré rétablit son association. Retirer un lien empêche les nouveaux choix et conserve les preuves de financement enregistrées. Vous ne pouvez pas supprimer le type ou sous-type d'agence tant qu'un lien actif de volet reste.
 
-Le volet possède aussi **Exiger une ventilation du financement des prévisions** et **Exiger une ventilation du financement des réclamations**, désactivés par défaut. Général affiche les réglages enregistrés; les utilisateurs autorisés à modifier le volet peuvent les changer. Ils exigent une ventilation à la soumission finale, mais les agents peuvent encore enregistrer un travail inachevé. Rendez les sous-types admissibles disponibles avant d'activer ces réglages et vérifiez la validation des prévisions et réclamations avant la production.
+## Gestion du budget
+
+Dans le volet, ouvrez **Gestion du budget**. Les utilisateurs autorisés à modifier le volet peuvent choisir un mode de financement et l’enregistrer. Le mode par défaut permet les autres fonds avec un coût total manuel. Les agents saisissent le coût total et peuvent répartir les autres fonds. En mode automatique, le coût total correspond au financement du programme plus les autres fonds. Le mode de financement du programme seulement désactive la saisie des autres fonds et retire les deux exigences de ventilation à l’enregistrement. Les dossiers approuvés et historiques conservent le financement enregistré.
+
+Dans les deux modes qui permettent les autres fonds, vous pouvez exiger une ventilation des prévisions, des réclamations ou des deux à la soumission finale. Le travail inachevé peut encore être enregistré. Rendez les sous-types admissibles disponibles avant d’activer les exigences.
+
+Utilisez les options de masquage de la catégorie et de la sous-section de coûts pour simplifier l’affichage financier. Elles sont désactivées par défaut et ne retirent pas les classements enregistrés.
+
+Si le changement de mode échoue, utilisez les références du message pour retrouver les budgets, modifications, prévisions ou réclamations en cours. Avant de passer au financement du programme seulement, retirez les sources d’autres fonds, même celles de valeur nulle, et traitez les lignes budgétaires en attente. Avant de passer au calcul automatique, ajustez les coûts totaux en cours pour qu’ils correspondent au financement du programme plus les autres fonds. Enregistrez les corrections, puis réessayez. Demandez à un agent autorisé d’examiner les dossiers auxquels vous n’avez pas accès.
 
 Si un sous-type manque, rechargez les catalogues d'agence et de volet. Vérifiez son agence, sa disponibilité et celle de son parent, puis s'il est déjà lié avant de tenter un nouvel ajout.
 

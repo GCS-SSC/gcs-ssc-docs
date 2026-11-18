@@ -31311,6 +31311,22 @@
     "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
   },
   {
+    "id": "data:0090_funding_case_agreement:guard_saved_budget_line_reference",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#guard_saved_budget_line_reference",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/budget.md",
+    "fr": "fr/agreements/budget.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#guard_saved_budget_line_reference",
+      "server/database/migrations/0090_funding_case_agreement.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Database guards prevent new active Claim and Forecast links to pending budget lines. See documentation-audit/sync-nov18-budget-management.md."
+  },
+  {
     "id": "data:0090_funding_case_agreement:protect_agreement_relationship_owner",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#protect_agreement_relationship_owner",
     "audience": [

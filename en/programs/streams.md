@@ -146,7 +146,15 @@ For example, create "Other public funding" with stacking enabled and the subtype
 
 A Program-scoped `transfer_payment` Contributor can add a link; removal requires Manager. Duplicate active links are refused. Adding a previously removed subtype restores its association. Removing a link stops new selection and preserves saved funding evidence. You cannot delete the agency type or subtype while an active stream link remains.
 
-The stream also has **Require forecast funding breakdown** and **Require claim funding breakdown**, both off by default. General displays the saved settings; users with permission to edit the stream can change them. They require a breakdown at final submission, while officers can still save unfinished work. Make the eligible subtypes available before enabling these settings, and check forecast and claim validation before production use.
+## Budget Management
+
+On the Stream, open **Budget Management**. Users with permission to update the Stream can select a funding mode and save. The default is **Other Funding with manual Total Cost**. In that mode, officers enter Total Cost and can allocate Other Funding. **Other Funding with automatic Total Cost** calculates Total Cost as Program Funding plus Other Funding. **Program Funding only** disables Other Funding entry and clears both breakdown requirements when saved. Approved and historical records retain their saved funding.
+
+In either Other Funding mode, you can require a breakdown for forecasts, claims, or both at final submission. Unfinished entries can still be saved. Make eligible funding subtypes available before enabling the requirements.
+
+Use **Hide Cost Category** and **Hide Cost Subsection** to simplify the financial workspace display. The settings are off by default and do not remove saved classifications.
+
+If changing the mode fails, use the references in the error to find the affected working budgets, amendments, forecasts, or claims. Before switching to Program Funding only, remove Other Funding sources, including zero-valued sources, and resolve pending budget lines. Before switching to automatic Total Cost, reconcile existing working totals to Program Funding plus Other Funding. Save the corrected records and retry. Ask an authorized officer to review any affected records you cannot open.
 
 If a subtype is missing, reload the agency and stream catalogs. Check its agency, its own and its parent's availability, and whether it is already linked before trying to add it again.
 

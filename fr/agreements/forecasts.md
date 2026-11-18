@@ -25,6 +25,8 @@ Par exemple, la version active 0 prévoit 2 000 en avril et 3 000 en mai. Ajoute
 
 ## Modifier la ventilation mensuelle
 
+Lorsque le volet utilise seulement le financement du programme, un nouvel instantané du budget ou un brouillon de prévision copié reprend seulement ce financement. Le budget approuvé ou la prévision précédente conserve son financement d’origine.
+
 Ouvrez la version à modifier. Son exercice et son numéro de version ne sont pas modifiables. La grille regroupe les lignes du budget courant par catégorie et sous-section de coûts, avec des totaux trimestriels d'avril à mars. Sélectionnez l'en-tête d'un trimestre pour afficher ses montants mensuels. Développez une ligne pour voir le programme et ses autres sources séparément. La recherche porte sur la catégorie, la sous-section, le nom bilingue ou la description.
 
 1. Sélectionnez l'action de modification de la ligne pour ouvrir ses douze montants mensuels du programme, regroupés par trimestre.
@@ -37,7 +39,7 @@ Vous pouvez déplacer un montant entre deux mois en un seul enregistrement. Par 
 
 Si un autre utilisateur modifie une cellule que vous enregistrez, l'enregistrement est refusé pour protéger son travail. La page recharge les montants enregistrés et conserve vos différences non enregistrées. Comparez ces différences avant d'enregistrer à nouveau. Après une réponse perdue ou une actualisation échouée, rechargez et vérifiez ce qui a été enregistré avant de réessayer.
 
-Chaque ligne budgétaire ne peut avoir qu'un montant enregistré par mois dans une version de prévision. Modifier le montant mensuel du programme conserve les allocations des autres sources et recalcule le coût total comme la somme du programme et de ces allocations.
+Chaque ligne budgétaire ne peut avoir qu'un montant enregistré par mois dans une version de prévision. Modifier le financement du programme conserve les autres sources. En mode automatique, le total est recalculé à partir des deux. En mode manuel, vérifiez le coût total enregistré lorsque le financement change.
 
 Les changements ordinaires conservent le statut métier de l'organisme. Supprimer une prévision modifiable la retire des listes normales avec ses lignes actives, tout en conservant l'historique. Aucune commande de rétablissement n'est offerte.
 
@@ -49,9 +51,11 @@ L'achèvement consigne l'utilisateur et le commentaire facultatif. Il démarre l
 
 L'achèvement ne peut être répété ni annulé ici. Utilisez une nouvelle version pour remplacer une prévision achevée. Les flux standard se choisissent séparément et ne remplacent pas l'achèvement. Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).
 
+Les réglages de [gestion du budget](../programs/streams.md) du volet contrôlent la saisie. En mode manuel, saisissez le coût total. En mode automatique, l’enregistrement calcule le total à partir du financement du programme et des autres fonds. En mode de financement du programme seulement, le formulaire masque le coût total et les autres fonds. Les lignes budgétaires en attente sont indisponibles pour les nouvelles répartitions. Le financement historique reste visible dans les vues historiques du dossier.
+
 ## Ventilation du financement et contrôles budgétaires annuels
 
-Développez la ligne de coûts et sélectionnez l'action de modification d'une autre source pour saisir ses douze montants mensuels. Les sources proviennent de la ligne budgétaire courante et des allocations enregistrées de la prévision. Pour offrir une nouvelle source ici, ajoutez-la d'abord au budget de l'entente. Une allocation enregistrée peut conserver son sous-type retiré. Sélectionnez **Mettre à jour**, puis **Enregistrer la ventilation**, pour enregistrer ensemble le programme et les autres sources. La page calcule le coût total mensuel comme leur somme. La sous-ligne du programme affiche le même montant que la ligne principale; utilisez l'action de modification de la ligne principale pour le changer.
+Développez la ligne de coûts et sélectionnez l'action de modification d'une autre source pour saisir ses douze montants mensuels. Les sources proviennent de la ligne budgétaire courante et des allocations enregistrées de la prévision. Pour offrir une nouvelle source ici, ajoutez-la d'abord au budget de l'entente. Une allocation enregistrée peut conserver son sous-type retiré. Sélectionnez **Mettre à jour**, puis **Enregistrer la ventilation**, pour enregistrer ensemble le programme et les autres sources. En mode automatique, la page calcule le coût total mensuel comme leur somme. La sous-ligne du programme affiche le même montant que la ligne principale; utilisez l'action de modification de la ligne principale pour le changer.
 
 Si le volet exige des détails de financement pour les prévisions, chaque ligne active de cette version doit avoir au moins une allocation d'autres fonds enregistrée et une ventilation équilibrée avant l'achèvement. Pour un équipement de 1 000, saisissez 700 du programme et 300 d'une autre source. Avec seulement 250 de cette source, la page calcule un coût total de 950. Saisissez les 300 prévus avant d'enregistrer si le coût prévu est de 1 000.
 

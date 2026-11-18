@@ -45,7 +45,7 @@ The form starts **Further distribution** as false and **Holdback** at 10%; check
 | Program and stream | Choose the program first, then an available stream within create scope. The stream is immutable after creation. |
 | Agreement subtype | Required active subtype belonging to that exact stream. Agreement type is derived from the subtype and is not independently editable. |
 | Agreement number | Manual mode requires a trimmed number of at most 15 characters. When a numbering provider is enabled, creation generates the number and rejects a manually supplied one. |
-| Currency | Required denomination selected at creation; immutable thereafter. Related financial records and eligible budget and chart references must use the same currency. |
+| Currency | Defaults to CAD in the new Agreement form. Select another supported currency before saving if needed. Currency is required at creation; immutable thereafter. Related financial records and eligible budget and chart references must use the same currency. |
 | Financial System Number | Optional by default. Enter a whole number of zero or more. The field preserves all digits of large numbers as text. An Agency extension can require the number, make it read-only, or supply a value. |
 | Assistance dates | Both required; end cannot precede start. |
 | Further distribution | Required yes/no value. |
@@ -135,7 +135,7 @@ You cannot shorten or move the assistance period if an active budget fiscal year
 
 ## Custom fields and risk rating
 
-The General tab appends the sections configured by the stream. Complete active required fields, preserve or explicitly clear retained inactive values, and save through the ordinary Agreement form. See [Agreement custom fields](../programs/custom-fields.md) for field types, a worked configuration, partial-update examples, and conditional routing.
+On **General**, custom fields without a section appear among the standard **Profile** fields. Named custom sections appear after the built-in sections. Complete active required fields, preserve or explicitly clear retained inactive values, and save through the ordinary Agreement form. See [Agreement custom fields](../programs/custom-fields.md) for field types, a worked configuration, partial-update examples, and conditional routing.
 
 When the stream selects a published **Risk Rating** workflow, the risk selector becomes workflow-managed. Use the Agreement's Risk Rating workflow controls to start the assessment and follow its review/approval steps.
 
