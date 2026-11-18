@@ -8,6 +8,7 @@ Open an Agreement and select **Payments**. The following setup must already exis
 
 | Dependency | Requirement |
 | --- | --- |
+| Initial Agreement approval | The agreement’s [initial approval workflow](../concepts/approvals-completions.md) must have succeeded. |
 | Agreement budget | The fiscal year must exist in the current agreement budget. |
 | Commitment | An active commitment of the selected type must exist and not be deleted. It must have a recorded Completion or a successful approval decision. |
 | Commitment lines | Coding lines must belong to that exact commitment and map to the payment's current Agreement fiscal year. |
@@ -45,6 +46,8 @@ Prepare the request in this order:
 | Comment | Optional. |
 
 A new payment receives the Agency Draft business status. Header and line edits preserve that status; its status changes through the configured workflow.
+
+If saving reports that initial approval is required, check the agreement’s approval history and ask the assigned approver to finish the workflow. Once approval is recorded, retry creating the payment.
 
 Before creating a payment, check the active commitment on the **Commitments** tab. The picker can also show inactive commitments that were completed. When you save, the system uses an eligible active commitment of the selected type. Choosing an old option may therefore select the current active commitment of that type or fail to save.
 

@@ -2,8 +2,6 @@
 
 ## Current phase
 
-Coverage reconciliation for application `af5d8a67df7c6266e1d34641a44b8a4935ac4f09` is complete, with zero remaining items. The final `bun run docs:check`, deployment-base build, and whitespace check passed. Repeated generators were stable. Application `main` still matched the pinned target after the final fetch, and the skill marker and source receipt now record it.
+Coverage reconciliation for application `9252d8fbe5b947161b7ecd3345c08a67d391151e` is complete, with zero remaining items. The paired guides cover initial Agreement approval for Claim and Payment creation, the extension import result, and the shared demo image and refresh changes. The generators, `bun run docs:check`, whitespace check, and deployment-base build passed. The final fetch confirmed the reviewed target, and the skill marker and [verification receipt](./source-baseline.md) record that revision.
 
-The source review covers 44 commits and 1,504 net changed paths. It includes the earlier November 1 draft. The English and French guides describe final application behavior across agreement relationships, Field and Guided Help, approval notifications, Audit and Access, catalog refresh, financial records, assessments, document generation, and operations. The source worklist records dispositions, including test and concrete extension changes that do not introduce host behavior.
-
-See [source review](./sync-nov18-progress.json) and the [verification receipt](./source-baseline.md).
+See the [source review](./sync-nov18-financial-creation.md) for dispositions across all six commits and 13 net changed paths.

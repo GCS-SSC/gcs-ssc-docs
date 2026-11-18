@@ -75,6 +75,8 @@ If the identity check finds expired SSO credentials, the helper starts `aws sso 
 
 If refresh fails, inspect the printed task ARN and GCS CloudWatch logs. After a reset, the helper does not automatically restart the old revision, and deployment rollback is disabled to keep an incompatible baseline from starting. Resolve the failure, deploy the printed new task definition with desired count 1, verify readiness, then restore the usual circuit breaker (`enable: true`, `rollback: true`). A second refresh requires a stable service with desired count 1.
 
+The database task loads the PostgreSQL driver from the built server at `/app/.output/server/index.mjs`. If the preflight task reports that it cannot load `pg`, check the candidate image’s built server and bundled dependencies before retrying the refresh.
+
 ## Companion services and clean cutovers
 
 The AWS demo stack provisions a persistent Portal service with its own RDS database and private S3 attachment bucket, plus Metabase with a separate application database. CloudFront fronts private load balancers. Metabase uses certificate-verified RDS TLS, secret-backed session/encryption keys and a private initialization sidecar; its administrator credentials remain in Secrets Manager. Reporting access to GCS does not grant GCS user permissions. Back up and monitor each service independently.
@@ -99,7 +101,7 @@ The Railway source runbook records the 2026-10-23 queue release from runtime sou
 
 Current persisted-data validation also rejects malformed pinned Assessment definitions with `ASSESSMENT_DEFINITION_INVALID` and malformed relational Agreement custom-field selections with `AGREEMENT_CUSTOM_FIELDS_INVALID`. Relational selections must be arrays of option IDs. If these errors appear after an upgrade or restore, preserve the failing record and logs, compare the saved data with the deployed contract, and prepare a reviewed repair or restore a compatible recovery set. Repeated submissions and document generation do not repair stored data.
 
-The current source manifest pins the shared image digest `sha256:adce30498d9e25904282508bd33f49380044c736e27ade1fec54e5d9e528d286`. Check the deployed digest separately. The current source seed includes NCIA, Maple, and Health Canada in one snapshot. The source runbook for a business-only demo cutover requires stopping GCS and checking the target business database and its seed journal before resetting its schemas. The replacement deployment reapplies the baseline and demo seed. Preserve the separate access database, attachment files, and all volumes. If the reset result is ambiguous, inspect the business database before retrying.
+The current source manifest pins the shared image digest `sha256:ce4316c67e686e1e4e70be918a66e309bd5c2db73beb330ce82808bc6a8d3c78`. Check the deployed digest separately. The current source seed includes NCIA, Maple, and Health Canada in one snapshot. The source runbook for a business-only demo cutover requires stopping GCS and checking the target business database and its seed journal before resetting its schemas. The replacement deployment reapplies the baseline and demo seed. Preserve the separate access database, attachment files, and all volumes. If the reset result is ambiguous, inspect the business database before retrying.
 
 ## Dedicated Railway demo reset
 

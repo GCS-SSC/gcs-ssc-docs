@@ -1,5 +1,9 @@
 # Contrats API
 
+## Création de réclamations et de paiements
+
+`POST /api/agreements/[id]/claims` et `POST /api/agreements/[id]/payments` vérifient l’approbation initiale de l’entente dans la transaction d’écriture autorisée. L’entente doit avoir une révision `0` conservée liée à sa soumission d’approbation initiale et à une exécution de flux pour cette entente dans l’état `succeeded` ou `approved`. En l’absence de cette preuve, le serveur renvoie HTTP 409 avec le code `AGREEMENT_INITIAL_APPROVAL_REQUIRED` avant de créer le dossier. Réessayez après la réussite du flux d’approbation initiale.
+
 ## Aide aux champs de l'agence
 
 La liste des aides exige `help:read` pour l'agence demandée et renvoie `items`, les cibles disponibles dans `targets` et les capacités dans `capabilities`. POST, PATCH et DELETE exigent respectivement `help:create`, `help:update` et `help:delete`. POST et PATCH acceptent l'objet complet. Fournissez `egcs_ay_targetkey` (500 caractères maximum), les deux champs de texte (4 000 caractères maximum chacun) et le booléen `egcs_ay_enabled`. Une entrée activée exige un texte non vide dans les deux langues. Une nouvelle cible doit être enregistrée. Si elle appartient à une extension, celle-ci doit être activée pour l'agence. La liste indique les cibles indisponibles et les extensions désactivées. Une cible active en double dans l'agence entraîne une réponse 409. DELETE retire l'entrée et renvoie `{ success: true }`.

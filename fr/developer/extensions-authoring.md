@@ -636,6 +636,10 @@ L’inscription refuse les identifiants en double, les niveaux invalides, les pr
 
 Le contexte `GcsQueueContext` fournit la base de données de l’hôte, `createWriteAuthorization(extensionKey, agencyId)` et l’exécution Audit pour un organisme avec `runForAgency`. Utilisez les rappels d’autorisation liés à la transaction avant de créer une réception, une réclamation ou une prévision importée. Les importations d’entente revérifient l’organisme, le volet, le bénéficiaire lié si nécessaire, l’utilisateur principal actif, le statut et les restrictions liées à la clôture. Elles créent des brouillons, pas des approbations. Un gestionnaire peut s’exécuter plusieurs fois pour le même travail. Les files métier persistantes doivent conserver la requête exacte à reprendre et sa clé d’idempotence, qui identifie les requêtes répétées pour la même opération. Voir [Travail en arrière-plan](../operator/background-work.md) pour baux, délais et surveillance.
 
+### Réclamations importées
+
+Le rappel `createAgreementClaim` renvoie `{ status: 'initial_approval_required' }` lorsque l’approbation initiale de l’entente n’a pas abouti. Traitez ce résultat dans les importations interactives et planifiées. Conservez la soumission pour pouvoir réessayer après l’approbation et signalez le blocage à la personne responsable de l’exploitation. Par exemple, l’intégration à Formulaires GC signale `claim_agreement_initial_approval_required` dans la correspondance du numéro d’entente, sans créer de réclamation ni de lignes.
+
 ### Versions des prévisions importées
 
 Le SDK 0.3.18 change `createAgreementForecast(trx, input)` : l’hôte attribue la version au dossier de prévision. Retirez `version` de chaque ligne mensuelle. Fournissez `agreementId`, `streamId`, `fiscalYearId`, `applicantRecipientId` et `lineItems`. Chaque ligne contient `budgetLineItemId`, `month` (0–11), le montant exact `amount` et `currency`. Utilisez les identités des lignes du budget actuel pour l’exercice de l’entente sélectionné et la devise de l’entente. L’hôte exige de 1 à 2400 lignes, des montants non négatifs et aucune répétition de paire ligne budgétaire/mois.

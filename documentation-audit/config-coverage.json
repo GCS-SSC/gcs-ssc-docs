@@ -184,10 +184,11 @@
       "packages/gcs-ssc-guided-help",
       ".railway/README.md",
       "deployment/demo-image.json",
-      "server/database/migrations/9999_seed.ts"
+      "server/database/migrations/9999_seed.ts",
+      "infra/aws/src/demo-refresh.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired deployment guides distinguish pinned image, source seed snapshot and deployed state, and describe the business-only demo cutover and recovery. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. Paired deployment guides distinguish pinned image, source seed snapshot and deployed state, and describe the business-only demo cutover and recovery. Source inspected. Application tests were not run for this update. Unchanged contracts retain their prior review. Incremental source review at 9252d8fbe5b947161b7ecd3345c08a67d391151e. The deployment guides record the current shared demo image pin and the AWS refresh driver lookup. See documentation-audit/sync-nov18-financial-creation.md."
   },
   {
     "id": "config:ci-demo-webcontainer",

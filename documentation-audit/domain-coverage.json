@@ -186,10 +186,14 @@
       "app/composables/useAgreementChildActionPrerequisites.ts",
       "server/utils/agreement-forecast-breakdown.ts",
       "server/utils/agreement-monitor-validation.ts",
-      "server/utils/agreement-budget-lineage.ts"
+      "server/utils/agreement-budget-lineage.ts",
+      "server/utils/agreement-approval-submission.ts",
+      "server/utils/agreement-claim.ts",
+      "tooling/gcs-ssc/tests/e2e/agreement-payments.spec.ts",
+      "tooling/gcs-ssc/tests/integration/financial-create-boundaries-postgres.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:agreements-financial-lifecycle: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. domain:agreements-financial-lifecycle: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental source review at 9252d8fbe5b947161b7ecd3345c08a67d391151e. The Claims and Payments guides cover successful initial Agreement approval as a creation prerequisite and explain how to retry. See documentation-audit/sync-nov18-financial-creation.md."
   },
   {
     "id": "domain:reviews-assessments-checklists",

@@ -6,6 +6,8 @@ Utilisez une réclamation pour consigner les coûts soumis par un promoteur pour
 
 Ouvrez une entente, puis sélectionnez **Réclamations**. L’entente doit avoir un budget courant avec au moins un exercice et une ligne budgétaire. Les réclamations existantes gardent leurs liens avec les lignes budgétaires correspondantes après une modification.
 
+Avant de créer une réclamation, attendez que le [flux d’approbation initiale](../concepts/approvals-completions.md) de l’entente aboutisse. Si l’enregistrement indique que l’approbation initiale est requise, consultez l’historique des approbations de l’entente et demandez à l’approbateur affecté de terminer le flux. Une fois l’approbation consignée, réessayez avec **Ajouter une réclamation**.
+
 | Action | Accès requis |
 | --- | --- |
 | Parcourir les réclamations, ouvrir les détails et consulter les soumissions ou les rapprochements | Accès Lecteur Entente. Aucune affectation à la réclamation n’est requise. |

@@ -6726,10 +6726,13 @@
       "server/utils/agreement-budget-funding.ts",
       "server/utils/agreement-financial-budget-controls.ts",
       "server/utils/agreement-forecast-completion.ts",
-      "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
+      "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts",
+      "server/utils/agreement-approval-submission.ts",
+      "tooling/gcs-ssc/tests/e2e/agreement-payments.spec.ts",
+      "tooling/gcs-ssc/tests/integration/financial-create-boundaries-postgres.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental source review at 9252d8fbe5b947161b7ecd3345c08a67d391151e. Creation checks revision zero and its successful approval workflow. Missing evidence returns HTTP 409 before creation. See documentation-audit/sync-nov18-financial-creation.md."
   },
   {
     "id": "api:server/api/agreements/[id]/claims/lookups/proponents.get.ts",
@@ -8995,10 +8998,13 @@
       "server/utils/agreement-commitment-line-balance.ts",
       "server/utils/agreement-closeout.ts",
       "tooling/gcs-ssc/tests/unit/agreement-payment-evidence.test.ts",
-      "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
+      "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts",
+      "server/utils/agreement-approval-submission.ts",
+      "tooling/gcs-ssc/tests/e2e/agreement-payments.spec.ts",
+      "tooling/gcs-ssc/tests/integration/financial-create-boundaries-postgres.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental source review at 9252d8fbe5b947161b7ecd3345c08a67d391151e. Creation checks revision zero and its successful approval workflow. Missing evidence returns HTTP 409 before creation. See documentation-audit/sync-nov18-financial-creation.md."
   },
   {
     "id": "api:server/api/agreements/[id]/payments/lookups/commitments.get.ts",

@@ -1,5 +1,9 @@
 # API contracts
 
+## Claim and Payment creation
+
+`POST /api/agreements/[id]/claims` and `POST /api/agreements/[id]/payments` check initial Agreement approval within the authorized write transaction. The Agreement must have a retained revision `0` linked to its initial approval submission and a workflow run for that Agreement in state `succeeded` or `approved`. If that evidence is missing, the server returns HTTP 409 with code `AGREEMENT_INITIAL_APPROVAL_REQUIRED` before creating the record. Retry after the initial approval workflow succeeds.
+
 ## Agency field help
 
 The Agency tooltip list requires `help:read` in the requested Agency and returns `items`, available `targets`, and action `capabilities`. POST, PATCH, and DELETE require `help:create`, `help:update`, and `help:delete`, respectively. POST and PATCH accept the full save object. Supply `egcs_ay_targetkey` (at most 500 characters), both text fields (each at most 4,000 characters), and the Boolean `egcs_ay_enabled`. Enabled entries require nonblank text in both languages. A new target must be registered and, for an extension target, enabled for the Agency. The list identifies unavailable targets and disabled extensions. A duplicate active target in the Agency returns 409. DELETE retires the entry and returns `{ success: true }`.

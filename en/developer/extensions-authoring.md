@@ -634,6 +634,10 @@ Registration rejects duplicate IDs, invalid levels, undeclared owners, and misma
 
 The `GcsQueueContext` supplies the host database, `createWriteAuthorization(extensionKey, agencyId)` and Agency Audit execution through `runForAgency`. Use the transaction-bound authorization callbacks before creating an imported Intake, Claim or Forecast. Agreement imports recheck Agency, Stream, linked recipient where required, active primary user, status and Closeout boundary. They create drafts, not approvals. A handler may run more than once for the same work. Persistent business queues must preserve the exact request to retry and its idempotency key, which identifies repeated requests for the same operation. See [Background work](../operator/background-work.md) for leases, failure delays and monitoring.
 
+### Imported claims
+
+The `createAgreementClaim` callback returns `{ status: 'initial_approval_required' }` when the Agreement lacks a successful initial approval. Handle that result in both interactive and scheduled imports. Keep the submission available for retry after approval and report the blocked import to the operator. For example, the GC Forms integration reports `claim_agreement_initial_approval_required` against the Agreement number mapping and creates no Claim or Claim lines.
+
 ### Imported forecast versions
 
 SDK 0.3.18 changes `createAgreementForecast(trx, input)`: the host assigns the version to the Forecast record. Remove `version` from each monthly line. Supply `agreementId`, `streamId`, `fiscalYearId`, `applicantRecipientId` and `lineItems`. Each line contains `budgetLineItemId`, `month` (0–11), exact `amount` and `currency`. Use current budget line identities from the selected Agreement fiscal year and the Agreement currency. The host requires 1–2400 lines, nonnegative amounts and no repeated budget-line/month pair.

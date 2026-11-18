@@ -8,6 +8,7 @@ Ouvrez une entente, puis sélectionnez **Paiements**. La configuration suivante 
 
 | Dépendance | Exigence |
 | --- | --- |
+| Approbation initiale de l’entente | Le [flux d’approbation initiale](../concepts/approvals-completions.md) de l’entente doit avoir abouti. |
 | Budget de l’entente | L’exercice doit exister dans le budget courant de l’entente. |
 | Engagement | Un engagement actif du type choisi doit exister et ne pas être supprimé. Il doit avoir un achèvement enregistré ou une décision d’approbation réussie. |
 | Lignes d’engagement | Les lignes de codage doivent appartenir à cet engagement précis et correspondre à l’exercice courant du paiement dans l’entente. |
@@ -45,6 +46,8 @@ Préparez la demande dans cet ordre :
 | Commentaire | Facultatif. |
 
 Un nouveau paiement reçoit le statut Brouillon de l’organisme. Les modifications d’en-tête et de lignes conservent ce statut; le statut change selon le flux configuré.
+
+Si l’enregistrement indique que l’approbation initiale est requise, consultez l’historique des approbations de l’entente et demandez à l’approbateur affecté de terminer le flux. Une fois l’approbation consignée, réessayez de créer le paiement.
 
 Avant de créer un paiement, vérifiez l’engagement actif dans l’onglet **Engagements**. Le sélecteur peut aussi afficher des engagements inactifs qui ont été achevés. À l’enregistrement, le système utilise un engagement actif admissible du type choisi. Choisir une ancienne option peut donc sélectionner l’engagement actif courant de ce type ou faire échouer l’enregistrement.
 

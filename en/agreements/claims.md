@@ -6,6 +6,8 @@ Use a claim to record the costs a proponent submits for a period of an agreement
 
 Open an agreement and select **Claims**. The agreement needs a current budget with at least one fiscal year and budget line. Existing claims keep their links to matching budget lines after an amendment.
 
+Before creating a claim, wait for the agreement’s [initial approval workflow](../concepts/approvals-completions.md) to succeed. If saving reports that initial approval is required, check the agreement’s approval history and ask the assigned approver to finish the workflow. Once approval is recorded, retry **Add Claim**.
+
 | Action | Required access |
 | --- | --- |
 | Browse claims, open details, and view submissions or reconciliations | Agreement Viewer access. No assignment to the claim is required. |
