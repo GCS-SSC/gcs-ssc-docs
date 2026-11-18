@@ -1,5 +1,9 @@
 # Contrats API
 
+## Texte bilingue des activités et des lignes budgétaires
+
+Le nom, la description et les résultats attendus d’une activité exigent chacun du texte dans au moins une langue. La même règle s’applique à la sous-section et à la description d’une ligne budgétaire. Les champs anglais des lignes budgétaires restent `egcs_fc_costsubsection` et `egcs_fc_description`. Leurs équivalents français sont `egcs_fc_costsubsection_fr` et `egcs_fc_description_fr`. À la création, les traductions omises deviennent des chaînes vides. Pour effacer une traduction par PATCH sur une entente ou une modification, envoyez une chaîne vide et conservez une valeur non vide dans la paire après la fusion avec les champs enregistrés.
+
 ## Numéro du système financier de l’entente
 
 `POST /api/agreements` et `PATCH /api/agreements/[id]` acceptent le champ facultatif `egcs_fc_financialsystemnumber`. Envoyez un entier bigint positif ou nul sous forme de texte décimal. Lors d’un PATCH, un champ omis conserve la valeur enregistrée sauf si un fournisseur en attribue une nouvelle, et `null` demande de l’effacer. `GET /api/agreements/number-mode?streamId=…` renvoie la règle de création dans `financialNumberPolicy`. Pour les utilisateurs autorisés à modifier le profil, le détail de l’entente renvoie la règle de modification ou `financialNumberPolicyUnavailable: true` si la règle ne peut être déterminée.

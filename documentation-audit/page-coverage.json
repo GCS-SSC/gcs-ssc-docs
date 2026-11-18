@@ -478,7 +478,7 @@
       "shared/types/schemas/correction.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/agreements/[id]/amendments/[amendmentId].vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. page:app/pages/agreements/[id]/amendments/[amendmentId].vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "page:app/pages/agreements/[id]/claims/[claimId].vue",
@@ -3240,6 +3240,21 @@
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
   },
   {
+    "id": "component:app/components/Agreement/ActivityBilingualText.vue",
+    "source": "app/components/Agreement/ActivityBilingualText.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/activities.md",
+    "fr": "fr/agreements/activities.md",
+    "evidence": [
+      "app/components/Agreement/ActivityBilingualText.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
+  },
+  {
     "id": "component:app/components/Agreement/AgreementActivitiesTab.vue",
     "source": "app/components/Agreement/AgreementActivitiesTab.vue",
     "audience": [
@@ -3273,7 +3288,7 @@
       "shared/types/schemas/correction.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Amendments search all pages by exact amendment number or bilingual name. Snapshot actions require fresh assignment, editable draft, applicable selected types and no existing snapshot. Budget protections include earlier approved version financial references; activity date updates validate against the saved other date. Activity deletion removes responsible-party/outcome links. Closeout document persistence allows own active workflow, but not competing or terminal state. Template/core changes require reload/retry; busy rendering requires waiting. Pending recoveries are checked through offset memo applications. Monitor required text rejects blanks/null characters. Actual dates can clear when unmonitored; updates validate the merged saved record. Assignment/child guides explain exact owner assignment and fresh checks; corrections prose retains financial lifecycle requirements. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Amendments search all pages by exact amendment number or bilingual name. Snapshot actions require fresh assignment, editable draft, applicable selected types and no existing snapshot. Budget protections include earlier approved version financial references; activity date updates validate against the saved other date. Activity deletion removes responsible-party/outcome links. Closeout document persistence allows own active workflow, but not competing or terminal state. Template/core changes require reload/retry; busy rendering requires waiting. Pending recoveries are checked through offset memo applications. Monitor required text rejects blanks/null characters. Actual dates can clear when unmonitored; updates validate the merged saved record. Assignment/child guides explain exact owner assignment and fresh checks; corrections prose retains financial lifecycle requirements. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementAddressesTab.vue",
@@ -3324,7 +3339,7 @@
       "shared/utils/money.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: numbered draft snapshots, selected packet domains, required completion approval, cancellation and successful revision promotion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: numbered draft snapshots, selected packet domains, required completion approval, cancellation and successful revision promotion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementApplicantRecipientsTab.vue",
@@ -3431,7 +3446,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Agreement/AgreementBudgetTab.vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Agreement/AgreementBudgetTab.vue: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementClaimReconciliationLinesTable.vue",
@@ -3913,7 +3928,7 @@
       "tests/unit/agreement-document-custom-fields.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementPaymentFields.vue",
@@ -4632,7 +4647,7 @@
       "server/api/users/lookups/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Guided Help is an independent role subject at global or Agency scope only. Viewer reads; Contributor authors and publishes; Manager retires and deletes eligible drafts. No exact assignment or assignment-management capability. Scoped evidence: documentation-audit/sync-access.json. Shared Proponent profile assignment eligibility accepts global or any active Agency Proponent Contributor grant. Agency-pinned runtime sources require a grant covering that Agency. Candidate listing and locked write now use the same helper. Scoped evidence: documentation-audit/sync-access.json. Application-user joins now use the canonical Common_User column for assignment identity, group membership, and Agency user pickers. Group membership requires an active role owned by its Agency. Scoped evidence: documentation-audit/sync-access.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Guided Help is an independent role subject at global or Agency scope only. Viewer reads; Contributor authors and publishes; Manager retires and deletes eligible drafts. No exact assignment or assignment-management capability. Scoped evidence: documentation-audit/sync-access.json. Shared Proponent profile assignment eligibility accepts global or any active Agency Proponent Contributor grant. Agency-pinned runtime sources require a grant covering that Agency. Candidate listing and locked write now use the same helper. Scoped evidence: documentation-audit/sync-access.json. Application-user joins now use the canonical Common_User column for assignment identity, group membership, and Agency user pickers. Group membership requires an active role owned by its Agency. Scoped evidence: documentation-audit/sync-access.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/ApplicantRecipient/ApplicantRecipientGeneralTab.vue",
@@ -4803,7 +4818,7 @@
       "app/components/ApplicantRecipient/Fields/ApplicantRecipientNoteFields.vue"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Agency chosen at creation, then fixed. Subject and body inputs are available in both languages. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed."
+    "notes": "Agency chosen at creation, then fixed. Subject and body inputs are available in both languages. Final source inspected at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No runtime tests executed. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/ApplicantRecipient/Fields/ApplicantRecipientProfileFields.vue",
@@ -4828,7 +4843,7 @@
       "tooling/gcs-ssc/tests/unit/workflow-group-recommendation-runtime-db.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group identity in review-groups.json. Shared Proponent visibility via any effective active Agency/global Proponent grant, exact rosters and preserved group primary, dedicated financial subjects, mandatory same-Agency Financial ID with historical references and independent source reads. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group identity in review-groups.json. Shared Proponent visibility via any effective active Agency/global Proponent grant, exact rosters and preserved group primary, dedicated financial subjects, mandatory same-Agency Financial ID with historical references and independent source reads. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/ApplicantRecipient/FundingHistorySimilarityDialog.vue",
@@ -6720,6 +6735,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "component:app/components/Common/EitherLanguage.vue",
+    "source": "app/components/Common/EitherLanguage.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/concepts/bilingualism.md",
+    "fr": "fr/concepts/bilingualism.md",
+    "evidence": [
+      "app/components/Common/EitherLanguage.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
+  },
+  {
     "id": "component:app/components/Common/EmptyState.vue",
     "source": "app/components/Common/EmptyState.vue",
     "audience": [
@@ -7985,7 +8015,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/Workflow/ApprovalPacket.vue: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. component:app/components/Common/Workflow/ApprovalPacket.vue: Independent access PostgreSQL instance or local volume, public image pins, companion preservation and source-attributed October 23 release receipt. Runner changes isolate access fixtures; no application tests or deployments executed by this sync. Evidence: documentation-audit/sync-oct23-access-operations.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "component:app/components/Common/Workflow/Packet.vue",

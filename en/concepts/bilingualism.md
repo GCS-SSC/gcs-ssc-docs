@@ -2,6 +2,8 @@
 
 You can work in English or French in GCS-SSC. The language applies to page addresses, labels, error messages and many saved business fields. Changing the interface language does not translate text you have entered. English content lives under `/en/...`; French content lives under `/fr/...`; many business records store paired English and French fields.
 
+A pair marked **Either** requires a value in at least one language. Each pair is independent. For example, an Agreement Activity can have an English name and a French description. Supply both versions when readers need them.
+
 ## Routes
 
 Page addresses include a language prefix. The application uses Nuxt i18n, its language-routing tool, to select the corresponding page. The default locale is English, but URLs still use `/en`. French pages use `/fr` and several translated path segments, such as `/fr/agences`, `/fr/utilisateurs`, `/fr/promoteurs`, and `/fr/admin/gwcoa`.

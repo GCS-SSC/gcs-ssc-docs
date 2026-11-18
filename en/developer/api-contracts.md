@@ -1,5 +1,9 @@
 # API contracts
 
+## Bilingual Activity and budget line text
+
+Activity name, description, and expected results each require nonblank text in at least one language. Budget line subsection and description follow the same rule. Budget line English fields remain `egcs_fc_costsubsection` and `egcs_fc_description`; their French counterparts are `egcs_fc_costsubsection_fr` and `egcs_fc_description_fr`. Create requests default omitted translations to empty strings. On Agreement and Amendment PATCH requests, send an empty string to clear a translation, and keep another nonblank value in the pair after merging with saved fields.
+
 ## Agreement Financial System Number
 
 `POST /api/agreements` and `PATCH /api/agreements/[id]` accept optional `egcs_fc_financialsystemnumber`. Send a non-negative bigint as decimal text. On PATCH, omission keeps the saved value unless a provider supplies a new one, and `null` requests a clear. `GET /api/agreements/number-mode?streamId=…` returns the create policy in `financialNumberPolicy`. For authorized editors, the Agreement detail response includes the edit policy or `financialNumberPolicyUnavailable: true` if policy resolution fails.

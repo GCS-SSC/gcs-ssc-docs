@@ -52,6 +52,8 @@ Formatted amounts use the agreement currency and the selected document language.
 
 The document uses the first saved active recipient link as its primary recipient. There is no separate primary-recipient selector. The document uses current activity and budget versions. Commitments, payments, claims, and forecasts include all records that have not been deleted, including records still in progress.
 
+Activity text uses the document language. If a name, description, or expected result was entered only in the other language, that field appears blank. Add the missing language to the activity before generating a new document. Budget line subsections and descriptions use the English entry when present and the French entry otherwise.
+
 For template syntax and integration fields, see [Document generation](../developer/document-generation.md).
 
 ## Amendment documents

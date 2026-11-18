@@ -2,6 +2,6 @@
 
 ## Current phase
 
-Coverage reconciliation for application `f527ab30d089877809379dc8854df80c3ba13467` is complete, with zero remaining items. The paired guides cover the optional Financial System Number, Agency provider configuration, initial approval, and the database rollout. The generators, `bun run docs:check`, whitespace check, and deployment-base build passed. The final fetch confirmed that application `main` still matched the reviewed commit. The [verification receipt](./source-baseline.md) and skill marker record that commit.
+Coverage reconciliation for application `70499a295a283d7810d0cd2c0ed6af26d59139d1` is complete, with zero remaining items. The generators, `bun run docs:check`, whitespace check, and deployment-base build passed. Application `main` still matched the pinned target at the final fetch. The skill marker and [verification receipt](./source-baseline.md) record that commit.
 
-See the [source review](./sync-nov18-financial-system-number.md) for change dispositions.
+See the [source review](./sync-nov18-bilingual-entry.md) for the bilingual Activity and budget line changes.

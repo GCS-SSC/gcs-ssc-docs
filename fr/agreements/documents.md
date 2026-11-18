@@ -52,6 +52,8 @@ Les montants formatés utilisent la devise de l'entente et la langue choisie pou
 
 Le document utilise le premier lien actif de bénéficiaire enregistré comme bénéficiaire principal. Aucun champ distinct ne permet de choisir ce bénéficiaire. Le document utilise les versions actuelles des activités et du budget. Les engagements, paiements, réclamations et prévisions comprennent tous les dossiers non supprimés, y compris ceux encore en cours.
 
+Le texte des activités utilise la langue du document. Si le nom, la description ou le résultat attendu a été saisi seulement dans l’autre langue, le champ reste vide. Ajoutez la langue manquante à l’activité avant de générer un nouveau document. Les sous-sections et descriptions des lignes budgétaires utilisent le texte anglais lorsqu’il est présent et le texte français dans le cas contraire.
+
 Pour la syntaxe des modèles et les champs d'intégration, consultez [Génération de documents](../developer/document-generation.md).
 
 ## Documents de modification

@@ -2,6 +2,8 @@
 
 Vous pouvez travailler en français ou en anglais dans GCS-SSC. La langue s’applique aux adresses des pages, aux libellés, aux messages d’erreur et à plusieurs champs enregistrés. Changer la langue de l’interface ne traduit pas le texte que vous avez saisi. Le contenu anglais se trouve sous `/en/...` et le contenu français sous `/fr/...`. Plusieurs dossiers conservent un champ dans chaque langue pour le même renseignement.
 
+Une paire marquée **Au choix** exige une valeur dans au moins une langue. Chaque paire est indépendante. Par exemple, une activité d’entente peut avoir un nom anglais et une description française. Saisissez les deux versions lorsque les lecteurs en ont besoin.
+
 ## Routes
 
 Les adresses des pages comprennent un préfixe de langue. L’application utilise Nuxt i18n, son outil de navigation bilingue, pour choisir la page correspondante. L’anglais est la langue par défaut et ses adresses comprennent `/en`. Les pages françaises utilisent `/fr` et plusieurs segments traduits, comme `/fr/agences`, `/fr/utilisateurs`, `/fr/promoteurs` et `/fr/admin/gwcoa`.

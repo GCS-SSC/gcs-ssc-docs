@@ -70,7 +70,7 @@ If a copy action warns that the budget or activities are not enabled, open Gener
 
 ## Activity snapshot
 
-Select an activities type, then copy the current activities once, including their outcomes and responsible parties. The amendment's Activities tab then supports the same required bilingual fields, date range, active program outcomes, and available responsible proponents described in [Agreement activities](./activities.md), but all changes remain inside the amendment snapshot. When changing one date, check it against the other saved date. The end must remain on or after the start.
+Select an activities type, then copy the current activities once, including their outcomes and responsible parties. The amendment's Activities tab then supports the same requirement to enter each text field in at least one language, date range, active program outcomes, and available responsible proponents described in [Agreement activities](./activities.md), but all changes remain inside the amendment snapshot. When changing one date, check it against the other saved date. The end must remain on or after the start.
 
 Copy the activities before adding or changing them in the amendment. Creating and editing requires Contributor access and assignment to this amendment; deleting requires Manager access and the same assignment. Deleting a copied activity also removes its outcome and responsible-party selections from the draft, without changing current Agreement activities.
 

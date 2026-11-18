@@ -34,8 +34,8 @@ For a manual line, choose the year and cost line, identify the cost in the subse
 | --- | --- |
 | Budget fiscal year | Required current-version fiscal-year group on this agreement. |
 | Cost line | Required active stream cost-category line item. Its English/French configured name is displayed. |
-| Cost subsection | Required non-empty text, maximum 255 characters. |
-| Description | Required non-empty text; this agreement-specific description is not bilingual. |
+| Cost subsection | Enter text in either or both languages, up to 255 characters per language. |
+| Description | Enter text in either or both languages. |
 | Proponent | Required linked proponent. The sole linked proponent is selected automatically; choose one when several are linked. |
 | Total amount | Required nonnegative amount with precision set by the agreement currency. |
 | Program funding | Enter an exact nonnegative amount for manual lines. The form calculates it for percentage lines. |
@@ -124,6 +124,8 @@ You cannot move a cost line to another fiscal year while an active claim line re
 ## Grouped table and search
 
 Rows are grouped by fiscal year, organization cost category, and free-text subsection. Add actions on category/subsection groups prefill and lock those grouping values for the new form. Individual cost rows show the bilingual configured cost-line name, agreement description, total, program funding, and combined other funding.
+
+The table shows both saved versions when available. Subsection groups use the saved English and French pair. For example, a line with only “Déplacements régionaux” in French can be found by that text. Adding an English version can move the line to a different group. When editing, keep at least one language per field pair and save again if the form flags a missing pair.
 
 Search looks through the complete overview already loaded in your browser and matches fiscal-year display, English/French category and line names, subsection, and description. The table starts with 50 rows per page; searching covers the loaded overview, not just the visible page.
 

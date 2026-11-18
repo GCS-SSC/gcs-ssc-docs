@@ -21407,7 +21407,7 @@
       "shared/types/schemas/funding-case-agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_account_receivable_credit_memo",
@@ -22553,7 +22553,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Budget_Line_Item"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. Funding_Case_Agreement_Budget_Line_Item: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. Funding_Case_Agreement_Budget_Line_Item: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_budget_line_item_funding",

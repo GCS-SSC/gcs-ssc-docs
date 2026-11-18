@@ -23,28 +23,25 @@ Les résultats et responsables disponibles sont vérifiés avec la même permiss
 
 Par exemple, pour un projet de formation communautaire, une activité pourrait être « Deliver six workshops » / « Offrir six ateliers ». Décrivez les séances et les participants, fixez les dates de réalisation et inscrivez un résultat attendu mesurable, comme « 60 participants complete training » / « 60 participants terminent la formation ». Sélectionnez un résultat de programme disponible et le promoteur lié qui offrira les ateliers.
 
-L'onglet ouvre un formulaire plein écran. Tous les champs ci-dessous sont obligatoires.
+Le formulaire plein écran comprend les sections **Anglais** et **Français**. Saisissez le nom, la description et les résultats attendus, chacun dans au moins une langue.
 
 | Champ | Règle |
 | --- | --- |
-| Nom anglais | Valeur non vide d'au plus 255 caractères. |
-| Nom français | Valeur non vide d'au plus 255 caractères. |
+| Nom | Au plus 255 caractères dans chaque langue. |
+| Description | Texte dans l’une ou les deux langues. |
+| Résultats attendus | Texte dans l’une ou les deux langues. |
 | Date de début | Date obligatoire dans la période d’aide autorisée, bornes incluses. |
 | Date de fin | Date obligatoire dans la même période, égale ou postérieure à la date de début. |
-| Description anglaise | Texte non vide. |
-| Description française | Texte non vide. |
-| Résultats attendus en anglais | Texte non vide. |
-| Résultats attendus en français | Texte non vide. |
 | Résultats connexes | Au moins un résultat actif et unique appartenant au programme de l'entente. |
 | Responsables | Au moins un promoteur lié à cette entente. Ni le lien ni le promoteur ne peuvent être supprimés. Le profil du promoteur peut être inactif. |
 
 Les sélecteurs de résultats et de responsables offrent une recherche et la sélection multiple. Si un seul responsable est disponible au chargement d'un nouveau formulaire, l'interface le sélectionne automatiquement; vous pouvez tout de même modifier ce choix. Lorsqu'une recherche est vide, son bouton de sélection est désactivé et l'interface indique qu'aucun choix n'est disponible.
 
-Changer la langue de l'interface change les noms affichés. Cela ne traduit pas le texte enregistré. Remplissez chaque champ anglais et français séparément.
+Par exemple, vous pouvez saisir le nom et les résultats attendus en anglais et la description en français. Si l’enregistrement signale une paire, saisissez du texte dans au moins un de ses champs. En modification, ajoutez le texte de remplacement avant d’effacer la dernière langue enregistrée.
 
 ## Liste et recherche
 
-Le tableau présente le nom, la description et les résultats attendus de l'activité dans la langue courante. Il affiche aussi les dates de début et de fin et les libellés des résultats et des responsables. Il est paginé. La recherche porte sur l'identifiant de l'activité; le nom, la description ou les résultats attendus en anglais ou en français; les noms des résultats; ainsi que les dénominations sociales ou noms commerciaux des promoteurs. Elle ne porte pas sur les dates affichées.
+Le tableau présente le nom, la description et les résultats attendus de l'activité dans les deux langues lorsque les deux versions sont disponibles. Il affiche aussi les dates de début et de fin et les libellés des résultats et des responsables. Il est paginé. La recherche porte sur l'identifiant de l'activité; le nom, la description ou les résultats attendus en anglais ou en français; les noms des résultats; ainsi que les dénominations sociales ou noms commerciaux des promoteurs. Elle ne porte pas sur les dates affichées.
 
 La liste et les libellés excluent les liens de résultat supprimés, les liens entente-promoteur supprimés et les promoteurs supprimés.
 

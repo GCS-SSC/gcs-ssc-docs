@@ -23,28 +23,25 @@ The available outcomes and responsible parties are checked using the same create
 
 For example, for a community training project, an activity could be "Deliver six workshops" / "Offrir six ateliers". Describe the sessions and participants, set the delivery dates, and enter a measurable expected result such as "60 participants complete training" / "60 participants terminent la formation". Select an available program outcome and the linked proponent delivering the workshops.
 
-The tab opens a full-screen form. Every field below is required.
+The full-screen form has **English** and **French** sections. Enter a name, description, and expected results each in at least one language.
 
 | Field | Rule |
 | --- | --- |
-| English name | Non-empty; maximum 255 characters. |
-| French name | Non-empty; maximum 255 characters. |
+| Name | Up to 255 characters in each language. |
+| Description | Text in either or both languages. |
+| Expected results | Text in either or both languages. |
 | Start date | Required date within the authorized assistance period, including its first and last dates. |
 | End date | Required date within the same period, on or after the start date. |
-| English description | Non-empty text. |
-| French description | Non-empty text. |
-| English expected results | Non-empty text. |
-| French expected results | Non-empty text. |
 | Related outcomes | At least one unique, active outcome belonging to the agreement's program. |
 | Responsible parties | At least one proponent linked to this agreement. Neither the link nor the proponent can be deleted. The proponent profile can be inactive. |
 
 The outcome and responsible-party pickers support search and multiple selection. If there is exactly one available responsible party when a new form loads, the interface selects it automatically; you can still change the selection. An empty lookup disables its selection button and indicates that no choice is available.
 
-Changing the interface language changes the names you see. It does not translate the saved text. Complete each English and French field separately.
+For example, you can enter the name and expected results in English and the description in French. If saving flags a pair, enter text in at least one field of that pair. When editing, add the replacement text before clearing the last saved language.
 
 ## Listing and search
 
-The table shows the activity name, description, and expected results in the current language. It also shows start and end dates and labels for outcomes and responsible parties. It is paginated. Search matches the activity ID; English or French name, description, or expected results; outcome names; and proponent legal or operating names. It does not search the displayed dates.
+The table shows the activity name, description, and expected results in both languages when both are available. It also shows start and end dates and labels for outcomes and responsible parties. It is paginated. Search matches the activity ID; English or French name, description, or expected results; outcome names; and proponent legal or operating names. It does not search the displayed dates.
 
 The list and labels exclude deleted outcome links, deleted agreement-proponent links, and deleted proponents.
 

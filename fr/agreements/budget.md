@@ -34,8 +34,8 @@ Pour une ligne manuelle, choisissez l'exercice et la ligne de coûts, précisez 
 | --- | --- |
 | Exercice budgétaire | Groupe d'exercice obligatoire de la version courante de cette entente. |
 | Ligne de coûts | Ligne active obligatoire d'une catégorie de coûts du volet. Son nom anglais ou français configuré est affiché. |
-| Sous-section de coûts | Texte non vide obligatoire d'au plus 255 caractères. |
-| Description | Texte non vide obligatoire; cette description propre à l'entente n'est pas bilingue. |
+| Sous-section de coûts | Saisissez du texte dans l’une ou les deux langues, jusqu’à 255 caractères par langue. |
+| Description | Saisissez du texte dans l’une ou les deux langues. |
 | Promoteur | Promoteur lié obligatoire. Le seul promoteur lié est choisi automatiquement; choisissez-en un si plusieurs sont liés. |
 | Montant total | Montant obligatoire non négatif avec la précision de la devise de l’entente. |
 | Financement du programme | Saisissez un montant exact non négatif pour une ligne manuelle. Le formulaire calcule celui des lignes en pourcentage. |
@@ -124,6 +124,8 @@ Vous ne pouvez pas déplacer une ligne de coûts vers un autre exercice si une l
 ## Tableau groupé et recherche
 
 Les lignes sont regroupées par exercice, catégorie de coûts de l'organisation et sous-section en texte libre. Les actions d'ajout dans un groupe de catégorie ou de sous-section préremplissent et verrouillent ces valeurs dans le nouveau formulaire. Chaque ligne de coûts présente le nom bilingue configuré de la ligne de coûts, la description propre à l'entente, le total, le financement du programme et la somme des autres financements.
+
+Le tableau affiche les deux versions enregistrées lorsqu’elles sont disponibles. Les groupes de sous-sections utilisent la paire anglais-français enregistrée. Par exemple, vous pouvez trouver une ligne dont la sous-section contient seulement « Déplacements régionaux » en français en recherchant ce texte. Ajouter la version anglaise peut déplacer la ligne vers un autre groupe. En modification, conservez au moins une langue par paire et enregistrez de nouveau si le formulaire signale une paire vide.
 
 La recherche porte sur l'aperçu complet déjà chargé dans votre navigateur. Elle porte sur l'affichage de l'exercice, les noms anglais et français de la catégorie et de la ligne, la sous-section et la description. Le tableau affiche initialement 50 lignes par page; la recherche couvre l'aperçu chargé, et pas seulement la page visible.
 

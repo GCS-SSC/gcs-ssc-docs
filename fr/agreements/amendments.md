@@ -70,7 +70,7 @@ Si une action de copie indique que le budget ou les activités ne sont pas activ
 
 ## Instantané des activités
 
-Sélectionnez un type activités, puis copiez une fois les activités courantes, y compris leurs résultats et responsables. L'onglet Activités de la modification offre ensuite les mêmes champs bilingues obligatoires, la même plage de dates, les mêmes résultats actifs du programme et les mêmes responsables disponibles de l'entente que ceux décrits dans [Activités de l'entente](./activities.md), mais tous les changements demeurent dans l'instantané. Si vous changez une seule date, comparez-la à l'autre date enregistrée. La fin doit rester égale ou postérieure au début.
+Sélectionnez un type activités, puis copiez une fois les activités courantes, y compris leurs résultats et responsables. L'onglet Activités de la modification offre ensuite les même exigence de saisir chaque texte dans au moins une langue, la même plage de dates, les mêmes résultats actifs du programme et les mêmes responsables disponibles de l'entente que ceux décrits dans [Activités de l'entente](./activities.md), mais tous les changements demeurent dans l'instantané. Si vous changez une seule date, comparez-la à l'autre date enregistrée. La fin doit rester égale ou postérieure au début.
 
 Copiez les activités avant d'en ajouter ou d'en modifier dans la modification. La création et la modification exigent l'accès Contributeur et une affectation à cette modification; la suppression exige Gestionnaire et la même affectation. Supprimer une activité copiée retire aussi ses sélections de résultats et de responsables du brouillon, sans changer les activités courantes de l'entente.
 
