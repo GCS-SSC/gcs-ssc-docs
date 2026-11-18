@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/transfer-payments/6` reads funding program 6’s profile. It does not issue a payment to a recipient. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (119)
+## Handlers (123)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -43,6 +43,10 @@ An authorized request for `GET /api/transfer-payments/6` reads funding program 6
 | GET | `/api/transfer-payments/[id]/outcomes` | — | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/outcomes/index.get.ts` |
 | POST | `/api/transfer-payments/[id]/outcomes` | executeFreshAuthorizedTransferPaymentWrite | TransferPaymentOutcomeSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/outcomes/index.post.ts` |
 | GET | `/api/transfer-payments/[id]/performance-indicators` | — | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/performance-indicators/index.get.ts` |
+| DELETE | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].delete.ts` |
+| PATCH | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].patch.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.get.ts` |
+| POST | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.post.ts` |
 | DELETE | `/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId].delete.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite, resolveTransferPaymentAgreementSubtypeStreamScopeContext | PositivePostgresBigintIdSchema, TransferPaymentAgreementSubtypeSchema | `server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes` | createTransferPaymentScopedAuthorizeHandler | AgreementSubtypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/index.get.ts` |

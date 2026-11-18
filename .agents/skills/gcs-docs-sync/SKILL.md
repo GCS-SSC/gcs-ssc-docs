@@ -18,8 +18,8 @@ A failed check or non-terminal coverage entry is work to resolve in the current 
 - Application repository: `https://github.com/GCS-SSC/gcs-ssc.git`
 - Branch: `main`
 - Ignored reference clone: `.reference-repos/gcs-ssc`
-- Baseline commit: `70499a295a283d7810d0cd2c0ed6af26d59139d1`
-- Baseline committer datetime: `2026-11-18T12:03:38-05:00`
+- Baseline commit: `ee54af9e338162e2d0f3d717ab231f307504d354`
+- Baseline committer datetime: `2026-11-18T14:26:50-05:00`
 - Authoritative marker: this skill’s Source and baseline record.
 - Verification receipt: `documentation-audit/source-baseline.md`.
 

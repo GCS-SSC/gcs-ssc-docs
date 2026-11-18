@@ -1,5 +1,11 @@
 # Contrats API
 
+## Champs personnalisés des activités
+
+Les routes de volet sous `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` gèrent les affectations aux activités dans le programme propriétaire. GET renvoie `items` et un tableau `sections` vide. Les écritures exigent le droit de modifier le volet. Une affectation à une activité ne peut pas comporter de section. Obtenez les définitions de l’entente via `GET /api/agreements/[id]/activities/lookups/custom-fields` avec `permission_action` à `read`, `create` ou `update`. Fournissez `amendment_id` dans une modification.
+
+La création et la modification d’une activité acceptent `egcs_fc_customfields`, indexé par identifiant de champ d’agence. PATCH fusionne les clés fournies avec l’objet enregistré. Les définitions numériques acceptent les champs nuls `egcs_ay_minimum`, `egcs_ay_maximum` et `egcs_ay_decimalplaces`.
+
 ## Texte bilingue des activités et des lignes budgétaires
 
 Le nom, la description et les résultats attendus d’une activité exigent chacun du texte dans au moins une langue. La même règle s’applique à la sous-section et à la description d’une ligne budgétaire. Les champs anglais des lignes budgétaires restent `egcs_fc_costsubsection` et `egcs_fc_description`. Leurs équivalents français sont `egcs_fc_costsubsection_fr` et `egcs_fc_description_fr`. À la création, les traductions omises deviennent des chaînes vides. Pour effacer une traduction par PATCH sur une entente ou une modification, envoyez une chaîne vide et conservez une valeur non vide dans la paire après la fusion avec les champs enregistrés.

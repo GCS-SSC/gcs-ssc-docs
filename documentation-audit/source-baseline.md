@@ -2,13 +2,13 @@
 
 The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.md`.
 
-- Verified at `2026-11-18T17:06:57+00:00`.
+- Verified at `2026-11-18T19:40:15+00:00`.
 - Application repository `https://github.com/GCS-SSC/gcs-ssc.git`, branch `main`.
-- Verified application commit `70499a295a283d7810d0cd2c0ed6af26d59139d1`, committed `2026-11-18T12:03:38-05:00`.
-- Previous verified source `f527ab30d089877809379dc8854df80c3ba13467`.
-- Range of two commits and 40 net changed paths. See the [source review and dispositions](./sync-nov18-bilingual-entry.md).
+- Verified application commit `ee54af9e338162e2d0f3d717ab231f307504d354`, committed `2026-11-18T14:26:50-05:00`.
+- Previous verified source `70499a295a283d7810d0cd2c0ed6af26d59139d1`.
+- Range of three commits and 42 net changed paths. See the [source review and dispositions](./sync-nov18-activity-fields.md).
 - Isolated checkout `.reference-repos/gcs-ssc`, clean and detached. The baseline is an ancestor of the target, all 13 initialized gitlinks match, and the final fetch confirmed that `origin/main` still matched the target.
-- Documentation checkout started clean at `945378f0a3c8bfd55015f40e1aaa83b9f3a99b7a`.
+- Documentation checkout started clean at `d48cf342d68fc1116870b22ca22e625790dd7758`.
 
 ## Source gitlinks
 
@@ -26,7 +26,7 @@ The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.
 | `extensions/gcs-storage-local` | `7f46dc38d004462d2e8282932054550935a810ef` |
 | `extensions/gcs-storage-s3` | `4a428601472a912f0760fd5bf9a2f4bd6495f845` |
 | `packages/gcs-ssc-extensions` | `6ccc9cafbcd45958dac33d15f6e34028e44787ba` |
-| `tooling/gcs-ssc` | `fc62f1127b2691ed5e5d56874e5913f503a3c34a` |
+| `tooling/gcs-ssc` | `9b580911381076a915060af01e7397cd76be38e5` |
 
 ## Executed verification
 
@@ -34,8 +34,8 @@ Source-dependent commands used `GCS_SSC_SOURCE=.reference-repos/gcs-ssc` with Bu
 
 | Command or check | Result |
 | --- | --- |
-| `bun run docs:inventory` | Passed. 443 page/component, 725 API, 1,825 data, 20 domain, 12 configuration, one extension, and zero historical audit-impact entries. |
-| `bun run docs:references` | Passed. 725 routes in ten bilingual groups. |
+| `bun run docs:inventory` | Passed. 443 page/component, 730 API, 1,829 data, 20 domain, 12 configuration, one extension, and zero historical audit-impact entries. |
+| `bun run docs:references` | Passed. 730 routes in ten bilingual groups. |
 | `bun run docs:audit-impact` | Passed. Zero historical dossier rows. |
 | `bun run docs:check` | Passed. Coverage, parity, navigation, links, anchors, redirects, source reconciliation, and production build. |
 | `git diff --check` | Passed. |

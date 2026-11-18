@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agreements/42` reads the profile for agreement 42, including its status and program information. Reading the profile does not approve the agreement or create a payment. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (190)
+## Handlers (191)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -34,6 +34,7 @@ An authorized request for `GET /api/agreements/42` reads the profile for agreeme
 | PATCH | `/api/agreements/[id]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/activities/[childId].patch.ts` |
 | GET | `/api/agreements/[id]/activities` | freshAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/index.get.ts` |
 | POST | `/api/agreements/[id]/activities` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementActivityCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/activities/index.post.ts` |
+| GET | `/api/agreements/[id]/activities/lookups/custom-fields` | freshAuthContext | PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/lookups/custom-fields.get.ts` |
 | GET | `/api/agreements/[id]/activities/lookups/outcomes` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/lookups/outcomes.get.ts` |
 | GET | `/api/agreements/[id]/activities/lookups/responsible-parties` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/lookups/responsible-parties.get.ts` |
 | DELETE | `/api/agreements/[id]/addresses/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/addresses/[childId].delete.ts` |

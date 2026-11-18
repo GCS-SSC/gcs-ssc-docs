@@ -39,6 +39,12 @@ The outcome and responsible-party pickers support search and multiple selection.
 
 For example, you can enter the name and expected results in English and the description in French. If saving flags a pair, enter text in at least one field of that pair. When editing, add the replacement text before clearing the last saved language.
 
+## Activity custom fields
+
+If the Stream has [Activity custom fields](../programs/custom-fields.md), fill in the active required answers when you create an activity or change its custom-field values. Save the activity to keep the answers. The same fields appear in an editable Activities snapshot in an Amendment. When an activity name is a link, select it to view saved answers. Approved Amendment activities can show the answers and bilingual labels captured at submission.
+
+The application checks required Activity answers when building the Agreement or Amendment approval packet. If submission names a missing or invalid answer, open that activity, correct the named field, save, and submit again.
+
 ## Listing and search
 
 The table shows the activity name, description, and expected results in both languages when both are available. It also shows start and end dates and labels for outcomes and responsible parties. It is paginated. Search matches the activity ID; English or French name, description, or expected results; outcome names; and proponent legal or operating names. It does not search the displayed dates.

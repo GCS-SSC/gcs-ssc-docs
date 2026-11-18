@@ -39,6 +39,12 @@ Les sélecteurs de résultats et de responsables offrent une recherche et la sé
 
 Par exemple, vous pouvez saisir le nom et les résultats attendus en anglais et la description en français. Si l’enregistrement signale une paire, saisissez du texte dans au moins un de ses champs. En modification, ajoutez le texte de remplacement avant d’effacer la dernière langue enregistrée.
 
+## Champs personnalisés des activités
+
+Si le volet utilise les [champs personnalisés des activités](../programs/custom-fields.md), remplissez les champs actifs obligatoires à la création ou lorsque vous modifiez les réponses aux champs personnalisés. Enregistrez l’activité pour conserver les réponses. Les mêmes champs s’affichent dans un instantané modifiable des activités d’une modification. Si le nom de l’activité est un lien, sélectionnez-le pour consulter les réponses enregistrées. Les activités d’une modification approuvée peuvent afficher les réponses et les libellés bilingues figés à la soumission.
+
+L’application vérifie les réponses obligatoires des activités lors de la préparation du paquet d’approbation de l’entente ou de la modification. Si la soumission signale une réponse manquante ou invalide, ouvrez l’activité, corrigez le champ nommé, enregistrez, puis soumettez de nouveau.
+
 ## Liste et recherche
 
 Le tableau présente le nom, la description et les résultats attendus de l'activité dans les deux langues lorsque les deux versions sont disponibles. Il affiche aussi les dates de début et de fin et les libellés des résultats et des responsables. Il est paginé. La recherche porte sur l'identifiant de l'activité; le nom, la description ou les résultats attendus en anglais ou en français; les noms des résultats; ainsi que les dénominations sociales ou noms commerciaux des promoteurs. Elle ne porte pas sur les dates affichées.

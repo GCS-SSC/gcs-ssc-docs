@@ -1,4 +1,4 @@
-# Champs personnalisés des ententes
+# Champs personnalisés des ententes et des activités
 
 Les champs personnalisés recueillent les renseignements d’entente que les champs standards ne couvrent pas, comme une référence locale de projet ou un mode de réalisation. Créez les définitions de champs et options réutilisables dans **Champs personnalisés** de l’agence. L’onglet **Champs personnalisés** d’un volet affecte ces champs d’agence aux sections d’entente et contrôle l’ordre, le caractère obligatoire et l’état actif de chaque affectation. Les agents saisissent les valeurs dans l’onglet Général de l’entente. Les champs de sélection peuvent déterminer les étapes d’un flux publié.
 
@@ -28,6 +28,16 @@ Les volets partagent les identifiants des champs et des options de l’agence. C
 | Ordre d’affichage | Entier de 0 à 2 147 483 647; valeur initiale 0. Les identifiants départagent les ordres égaux. |
 
 Les sections apparaissent après les sections intégrées de l’entente, à partir du numéro 04. Leur ordre ne modifie pas la disposition du profil principal. Les noms de section et de champ sont bilingues; une réponse textuelle est un texte commun aux deux langues et une réponse numérique est un nombre fini. Les champs numériques ne sont pas des champs monétaires exacts : utilisez le Budget pour les montants financiers.
+
+## Affectations aux activités
+
+Dans le volet du programme, ouvrez **Champs personnalisés des activités** et choisissez une définition d’agence existante. Réglez l’ordre, le caractère obligatoire et l’état actif pour les activités. La même définition peut avoir une affectation distincte pour l’entente. Les affectations aux activités ne comportent pas de section. Les réponses de l’entente déterminent les conditions du flux d’entente.
+
+Ouvrez **Activités** dans une entente ou dans une modification qui contient un instantané des activités pour vérifier le formulaire. Par exemple, affectez un champ numérique obligatoire nommé Heures prévues avec un minimum de 0, un maximum de 40 et deux décimales. Un agent peut enregistrer 12,25 ou 40. La valeur 12,345 dépasse la limite de décimales et 41 dépasse le maximum.
+
+## Validation des nombres
+
+Dans l’onglet **Champs personnalisés** de l’agence, les définitions numériques peuvent fixer indépendamment le minimum, le maximum et le nombre de décimales. Un réglage vide n’impose aucune limite correspondante. Les bornes sont inclusives et le maximum doit être supérieur ou égal au minimum. Indiquez un entier de 0 à 324 pour le nombre de décimales. Zéro permet seulement les nombres entiers. La limite compte les chiffres du nombre enregistré, sans les zéros finaux. Ces règles s’appliquent aux réponses saisies ou modifiées dans tous les volets et pour toutes les cibles qui utilisent la définition.
 
 ## Options et catégories de sélection
 

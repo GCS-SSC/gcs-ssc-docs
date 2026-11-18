@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42, y compris son état et les renseignements sur le programme. Cette lecture n’approuve pas l’entente et ne crée pas de paiement. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (190)
+## Gestionnaires (191)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -34,6 +34,7 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | PATCH | `/api/agreements/[id]/activities/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/activities/[childId].patch.ts` |
 | GET | `/api/agreements/[id]/activities` | freshAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/index.get.ts` |
 | POST | `/api/agreements/[id]/activities` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementActivityCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/activities/index.post.ts` |
+| GET | `/api/agreements/[id]/activities/lookups/custom-fields` | freshAuthContext | PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/lookups/custom-fields.get.ts` |
 | GET | `/api/agreements/[id]/activities/lookups/outcomes` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/lookups/outcomes.get.ts` |
 | GET | `/api/agreements/[id]/activities/lookups/responsible-parties` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/activities/lookups/responsible-parties.get.ts` |
 | DELETE | `/api/agreements/[id]/addresses/[childId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/addresses/[childId].delete.ts` |

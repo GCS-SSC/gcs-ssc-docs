@@ -1,4 +1,4 @@
-# Agreement custom fields
+# Agreement and Activity custom fields
 
 Custom fields collect Agreement information that the standard fields do not cover, such as a local project reference or delivery model. Create reusable field definitions and selection options on the Agency's **Custom Fields** tab. A Program Stream's **Custom Fields** tab assigns those Agency fields to Agreement sections and controls each assignment's order, required flag, and active flag. Caseworkers enter values on the Agreement's General tab. Selection fields can determine which published workflow steps apply.
 
@@ -28,6 +28,16 @@ Assigned Streams share the Agency's field and option identifiers. Each Stream ha
 | Display order | Integer from 0 through 2,147,483,647; defaults to 0. Equal orders are resolved by identifier. |
 
 Sections appear after the Agreement's built-in sections, numbered from 04. Their order changes only the configured sections, not the core profile layout. Section names and field names are bilingual, while a text answer is one shared string and a numeric answer is one finite number. Numeric fields are not exact-money fields: use the Agreement Budget for financial amounts.
+
+## Activity assignments
+
+On the Program Stream, open **Activity custom fields** and select **Assign agency field**. Choose an existing Agency definition, then set display order, **Required**, and **Active** for Activities. The same definition can have a separate Agreement assignment. Activity assignments have no sections. Agreement answers drive Agreement workflow conditions.
+
+Open **Activities** on an Agreement or in an Amendment with an Activities snapshot to check the form. For example, assign a required Number field called Planned hours with minimum 0, maximum 40, and two decimal places. An officer can save 12.25 or 40. An entry of 12.345 exceeds the decimal-place limit and 41 exceeds the maximum.
+
+## Number validation
+
+On the Agency’s **Custom Fields** tab, Number definitions can set **Minimum**, **Maximum**, and **Decimal places** independently. Empty settings impose no corresponding limit. Both boundaries are inclusive and the maximum must be at least the minimum. Specify a whole number from 0 through 324 for decimal places. Zero allows only whole numbers. The limit counts digits in the saved number, so trailing zeros do not add precision. These rules apply to newly entered or changed answers in every Stream and target using the definition.
 
 ## Selection options and categories
 

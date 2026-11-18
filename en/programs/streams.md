@@ -86,6 +86,7 @@ The stream detail page has these tabs:
 - Monitor Types.
 - Risk Ratings.
 - Custom Fields.
+- [Activity custom fields](./custom-fields.md).
 - Areas of Expertise.
 - Financial Limits.
 - Review Setups.

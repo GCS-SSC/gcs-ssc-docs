@@ -1849,7 +1849,7 @@
       "shared/utils/database-id.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/custom-fields/[fieldId].patch.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, withActiveAgencyMutationTransaction(; schema landmarks: AgencyCustomFieldCreateSchema, AgencyCustomFieldPatchSchema. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed."
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/custom-fields/[fieldId].patch.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, withActiveAgencyMutationTransaction(; schema landmarks: AgencyCustomFieldCreateSchema, AgencyCustomFieldPatchSchema. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/custom-fields/[fieldId]/options/[optionId].delete.ts",
@@ -5019,7 +5019,7 @@
       "shared/utils/database-id.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: executeFreshAuthorizedAgreementWrite. User/domain contract: current versus amendment activity versions, merged dates, same-owner outcomes and responsible-party references. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: executeFreshAuthorizedAgreementWrite. User/domain contract: current versus amendment activity versions, merged dates, same-owner outcomes and responsible-party references. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agreements/[id]/activities/index.get.ts",
@@ -5041,7 +5041,7 @@
       "server/utils/fresh-read-snapshot.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema. User/domain contract: current versus amendment activity versions, merged dates, same-owner outcomes and responsible-party references. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema. User/domain contract: current versus amendment activity versions, merged dates, same-owner outcomes and responsible-party references. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agreements/[id]/activities/index.post.ts",
@@ -5062,7 +5062,23 @@
       "server/utils/agreement-write-transaction.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: FundingCaseAgreementActivityCreateSchema, executeFreshAuthorizedAgreementWrite. User/domain contract: current versus amendment activity versions, merged dates, same-owner outcomes and responsible-party references. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: FundingCaseAgreementActivityCreateSchema, executeFreshAuthorizedAgreementWrite. User/domain contract: current versus amendment activity versions, merged dates, same-owner outcomes and responsible-party references. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/activities/lookups/custom-fields.get.ts",
+    "source": "server/api/agreements/[id]/activities/lookups/custom-fields.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/activities.md",
+    "fr": "fr/agreements/activities.md",
+    "evidence": [
+      "server/api/agreements/[id]/activities/lookups/custom-fields.get.ts",
+      "server/utils/agreement-custom-fields.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agreements/[id]/activities/lookups/outcomes.get.ts",
@@ -5338,7 +5354,7 @@
       "shared/types/schemas/index.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/activities/index.get.ts",
@@ -5359,7 +5375,7 @@
       "shared/types/schemas/index.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema. User/domain contract: numbered draft snapshots, selected packet domains, required completion approval, cancellation and successful revision promotion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema. User/domain contract: numbered draft snapshots, selected packet domains, required completion approval, cancellation and successful revision promotion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/activities/index.post.ts",
@@ -5380,7 +5396,7 @@
       "shared/types/schemas/index.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups exact-target-and-input-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/activity-snapshot.post.ts",
@@ -14353,6 +14369,70 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups stream-child-read-and-patch-hardening in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].delete.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].delete.ts",
+      "server/utils/stream-field-assignment-routes.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].patch.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].patch.ts",
+      "server/utils/stream-field-assignment-routes.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.get.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.get.ts",
+      "server/utils/stream-field-assignment-routes.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.post.ts",
+      "server/utils/stream-field-assignment-routes.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId].delete.ts",

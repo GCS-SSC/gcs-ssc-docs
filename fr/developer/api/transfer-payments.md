@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/transfer-payments/6` lit le profil du programme de financement 6. Elle ne verse pas de paiement à un bénéficiaire. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (119)
+## Gestionnaires (123)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -43,6 +43,10 @@ Une requête autorisée `GET /api/transfer-payments/6` lit le profil du programm
 | GET | `/api/transfer-payments/[id]/outcomes` | — | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/outcomes/index.get.ts` |
 | POST | `/api/transfer-payments/[id]/outcomes` | executeFreshAuthorizedTransferPaymentWrite | TransferPaymentOutcomeSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/outcomes/index.post.ts` |
 | GET | `/api/transfer-payments/[id]/performance-indicators` | — | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/performance-indicators/index.get.ts` |
+| DELETE | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].delete.ts` |
+| PATCH | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/[assignmentId].patch.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.get.ts` |
+| POST | `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields/index.post.ts` |
 | DELETE | `/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId].delete.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite, resolveTransferPaymentAgreementSubtypeStreamScopeContext | PositivePostgresBigintIdSchema, TransferPaymentAgreementSubtypeSchema | `server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/[agreementSubtypeId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes` | createTransferPaymentScopedAuthorizeHandler | AgreementSubtypeListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/agreement-subtypes/index.get.ts` |

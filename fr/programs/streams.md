@@ -86,6 +86,7 @@ La page de détail du volet présente ces onglets :
 - Types de surveillance.
 - Cotes de risque.
 - Champs personnalisés.
+- [Champs personnalisés des activités](./custom-fields.md).
 - Domaines d’expertise.
 - Limites financières.
 - Configurations d’examen.

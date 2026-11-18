@@ -1286,7 +1286,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0040_agency:agency_account_receivable_type",
@@ -1898,7 +1898,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Table Agency_Custom_Field declaration compared at dcbe779afa3c89adb9f0f798dd1b274e92a50939 with previous baseline. Changed column/constraint evidence: egcs_ay_kind, egcs_ay_kind_check, egcs_ay_presentation, egcs_ay_presentation_check. Paired data-model guide covers current persisted identifiers, clean-baseline rebuilds and this owner/financial/publication integrity family. Named constraints have individual source-backed ledger entries. No application tests executed."
+    "notes": "Table Agency_Custom_Field declaration compared at dcbe779afa3c89adb9f0f798dd1b274e92a50939 with previous baseline. Changed column/constraint evidence: egcs_ay_kind, egcs_ay_kind_check, egcs_ay_presentation, egcs_ay_presentation_check. Paired data-model guide covers current persisted identifiers, clean-baseline rebuilds and this owner/financial/publication integrity family. Named constraints have individual source-backed ledger entries. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0040_agency:agency_custom_field_option",
@@ -2760,6 +2760,22 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_chartofaccountdimensions; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:ay_chk_custom_field_decimal_places",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_custom_field_decimal_places",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_custom_field_decimal_places",
+      "shared/types/schemas/agreement-custom-fields.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+  },
+  {
     "id": "data:0040_agency:ay_chk_custom_field_discriminator_kind",
     "source": "server/database/migrations/0040_agency.ts#ay_chk_custom_field_discriminator_kind",
     "audience": [
@@ -2818,6 +2834,22 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_custom_field_multiple_kind; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_custom_field_number_limits",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_custom_field_number_limits",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_custom_field_number_limits",
+      "shared/types/schemas/agreement-custom-fields.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0040_agency:ay_chk_custom_field_option_categories",
@@ -16589,7 +16621,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_agreement_subtype",
@@ -17507,7 +17539,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Table Transfer_Payment_Stream_Field_Assignment declaration compared at dcbe779afa3c89adb9f0f798dd1b274e92a50939 with previous baseline. Changed column/constraint evidence: egcs_tp_displayorder, egcs_tp_displayorder_check. Paired data-model guide covers current persisted identifiers, clean-baseline rebuilds and this owner/financial/publication integrity family. Named constraints have individual source-backed ledger entries. No application tests executed."
+    "notes": "Table Transfer_Payment_Stream_Field_Assignment declaration compared at dcbe779afa3c89adb9f0f798dd1b274e92a50939 with previous baseline. Changed column/constraint evidence: egcs_tp_displayorder, egcs_tp_displayorder_check. Paired data-model guide covers current persisted identifiers, clean-baseline rebuilds and this owner/financial/publication integrity family. Named constraints have individual source-backed ledger entries. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_stream_field_assignment_pkey",
@@ -18266,6 +18298,22 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed check constraint tp_chk_stream_field_assignment_displayorder at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: CONSTRAINT \"tp_chk_stream_field_assignment_displayorder\" CHECK ((egcs_tp_displayorder >= 0)) Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_stream_field_assignment_target",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_field_assignment_target",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_field_assignment_target",
+      "shared/types/schemas/agreement-custom-fields.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_stream_field_section_displayorder",
@@ -21407,7 +21455,7 @@
       "shared/types/schemas/funding-case-agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_account_receivable_credit_memo",
@@ -21989,7 +22037,7 @@
       "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Activity"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Activity; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Activity; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_activity_version",
@@ -25190,6 +25238,22 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: correction_has_lifecycle_evidence; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_chk_activitycustomfields_object",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_activitycustomfields_object",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/custom-fields.md",
+    "fr": "fr/programs/custom-fields.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_activitycustomfields_object",
+      "shared/types/schemas/agreement-custom-fields.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
   },
   {
     "id": "data:0090_funding_case_agreement:fc_chk_activitydaterange",

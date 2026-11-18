@@ -1,5 +1,11 @@
 # API contracts
 
+## Activity custom fields
+
+The Stream routes under `/api/transfer-payments/[id]/streams/[streamId]/activity-custom-fields` manage Activity assignments under the owning Program. GET returns `items` and an empty `sections` array. Writes require Stream update authority. An Activity assignment cannot have a section. Resolve definitions for an Agreement through `GET /api/agreements/[id]/activities/lookups/custom-fields` with `permission_action` set to `read`, `create`, or `update`. Supply `amendment_id` when working in an Amendment.
+
+Activity create and update accept `egcs_fc_customfields` keyed by Agency field ID. PATCH merges supplied keys into the saved object. Agency Number definitions accept nullable `egcs_ay_minimum`, `egcs_ay_maximum`, and `egcs_ay_decimalplaces`.
+
 ## Bilingual Activity and budget line text
 
 Activity name, description, and expected results each require nonblank text in at least one language. Budget line subsection and description follow the same rule. Budget line English fields remain `egcs_fc_costsubsection` and `egcs_fc_description`; their French counterparts are `egcs_fc_costsubsection_fr` and `egcs_fc_description_fr`. Create requests default omitted translations to empty strings. On Agreement and Amendment PATCH requests, send an empty string to clear a translation, and keep another nonblank value in the pair after merging with saved fields.
