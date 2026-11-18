@@ -97,6 +97,7 @@ The host does not inspect imports or function calls. Declare capabilities used o
 | `agency-only-configuration` | Configure once at Agency scope, without stream editors. |
 | `file-storage-provider` | Register the host file-storage adapter and metadata contract. |
 | `agreement-number-provider` | Generate a number inside the host Agreement creation transaction. |
+| `agreement-financial-number-provider` | Control the Financial System Number during Agreement creation, editing, and initial approval. |
 | `agency-config` | Agency admin configuration component. |
 | `stream-config-modal` | Stream configuration rendered in the stream Extensions modal. |
 | `stream-config-page` | Full-page stream configuration route through `admin.streamConfigPage`. |
@@ -188,6 +189,12 @@ The provider receives the active host transaction, `agencyId`, `programId`, `str
 A valid result is already trimmed, nonempty, at most 15 Unicode characters, and contains no NUL. Multiple enabled providers for the same creation scope produce `AGREEMENT_NUMBER_PROVIDER_CONFLICT`; an invalid result produces `INVALID_GENERATED_AGREEMENT_NUMBER`. With no provider the host keeps manual numbering. The mode lookup is advisory; creation resolves and validates the provider again inside the protected operation.
 
 For example, a provider can allocate an Agency-wide sequence inside the supplied transaction and format `ABC-0000123`. It must implement its own concurrency-safe allocation; a client-side count of existing Agreements is not an allocator. A `configurationScope: 'agency'` provider applies across that Agency’s streams without separate stream activation. Counter design and configuration UI belong to the extension’s own documentation.
+
+## Financial System Number provider
+
+Declare `agreement-financial-number-provider` and `agreementFinancialNumberProvider: { path: "./server/financial-number.ts" }`. The default export implements `GcsAgreementFinancialNumberProvider` and returns `{ required, readOnly, value? }`. Omit `value` to accept eligible input or retain the saved number. Return `null` to clear it or a canonical non-negative PostgreSQL bigint string to supply it. A supplied value makes the input read-only. Only one provider extension can be enabled per Agency.
+
+The context includes `agencyConfig`, `agencyId`, `streamId`, and `currentValue`. Create and edit receive the optional `submittedValue`. Initial approval exposes `readFinalizedAnswers()`, which returns successful same-run Data Collection results with `runtimeItemId`, `setupId`, and `answers`. Select the expected setup and validate its answers before returning a value. For example, leave the field optional and read-only at creation and edit, then require and return the number extracted at approval. Failure prevents approval from committing. The value is written to the live profile in the approval transaction, and the frozen submission packet is preserved.
 
 ## Notification providers
 

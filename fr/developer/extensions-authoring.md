@@ -97,6 +97,7 @@ L’hôte n’inspecte pas les importations ou les appels de fonctions. Déclare
 | `agency-only-configuration` | Configurer au niveau organisme, sans éditeur de volet. |
 | `file-storage-provider` | Enregistrer l’adaptateur de stockage et son contrat de métadonnées. |
 | `agreement-number-provider` | Générer un numéro dans la transaction hôte de création d’entente. |
+| `agreement-financial-number-provider` | Gérer le numéro du système financier à la création, à la modification et à l’approbation initiale de l’entente. |
 | `agency-config` | Composant de configuration administrative d’une agence. |
 | `stream-config-modal` | Configuration du volet affichée dans la fenêtre modale Extensions du volet. |
 | `stream-config-page` | Route de configuration pleine page au moyen de `admin.streamConfigPage`. |
@@ -188,6 +189,12 @@ Le fournisseur reçoit la transaction hôte active, `agencyId`, `programId`, `st
 Le résultat doit être non vide, déjà nettoyé de ses espaces périphériques, d’au plus 15 caractères Unicode et sans NUL. Plusieurs fournisseurs actifs produisent `AGREEMENT_NUMBER_PROVIDER_CONFLICT`; un résultat invalide produit `INVALID_GENERATED_AGREEMENT_NUMBER`. Sans fournisseur, l’hôte conserve la numérotation manuelle. La recherche de mode est indicative; la création résout et valide de nouveau le fournisseur dans l’opération protégée.
 
 Par exemple, un fournisseur peut allouer une séquence d’organisme dans la transaction et former `ABC-0000123`. Il doit assurer lui-même l’allocation concurrente; compter les ententes côté client ne suffit pas. Un fournisseur `configurationScope: 'agency'` s’applique aux volets de l’organisme sans activation distincte par volet. Compteur et interface de configuration relèvent de sa documentation propre.
+
+## Fournisseur de numéro du système financier
+
+Déclarez `agreement-financial-number-provider` et `agreementFinancialNumberProvider: { path: "./server/financial-number.ts" }`. L’export par défaut implémente `GcsAgreementFinancialNumberProvider` et renvoie `{ required, readOnly, value? }`. Omettez `value` pour accepter une saisie admissible ou conserver le numéro enregistré. Renvoyez `null` pour l’effacer ou une chaîne canonique représentant un entier PostgreSQL bigint positif ou nul pour l’attribuer. Une valeur fournie rend le champ accessible en lecture seule. Une seule extension de fournisseur peut être activée par agence.
+
+Le contexte comprend `agencyConfig`, `agencyId`, `streamId` et `currentValue`. La création et la modification reçoivent la valeur facultative `submittedValue`. Lors de l’approbation initiale, `readFinalizedAnswers()` renvoie les résultats des collectes de données réussies de la même exécution, avec `runtimeItemId`, `setupId` et `answers`. Sélectionnez la configuration attendue et validez ses réponses avant de renvoyer une valeur. Par exemple, laissez le champ facultatif et en lecture seule à la création et à la modification, puis exigez et renvoyez le numéro extrait lors de l’approbation. En cas d’échec, l’approbation ne peut pas être enregistrée. La transaction d’approbation enregistre la valeur dans le profil courant et conserve le paquet de soumission figé.
 
 ## Fournisseurs de notifications
 

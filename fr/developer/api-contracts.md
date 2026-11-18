@@ -1,5 +1,11 @@
 # Contrats API
 
+## Numéro du système financier de l’entente
+
+`POST /api/agreements` et `PATCH /api/agreements/[id]` acceptent le champ facultatif `egcs_fc_financialsystemnumber`. Envoyez un entier bigint positif ou nul sous forme de texte décimal. Lors d’un PATCH, un champ omis conserve la valeur enregistrée sauf si un fournisseur en attribue une nouvelle, et `null` demande de l’effacer. `GET /api/agreements/number-mode?streamId=…` renvoie la règle de création dans `financialNumberPolicy`. Pour les utilisateurs autorisés à modifier le profil, le détail de l’entente renvoie la règle de modification ou `financialNumberPolicyUnavailable: true` si la règle ne peut être déterminée.
+
+Les codes HTTP 409 sont `AGREEMENT_FINANCIAL_NUMBER_REQUIRED`, `AGREEMENT_FINANCIAL_NUMBER_READ_ONLY` et `AGREEMENT_FINANCIAL_NUMBER_PROVIDER_INVALID`. L’activation d’une extension pour l’agence renvoie `AGREEMENT_FINANCIAL_NUMBER_PROVIDER_CONFLICT` lorsqu’un autre fournisseur est déjà activé.
+
 ## Création de réclamations et de paiements
 
 `POST /api/agreements/[id]/claims` et `POST /api/agreements/[id]/payments` vérifient l’approbation initiale de l’entente dans la transaction d’écriture autorisée. L’entente doit avoir une révision `0` conservée liée à sa soumission d’approbation initiale et à une exécution de flux pour cette entente dans l’état `succeeded` ou `approved`. En l’absence de cette preuve, le serveur renvoie HTTP 409 avec le code `AGREEMENT_INITIAL_APPROVAL_REQUIRED` avant de créer le dossier. Réessayez après la réussite du flux d’approbation initiale.

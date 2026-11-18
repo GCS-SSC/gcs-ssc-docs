@@ -251,10 +251,12 @@
       "server/api/workflows/resume.post.ts",
       "server/utils/review-runtime-access.ts",
       "app/composables/useCompletionWorkflowStart.ts",
-      "server/utils/canonical-approval-runtime.ts"
+      "server/utils/canonical-approval-runtime.ts",
+      "server/utils/agreement-financial-number-provider.ts",
+      "tooling/gcs-ssc/tests/integration/workflow-r3-collection-detail-postgres.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-runtime.json; sync-program-schemas.json. Workflow recovery first requires exact-target work authority. Recommendation occurrences resolve separately; role-permitted controls can warn without execution when prerequisites fail. Approval/on-behalf column fixes preserve the intended policy. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; evidence receipts sync-runtime.json; sync-program-schemas.json. Workflow recovery first requires exact-target work authority. Recommendation occurrences resolve separately; role-permitted controls can warn without execution when prerequisites fail. Approval/on-behalf column fixes preserve the intended policy. Unchanged supporting contracts retain prior baseline evidence. Application tests were inspected where listed in receipts, not executed. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed same-run finalized answers, atomic approval, and frozen submission preservation. See documentation-audit/sync-nov18-financial-system-number.md."
   },
   {
     "id": "domain:common-administration",

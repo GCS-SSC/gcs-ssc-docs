@@ -46,7 +46,7 @@ The form starts **Further distribution** as false and **Holdback** at 10%; check
 | Agreement subtype | Required active subtype belonging to that exact stream. Agreement type is derived from the subtype and is not independently editable. |
 | Agreement number | Manual mode requires a trimmed number of at most 15 characters. When a numbering provider is enabled, creation generates the number and rejects a manually supplied one. |
 | Currency | Required denomination selected at creation; immutable thereafter. Related financial records and eligible budget and chart references must use the same currency. |
-| Financial system number | Required financial-system identifier representing a whole number of zero or more. Large IDs are handled as text to preserve all digits. |
+| Financial System Number | Optional by default. Enter a whole number of zero or more. The field preserves all digits of large numbers as text. An Agency extension can require the number, make it read-only, or supply a value. |
 | Assistance dates | Both required; end cannot precede start. |
 | Further distribution | Required yes/no value. |
 | English and French title | Both required, each at most 255 characters. |
@@ -59,6 +59,8 @@ The form starts **Further distribution** as false and **Holdback** at 10%; check
 Changing the stream clears subtype, holdback basis, and risk score because those choices belong to the stream. Select them again for the new stream. The application rechecks your access and all selected records when you save. It creates the agreement, its recipient links, and your primary assignment together; a failed creation does not leave a partly created file.
 
 Currency is also fixed after creation (`AGREEMENT_CURRENCY_IMMUTABLE`). A financial child using another currency fails with `AGREEMENT_CURRENCY_MISMATCH`; correct the child's currency choice. If a recipient's financial ID is rejected, ask for an active ID belonging to that proponent and the agreement's Agency, then reload the form. An ID with no agency does not qualify.
+
+For example, if Finance assigns a number later and your Agency allows a blank value, create the agreement with the field empty. Once Finance provides the number, enter it on **General** if your assignment, the agreement’s status, and the field policy allow edits. To remove a manually entered number, clear the field and save when the policy allows a blank value. If the form reports an invalid extension policy, ask your Agency administrator to check the extension, then retry loading the form.
 
 ## Agreement-number matching
 

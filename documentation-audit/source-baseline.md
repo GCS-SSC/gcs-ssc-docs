@@ -2,13 +2,13 @@
 
 The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.md`.
 
-- Verified at `2026-11-18T15:30:37+00:00`.
+- Verified at `2026-11-18T16:22:15+00:00`.
 - Application repository `https://github.com/GCS-SSC/gcs-ssc.git`, branch `main`.
-- Verified application commit `9252d8fbe5b947161b7ecd3345c08a67d391151e`, committed `2026-11-18T10:16:22-05:00`.
-- Previous verified source `af5d8a67df7c6266e1d34641a44b8a4935ac4f09`. The [previous source review](./sync-nov18-progress.json) remains available.
-- Range of six commits and 13 net changed paths. See the [source review and dispositions](./sync-nov18-financial-creation.md).
+- Verified application commit `f527ab30d089877809379dc8854df80c3ba13467`, committed `2026-11-18T11:05:11-05:00`.
+- Previous verified source `9252d8fbe5b947161b7ecd3345c08a67d391151e`. The [previous source review](./sync-nov18-financial-creation.md) remains available.
+- Range of one commit and 23 net changed paths after the previous verified receipt. See the [source review](./sync-nov18-financial-system-number.md) for baseline reconciliation and dispositions.
 - Isolated checkout `.reference-repos/gcs-ssc`, clean and detached. The previous baseline is an ancestor of the target, all 13 initialized gitlinks match, and the final fetch confirmed that `origin/main` still matched the target.
-- Documentation checkout started clean at `535c5baea1b331ef13f8047d871561baac81da7b`.
+- Documentation checkout started clean at `a7046ab3d752ec7ec5dab17927894739e870926e`.
 
 ## Source gitlinks
 
@@ -25,8 +25,8 @@ The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.
 | `extensions/gcs-ssc-portal-connector` | `34f76433b0e1a3baec1b7ba518d766e2606d89bd` |
 | `extensions/gcs-storage-local` | `7f46dc38d004462d2e8282932054550935a810ef` |
 | `extensions/gcs-storage-s3` | `4a428601472a912f0760fd5bf9a2f4bd6495f845` |
-| `packages/gcs-ssc-extensions` | `84978d52947b47a2a63b7d4965769aac26e2851f` |
-| `tooling/gcs-ssc` | `4e82150bbaef59ccb65200f511be138acd92faaa` |
+| `packages/gcs-ssc-extensions` | `6ccc9cafbcd45958dac33d15f6e34028e44787ba` |
+| `tooling/gcs-ssc` | `db8303d263d563f51813d855562f99076dfe84fd` |
 
 ## Executed verification
 

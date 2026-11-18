@@ -1,5 +1,11 @@
 # API contracts
 
+## Agreement Financial System Number
+
+`POST /api/agreements` and `PATCH /api/agreements/[id]` accept optional `egcs_fc_financialsystemnumber`. Send a non-negative bigint as decimal text. On PATCH, omission keeps the saved value unless a provider supplies a new one, and `null` requests a clear. `GET /api/agreements/number-mode?streamId=…` returns the create policy in `financialNumberPolicy`. For authorized editors, the Agreement detail response includes the edit policy or `financialNumberPolicyUnavailable: true` if policy resolution fails.
+
+HTTP 409 codes are `AGREEMENT_FINANCIAL_NUMBER_REQUIRED`, `AGREEMENT_FINANCIAL_NUMBER_READ_ONLY`, and `AGREEMENT_FINANCIAL_NUMBER_PROVIDER_INVALID`. Agency extension enablement returns `AGREEMENT_FINANCIAL_NUMBER_PROVIDER_CONFLICT` if another provider is already enabled.
+
 ## Claim and Payment creation
 
 `POST /api/agreements/[id]/claims` and `POST /api/agreements/[id]/payments` check initial Agreement approval within the authorized write transaction. The Agreement must have a retained revision `0` linked to its initial approval submission and a workflow run for that Agreement in state `succeeded` or `approved`. If that evidence is missing, the server returns HTTP 409 with code `AGREEMENT_INITIAL_APPROVAL_REQUIRED` before creating the record. Retry after the initial approval workflow succeeds.

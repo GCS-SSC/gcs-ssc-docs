@@ -133,6 +133,8 @@ Deleting an Agency requires delete permission for that Agency and a new check of
 
 The Extensions tab shows the registered extensions and whether each is enabled for the Agency. Enable an extension here before configuring it for a Stream. Disabling it here also disables it for every Stream in the Agency. See [Extensions](../concepts/extensions.md) for availability, permissions, configuration, and data handling.
 
+In **Extensions**, enable at most one Financial System Number provider for the Agency. If enabling a new provider reports a conflict, review the active provider and disable it before enabling the replacement. If the provider will read a Data Collection during initial approval, configure that collection in the approval workflow and check that it finishes before the final decision. Verify the policy on a test agreement before using the workflow for live records.
+
 ## Setup order
 
 Configure a new Agency in this order:

@@ -4755,10 +4755,11 @@
       "app/components/Common/DetailWorkspace.vue",
       "app/components/Common/CurrencyInput.vue",
       "tooling/gcs-ssc/tests/unit/search-records.test.ts",
-      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
+      "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts",
+      "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md."
   },
   {
     "id": "api:server/api/agreements/[id].patch.ts",
@@ -4786,10 +4787,11 @@
       "tests/unit/agreement-documents-tab.test.ts",
       "tests/unit/document-generation-rollback-cleanup.test.ts",
       "tests/unit/agreement-generated-documents-route.test.ts",
-      "tests/unit/agreement-document-custom-fields.test.ts"
+      "tests/unit/agreement-document-custom-fields.test.ts",
+      "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md."
   },
   {
     "id": "api:server/api/agreements/[id]/account-receivables/index.get.ts",
@@ -9303,10 +9305,11 @@
       "tests/unit/agreement-documents-tab.test.ts",
       "tests/unit/document-generation-rollback-cleanup.test.ts",
       "tests/unit/agreement-generated-documents-route.test.ts",
-      "tests/unit/agreement-document-custom-fields.test.ts"
+      "tests/unit/agreement-document-custom-fields.test.ts",
+      "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md."
   },
   {
     "id": "api:server/api/agreements/lookups/agreement-subtypes.get.ts",
@@ -9501,10 +9504,11 @@
       "shared/types/schemas/common.ts",
       "server/utils/authorize.ts",
       "server/utils/agreement.ts",
-      "server/utils/agreement-number-provider.ts"
+      "server/utils/agreement-number-provider.ts",
+      "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PositivePostgresBigintIdSchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PositivePostgresBigintIdSchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md."
   },
   {
     "id": "api:server/api/agreements/similarity.post.ts",
@@ -11555,10 +11559,11 @@
       "packages/gcs-ssc-extensions/src/ui.ts",
       "server/utils/extension-runtime-route.ts",
       "server/utils/extension-agreement-financials.ts",
-      "server/utils/agreement-coding-allocator.ts"
+      "server/utils/agreement-coding-allocator.ts",
+      "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group sdk in review-groups.json. SDK 0.3.17 host capability boundary: Agency workspace, Opportunity/Payment tabs, Agreement details, scoped bilingual fields, retained evidence, host-bound financial reads and Stream-catalog coding allocator. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group sdk in review-groups.json. SDK 0.3.17 host capability boundary: Agency workspace, Opportunity/Payment tabs, Agreement details, scoped bilingual fields, retained evidence, host-bound financial reads and Stream-catalog coding allocator. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md."
   },
   {
     "id": "api:server/api/extensions/agency/[agencyId]/migrations.post.ts",

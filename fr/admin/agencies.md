@@ -133,6 +133,8 @@ Supprimer une agence exige la permission de suppression pour cette agence et une
 
 L'onglet Extensions présente les extensions enregistrées et indique si elles sont activées pour l'agence. Activez une extension ici avant de la configurer pour un volet. La désactiver ici la désactive aussi pour tous les volets de l'agence. Consultez [Extensions](../concepts/extensions.md) pour la disponibilité, les permissions, la configuration et le traitement des données.
 
+Dans **Extensions**, activez au plus un fournisseur de numéro du système financier pour l’agence. Si l’activation d’un nouveau fournisseur signale un conflit, vérifiez le fournisseur actif et désactivez-le avant d’activer son remplaçant. Si le fournisseur doit lire une collecte de données lors de l’approbation initiale, configurez cette collecte dans le flux d’approbation et vérifiez qu’elle se termine avant la décision finale. Validez la règle sur une entente d’essai avant d’utiliser le flux pour des dossiers réels.
+
 ## Ordre de configuration
 
 Configurez une nouvelle agence dans cet ordre :

@@ -46,7 +46,7 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %; véri
 | Sous-type d'entente | Sous-type actif obligatoire appartenant exactement au volet. Le type d'entente est dérivé du sous-type et n'est pas modifiable séparément. |
 | Numéro d'entente | En mode manuel, numéro élagué obligatoire d'au plus 15 caractères. Avec un fournisseur activé, la création génère le numéro et refuse un numéro fourni manuellement. |
 | Devise | Dénomination obligatoire choisie à la création, puis immuable. Les dossiers financiers connexes, les budgets et les plans admissibles doivent utiliser la même devise. |
-| Numéro du système financier | Identifiant du système financier obligatoire représentant un nombre entier de zéro ou plus. Les grands identifiants sont traités comme du texte pour préserver tous les chiffres. |
+| Numéro du système financier | Facultatif par défaut. Saisissez un entier positif ou nul. Le champ conserve tous les chiffres des grands nombres sous forme de texte. Une extension de l’agence peut rendre le numéro obligatoire ou en lecture seule, ou fournir une valeur. |
 | Dates d'aide autorisée | Toutes deux obligatoires; la fin ne peut pas précéder le début. |
 | Redistribution | Valeur oui-non obligatoire. |
 | Titres anglais et français | Tous deux obligatoires et limités à 255 caractères chacun. |
@@ -59,6 +59,8 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %; véri
 Changer de volet efface le sous-type, la base de retenue et la cote de risque, car ces choix appartiennent au volet. Sélectionnez-les de nouveau pour le nouveau volet. L'application revérifie votre accès et tous les dossiers sélectionnés à l'enregistrement. Elle crée ensemble l'entente, ses liens de bénéficiaires et votre affectation principale; un échec ne laisse pas de dossier créé en partie.
 
 La devise est aussi fixe après la création (`AGREEMENT_CURRENCY_IMMUTABLE`). Un enfant financier utilisant une autre devise échoue avec `AGREEMENT_CURRENCY_MISMATCH`; corrigez le choix de devise de l'enfant. Si l'identifiant financier d'un bénéficiaire est refusé, demandez un identifiant actif appartenant à ce promoteur et à l'agence de l'entente, puis rechargez le formulaire. Un identifiant sans agence n'est pas admissible.
+
+Par exemple, si les Finances attribuent le numéro plus tard et que votre agence permet de laisser le champ vide, créez l’entente sans numéro du système financier. Une fois le numéro fourni, saisissez-le dans **Général** si votre affectation, le statut de l’entente et la règle du champ permettent la modification. Pour retirer un numéro saisi manuellement, effacez-le et enregistrez si le champ peut être vide. Si le formulaire signale une règle d’extension invalide, demandez à l’administrateur de votre agence de vérifier l’extension, puis rechargez le formulaire.
 
 ## Correspondance des numéros d'entente
 
