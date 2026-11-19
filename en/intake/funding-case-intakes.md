@@ -41,6 +41,8 @@ Use these sections for assessment and follow-up:
 
 Starts recheck the current Opportunity selections and publication eligibility. Reviews and Workflows already started keep the versions selected at their start, even if an administrator later changes the setup links. Follow [Reviews](../concepts/runtime-reviews.md) and [Workflows](../concepts/workflows.md) for task execution, completion, cancellation and retries. Creating or approving an Intake does not automatically create an Assessment Decision or Agreement.
 
+If an Intake becomes read-only while a workflow is active, a user assigned to the Intake with update permission can still cancel the active run when the action is available. Open **Workflows** for a standard run or **Approval** for an approval-submission run. Read-only status still blocks starting a new run.
+
 ## Claim group work and manage assignments
 
 Portal imports start with a pending group in the owning Agency and no user assignee. Members with Funding Case Viewer access in the Program see available work in the Home administrative group queue. To **Claim** an Intake, you must be an active group member, have Contributor access in the Program and be eligible for assignment. The Intake must be unlocked. Claim assigns you to this Intake and records you as the person who claimed the group's work. Group membership alone cannot edit the Intake.

@@ -70,9 +70,13 @@ Sélectionnez **Achever** pour soumettre la réclamation. Si un flux d’approba
 
 Le retrait et l’annulation agissent sur le flux actif. Le retrait est refusé dès qu’un historique de rapprochement existe. Sans flux actif, ces actions n’ont aucun flux à annuler. Le statut d’annulation publié détermine la transition. Achèvement demeure une preuve historique et ne s’annule pas en soumettant de nouveau le formulaire.
 
+Si le flux de soumission pour approbation est encore actif après l’achèvement de la réclamation, un contributeur affecté peut utiliser l’action d’annulation du volet de flux lorsqu’elle est disponible. L’achèvement reste dans l’historique.
+
 ## Créer et comparer les rapprochements
 
 La réclamation doit avoir un résultat d’achèvement réussi. Toutes ses lignes actives doivent être attribuées et aucun rapprochement final terminé avec succès ne doit exister.
+
+Après l’approbation réussie, ouvrez **Rapprochement** et sélectionnez **Nouveau rapprochement** lorsque l’action apparaît. Si la création est refusée, vérifiez votre affectation, les lignes sans répartition et l’historique des rapprochements ouverts ou finaux.
 
 Pour créer un rapprochement, vous devez avoir l’accès Contributeur et être affecté à la réclamation. Vous devenez l’affectataire principal du rapprochement. Ses affectations sont distinctes de celles de la réclamation.
 

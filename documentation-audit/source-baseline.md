@@ -2,13 +2,13 @@
 
 The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.md`.
 
-- Verified at `2026-11-19T02:49:45+00:00`.
+- Verified at `2026-11-19T05:11:08+00:00`.
 - Application repository `https://github.com/GCS-SSC/gcs-ssc.git`, branch `main`.
-- Verified application commit `878cfb0d326f9a1d2efa8159afaeb08833d9f062`, committed `2026-11-18T21:36:46-05:00`.
-- Previous verified source `9ad3ead3fc391576028906b55b634ebaf4a92ae2`.
-- Range of four commits and 86 net changed paths. See the [source review and dispositions](./sync-nov18-stream-risk.md).
+- Verified application commit `b7a11770a2978187468e7286531798adc76c2dd1`, committed `2026-11-19T00:05:02-05:00`.
+- Previous verified source `878cfb0d326f9a1d2efa8159afaeb08833d9f062`.
+- Range of five commits and ten net changed paths. See the [source review and dispositions](./sync-nov19-workflow-controls.md).
 - Isolated checkout `.reference-repos/gcs-ssc`, clean and detached. The baseline is an ancestor of the target, all 13 initialized gitlinks match, and the final fetch confirmed that `origin/main` still matched the target.
-- Documentation checkout started with the verified uncommitted coding lookup update at `bf4165e5a44b91380efe7521eeaae9e922ddf181`.
+- Documentation checkout started clean at `e5c142b7137d7af07efd3d6009db5a73285181c5`.
 
 ## Source gitlinks
 
@@ -26,7 +26,7 @@ The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.
 | `extensions/gcs-storage-local` | `7f46dc38d004462d2e8282932054550935a810ef` |
 | `extensions/gcs-storage-s3` | `4a428601472a912f0760fd5bf9a2f4bd6495f845` |
 | `packages/gcs-ssc-extensions` | `c0b12fd3445e3a9a3adb35a35e5f0a57a4e95326` |
-| `tooling/gcs-ssc` | `a0c3eb89c2292b18b2dd8a3e06582043c61913ef` |
+| `tooling/gcs-ssc` | `d1b8a14b08325047a91fdf2b4109a7ccf0c235ba` |
 
 ## Executed verification
 

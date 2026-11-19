@@ -31,13 +31,12 @@ Ouvrez la version à modifier. Son exercice et son numéro de version ne sont pa
 
 1. Sélectionnez l'action de modification de la ligne pour ouvrir ses douze montants mensuels du programme, regroupés par trimestre.
 2. Saisissez des montants de zéro ou plus dans la devise de l'entente, selon la précision de cette devise.
-3. Sélectionnez **Mettre à jour** pour reporter les montants sur la page. Cela ne les enregistre pas sur le serveur. **Annuler** abandonne les changements de la boîte de dialogue.
-4. Sélectionnez **Enregistrer la ventilation** pour enregistrer toutes les cellules modifiées ensemble. Une nouvelle cellule à zéro ne crée aucune ligne, sauf si vous saisissez aussi un autre financement. Une cellule existante mise à zéro conserve sa ligne.
-5. Vérifiez les montants enregistrés après l'actualisation de la page. Si la validation échoue, aucun des changements soumis n'est enregistré.
+3. Sélectionnez **Mettre à jour** pour enregistrer ensemble les changements de cette boîte de dialogue. **Annuler** abandonne les modifications avant l’envoi. Une nouvelle cellule à zéro ne crée aucune ligne, sauf si vous saisissez aussi un autre financement. Une cellule existante mise à zéro conserve sa ligne.
+4. Vérifiez les montants après l’actualisation. Si l’enregistrement échoue, examinez l’erreur et les dernières valeurs enregistrées avant de soumettre de nouveau.
 
-Vous pouvez déplacer un montant entre deux mois en un seul enregistrement. Par exemple, avec un budget annuel de 5 000, passez avril de 5 000 à zéro et mai de zéro à 5 000, puis enregistrez une seule fois. Le système vérifie le total annuel final.
+Vous pouvez déplacer un montant entre deux mois de la même ligne dans un seul enregistrement. Par exemple, avec un budget annuel de 5 000, passez avril de 5 000 à zéro et mai de zéro à 5 000, puis sélectionnez **Mettre à jour** une seule fois. Le serveur vérifie le total annuel obtenu.
 
-Si un autre utilisateur modifie une cellule que vous enregistrez, l'enregistrement est refusé pour protéger son travail. La page recharge les montants enregistrés et conserve vos différences non enregistrées. Comparez ces différences avant d'enregistrer à nouveau. Après une réponse perdue ou une actualisation échouée, rechargez et vérifiez ce qui a été enregistré avant de réessayer.
+Un enregistrement en conflit est refusé. Vérifiez les valeurs actualisées, puis modifiez de nouveau les mois concernés. Si la réponse ou l’actualisation est incertaine, rechargez et vérifiez ce qui a été enregistré avant de réessayer.
 
 Chaque ligne budgétaire ne peut avoir qu'un montant enregistré par mois dans une version de prévision. Modifier le financement du programme conserve les autres sources. En mode automatique, le total est recalculé à partir des deux. En mode manuel, vérifiez le coût total enregistré lorsque le financement change.
 
@@ -45,9 +44,11 @@ Les changements ordinaires conservent le statut métier de l'organisme. Supprime
 
 ## Cycle de vie et achèvement
 
-Enregistrez la ventilation et les détails de financement requis avant de sélectionner Achever. Il faut une affectation à cette version, le niveau Contributeur, au moins une ligne active, aucun achèvement antérieur et un dossier modifiable. Un statut d'organisme en lecture seule ou terminal, un flux actif ou une entente protégée peut bloquer les changements.
+Enregistrez les modifications mensuelles et les détails de financement requis, puis ouvrez **Achèvement**. Saisissez un commentaire facultatif et utilisez l’action d’achèvement de cette section. Il faut une affectation à cette version, le niveau Contributeur, au moins une ligne active, aucun achèvement antérieur et un dossier modifiable. Un statut d'organisme en lecture seule ou terminal, un flux actif ou une entente protégée peut bloquer les changements.
 
 L'achèvement consigne l'utilisateur et le commentaire facultatif. Il démarre le flux configuré de soumission d'approbation, ou consigne un achèvement sans flux. La réussite active cette version et remplace la prévision active de la même entente et du même exercice. Sans flux d'approbation, c'est immédiat; sinon, cela attend sa réussite. Un échec ou une annulation laisse l'ancienne prévision active. Un brouillon portant un numéro plus élevé ne la remplace pas.
+
+Si l’approbation est encore active après l’achèvement, un utilisateur Contributeur affecté à cette prévision peut utiliser l’action d’annulation du flux lorsqu’elle est disponible. L’annulation conserve la preuve d’achèvement et la prévision active précédente.
 
 L'achèvement ne peut être répété ni annulé ici. Utilisez une nouvelle version pour remplacer une prévision achevée. Les flux standard se choisissent séparément et ne remplacent pas l'achèvement. Consultez [Approbations et achèvements](../concepts/approvals-completions.md) et [Flux de travail](../concepts/workflows.md).
 
@@ -55,7 +56,7 @@ Les réglages de [gestion du budget](../programs/streams.md) du volet contrôlen
 
 ## Ventilation du financement et contrôles budgétaires annuels
 
-Développez la ligne de coûts et sélectionnez l'action de modification d'une autre source pour saisir ses douze montants mensuels. Les sources proviennent de la ligne budgétaire courante et des allocations enregistrées de la prévision. Pour offrir une nouvelle source ici, ajoutez-la d'abord au budget de l'entente. Une allocation enregistrée peut conserver son sous-type retiré. Sélectionnez **Mettre à jour**, puis **Enregistrer la ventilation**, pour enregistrer ensemble le programme et les autres sources. En mode automatique, la page calcule le coût total mensuel comme leur somme. La sous-ligne du programme affiche le même montant que la ligne principale; utilisez l'action de modification de la ligne principale pour le changer.
+Développez la ligne de coûts et sélectionnez l'action de modification d'une autre source pour saisir ses douze montants mensuels. Les sources proviennent de la ligne budgétaire courante et des allocations enregistrées de la prévision. Pour offrir une nouvelle source ici, ajoutez-la d'abord au budget de l'entente. Une allocation enregistrée peut conserver son sous-type retiré. Sélectionnez **Mettre à jour** dans l’éditeur pour enregistrer ses changements. En mode automatique, la page calcule le coût total mensuel comme leur somme. La sous-ligne du programme affiche le même montant que la ligne principale; utilisez l'action de modification de la ligne principale pour le changer.
 
 Si le volet exige des détails de financement pour les prévisions, chaque ligne active de cette version doit avoir au moins une allocation d'autres fonds enregistrée et une ventilation équilibrée avant l'achèvement. Pour un équipement de 1 000, saisissez 700 du programme et 300 d'une autre source. Avec seulement 250 de cette source, la page calcule un coût total de 950. Saisissez les 300 prévus avant d'enregistrer si le coût prévu est de 1 000.
 

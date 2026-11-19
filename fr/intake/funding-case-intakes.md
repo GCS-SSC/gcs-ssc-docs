@@ -41,6 +41,8 @@ Utilisez les sections suivantes pour l'évaluation et le suivi :
 
 Chaque démarrage revérifie les choix courants et la publication. Les examens et flux déjà démarrés conservent les versions choisies au démarrage, même si un administrateur modifie ensuite les liens de configuration. Consultez [Examens](../concepts/runtime-reviews.md) et [Flux](../concepts/workflows.md) pour l'exécution, l'achèvement, l'annulation et la reprise. Créer ou approuver un dossier ne crée pas automatiquement une décision d'évaluation ou une entente.
 
+Si un dossier devient accessible en lecture seule pendant un flux actif, un utilisateur affecté qui possède le droit de modification peut encore annuler cette exécution lorsque l’action est disponible. Ouvrez **Flux de travail** pour une exécution standard ou **Approbation** pour une soumission pour approbation. Le statut en lecture seule bloque toujours le démarrage d’un nouveau flux.
+
 ## Réclamer le travail de groupe et gérer les affectations
 
 Les imports du Portail commencent avec un groupe en attente de l'agence propriétaire, sans utilisateur affecté. Les membres ayant un accès Lecteur Dossier de financement dans le programme voient le travail disponible dans la file des groupes administratifs de l'Accueil. Pour **Réclamer** un dossier, vous devez être membre actif du groupe, avoir un accès Contributeur dans le programme et être admissible à l'affectation. Le dossier doit être déverrouillé. Réclamer vous affecte à ce dossier et vous inscrit comme la personne qui a réclamé le travail du groupe. L'appartenance seule ne permet pas de modifier.

@@ -31,13 +31,12 @@ Open the version you intend to change. Its fiscal year and version number cannot
 
 1. Select the cost line's edit action to open its twelve monthly program amounts, grouped by quarter.
 2. Enter amounts of zero or more in the agreement currency, using that currency’s precision.
-3. Select **Update** to apply the amounts to the page. This does not save them to the server. **Cancel** discards the dialog changes.
-4. Select **Save breakdown** to save all changed cells together. A new zero cell creates no line unless you also enter other funding. Setting an existing cell to zero keeps its line.
-5. Check the saved amounts after the page refreshes. If validation fails, none of the submitted changes are saved.
+3. Select **Update** to save the changes from this dialog together. **Cancel** discards edits before submission. A new zero cell creates no line unless you also enter other funding. Setting an existing cell to zero keeps its line.
+4. Check the saved amounts after the page refreshes. If an edit fails, review the error and the latest saved values before submitting it again.
 
-You can move an amount between months in one save. For example, with an annual budget of 5,000, change April from 5,000 to zero and May from zero to 5,000, then save once. The system checks the final annual total.
+You can move an amount between months of the same line in one dialog save. For example, with an annual budget of 5,000, change April from 5,000 to zero and May from zero to 5,000, then select **Update** once. The server checks the resulting annual total.
 
-If another user changes a cell you are saving, the save is rejected to protect their work. The page reloads the saved amounts and keeps your unsaved differences. Compare those differences before saving again. After a lost response or failed refresh, reload and check what was saved before retrying.
+A conflicting save is rejected. Check the refreshed values and update the affected months again. If the response or refresh is uncertain, reload and check what was saved before retrying.
 
 Each budget line can have only one saved amount per month in a forecast version. Changing Program Funding preserves other-source allocations. In automatic mode, the total is recalculated from both. In manual mode, review the saved Total Cost when funding changes.
 
@@ -45,9 +44,11 @@ Ordinary line changes preserve the Agency's business status. Deleting an editabl
 
 ## Lifecycle and completion
 
-Save the breakdown and any required funding details before selecting Complete. You need assignment to this version, Contributor access, at least one active line, no prior Completion and an editable record. A read-only or terminal Agency status, an active workflow or a protected Agreement can block changes.
+Save the monthly edits and any required funding details, then open **Completion**. Enter an optional comment and use the completion action in that section. You need assignment to this version, Contributor access, at least one active line, no prior Completion and an editable record. A read-only or terminal Agency status, an active workflow or a protected Agreement can block changes.
 
 Completion records the user and optional comment. It starts the configured approval-submission workflow, or records completion without a workflow. Success makes this version active and replaces the active forecast for the same Agreement and year. Without an approval workflow this happens immediately; otherwise it waits for success. Failure or cancellation leaves the earlier active forecast in place. A draft with a higher version number does not replace it.
+
+If approval is still active after Completion, a user with Contributor access and assignment to this Forecast can use the workflow cancellation action when available. Cancellation leaves the Completion record and the earlier active Forecast in place.
 
 You cannot repeat or undo completion here. Use a new version when a completed forecast needs replacement. Standard workflows are selected separately and do not replace Completion. See [Approvals and completions](../concepts/approvals-completions.md) and [Workflows](../concepts/workflows.md).
 
@@ -55,7 +56,7 @@ The Stream’s [Budget Management](../programs/streams.md) settings control line
 
 ## Funding breakdown and annual budget checks
 
-Expand the cost line and select an other-source row's edit action to enter its twelve monthly amounts. Source rows come from the current budget line and saved forecast allocations. To offer a new source here, add it to the agreement budget first. A saved forecast allocation can retain its retired subtype. Select **Update**, then **Save breakdown**, to save program amounts and other sources together. The page calculates each month's total cost as program funding plus its other sources. The program-funding child row displays the same amount as the main cost line; use the main line's edit action to change it.
+Expand the cost line and select an other-source row's edit action to enter its twelve monthly amounts. Source rows come from the current budget line and saved forecast allocations. To offer a new source here, add it to the agreement budget first. A saved forecast allocation can retain its retired subtype. Select **Update** in the editor to save its changes. In automatic mode, the page calculates each month’s total cost as Program Funding plus Other Funding. The program-funding child row displays the same amount as the main cost line; use the main line's edit action to change it.
 
 If the Stream requires forecast funding details, each active line in this version needs at least one saved other-source allocation and a balanced breakdown before Completion. For equipment costing 1,000, enter 700 from the program and 300 from another source. With only 250 from that source, the page calculates a total cost of 950. Enter the full 300 before saving if the planned cost is 1,000.
 

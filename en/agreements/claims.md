@@ -70,9 +70,13 @@ Select **Complete** to submit the claim. If an approval workflow is configured, 
 
 Withdrawal and cancellation act on the active claim workflow. Withdrawal is refused after reconciliation history exists. With no active workflow there is no workflow to cancel through these actions. The workflow's published cancellation status determines the business transition. Completion remains historical evidence and cannot be undone by resubmitting the form.
 
+If the approval-submission workflow is still active after the Claim is completed, an assigned Contributor can use the cancellation action in the workflow panel when available. The Completion remains in history.
+
 ## Create and compare reconciliations
 
 A claim must have reached a successful completion outcome, all active lines must be allocated, and no successfully completed final reconciliation may exist.
+
+Open **Reconciliation** after successful approval and select **New reconciliation** when it appears. If creation is refused, check your assignment, any unallocated lines, and open or final reconciliation history.
 
 To create a reconciliation, you need Contributor access and an assignment to the claim. You become the reconciliation's primary assignee. Its assignments are separate from the claim's.
 
