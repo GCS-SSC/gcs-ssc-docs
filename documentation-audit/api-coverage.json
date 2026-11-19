@@ -2878,6 +2878,36 @@
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/programs.get.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, withActiveAgencyReadTransaction(; schema landmarks: TransferPaymentListQuerySchema. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed."
   },
   {
+    "id": "api:server/api/agency/[agencyId]/proponent-relationship-types.get.ts",
+    "source": "server/api/agency/[agencyId]/proponent-relationship-types.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/proponent-relationship-types.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/proponent-relationship-types.post.ts",
+    "source": "server/api/agency/[agencyId]/proponent-relationship-types.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/proponent-relationship-types.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "api:server/api/agency/[agencyId]/recommendation-schemas/[schemaId]/index.get.ts",
     "source": "server/api/agency/[agencyId]/recommendation-schemas/[schemaId]/index.get.ts",
     "audience": [
@@ -3869,7 +3899,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups agency-publication-error-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups agency-publication-error-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflows/[workflowId]/members/[memberId]/index.delete.ts",
@@ -4012,7 +4042,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflows/[workflowId]/retire.post.ts",
@@ -4032,7 +4062,7 @@
       "server/utils/workflow-setup-versioning.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/workflows/[workflowId]/retire.post.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, requireAuthContext(, withActiveAgencyMutationTransaction(; schema landmarks: delegated or no body. Agency workflow authoring/publication, member conditions and Stream deployment are covered in paired Workflow and Agency catalog guides. No application test execution is claimed."
+    "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/workflows/[workflowId]/retire.post.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, requireAuthContext(, withActiveAgencyMutationTransaction(; schema landmarks: delegated or no body. Agency workflow authoring/publication, member conditions and Stream deployment are covered in paired Workflow and Agency catalog guides. No application test execution is claimed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflows/entity-types.get.ts",
@@ -4654,6 +4684,36 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "api:server/api/agency/proponent-relationship-types/[id].delete.ts",
+    "source": "server/api/agency/proponent-relationship-types/[id].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/proponent-relationship-types/[id].delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/agency/proponent-relationship-types/[id].patch.ts",
+    "source": "server/api/agency/proponent-relationship-types/[id].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/proponent-relationship-types/[id].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "api:server/api/agency/statuses/[statusId].patch.ts",
     "source": "server/api/agency/statuses/[statusId].patch.ts",
     "audience": [
@@ -4759,7 +4819,7 @@
       "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional Financial System Number input, current policy resolution, and Agency provider enablement. See documentation-audit/sync-nov18-financial-system-number.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agreements/[id].patch.ts",
@@ -5283,7 +5343,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId].patch.ts",
@@ -5314,7 +5374,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/activities/[childId].delete.ts",
@@ -7272,7 +7332,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed multiline coding labels and ordered accounting dimensions at 9ad3ead3fc391576028906b55b634ebaf4a92ae2. See documentation-audit/sync-nov18-coding-lookups.md."
   },
   {
     "id": "api:server/api/agreements/[id]/commitments-overview.get.ts",
@@ -7674,7 +7734,7 @@
       "tests/unit/agreement-document-custom-fields.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agreements/[id]/documents/index.get.ts",
@@ -8833,7 +8893,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed multiline coding labels and ordered accounting dimensions at 9ad3ead3fc391576028906b55b634ebaf4a92ae2. See documentation-audit/sync-nov18-coding-lookups.md."
   },
   {
     "id": "api:server/api/agreements/[id]/payments-overview.get.ts",
@@ -9475,7 +9535,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/agreements/lookups/streams.get.ts",
@@ -9568,7 +9628,7 @@
       "tests/unit/components/applicant-recipient-funding-history.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Profile edit/delete actions and General form follow role visibility; activation and saves still require current exact assignment. Profile deletion rejects live agreement/external funding links. Scoped evidence: documentation-audit/sync-proponents.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Profile edit/delete actions and General form follow role visibility; activation and saves still require current exact assignment. Profile deletion rejects live agreement/external funding links. Scoped evidence: documentation-audit/sync-proponents.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/applicant-recipients/[id].get.ts",
@@ -10466,6 +10526,111 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: ApplicantRecipientRegistryCreateSchema, executeFreshAuthorizedApplicantRecipientWrite, resolveApplicantRecipientAuthorization. User/domain contract: type-specific numeric formats, active uniqueness and merged PATCH validation. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/[childId].delete.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/[childId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/[childId].delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/[childId].patch.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/[childId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/[childId].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/index.get.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/index.post.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/lookups/agencies.get.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/lookups/agencies.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/lookups/agencies.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/lookups/proponents.get.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/lookups/proponents.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/lookups/proponents.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/applicant-recipients/[id]/related-proponents/lookups/roles.get.ts",
+    "source": "server/api/applicant-recipients/[id]/related-proponents/lookups/roles.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/api/applicant-recipients/[id]/related-proponents/lookups/roles.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/applicant-recipients/index.get.ts",
@@ -15731,7 +15896,7 @@
       "server/utils/agency-finance-catalog.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group agency in review-groups.json. Reusable published Agency catalogs, receivable-type/source/monitor rules, distinct chart kinds/currency, funding subtype links, workflow condition flags and protected historical references. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/index.patch.ts",
@@ -15751,7 +15916,7 @@
       "server/utils/transfer-payment-uniqueness.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: TransferPaymentStreamPatchSchema, executeFreshAuthorizedTransferPaymentStreamWrite. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: TransferPaymentStreamPatchSchema, executeFreshAuthorizedTransferPaymentStreamWrite. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types.get.ts",
@@ -16754,7 +16919,7 @@
       "server/utils/business-status-runtime.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: authorizeReviewRuntimeAction, resolveCompletionRuntimeEntityFromEntity, respondCompletionRuntimeEntityNotFound, WorkflowSourceSchema, resolveExtensionLifecycleRuntime, extensionRuntime, Common_Runtime. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: authorizeReviewRuntimeAction, resolveCompletionRuntimeEntityFromEntity, respondCompletionRuntimeEntityNotFound, WorkflowSourceSchema, resolveExtensionLifecycleRuntime, extensionRuntime, Common_Runtime. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/workflows/cancel.post.ts",
@@ -16949,7 +17114,7 @@
       "server/api/workflows/resume.post.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/workflows/start.post.ts",
@@ -16974,7 +17139,7 @@
       "server/utils/extension-lifecycle-runtime.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: authorizeReviewRuntimeAction, executeFreshAuthorizedReviewRuntimeWrite, resolveCompletionRuntimeEntityFromEntity, respondCompletionRuntimeEntityNotFound, WorkflowStartSchema, resolveExtensionLifecycleRuntime, extensionRuntime, unauthorized. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: authorizeReviewRuntimeAction, executeFreshAuthorizedReviewRuntimeWrite, resolveCompletionRuntimeEntityFromEntity, respondCompletionRuntimeEntityNotFound, WorkflowStartSchema, resolveExtensionLifecycleRuntime, extensionRuntime, unauthorized. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "api:server/api/workflows/supplementary-information.get.ts",

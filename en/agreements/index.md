@@ -53,7 +53,7 @@ The form starts **Further distribution** as false and **Holdback** at 10%; check
 | English and French description | Both required. |
 | Holdback | Required percentage from 0 through 100, stored to two decimal places. |
 | Holdback basis | Required active basis configured for the stream. Choose from the available values; the administrator can configure different labels. |
-| Risk score | Optional manual selection when no Risk Rating workflow is published; otherwise set by the workflow and cannot be edited in the profile. |
+| Risk score | Optional manual selection when the Stream does not require a Risk Rating workflow. A required workflow sets the rating. |
 | Proponents | At least one unique active readable profile. Choose an eligible recipient subtype and an active Agency Financial ID owned by that Proponent and the Agreement Agency for each link; the type belongs to this relationship. See [Agreement Proponents](./applicant-recipients.md). |
 
 Changing the stream clears subtype, holdback basis, and risk score because those choices belong to the stream. Select them again for the new stream. The application rechecks your access and all selected records when you save. It creates the agreement, its recipient links, and your primary assignment together; a failed creation does not leave a partly created file.
@@ -137,11 +137,9 @@ You cannot shorten or move the assistance period if an active budget fiscal year
 
 On **General**, custom fields without a section appear among the standard **Profile** fields. Named custom sections appear after the built-in sections. Complete active required fields, preserve or explicitly clear retained inactive values, and save through the ordinary Agreement form. See [Agreement custom fields](../programs/custom-fields.md) for field types, a worked configuration, partial-update examples, and conditional routing.
 
-When the stream selects a published **Risk Rating** workflow, the risk selector becomes workflow-managed. Use the Agreement's Risk Rating workflow controls to start the assessment and follow its review/approval steps.
+The Stream’s [Risk Management](../programs/streams.md) settings determine whether initial approval requires a successful **Risk Rating** workflow. Start the selected workflow and finish its required steps. When manual ratings are allowed, you can save one in the profile or run an eligible published workflow.
 
-The latest successful assessment is mapped through the publication's score bands to a stream risk rating. A pending, failed, denied, or cancelled attempt does not itself replace the stored rating. A completed result retains its workflow, assessment score, mapped rating, and completion evidence. If the management mode cannot be loaded, retry before attempting a risk edit.
-
-Without a published Risk Rating workflow, manual selection remains available subject to normal profile permissions. Retained scores continue to display in the current language. Rating scores and identities referenced by current publications or active attempts cannot be changed or deleted until those dependencies are resolved.
+To reassess risk, open the record’s workflow controls and choose **Risk Rating**. If several eligible workflows are available, select one. The record must be open, its current status must allow the workflow to start, and no Risk Rating run can still be active. An eligible record can be reassessed after an earlier success. The stored rating changes only after a successful result or an allowed manual save. If submission says the source is stale, reassess or save the score as a manual rating where allowed.
 
 ## Delete and recovery
 

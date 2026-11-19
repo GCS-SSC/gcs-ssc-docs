@@ -34,6 +34,8 @@ La page de détails affiche le fil d'Ariane de l'entente et l'état, puis les se
 | Entrée du plan comptable | Obligatoire. Elle doit être active et appartenir au volet exact de l'entente. Son exercice et ses dimensions comptables ordonnées et localisées figurent dans le sélecteur et le tableau. |
 | Montant | Montant obligatoire de zéro ou plus, selon la précision de la devise de l’entente. |
 
+Dans le sélecteur du plan comptable, vérifiez l’exercice en haut, puis comparez les dimensions comptables et leurs libellés sur des lignes distinctes. L’option sélectionnée conserve la même présentation.
+
 La recherche de la page de détails correspond au numéro de ligne, à l'exercice, à chaque composante de codage affichée ou au montant. Comparez le total déclaré à toutes les lignes de codage non filtrées dans la devise de l'entente; aucune conversion n'est effectuée.
 
 Les changements ordinaires de lignes conservent le statut métier de l'organisme. Le formulaire conserve chaque ligne dans l'engagement affiché. La suppression d'une ligne la masque tout en conservant son historique. La suppression d'un engagement modifiable le retire des listes normales avec toutes ses lignes actives.

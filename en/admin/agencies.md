@@ -107,6 +107,10 @@ Create an Agency chart with required fiscal year, currency and at least one orde
 
 A Credit Memo chart may link a Commitment chart only from the same Agency, fiscal year and currency. Other kinds cannot carry that link. Stream eligibility also checks that its budget and the Agency chart share currency. If a selector is empty, configure the matching Program and Stream budget, then reload rather than substituting a chart from another currency.
 
+## Proponent relationship types
+
+In the Agency’s **Proponent relationship types** tab, create a type with bilingual role labels and a language-independent code. Choose the same role on both profiles or supply a distinct reverse role and code. Codes start with a lowercase letter and use lowercase letters, digits and underscores. Keep codes stable when templates use them. Remove active links before retiring a type.
+
 ## Business statuses
 
 Business statuses describe where a record is in your process, such as "Under review" or "Closed." Each Agency owns its list of statuses. A new Agency receives one protected Draft status. The Statuses tab shows active and deleted definitions with their localized badge, colour, Lucide icon, and lifecycle class: normal, read-only, or terminal.

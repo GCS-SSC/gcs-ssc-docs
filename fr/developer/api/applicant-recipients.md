@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/applicant-recipients/27` lit le profil du promoteur 27, y compris ses noms légaux et usuels. Elle ne crée pas d’entente pour ce promoteur. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (44)
+## Gestionnaires (51)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -60,6 +60,13 @@ Une requête autorisée `GET /api/applicant-recipients/27` lit le profil du prom
 | PATCH | `/api/applicant-recipients/[id]/registries/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientRegistryCreateSchema, ApplicantRecipientRegistryPatchSchema, parseI18n, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/registries/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/registries` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/registries/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/registries` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientRegistryCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/registries/index.post.ts` |
+| DELETE | `/api/applicant-recipients/[id]/related-proponents/[childId]` | — | — | `server/api/applicant-recipients/[id]/related-proponents/[childId].delete.ts` |
+| PATCH | `/api/applicant-recipients/[id]/related-proponents/[childId]` | — | — | `server/api/applicant-recipients/[id]/related-proponents/[childId].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents` | — | — | `server/api/applicant-recipients/[id]/related-proponents/index.get.ts` |
+| POST | `/api/applicant-recipients/[id]/related-proponents` | — | — | `server/api/applicant-recipients/[id]/related-proponents/index.post.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents/lookups/agencies` | — | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/related-proponents/lookups/agencies.get.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents/lookups/proponents` | — | — | `server/api/applicant-recipients/[id]/related-proponents/lookups/proponents.get.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents/lookups/roles` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/related-proponents/lookups/roles.get.ts` |
 | GET | `/api/applicant-recipients` | — | ApplicantRecipientPaginationSchema, AssignedListViewSchema, PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/applicant-recipients/index.get.ts` |
 | POST | `/api/applicant-recipients` | requireAuthContext | ApplicantRecipientProfileSchema, readValidatedBodyI18n | `server/api/applicant-recipients/index.post.ts` |
 | GET | `/api/applicant-recipients/lookups/agencies` | requireAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/lookups/agencies.get.ts` |

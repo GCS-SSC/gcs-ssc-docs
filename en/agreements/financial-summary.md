@@ -12,6 +12,8 @@ Select a fiscal year from the current agreement budget; the first available year
 
 The grid initially shows quarterly totals. Select a quarter heading to show its three months. Select a month heading to return that quarter to its total. Other quarters keep their state. Quarter columns sum the corresponding three months exactly. Scroll horizontally on a narrow screen.
 
+The summary shows the current **Risk rating** in the interface language. **Unassessed** means no rating is recorded. **Rating unavailable** means the saved rating cannot be resolved for display. Check the Agreement’s risk history if the rating is unavailable.
+
 ## Understand the measures
 
 | Measure | Amount and timing |

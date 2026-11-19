@@ -1,5 +1,9 @@
 # Contrats API
 
+## Recherches de codage comptable
+
+`GET /api/agreements/[id]/commitment-lines/lookups/chart-of-accounts` et `GET /api/agreements/[id]/payment-lines/lookups/commitment-lines` renvoient le tableau ordonné `accounting_dimensions`. Les libellés localisés présentent l’exercice ou le numéro de ligne d’engagement en premier, puis une dimension par ligne. Utilisez le tableau pour afficher les dimensions séparément.
+
 ## Réglages budgétaires du volet et préférences des tableaux
 
 Les écritures du volet acceptent `egcs_tp_budgetfundingmode` avec `manual`, `automatic` ou `program_only`, ainsi que les indicateurs de ventilation et d’affichage des coûts. Le mode programme seulement exige de désactiver les deux ventilations. Un changement bloqué par des dossiers en cours renvoie `STREAM_BUDGET_FUNDING_MODE_BLOCKED`. Les écritures de lignes de réclamation et de prévision refusent un coût total fourni hors du mode manuel.

@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/applicant-recipients/27` reads proponent 27’s profile, including legal and operating names. It does not create an agreement for that proponent. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (44)
+## Handlers (51)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -60,6 +60,13 @@ An authorized request for `GET /api/applicant-recipients/27` reads proponent 27�
 | PATCH | `/api/applicant-recipients/[id]/registries/[childId]` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientRegistryCreateSchema, ApplicantRecipientRegistryPatchSchema, parseI18n, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/registries/[childId].patch.ts` |
 | GET | `/api/applicant-recipients/[id]/registries` | requireAuthContext, resolveApplicantRecipientAuthorization | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/registries/index.get.ts` |
 | POST | `/api/applicant-recipients/[id]/registries` | executeFreshAuthorizedApplicantRecipientWrite, requireAuthContext, resolveApplicantRecipientAuthorization | ApplicantRecipientRegistryCreateSchema, readValidatedBodyI18n | `server/api/applicant-recipients/[id]/registries/index.post.ts` |
+| DELETE | `/api/applicant-recipients/[id]/related-proponents/[childId]` | — | — | `server/api/applicant-recipients/[id]/related-proponents/[childId].delete.ts` |
+| PATCH | `/api/applicant-recipients/[id]/related-proponents/[childId]` | — | — | `server/api/applicant-recipients/[id]/related-proponents/[childId].patch.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents` | — | — | `server/api/applicant-recipients/[id]/related-proponents/index.get.ts` |
+| POST | `/api/applicant-recipients/[id]/related-proponents` | — | — | `server/api/applicant-recipients/[id]/related-proponents/index.post.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents/lookups/agencies` | — | PaginationSchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/related-proponents/lookups/agencies.get.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents/lookups/proponents` | — | — | `server/api/applicant-recipients/[id]/related-proponents/lookups/proponents.get.ts` |
+| GET | `/api/applicant-recipients/[id]/related-proponents/lookups/roles` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/[id]/related-proponents/lookups/roles.get.ts` |
 | GET | `/api/applicant-recipients` | — | ApplicantRecipientPaginationSchema, AssignedListViewSchema, PaginationSchema, PositivePostgresBigintIdSchema, getValidatedQueryI18n | `server/api/applicant-recipients/index.get.ts` |
 | POST | `/api/applicant-recipients` | requireAuthContext | ApplicantRecipientProfileSchema, readValidatedBodyI18n | `server/api/applicant-recipients/index.post.ts` |
 | GET | `/api/applicant-recipients/lookups/agencies` | requireAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/applicant-recipients/lookups/agencies.get.ts` |

@@ -57,6 +57,8 @@ Les actions de modification et de suppression vérifient votre affectation, vos 
 
 ## Répartir les lignes de paiement
 
+Dans le sélecteur de ligne d’engagement, vérifiez le numéro de ligne en haut, puis comparez les dimensions comptables et leurs libellés sur des lignes distinctes. L’option sélectionnée conserve la même présentation.
+
 La page de détails présente le numéro de ligne d’engagement, l’exercice, les codes comptables dans l’ordre et la langue configurés et le montant réparti. La recherche porte sur les valeurs de codage affichées. Le total sous le tableau compare toutes les allocations actives au montant de l’en-tête.
 
 | Règle | Comportement |

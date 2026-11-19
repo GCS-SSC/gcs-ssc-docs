@@ -34,6 +34,8 @@ The detail page displays the agreement breadcrumb and status, then the commitmen
 | Chart-of-account entry | Required. It must be active and belong to the Agreement's exact stream. Its fiscal year and ordered localized accounting dimensions appear in the picker and table. |
 | Amount | Required amount of zero or more, using the agreement currency’s precision. |
 
+In the chart-of-accounts picker, check the fiscal year at the top, then compare the labelled accounting dimensions on separate lines. The selected option keeps the same layout.
+
 The detail search matches the line number, fiscal year, every displayed coding component, or amount. Review the declared total against all unfiltered coding lines in the agreement currency; no conversion occurs.
 
 Ordinary line changes preserve the Agency business status. The detail form keeps each line on the displayed commitment. Deleting a line hides it while retaining its history. Deleting an editable commitment removes it and all its active lines from normal lists together.

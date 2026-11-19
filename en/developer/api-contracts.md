@@ -1,5 +1,9 @@
 # API contracts
 
+## Accounting coding lookups
+
+`GET /api/agreements/[id]/commitment-lines/lookups/chart-of-accounts` and `GET /api/agreements/[id]/payment-lines/lookups/commitment-lines` include the ordered `accounting_dimensions` array. The localized option labels start with the fiscal year or commitment line number, followed by one dimension per newline. Use the array to render the dimensions separately.
+
 ## Stream budget settings and table preferences
 
 Stream writes accept `egcs_tp_budgetfundingmode` as `manual`, `automatic`, or `program_only`, plus breakdown requirement and cost display flags. Program-only writes must clear both breakdown requirements. A mode change blocked by working records returns `STREAM_BUDGET_FUNDING_MODE_BLOCKED`. Claim and forecast line writes reject a supplied Total Cost outside manual mode.

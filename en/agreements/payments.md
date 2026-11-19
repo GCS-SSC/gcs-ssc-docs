@@ -57,6 +57,8 @@ Edit and delete actions check your current assignment, permissions and the recor
 
 ## Allocate payment lines
 
+In the commitment-line picker, check the commitment line number at the top, then compare the labelled accounting dimensions on separate lines. The selected option keeps the same layout.
+
 The detail page lists the commitment line number, fiscal year, accounting codes in their configured order and language, and allocated amount. Search matches the displayed coding values. The total below the table compares all active allocations with the payment header amount.
 
 | Rule | Behaviour |

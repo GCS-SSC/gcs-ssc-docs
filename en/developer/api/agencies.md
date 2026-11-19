@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12` reads the profile for agency 12. It does not change the profile or its reference lists. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (145)
+## Handlers (149)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -101,6 +101,8 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | GET | `/api/agency/[agencyId]/monitor-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/monitor-types.get.ts` |
 | POST | `/api/agency/[agencyId]/monitor-types` | — | AgencyMonitorTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/monitor-types.post.ts` |
 | GET | `/api/agency/[agencyId]/programs` | — | TransferPaymentListQuerySchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/programs.get.ts` |
+| GET | `/api/agency/[agencyId]/proponent-relationship-types` | requireAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/proponent-relationship-types.get.ts` |
+| POST | `/api/agency/[agencyId]/proponent-relationship-types` | — | AgencyProponentRelationshipTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/proponent-relationship-types.post.ts` |
 | GET | `/api/agency/[agencyId]/recommendation-schemas/[schemaId]` | — | — | `server/api/agency/[agencyId]/recommendation-schemas/[schemaId]/index.get.ts` |
 | PATCH | `/api/agency/[agencyId]/recommendation-schemas/[schemaId]` | — | — | `server/api/agency/[agencyId]/recommendation-schemas/[schemaId]/index.patch.ts` |
 | POST | `/api/agency/[agencyId]/recommendation-schemas/[schemaId]/publish` | — | — | `server/api/agency/[agencyId]/recommendation-schemas/[schemaId]/publish.post.ts` |
@@ -161,6 +163,8 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | GET | `/api/agency/lookups/gwcoa` | — | AgencyGwcoaLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/lookups/gwcoa/index.get.ts` |
 | DELETE | `/api/agency/monitor-types/[id]` | — | — | `server/api/agency/monitor-types/[id].delete.ts` |
 | PATCH | `/api/agency/monitor-types/[id]` | — | AgencyMonitorTypePatchSchema, readValidatedBodyI18n | `server/api/agency/monitor-types/[id].patch.ts` |
+| DELETE | `/api/agency/proponent-relationship-types/[id]` | — | — | `server/api/agency/proponent-relationship-types/[id].delete.ts` |
+| PATCH | `/api/agency/proponent-relationship-types/[id]` | — | AgencyProponentRelationshipTypePatchSchema, AgencyProponentRelationshipTypeSchema, parseI18n, readValidatedBodyI18n | `server/api/agency/proponent-relationship-types/[id].patch.ts` |
 | PATCH | `/api/agency/statuses/[statusId]` | — | StatusDefinitionPatchSchema, readValidatedBodyI18n | `server/api/agency/statuses/[statusId].patch.ts` |
 | POST | `/api/agency/statuses/[statusId]/delete` | — | — | `server/api/agency/statuses/[statusId]/delete.post.ts` |
 | POST | `/api/agency/statuses/[statusId]/restore` | — | — | `server/api/agency/statuses/[statusId]/restore.post.ts` |

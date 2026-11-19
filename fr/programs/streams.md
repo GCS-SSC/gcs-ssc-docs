@@ -84,6 +84,7 @@ La page de détail du volet présente ces onglets :
 - Plan comptable.
 - Types d’engagement.
 - Types de surveillance.
+- Gestion des risques.
 - Cotes de risque.
 - Champs personnalisés.
 - [Champs personnalisés des activités](./custom-fields.md).
@@ -220,6 +221,12 @@ Créez les types d'engagement bilingues sur la page Agence, puis choisissez un t
 
 Créez les types de surveillance bilingues sur la page Agence, puis associez ici les types admissibles. La sélection du volet détermine les types offerts aux nouvelles surveillances. Les dossiers existants conservent leur référence lorsque le type d’agence ou le lien est retiré. Si un type manque au sélecteur, rechargez les deux catalogues et vérifiez la propriété d’agence et l’état actif avant de réessayer.
 
+## Gestion des risques
+
+Publiez un flux d’**Évaluation du risque** pour le bon type de dossier et liez-le sous **Flux de travail** du volet. Dans **Gestion des risques**, une personne autorisée à modifier le volet peut activer l’exigence séparément pour les nouvelles ententes et les modifications, choisir le flux lié pour chaque type, puis enregistrer. Lorsque l’exigence est désactivée, les agents peuvent saisir une cote manuelle ou exécuter un flux admissible. Remplacez le flux choisi ou désactivez l’exigence avant de retirer son lien ou de le retirer du service.
+
+Le réglage d’application de la cote de la modification à l’entente détermine si l’approbation applique la proposition conservée à l’entente parente. Configurez-le avant la soumission de la modification. L’approbation utilise la décision consignée dans le paquet de soumission.
+
 ## Onglet cotes de risque
 
 Les cotes de risque définissent les libellés et pointages disponibles pour le volet. Chaque ligne contient :
@@ -227,7 +234,7 @@ Les cotes de risque définissent les libellés et pointages disponibles pour le 
 - Pointage de risque numérique. Le pointage doit être fini et non négatif.
 - Nom anglais et nom français.
 
-Ces cotes servent à un flux de cote de risque d’entente. À sa publication, les valeurs maximales des résultats d’évaluation sont associées aux cotes actives du volet. Terminer ce flux avec succès applique le score obtenu à l’entente. Les agents ne définissent pas ce score dans la modification ordinaire du profil d’entente. Consultez [Flux de travail](../concepts/workflows.md) pour ordonner les bandes et reprendre le travail après un changement de configuration.
+Ces cotes servent à un flux de cote de risque d’entente. À sa publication, les valeurs maximales des résultats d’évaluation sont associées aux cotes actives du volet. Terminer ce flux avec succès applique le score obtenu à l’entente. Lorsque le volet exige un flux, les agents l’utilisent pour établir le score. Consultez [Flux de travail](../concepts/workflows.md) pour ordonner les bandes et reprendre le travail après un changement de configuration.
 
 ## Onglet domaines d expertise
 

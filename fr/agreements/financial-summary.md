@@ -12,6 +12,8 @@ Choisissez un exercice du budget courant; le premier disponible est sélectionn�
 
 La grille affiche initialement les totaux trimestriels. Choisissez un en-tête de trimestre pour afficher ses trois mois. Choisissez un en-tête de mois pour revenir au total de ce trimestre. Les autres trimestres conservent leur état. Les colonnes trimestrielles additionnent exactement les trois mois correspondants. Faites défiler horizontalement sur un petit écran.
 
+Le sommaire affiche la **Cote de risque** courante dans la langue de l’interface. Une cote non évaluée indique qu’aucune cote n’est enregistrée. Une cote indisponible indique que la cote enregistrée ne peut pas être affichée. Consultez l’historique de risque de l’entente si la cote est indisponible.
+
 ## Comprendre les mesures
 
 | Mesure | Montant et attribution |

@@ -59,6 +59,12 @@ The detail page has a collapsible summary and these tabs:
 
 Extension tabs can also appear when an enabled extension contributes a proponent tab.
 
+## Related Proponents
+
+Open a profile’s **Related Proponents** tab. To add a link, choose an Agency, an accessible active Proponent, and the role of that related Proponent. You need Proponent create access on the profile and in the selected Agency. Editing or removing a link requires update access on the profile and in the link’s Agency.
+
+For example, on a parent company profile choose the other company and its **Subsidiary** role. The other profile then shows the first company as **Parent**. A shared-role type shows the same label from both profiles. Removing the relationship removes it from both views. Resolve active links before deleting a Proponent. If a choice is unavailable, check the selected Agency, role, and access to the other profile.
+
 ## Proponent notes
 
 The **Notes** tab holds bilingual working notes. Each note belongs to one Agency as well as this Proponent. Choose an active Agency for which you have Proponent create permission; the list shows only notes in Agencies you can currently read, even when the Proponent is linked to several Agencies. A note needs a subject and body in at least one language each, and subjects have a 255-character limit. Use both languages where needed. Readers can search the visible notes; creating, editing, and deleting require the corresponding Proponent permission and exact assignment plus the note Agency permission. The original Agency cannot be changed on edit.

@@ -1286,7 +1286,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0040_agency:agency_account_receivable_type",
@@ -2559,6 +2559,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Agency_Profile_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:agency_proponent_relationship_type",
+    "source": "server/database/migrations/0040_agency.ts#Agency_Proponent_Relationship_Type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#Agency_Proponent_Relationship_Type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0040_agency:agency_calculation_source",
     "source": "server/database/migrations/0040_agency.ts#agency_calculation_source",
     "audience": [
@@ -3147,6 +3162,51 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_lineitemcalculation; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:ay_chk_proponent_reltype_code",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_proponent_reltype_code",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_proponent_reltype_code"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_proponent_reltype_inverse",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_proponent_reltype_inverse",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_proponent_reltype_inverse"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_proponent_reltype_names",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_proponent_reltype_names",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_proponent_reltype_names"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0040_agency:ay_fk_agreement_relationship_type_agency",
     "source": "server/database/migrations/0040_agency.ts#ay_fk_agreement_relationship_type_agency",
     "audience": [
@@ -3247,6 +3307,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0040_agency:ay_fk_proponent_reltype_agency",
+    "source": "server/database/migrations/0040_agency.ts#ay_fk_proponent_reltype_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_fk_proponent_reltype_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0040_agency:ay_pk_agreement_relationship_type",
@@ -3380,6 +3455,51 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_uq_funding_type_id_agency; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:ay_uq_proponent_reltype_code",
+    "source": "server/database/migrations/0040_agency.ts#ay_uq_proponent_reltype_code",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_uq_proponent_reltype_code"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0040_agency:ay_uq_proponent_reltype_inverse_code",
+    "source": "server/database/migrations/0040_agency.ts#ay_uq_proponent_reltype_inverse_code",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_uq_proponent_reltype_inverse_code"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0040_agency:ay_uq_proponent_reltype_owner",
+    "source": "server/database/migrations/0040_agency.ts#ay_uq_proponent_reltype_owner",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_uq_proponent_reltype_owner"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0040_agency:create_default_agency_statuses",
     "source": "server/database/migrations/0040_agency.ts#create_default_agency_statuses",
     "audience": [
@@ -3441,6 +3561,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: enforce_agency_custom_field_option; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:guard_proponent_relationship_type",
+    "source": "server/database/migrations/0040_agency.ts#guard_proponent_relationship_type",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#guard_proponent_relationship_type"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0040_agency:guard_referenced_proponent_subtype",
@@ -3743,7 +3878,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0050_common:common_additional_reviewers",
@@ -10288,27 +10423,6 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_chk_workflowownerblockerresolution; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "data:0050_common:cn_chk_workflowriskrequiredpurpose",
-    "source": "server/database/migrations/0050_common.ts#cn_chk_workflowriskrequiredpurpose",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0050_common.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0050_common.ts#cn_chk_workflowriskrequiredpurpose"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_chk_workflowriskrequiredpurpose; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
     "id": "data:0050_common:cn_chk_workflowsetupmemberreference",
     "source": "server/database/migrations/0050_common.ts#cn_chk_workflowsetupmemberreference",
     "audience": [
@@ -16586,25 +16700,19 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: validate_workflow_publication_condition_scope; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
-    "id": "data:0050_common:workflow_amendment_subtype_in_use",
-    "source": "server/database/migrations/0050_common.ts#workflow_amendment_subtype_in_use",
+    "id": "data:0050_common:workflow_amendment_condition_in_use",
+    "source": "server/database/migrations/0050_common.ts#workflow_amendment_condition_in_use",
     "audience": [
       "developer",
       "operator"
     ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
     "evidence": [
-      "server/database/migrations/0050_common.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0050_common.ts#workflow_amendment_subtype_in_use"
+      "server/database/migrations/0050_common.ts#workflow_amendment_condition_in_use"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: workflow_amendment_subtype_in_use; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "migration:0060_transfer_payment",
@@ -16621,7 +16729,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_agreement_subtype",
@@ -17959,6 +18067,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Transfer_Payment_Stream_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0060_transfer_payment:assert_stream_risk_workflows",
+    "source": "server/database/migrations/0060_transfer_payment.ts#assert_stream_risk_workflows",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#assert_stream_risk_workflows"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0060_transfer_payment:enforce_stream_field_assignment_agency",
     "source": "server/database/migrations/0060_transfer_payment.ts#enforce_stream_field_assignment_agency",
     "audience": [
@@ -18163,6 +18286,51 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: protect_stream_chart_catalog_link; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0060_transfer_payment:protect_stream_risk_workflow_delete",
+    "source": "server/database/migrations/0060_transfer_payment.ts#protect_stream_risk_workflow_delete",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#protect_stream_risk_workflow_delete"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0060_transfer_payment:protect_stream_risk_workflow_link",
+    "source": "server/database/migrations/0060_transfer_payment.ts#protect_stream_risk_workflow_link",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#protect_stream_risk_workflow_link"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0060_transfer_payment:protect_stream_risk_workflow_unlink",
+    "source": "server/database/migrations/0060_transfer_payment.ts#protect_stream_risk_workflow_unlink",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#protect_stream_risk_workflow_unlink"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0060_transfer_payment:protect_workflow_amendment_conditions",
     "source": "server/database/migrations/0060_transfer_payment.ts#protect_workflow_amendment_conditions",
     "audience": [
@@ -18182,6 +18350,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: protect_workflow_amendment_conditions; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_agreementriskworkflow",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_agreementriskworkflow",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_agreementriskworkflow"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_amendmentriskworkflow",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_amendmentriskworkflow",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_amendmentriskworkflow"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_financial_limit_nonnegative",
@@ -19549,6 +19747,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: validate_stream_review_set_link; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0060_transfer_payment:validate_stream_risk_workflows",
+    "source": "server/database/migrations/0060_transfer_payment.ts#validate_stream_risk_workflows",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#validate_stream_risk_workflows"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0060_transfer_payment:validate_stream_workflow_link",
     "source": "server/database/migrations/0060_transfer_payment.ts#validate_stream_workflow_link",
     "audience": [
@@ -19605,7 +19818,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0070_applicant_recipient:applicant_recipient_address",
@@ -20238,6 +20451,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Applicant_Recipient_Registry_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0070_applicant_recipient:applicant_recipient_relationship",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#Applicant_Recipient_Relationship",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#Applicant_Recipient_Relationship"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0070_applicant_recipient:ar_chk_fundinghistory_agency_language",
     "source": "server/database/migrations/0070_applicant_recipient.ts#ar_chk_fundinghistory_agency_language",
     "audience": [
@@ -20532,6 +20760,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ar_chk_registry_othercomment; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0070_applicant_recipient:ar_chk_relationship_no_self_link",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#ar_chk_relationship_no_self_link",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#ar_chk_relationship_no_self_link"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0070_applicant_recipient:ar_fk_agency_financial_id_recipient",
     "source": "server/database/migrations/0070_applicant_recipient.ts#ar_fk_agency_financial_id_recipient",
     "audience": [
@@ -20586,6 +20829,66 @@
     "notes": "Reviewed foreign key ar_fk_funding_history_recipient_recipient at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: ALTER TABLE \"Applicant_Recipient_Funding_History_Recipient\" ADD CONSTRAINT \"ar_fk_funding_history_recipient_recipient\" FOREIGN KEY (egcs_ar_applicantrecipient) REFERENCES \"Applicant_Recipient_Profile\"(id) ON DELETE RESTRICT; Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
   },
   {
+    "id": "data:0070_applicant_recipient:ar_fk_relationship_agency",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0070_applicant_recipient:ar_fk_relationship_source",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_source",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_source"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0070_applicant_recipient:ar_fk_relationship_target",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_target",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_target"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0070_applicant_recipient:ar_fk_relationship_type_agency",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_type_agency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#ar_fk_relationship_type_agency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0070_applicant_recipient:ar_ref_profileid",
     "source": "server/database/migrations/0070_applicant_recipient.ts#ar_ref_profileid",
     "audience": [
@@ -20626,6 +20929,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: guard_financial_id_identity; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0070_applicant_recipient:guard_linked_proponent_deletion",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#guard_linked_proponent_deletion",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#guard_linked_proponent_deletion"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0070_applicant_recipient:guard_proponent_relationship",
+    "source": "server/database/migrations/0070_applicant_recipient.ts#guard_proponent_relationship",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "server/database/migrations/0070_applicant_recipient.ts#guard_proponent_relationship"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0070_applicant_recipient:trg_enforce_applicantrecipient_assignment_roster",
@@ -21455,7 +21788,7 @@
       "shared/types/schemas/funding-case-agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_account_receivable_credit_memo",
@@ -26949,6 +27282,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_profileriskscore; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_chk_profilerisksource",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_profilerisksource",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_profilerisksource"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_chk_receivable_credit_memo_amount",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_receivable_credit_memo_amount",
     "audience": [
@@ -28729,6 +29077,51 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed foreign key fc_fk_agreement_responsibleparty_activity_party at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: ALTER TABLE \"Funding_Case_Agreement_Responsible_Party_Activity\" ADD CONSTRAINT \"fc_fk_agreement_responsibleparty_activity_party\" FOREIGN KEY (egcs_fc_responsibleparty) REFERENCES \"Funding_Case_Agreement_Applicant_Recipient\"(id) ON DELETE RESTRICT; Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_fk_agreement_riskratingamendment",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_riskratingamendment",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_riskratingamendment"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_fk_agreement_riskratingruntime",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_riskratingruntime",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_riskratingruntime"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_fk_amendment_riskratingruntime",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_amendment_riskratingruntime",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_amendment_riskratingruntime"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "data:0090_funding_case_agreement:fc_fk_ar_coding_line",

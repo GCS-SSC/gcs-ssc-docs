@@ -97,3 +97,7 @@ bun run dev
 ```
 
 The installer updates `LIBREOFFICE_SOFFICE_PATH` and `PUPPETEER_CACHE_DIR` in the regular Nuxt `.env`. Set `DOCGEN_ENV_FILE=.env.production` only when intentionally targeting another environment file. See [Developer startup](./startup.md) and [Operator deployment](../operator/deployment.md).
+
+## Related Proponents in templates
+
+Agreement and Amendment templates can read `recipient.related.<role_code>` for the primary recipient and the Agreement’s Agency. Each role holds a list with localized `legalName` and `address`. For example, loop over `recipient.related.subsidiary` to print all subsidiaries. A valid role code with no matching rows resolves to an empty list. Closeout templates do not expose related Proponents.

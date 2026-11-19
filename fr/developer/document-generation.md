@@ -97,3 +97,7 @@ bun run dev
 ```
 
 L'installateur met à jour `LIBREOFFICE_SOFFICE_PATH` et `PUPPETEER_CACHE_DIR` dans le fichier Nuxt `.env` ordinaire. Définissez `DOCGEN_ENV_FILE=.env.production` seulement pour viser volontairement un autre fichier d'environnement. Consultez [Démarrage pour les développeurs](./startup.md) et [Déploiement pour l'exploitation](../operator/deployment.md).
+
+## Promoteurs liés dans les modèles
+
+Les modèles d’entente et de modification peuvent lire `recipient.related.<role_code>` pour le bénéficiaire principal et l’agence de l’entente. Chaque rôle contient une liste avec `legalName` et `address` localisés. Par exemple, parcourez `recipient.related.subsidiary` pour imprimer toutes les filiales. Un code de rôle valide sans résultat renvoie une liste vide. Les modèles de clôture n’exposent pas les promoteurs liés.

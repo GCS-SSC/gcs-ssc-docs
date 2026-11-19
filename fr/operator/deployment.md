@@ -114,3 +114,5 @@ Le manifeste source courant fixe le condensat de l’image commune à `sha256:ce
 ## Réinitialisation de la démonstration Railway dédiée
 
 `bun run railway:demo:reset` est limité à l’ancienne démonstration en mode source dont le service s’appelle `Postgres`. Le mode aperçu est en lecture seule. La disposition actuelle avec image figée et service `GCS DB` est refusée avant les appels Railway; **n’utilisez pas `--execute` dans cette disposition**. Le guide de la source précise les préconditions exactes. Pour le déploiement actuel, préparez la reprise à partir des sauvegardes de la base et du volume des pièces jointes plutôt que de considérer cet outil comme une réinitialisation exécutable.
+
+Pour les bases existantes, examinez les changements des migrations initiales pour les réglages de risque du volet, les conditions de flux, les sources de cote et les relations entre promoteurs par agence. Vérifiez le schéma et la portée d’audit des nouvelles tables de relations. Vérifiez les flux de risque choisis pour chaque volet avant d’activer les exigences.

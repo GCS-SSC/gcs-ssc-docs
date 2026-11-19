@@ -84,6 +84,7 @@ The stream detail page has these tabs:
 - Chart of Accounts.
 - Commitment Types.
 - Monitor Types.
+- Risk Management.
 - Risk Ratings.
 - Custom Fields.
 - [Activity custom fields](./custom-fields.md).
@@ -218,6 +219,12 @@ Create bilingual Commitment Types on the Agency page, then choose an available t
 
 Create bilingual Monitor Types on the Agency page, then associate eligible types here. The Stream selection determines which types new monitors may use. Existing monitor references retain their identity when an Agency type or Stream link is retired. Reload both catalogs if a type is absent from the picker; confirm Agency ownership and active state before retrying.
 
+## Risk Management
+
+Publish a **Risk Rating** workflow for the correct record type and link it under the Stream’s **Workflows**. In **Risk Management**, an authorized Stream editor can turn on the requirement separately for new Agreements and Amendments, select the linked workflow for each, and save. When the requirement is off, officers can save manual ratings or run eligible workflows. Replace the selected workflow or turn off its requirement before unlinking or retiring it.
+
+**Apply amendment risk rating to the agreement** controls whether approval applies the captured proposal to the parent. Configure it before the amendment is submitted. Approval uses the decision captured in the submission packet.
+
 ## Risk ratings tab
 
 Risk ratings define the available risk labels and scores for the stream. Each row contains:
@@ -225,7 +232,7 @@ Risk ratings define the available risk labels and scores for the stream. Each ro
 - Numeric risk score. The score must be finite and non-negative.
 - English and French name.
 
-These ratings are used by an Agreement risk-rating workflow. When the workflow is published, the maximum values for its assessment outcomes are matched to active stream ratings. Completing that workflow successfully applies the resulting score to the Agreement. Officers do not set that score through ordinary Agreement profile editing. See [Workflows](../concepts/workflows.md) for how to order the bands and recover when the configuration changes.
+These ratings are used by an Agreement risk-rating workflow. When the workflow is published, the maximum values for its assessment outcomes are matched to active stream ratings. Completing that workflow successfully applies the resulting score to the Agreement. When the Stream requires a workflow, officers use it to set the score. See [Workflows](../concepts/workflows.md) for how to order the bands and recover when the configuration changes.
 
 ## Areas of expertise tab
 

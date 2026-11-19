@@ -78,15 +78,11 @@ Copy the activities before adding or changing them in the amendment. Creating an
 
 ## Risk proposal and readiness
 
-Risk changes are available for every amendment, independently of budget, activity and duration types. Creation copies the current Agreement score as a proposal; **Change risk** defaults off when no workflow manages it. Turn it on and select an active Stream rating to apply a manual change. Zero is a valid score; clearing the proposal does not clear the Agreement's risk. Turning the switch off retains the proposal but suppresses application.
+Risk changes can accompany any amendment type. The draft starts with the Agreement’s score. When Stream Risk Management requires an Amendment workflow, finish the selected **Risk Rating** workflow successfully for this exact amendment before choosing **Complete**. An open, incomplete amendment can start again after success if its status allows another run and no risk run is active.
 
-When a published risk workflow is linked for amendments, or an exact amendment risk run remains active, the switch is enabled and read-only and manual score editing is unavailable. Run the selected **Risk Rating** workflow: every stage, including approvals, must succeed before its designated assessment updates the amendment proposal. The parent's score remains unchanged until successful amendment approval.
+When the Stream allows manual changes, enable **Change risk** and select an active rating. Zero is a valid score. You can also run an eligible optional workflow. If completion reports an outdated rating or missing score, reassess or save a valid manual rating where allowed, then submit again.
 
-If the selected published setup requires risk completion, **Complete** is blocked until a successful run for this exact amendment and setup exists. An earlier publication version of that same setup qualifies; the Agreement's existing score, another amendment's run, a standalone review or a failed/active run does not. An optional workflow may be skipped, but a copied score is not treated as its result and will not be applied. Manual enabled changes require a valid selected rating.
-
-For example, an Agreement currently rated 2 needs a duration extension and a proposed rating of 0. Run the required amendment risk workflow and finish all of its stages; the proposal becomes 0 while the Agreement stays at 2. Complete and approve the amendment. Successful approval applies its dates and captured score 0 together; denial or cancellation leaves both current values unchanged.
-
-Completion saves the risk decision, rating labels, calculation evidence, and readiness result in the approval record. Reviewers and any approval retry use that saved evidence even if configuration later changes. Older approval records keep their original integrity checks and do not gain a risk section. If completion reports `RISK_WORKFLOW_REQUIRED` or `RISK_SCORE_REQUIRED`, finish the required workflow for this amendment or correct its draft rating, then try again. A rejected submission leaves neither a completion nor a new approval record.
+For example, an Agreement rated 2 can have a duration amendment with a proposed rating of 0. The Agreement keeps 2 while the amendment is pending. If **Apply amendment risk rating to the agreement** was enabled at submission, successful approval applies 0 along with the approved dates. Otherwise approval can update the dates while retaining 2. The approval packet captures the decision and evidence for review and retry.
 
 ## Approve and apply the amendment
 

@@ -2,13 +2,13 @@
 
 The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.md`.
 
-- Verified at `2026-11-18T22:28:37+00:00`.
+- Verified at `2026-11-19T02:49:45+00:00`.
 - Application repository `https://github.com/GCS-SSC/gcs-ssc.git`, branch `main`.
-- Verified application commit `66c99235e8c3bf824a40efebef5a79d26ea936b3`, committed `2026-11-18T17:23:47-05:00`.
-- Previous verified source `d9bc9540dcc31c699aa3e2913529cdc174b8b817`.
-- Range of three commits and 208 net changed paths. See the [source review and dispositions](./sync-nov18-budget-management.md).
+- Verified application commit `878cfb0d326f9a1d2efa8159afaeb08833d9f062`, committed `2026-11-18T21:36:46-05:00`.
+- Previous verified source `9ad3ead3fc391576028906b55b634ebaf4a92ae2`.
+- Range of four commits and 86 net changed paths. See the [source review and dispositions](./sync-nov18-stream-risk.md).
 - Isolated checkout `.reference-repos/gcs-ssc`, clean and detached. The baseline is an ancestor of the target, all 13 initialized gitlinks match, and the final fetch confirmed that `origin/main` still matched the target.
-- Documentation checkout started at `55c3d3523095520f535cd6e4e6071d47c3e745d1` with the verified uncommitted Profile placement update.
+- Documentation checkout started with the verified uncommitted coding lookup update at `bf4165e5a44b91380efe7521eeaae9e922ddf181`.
 
 ## Source gitlinks
 
@@ -26,7 +26,7 @@ The authoritative continuation marker is in `.agents/skills/gcs-docs-sync/SKILL.
 | `extensions/gcs-storage-local` | `7f46dc38d004462d2e8282932054550935a810ef` |
 | `extensions/gcs-storage-s3` | `4a428601472a912f0760fd5bf9a2f4bd6495f845` |
 | `packages/gcs-ssc-extensions` | `c0b12fd3445e3a9a3adb35a35e5f0a57a4e95326` |
-| `tooling/gcs-ssc` | `dfdcb7e2e108a606fa2adf3d0893a39b3ac919a4` |
+| `tooling/gcs-ssc` | `a0c3eb89c2292b18b2dd8a3e06582043c61913ef` |
 
 ## Executed verification
 
@@ -34,8 +34,8 @@ Source-dependent commands used `GCS_SSC_SOURCE=.reference-repos/gcs-ssc` with Bu
 
 | Command or check | Result |
 | --- | --- |
-| `bun run docs:inventory` | Passed. 444 page/component, 732 API, 1,830 data, 20 domain, 12 configuration, one extension, and zero historical audit-impact entries. |
-| `bun run docs:references` | Passed. 732 routes in ten bilingual groups. |
+| `bun run docs:inventory` | Passed. 448 page/component, 743 API, 1,857 data, 20 domain, 12 configuration, one extension, and zero historical audit-impact entries. |
+| `bun run docs:references` | Passed. 743 routes in ten bilingual groups. |
 | `bun run docs:audit-impact` | Passed. Zero historical dossier rows. |
 | `bun run docs:check` | Passed. Coverage, parity, navigation, links, anchors, redirects, source reconciliation, and production build. |
 | `git diff --check` | Passed. |

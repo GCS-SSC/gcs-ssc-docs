@@ -59,6 +59,12 @@ La page de détail contient un sommaire repliable et les onglets suivants :
 
 Une extension activée peut aussi ajouter des onglets au profil.
 
+## Promoteurs liés
+
+Ouvrez l’onglet **Promoteurs liés** du profil. Pour ajouter un lien, choisissez une agence, un promoteur actif auquel vous avez accès et le rôle de ce promoteur. Vous devez avoir le droit de créer des promoteurs pour le profil et dans l’agence sélectionnée. Pour modifier ou retirer un lien, vous devez avoir le droit de modification pour le profil et dans l’agence du lien.
+
+Par exemple, dans le profil d’une société mère, choisissez l’autre société et son rôle de **Filiale**. L’autre profil présente alors la première société comme **Société mère**. Un type à rôle partagé présente le même libellé dans les deux profils. Retirer le lien le retire des deux vues. Réglez les liens actifs avant de supprimer un promoteur. Si un choix est indisponible, vérifiez l’agence sélectionnée, le rôle et l’accès à l’autre profil.
+
 ## Notes du promoteur
 
 L'onglet **Notes** conserve des notes de travail bilingues. Chaque note appartient à une agence en plus du promoteur. Choisissez une agence active pour laquelle vous possédez la permission de créer un promoteur; la liste n'affiche que les notes des agences que vous pouvez lire actuellement, même si le promoteur est lié à plusieurs agences. Une note exige un objet et un corps dans au moins une langue chacun; l'objet est limité à 255 caractères. Rédigez les deux langues au besoin. Les lecteurs peuvent chercher les notes visibles; la création, la modification et la suppression exigent la permission correspondante sur le promoteur et son affectation exacte, ainsi que la permission dans l'agence de la note. L'agence d'origine ne peut pas changer lors d'une modification.

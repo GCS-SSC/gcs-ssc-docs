@@ -186,7 +186,7 @@
       "tests/unit/agency-workflow-authoring-ui.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; scoped evidence in documentation-audit/sync-admin-program.json. Attachment type names and descriptions are required bilingually; descriptions preserve whitespace and reject null characters. Document templates support Agreement, Amendment and Closeout record types, bilingual names/descriptions and language files, DOCX or HTML kind, compatible native/PDF output, 10 MiB per-file limit and same-Agency/type per-language name uniqueness. Document template kind is immutable; edits can replace either language file. Failed replacement transactions preserve saved files, while failed post-save reload must be retried before creating another record. Agency Workflow Flow is a separate read-only diagram route. Unsaved changes or a pending mutation block switching between editor and diagram; draft save and publication remain distinct. Agency Contributor can delete eligible draft Review Sets, Recommendation Sets, Workflows and Data Collections; general catalog Manager wording was narrowed to avoid denying supported actions. Source and paired guides inspected; named regression sources were inspected only, not executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939; scoped evidence in documentation-audit/sync-admin-program.json. Attachment type names and descriptions are required bilingually; descriptions preserve whitespace and reject null characters. Document templates support Agreement, Amendment and Closeout record types, bilingual names/descriptions and language files, DOCX or HTML kind, compatible native/PDF output, 10 MiB per-file limit and same-Agency/type per-language name uniqueness. Document template kind is immutable; edits can replace either language file. Failed replacement transactions preserve saved files, while failed post-save reload must be retried before creating another record. Agency Workflow Flow is a separate read-only diagram route. Unsaved changes or a pending mutation block switching between editor and diagram; draft save and publication remain distinct. Agency Contributor can delete eligible draft Review Sets, Recommendation Sets, Workflows and Data Collections; general catalog Manager wording was narrowed to avoid denying supported actions. Source and paired guides inspected; named regression sources were inspected only, not executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "page:app/pages/agencies/[id]/recommendation-schemas/[schemaId].vue",
@@ -369,7 +369,7 @@
       "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The Agreement workspace adds bilateral relationship management. Existing profile and child permissions remain distinct. No application tests executed. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md."
+    "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The Agreement workspace adds bilateral relationship management. Existing profile and child permissions remain distinct. No application tests executed. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "page:app/pages/agreements/[id]/account-receivables/[accountReceivableId].vue",
@@ -606,7 +606,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed multiline coding labels and ordered accounting dimensions at 9ad3ead3fc391576028906b55b634ebaf4a92ae2. See documentation-audit/sync-nov18-coding-lookups.md."
   },
   {
     "id": "page:app/pages/agreements/[id]/corrections/[correctionId].vue",
@@ -815,7 +815,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-payment-policies.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group payments in review-groups.json. Immutable currency, active positive commitment and shared coding pools, retained calculator evidence, signed accounting/cash distinction, offsets and positive lifecycle posting. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed multiline coding labels and ordered accounting dimensions at 9ad3ead3fc391576028906b55b634ebaf4a92ae2. See documentation-audit/sync-nov18-coding-lookups.md."
   },
   {
     "id": "page:app/pages/agreements/index.vue",
@@ -2877,6 +2877,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: Agency availability, reference editing, retained references, status and attachment-type setup, calculation defaults and protected deletion. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/Agency/AgencyProponentRelationshipTypes.vue",
+    "source": "app/components/Agency/AgencyProponentRelationshipTypes.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "app/components/Agency/AgencyProponentRelationshipTypes.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "component:app/components/Agency/AgencyRecommendationSchemaDetailPage.vue",
     "source": "app/components/Agency/AgencyRecommendationSchemaDetailPage.vue",
     "audience": [
@@ -3142,7 +3157,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Agency/AgencyWorkflowSetupModal.vue",
@@ -3169,7 +3184,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Agency/AgencyWorkflowSetups.vue",
@@ -3203,7 +3218,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Agency/WorkflowFlowDiagram.vue",
@@ -3757,7 +3772,7 @@
       "server/utils/agreement-accounting-projection.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups claim-editor-and-summary-default in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups claim-editor-and-summary-default in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementForecastsTab.vue",
@@ -4021,7 +4036,7 @@
       "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Agreement/AgreementProfileHero.vue",
@@ -4116,6 +4131,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source-to-documentation review at af5d8a67df7c6266e1d34641a44b8a4935ac4f09: paired guides cover Agency type setup and permissions, same-Agency bilateral links, source Agreement action and assignment requirements, target read requirement on creation, uniqueness, optional 255-character description, edit identity, soft removal and recovery. List summary does not grant target access. Source inspected; no application tests executed."
+  },
+  {
+    "id": "component:app/components/Agreement/CodingOptionLabel.vue",
+    "source": "app/components/Agreement/CodingOptionLabel.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/agreements/commitments.md",
+    "fr": "fr/agreements/commitments.md",
+    "evidence": [
+      "app/components/Agreement/CodingOptionLabel.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed multiline coding labels and ordered accounting dimensions at 9ad3ead3fc391576028906b55b634ebaf4a92ae2. See documentation-audit/sync-nov18-coding-lookups.md."
   },
   {
     "id": "component:app/components/Agreement/Fields/AgreementActivityOutcomesField.vue",
@@ -4224,7 +4254,7 @@
       "server/utils/agreement-financial-number-provider.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md. Incremental review at d9bc9540dcc31c699aa3e2913529cdc174b8b817. Agreement create and edit forms place unsectioned custom fields within Profile. See documentation-audit/sync-nov18-profile-placement.md."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agreement child editors and document generation check fresh assignment and status before opening and saving. Denied document generation retains draft choices. Document generation refuses changed core data or template before persistence. Failed uploads are registered for cleanup after rollback. Existing address/proponent historical selections may be retained; replacements need current eligibility. User guidance keeps practical validation and omits API-only numeric/storage mechanics. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed optional, editable or extension-managed Financial System Number and form recovery. See documentation-audit/sync-nov18-financial-system-number.md. Incremental review at d9bc9540dcc31c699aa3e2913529cdc174b8b817. Agreement create and edit forms place unsectioned custom fields within Profile. See documentation-audit/sync-nov18-profile-placement.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Agreement/Fields/CustomFields.vue",
@@ -4784,6 +4814,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: type-specific numeric formats, active uniqueness and merged PATCH validation. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "component:app/components/ApplicantRecipient/ApplicantRecipientRelatedProponentsTab.vue",
+    "source": "app/components/ApplicantRecipient/ApplicantRecipientRelatedProponentsTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/proponents/index.md",
+    "fr": "fr/proponents/index.md",
+    "evidence": [
+      "app/components/ApplicantRecipient/ApplicantRecipientRelatedProponentsTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/ApplicantRecipient/ApplicantRecipientReviewsTab.vue",
@@ -6410,7 +6455,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Role-permitted actions can remain visible when status, assignment or another prerequisite blocks action; choosing them warns without executing. Repeated recommendation definitions resolve by workflow occurrence and sequence. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Role-permitted actions can remain visible when status, assignment or another prerequisite blocks action; choosing them warns without executing. Repeated recommendation definitions resolve by workflow occurrence and sequence. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Common/Completions/WorkflowPreAction.vue",
@@ -7632,7 +7677,7 @@
       "tooling/gcs-ssc/tests/unit/assigned-work-search.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group navigation in review-groups.json. Permission-filtered global/assigned search and masked parent labels, request loading/recovery, shared detail workspace URL/focus, server table filters and exact monetary controls. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed multiline coding labels and ordered accounting dimensions at 9ad3ead3fc391576028906b55b634ebaf4a92ae2. See documentation-audit/sync-nov18-coding-lookups.md."
   },
   {
     "id": "component:app/components/Common/ServiceErrorIllustration.vue",
@@ -8072,7 +8117,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Role-permitted actions can remain visible when status, assignment or another prerequisite blocks action; choosing them warns without executing. Repeated recommendation definitions resolve by workflow occurrence and sequence. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Role-permitted actions can remain visible when status, assignment or another prerequisite blocks action; choosing them warns without executing. Repeated recommendation definitions resolve by workflow occurrence and sequence. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/Common/Workflow/SupplementaryInformation.vue",
@@ -10422,6 +10467,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Documented contract: stream ownership, wizard dependencies, budgets, eligibility references, holdback and classification guards, cost availability and setup tabs. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "component:app/components/TransferPayment/TransferPaymentStreamRiskManagementTab.vue",
+    "source": "app/components/TransferPayment/TransferPaymentStreamRiskManagementTab.vue",
+    "audience": [
+      "end-user",
+      "administrator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "app/components/TransferPayment/TransferPaymentStreamRiskManagementTab.vue"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
     "id": "component:app/components/TransferPayment/TransferPaymentStreamRiskRatingModal.vue",
     "source": "app/components/TransferPayment/TransferPaymentStreamRiskRatingModal.vue",
     "audience": [
@@ -10612,7 +10672,7 @@
       "app/utils/fetch-error.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
   },
   {
     "id": "component:app/components/User/UserActivationModal.vue",

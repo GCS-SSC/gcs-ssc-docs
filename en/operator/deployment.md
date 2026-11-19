@@ -114,3 +114,5 @@ The current source manifest pins the shared image digest `sha256:ce4316c67e686e1
 ## Dedicated Railway demo reset
 
 `bun run railway:demo:reset` is restricted to the former source-mode demo layout with a service named `Postgres`. Its preview mode is read-only. The current pinned-image `GCS DB` demo layout is rejected before Railway calls; **do not use `--execute` against that layout**. The application source runbook describes the exact supported preconditions. For the current image deployment, plan recovery from the paired database and attachment-volume backups instead of treating this helper as an executable reset path.
+
+For existing databases, review the baseline changes for Stream risk settings, workflow conditions, risk provenance, and Agency-scoped Proponent relationships before rollout. Verify schema and audit ownership for the new relationship tables. Review the intended risk workflow selections for each Stream before enabling the requirements.

@@ -53,7 +53,7 @@ Le formulaire initialise **Redistribution** à non et **Retenue** à 10 %; véri
 | Descriptions anglaise et française | Toutes deux obligatoires. |
 | Retenue | Pourcentage obligatoire de 0 à 100 inclusivement, enregistré à deux décimales. |
 | Base de retenue | Base active obligatoire configurée pour le volet. Choisissez parmi les valeurs disponibles; l'administrateur peut configurer différents libellés. |
-| Cote de risque | Sélection manuelle facultative sans flux publié d'Évaluation du risque; sinon, la cote est définie par le flux et ne peut pas être modifiée dans le profil. |
+| Cote de risque | Sélection manuelle facultative si le volet n’exige pas de flux d’évaluation du risque. Le flux obligatoire fixe la cote. |
 | Promoteurs | Au moins un profil actif et lisible sans doublon. Choisissez un sous-type admissible et un identifiant financier actif du promoteur appartenant à l'agence de l'entente pour chaque lien; le type appartient à cette relation. Consultez [Promoteurs de l'entente](./applicant-recipients.md). |
 
 Changer de volet efface le sous-type, la base de retenue et la cote de risque, car ces choix appartiennent au volet. Sélectionnez-les de nouveau pour le nouveau volet. L'application revérifie votre accès et tous les dossiers sélectionnés à l'enregistrement. Elle crée ensemble l'entente, ses liens de bénéficiaires et votre affectation principale; un échec ne laisse pas de dossier créé en partie.
@@ -137,11 +137,9 @@ Vous ne pouvez pas réduire ou déplacer la période d'aide si un exercice budg�
 
 Dans **Général**, les champs personnalisés sans section apparaissent parmi les champs standards du **Profil**. Les sections personnalisées nommées suivent les sections intégrées. Remplissez les champs actifs obligatoires, conservez ou effacez explicitement les valeurs inactives et enregistrez avec le formulaire habituel. Consultez les [champs personnalisés des ententes](../programs/custom-fields.md) pour les types, un exemple de configuration, les mises à jour partielles et l'acheminement conditionnel.
 
-Quand le volet sélectionne un flux publié d'**Évaluation du risque**, la cote est gérée par flux. Utilisez les commandes correspondantes de l'entente pour lancer l'évaluation et suivre ses étapes d'examen et d'approbation.
+Les réglages de [gestion des risques](../programs/streams.md) du volet déterminent si l’approbation initiale exige la réussite d’un flux d’**Évaluation du risque**. Lancez le flux sélectionné et terminez ses étapes obligatoires. Lorsque les cotes manuelles sont permises, vous pouvez en enregistrer une dans le profil ou exécuter un flux publié admissible.
 
-La dernière évaluation réussie est associée à une cote du volet selon les intervalles de la publication. Une tentative en attente, échouée, refusée ou annulée ne remplace pas à elle seule la cote enregistrée. Un résultat terminé conserve le flux, la note d'évaluation, la cote associée et la preuve de terminaison. Si le mode de gestion ne peut pas être chargé, réessayez avant de modifier le risque.
-
-Sans flux publié d'Évaluation du risque, la sélection manuelle reste possible selon les permissions du profil. Les cotes conservées s'affichent dans la langue courante. Les notes et identités référencées par des publications courantes ou tentatives actives ne peuvent pas être modifiées ou supprimées avant la résolution de ces dépendances.
+Pour réévaluer le risque, ouvrez les commandes de flux du dossier et choisissez **Évaluation du risque**. Si plusieurs flux sont admissibles, choisissez-en un. Le dossier doit être ouvert, son statut courant doit permettre le démarrage et aucune évaluation du risque ne doit être active. Un dossier admissible peut être réévalué après une réussite. La cote enregistrée change seulement après une réussite ou une saisie manuelle permise. Si la soumission indique que la source est périmée, réévaluez le risque ou enregistrez la cote manuellement si cette option est permise.
 
 ## Suppression et rétablissement
 

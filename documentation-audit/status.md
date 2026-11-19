@@ -2,6 +2,6 @@
 
 ## Current phase
 
-Coverage reconciliation for application `66c99235e8c3bf824a40efebef5a79d26ea936b3` is complete, with zero remaining items. The generators, `bun run docs:check`, whitespace check, and deployment-base build passed. Application `main` matched the reviewed target at the final fetch. The skill marker and [verification receipt](./source-baseline.md) record that commit.
+Coverage reconciliation for application `878cfb0d326f9a1d2efa8159afaeb08833d9f062` is complete, with zero remaining items. The generators, `bun run docs:check`, whitespace check, and deployment-base build passed. The final fetch confirmed the target. The skill marker and [verification receipt](./source-baseline.md) record it.
 
-See the [source review](./sync-nov18-budget-management.md).
+See the [source review](./sync-nov18-stream-risk.md).

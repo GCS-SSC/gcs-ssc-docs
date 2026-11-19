@@ -107,6 +107,10 @@ Créez un plan d'agence avec exercice, devise et au moins une dimension comptabl
 
 Un plan de note de crédit peut lier un plan d'engagement seulement de la même agence, du même exercice et de la même devise. Les autres genres ne peuvent porter ce lien. L'admissibilité au volet vérifie aussi la devise commune du budget et du plan. Si le sélecteur est vide, configurez le budget de programme et de volet correspondant, puis rechargez plutôt que de choisir une autre devise.
 
+## Types de relations entre promoteurs
+
+Dans l’onglet des types de relations entre promoteurs de l’agence, créez un type avec des libellés bilingues et un code indépendant de la langue. Choisissez le même rôle sur les deux profils ou fournissez un rôle inverse et un code distincts. Les codes commencent par une lettre minuscule et utilisent des lettres minuscules, des chiffres et des traits de soulignement. Conservez les codes utilisés dans les modèles. Retirez les liens actifs avant de retirer un type.
+
 ## États opérationnels
 
 Les états opérationnels indiquent où se trouve un dossier dans votre processus, par exemple « En examen » ou « Fermé ». Chaque agence possède sa liste d'états. Une nouvelle agence reçoit un état Ébauche protégé. L'onglet États affiche les définitions actives et supprimées avec leur badge localisé, leur couleur, leur icône Lucide et leur classe de cycle de vie : normale, lecture seule ou terminale.
