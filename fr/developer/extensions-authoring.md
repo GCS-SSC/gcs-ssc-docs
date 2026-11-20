@@ -149,7 +149,7 @@ L’achèvement consigne `not_applicable`, `no_workflow` ou `workflow_started` a
 
 La version du SDK public utilisée ici est 0.3.19. Déclarez `configuration-access` pour définir `configurationAccess` à `contributor` ou `manager`; Contributeur est la valeur par défaut. Cela fixe le rôle minimal requis pour activer l’extension et modifier sa configuration JSON. Les permissions pour le travail courant et les affectations exactes aux dossiers sont vérifiées séparément.
 
-Une extension `configurationScope: 'agency'` déclare `agency-only-configuration`. Elle possède seulement l’activation et la configuration d’organisme et ne peut déclarer d’éditeur de volet. Cela convient à une numérotation d’organisme partagée entre volets. Sans cette déclaration, le modèle organisme-plus-volet reste applicable.
+Une extension `configurationScope: 'agency'` déclare `agency-only-configuration`. Elle possède seulement l’activation et la configuration d’organisme et ne peut déclarer d’éditeur de volet. Cela convient à une numérotation d’organisme partagée entre volets. La portée par défaut utilise l’activation par organisme et par volet. Consultez la section sur les extensions système pour les contributions globales.
 
 ## Contrat de fournisseur de stockage
 
@@ -684,3 +684,7 @@ Utilisez `installExtensionTestUiRuntime` depuis `@gcs-ssc/extensions/testing` po
 | Conflits entre les calculateurs de paiement | Les calculateurs en double sont détectés. |
 | Interface bilingue | Les libellés, les erreurs et les noms d’onglet sont présents en anglais et en français. |
 | Suppression logique | Les suppressions de données appartenant à l’extension conservent les données historiques lorsque cela est requis. |
+
+## Contributions des extensions système
+
+Déclarez `configurationScope: 'system'` avec la capacité hôte `system-extensions`. Le champ facultatif `admin.systemWorkspace.path` exige `extension-ui`. Les routes globales avec contrôle de rôle utilisent `global: true` et `subject: 'system'` dans `rbac`. Une contribution `signedInSidebarModal` fournit un libellé bilingue, une icône et un chemin Vue et exige `signed-in-sidebar-modal` et `extension-ui`. Transmettez son emplacement de déclenchement par défaut à `ExtensionModal`. L’hôte vérifie l’activation avant d’exposer les contributions.

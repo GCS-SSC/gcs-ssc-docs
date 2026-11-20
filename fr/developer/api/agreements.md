@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42, y compris son état et les renseignements sur le programme. Cette lecture n’approuve pas l’entente et ne crée pas de paiement. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (191)
+## Gestionnaires (197)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -101,6 +101,11 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | POST | `/api/agreements/[id]/claims/[claimId]/withdraw` | — | — | `server/api/agreements/[id]/claims/[claimId]/withdraw.post.ts` |
 | POST | `/api/agreements/[id]/claims` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementClaimCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/claims/index.post.ts` |
 | GET | `/api/agreements/[id]/claims/lookups/proponents` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/claims/lookups/proponents.get.ts` |
+| DELETE | `/api/agreements/[id]/clauses/[selectionId]` | executeFreshAuthorizedAgreementWrite | DeleteQuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/clauses/[selectionId].delete.ts` |
+| PATCH | `/api/agreements/[id]/clauses/[selectionId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/clauses/[selectionId].patch.ts` |
+| GET | `/api/agreements/[id]/clauses` | freshAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/clauses/index.get.ts` |
+| POST | `/api/agreements/[id]/clauses` | executeFreshAuthorizedAgreementWrite | AgreementClauseSelectionSchema, readValidatedBodyI18n | `server/api/agreements/[id]/clauses/index.post.ts` |
+| GET | `/api/agreements/[id]/clauses/lookups/available` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/clauses/lookups/available.get.ts` |
 | GET | `/api/agreements/[id]/closeout-readiness` | — | — | `server/api/agreements/[id]/closeout-readiness.get.ts` |
 | DELETE | `/api/agreements/[id]/closeouts/[closeoutId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/[closeoutId].delete.ts` |
 | GET | `/api/agreements/[id]/closeouts/[closeoutId]` | freshAuthContext | — | `server/api/agreements/[id]/closeouts/[closeoutId].get.ts` |
@@ -210,3 +215,4 @@ Une requête autorisée `GET /api/agreements/42` lit le profil de l’entente 42
 | PATCH | `/api/claim-reconciliations/[reconcileId]/lines/[lineId]` | resolveAgreementScopeContext | — | `server/api/claim-reconciliations/[reconcileId]/lines/[lineId].patch.ts` |
 | PATCH | `/api/claim-reconciliations/[reconcileId]/lines/bulk` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileLineItemBulkSaveSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/bulk.patch.ts` |
 | POST | `/api/claim-reconciliations/[reconcileId]/lines` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileLineItemCreateSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/index.post.ts` |
+| POST | `/api/claim-reconciliations/[reconcileId]/lines/reconcile-all` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileAllSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/reconcile-all.post.ts` |

@@ -123,3 +123,5 @@ _Exemple de l'environnement de développement initial; les dossiers illustrés s
 Dans les tableaux compatibles, utilisez le menu des colonnes pour afficher, masquer ou réordonner les colonnes. Les filtres compatibles et les préférences de colonnes sont synchronisés avec votre compte. Réinitialisez les préférences du tableau pour rétablir les réglages par défaut du tableau courant. Si la synchronisation échoue, gardez la page ouverte et utilisez l’action de nouvelle tentative lorsqu’elle est offerte.
 
 Les ententes et les promoteurs consultés récemment peuvent apparaître en premier dans leurs listes et dans le travail affecté à l’accueil. L’historique de consultation est conservé dans ce navigateur pour votre compte, indépendamment des préférences synchronisées. La recherche, les filtres et les droits d’accès s’appliquent toujours.
+
+Lorsqu’un message d’erreur intégré offre **Réessayer**, utilisez cette action pour recharger le panneau. Si la réponse à un enregistrement est incertaine, vérifiez le dossier avant de répéter l’action.

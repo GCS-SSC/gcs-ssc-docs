@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/transfer-payments/6` reads funding program 6’s profile. It does not issue a payment to a recipient. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (123)
+## Handlers (127)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -71,6 +71,9 @@ An authorized request for `GET /api/transfer-payments/6` reads funding program 6
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId]` | createTransferPaymentScopedAuthorizeHandler | — | `server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/[chartOfAccountId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts` | createTransferPaymentScopedAuthorizeHandler | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.get.ts` |
 | POST | `/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentStreamChartOfAccountSchema, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/chart-of-accounts/index.post.ts` |
+| DELETE | `/api/transfer-payments/[id]/streams/[streamId]/clauses/[linkId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/clauses/[linkId].delete.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/clauses` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.get.ts` |
+| POST | `/api/transfer-payments/[id]/streams/[streamId]/clauses` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.post.ts` |
 | DELETE | `/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId]` | createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite | — | `server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].delete.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId]` | createTransferPaymentScopedAuthorizeHandler | — | `server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/commitment-types` | createTransferPaymentScopedAuthorizeHandler | PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/index.get.ts` |
@@ -109,6 +112,7 @@ An authorized request for `GET /api/transfer-payments/6` reads funding program 6
 | GET | `/api/transfer-payments/[id]/streams/[streamId]` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/index.get.ts` |
 | PATCH | `/api/transfer-payments/[id]/streams/[streamId]` | executeFreshAuthorizedTransferPaymentStreamWrite | TransferPaymentStreamPatchSchema, TransferPaymentStreamRiskManagementSchema, parseI18n, readValidatedBodyI18n | `server/api/transfer-payments/[id]/streams/[streamId]/index.patch.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types` | — | AgreementTypeLookupQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/agreement-types.get.ts` |
+| GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/clauses` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/clauses.get.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/cost-category-line-items` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/cost-category-line-items.get.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/custom-fields` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/custom-fields.get.ts` |
 | GET | `/api/transfer-payments/[id]/streams/[streamId]/lookups/document-templates` | — | — | `server/api/transfer-payments/[id]/streams/[streamId]/lookups/document-templates.get.ts` |

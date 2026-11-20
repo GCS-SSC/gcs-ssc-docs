@@ -54,6 +54,8 @@ For a new configuration, administrators must choose eligible published templates
 
 An Agreement or amendment approval-submission workflow also creates an unchangeable approval packet. An original Agreement packet snapshots the full profile, proponents, current budget, and current activities. An amendment packet records its selected amendment types and subtypes and includes only the information being changed, such as the budget, activities, or proposed duration dates. The workflow stores the packet's SHA-256 hash, and the approval view verifies it before showing the bilingual packet. Successful approval promotes the packet to an unchangeable Agreement revision: revision `0` for the original Agreement submission and the next positive revision number for an amendment. Starting another submission while one is active, changing covered data during that run, or rewriting/deleting a stored packet is blocked.
 
+For a packet that includes a budget, the cost category and subsection visibility comes from the Stream settings captured at submission. Changes to the Stream after submission do not change how that packet displays on review or retry.
+
 During initial Agreement approval, an Agency extension can set the Financial System Number from finalized Data Collection answers in that approval run. The number is saved on the live Agreement when approval succeeds. The stored approval packet and revision still show the profile captured at submission, so the number can appear there as blank. If approval cannot finish because the number is missing or the provider fails, check the finalized answers and ask the Agency administrator to verify the provider before retrying.
 
 ## Risk and Data Collection approvals
@@ -93,3 +95,9 @@ The view action shows bilingual step names, default and assigned approvers, stat
 If an action is unavailable, verify ordinary owner access, the required approval permission, current-step assignment, route/entity status, and the user's Common record. For an on-behalf decision, choose a valid agency behalf type and supply actual title/date when required. If no route exists, verify that the correct published template is configured for that scope and entity. Reload after another actor decides or reassigns a step. Do not edit templates to repair an existing route; resolve the runtime state through its supported actions or create a future route from corrected published configuration.
 
 See [Approval Templates](../programs/approval-templates.md), [Runtime Reviews](runtime-reviews.md), and [RBAC](rbac.md).
+
+## Files on approval decisions
+
+When the approval permits uploads, choose an allowed type before selecting a file. Uploaded files remain private to the approval draft until you submit the decision. Unsubmitted drafts are discarded when the approval closes without a submitted decision. Submitted files remain approval evidence. If an upload fails, review the error and the draft list before retrying. If no allowed type is still active, you can submit the decision without an attachment.
+
+On a supported record’s **Attachments** tab, the **Source** column distinguishes submitted Approval attachments from direct entity uploads. Open the source details to see the available approval or upload information.

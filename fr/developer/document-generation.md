@@ -101,3 +101,7 @@ L'installateur met à jour `LIBREOFFICE_SOFFICE_PATH` et `PUPPETEER_CACHE_DIR` d
 ## Promoteurs liés dans les modèles
 
 Les modèles d’entente et de modification peuvent lire `recipient.related.<role_code>` pour le bénéficiaire principal et l’agence de l’entente. Chaque rôle contient une liste avec `legalName` et `address` localisés. Par exemple, parcourez `recipient.related.subsidiary` pour imprimer toutes les filiales. Un code de rôle valide sans résultat renvoie une liste vide. Les modèles de clôture n’exposent pas les promoteurs liés.
+
+## Texte des clauses dans les modèles d’entente
+
+Parcourez `agreement.clauses.reporting_obligations` pour afficher les lignes `text` du groupe dans l’ordre prévu et dans la langue demandée. Remplacez `reporting_obligations` par le code du groupe. Le texte provient de la version choisie dans l’entente. Un code valide non sélectionné renvoie une liste vide. Ce contexte est disponible dans les modèles d’entente.

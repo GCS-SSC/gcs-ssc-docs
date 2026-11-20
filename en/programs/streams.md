@@ -153,7 +153,7 @@ On the Stream, open **Budget Management**. Users with permission to update the S
 
 In either Other Funding mode, you can require a breakdown for forecasts, claims, or both at final submission. Unfinished entries can still be saved. Make eligible funding subtypes available before enabling the requirements.
 
-Use **Hide Cost Category** and **Hide Cost Subsection** to simplify the financial workspace display. The settings are off by default and do not remove saved classifications.
+Use **Hide Cost Category** and **Hide Cost Subsection** to simplify Agreement and Amendment budgets, Claim submissions and reconciliations, and Forecast breakdowns. The settings apply to read-only views as well. Both are off by default and preserve saved classifications. Approval packets with a budget capture the visibility settings at submission. A retry keeps the captured settings. Older packets without these settings show both classifications.
 
 If changing the mode fails, use the references in the error to find the affected working budgets, amendments, forecasts, or claims. Before switching to Program Funding only, remove Other Funding sources, including zero-valued sources, and resolve pending budget lines. Before switching to automatic Total Cost, reconcile existing working totals to Program Funding plus Other Funding. Save the corrected records and retry. Ask an authorized officer to review any affected records you cannot open.
 
@@ -338,3 +338,7 @@ For a fresh installation, a minimum practical stream usually has:
 - Document templates if users will generate agreement documents.
 - Published recommendation schemas and sets linked through workflows if recommendations are generated.
 - Extension settings required by the deployment.
+
+## Clause groups available to Agreements
+
+In **Clauses**, a user with Stream update permission can link active, published Agency clause groups. For example, link the Agency’s reporting obligations group to each Stream that offers those terms. Officers then choose the group on individual Agreements. Unlinking stops new selections and preserves wording already selected. If a group is missing, check its Agency, active flag, and publication state.

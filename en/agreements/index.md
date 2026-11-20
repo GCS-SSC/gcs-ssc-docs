@@ -150,3 +150,13 @@ Deleted agreements disappear from active lists and the related views that list t
 ![Agreement detail and child workflow](/screenshots/en/agreement-child-workflow.png)
 
 _Example from the seeded development environment; a fresh installation does not contain these records._
+
+## Select clause groups
+
+Open **Clauses** on the Agreement. An assigned Contributor can add or update selections. Removing a selection requires delete permission and assignment. All three actions require an editable Agreement and are blocked by an active approval submission. Choose an active, published group linked to the Stream. The Agreement saves that version’s bilingual wording.
+
+For example, if the Agency publishes revised reporting terms, the saved Agreement still shows the wording previously chosen. Review the new text and use the update action to adopt it when offered. If the update is unavailable, check with the Stream administrator whether the group is still linked, active and published. Removing an Agreement selection leaves the Agency group available for other Agreements. The initial approval packet preserves the selected versions and wording for review.
+
+### Clauses added by reviews
+
+A finalized matching Checklist result or Assessment strategy can add an Agency clause automatically. Use **View sources** on the clause to see the review evidence. Before submitting the Agreement for approval, finish any reviews named in the submission warning. For a protected clause, an assigned Agreement Manager must explicitly confirm removal.

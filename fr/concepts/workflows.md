@@ -153,3 +153,15 @@ Si vous ne pouvez pas démarrer un flux, vérifiez :
 Les dossiers d’approbation et tentatives historiques ne peuvent pas être modifiés. Corrigez le dossier ou la configuration pour une prochaine exécution, ou utilisez l’action de reprise prise en charge.
 
 Consultez [Schémas et configurations de recommandation](../programs/recommendations.md), [Modèles d’approbation](../programs/approval-templates.md), [Modifications d’entente](../agreements/amendments.md) et [Approbations et achèvements](approvals-completions.md).
+
+## Acheminer un flux selon les résultats précédents
+
+Dans l’éditeur de flux de l’agence, ajoutez une condition à l’étape qui doit s’exécuter seulement pour un résultat donné. Choisissez une étape précédente et son évaluation, sa liste de contrôle ou sa recommandation précise. Une évaluation compare sa note finale à un nombre. Une liste correspond à l’un des résultats officiels sélectionnés. Une recommandation correspond à recommandé ou non recommandé.
+
+Par exemple, ajoutez un deuxième examen seulement si la première évaluation obtient une note d’au moins 70. À 72, le deuxième examen s’exécute. À 65, il est ignoré. Si la première évaluation est ignorée ou ne produit aucun résultat utilisable, la condition ne correspond pas. Toutes les conditions du deuxième examen doivent correspondre.
+
+Le flux vérifie les champs du dossier au démarrage et les résultats précédents lorsqu’il atteint l’étape qui en dépend. Il utilise les résultats de la même tentative. Une étape ignorée ne crée aucune tâche. L’exécution conserve ses décisions pour expliquer les étapes exécutées ou ignorées. Si un résultat précédent met fin à l’exécution selon les règles configurées, les étapes suivantes ne sont pas atteintes. Une nouvelle tentative utilise sa configuration figée et les nouveaux résultats de cette tentative.
+
+## Tester un parcours avant de l’exécuter
+
+Ouvrez le **Simulateur de flux de travail** du flux d’agence enregistré. Saisissez les données du dossier et les résultats des étapes, puis sélectionnez **Lancer la simulation**. Indiquez la note d’évaluation ou calculez-la à partir de réponses et de valeurs d’aide d’exemple lorsque l’option est offerte. Essayez les deux côtés d’un seuil, par exemple 65 et 72, et vérifiez les étapes exécutées, ignorées ou en attente. Si un parcours de réussite obligatoire est bloqué, corrigez la configuration enregistrée ou le scénario, puis relancez la simulation. Le simulateur ne crée aucun flux réel, aucune fiche d’acheminement ni tâche d’approbation.

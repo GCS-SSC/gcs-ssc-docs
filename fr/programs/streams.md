@@ -153,7 +153,7 @@ Dans le volet, ouvrez **Gestion du budget**. Les utilisateurs autorisés à modi
 
 Dans les deux modes qui permettent les autres fonds, vous pouvez exiger une ventilation des prévisions, des réclamations ou des deux à la soumission finale. Le travail inachevé peut encore être enregistré. Rendez les sous-types admissibles disponibles avant d’activer les exigences.
 
-Utilisez les options de masquage de la catégorie et de la sous-section de coûts pour simplifier l’affichage financier. Elles sont désactivées par défaut et ne retirent pas les classements enregistrés.
+Utilisez les options de masquage de la catégorie et de la sous-section de coûts pour simplifier les budgets des ententes et des modifications, les soumissions et rapprochements des réclamations, ainsi que la ventilation des prévisions. Ces réglages s’appliquent aussi aux vues en lecture seule. Ils sont désactivés par défaut et conservent les classements enregistrés. Les paquets d’approbation qui contiennent un budget figent ces réglages à la soumission. Une nouvelle tentative conserve les réglages figés. Les anciens paquets sans ces réglages affichent les deux classements.
 
 Si le changement de mode échoue, utilisez les références du message pour retrouver les budgets, modifications, prévisions ou réclamations en cours. Avant de passer au financement du programme seulement, retirez les sources d’autres fonds, même celles de valeur nulle, et traitez les lignes budgétaires en attente. Avant de passer au calcul automatique, ajustez les coûts totaux en cours pour qu’ils correspondent au financement du programme plus les autres fonds. Enregistrez les corrections, puis réessayez. Demandez à un agent autorisé d’examiner les dossiers auxquels vous n’avez pas accès.
 
@@ -340,3 +340,7 @@ Dans une nouvelle installation, un volet minimal pratique contient habituellemen
 - Modèles de documents si les utilisateurs généreront des documents d’entente.
 - Schémas et ensembles de recommandations publiés liés par les flux si des recommandations sont générées.
 - Paramètres d’extension requis par le déploiement.
+
+## Groupes de clauses offerts aux ententes
+
+Dans **Clauses**, une personne autorisée à modifier le volet peut lier les groupes de l’agence qui sont actifs et publiés. Par exemple, liez le groupe des obligations de rapport à chaque volet qui propose ces conditions. Les agents choisissent ensuite le groupe dans chaque entente. Retirer le lien bloque les nouvelles sélections et conserve le texte déjà choisi. Si un groupe manque, vérifiez son agence, son état actif et son état de publication.

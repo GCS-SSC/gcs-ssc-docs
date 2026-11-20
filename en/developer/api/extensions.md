@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/extensions/agency/12` lists registered extensions and their enablement and configuration for agency 12. It does not enable an extension or run its migrations. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (16)
+## Handlers (19)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -31,7 +31,10 @@ An authorized request for `GET /api/extensions/agency/12` lists registered exten
 | GET | `/api/extensions/entity-tabs` | getExtensionEntityAuthorizationSubject | EntityTabQuerySchema, parseI18n | `server/api/extensions/entity-tabs/index.get.ts` |
 | GET | `/api/extensions/payment-amount-calculators` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | PaymentAmountCalculatorsQuerySchema, parseI18n | `server/api/extensions/payment-amount-calculators/index.get.ts` |
 | GET | `/api/extensions/runtime` | — | RuntimeSlotQuerySchema, parseI18n | `server/api/extensions/runtime/index.get.ts` |
+| GET | `/api/extensions/sidebar-modals` | — | — | `server/api/extensions/sidebar-modals.get.ts` |
 | GET | `/api/extensions/streams/[streamId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/streams/[streamId]/index.get.ts` |
 | PATCH | `/api/extensions/streams/[streamId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionStreamConfigurationSchema, readValidatedBodyI18n | `server/api/extensions/streams/[streamId]/index.patch.ts` |
 | GET | `/api/extensions/streams/[streamId]/notifiers` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/streams/[streamId]/notifiers.get.ts` |
+| PATCH | `/api/extensions/system/[extensionKey]` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionSystemToggleSchema, readValidatedBodyI18n | `server/api/extensions/system/[extensionKey].patch.ts` |
+| GET | `/api/extensions/system` | — | — | `server/api/extensions/system/index.get.ts` |
 | GET | `/api/extensions/workspaces` | — | — | `server/api/extensions/workspaces.get.ts` |

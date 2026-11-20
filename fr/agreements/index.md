@@ -150,3 +150,13 @@ Les ententes supprimées disparaissent des listes actives et des vues connexes q
 ![Détail de l'entente et processus enfant](/screenshots/fr/agreement-child-workflow.png)
 
 _Exemple tiré de l'environnement de développement avec données de démonstration; une installation neuve ne contient pas ces enregistrements._
+
+## Sélectionner des groupes de clauses
+
+Ouvrez **Clauses** dans l’entente. Un contributeur affecté peut ajouter ou mettre à jour des sélections. Le retrait exige le droit de suppression et une affectation. Les trois actions exigent une entente modifiable et sont bloquées pendant une soumission pour approbation active. Choisissez un groupe actif et publié lié au volet. L’entente enregistre le texte bilingue de cette version.
+
+Par exemple, si l’agence publie des obligations de rapport révisées, l’entente affiche encore le texte choisi précédemment. Vérifiez le nouveau texte et utilisez l’action de mise à jour lorsqu’elle est offerte. Si elle est indisponible, vérifiez avec l’administrateur du volet que le groupe est encore lié, actif et publié. Retirer une sélection de l’entente laisse le groupe disponible pour les autres ententes. Le paquet d’approbation initiale conserve les versions et les textes choisis pour examen.
+
+### Clauses ajoutées par les examens
+
+Un résultat finalisé de liste de contrôle ou une stratégie d’évaluation correspondante peut ajouter automatiquement une clause de l’agence. Consultez les sources de la clause pour voir les preuves de l’examen. Avant de soumettre l’entente pour approbation, terminez les examens nommés dans l’avertissement de soumission. Pour une clause protégée, un gestionnaire affecté à l’entente doit confirmer explicitement le retrait.

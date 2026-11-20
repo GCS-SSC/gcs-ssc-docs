@@ -30,7 +30,7 @@ Les actions de modification et suppression visent la réclamation individuelle. 
 
 | Champ de la réclamation | Règle |
 | --- | --- |
-| Promoteur | Promoteur actif obligatoire lié à cette entente. Le serveur revérifie ce lien à la création ou au remplacement. |
+| Promoteur | Promoteur actif obligatoire lié à cette entente. Le formulaire de création sélectionne automatiquement l’unique option admissible. Le serveur revérifie ce lien à la création ou au remplacement. |
 | Exercice | Choisissez un exercice du budget courant de l’entente. |
 | Date de réception | Saisissez la date de réception de la réclamation. |
 | Début et fin de la période | Choisissez le premier et le dernier mois de la période, entre avril et mars. La fin ne peut précéder le début. |
@@ -52,7 +52,7 @@ L’onglet **Soumission** regroupe les lignes budgétaires de l’exercice coura
 
 Après une modification budgétaire, une réclamation liée à un exercice retiré ne peut être modifiée. Les lignes absentes du budget courant restent visibles en lecture seule. Les montants soumis, les coûts totaux et les autres sources restent consultables et comptent dans les totaux. Pour saisir ou modifier des montants, utilisez une ligne du budget courant. Demandez au gestionnaire de l’entente de revoir une ligne budgétaire manquante.
 
-Modifier le financement du programme conserve les autres sources. En mode automatique, le total est recalculé à partir des deux. En mode manuel, vérifiez le coût total enregistré lorsque le financement change.
+Modifier le financement du programme conserve les autres sources. En mode automatique, le total est recalculé à partir des deux. En mode manuel, modifier le montant soumis ajuste le coût total du même écart. Par exemple, passer le financement du programme de 700 à 750 augmente le coût total de 1 000 à 1 050.
 
 Les lignes importées en double s’affichent séparément, même dans une réclamation modifiable. Confirmez la ligne précise avant de la modifier. Chaque doublon compte encore dans les totaux; modifier une ligne ne change pas les autres. Corrigez les doublons involontaires pendant que la réclamation est modifiable.
 
@@ -91,6 +91,10 @@ Désignez comme final le rapprochement qui doit terminer l’examen de la récla
 | Justification | Texte facultatif expliquant l’évaluation de la ligne. |
 
 Enregistrer un rapprochement enregistre toutes ses lignes ensemble. Si l’enregistrement échoue, aucune de ses modifications n’est conservée. Si les lignes de la réclamation ont changé pendant votre examen, rechargez et comparez votre brouillon à la réclamation courante avant de réessayer. Cela s’applique même si vous modifiez une seule rangée.
+
+Dans un rapprochement modifiable, sélectionnez **Rapprocher tous les montants** pour enregistrer le solde de chaque ligne active de la réclamation, y compris les lignes hors du filtre courant. Le solde correspond au montant soumis moins les montants des rapprochements antérieurs réussis, avec un minimum de zéro. Par exemple, une ligne soumise pour 1 000 dont 600 ont déjà été rapprochés est réglée à 400.
+
+Vérifiez la demande de confirmation si l’action remplace des montants enregistrés. Si les données changent avant la confirmation, l’application peut vous demander de confirmer de nouveau. L’action conserve les montants échantillonnés et les justifications. Elle enregistre les montants sans achever le rapprochement. Si l’enregistrement échoue ou si la réponse est incertaine, rechargez et vérifiez les montants enregistrés avant de réessayer.
 
 Les montants rapprochés et échantillonnés peuvent être des ajustements négatifs. Cela ne s’applique pas aux montants soumis du programme ni aux coûts totaux, qui doivent être non négatifs.
 
@@ -163,3 +167,5 @@ Les réductions de réclamation appliquées libèrent de la capacité annuelle p
 Par exemple, avec un financement annuel du programme de 120 000, une réclamation comptée de 30 000 laisse 90 000. Une créance entièrement soldée avec une réduction appliquée de 10 000 ramène l’utilisation comptée à 20 000 et permet une autre réclamation de 100 000. Une proposition de 100 000,01 échoue encore. La réclamation soumise d’origine reste inchangée.
 
 Actualisez le budget courant, les dossiers comptés et les [Créances](./receivables.md), corrigez le montant ou appliquez une modification autorisée avant de réessayer. Les réductions budgétaires utilisent une règle supplémentaire pour les encaissements comptabilisés, expliquée dans [Modifications](./amendments.md); elle ne libère pas de capacité pour une nouvelle réclamation avant l’application de la réduction.
+
+Le tableau de rapprochement affiche les montants déjà rapprochés séparément des montants courants. Cette colonne tient compte des rapprochements antérieurs réussis pour vous permettre de vérifier le solde avant de modifier les montants.

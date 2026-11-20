@@ -87,7 +87,7 @@ Les écritures protégées utilisent le protocole `writeAuthorization` à deux p
 
 ## Migrations, état et secrets
 
-Chaque extension possède ses propres tables de verrouillage et d'historique de migrations Kysely, avec un suffixe haché. Une exécution n'applique que les migrations en attente et retourne le nom, la direction et l'état. Au démarrage, l'hôte applique automatiquement les migrations seulement aux extensions activées pour au moins un organisme actif; l'exploitation doit néanmoins déployer du code et des migrations compatibles avant d'accepter le trafic.
+Chaque extension possède ses propres tables de verrouillage et d'historique de migrations Kysely, avec un suffixe haché. Une exécution n'applique que les migrations en attente et retourne le nom, la direction et l'état. Au démarrage, l'hôte applique automatiquement les migrations aux extensions système activées et aux extensions activées pour au moins un organisme actif; l'exploitation doit néanmoins déployer du code et des migrations compatibles avant d'accepter le trafic.
 
 KV désigne le stockage clé-valeur : une façon de conserver des réglages sous des clés nommées. JSON est un format de texte structuré pour ces réglages. Utilisez le stockage clé-valeur d’extension pour du JSON simple et non secret. Sa suppression est logique. Utilisez des tables migrées appartenant à l'extension pour les processus relationnels ou destinés aux rapports. Utilisez les aides de secrets chiffrés pour les justificatifs et clés privées; les enregistrements AES-256-GCM sont liés à l'extension et à l'identité propriétaire. La clé de déploiement `GCS_EXTENSION_SECRETS_KEY` doit contenir 32 octets encodés en base64 et ne doit jamais se trouver dans la configuration, le stockage clé-valeur, le contrôle de code source, les données de démonstration d'un environnement réel ou les charges utiles client.
 
@@ -107,3 +107,7 @@ Les importations planifiées s’activent après les migrations et passent par l
 - Stockez les secrets avec les aides serveur chiffrées, jamais dans les éditeurs JSON.
 - Testez chaque onglet, emplacement, action, calculateur et processus serveur fourni avec des personnes autorisées et refusées.
 - Après une mise à niveau, exécutez les migrations en attente et vérifiez les gardes de cycle de vie hôtes touchées avant de traiter des dossiers de production.
+
+## Extensions système
+
+Ouvrez **Administration → Extensions** pour consulter les extensions système enregistrées. Le droit de lecture système permet de consulter la liste et le droit de modification système permet de changer l’état. Activez une extension système pour l’appliquer aux utilisateurs connectés. Une extension active peut ajouter une action dans la barre latérale, comme la rétroaction, ou un espace d’administration pour les gestionnaires système. Si l’activation échoue, vérifiez l’erreur avant de réessayer. La désactivation retire l’accès à ses contributions système.

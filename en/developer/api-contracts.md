@@ -1,5 +1,9 @@
 # API contracts
 
+## Bulk claim reconciliation
+
+Send `POST /api/claim-reconciliations/[reconcileId]/lines/reconcile-all` with `{ confirmation: null }`. A `confirmation-required` result gives `overwriteCount` and a confirmation token to submit after the user confirms. A changed calculation can require fresh confirmation. A `saved` result reports `changedCount`. The action uses the existing reconciliation update permission, assignment and financial controls.
+
 ## Accounting coding lookups
 
 `GET /api/agreements/[id]/commitment-lines/lookups/chart-of-accounts` and `GET /api/agreements/[id]/payment-lines/lookups/commitment-lines` include the ordered `accounting_dimensions` array. The localized option labels start with the fiscal year or commitment line number, followed by one dimension per newline. Use the array to render the dimensions separately.

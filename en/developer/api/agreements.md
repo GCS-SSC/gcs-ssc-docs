@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agreements/42` reads the profile for agreement 42, including its status and program information. Reading the profile does not approve the agreement or create a payment. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (191)
+## Handlers (197)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -101,6 +101,11 @@ An authorized request for `GET /api/agreements/42` reads the profile for agreeme
 | POST | `/api/agreements/[id]/claims/[claimId]/withdraw` | — | — | `server/api/agreements/[id]/claims/[claimId]/withdraw.post.ts` |
 | POST | `/api/agreements/[id]/claims` | executeFreshAuthorizedAgreementWrite | FundingCaseAgreementClaimCreateSchema, readValidatedBodyI18n | `server/api/agreements/[id]/claims/index.post.ts` |
 | GET | `/api/agreements/[id]/claims/lookups/proponents` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/claims/lookups/proponents.get.ts` |
+| DELETE | `/api/agreements/[id]/clauses/[selectionId]` | executeFreshAuthorizedAgreementWrite | DeleteQuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/clauses/[selectionId].delete.ts` |
+| PATCH | `/api/agreements/[id]/clauses/[selectionId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/clauses/[selectionId].patch.ts` |
+| GET | `/api/agreements/[id]/clauses` | freshAuthContext | PaginationSchema, getValidatedQueryI18n | `server/api/agreements/[id]/clauses/index.get.ts` |
+| POST | `/api/agreements/[id]/clauses` | executeFreshAuthorizedAgreementWrite | AgreementClauseSelectionSchema, readValidatedBodyI18n | `server/api/agreements/[id]/clauses/index.post.ts` |
+| GET | `/api/agreements/[id]/clauses/lookups/available` | freshAuthContext | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agreements/[id]/clauses/lookups/available.get.ts` |
 | GET | `/api/agreements/[id]/closeout-readiness` | — | — | `server/api/agreements/[id]/closeout-readiness.get.ts` |
 | DELETE | `/api/agreements/[id]/closeouts/[closeoutId]` | executeFreshAuthorizedAgreementWrite | — | `server/api/agreements/[id]/closeouts/[closeoutId].delete.ts` |
 | GET | `/api/agreements/[id]/closeouts/[closeoutId]` | freshAuthContext | — | `server/api/agreements/[id]/closeouts/[closeoutId].get.ts` |
@@ -210,3 +215,4 @@ An authorized request for `GET /api/agreements/42` reads the profile for agreeme
 | PATCH | `/api/claim-reconciliations/[reconcileId]/lines/[lineId]` | resolveAgreementScopeContext | — | `server/api/claim-reconciliations/[reconcileId]/lines/[lineId].patch.ts` |
 | PATCH | `/api/claim-reconciliations/[reconcileId]/lines/bulk` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileLineItemBulkSaveSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/bulk.patch.ts` |
 | POST | `/api/claim-reconciliations/[reconcileId]/lines` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileLineItemCreateSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/index.post.ts` |
+| POST | `/api/claim-reconciliations/[reconcileId]/lines/reconcile-all` | resolveAgreementScopeContext | FundingCaseAgreementClaimReconcileAllSchema, readValidatedBodyI18n | `server/api/claim-reconciliations/[reconcileId]/lines/reconcile-all.post.ts` |

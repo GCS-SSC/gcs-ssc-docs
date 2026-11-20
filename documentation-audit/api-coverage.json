@@ -1666,6 +1666,111 @@
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/claim-reconciliation-statuses.patch.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, withActiveAgencyMutationTransaction(; schema landmarks: AgencyClaimReconciliationStatusConfigurationSchema. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed."
   },
   {
+    "id": "api:server/api/agency/[agencyId]/clauses/[clauseId]/index.delete.ts",
+    "source": "server/api/agency/[agencyId]/clauses/[clauseId]/index.delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/[clauseId]/index.delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/clauses/[clauseId]/index.get.ts",
+    "source": "server/api/agency/[agencyId]/clauses/[clauseId]/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/[clauseId]/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/clauses/[clauseId]/index.patch.ts",
+    "source": "server/api/agency/[agencyId]/clauses/[clauseId]/index.patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/[clauseId]/index.patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/clauses/[clauseId]/publish.post.ts",
+    "source": "server/api/agency/[agencyId]/clauses/[clauseId]/publish.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/[clauseId]/publish.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/clauses/[clauseId]/retire.post.ts",
+    "source": "server/api/agency/[agencyId]/clauses/[clauseId]/retire.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/[clauseId]/retire.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/clauses/index.get.ts",
+    "source": "server/api/agency/[agencyId]/clauses/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/clauses/index.post.ts",
+    "source": "server/api/agency/[agencyId]/clauses/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/clauses/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "api:server/api/agency/[agencyId]/commitment-types/[typeId]/index.delete.ts",
     "source": "server/api/agency/[agencyId]/commitment-types/[typeId]/index.delete.ts",
     "audience": [
@@ -2890,7 +2995,7 @@
       "server/api/agency/[agencyId]/proponent-relationship-types.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "api:server/api/agency/[agencyId]/proponent-relationship-types.post.ts",
@@ -3235,6 +3340,81 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/recommendation-sets/index.post.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(; schema landmarks: delegated or no body. Agency profile and Agency-owned reference/catalog CRUD, exact Agency authorization, active ownership and bounded list/write validation are covered in paired Agency and Agency catalog guides. No application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/review-clause-rules/[ruleId].delete.ts",
+    "source": "server/api/agency/[agencyId]/review-clause-rules/[ruleId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/review-clause-rules/[ruleId].delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/review-clause-rules/[ruleId].patch.ts",
+    "source": "server/api/agency/[agencyId]/review-clause-rules/[ruleId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/review-clause-rules/[ruleId].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/review-clause-rules/index.get.ts",
+    "source": "server/api/agency/[agencyId]/review-clause-rules/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/review-clause-rules/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/review-clause-rules/index.post.ts",
+    "source": "server/api/agency/[agencyId]/review-clause-rules/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/review-clause-rules/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/review-clause-rules/lookups/index.get.ts",
+    "source": "server/api/agency/[agencyId]/review-clause-rules/lookups/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/review-clause-rules/lookups/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/review-schemas.get.ts",
@@ -3867,7 +4047,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group workflow in review-groups.json. Version-pinned routing and exact risk assessment selection; required/optional readiness, user/group owners, schema-v3 risk proposals, retry and confirmed disposable Amendment draft scope removal. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward. Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflows/[workflowId]/index.patch.ts",
@@ -3899,7 +4079,7 @@
       "tooling/gcs-ssc/tests/unit/amendment-scope-removal-schema.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups agency-publication-error-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Source/documentation review at a50e1429bf634145a6a933f0faa3d20907a7ca6b; groups agency-publication-error-recovery in review-groups.json. Final contracts traced against paired guides; unchanged supporting evidence retains prior baseline review. Tests listed in review groups were inspected, not executed; no prior-run execution claim is carried forward. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflows/[workflowId]/members/[memberId]/index.delete.ts",
@@ -4063,6 +4243,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at c02d847de7078a2110f54c298ed3ef7f3e1b620b. Current route server/api/agency/[agencyId]/workflows/[workflowId]/retire.post.ts and its direct local imports are indexed as evidence. Route auth/delegation landmarks: authorize(, requireAuthContext(, withActiveAgencyMutationTransaction(; schema landmarks: delegated or no body. Agency workflow authoring/publication, member conditions and Stream deployment are covered in paired Workflow and Agency catalog guides. No application test execution is claimed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+  },
+  {
+    "id": "api:server/api/agency/[agencyId]/workflows/[workflowId]/simulate.post.ts",
+    "source": "server/api/agency/[agencyId]/workflows/[workflowId]/simulate.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "server/api/agency/[agencyId]/workflows/[workflowId]/simulate.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
   },
   {
     "id": "api:server/api/agency/[agencyId]/workflows/entity-types.get.ts",
@@ -5678,7 +5873,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-overview.get.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/amendments/[amendmentId]/budget-overview.get.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Stream cost visibility at 561ff6c12a482cdc082a42ca64216d7e006b4e29. See documentation-audit/sync-nov19-cost-visibility.md."
   },
   {
     "id": "api:server/api/agreements/[id]/amendments/[amendmentId]/budget-snapshot.post.ts",
@@ -6438,7 +6633,7 @@
       "tooling/gcs-ssc/tests/unit/agreement-financial-budget-controls.test.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/budget-overview.get.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. api:server/api/agreements/[id]/budget-overview.get.ts: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Stream cost visibility at 561ff6c12a482cdc082a42ca64216d7e006b4e29. See documentation-audit/sync-nov19-cost-visibility.md."
   },
   {
     "id": "api:server/api/agreements/[id]/claim-line-items/[lineId].delete.ts",
@@ -6844,6 +7039,81 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Forecast changed-cell saves are atomic, compare expected saved identities/amounts, and apply annual validation after all edits. Unchanged cells/funding remain intact and totals recalculate. Historical forecast/claim lines remain visible and read-only after budget amendment; current stable counterparts remain editable where eligible. Scoped evidence: documentation-audit/sync-financial.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/clauses/[selectionId].delete.ts",
+    "source": "server/api/agreements/[id]/clauses/[selectionId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/clauses/[selectionId].delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/clauses/[selectionId].patch.ts",
+    "source": "server/api/agreements/[id]/clauses/[selectionId].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/clauses/[selectionId].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/clauses/index.get.ts",
+    "source": "server/api/agreements/[id]/clauses/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/clauses/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/clauses/index.post.ts",
+    "source": "server/api/agreements/[id]/clauses/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/clauses/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/agreements/[id]/clauses/lookups/available.get.ts",
+    "source": "server/api/agreements/[id]/clauses/lookups/available.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/api/agreements/[id]/clauses/lookups/available.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "api:server/api/agreements/[id]/closeout-readiness.get.ts",
@@ -10630,7 +10900,7 @@
       "server/api/applicant-recipients/[id]/related-proponents/lookups/roles.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "api:server/api/applicant-recipients/index.get.ts",
@@ -10713,6 +10983,66 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema, QuerySchema. User/domain contract: profile availability, scoped creation, exact assignments, reference retention and Agency financial-ID views. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/approvals/[approvalId]/attachments/[attachmentId]/download.get.ts",
+    "source": "server/api/approvals/[approvalId]/attachments/[attachmentId]/download.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/api/approvals/[approvalId]/attachments/[attachmentId]/download.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/approvals/[approvalId]/attachments/[attachmentId]/index.delete.ts",
+    "source": "server/api/approvals/[approvalId]/attachments/[attachmentId]/index.delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/api/approvals/[approvalId]/attachments/[attachmentId]/index.delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/approvals/[approvalId]/attachments/index.get.ts",
+    "source": "server/api/approvals/[approvalId]/attachments/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/api/approvals/[approvalId]/attachments/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/approvals/[approvalId]/attachments/index.post.ts",
+    "source": "server/api/approvals/[approvalId]/attachments/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/api/approvals/[approvalId]/attachments/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "api:server/api/approvals/[approvalId]/claim.post.ts",
@@ -11312,6 +11642,22 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group budget in review-groups.json. Agency-defined funding types/subtypes and exact annual current-budget consumption, protected stable identities, save/completion/promotion revalidation and grid partial-save recovery. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "api:server/api/claim-reconciliations/[reconcileId]/lines/reconcile-all.post.ts",
+    "source": "server/api/claim-reconciliations/[reconcileId]/lines/reconcile-all.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/claims.md",
+    "fr": "fr/agreements/claims.md",
+    "evidence": [
+      "server/api/claim-reconciliations/[reconcileId]/lines/reconcile-all.post.ts",
+      "server/utils/agreement-claim.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed the latest picker or bulk reconciliation behavior at 70048fb6b890012aefe53d5e178c577c1b921845. See documentation-audit/sync-nov19-bulk-reconciliation.md."
   },
   {
     "id": "api:server/api/completions/complete.post.ts",
@@ -11939,6 +12285,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group sdk in review-groups.json. SDK 0.3.17 host capability boundary: Agency workspace, Opportunity/Payment tabs, Agreement details, scoped bilingual fields, retained evidence, host-bound financial reads and Stream-catalog coding allocator. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "api:server/api/extensions/sidebar-modals.get.ts",
+    "source": "server/api/extensions/sidebar-modals.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/extensions.md",
+    "fr": "fr/concepts/extensions.md",
+    "evidence": [
+      "server/api/extensions/sidebar-modals.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
     "id": "api:server/api/extensions/streams/[streamId]/index.get.ts",
     "source": "server/api/extensions/streams/[streamId]/index.get.ts",
     "audience": [
@@ -11993,6 +12354,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed the final route and delegated behavior against the paired developer API contract at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. No application tests executed."
+  },
+  {
+    "id": "api:server/api/extensions/system/[extensionKey].patch.ts",
+    "source": "server/api/extensions/system/[extensionKey].patch.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/extensions.md",
+    "fr": "fr/concepts/extensions.md",
+    "evidence": [
+      "server/api/extensions/system/[extensionKey].patch.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "api:server/api/extensions/system/index.get.ts",
+    "source": "server/api/extensions/system/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/extensions.md",
+    "fr": "fr/concepts/extensions.md",
+    "evidence": [
+      "server/api/extensions/system/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "api:server/api/extensions/workspaces.get.ts",
@@ -13804,6 +14195,21 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: authorizeReviewRuntimeAction, executeFreshAuthorizedReviewRuntimeWrite, resolveReviewRuntimeEntityFromReview, cloneDeniedRuntimeReview. User/domain contract: pinned assessments/checklists, additional-reviewer actions, strict completion and successor attempts. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/reviews/[reviewId]/copy-previous.get.ts",
+    "source": "server/api/reviews/[reviewId]/copy-previous.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/runtime-reviews.md",
+    "fr": "fr/concepts/runtime-reviews.md",
+    "evidence": [
+      "server/api/reviews/[reviewId]/copy-previous.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
     "id": "api:server/api/reviews/[reviewId]/group.patch.ts",
     "source": "server/api/reviews/[reviewId]/group.patch.ts",
     "audience": [
@@ -15161,6 +15567,51 @@
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: createTransferPaymentScopedAuthorizeHandler, executeFreshAuthorizedTransferPaymentStreamWrite, TransferPaymentStreamChartOfAccountSchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
   },
   {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/clauses/[linkId].delete.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/clauses/[linkId].delete.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/clauses/[linkId].delete.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.get.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.post.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.post.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/clauses/index.post.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].delete.ts",
     "source": "server/api/transfer-payments/[id]/streams/[streamId]/commitment-types/[commitmentTypeId].delete.ts",
     "audience": [
@@ -15936,6 +16387,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: PaginationSchema, AgreementTypeLookupQuerySchema. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+  },
+  {
+    "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/lookups/clauses.get.ts",
+    "source": "server/api/transfer-payments/[id]/streams/[streamId]/lookups/clauses.get.ts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/api/transfer-payments/[id]/streams/[streamId]/lookups/clauses.get.ts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "api:server/api/transfer-payments/[id]/streams/[streamId]/lookups/cost-category-line-items.get.ts",
@@ -16970,7 +17436,7 @@
       "shared/utils/database-id.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: resolveCompletionRuntimeEntityFromEntity, respondCompletionRuntimeEntityNotFound, canAuthorizeReviewRuntimeAction, readWorkflowRuntimeConfiguration, WorkflowOwnerCandidatesQuerySchema, resolveExtensionLifecycleRuntime, extensionRuntime, Common_Runtime. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed."
+    "notes": "Source/documentation disposition at 395a5c7e62f982ce71b4390fe33fa1dd04480d6b. Route declaration and directly delegated contracts are indexed in the paired API reference. Landmarks: resolveCompletionRuntimeEntityFromEntity, respondCompletionRuntimeEntityNotFound, canAuthorizeReviewRuntimeAction, readWorkflowRuntimeConfiguration, WorkflowOwnerCandidatesQuerySchema, resolveExtensionLifecycleRuntime, extensionRuntime, Common_Runtime. Verification scope and remaining application limitations are recorded in documentation-audit/sync-review.md; no application test execution is claimed. Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
   },
   {
     "id": "api:server/api/workflows/recommendation.put.ts",
@@ -17046,7 +17512,7 @@
       "server/api/review-sets/index.get.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review."
+    "notes": "Source/documentation review at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Runtime reads require owning-scope Viewer access; source and ordinary item assignment do not replace that access. Exact approval read remains separate. Intake requires inherited Funding Case read. Proponent review list is filtered to readable schema agencies. Scoped evidence: documentation-audit/sync-runtime.json. Paused workflow recovery requires ordinary exact-target update work authority before initiator/trigger actor or assignment-manager policy; extension replacement owners use declared eligible assignees. Assignment management alone cannot recover. Scoped evidence: documentation-audit/sync-runtime.json. Source and paired guides inspected. Named regression sources inspected only; no application tests executed. Existing unrelated evidence retains its prior review. Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
   },
   {
     "id": "api:server/api/workflows/retry.post.ts",

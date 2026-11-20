@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12/workflows/9` reads workflow definition 9, including its steps and owners. It does not start a workflow on an agreement. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (28)
+## Handlers (29)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -28,6 +28,7 @@ An authorized request for `GET /api/agency/12/workflows/9` reads workflow defini
 | POST | `/api/agency/[agencyId]/workflows/[workflowId]/members` | — | CommonWorkflowSetupMemberCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/workflows/[workflowId]/members/index.post.ts` |
 | POST | `/api/agency/[agencyId]/workflows/[workflowId]/publish` | requireAuthContext | — | `server/api/agency/[agencyId]/workflows/[workflowId]/publish.post.ts` |
 | POST | `/api/agency/[agencyId]/workflows/[workflowId]/retire` | requireAuthContext | — | `server/api/agency/[agencyId]/workflows/[workflowId]/retire.post.ts` |
+| POST | `/api/agency/[agencyId]/workflows/[workflowId]/simulate` | — | WorkflowSimulationSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/workflows/[workflowId]/simulate.post.ts` |
 | GET | `/api/agency/[agencyId]/workflows/entity-types` | — | — | `server/api/agency/[agencyId]/workflows/entity-types.get.ts` |
 | GET | `/api/agency/[agencyId]/workflows` | — | AgencyWorkflowListQuerySchema, EntityTypeIdentitySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/workflows/index.get.ts` |
 | POST | `/api/agency/[agencyId]/workflows` | — | CommonWorkflowSetupCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/workflows/index.post.ts` |

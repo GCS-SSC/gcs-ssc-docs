@@ -106,3 +106,5 @@ La création, la modification du profil, la suppression et les changements de pe
 Gardez un petit ensemble de rôles fondés sur les fonctions. Définissez la portée de chaque rôle et attribuez-le aux utilisateurs concernés. Affectez ensuite chaque dossier aux personnes qui le traiteront.
 
 Accordez explicitement l'accès Audit sur un rôle global ou d'agence. `audit:view_audit_inputs` est une capacité distincte pour les entrées capturées assainies. Gestionnaire Système ne donne pas automatiquement accès au [navigateur d'audit](./audit.md). Pour une personne qui consulte seulement les preuves, accordez Lecteur Audit à la portée requise sans permissions opérationnelles ni gestion des affectations supplémentaires.
+
+Dans l’éditeur de rôles, ouvrez l’aide à côté d’une permission pour voir ce qu’elle autorise à la portée choisie. Pour la **Gestion de la dette**, le niveau Gestionnaire permet à une personne autorisée à créer un paiement d’utiliser la dérogation aux comptes débiteurs. L’affectation à l’entente et les droits de création du paiement s’appliquent toujours.

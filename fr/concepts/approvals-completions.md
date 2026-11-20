@@ -54,6 +54,8 @@ Pour une nouvelle configuration, les administrateurs doivent choisir des modèle
 
 Un flux de soumission d’approbation d’entente ou de modification crée aussi un paquet d’approbation non modifiable. Le paquet d’une entente initiale fige le profil complet, les promoteurs, le budget courant et les activités courantes. Le paquet d’une modification consigne les types et sous-types sélectionnés et contient seulement les renseignements modifiés, comme le budget, les activités ou les dates de durée proposées. Le flux conserve l’empreinte SHA-256 du paquet, et la vue d’approbation la vérifie avant d’afficher le paquet bilingue. Une approbation réussie promeut le paquet en révision non modifiable de l’entente : révision `0` pour la soumission initiale et prochain numéro positif pour une modification. Le démarrage d’une autre soumission pendant qu’une exécution est active, la modification des données couvertes durant cette exécution ainsi que la réécriture ou la suppression d’un paquet conservé sont bloqués.
 
+Pour un paquet qui contient un budget, l’affichage de la catégorie et de la sous-section de coûts suit les réglages du volet figés à la soumission. Les changements apportés au volet après la soumission ne modifient pas cet affichage lors de l’examen ou d’une nouvelle tentative.
+
 Pendant l’approbation initiale de l’entente, une extension de l’agence peut attribuer le numéro du système financier à partir des réponses finalisées de la collecte de données de cette exécution. Le numéro est enregistré sur l’entente courante lorsque l’approbation aboutit. Le paquet d’approbation et la révision conservés présentent toujours le profil figé à la soumission, où le champ peut être vide. Si l’approbation est bloquée parce que le numéro manque ou que le fournisseur échoue, vérifiez les réponses finalisées et demandez à l’administrateur de l’agence de vérifier le fournisseur avant de réessayer.
 
 ## Approbations de risque et de collecte
@@ -93,3 +95,9 @@ L'action de consultation affiche les noms bilingues de l'étape, les approbateur
 Si une action est indisponible, vérifiez l'accès ordinaire au propriétaire, la permission d'approbation requise, l'attribution de l'étape courante, le statut du circuit et de l'entité ainsi que le dossier Common de l'utilisateur. Pour agir au nom d'autrui, choisissez un type valide de l'agence et fournissez le titre et la date réels s'ils sont exigés. Si aucun circuit n'existe, confirmez que le bon modèle publié est configuré pour cette portée et ce type d'entité. Rechargez après la décision ou la réattribution d'une autre personne. Ne modifiez pas un modèle pour réparer un circuit existant; résolvez l'état d'exécution par les actions prises en charge ou créez un futur circuit à partir d'une configuration publiée corrigée.
 
 Consultez [Modèles d'approbation](../programs/approval-templates.md), [Examens en cours d'exécution](runtime-reviews.md) et [RBAC](rbac.md).
+
+## Fichiers joints aux décisions d’approbation
+
+Lorsque l’approbation permet le téléversement, choisissez un type autorisé avant de sélectionner le fichier. Les fichiers restent privés dans le brouillon d’approbation jusqu’à la soumission de la décision. Les brouillons non soumis sont écartés si l’approbation se ferme sans décision soumise. Les fichiers soumis restent des preuves d’approbation. Si le téléversement échoue, vérifiez l’erreur et la liste du brouillon avant de réessayer. Si aucun type autorisé n’est encore actif, vous pouvez soumettre la décision sans pièce jointe.
+
+Dans l’onglet **Pièces jointes** d’un dossier compatible, la colonne **Source** distingue les pièces d’approbation soumises des téléversements directs. Ouvrez la source pour consulter les renseignements d’approbation ou de téléversement disponibles.

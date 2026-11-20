@@ -84,3 +84,7 @@ Une exécution utilise sa définition d’évaluation figée. Le serveur accepte
 Si l'enregistrement ou l'achèvement n'est pas offert, vérifiez les permissions et l'état verrouillé de la page, terminez ou retirez les examinateurs additionnels en attente et remplissez chaque réponse, commentaire, justification de résultat et valeur d'alignement obligatoire. Rechargez la page après l'intervention d'un autre examinateur ou approbateur afin d'obtenir les comptes et l'état courants. Ne tentez pas de réparer une réponse historique figée en modifiant son schéma courant; publiez les changements pour les prochains examens et utilisez l'action de reprise prise en charge lorsqu'elle est offerte.
 
 Consultez [Approbations et achèvements](approvals-completions.md), [Flux de travail](workflows.md) et [RBAC](rbac.md).
+
+## Copier les réponses précédentes
+
+Dans une évaluation ou une liste de contrôle modifiable, sélectionnez l’action de copie des réponses précédentes. Choisissez une soumission accessible pour le même dossier et la même version publiée. Le sélecteur distingue les choix plus anciens de la dernière soumission. Confirmez le remplacement si vous avez déjà saisi des réponses, puis vérifiez et enregistrez les réponses copiées. La copie remplit le brouillon sans le soumettre. Si la version diffère ou si les réglages ne permettent pas de reprendre le contenu, saisissez les réponses manuellement. Si le brouillon change pendant le chargement, vérifiez-le et confirmez de nouveau.

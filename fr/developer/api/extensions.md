@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/extensions/agency/12` liste les extensions enregistrées ainsi que leur activation et leur configuration pour l’agence 12. Elle n’active pas d’extension et n’exécute pas ses migrations. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (16)
+## Gestionnaires (19)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -31,7 +31,10 @@ Une requête autorisée `GET /api/extensions/agency/12` liste les extensions enr
 | GET | `/api/extensions/entity-tabs` | getExtensionEntityAuthorizationSubject | EntityTabQuerySchema, parseI18n | `server/api/extensions/entity-tabs/index.get.ts` |
 | GET | `/api/extensions/payment-amount-calculators` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | PaymentAmountCalculatorsQuerySchema, parseI18n | `server/api/extensions/payment-amount-calculators/index.get.ts` |
 | GET | `/api/extensions/runtime` | — | RuntimeSlotQuerySchema, parseI18n | `server/api/extensions/runtime/index.get.ts` |
+| GET | `/api/extensions/sidebar-modals` | — | — | `server/api/extensions/sidebar-modals.get.ts` |
 | GET | `/api/extensions/streams/[streamId]` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/streams/[streamId]/index.get.ts` |
 | PATCH | `/api/extensions/streams/[streamId]` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionStreamConfigurationSchema, readValidatedBodyI18n | `server/api/extensions/streams/[streamId]/index.patch.ts` |
 | GET | `/api/extensions/streams/[streamId]/notifiers` | authorizeWithFreshAuthContext, requireAuthContext, requireFreshAuthContext | — | `server/api/extensions/streams/[streamId]/notifiers.get.ts` |
+| PATCH | `/api/extensions/system/[extensionKey]` | authorizeWithFreshAuthContext, requireFreshAuthContext | ExtensionSystemToggleSchema, readValidatedBodyI18n | `server/api/extensions/system/[extensionKey].patch.ts` |
+| GET | `/api/extensions/system` | — | — | `server/api/extensions/system/index.get.ts` |
 | GET | `/api/extensions/workspaces` | — | — | `server/api/extensions/workspaces.get.ts` |

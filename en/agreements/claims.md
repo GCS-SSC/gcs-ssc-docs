@@ -30,7 +30,7 @@ Edit and delete actions identify the individual claim row. Expand the fiscal-yea
 
 | Claim field | Rule |
 | --- | --- |
-| Proponent | Required active proponent linked to this agreement. The server rechecks that relationship on creation or replacement. |
+| Proponent | Required active proponent linked to this agreement. The create form selects the sole eligible option automatically. The server rechecks that relationship on creation or replacement. |
 | Fiscal year | Select a year from the current agreement budget. |
 | Received date | Enter the date you received the claim. |
 | Period start and end | Select the first and last months of the claim period, within April through March. The end cannot precede the start. |
@@ -52,7 +52,7 @@ The **Submission** tab groups the current fiscal year's budget lines by bilingua
 
 After a budget amendment, a claim for a retired fiscal year cannot be edited. Lines absent from the current budget remain visible as read-only history. Their submitted amounts, total costs, and other funding remain available, and their amounts still count in totals. To enter or change amounts, use a line available in the current budget. Ask the agreement manager to review a missing budget line.
 
-Changing Program Funding preserves other-source allocations. In automatic mode, the total is recalculated from both. In manual mode, review the saved Total Cost when funding changes.
+Changing Program Funding preserves other-source allocations. In automatic mode, the total is recalculated from both. In manual mode, editing the submitted amount adjusts Total Cost by the same difference. For example, increasing Program Funding from 700 to 750 increases a Total Cost of 1,000 to 1,050.
 
 Imported duplicate lines appear separately, including on editable claims. Confirm the individual row before editing. Each duplicate still contributes to totals; changing one does not change the others. Resolve unintended duplicates while the claim remains editable.
 
@@ -91,6 +91,10 @@ Mark a reconciliation as final when it is intended to finish review of the claim
 | Rationale | Optional free text recording the assessment of the line. |
 
 Saving a reconciliation saves all its lines together. If a save fails, none of that save's changes are kept. If the claim’s lines changed while you were reviewing them, reload and compare your draft with the current claim before retrying. This applies even when you edit only one row.
+
+In an editable reconciliation, select **Reconcile all amounts** to save the remaining amount for every active claim line, including lines outside the current table filter. The remaining amount is the submitted amount minus amounts from earlier successful reconciliations, with a minimum of zero. For example, a line submitted for 1,000 with 600 previously reconciled is set to 400.
+
+Review the overwrite confirmation if the action would replace saved amounts. If the data changes before confirmation, the application can ask you to confirm again. The action preserves sampled amounts and rationales. It saves the amounts without completing the reconciliation. If saving fails or the response is uncertain, reload and check the saved amounts before retrying.
 
 Reconciled and sampled amounts can be negative adjustments. This does not apply to submitted claim program amounts or total costs, which must be nonnegative.
 
@@ -163,3 +167,5 @@ Applied claim reductions free annual capacity for both claims and reconciliation
 For example, with annual program funding of 120,000, a counted claim of 30,000 leaves 90,000. A fully cleared receivable with an applied reduction of 10,000 lowers that claim’s counted usage to 20,000, allowing another claim of 100,000. A proposed 100,000.01 still fails. The original submitted claim remains unchanged.
 
 Refresh the current budget, counted records and [Receivables](./receivables.md), correct the amount or apply an authorized amendment before retrying. Budget reductions use an additional rule for posted collections, explained in [Amendments](./amendments.md); it does not free new-claim capacity before the reduction applies.
+
+The reconciliation table shows **Previously reconciled** amounts separately from the current amounts. The prior column reflects successful earlier reconciliations, so you can compare the remaining amount before editing.

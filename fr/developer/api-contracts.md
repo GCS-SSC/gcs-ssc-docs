@@ -1,5 +1,9 @@
 # Contrats API
 
+## Rapprochement groupé des réclamations
+
+Envoyez `POST /api/claim-reconciliations/[reconcileId]/lines/reconcile-all` avec `{ confirmation: null }`. Le résultat `confirmation-required` fournit `overwriteCount` et un jeton à renvoyer après la confirmation de l’utilisateur. Si le calcul change, une nouvelle confirmation peut être nécessaire. Le résultat `saved` indique `changedCount`. L’action applique les droits de modification, l’affectation et les contrôles financiers du rapprochement.
+
 ## Recherches de codage comptable
 
 `GET /api/agreements/[id]/commitment-lines/lookups/chart-of-accounts` et `GET /api/agreements/[id]/payment-lines/lookups/commitment-lines` renvoient le tableau ordonné `accounting_dimensions`. Les libellés localisés présentent l’exercice ou le numéro de ligne d’engagement en premier, puis une dimension par ligne. Utilisez le tableau pour afficher les dimensions séparément.

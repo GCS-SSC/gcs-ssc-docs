@@ -84,3 +84,7 @@ A runtime uses its pinned assessment definition. The server accepts a genuinely 
 If saving or completion is unavailable, check the page's permission and locked state, complete or remove outstanding additional-reviewer rows, and fill every required answer, comment, outcome justification, and alignment value. Reload after another reviewer or approver acts so counts and state are current. Do not try to repair a pinned historical response by editing its current schema; publish configuration changes for future reviews and use the supported retry action where available.
 
 See [Approvals and Completions](approvals-completions.md), [Workflows](workflows.md), and [RBAC](rbac.md).
+
+## Copy previous answers
+
+In an editable Assessment or Checklist, select **Copy previous answers**. Choose a readable submission for the same record and published review version. The picker distinguishes an older choice from the latest submission. Confirm replacement if you already entered draft answers, then review and save the copied answers. Copying fills the draft and does not submit it. If the version differs or current Assessment settings cannot accept the previous content, enter the answers manually. If the draft changed while loading, review it and confirm again.

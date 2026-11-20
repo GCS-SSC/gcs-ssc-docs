@@ -106,3 +106,5 @@ Successful role creation, profile changes, deletion, and permission changes are 
 Keep a small set of roles based on people's jobs. Set each role's scope and assign it to the appropriate users. Then assign individual records to the people who will handle them.
 
 Audit access must be granted explicitly on a global or Agency role. `audit:view_audit_inputs` is a separate capability for sanitized captured inputs. A System Manager does not automatically gain access to the [audit browser](./audit.md). For an analyst who only needs evidence, grant Audit Viewer at the required scope without broader operational or assignment-management permissions.
+
+In the role editor, open the help beside a permission to see what it allows at the selected scope. For **Debt Management**, Manager permission allows an eligible payment creator to use the accounts receivable override. Agreement assignment and payment creation permissions still apply.

@@ -260,3 +260,7 @@ Use these practices:
 ![Approval template detail](/screenshots/en/approval-template-detail.png)
 
 _Actual screenshot from the seeded development environment. The records shown are examples only and are not created in a fresh installation._
+
+## Approval attachments
+
+In the approval template step editor, enable **Allow attachments** and select the allowed types. Publication requires at least one active attachment type from the Agency for each enabled policy. If publication fails, replace unavailable types and publish again. Running approvals use their saved policy.

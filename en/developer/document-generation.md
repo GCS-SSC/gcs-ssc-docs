@@ -101,3 +101,7 @@ The installer updates `LIBREOFFICE_SOFFICE_PATH` and `PUPPETEER_CACHE_DIR` in th
 ## Related Proponents in templates
 
 Agreement and Amendment templates can read `recipient.related.<role_code>` for the primary recipient and the Agreement’s Agency. Each role holds a list with localized `legalName` and `address`. For example, loop over `recipient.related.subsidiary` to print all subsidiaries. A valid role code with no matching rows resolves to an empty list. Closeout templates do not expose related Proponents.
+
+## Clause text in Agreement templates
+
+Loop over `agreement.clauses.reporting_obligations` to render the group’s `text` rows in display order and in the requested document language. Replace `reporting_obligations` with the group’s code. The source is the version selected on the Agreement. An unselected valid code resolves to an empty list. This context is available to Agreement templates.

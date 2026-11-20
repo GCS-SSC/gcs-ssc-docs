@@ -936,6 +936,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: role_permission_assignment_subject_check; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0030_rbac:role_permission_debt_management_level_check",
+    "source": "server/database/migrations/0030_rbac.ts#role_permission_debt_management_level_check",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/payments.md",
+    "fr": "fr/agreements/payments.md",
+    "evidence": [
+      "server/database/migrations/0030_rbac.ts#role_permission_debt_management_level_check"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
     "id": "data:0030_rbac:role_permission_effective_check",
     "source": "server/database/migrations/0030_rbac.ts#role_permission_effective_check",
     "audience": [
@@ -1286,7 +1301,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0040_agency:agency_account_receivable_type",
@@ -1692,6 +1707,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Agency_Chart_of_Account_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:agency_clause",
+    "source": "server/database/migrations/0040_agency.ts#Agency_Clause",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#Agency_Clause"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "data:0040_agency:agency_clause_text",
+    "source": "server/database/migrations/0040_agency.ts#Agency_Clause_Text",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#Agency_Clause_Text"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0040_agency:agency_commitment_type",
@@ -2775,6 +2820,51 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: ay_chk_chartofaccountdimensions; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0040_agency:ay_chk_clausecodeformat",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_clausecodeformat",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_clausecodeformat"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_clausepublicationkind",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_clausepublicationkind",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_clausepublicationkind"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "data:0040_agency:ay_chk_clausetextorder",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_clausetextorder",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_clausetextorder"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "data:0040_agency:ay_chk_custom_field_decimal_places",
     "source": "server/database/migrations/0040_agency.ts#ay_chk_custom_field_decimal_places",
     "audience": [
@@ -3141,6 +3231,21 @@
     "notes": "Reviewed ay_chk_guided_help_sourcekind at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Agency catalog pins an immutable guided_help source version and publication identity. Discovery screens and audience roles are JSON arrays; published settings determine availability. Exact declaration: egcs_ay_sourcekind varchar(64) NOT NULL DEFAULT 'guided_help' CONSTRAINT \"ay_chk_guided_help_sourcekind\" CHECK (egcs_ay_sourcekind = 'guided_help'), Paired Guided Help developer contract and administration guide document source publication, Agency publication, audience, retained versions, cloning and retirement. The demo seed publishes System address-type, Agreement-type and risk-assessment guides for Agency 21; it is excluded from production migrations. Source and paired guides inspected; no application tests executed."
   },
   {
+    "id": "data:0040_agency:ay_chk_holdback_code",
+    "source": "server/database/migrations/0040_agency.ts#ay_chk_holdback_code",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_chk_holdback_code"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "data:0040_agency:ay_chk_lineitemcalculation",
     "source": "server/database/migrations/0040_agency.ts#ay_chk_lineitemcalculation",
     "audience": [
@@ -3253,6 +3358,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0040_agency:ay_fk_clauseagency",
+    "source": "server/database/migrations/0040_agency.ts#ay_fk_clauseagency",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_fk_clauseagency"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0040_agency:ay_fk_cost_category_lineitem_costcategory",
@@ -3411,6 +3531,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0040_agency:ay_uq_clauseagencycode",
+    "source": "server/database/migrations/0040_agency.ts#ay_uq_clauseagencycode",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#ay_uq_clauseagencycode"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0040_agency:ay_uq_funding_subtype_id_type",
@@ -3597,6 +3732,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: guard_referenced_proponent_subtype; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0040_agency:protect_agency_clause_identity",
+    "source": "server/database/migrations/0040_agency.ts#protect_agency_clause_identity",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0040_agency.ts#protect_agency_clause_identity"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0040_agency:protect_agency_custom_field_identity",
@@ -3878,7 +4028,22 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition. Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
+  },
+  {
+    "id": "data:0050_common:agency_review_clause_rule",
+    "source": "server/database/migrations/0050_common.ts#Agency_Review_Clause_Rule",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#Agency_Review_Clause_Rule"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:common_additional_reviewers",
@@ -4023,6 +4188,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Common_Approval; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:common_approval_attachment",
+    "source": "server/database/migrations/0050_common.ts#Common_Approval_Attachment",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#Common_Approval_Attachment"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:common_approval_certification",
@@ -4296,27 +4476,6 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Common_Approval_egcs_cn_assigneduser_fkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
-  },
-  {
-    "id": "data:0050_common:common_approval_egcs_cn_attachment_fkey",
-    "source": "server/database/migrations/0050_common.ts#Common_Approval_egcs_cn_attachment_fkey",
-    "audience": [
-      "developer",
-      "operator"
-    ],
-    "en": "en/developer/data-model.md",
-    "fr": "fr/developer/data-model.md",
-    "evidence": [
-      "server/database/migrations/0050_common.ts",
-      "server/database/production-core-migrations.ts",
-      "server/database/migrations/0130_integrity.ts",
-      "server/database/schema/account-receivable-adjustment.ts",
-      "server/database/schema/credit-memo.ts",
-      "server/database/schema/commitment-coding.ts",
-      "server/database/migrations/0050_common.ts#Common_Approval_egcs_cn_attachment_fkey"
-    ],
-    "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Common_Approval_egcs_cn_attachment_fkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
     "id": "data:0050_common:common_approval_egcs_cn_defaultgroup_fkey",
@@ -8643,6 +8802,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Common_Workflow_Status_Transition_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0050_common:ay_ref_clausepublication",
+    "source": "server/database/migrations/0050_common.ts#ay_ref_clausepublication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#ay_ref_clausepublication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "data:0050_common:bind_extension_entity_owner",
     "source": "server/database/migrations/0050_common.ts#bind_extension_entity_owner",
     "audience": [
@@ -8746,6 +8920,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_chk_addressaddresscountryaddresssubdivision; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:cn_chk_approval_attachment_live_evidence",
+    "source": "server/database/migrations/0050_common.ts#cn_chk_approval_attachment_live_evidence",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_chk_approval_attachment_live_evidence"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:cn_chk_approval_current_assignee",
@@ -10210,6 +10399,21 @@
     "notes": "Reviewed check constraint cn_chk_workflow_pub_status_role at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: CONSTRAINT \"cn_chk_workflow_pub_status_role\" CHECK (((egcs_cn_role)::text = ANY ((ARRAY['allowed_start'::character varying, 'materialization'::character varying, 'success'::character varying, 'failure'::character varying, 'cancellation'::character varying, 'execution_failure'::character varying])::text[]))) Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
   },
   {
+    "id": "data:0050_common:cn_chk_workflow_resultconditions",
+    "source": "server/database/migrations/0050_common.ts#cn_chk_workflow_resultconditions",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/workflows.md",
+    "fr": "fr/concepts/workflows.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_chk_workflow_resultconditions"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at aa0d4642d055166485687733e701e5020571ec49. See documentation-audit/sync-nov20-business-rules.md."
+  },
+  {
     "id": "data:0050_common:cn_chk_workflow_setup_allowed_start_status_order",
     "source": "server/database/migrations/0050_common.ts#cn_chk_workflow_setup_allowed_start_status_order",
     "audience": [
@@ -10463,6 +10667,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_chk_workflowsetuppurpose; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:cn_fk_approval_attachment",
+    "source": "server/database/migrations/0050_common.ts#cn_fk_approval_attachment",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_fk_approval_attachment"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
+    "id": "data:0050_common:cn_fk_approval_attachment_uploader",
+    "source": "server/database/migrations/0050_common.ts#cn_fk_approval_attachment_uploader",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#cn_fk_approval_attachment_uploader"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:cn_fk_entityattachment_entity",
@@ -12245,6 +12479,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: cn_uq_workflowpublicationstatus; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0050_common:discard_approval_attachment_drafts",
+    "source": "server/database/migrations/0050_common.ts#discard_approval_attachment_drafts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#discard_approval_attachment_drafts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
     "id": "data:0050_common:fc_enforce_commitment_program_funding_total",
     "source": "server/database/migrations/0050_common.ts#fc_enforce_commitment_program_funding_total",
     "audience": [
@@ -12621,6 +12870,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_correction_financial_lock; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:trg_discard_terminal_approval_drafts",
+    "source": "server/database/migrations/0050_common.ts#trg_discard_terminal_approval_drafts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_discard_terminal_approval_drafts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:trg_enforce_approval_runtime_state",
@@ -13123,6 +13387,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_correction_financial_lock; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0050_common:trg_fn_discard_terminal_approval_drafts",
+    "source": "server/database/migrations/0050_common.ts#trg_fn_discard_terminal_approval_drafts",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_fn_discard_terminal_approval_drafts"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
     "id": "data:0050_common:trg_fn_enforce_approval_runtime_state",
     "source": "server/database/migrations/0050_common.ts#trg_fn_enforce_approval_runtime_state",
     "audience": [
@@ -13413,6 +13692,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_lock_actioned_approval; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:trg_fn_lock_approval_attachment_evidence",
+    "source": "server/database/migrations/0050_common.ts#trg_fn_lock_approval_attachment_evidence",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_fn_lock_approval_attachment_evidence"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:trg_fn_lock_approval_certification_evidence",
@@ -13934,6 +14228,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_fn_soft_delete_entity_assignments; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:trg_fn_sync_approval_attachments",
+    "source": "server/database/migrations/0050_common.ts#trg_fn_sync_approval_attachments",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_fn_sync_approval_attachments"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:trg_fn_validate_added_approval_runtime_step",
@@ -14583,6 +14892,36 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_guard_checklist_schema_authoring; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0050_common:trg_guard_clause_authoring",
+    "source": "server/database/migrations/0050_common.ts#trg_guard_clause_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_guard_clause_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "data:0050_common:trg_guard_clause_text_authoring",
+    "source": "server/database/migrations/0050_common.ts#trg_guard_clause_text_authoring",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_guard_clause_text_authoring"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "data:0050_common:trg_guard_guidedhelp_authoring",
     "source": "server/database/migrations/0050_common.ts#trg_guard_guidedhelp_authoring",
     "audience": [
@@ -14766,6 +15105,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_lock_actioned_approval; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:trg_lock_approval_attachment_evidence",
+    "source": "server/database/migrations/0050_common.ts#trg_lock_approval_attachment_evidence",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_lock_approval_attachment_evidence"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:trg_lock_approval_certification_evidence",
@@ -15461,6 +15815,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_register_approvaltemplate_publication; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0050_common:trg_register_clause_publication",
+    "source": "server/database/migrations/0050_common.ts#trg_register_clause_publication",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/admin/agencies.md",
+    "fr": "fr/admin/agencies.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_register_clause_publication"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "data:0050_common:trg_register_commondatacollection",
     "source": "server/database/migrations/0050_common.ts#trg_register_commondatacollection",
     "audience": [
@@ -15858,6 +16227,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: trg_soft_delete_commonreview_assignments; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0050_common:trg_sync_approval_attachments",
+    "source": "server/database/migrations/0050_common.ts#trg_sync_approval_attachments",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/approvals-completions.md",
+    "fr": "fr/concepts/approvals-completions.md",
+    "evidence": [
+      "server/database/migrations/0050_common.ts#trg_sync_approval_attachments"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0050_common:trg_validate_added_approval_runtime_step",
@@ -16729,7 +17113,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0060_transfer_payment: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_agreement_subtype",
@@ -17462,6 +17846,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Transfer_Payment_Stream_Chart_of_Account_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0060_transfer_payment:transfer_payment_stream_clause",
+    "source": "server/database/migrations/0060_transfer_payment.ts#Transfer_Payment_Stream_Clause",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#Transfer_Payment_Stream_Clause"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0060_transfer_payment:transfer_payment_stream_commitment_type",
@@ -18463,6 +18862,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed the pinned SQL declaration at af5d8a67df7c6266e1d34641a44b8a4935ac4f09. The bilingual data-model guide describes the owning records, integrity rules and persistence behavior for this declaration. No application tests executed."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_stream_budget_funding_breakdown",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_funding_breakdown",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_funding_breakdown"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "data:0060_transfer_payment:tp_chk_stream_budget_funding_mode",
+    "source": "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_funding_mode",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#tp_chk_stream_budget_funding_mode"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0060_transfer_payment:tp_chk_stream_budget_nonnegative",
@@ -19705,6 +20134,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: validate_stream_catalog_link; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0060_transfer_payment:validate_stream_clause_link",
+    "source": "server/database/migrations/0060_transfer_payment.ts#validate_stream_clause_link",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/programs/streams.md",
+    "fr": "fr/programs/streams.md",
+    "evidence": [
+      "server/database/migrations/0060_transfer_payment.ts#validate_stream_clause_link"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
     "id": "data:0060_transfer_payment:validate_stream_operational_catalog_link",
     "source": "server/database/migrations/0060_transfer_payment.ts#validate_stream_operational_catalog_link",
     "audience": [
@@ -19818,7 +20262,7 @@
       "shared/types/database.d.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Baseline migration reviewed at dcbe779afa3c89adb9f0f798dd1b274e92a50939 against a50e1429bf634145a6a933f0faa3d20907a7ca6b. Paired data-model guide documents clean-database baseline rebuilds, canonical persisted identifiers, shared ownership/publication/runtime integrity and the current pool/Credit-Memo/Offset-Memo financial schema. Source declarations and exact typed database contract inspected; unchanged declarations retain prior review. No application tests executed. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0070_applicant_recipient:applicant_recipient_address",
@@ -21788,7 +22232,7 @@
       "shared/types/schemas/funding-case-agreement.ts"
     ],
     "status": "DOCUMENTED_VERIFIED",
-    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md."
+    "notes": "Source-to-documentation review at 51ba383408ba6cd5eab40d55c9504af50916e2b6. migration:0090_funding_case_agreement: Per-version financial ceilings, linked budget Proponents, individual funding editors and Amendment scope notice traced through final UI, transactions, schemas, baseline guards and inspected regressions. Evidence: documentation-audit/sync-oct23-financial.json. Application regression files inspected only where listed in that receipt; no application tests executed. Unchanged contracts retain their previous review. Incremental review at f527ab30d089877809379dc8854df80c3ba13467. Reviewed the nullable baseline Financial System Number and documented the upgrade check for existing databases. See documentation-audit/sync-nov18-financial-system-number.md. Incremental bilingual entry and display review at 70499a295a283d7810d0cd2c0ed6af26d59139d1. See documentation-audit/sync-nov18-bilingual-entry.md. Reviewed Activity custom-field targets, evidence or numeric validation as applicable at ee54af9e338162e2d0f3d717ab231f307504d354. See documentation-audit/sync-nov18-activity-fields.md. Reviewed Stream risk policy or Agency-scoped Proponent relationships at 878cfb0d326f9a1d2efa8159afaeb08833d9f062. See documentation-audit/sync-nov18-stream-risk.md. Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_account_receivable_credit_memo",
@@ -23412,6 +23856,36 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: Funding_Case_Agreement_Claim_pkey; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:funding_case_agreement_clause",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Clause",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Clause"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:funding_case_agreement_clause_review",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Clause_Review",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#Funding_Case_Agreement_Clause_Review"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0090_funding_case_agreement:funding_case_agreement_closeout",
@@ -27114,6 +27588,21 @@
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: fc_chk_paymentamountpositive; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
   },
   {
+    "id": "data:0090_funding_case_agreement:fc_chk_paymentaroverride",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_paymentaroverride",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/payments.md",
+    "fr": "fr/agreements/payments.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_paymentaroverride"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
+  },
+  {
     "id": "data:0090_funding_case_agreement:fc_chk_paymentevidence",
     "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_chk_paymentevidence",
     "audience": [
@@ -28021,6 +28510,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Reviewed foreign key fc_fk_agreement_claim_reconcile_lineitem_lineitem at dcbe779afa3c89adb9f0f798dd1b274e92a50939. Exact persisted contract: ALTER TABLE \"Funding_Case_Agreement_Claim_Reconcile_Line_Item\" ADD CONSTRAINT \"fc_fk_agreement_claim_reconcile_lineitem_lineitem\" FOREIGN KEY (egcs_fc_lineitem) REFERENCES \"Funding_Case_Agreement_Claim_Line_Item\"(id) ON DELETE RESTRICT; Paired data-model guide covers the owning schema, current persisted names, exact financial boundaries, and ownership/integrity family. Baseline SQL declaration was inspected; no application tests were executed."
+  },
+  {
+    "id": "data:0090_funding_case_agreement:fc_fk_agreement_clause_agreement",
+    "source": "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_clause_agreement",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/agreements/index.md",
+    "fr": "fr/agreements/index.md",
+    "evidence": [
+      "server/database/migrations/0090_funding_case_agreement.ts#fc_fk_agreement_clause_agreement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed at 96a5d0a6361b1ac1890f08da284173e98985ae7d. See documentation-audit/sync-nov19-clause-groups.md for the source disposition."
   },
   {
     "id": "data:0090_funding_case_agreement:fc_fk_agreement_closeout_snapshot_",
@@ -35614,6 +36118,21 @@
     ],
     "status": "DOCUMENTED_VERIFIED",
     "notes": "Source/documentation review at 4ccf2f7880349aa3eb94a46c74f591c42a4bb73b; group database in review-groups.json. Fresh subject table/enum/function/FK/trigger baselines and post-table integrity install, raw SQL helper mechanisms, exact money/typed owners, publication/evidence locks, group-roster exceptions, storage/L1/Audit ownership. Declaration reviewed: extensions.stream_configuration; documented as part of its owner/integrity family. Direct source and current review-group regression evidence inspected; other unchanged supporting evidence retains its prior verified review. No application tests executed; prior-run execution claims are not carried forward."
+  },
+  {
+    "id": "data:0110_extensions:extensions.system_enablement",
+    "source": "server/database/migrations/0110_extensions.ts#extensions.system_enablement",
+    "audience": [
+      "developer",
+      "operator"
+    ],
+    "en": "en/concepts/extensions.md",
+    "fr": "fr/concepts/extensions.md",
+    "evidence": [
+      "server/database/migrations/0110_extensions.ts#extensions.system_enablement"
+    ],
+    "status": "DOCUMENTED_VERIFIED",
+    "notes": "Reviewed baseline schema at 7a5aaa27d820460f0e340c8d36db8e03552b12c4. See documentation-audit/sync-nov19-review-and-extensions.md."
   },
   {
     "id": "data:0110_extensions:kv_entry_pkey",

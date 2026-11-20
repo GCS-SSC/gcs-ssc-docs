@@ -149,7 +149,7 @@ Completion records `not_applicable`, `no_workflow`, or `workflow_started` at cre
 
 The public SDK version used here is 0.3.19. Declare `configuration-access` when setting `configurationAccess` to `contributor` or `manager`; Contributor is the default. This sets the minimum role required to enable the extension and edit its JSON configuration. Permissions for everyday work and exact record assignments are checked separately.
 
-An extension with `configurationScope: 'agency'` declares `agency-only-configuration`. It has Agency enablement/configuration only and cannot declare stream configuration editors. This is useful for one Agency numbering service shared across streams. An extension without that declaration retains the Agency-plus-stream enablement model.
+An extension with `configurationScope: 'agency'` declares `agency-only-configuration`. It has Agency enablement/configuration only and cannot declare stream configuration editors. This is useful for one Agency numbering service shared across streams. The default scope uses Agency and Stream enablement. See the system extension section for global contributions.
 
 ## File-storage provider contract
 
@@ -682,3 +682,7 @@ Use `installExtensionTestUiRuntime` from `@gcs-ssc/extensions/testing` for stand
 | Payment calculator conflicts | Duplicate calculators are detected. |
 | Bilingual UI | English and French labels, errors, and tab names are present. |
 | Soft deletion | Extension-owned deletes preserve historical data where required. |
+
+## System extension contributions
+
+Declare `configurationScope: 'system'` with the `system-extensions` host capability. An optional `admin.systemWorkspace.path` requires `extension-ui`. Global role-checked routes use `global: true` and `subject: 'system'` in `rbac`. A `signedInSidebarModal` contribution supplies a bilingual label, icon, and Vue path and requires `signed-in-sidebar-modal` and `extension-ui`. Forward its default trigger slot to `ExtensionModal`. The host checks enablement before exposing contributions.

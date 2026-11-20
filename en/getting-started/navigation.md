@@ -123,3 +123,5 @@ _Seeded development-environment example; the records shown are illustrative._
 On supported tables, use the column menu to show, hide, or reorder columns. Supported filters and column preferences sync to your signed-in account. Use **Reset table preferences** to restore defaults for the current table. If syncing fails, keep the page open and use the offered retry when available.
 
 Recently accessed Agreements and Proponents can appear first in their lists and among assigned work on Home. Recency is stored in this browser for your account, separately from synced table preferences. Search, filters, and record access still apply.
+
+When an inline error offers **Retry**, use it to load the panel again. If a save response is uncertain, check the saved record before repeating the action.

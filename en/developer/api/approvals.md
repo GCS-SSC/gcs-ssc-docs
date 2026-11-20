@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12/approval-templates/8` reads template 8 for agency 12. It does not publish the template or approve any file. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (16)
+## Handlers (20)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -26,6 +26,10 @@ An authorized request for `GET /api/agency/12/approval-templates/8` reads templa
 | POST | `/api/agency/[agencyId]/approval-templates/[templateId]/retire` | requireAuthContext | — | `server/api/agency/[agencyId]/approval-templates/[templateId]/retire.post.ts` |
 | GET | `/api/agency/[agencyId]/approval-templates` | requireAuthContext | ApprovalTemplateListQuerySchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/approval-templates/index.get.ts` |
 | POST | `/api/agency/[agencyId]/approval-templates` | requireAuthContext | ApprovalTemplateCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/approval-templates/index.post.ts` |
+| GET | `/api/approvals/[approvalId]/attachments/[attachmentId]/download` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/[attachmentId]/download.get.ts` |
+| DELETE | `/api/approvals/[approvalId]/attachments/[attachmentId]` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/[attachmentId]/index.delete.ts` |
+| GET | `/api/approvals/[approvalId]/attachments` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/index.get.ts` |
+| POST | `/api/approvals/[approvalId]/attachments` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/index.post.ts` |
 | POST | `/api/approvals/[approvalId]/claim` | requireAuthContext, requireFreshAuthContext | — | `server/api/approvals/[approvalId]/claim.post.ts` |
 | POST | `/api/approvals/add-step` | executeFreshAuthorizedApprovalAddStepWrite, requireAuthContext | AddApprovalStepSchema, readValidatedBodyI18n | `server/api/approvals/add-step.post.ts` |
 | POST | `/api/approvals/approve` | executeFreshAuthorizedApprovalActorWrite, requireAuthContext | PositivePostgresBigintIdSchema, ReviewApprovalApproveSchema, readValidatedBodyI18n | `server/api/approvals/approve.post.ts` |

@@ -45,6 +45,8 @@ Prepare the request in this order:
 | Currency | Required agreement currency; it must match the selected commitment. |
 | Comment | Optional. |
 
+The create form selects the payee automatically when exactly one eligible option is available.
+
 A new payment receives the Agency Draft business status. Header and line edits preserve that status; its status changes through the configured workflow.
 
 If saving reports that initial approval is required, check the agreement’s approval history and ask the assigned approver to finish the workflow. Once approval is recorded, retry creating the payment.
@@ -135,3 +137,9 @@ Before Completion, workflow start, positive approval or successful processing, t
 The commitment check adds every active type and uses the larger of each declared total and active line total. For example, 6,000 plus 4,000 in active commitments exceeds a reduced budget of 9,000 even though each commitment alone is below 9,000. Equality is allowed. A payment for another year can still be held by this Agreement-wide commitment total; the forecast hold uses the payment’s own year.
 
 After resolving the hold, refresh and retry the existing payment action. If the payment is locked, follow its available workflow recovery actions rather than trying to edit its history. Recovery debts and coding limits remain additional checks. See [Forecasts](./forecasts.md) and [Commitments](./commitments.md).
+
+## Pay despite Accounts Receivable
+
+When receivables would block or reduce a new payment, a user with **Debt Management** Manager permission who can create the payment can select **Pay despite Accounts Receivable**. Enter a reason and review the warning before saving. For example, if 300 of a gross payment of 1,250 would be recovered, the override pays the full 1,250 and leaves the debt outstanding. It creates no offset Credit Memo. The payment retains the reason and still follows its normal funding and approval controls.
+
+If recovery no longer applies, refresh the preview and review the payment. To change an already saved override, its payee, currency, or gross amount, cancel the draft and create a new payment.

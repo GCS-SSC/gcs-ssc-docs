@@ -164,3 +164,17 @@ Configure a new Agency in this order:
 ![Agency programs tab](/screenshots/en/agency-program-setup.png)
 
 _Actual screenshot from the seeded development environment. The records shown are examples only and are not created in a fresh installation._
+
+## Clause groups
+
+Open **Clauses** on the Agency. Agency read permission lets you view groups. Agency update permission lets you create drafts, publish, retire, and delete unpublished drafts.
+
+1. Select **Add clause group** and enter an Agency-unique code, such as `reporting_obligations`. Start with a lowercase letter and use lowercase letters, digits, or underscores. The code is fixed after creation.
+2. Enter a name and description in both languages. Add ordered text rows, each with English and French wording. You can save an incomplete draft.
+3. Select **Publish clause group** after completing both descriptions, both names, and at least one bilingual text row. Every saved row must have wording in both languages.
+
+Publishing edits creates a new version. Existing Agreements keep the wording they selected. Retirement is permanent and blocks new selections. If publishing fails, complete the missing translations and review the rows before retrying.
+
+## Review clause rules
+
+Open **Review clause rules** after publishing an Agreement Checklist or Assessment and an active clause group in the same Agency. Match a Checklist’s official result or an Assessment outcome and selected strategy to the clause group. Choose standard or protected removal. For example, map a selected reporting strategy to a clause requiring quarterly reports. Disable or replace rules before retiring or deactivating a group they use. Disabling a rule affects future results and preserves clauses already added.

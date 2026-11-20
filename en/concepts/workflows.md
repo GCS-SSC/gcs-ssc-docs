@@ -153,3 +153,15 @@ If you cannot start a workflow, check:
 Historical packets and attempts cannot be changed. Correct the record or configuration for a future run, or use the supported retry action.
 
 See [Recommendation schemas and setups](../programs/recommendations.md), [Approval templates](../programs/approval-templates.md), [Agreement amendments](../agreements/amendments.md), and [Approvals and completions](approvals-completions.md).
+
+## Route a workflow using earlier results
+
+In the Agency workflow editor, add a condition to the step that should run only for a given result. Choose an earlier step and its exact Assessment, Checklist, or Recommendation. An Assessment compares its final score with a number. A Checklist matches any of the selected official results. A Recommendation matches recommended or not recommended.
+
+For example, add a second review only when the first Assessment scores 70 or higher. At 72 the second review runs. At 65 it is skipped. If the first Assessment is skipped or produces no usable result, the condition does not match. Every condition on the second review must match.
+
+The workflow checks record fields at start and checks earlier results when it reaches the dependent step. It uses results from the same attempt. A skipped step creates no task. A run keeps its recorded decisions so you can see why a step ran or was skipped. If an earlier result ends the run under its configured rules, later steps are not reached. A retry uses its pinned setup with fresh results from the new attempt.
+
+## Test a route before running it
+
+Open **Workflow simulator** on the saved Agency workflow. Enter the record inputs and step results, then select **Run simulation**. You can supply an Assessment score or calculate it from sample answers and helper values when that option is available. Try both sides of a threshold, such as 65 and 72, and check which steps run, skip, or wait for input. If a required success path is blocked, correct the saved setup or scenario and run it again. The simulator creates no live workflow, routing slip, or approval task.

@@ -45,6 +45,8 @@ Préparez la demande dans cet ordre :
 | Devise | Devise obligatoire de l’entente, identique à celle de l’engagement choisi. |
 | Commentaire | Facultatif. |
 
+Le formulaire de création sélectionne automatiquement le bénéficiaire lorsqu’une seule option est admissible.
+
 Un nouveau paiement reçoit le statut Brouillon de l’organisme. Les modifications d’en-tête et de lignes conservent ce statut; le statut change selon le flux configuré.
 
 Si l’enregistrement indique que l’approbation initiale est requise, consultez l’historique des approbations de l’entente et demandez à l’approbateur affecté de terminer le flux. Une fois l’approbation consignée, réessayez de créer le paiement.
@@ -135,3 +137,9 @@ Avant l’achèvement, le démarrage d’un flux, une approbation positive ou un
 Le contrôle additionne tous les types actifs et utilise le plus élevé du total déclaré et du total des lignes actives de chacun. Par exemple, des engagements actifs de 6 000 et 4 000 dépassent un budget réduit à 9 000, même si chacun est inférieur à 9 000. L’égalité est permise. Un paiement d’un autre exercice peut encore être suspendu par ce total d’engagement pour toute l’entente; la suspension de prévision vise l’exercice du paiement.
 
 Après correction, actualisez et réessayez l’action du paiement existant. Si le paiement est verrouillé, suivez les actions de reprise offertes par le flux au lieu de modifier son historique. Les dettes à recouvrer et les limites de codage restent des contrôles supplémentaires. Consultez [Prévisions](./forecasts.md) et [Engagements](./commitments.md).
+
+## Payer malgré les comptes débiteurs
+
+Si des comptes débiteurs bloquent ou réduisent un nouveau paiement, un utilisateur qui détient le niveau Gestionnaire pour la **Gestion de la dette** et qui peut créer le paiement peut choisir de payer malgré les comptes débiteurs. Saisissez un motif et vérifiez l’avertissement avant d’enregistrer. Par exemple, si un recouvrement de 300 s’appliquait à un paiement brut de 1 250, la dérogation verse les 1 250 et laisse la dette en souffrance. Elle ne crée aucune note de crédit de compensation. Le paiement conserve le motif et suit les contrôles habituels de financement et d’approbation.
+
+Si le recouvrement ne s’applique plus, actualisez l’aperçu et vérifiez le paiement. Pour modifier une dérogation enregistrée, son bénéficiaire, sa devise ou son montant brut, annulez le brouillon et créez un nouveau paiement.

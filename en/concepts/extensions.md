@@ -87,7 +87,7 @@ Protected extension writes use the supplied two-phase `writeAuthorization` proto
 
 ## Migrations, state, and secrets
 
-Each extension has separately hashed Kysely migration history and lock tables. Each run applies only pending migrations and returns their names, directions and statuses. Startup automatically applies migrations only for extensions enabled by at least one active agency; operators should still deploy compatible code and migrations before allowing traffic.
+Each extension has separately hashed Kysely migration history and lock tables. Each run applies only pending migrations and returns their names, directions and statuses. Startup automatically applies migrations for enabled system extensions and extensions enabled by at least one active agency; operators should still deploy compatible code and migrations before allowing traffic.
 
 KV means key-value storage: a way to save settings under named keys. JSON is a structured text format for those settings. Use extension KV for simple non-secret JSON. KV deletion is soft deletion. Use extension-owned migrated tables for relational or reportable workflows. Use the encrypted secret helpers for credentials and private keys; AES-256-GCM records are bound to extension and owner identity. The deployment-managed `GCS_EXTENSION_SECRETS_KEY` must be a base64-encoded 32-byte value and must never enter config, KV, source control, seed data for real environments, or client payloads.
 
@@ -107,3 +107,7 @@ Scheduled imports activate after enabled migrations and run through shared backg
 - Store secrets through the encrypted server helpers, not the JSON editors.
 - Test every contributed tab, slot, action, calculator, and server workflow with both permitted and denied users.
 - After an upgrade, run pending migrations and verify the affected host lifecycle guards before processing production records.
+
+## System extensions
+
+Open **Administration → Extensions** to view registered system extensions. System read permission allows listing and System update permission allows toggling. Enable a system extension to apply it to signed-in users. An enabled extension can add a sidebar action such as feedback or an Administration workspace for System Managers. If enabling fails, review the error before retrying. Disabling removes access to its system contributions.

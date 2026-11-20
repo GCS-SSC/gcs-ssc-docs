@@ -15,7 +15,7 @@ Un tiret dans les colonnes de noms signifie que le générateur ne trouve aucun 
 
 Une requête autorisée `GET /api/agency/12/approval-templates/8` lit le modèle 8 de l’agence 12. Elle ne publie pas le modèle et n’approuve aucun dossier. Les identifiants sont des exemples. Utilisez des dossiers existants que vous avez le droit de consulter.
 
-## Gestionnaires (16)
+## Gestionnaires (20)
 
 | Méthode | Route | Noms d'autorisation | Noms de validation | Source |
 | --- | --- | --- | --- | --- |
@@ -26,6 +26,10 @@ Une requête autorisée `GET /api/agency/12/approval-templates/8` lit le modèle
 | POST | `/api/agency/[agencyId]/approval-templates/[templateId]/retire` | requireAuthContext | — | `server/api/agency/[agencyId]/approval-templates/[templateId]/retire.post.ts` |
 | GET | `/api/agency/[agencyId]/approval-templates` | requireAuthContext | ApprovalTemplateListQuerySchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/approval-templates/index.get.ts` |
 | POST | `/api/agency/[agencyId]/approval-templates` | requireAuthContext | ApprovalTemplateCreateSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/approval-templates/index.post.ts` |
+| GET | `/api/approvals/[approvalId]/attachments/[attachmentId]/download` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/[attachmentId]/download.get.ts` |
+| DELETE | `/api/approvals/[approvalId]/attachments/[attachmentId]` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/[attachmentId]/index.delete.ts` |
+| GET | `/api/approvals/[approvalId]/attachments` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/index.get.ts` |
+| POST | `/api/approvals/[approvalId]/attachments` | requireAuthContext | — | `server/api/approvals/[approvalId]/attachments/index.post.ts` |
 | POST | `/api/approvals/[approvalId]/claim` | requireAuthContext, requireFreshAuthContext | — | `server/api/approvals/[approvalId]/claim.post.ts` |
 | POST | `/api/approvals/add-step` | executeFreshAuthorizedApprovalAddStepWrite, requireAuthContext | AddApprovalStepSchema, readValidatedBodyI18n | `server/api/approvals/add-step.post.ts` |
 | POST | `/api/approvals/approve` | executeFreshAuthorizedApprovalActorWrite, requireAuthContext | PositivePostgresBigintIdSchema, ReviewApprovalApproveSchema, readValidatedBodyI18n | `server/api/approvals/approve.post.ts` |

@@ -260,3 +260,7 @@ Utilisez ces pratiques :
 ![Détail du modèle d'approbation](/screenshots/fr/approval-template-detail.png)
 
 _Capture réelle de l'environnement de développement avec données initialisées. Les enregistrements montrés sont seulement des exemples et ne sont pas créés dans une installation fraîche._
+
+## Pièces jointes d’approbation
+
+Dans l’éditeur d’étape du modèle, autorisez les pièces jointes et choisissez les types permis. La publication exige au moins un type actif de l’agence pour chaque règle activée. Si la publication échoue, remplacez les types indisponibles et publiez de nouveau. Les approbations en cours utilisent leur règle enregistrée.

@@ -164,3 +164,17 @@ Configurez une nouvelle agence dans cet ordre :
 ![Onglet Programmes d'une agence](/screenshots/fr/agency-program-setup.png)
 
 _Capture réelle de l'environnement de développement avec données de démonstration. Les dossiers affichés sont des exemples seulement et ne sont pas créés dans une nouvelle installation._
+
+## Groupes de clauses
+
+Ouvrez **Clauses** dans l’agence. Le droit de lecture permet de consulter les groupes. Le droit de modification permet de créer des brouillons, de publier, de retirer des groupes et de supprimer les brouillons jamais publiés.
+
+1. Ajoutez un groupe et entrez un code unique dans l’agence, par exemple `reporting_obligations`. Commencez par une lettre minuscule et utilisez des lettres minuscules, des chiffres ou des traits de soulignement. Le code est fixe après la création.
+2. Saisissez un nom et une description dans les deux langues. Ajoutez des lignes ordonnées avec un texte français et anglais. Vous pouvez enregistrer un brouillon incomplet.
+3. Publiez le groupe après avoir rempli les deux descriptions, les deux noms et au moins une ligne bilingue. Chaque ligne enregistrée doit avoir un texte dans les deux langues.
+
+Publier des changements crée une nouvelle version. Les ententes conservent le texte choisi. Le retrait est permanent et bloque les nouvelles sélections. Si la publication échoue, remplissez les traductions manquantes et vérifiez les lignes avant de réessayer.
+
+## Règles de clauses issues des examens
+
+Ouvrez les règles de clauses après avoir publié une liste de contrôle ou une évaluation d’entente et un groupe de clauses actif dans la même agence. Associez le résultat officiel de la liste ou le résultat et la stratégie choisie de l’évaluation au groupe. Choisissez le retrait standard ou protégé. Par exemple, associez une stratégie de production de rapports à une clause exigeant des rapports trimestriels. Désactivez ou remplacez les règles avant de retirer ou désactiver un groupe utilisé. La désactivation touche les résultats futurs et conserve les clauses déjà ajoutées.

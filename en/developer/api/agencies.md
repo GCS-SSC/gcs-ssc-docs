@@ -15,7 +15,7 @@ A dash in the names columns means the generator found no matching name. It does 
 
 An authorized request for `GET /api/agency/12` reads the profile for agency 12. It does not change the profile or its reference lists. The IDs are examples. Use existing records you are allowed to read.
 
-## Handlers (149)
+## Handlers (161)
 
 | Method | Route | Authorization names | Validation names | Source |
 | --- | --- | --- | --- | --- |
@@ -37,7 +37,7 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | POST | `/api/agency/[agencyId]/applicant-recipient-subtypes` | — | AgencyApplicantRecipientSubtypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/applicant-recipient-subtypes.post.ts` |
 | GET | `/api/agency/[agencyId]/approval-behalf-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/approval-behalf-types.get.ts` |
 | POST | `/api/agency/[agencyId]/approval-behalf-types` | — | AgencyApprovalBehalfTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/approval-behalf-types.post.ts` |
-| GET | `/api/agency/[agencyId]/attachment-types` | — | PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/attachment-types.get.ts` |
+| GET | `/api/agency/[agencyId]/attachment-types` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/attachment-types.get.ts` |
 | POST | `/api/agency/[agencyId]/attachment-types` | — | AgencyAttachmentTypeSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/attachment-types.post.ts` |
 | DELETE | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | — | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.delete.ts` |
 | GET | `/api/agency/[agencyId]/chart-of-accounts/[chartId]` | — | — | `server/api/agency/[agencyId]/chart-of-accounts/[chartId]/index.get.ts` |
@@ -47,6 +47,13 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | GET | `/api/agency/[agencyId]/chart-of-accounts/lookups/commitment-accounts` | — | PaginationSchema, PositivePostgresBigintIdSchema, QuerySchema, TransferPaymentStreamChartOfAccountDimensionSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/chart-of-accounts/lookups/commitment-accounts.get.ts` |
 | GET | `/api/agency/[agencyId]/claim-reconciliation-statuses` | — | — | `server/api/agency/[agencyId]/claim-reconciliation-statuses.get.ts` |
 | PATCH | `/api/agency/[agencyId]/claim-reconciliation-statuses` | — | AgencyClaimReconciliationStatusConfigurationSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/claim-reconciliation-statuses.patch.ts` |
+| DELETE | `/api/agency/[agencyId]/clauses/[clauseId]` | — | — | `server/api/agency/[agencyId]/clauses/[clauseId]/index.delete.ts` |
+| GET | `/api/agency/[agencyId]/clauses/[clauseId]` | — | — | `server/api/agency/[agencyId]/clauses/[clauseId]/index.get.ts` |
+| PATCH | `/api/agency/[agencyId]/clauses/[clauseId]` | — | — | `server/api/agency/[agencyId]/clauses/[clauseId]/index.patch.ts` |
+| POST | `/api/agency/[agencyId]/clauses/[clauseId]/publish` | — | — | `server/api/agency/[agencyId]/clauses/[clauseId]/publish.post.ts` |
+| POST | `/api/agency/[agencyId]/clauses/[clauseId]/retire` | — | — | `server/api/agency/[agencyId]/clauses/[clauseId]/retire.post.ts` |
+| GET | `/api/agency/[agencyId]/clauses` | — | — | `server/api/agency/[agencyId]/clauses/index.get.ts` |
+| POST | `/api/agency/[agencyId]/clauses` | — | — | `server/api/agency/[agencyId]/clauses/index.post.ts` |
 | DELETE | `/api/agency/[agencyId]/commitment-types/[typeId]` | — | — | `server/api/agency/[agencyId]/commitment-types/[typeId]/index.delete.ts` |
 | GET | `/api/agency/[agencyId]/commitment-types/[typeId]` | — | — | `server/api/agency/[agencyId]/commitment-types/[typeId]/index.get.ts` |
 | PATCH | `/api/agency/[agencyId]/commitment-types/[typeId]` | — | AgencyCommitmentTypePatchSchema, readValidatedBodyI18n | `server/api/agency/[agencyId]/commitment-types/[typeId]/index.patch.ts` |
@@ -120,6 +127,11 @@ An authorized request for `GET /api/agency/12` reads the profile for agency 12. 
 | POST | `/api/agency/[agencyId]/recommendation-sets/[recommendationSetId]/retire` | — | — | `server/api/agency/[agencyId]/recommendation-sets/[recommendationSetId]/retire.post.ts` |
 | GET | `/api/agency/[agencyId]/recommendation-sets` | — | — | `server/api/agency/[agencyId]/recommendation-sets/index.get.ts` |
 | POST | `/api/agency/[agencyId]/recommendation-sets` | — | — | `server/api/agency/[agencyId]/recommendation-sets/index.post.ts` |
+| DELETE | `/api/agency/[agencyId]/review-clause-rules/[ruleId]` | — | — | `server/api/agency/[agencyId]/review-clause-rules/[ruleId].delete.ts` |
+| PATCH | `/api/agency/[agencyId]/review-clause-rules/[ruleId]` | — | — | `server/api/agency/[agencyId]/review-clause-rules/[ruleId].patch.ts` |
+| GET | `/api/agency/[agencyId]/review-clause-rules` | — | — | `server/api/agency/[agencyId]/review-clause-rules/index.get.ts` |
+| POST | `/api/agency/[agencyId]/review-clause-rules` | — | — | `server/api/agency/[agencyId]/review-clause-rules/index.post.ts` |
+| GET | `/api/agency/[agencyId]/review-clause-rules/lookups` | — | — | `server/api/agency/[agencyId]/review-clause-rules/lookups/index.get.ts` |
 | GET | `/api/agency/[agencyId]/review-schemas` | — | AgencyReviewSchemaListQuerySchema, PaginationSchema, getValidatedQueryI18n | `server/api/agency/[agencyId]/review-schemas.get.ts` |
 | POST | `/api/agency/[agencyId]/review-schemas` | — | — | `server/api/agency/[agencyId]/review-schemas.post.ts` |
 | DELETE | `/api/agency/[agencyId]/review-schemas/[schemaId]` | — | — | `server/api/agency/[agencyId]/review-schemas/[schemaId]/index.delete.ts` |
